@@ -1,0 +1,30 @@
+<script>
+(() => {
+  const range = document.getElementById('phase-range');
+  if (!range) return;
+  function update() {
+    const degrees = Number(range.value), phi = degrees * Math.PI / 180;
+    const x = 225 + 105 * Math.cos(phi), y = 205 - 105 * Math.sin(phi);
+    const relative = Math.max(0, 2 * (1 + Math.cos(phi)));
+    for (const id of ['phase-b', 'phase-sum']) {
+      const line = document.getElementById(id);
+      line.setAttribute('x2', x); line.setAttribute('y2', y);
+    }
+    const point = document.getElementById('phase-end');
+    point.setAttribute('cx', x); point.setAttribute('cy', y);
+    const label = document.getElementById('phase-b-label');
+    label.setAttribute('x', (225 + x) / 2); label.setAttribute('y', (205 + y) / 2 - 20);
+    const bar = document.getElementById('phase-bar');
+    bar.setAttribute('height', 52.5 * relative); bar.setAttribute('y', 290 - 52.5 * relative);
+    document.getElementById('phase-value').textContent = relative.toFixed(2);
+    document.getElementById('phase-readout').textContent = `相位差：${degrees}°`;
+    range.setAttribute('aria-valuetext', `${degrees} 度，相对概率 ${relative.toFixed(2)}`);
+  }
+  range.addEventListener('input', update);
+  range.addEventListener('keydown', e => e.stopPropagation());
+  document.querySelectorAll('[data-phase]').forEach(button => {
+    button.addEventListener('click', () => { range.value = button.dataset.phase; update(); });
+  });
+  update();
+})();
+</script>

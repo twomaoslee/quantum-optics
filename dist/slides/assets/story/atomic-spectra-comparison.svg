@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="810" height="408" viewBox="0 0 810 408">
+<rect width="810" height="408" fill="white"/>
+<g font-family="Arial, sans-serif" font-size="32" fill="#202122">
+<text x="0" y="49">连续谱</text><rect x="130" y="10" width="640" height="58" fill="#101318"/>
+<defs><linearGradient id="visible"><stop offset="0.0%" stop-color="#ff00ff"/><stop offset="1.6666666666666667%" stop-color="#df00ff"/><stop offset="3.3333333333333335%" stop-color="#bf00ff"/><stop offset="5.0%" stop-color="#9f00ff"/><stop offset="6.666666666666667%" stop-color="#8000ff"/><stop offset="8.333333333333334%" stop-color="#6000ff"/><stop offset="10.0%" stop-color="#4000ff"/><stop offset="11.666666666666666%" stop-color="#2000ff"/><stop offset="13.333333333333334%" stop-color="#0000ff"/><stop offset="15.0%" stop-color="#001aff"/><stop offset="16.666666666666668%" stop-color="#0033ff"/><stop offset="18.333333333333332%" stop-color="#004cff"/><stop offset="20.0%" stop-color="#0066ff"/><stop offset="21.666666666666668%" stop-color="#0080ff"/><stop offset="23.333333333333332%" stop-color="#0099ff"/><stop offset="25.0%" stop-color="#00b2ff"/><stop offset="26.666666666666668%" stop-color="#00ccff"/><stop offset="28.333333333333332%" stop-color="#00e6ff"/><stop offset="30.0%" stop-color="#00ffff"/><stop offset="31.666666666666668%" stop-color="#00ffbf"/><stop offset="33.333333333333336%" stop-color="#00ff80"/><stop offset="35.0%" stop-color="#00ff40"/><stop offset="36.666666666666664%" stop-color="#00ff00"/><stop offset="38.333333333333336%" stop-color="#12ff00"/><stop offset="40.0%" stop-color="#24ff00"/><stop offset="41.666666666666664%" stop-color="#37ff00"/><stop offset="43.333333333333336%" stop-color="#49ff00"/><stop offset="45.0%" stop-color="#5bff00"/><stop offset="46.666666666666664%" stop-color="#6dff00"/><stop offset="48.333333333333336%" stop-color="#80ff00"/><stop offset="50.0%" stop-color="#92ff00"/><stop offset="51.666666666666664%" stop-color="#a4ff00"/><stop offset="53.333333333333336%" stop-color="#b6ff00"/><stop offset="55.0%" stop-color="#c8ff00"/><stop offset="56.666666666666664%" stop-color="#dbff00"/><stop offset="58.333333333333336%" stop-color="#edff00"/><stop offset="60.0%" stop-color="#ffff00"/><stop offset="61.666666666666664%" stop-color="#ffeb00"/><stop offset="63.333333333333336%" stop-color="#ffd800"/><stop offset="65.0%" stop-color="#ffc400"/><stop offset="66.66666666666667%" stop-color="#ffb100"/><stop offset="68.33333333333333%" stop-color="#ff9d00"/><stop offset="70.0%" stop-color="#ff8900"/><stop offset="71.66666666666667%" stop-color="#ff7600"/><stop offset="73.33333333333333%" stop-color="#ff6200"/><stop offset="75.0%" stop-color="#ff4e00"/><stop offset="76.66666666666667%" stop-color="#ff3b00"/><stop offset="78.33333333333333%" stop-color="#ff2700"/><stop offset="80.0%" stop-color="#ff1400"/><stop offset="81.66666666666667%" stop-color="#ff0000"/><stop offset="83.33333333333333%" stop-color="#ff0000"/><stop offset="85.0%" stop-color="#ff0000"/><stop offset="86.66666666666667%" stop-color="#ff0000"/><stop offset="88.33333333333333%" stop-color="#ff0000"/><stop offset="90.0%" stop-color="#ff0000"/><stop offset="91.66666666666667%" stop-color="#ff0000"/><stop offset="93.33333333333333%" stop-color="#ff0000"/><stop offset="95.0%" stop-color="#ff0000"/><stop offset="96.66666666666667%" stop-color="#ff0000"/><stop offset="98.33333333333333%" stop-color="#ff0000"/><stop offset="100.0%" stop-color="#ff0000"/></linearGradient></defs>
+<rect x="130" y="10" width="640" height="58" fill="url(#visible)"/>
+<text x="0" y="129">氢</text><rect x="130" y="90" width="640" height="58" fill="#101318"/>
+<rect x="150.20" y="93" width="3" height="52" fill="#be00ff"/>
+<rect x="201.13" y="93" width="3" height="52" fill="#2600ff"/>
+<rect x="312.24" y="93" width="3" height="52" fill="#00ebff"/>
+<rect x="675.21" y="93" width="3" height="52" fill="#ff0000"/>
+<text x="0" y="209">氦</text><rect x="130" y="170" width="640" height="58" fill="#101318"/>
+<rect x="134.09" y="173" width="3" height="52" fill="#ee00ff"/>
+<rect x="211.26" y="173" width="3" height="52" fill="#0800ff"/>
+<rect x="229.08" y="173" width="3" height="52" fill="#0024ff"/>
+<rect x="280.64" y="173" width="3" height="52" fill="#00a0ff"/>
+<rect x="325.18" y="173" width="3" height="52" fill="#00ffe3"/>
+<rect x="345.18" y="173" width="3" height="52" fill="#00ff6c"/>
+<rect x="528.63" y="173" width="3" height="52" fill="#ffe100"/>
+<rect x="699.84" y="173" width="3" height="52" fill="#ff0000"/>
+<text x="0" y="289">汞</text><rect x="130" y="250" width="640" height="58" fill="#101318"/>
+<rect x="138.43" y="253" width="3" height="52" fill="#e100ff"/>
+<rect x="204.94" y="253" width="3" height="52" fill="#1b00ff"/>
+<rect x="440.12" y="253" width="3" height="52" fill="#83ff00"/>
+<rect x="506.01" y="253" width="3" height="52" fill="#f4ff00"/>
+<rect x="510.51" y="253" width="3" height="52" fill="#fcff00"/>
+<path d="M130 325H770" stroke="#68757d"/>
+<path d="M130.0 325v7" stroke="#68757d"/><text x="130.0" y="360" text-anchor="middle" font-size="30">400</text>
+<path d="M343.3333333333333 325v7" stroke="#68757d"/><text x="343.3333333333333" y="360" text-anchor="middle" font-size="30">500</text>
+<path d="M556.6666666666666 325v7" stroke="#68757d"/><text x="556.6666666666666" y="360" text-anchor="middle" font-size="30">600</text>
+<path d="M770.0 325v7" stroke="#68757d"/><text x="770.0" y="360" text-anchor="middle" font-size="30">700</text>
+<text x="460" y="402" text-anchor="middle" font-size="30">波长 / nm</text></g></svg>
