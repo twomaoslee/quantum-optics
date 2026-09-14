@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>补充讲义A　单光子干涉的完整计算 – 从光与原子理解量子世界</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./supplement-photon-estimates.html" rel="next">
+<link href="./sample-electron-interference.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fde17a09709beee24c8ebe31026d36d2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+  <script defer="" src="assets/mathjax/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css?v=2120fb756dc2">
+<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style></head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./supplement-interference.html"><span class="chapter-title">补充讲义A　单光子干涉的完整计算</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">从光与原子理解量子世界</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">如何使用这份讲义</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./outline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">全课程讲义目录</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">第一讲　绪论：从量子力学到量子信息科学</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sample-electron-interference.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">一个一个到达的电子，怎样形成干涉条纹？</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./supplement-interference.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">补充讲义A　单光子干涉的完整计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./supplement-photon-estimates.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">补充讲义B　光子能量与通量估算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./image-credits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">插图来源</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">参考文献</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">目录</h2>
+   
+  <ul class="collapse">
+  <li><a href="#a.1-从一个宏观问题开始" id="toc-a.1-从一个宏观问题开始" class="nav-link active" data-scroll-target="#a.1-从一个宏观问题开始">A.1　从一个宏观问题开始</a></li>
+  <li><a href="#a.2-一次点击与许多次试验" id="toc-a.2-一次点击与许多次试验" class="nav-link" data-scroll-target="#a.2-一次点击与许多次试验">A.2　一次点击与许多次试验</a></li>
+  <li><a href="#a.3-把两条路径重新合起来" id="toc-a.3-把两条路径重新合起来" class="nav-link" data-scroll-target="#a.3-把两条路径重新合起来">A.3　把两条路径重新合起来</a></li>
+  <li><a href="#a.4-概率幅保留相位的最小语言" id="toc-a.4-概率幅保留相位的最小语言" class="nav-link" data-scroll-target="#a.4-概率幅保留相位的最小语言">A.4　概率幅：保留相位的最小语言</a></li>
+  <li><a href="#a.5-一步一步算出输出概率" id="toc-a.5-一步一步算出输出概率" class="nav-link" data-scroll-target="#a.5-一步一步算出输出概率">A.5　一步一步算出输出概率</a></li>
+  <li><a href="#a.6-模型怎样接受检查" id="toc-a.6-模型怎样接受检查" class="nav-link" data-scroll-target="#a.6-模型怎样接受检查">A.6　模型怎样接受检查</a></li>
+  <li><a href="#a.7-从公式到记录两个例题" id="toc-a.7-从公式到记录两个例题" class="nav-link" data-scroll-target="#a.7-从公式到记录两个例题">A.7　从公式到记录：两个例题</a></li>
+  <li><a href="#a.8-回到开场的问题" id="toc-a.8-回到开场的问题" class="nav-link" data-scroll-target="#a.8-回到开场的问题">A.8　回到开场的问题</a></li>
+  <li><a href="#a.9-练习与小型探索" id="toc-a.9-练习与小型探索" class="nav-link" data-scroll-target="#a.9-练习与小型探索">A.9　练习与小型探索</a></li>
+  <li><a href="#a.10-选学把计算压缩成矩阵" id="toc-a.10-选学把计算压缩成矩阵" class="nav-link" data-scroll-target="#a.10-选学把计算压缩成矩阵">A.10　选学：把计算压缩成矩阵</a></li>
+  <li><a href="#a.11-选学相位不稳定时会怎样" id="toc-a.11-选学相位不稳定时会怎样" class="nav-link" data-scroll-target="#a.11-选学相位不稳定时会怎样">A.11　选学：相位不稳定时会怎样？</a></li>
+  <li><a href="#a.12-练习参考解答与阅读线索" id="toc-a.12-练习参考解答与阅读线索" class="nav-link" data-scroll-target="#a.12-练习参考解答与阅读线索">A.12　练习参考解答与阅读线索</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-interference" class="quarto-section-identifier"><span class="chapter-title">补充讲义A　单光子干涉的完整计算</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="chapter-intro">
+<p>一只光子进入一个有两条路径的装置。我们只改变其中一路的相位，就能把最终的探测结果从一个出口切换到另一个出口。改变的到底是什么？</p>
+</div>
+<p><strong>阅读定位。</strong> 这份材料保留完整干涉推导，供第2讲后选读，并为第6讲与第11讲提供计算参考；不属于绪论的课堂必讲内容。</p>
+<p><strong>学习目标。</strong> 读完核心正文后，你应能区分概率与概率幅，完成一个双路径干涉计算，并说明这个计算依赖哪些理想化条件。所需数学只有复数、欧拉公式和简单向量；矩阵写法放在选学部分。</p>
+<section id="a.1-从一个宏观问题开始" class="level2">
+<h2 class="anchored" data-anchor-id="a.1-从一个宏观问题开始">A.1　从一个宏观问题开始</h2>
+<section id="量子计算机为什么会与密码有关" class="level3">
+<h3 class="anchored" data-anchor-id="量子计算机为什么会与密码有关">量子计算机为什么会与密码有关？</h3>
+<p>设想有人递给你两个整数，请你把它们相乘。只要数字不太长，这是一道普通的计算题。现在反过来：只给出乘积，要你寻找它的素因子。两个问题的陈述都很简单，但在大整数上，已知算法的计算代价可能相差很大。</p>
+<p>某些公钥密码体制利用了这种计算困难，例如RSA与整数分解问题有密切关系。Shor算法表明，在合适的量子计算模型中，整数分解可以被高效处理。这一结果涉及特定问题、算法结构和硬件要求，不能理解为量子计算机会立即破解所有密码 <span class="citation" data-cites="ibmshor">[<a href="references.html#ref-ibmshor" role="doc-biblioref">14</a>]</span>。</p>
+<p>这里真正值得追问的是：一台由原子、光子或电路组成的机器，为什么可能改变一个数学问题的计算方式？</p>
+<p>一个常见说法是“量子计算机能够同时尝试所有答案”。这句话容易使人忽略测量：即使一个状态包含许多分量，测量也不会把所有分量的内容逐一交给我们。算法需要安排演化，使与目标信息有关的概率幅发生恰当的相加与相消，最终得到可读的统计结果。</p>
+<p>这里不展开Shor算法。但可以先掌握其中一个反复出现的物理机制：<strong>让相位信息通过干涉变成测量概率。</strong> 这个机制在一个只有两条路径的光学装置中就能看清楚。</p>
+</section>
+<section id="纠缠和隐形传态为什么也会出现在这门课" class="level3">
+<h3 class="anchored" data-anchor-id="纠缠和隐形传态为什么也会出现在这门课">纠缠和隐形传态为什么也会出现在这门课？</h3>
+<p>另一些热门问题来自纠缠：两个相距很远的系统为什么会有特殊关联？这样的关联能不能用来瞬间传递信息？</p>
+<p>后面我们会计算纠缠态的联合概率，并检验特定局域模型的限制。现阶段先保留一个边界：关联本身不等于可以控制接收端读到的消息。量子隐形传态也需要预先共享的纠缠和经典通信；转移的是量子态，不是把一个物体从原地搬到远方 <span class="citation" data-cites="ibmteleport">[<a href="references.html#ref-ibmteleport" role="doc-biblioref">13</a>]</span>。</p>
+<p>这些问题看起来不同，却都要求我们回答：怎样制备一个状态，怎样改变它，最后怎样测量它？本课程将从最少的状态分量开始，逐渐扩展到两个系统、光场、环境和量子技术。</p>
+</section>
+<section id="为什么从光出发" class="level3">
+<h3 class="anchored" data-anchor-id="为什么从光出发">为什么从光出发？</h3>
+<p>光学装置的一个优点是操作比较直观。分束器让两条路径相遇，相移器改变传播的相位，探测器记录输出。我们可以把“制备、演化、测量”分别对应到具体部件。</p>
+<p>但本课程也会不断离开光学：原子的两个能级、自旋的两个取向、双阱中的两个局域态，都可以使用相似的数学语言。先把一个简单例子算清楚，后续便有机会认出另一个系统里的同一种结构。</p>
+</section>
+</section>
+<section id="a.2-一次点击与许多次试验" class="level2">
+<h2 class="anchored" data-anchor-id="a.2-一次点击与许多次试验">A.2　一次点击与许多次试验</h2>
+<section id="我们先规定一个理想实验" class="level3">
+<h3 class="anchored" data-anchor-id="我们先规定一个理想实验">我们先规定一个理想实验</h3>
+<p>假设有一个装置，每次试验都准备好一个光子，并将它送入同一输入端。两次试验之间相互独立。输出端的理想探测器把光子吸收并留下一个记录；暂时忽略损耗、暗计数和探测失败。</p>
+<p>在这个模型里，每次试验最终只记录一个输出端口。重复许多次，就能数出各个端口分别出现了多少次。</p>
+<p>这里的“每次恰好一个光子”是模型的准备条件，并不是由“光很弱”自动推出的结论。真实实验如何检验光源、如何排除多光子与背景影响，将在光子统计部分学习。</p>
+<p>把第一个探测器记作 <span class="math inline">\(D_0\)</span>，第二个记作 <span class="math inline">\(D_1\)</span>。重复 <span class="math inline">\(N\)</span> 次，分别得到 <span class="math inline">\(N_0\)</span> 和 <span class="math inline">\(N_1\)</span> 个记录。在本补充的理想模型中，</p>
+<p><span class="math display">\[
+N_0+N_1=N.
+\]</span></p>
+<p>如果每次得到 <span class="math inline">\(D_0\)</span> 的概率是 <span class="math inline">\(P_0\)</span>，那么重复试验的频率 <span class="math inline">\(N_0/N\)</span> 会在统计意义上趋近 <span class="math inline">\(P_0\)</span>。有限次试验通常不会严格等于理论概率。</p>
+<p><strong>单次结果与统计规律是两件事。</strong> 当两个出口的概率都非零时，理论给出的是结果分布；在概率恰好为零或一的理想情形，某些结果也可以被确定地排除或选中。</p>
+</section>
+<section id="一个分束器还没有制造困难" class="level3">
+<h3 class="anchored" data-anchor-id="一个分束器还没有制造困难">一个分束器还没有制造困难</h3>
+<p>先让光子经过一个平衡分束器。若只从一个输入端入射，在两个输出端直接探测，两个结果的概率各为二分之一。</p>
+<p>这很容易被描述成一次随机选择：“光子像在岔路口抛硬币，决定走左边还是右边。”仅凭这组计数，确实还不能看出这种解释缺少了什么。</p>
+<p>因此，我们不立即探测，而是把两条路径继续引导到第二个分束器，让它们再次相遇。问题就发生在这个“再次相遇”上。</p>
+</section>
+</section>
+<section id="a.3-把两条路径重新合起来" class="level2">
+<h2 class="anchored" data-anchor-id="a.3-把两条路径重新合起来">A.3　把两条路径重新合起来</h2>
+<section id="machzehnder干涉仪" class="level3">
+<h3 class="anchored" data-anchor-id="machzehnder干涉仪">Mach–Zehnder干涉仪</h3>
+<p>图中是一个理想化的Mach–Zehnder干涉仪。第一个分束器把输入模式耦合到两条内部路径；两面反射镜将路径引向第二个分束器；第二个分束器把两路振幅合成两个输出。下臂放置一个相移器。</p>
+<div id="fig-mzi" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mzi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/mzi.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mzi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.1: Mach–Zehnder干涉仪的示意图。两条彩色线表示可传播的路径模式，不表示两颗光子的轨迹，也不表示光子的能量被分成两份。图中几何只示意路径连接；固定反射相位已纳入正文的约定。
+</figcaption>
+</figure>
+</div>
+<p>把内部两条路径称为 <span class="math inline">\(u\)</span> 和 <span class="math inline">\(l\)</span>。相移器使 <span class="math inline">\(l\)</span> 路相对 <span class="math inline">\(u\)</span> 路增加一个相位 <span class="math inline">\(\phi\)</span>，其余固定相位吸收到相位零点及输入输出模式的定义中。</p>
+<p>对于近似单色光，改变光程差 <span class="math inline">\(\Delta L_{\mathrm{opt}}\)</span> 可以改变相位：</p>
+<p><span class="math display">\[
+\phi=\frac{2\pi}{\lambda_0}\Delta L_{\mathrm{opt}},
+\]</span></p>
+<p>其中 <span class="math inline">\(\lambda_0\)</span> 是真空波长，<span class="math inline">\(\Delta L_{\mathrm{opt}}\)</span> 是光程差，而不一定等于几何长度差。有限带宽的波包还要求两路在时间上有足够重叠；若改变路径使波包彼此错开，本补充的理想公式就需要修正。</p>
+</section>
+<section id="先试试每个分束器都抛一次硬币" class="level3">
+<h3 class="anchored" data-anchor-id="先试试每个分束器都抛一次硬币">先试试“每个分束器都抛一次硬币”</h3>
+<p>假设光子以二分之一概率走上臂或下臂，到第二个分束器时，再独立地以二分之一概率选择任一出口。按照这个模型，</p>
+<p><span class="math display">\[
+P_0=\frac12\times\frac12+\frac12\times\frac12=\frac12,
+\qquad P_1=\frac12.
+\]</span></p>
+<p>因为相移器没有改变这个模型中的抛硬币概率，它预言输出比例与 <span class="math inline">\(\phi\)</span> 无关。</p>
+<p>然而，在保持两路相干且匹配良好的干涉仪里，输出会随相位变化。理想情形下，可以让一个端口完全变暗，再通过改变相位将它变亮。</p>
+<p>所以，这个<strong>只保存路径概率、丢弃相位、并假定两次随机选择相互独立</strong>的模型不够用。它的失败并没有证明所有经典理论都失败：经典波动光学同样保存相位，也能得到干涉条纹。我们此处需要找到的，是一种能在单光子模型中计算这种相位效应的语言。</p>
+<div class="callout callout-style-default callout-note callout-titled" title="先停下来想一想">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>先停下来想一想
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>相移器不吸收光，也不改变两条内部路径被直接探测到的概率。如果两个概率都没有变，最终输出为什么还可能改变？要回答这个问题，描述中必须保存概率以外的信息。</p>
+</div>
+</div>
+</section>
+</section>
+<section id="a.4-概率幅保留相位的最小语言" class="level2">
+<h2 class="anchored" data-anchor-id="a.4-概率幅保留相位的最小语言">A.4　概率幅：保留相位的最小语言</h2>
+<section id="概率是非负实数概率幅可以是复数" class="level3">
+<h3 class="anchored" data-anchor-id="概率是非负实数概率幅可以是复数">概率是非负实数，概率幅可以是复数</h3>
+<p>把一个可能结果的概率幅记作 <span class="math inline">\(A\)</span>。本补充使用的概率规则是</p>
+<p><span class="math display">\[
+P=|A|^2.
+\]</span></p>
+<p>若 <span class="math inline">\(A=x+iy\)</span>，则</p>
+<p><span class="math display">\[
+|A|^2=A^*A=x^2+y^2.
+\]</span></p>
+<p>复数的极坐标形式更能显示相位：</p>
+<p><span class="math display">\[
+A=r e^{i\theta}=r(\cos\theta+i\sin\theta),
+\qquad |A|^2=r^2.
+\]</span></p>
+<p>改变 <span class="math inline">\(\theta\)</span> 不改变这个振幅单独对应的概率。但如果还有另一个振幅与它相加，二者之间的夹角就会改变和的模长。</p>
+<p>这个关系可以直接从代数看出来：</p>
+<p><span class="math display">\[
+\begin{aligned}
+|A+B|^2
+&amp;=(A+B)(A^*+B^*)\\
+&amp;=|A|^2+|B|^2+AB^*+A^*B\\
+&amp;=|A|^2+|B|^2+2\operatorname{Re}(A^*B).
+\end{aligned}
+\]</span></p>
+<p>最后一项称为干涉项。如果只保存 <span class="math inline">\(|A|^2\)</span> 和 <span class="math inline">\(|B|^2\)</span>，就无法知道它的值。</p>
+</section>
+<section id="什么时候加振幅什么时候加概率" class="level3">
+<h3 class="anchored" data-anchor-id="什么时候加振幅什么时候加概率">什么时候加振幅，什么时候加概率？</h3>
+<p>在本补充的干涉实验中，两条路径以相干方式通向同一个最终探测结果，而且其他自由度没有留下可区分它们的记录。因此，要先把这两条路径的概率幅相加，再取模平方。</p>
+<p>若中间路径已经被一个理想、保留传播光子的测量装置完整记录，而我们忽略这个记录，则对这个测量后的情形，需要将相互排斥的路径分支概率相加。即使没有人阅读记录，结果也不会因为人的注意与否而改变。真实相干性如何由系统与环境的联合状态决定，要到第6讲再计算。</p>
+<p>费曼（Richard Feynman）的《费曼物理学讲义》用不同实验安排来说明概率幅相加与概率相加的区别，可以作为本节的补充阅读 <span class="citation" data-cites="feynman1965">[<a href="references.html#ref-feynman1965" role="doc-biblioref">6</a>]</span>。 这里把相关规则作为理论输入；它们不是仅靠复数代数能够证明的物理定律。接下来能推导的是：<strong>接受这些规则及装置模型后，测量概率应当是什么。</strong></p>
+</section>
+<section id="用一列复数表示路径态" class="level3">
+<h3 class="anchored" data-anchor-id="用一列复数表示路径态">用一列复数表示路径态</h3>
+<p>设两路概率幅分别是 <span class="math inline">\(a_u\)</span> 和 <span class="math inline">\(a_l\)</span>，把它们组成一个列向量：</p>
+<p><span class="math display">\[
+\boldsymbol{\psi}=
+\begin{pmatrix}a_u\\a_l\end{pmatrix},
+\qquad |a_u|^2+|a_l|^2=1.
+\]</span></p>
+<p>如果在两条内部路径上直接放置理想探测器，上式的两个模平方就是两个结果的概率。归一化条件说明：在完整列出的结果中，概率之和为一。</p>
+<p>量子力学中也常把这个向量写成</p>
+<p><span class="math display">\[
+|\psi\rangle=a_u|u\rangle+a_l|l\rangle.
+\]</span></p>
+<p><span class="math inline">\(|u\rangle\)</span> 和 <span class="math inline">\(|l\rangle\)</span> 是两个路径模式的标签；竖线与尖括号是一种状态记号，称为ket。这里可暂时不使用其抽象定义，可以把它理解为同一列复数的另一种写法。</p>
+<p>特别注意：<span class="math inline">\(|u\rangle\)</span> 不是“存在一颗光子”的数字1，<span class="math inline">\(|l\rangle\)</span> 也不是“没有光子”的数字0。它们描述的是同一个单光子所处的两个路径模式。</p>
+</section>
+</section>
+<section id="a.5-一步一步算出输出概率" class="level2">
+<h2 class="anchored" data-anchor-id="a.5-一步一步算出输出概率">A.5　一步一步算出输出概率</h2>
+<section id="先写明模型和相位约定" class="level3">
+<h3 class="anchored" data-anchor-id="先写明模型和相位约定">先写明模型和相位约定</h3>
+<p>下面采用五个条件：</p>
+<ol type="1">
+<li>每次准备一个光子，另一个输入模式处于真空；只跟踪路径自由度。</li>
+<li>两个分束器都平衡、无损，作用保持相干。</li>
+<li>两路到达合束处时，空间、时间、频率和偏振等模式充分匹配，没有额外路径标记。</li>
+<li>相移器只改变相对相位，不改变振幅大小。</li>
+<li>输出由理想探测器测量，暂时忽略背景和损耗。</li>
+</ol>
+<p>在选定的模式相位约定下，第二个分束器的作用写为</p>
+<p><span class="math display">\[
+|u\rangle\longmapsto
+\frac{|d_0\rangle+|d_1\rangle}{\sqrt2},
+\qquad
+|l\rangle\longmapsto
+\frac{|d_0\rangle-|d_1\rangle}{\sqrt2}.
+\]</span></p>
+<p><span class="math inline">\(|d_0\rangle\)</span> 与 <span class="math inline">\(|d_1\rangle\)</span> 是两个输出模式，分别通向探测器 <span class="math inline">\(D_0\)</span> 与 <span class="math inline">\(D_1\)</span>。负号表示相对相位相差 <span class="math inline">\(\pi\)</span>，并不是负概率。</p>
+<p>不同教材可能把反射振幅写成带 <span class="math inline">\(i\)</span> 的形式，也可能交换输出标签。只要全部传播和反射相位自洽，物理预测一致；“哪一个端口在零相位最亮”取决于约定。本补充固定采用上式，不在推导中切换约定。</p>
+</section>
+<section id="第一步准备输入" class="level3">
+<h3 class="anchored" data-anchor-id="第一步准备输入">第一步：准备输入</h3>
+<p>光子从选定的输入模式入射。第一个平衡分束器之后，两条内部路径的状态为</p>
+<p><span class="math display">\[
+|\psi_1\rangle=\frac{|u\rangle+|l\rangle}{\sqrt2}.
+\]</span></p>
+<p>两个概率幅都是 <span class="math inline">\(1/\sqrt2\)</span>，所以两条路径若被直接探测，概率都是 <span class="math inline">\(1/2\)</span>。这里的系数必须是概率幅：若误写成 <span class="math inline">\(1/2\)</span>，两个模平方的和只会得到 <span class="math inline">\(1/2\)</span>，归一化就失败了。</p>
+</section>
+<section id="第二步在下臂积累相位" class="level3">
+<h3 class="anchored" data-anchor-id="第二步在下臂积累相位">第二步：在下臂积累相位</h3>
+<p>相移器将下臂振幅乘上 <span class="math inline">\(e^{i\phi}\)</span>，得到</p>
+<p><span class="math display">\[
+|\psi_2\rangle=
+\frac{|u\rangle+e^{i\phi}|l\rangle}{\sqrt2}.
+\]</span></p>
+<p>由于 <span class="math inline">\(|e^{i\phi}|=1\)</span>，直接测量路径时的概率仍然各为二分之一。但相对相位已经改变。这说明，<strong>知道一组测量结果的全部概率，仍不一定知道完整的量子态。</strong></p>
+<p>例如，<span class="math inline">\((|u\rangle+|l\rangle)/\sqrt2\)</span> 与 <span class="math inline">\((|u\rangle-|l\rangle)/\sqrt2\)</span> 在路径测量中给出相同概率，却可以在后续合束测量中被区分。</p>
+</section>
+<section id="第三步把每条路径的贡献送到两个出口" class="level3">
+<h3 class="anchored" data-anchor-id="第三步把每条路径的贡献送到两个出口">第三步：把每条路径的贡献送到两个出口</h3>
+<p>把第二个分束器的两条变换规则代入：</p>
+<p><span class="math display">\[
+\begin{aligned}
+|\psi_{\mathrm{out}}\rangle
+&amp;=\frac{1}{\sqrt2}
+\frac{|d_0\rangle+|d_1\rangle}{\sqrt2}
++\frac{e^{i\phi}}{\sqrt2}
+\frac{|d_0\rangle-|d_1\rangle}{\sqrt2}\\
+&amp;=\frac{1+e^{i\phi}}{2}|d_0\rangle
++\frac{1-e^{i\phi}}{2}|d_1\rangle.
+\end{aligned}
+\]</span></p>
+<p>因此，两个输出结果的概率幅分别为</p>
+<p><span class="math display">\[
+A_0=\frac{1+e^{i\phi}}{2},
+\qquad
+A_1=\frac{1-e^{i\phi}}{2}.
+\]</span></p>
+<p>这里每条完整路径贡献的振幅大小为 <span class="math inline">\(1/2\)</span>，来自连续经过两个平衡分束器的两个因子 <span class="math inline">\(1/\sqrt2\)</span>。我们把“通向同一出口的路径”相加，不把两个不同出口的振幅直接相加。</p>
+</section>
+<section id="第四步由概率幅得到概率" class="level3">
+<h3 class="anchored" data-anchor-id="第四步由概率幅得到概率">第四步：由概率幅得到概率</h3>
+<p>对第一个出口，</p>
+<p><span class="math display">\[
+\begin{aligned}
+P_0
+&amp;=|A_0|^2\\
+&amp;=\frac{(1+e^{i\phi})(1+e^{-i\phi})}{4}\\
+&amp;=\frac{2+e^{i\phi}+e^{-i\phi}}{4}\\
+&amp;=\frac{1+\cos\phi}{2}
+=\cos^2\frac{\phi}{2}.
+\end{aligned}
+\]</span></p>
+<p>对第二个出口，同样有</p>
+<p><span class="math display">\[
+\begin{aligned}
+P_1
+&amp;=|A_1|^2\\
+&amp;=\frac{(1-e^{i\phi})(1-e^{-i\phi})}{4}\\
+&amp;=\frac{2-e^{i\phi}-e^{-i\phi}}{4}\\
+&amp;=\frac{1-\cos\phi}{2}
+=\sin^2\frac{\phi}{2}.
+\end{aligned}
+\]</span></p>
+<p>于是，本补充的核心结果是</p>
+<p><span class="math display">\[
+\boxed{
+P_0=\cos^2\frac{\phi}{2},
+\qquad
+P_1=\sin^2\frac{\phi}{2}.
+}
+\]</span></p>
+<p>相比“抛两次硬币”的模型，新增的正是相位决定的干涉项。它让一个出口的概率增加，同时让另一个出口的概率减少。</p>
+</section>
+<section id="从复平面看相加与相消" class="level3">
+<h3 class="anchored" data-anchor-id="从复平面看相加与相消">从复平面看相加与相消</h3>
+<p>对于 <span class="math inline">\(D_0\)</span>，两个路径贡献为 <span class="math inline">\(1/2\)</span> 和 <span class="math inline">\(e^{i\phi}/2\)</span>。它们可表示成复平面上的两个箭头。相位为零时，箭头同向；相位为 <span class="math inline">\(\pi\)</span> 时，箭头反向；相位为 <span class="math inline">\(\pi/2\)</span> 时，两箭头垂直。</p>
+<div id="fig-amplitudes" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-amplitudes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/amplitudes.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-amplitudes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.2: 通向同一出口的两条路径振幅在复平面中相加。蓝色为上臂贡献，橙色为下臂贡献，黑色为总振幅；两路贡献按首尾相接相加。为辨认方向，共线箭头作了微小纵向错位。图像来自正文模型的几何表示。
+</figcaption>
+</figure>
+</div>
+<p>箭头是计算概率幅的工具，不是光子在空间中的运动方向。箭头长度的平方对应概率；单个箭头的方向只有相对于另一个箭头才会影响干涉。</p>
+</section>
+</section>
+<section id="a.6-模型怎样接受检查" class="level2">
+<h2 class="anchored" data-anchor-id="a.6-模型怎样接受检查">A.6　模型怎样接受检查</h2>
+<section id="检查一总概率" class="level3">
+<h3 class="anchored" data-anchor-id="检查一总概率">检查一：总概率</h3>
+<p>两个输出概率之和为</p>
+<p><span class="math display">\[
+P_0+P_1=\cos^2\frac{\phi}{2}+\sin^2\frac{\phi}{2}=1.
+\]</span></p>
+<p>这是无损、完整输出空间中的归一化检查。若计算得出概率和大于一，不能解释为“量子效应很奇怪”，应先检查振幅系数和相位约定。</p>
+</section>
+<section id="检查二三个特殊相位" class="level3">
+<h3 class="anchored" data-anchor-id="检查二三个特殊相位">检查二：三个特殊相位</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>相对相位</th>
+<th style="text-align: right;"><span class="math inline">\(P_0\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(P_1\)</span></th>
+<th>物理解释</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(0\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0\)</span></td>
+<td>通向<span class="math inline">\(D_0\)</span>的振幅相长，通向<span class="math inline">\(D_1\)</span>的振幅相消</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\pi/2\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1/2\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1/2\)</span></td>
+<td>两个出口概率相等</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\pi\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(1\)</span></td>
+<td>亮暗端口交换</td>
+</tr>
+</tbody>
+</table>
+<p>相位再增加 <span class="math inline">\(2\pi\)</span>，两个概率回到原值。因此“一个端口变暗”不是光子消失，而是这个端口的总概率幅为零，光子从另一个端口被探测。</p>
+</section>
+<section id="检查三移走第二个分束器" class="level3">
+<h3 class="anchored" data-anchor-id="检查三移走第二个分束器">检查三：移走第二个分束器</h3>
+<p>如果在两条内部路径末端直接探测，相位变化不会改变各为二分之一的概率。这并不意味着相位“没有物理意义”；它意味着这种测量方式对该相对相位不敏感。第二个分束器恰好把相位差转成可见的输出概率差。</p>
+</section>
+<section id="检查四只保留一条路径" class="level3">
+<h3 class="anchored" data-anchor-id="检查四只保留一条路径">检查四：只保留一条路径</h3>
+<p>若在第一个分束器后将下臂完全吸收，只有一半的入射试验能继续到达第二个分束器。留下的上臂光子再以相等概率去往两个出口，因此按全部入射试验计，</p>
+<p><span class="math display">\[
+P_0=P_1=\frac14,
+\qquad P_{\mathrm{abs}}=\frac12.
+\]</span></p>
+<p>如果只在“未被吸收、成功到达输出”的试验中作条件统计，两个出口才各占二分之一。这里区分了<strong>每次入射的无条件概率</strong>与<strong>在成功探测条件下的概率</strong>。忽略这种区别，会把损耗误当成概率守恒失败。</p>
+</section>
+<section id="检查五与经典波动光学比较" class="level3">
+<h3 class="anchored" data-anchor-id="检查五与经典波动光学比较">检查五：与经典波动光学比较</h3>
+<p>相同的线性光学装置也可以作用于经典电场的复振幅，得到相同形式的归一化输出强度。因此，仅靠本补充的余弦条纹，不能断言已经排除了经典电磁波的解释。</p>
+<p>量子光学还会问：这个输入是否具有经过检验的单光子统计？两个探测器是否出现经典光场模型无法解释的关联？</p>
+<p>1986年，Grangier、Roger和Aspect使用原子级联与触发探测，一方面检验分束器两侧探测的反关联，另一方面用同样的光源与触发方案观察干涉。两种实验各有职责：前者检验光场统计的非经典特征，后者观察相干干涉 <span class="citation" data-cites="grangier1986">[<a href="references.html#ref-grangier1986" role="doc-biblioref">10</a>]</span>。 本补充保留这一区分，把关联判据的推导留到第9讲。</p>
+</section>
+</section>
+<section id="a.7-从公式到记录两个例题" class="level2">
+<h2 class="anchored" data-anchor-id="a.7-从公式到记录两个例题">A.7　从公式到记录：两个例题</h2>
+<section id="例题一给定相位后的计数" class="level3">
+<h3 class="anchored" data-anchor-id="例题一给定相位后的计数">例题一：给定相位后的计数</h3>
+<p>设 <span class="math inline">\(\phi=\pi/3\)</span>，理想独立试验共进行1000次。求两个端口的理论概率和平均计数。</p>
+<p><strong>解。</strong> 代入核心结果，</p>
+<p><span class="math display">\[
+P_0=\cos^2\frac{\pi}{6}=\frac34,
+\qquad
+P_1=\frac14.
+\]</span></p>
+<p>因此期望计数分别为</p>
+<p><span class="math display">\[
+\mathbb{E}[N_0]=750,\qquad
+\mathbb{E}[N_1]=250.
+\]</span></p>
+<p>这里说的是重复执行整组1000次试验时的平均计数。一组实际记录可以是742与258，也可以是759与241；理论并未要求每组都精确出现750与250。</p>
+<p>在本补充的独立试验模型下，<span class="math inline">\(N_0\)</span> 服从二项分布，标准差为</p>
+<p><span class="math display">\[
+\sigma_{N_0}=\sqrt{NP_0(1-P_0)}
+=\sqrt{187.5}\approx13.7.
+\]</span></p>
+<p>二项分布的推导不是本补充必修内容。这个数字只用于说明：有限次计数的典型涨落有确定的统计尺度，不能见到偏差就立即宣布理论失败。</p>
+<div id="fig-counts" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-counts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/fringes-counts.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-counts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.3: 左图为两个出口随相位变化的理论概率；右图在固定相位下按同一概率模型生成1000次独立模拟试验，显示累计频率如何接近理论概率。点列为计算机抽样，不是实验数据，也不是对量子理论的独立实验证明。
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="例题二给两条路同时增加相位" class="level3">
+<h3 class="anchored" data-anchor-id="例题二给两条路同时增加相位">例题二：给两条路同时增加相位</h3>
+<p>设相移器对两条路径分别增加相位 <span class="math inline">\(\chi\)</span> 和 <span class="math inline">\(\chi+\phi\)</span>。输出概率是否改变？</p>
+<p><strong>解。</strong> 到达第二个分束器之前，</p>
+<p><span class="math display">\[
+\begin{aligned}
+|\psi_2'\rangle
+&amp;=\frac{e^{i\chi}|u\rangle+e^{i(\chi+\phi)}|l\rangle}{\sqrt2}\\
+&amp;=e^{i\chi}\frac{|u\rangle+e^{i\phi}|l\rangle}{\sqrt2}.
+\end{aligned}
+\]</span></p>
+<p>与原状态相比，整个状态只多了一个共同因子 <span class="math inline">\(e^{i\chi}\)</span>。经过同样的线性演化，两个输出振幅也都乘上这个因子，但</p>
+<p><span class="math display">\[
+|e^{i\chi}A_j|^2=|A_j|^2,\qquad j=0,1.
+\]</span></p>
+<p>输出概率不变。对这里完整描述的单光子路径态，这个共同因子称为整体相位。两臂之间的相位差 <span class="math inline">\(\phi\)</span> 称为相对相位，它才决定干涉。</p>
+<p>说“相位不可观测”过于笼统。准确的说法是：整体相位不改变这个态的测量预测，而相对相位可以通过适当测量显现。</p>
+</section>
+</section>
+<section id="a.8-回到开场的问题" class="level2">
+<h2 class="anchored" data-anchor-id="a.8-回到开场的问题">A.8　回到开场的问题</h2>
+<p>现在可以解释：为什么一个不吸收光、只改变相位的元件，能够改变最终结果？</p>
+<p>因为内部两路的概率并没有包含状态的全部信息。相移器改变了两个概率幅之间的相对相位；第二个分束器把两路的贡献重新组合；相长与相消改变各个输出的概率。</p>
+<p>这个例子没有展示计算加速，也没有用到两个粒子的纠缠。它展示了一个后续技术反复使用的过程：<strong>准备概率幅，控制相位，重新组合，再测量。</strong></p>
+<p>后面学习Ramsey干涉时，两条“路”将变成原子的两个内部态；学习量子算法时，相位将携带关于问题的信息。具体硬件变化了，但今天的计算会再次出现。</p>
+<p>也有一些问题本补充尚不能回答。例如，如何严格检验每次输入的确是一个光子？路径信息被环境记录后，为什么即使不阅读记录，干涉仍可能消失？这些不是解释的漏洞，而是后续章节要增加统计与复合系统工具才能处理的问题。</p>
+<section id="五个应当留下的结论" class="level3">
+<h3 class="anchored" data-anchor-id="五个应当留下的结论">五个应当留下的结论</h3>
+<ol type="1">
+<li>单次记录与重复统计不同；理论概率需要通过许多次试验检验。</li>
+<li>概率幅保存大小与相位，概率只是其模平方。</li>
+<li>对本补充相干、不可区分的两条路径，通向同一输出的振幅先相加。</li>
+<li>相对相位可以改变干涉，整个态的共同相位不改变测量概率。</li>
+<li>干涉条纹、单光子统计和非经典性的实验判据需要分别说明。</li>
+</ol>
+</section>
+</section>
+<section id="a.9-练习与小型探索" class="level2">
+<h2 class="anchored" data-anchor-id="a.9-练习与小型探索">A.9　练习与小型探索</h2>
+<p>先尝试独立完成，再看文末参考解答。基础题只用正文中的公式；探索题可以使用计算工具或AI，但需要自己作预测并核验。</p>
+<section id="基础题" class="level3">
+<h3 class="anchored" data-anchor-id="基础题">基础题</h3>
+<p><strong>1. 概率幅的归一化。</strong> 有人把第一个分束器后的状态写成 <span class="math inline">\((|u\rangle+|l\rangle)/2\)</span>。错误在哪里？若一般状态为 <span class="math inline">\(a_u|u\rangle+a_l|l\rangle\)</span>，归一化条件是什么？</p>
+<p><strong>2. 三个相位。</strong> 求 <span class="math inline">\(\phi=\pi/2,\ 2\pi/3,\ 2\pi\)</span> 时的两个输出概率。哪些情形能够在理想模型中确定下一个点击的端口？</p>
+<p><strong>3. 错误的合束算法。</strong> 一名同学按 <span class="math inline">\(|1/2|^2+|e^{i\phi}/2|^2\)</span> 计算 <span class="math inline">\(P_0\)</span>。他遗漏了什么？说明这个表达式在什么改变后的实验条件下可以使用。</p>
+<p><strong>4. 阻断一臂。</strong> 下臂完全吸收光，进行2000次理想单光子入射。两个输出的期望计数分别是多少？成功输出的试验中，两个出口的比例又是多少？</p>
+<p><strong>5. 相位与长度。</strong> 真空波长为800 nm，最初相位为零。若仅改变光程差，使理想亮暗端口第一次交换，所需最小正光程差变化是多少？为什么不能不看装置几何就把这个值直接当作某面镜子的位移？</p>
+</section>
+<section id="探索题" class="level3">
+<h3 class="anchored" data-anchor-id="探索题">探索题</h3>
+<p><strong>6. 条纹与有限统计。</strong> 自选一个既不为零也不为一的 <span class="math inline">\(P_0\)</span>，分别生成100次和10000次独立二项试验。先预测哪一种累计频率更稳定，再运行程序。记录概率、试验次数和随机种子，解释“一次曲线偶尔偏离较大”和“总体上更稳定”为什么不矛盾。最后说明为什么这不是量子效应的实验发现。</p>
+<p><strong>7. 三种装置，三种问题。</strong> 比较完整干涉仪、移走第二个分束器、保留第二个分束器但将相位逐次均匀随机化。后两者在平均计数上可能相同。仅凭这组平均计数能否区分它们？你需要额外知道或控制什么？</p>
+<p><strong>8. 研究窗口：干涉变浅了。</strong> 两个出口仍有相反变化的条纹，但暗端不再完全为零。至少提出两种不同原因，并为其中一种设计一个能帮助区分原因的检查。不要求使用密度矩阵。</p>
+</section>
+</section>
+<section id="a.10-选学把计算压缩成矩阵" class="level2">
+<h2 class="anchored" data-anchor-id="a.10-选学把计算压缩成矩阵">A.10　选学：把计算压缩成矩阵</h2>
+<p>本节是对已经完成的计算进行整理，不增加新的物理假设。</p>
+<p>把两模式的状态写成列向量，在本文相位约定下，一个有效平衡分束器可表示为</p>
+<p><span class="math display">\[
+B=\frac{1}{\sqrt2}
+\begin{pmatrix}1&amp;1\\1&amp;-1\end{pmatrix},
+\qquad
+P(\phi)=
+\begin{pmatrix}1&amp;0\\0&amp;e^{i\phi}\end{pmatrix}.
+\]</span></p>
+<p>每经过一个元件，我们都在该处选定的两模式基中写系数。输入列向量是 <span class="math inline">\((1,0)^{\mathsf T}\)</span>，对应光子在第一个输入模式，第二个输入模式无光子；这里的两个分量不是两个光子数。</p>
+<p>按“先作用的矩阵写在右边”的规则，</p>
+<p><span class="math display">\[
+\begin{aligned}
+\boldsymbol{\psi}_{\mathrm{out}}
+&amp;=B\,P(\phi)\,B
+\begin{pmatrix}1\\0\end{pmatrix}\\
+&amp;=\frac12
+\begin{pmatrix}
+1+e^{i\phi}\\
+1-e^{i\phi}
+\end{pmatrix}.
+\end{aligned}
+\]</span></p>
+<p>这正是正文的两路计算。第一个 <span class="math inline">\(B\)</span> 的两个输出是内部路径，第二个 <span class="math inline">\(B\)</span> 的输出是探测端口；我们用同一种数值矩阵表示它们在各自输入输出基中的映射。</p>
+<p>记共轭转置为 <span class="math inline">\(\dagger\)</span>，可以验证</p>
+<p><span class="math display">\[
+B^\dagger B=I,\qquad
+P^\dagger(\phi)P(\phi)=I.
+\]</span></p>
+<p>这样的矩阵称为幺正矩阵。若 <span class="math inline">\(U^\dagger U=I\)</span>，则</p>
+<p><span class="math display">\[
+(U\boldsymbol{\psi})^\dagger(U\boldsymbol{\psi})
+=\boldsymbol{\psi}^\dagger U^\dagger U\boldsymbol{\psi}
+=\boldsymbol{\psi}^\dagger\boldsymbol{\psi}.
+\]</span></p>
+<p>因此幺正变换保持归一化。第二讲和第三讲会把这种矩阵语言用于测量基与时间演化。</p>
+</section>
+<section id="a.11-选学相位不稳定时会怎样" class="level2">
+<h2 class="anchored" data-anchor-id="a.11-选学相位不稳定时会怎样">A.11　选学：相位不稳定时会怎样？</h2>
+<p>假设每一次光子通过干涉仪时，相位是确定的；但不同次试验的相位不同。这对应相位在单次传播期间近似不变、在采样过程中发生漂移的情形。</p>
+<p>若相位在 <span class="math inline">\(0\)</span> 到 <span class="math inline">\(2\pi\)</span> 上均匀分布，而实验记录不保留每次的相位值，则平均输出概率为</p>
+<p><span class="math display">\[
+\begin{aligned}
+\overline{P_0}
+&amp;=\frac{1}{2\pi}\int_0^{2\pi}
+\frac{1+\cos\phi}{2}\,\mathrm d\phi\\
+&amp;=\frac12,
+\qquad \overline{P_1}=\frac12.
+\end{aligned}
+\]</span></p>
+<p>每个固定相位对应的理想预测都有相位依赖，但把许多相位混在一起后，平均计数不再显示条纹。计数各半并不唯一对应“两个分束器各自抛硬币”的机制。</p>
+<p>再看一个可计算的部分随机化模型：相位为 <span class="math inline">\(\phi_0+\delta\)</span>，其中 <span class="math inline">\(\delta\)</span> 以相等概率取 <span class="math inline">\(+\theta\)</span> 或 <span class="math inline">\(-\theta\)</span>。于是</p>
+<p><span class="math display">\[
+\begin{aligned}
+\overline{P_0}
+&amp;=\frac12\left[
+\frac{1+\cos(\phi_0+\theta)}2+
+\frac{1+\cos(\phi_0-\theta)}2
+\right]\\
+&amp;=\frac{1+\cos\theta\cos\phi_0}{2}.
+\end{aligned}
+\]</span></p>
+<p>定义扫描 <span class="math inline">\(\phi_0\)</span> 时的可见度为</p>
+<p><span class="math display">\[
+V=\frac{P_{0,\max}-P_{0,\min}}
+{P_{0,\max}+P_{0,\min}}.
+\]</span></p>
+<p>在这个模型里，<span class="math inline">\(V=|\cos\theta|\)</span>。特别地，<span class="math inline">\(\theta=\pi/2\)</span> 时，两个子样本的条纹互补，混合后平均条纹消失。若记录了每次的相位标签，就可以分别画出子样本。</p>
+<p>这只是可见度降低的一种机制。模式失配、路径标记、不平衡以及探测背景也可能使暗端不为零。<strong>只测到一个较小的可见度，通常不足以唯一判断原因。</strong></p>
+</section>
+<section id="a.12-练习参考解答与阅读线索" class="level2">
+<h2 class="anchored" data-anchor-id="a.12-练习参考解答与阅读线索">A.12　练习参考解答与阅读线索</h2>
+<section id="参考解答" class="level3">
+<h3 class="anchored" data-anchor-id="参考解答">参考解答</h3>
+<p><strong>1.</strong> 两个系数的模平方之和只有 <span class="math inline">\(1/2\)</span>。正确的归一化条件是 <span class="math inline">\(|a_u|^2+|a_l|^2=1\)</span>；平衡且同相时，两个系数均为 <span class="math inline">\(1/\sqrt2\)</span>。</p>
+<p><strong>2.</strong> 对应的 <span class="math inline">\((P_0,P_1)\)</span> 依次为 <span class="math inline">\((1/2,1/2)\)</span>、<span class="math inline">\((1/4,3/4)\)</span>、<span class="math inline">\((1,0)\)</span>。最后一种情形的理想输出确定为 <span class="math inline">\(D_0\)</span>；前两种只能给出概率。</p>
+<p><strong>3.</strong> 遗漏交叉项 <span class="math inline">\(\cos\phi/2\)</span>。若内部路径经过完整、保留光子的理想测量，结果记录被忽略，并且光子再由第二个分束器合束，这时两条分支按概率相加。相位均匀随机化后的平均概率也得到同一个数，但物理机制不同。</p>
+<p><strong>4.</strong> 两个出口期望计数均为500，另有1000次期望被下臂吸收。在成功输出的子样本中，两个出口各占二分之一。</p>
+<p><strong>5.</strong> 亮暗端口交换需要相对相位变化 <span class="math inline">\(\pi\)</span>，因此光程差变化为400 nm。镜子位移与光程差变化的关系取决于入射角和是否往返传播，不能直接等同。</p>
+<p><strong>6.</strong> 频率估计的标准差为 <span class="math inline">\(\sqrt{P_0(1-P_0)/N}\)</span>。在其他条件相同时，把次数从100增至10000，标准差缩小到原来的十分之一，但个别有限样本仍可能有不规则起伏。抽样程序输入的就是理论概率，结果检验的是程序与统计预期，不是独立检验光子。</p>
+<p><strong>7.</strong> 单凭两个平均计数不能区分。可以检查装置是否含第二个分束器，并稳定或记录相位；有合束且相位受控时应恢复可扫描的条纹，没有合束时该路径测量不显示相位依赖。</p>
+<p><strong>8.</strong> 例如相位漂移与偏振失配。前者可通过更短时间分段、记录相位或主动稳定来检查；后者可通过检查并匹配两臂偏振来检查。改变探测背景、核查分束比也有帮助。一次检查未必能排除多个同时存在的机制。</p>
+</section>
+<section id="继续阅读" class="level3">
+<h3 class="anchored" data-anchor-id="继续阅读">继续阅读</h3>
+<ul>
+<li><strong>概率幅的物理动机：</strong> 《费曼物理学讲义》第三卷第一章。先比较不同实验安排与相加规则，不必一次读完所有讨论 <span class="citation" data-cites="feynman1965">[<a href="references.html#ref-feynman1965" role="doc-biblioref">6</a>]</span>。</li>
+<li><strong>量子光学的整体框架：</strong> Fox教材的导论及后续光子统计部分 <span class="citation" data-cites="fox2006">[<a href="references.html#ref-fox2006" role="doc-biblioref">7</a>]</span>。</li>
+<li><strong>真实实验如何分别检验统计和干涉：</strong> Grangier等人的原始论文。初读只需辨认两种装置分别测量什么，不要求复算实验误差 <span class="citation" data-cites="grangier1986">[<a href="references.html#ref-grangier1986" role="doc-biblioref">10</a>]</span>。</li>
+</ul>
+<p>读完本补充后可以继续思考：这里用路径区分了两个状态。如果改成光子的两种偏振，或者原子的两个内部态，“状态”和“测量”的数学规则是否仍然相同？</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-bell1964" class="csl-entry" role="listitem">
+[1] J. S. Bell. On the Einstein Podolsky Rosen paradox. <em>Physics Physique Fizika</em>, 1, 195～200, 1964. <a href="https://doi.org/10.1103/PhysicsPhysiqueFizika.1.195">https://doi.org/10.1103/PhysicsPhysiqueFizika.1.195</a>.
+</div>
+<div id="ref-rsa250" class="csl-entry" role="listitem">
+[2] F. Boudot, P. Gaudry, A. Guillevic, N. Heninger, E. Thomé, 和 P. Zimmermann. Factorization of RSA-250. 2020. <a href="https://caramba.loria.fr/rsa250.txt">https://caramba.loria.fr/rsa250.txt</a> (accessed 2026-09-12).
+</div>
+<div id="ref-broglie1929" class="csl-entry" role="listitem">
+[3] L. de Broglie. The Wave Nature of the Electron: Nobel Lecture. 1929. <a href="https://www.nobelprize.org/uploads/2016/04/broglie-lecture.pdf">https://www.nobelprize.org/uploads/2016/04/broglie-lecture.pdf</a> (accessed 2026-09-10).
+</div>
+<div id="ref-chsh1969" class="csl-entry" role="listitem">
+[4] J. F. Clauser, M. A. Horne, A. Shimony, 和 R. A. Holt. Proposed Experiment to Test Local Hidden-Variable Theories. <em>Physical Review Letters</em>, 23, 880～884, 1969. <a href="https://doi.org/10.1103/PhysRevLett.23.880">https://doi.org/10.1103/PhysRevLett.23.880</a>.
+</div>
+<div id="ref-epr1935" class="csl-entry" role="listitem">
+[5] A. Einstein, B. Podolsky, 和 N. Rosen. Can Quantum-Mechanical Description of Physical Reality Be Considered Complete? <em>Physical Review</em>, 47, 777～780, 1935. <a href="https://doi.org/10.1103/PhysRev.47.777">https://doi.org/10.1103/PhysRev.47.777</a>.
+</div>
+<div id="ref-feynman1965" class="csl-entry" role="listitem">
+[6] R. P. Feynman, R. B. Leighton, 和 M. Sands. The Feynman Lectures on Physics, Volume III. Addison-Wesley, 1965. <a href="https://www.feynmanlectures.caltech.edu/III_01.html">https://www.feynmanlectures.caltech.edu/III_01.html</a>.
+</div>
+<div id="ref-fox2006" class="csl-entry" role="listitem">
+[7] M. Fox. Quantum Optics: An Introduction. Oxford University Press, 2006. <a href="https://doi.org/10.1093/oso/9780198566724.001.0001">https://doi.org/10.1093/oso/9780198566724.001.0001</a>.
+</div>
+<div id="ref-gidney2025rsa" class="csl-entry" role="listitem">
+[8] C. Gidney. How to factor 2048 bit <span>RSA</span> integers with less than a million noisy qubits. 2025. <a href="https://doi.org/10.48550/arXiv.2505.15917">https://doi.org/10.48550/arXiv.2505.15917</a>.
+</div>
+<div id="ref-gottesman1998" class="csl-entry" role="listitem">
+[9] D. Gottesman. The Heisenberg Representation of Quantum Computers. 1998. <a href="https://arxiv.org/abs/quant-ph/9807006">https://arxiv.org/abs/quant-ph/9807006</a>.
+</div>
+<div id="ref-grangier1986" class="csl-entry" role="listitem">
+[10] P. Grangier, G. Roger, 和 A. Aspect. Experimental Evidence for a Photon Anticorrelation Effect on a Beam Splitter: A New Light on Single-Photon Interferences. <em>Europhysics Letters</em>, 1, 173～179, 1986. <a href="https://doi.org/10.1209/0295-5075/1/4/004">https://doi.org/10.1209/0295-5075/1/4/004</a>.
+</div>
+<div id="ref-tonomuraexperiment" class="csl-entry" role="listitem">
+[11] Hitachi. Double-slit experiment. <a href="https://www.hitachi.com/rd/research/materials/quantum/doubleslit/">https://www.hitachi.com/rd/research/materials/quantum/doubleslit/</a> (accessed 2026-09-09).
+</div>
+<div id="ref-ibmquantumstates" class="csl-entry" role="listitem">
+[12] IBM Quantum Learning. Quantum information: Quantum state vectors. <a href="https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/single-systems/quantum-information">https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/single-systems/quantum-information</a> (accessed 2026-09-10).
+</div>
+<div id="ref-ibmteleport" class="csl-entry" role="listitem">
+[13] IBM Quantum Learning. Quantum teleportation. <a href="https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/entanglement-in-action/quantum-teleportation">https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/entanglement-in-action/quantum-teleportation</a> (accessed 2026-09-09).
+</div>
+<div id="ref-ibmshor" class="csl-entry" role="listitem">
+[14] IBM Quantum Learning. Shor’s algorithm. <a href="https://quantum.cloud.ibm.com/learning/en/courses/fundamentals-of-quantum-algorithms/phase-estimation-and-factoring/shor-algorithm">https://quantum.cloud.ibm.com/learning/en/courses/fundamentals-of-quantum-algorithms/phase-estimation-and-factoring/shor-algorithm</a> (accessed 2026-09-09).
+</div>
+<div id="ref-ligosqueezing" class="csl-entry" role="listitem">
+[15] LIGO. LIGO Surpasses the Quantum Limit. 2023. <a href="https://www.ligo.caltech.edu/LA/news/ligo20231023">https://www.ligo.caltech.edu/LA/news/ligo20231023</a> (accessed 2026-09-09).
+</div>
+<div id="ref-planckbio" class="csl-entry" role="listitem">
+[16] Nobel Prize. Max Planck: Biographical. <a href="https://www.nobelprize.org/prizes/physics/1918/planck/biographical/">https://www.nobelprize.org/prizes/physics/1918/planck/biographical/</a> (accessed 2026-09-09).
+</div>
+<div id="ref-einsteinlight" class="csl-entry" role="listitem">
+[17] Nobel Prize. The Dual Nature of Light as Reflected in the Nobel Archives. <a href="https://www.nobelprize.org/prizes/themes/the-dual-nature-of-light-as-reflected-in-the-nobel-archives">https://www.nobelprize.org/prizes/themes/the-dual-nature-of-light-as-reflected-in-the-nobel-archives</a> (accessed 2026-09-09).
+</div>
+<div id="ref-laserhistory" class="csl-entry" role="listitem">
+[18] Nobel Prize. The History of the Laser. <a href="https://educationalgames.nobelprize.org/educational/physics/laser/facts/history.html">https://educationalgames.nobelprize.org/educational/physics/laser/facts/history.html</a> (accessed 2026-09-09).
+</div>
+<div id="ref-nobel1956" class="csl-entry" role="listitem">
+[19] Nobel Prize. The Nobel Prize in Physics 1956. 1956. <a href="https://www.nobelprize.org/prizes/physics/1956/summary/">https://www.nobelprize.org/prizes/physics/1956/summary/</a> (accessed 2026-09-09).
+</div>
+<div id="ref-nobel2012" class="csl-entry" role="listitem">
+[20] Nobel Prize. The Nobel Prize in Physics 2012: Press release. 2012. <a href="https://www.nobelprize.org/prizes/physics/2012/press-release/">https://www.nobelprize.org/prizes/physics/2012/press-release/</a> (accessed 2026-09-09).
+</div>
+<div id="ref-nobel2022" class="csl-entry" role="listitem">
+[21] Nobel Prize. The Nobel Prize in Physics 2022: Press release. 2022. <a href="https://www.nobelprize.org/prizes/physics/2022/press-release/">https://www.nobelprize.org/prizes/physics/2022/press-release/</a> (accessed 2026-09-09).
+</div>
+<div id="ref-openstaxblackbody" class="csl-entry" role="listitem">
+[22] OpenStax. University Physics Volume 3: Blackbody Radiation. <a href="https://openstax.org/books/university-physics-volume-3/pages/6-1-blackbody-radiation">https://openstax.org/books/university-physics-volume-3/pages/6-1-blackbody-radiation</a> (accessed 2026-09-12).
+</div>
+<div id="ref-openstaxphotoelectric" class="csl-entry" role="listitem">
+[23] OpenStax. University Physics Volume 3: Photoelectric Effect. <a href="https://openstax.org/books/university-physics-volume-3/pages/6-2-photoelectric-effect">https://openstax.org/books/university-physics-volume-3/pages/6-2-photoelectric-effect</a> (accessed 2026-09-12).
+</div>
+<div id="ref-shor1997" class="csl-entry" role="listitem">
+[24] P. W. Shor. Polynomial-Time Algorithms for Prime Factorization and Discrete Logarithms on a Quantum Computer. <em>SIAM Journal on Computing</em>, 26, 1484～1509, 1997. <a href="https://doi.org/10.1137/S0097539795293172">https://doi.org/10.1137/S0097539795293172</a>.
+</div>
+<div id="ref-schrodinger1935" class="csl-entry" role="listitem">
+[25] J. D. Trimmer. The Present Situation in Quantum Mechanics: A Translation of Schrödinger’s Cat Paradox Paper. <em>Proceedings of the American Philosophical Society</em>, 124, 323～338, 1980. <a href="https://www2.unicamp.br/~chibeni/textosdidaticos/schrodinger-1935-cat.pdf">https://www2.unicamp.br/~chibeni/textosdidaticos/schrodinger-1935-cat.pdf</a>.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./sample-electron-interference.html" class="pagination-link" aria-label="一个一个到达的电子，怎样形成干涉条纹？">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">一个一个到达的电子，怎样形成干涉条纹？</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./supplement-photon-estimates.html" class="pagination-link" aria-label="补充讲义B　光子能量与通量估算">
+        <span class="nav-page-text"><span class="chapter-title">补充讲义B　光子能量与通量估算</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

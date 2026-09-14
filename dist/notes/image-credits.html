@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>插图来源 – 从光与原子理解量子世界</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./supplement-photon-estimates.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fde17a09709beee24c8ebe31026d36d2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+  <script defer="" src="assets/mathjax/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css?v=2120fb756dc2">
+<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style></head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./image-credits.html">插图来源</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">从光与原子理解量子世界</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">如何使用这份讲义</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./outline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">全课程讲义目录</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">第一讲　绪论：从量子力学到量子信息科学</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sample-electron-interference.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">一个一个到达的电子，怎样形成干涉条纹？</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./supplement-interference.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">补充讲义A　单光子干涉的完整计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./supplement-photon-estimates.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">补充讲义B　光子能量与通量估算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./image-credits.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">插图来源</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">参考文献</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">目录</h2>
+   
+  <ul class="collapse">
+  <li><a href="#credits-electron" id="toc-credits-electron" class="nav-link active" data-scroll-target="#credits-electron">单电子干涉实验</a></li>
+  <li><a href="#credits-ion-trap" id="toc-credits-ion-trap" class="nav-link" data-scroll-target="#credits-ion-trap">NIST离子阱照片</a></li>
+  <li><a href="#credits-people" id="toc-credits-people" class="nav-link" data-scroll-target="#credits-people">教师原课件中的人物和历史图片</a></li>
+  <li><a href="#本项目生成的模型图" id="toc-本项目生成的模型图" class="nav-link" data-scroll-target="#本项目生成的模型图">本项目生成的模型图</a></li>
+  <li><a href="#算法工作量增长图" id="toc-算法工作量增长图" class="nav-link" data-scroll-target="#算法工作量增长图">算法工作量增长图</a></li>
+  <li><a href="#credits-blackbody" id="toc-credits-blackbody" class="nav-link" data-scroll-target="#credits-blackbody">黑体辐射的教学插图</a></li>
+  <li><a href="#media-blackbody-photoelectric" id="toc-media-blackbody-photoelectric" class="nav-link" data-scroll-target="#media-blackbody-photoelectric">黑体辐射与光电效应的视频、交互模拟</a></li>
+  <li><a href="#原子光谱的实验影像与交互模型" id="toc-原子光谱的实验影像与交互模型" class="nav-link" data-scroll-target="#原子光谱的实验影像与交互模型">原子光谱的实验影像与交互模型</a></li>
+  <li><a href="#课后同步的图像与视频2026年9月14日" id="toc-课后同步的图像与视频2026年9月14日" class="nav-link" data-scroll-target="#课后同步的图像与视频2026年9月14日">课后同步的图像与视频（2026年9月14日）</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">插图来源</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>本页记录讲义所用实验图片、人物图与模型图的出处。图片均保存在本地，点击来源链接可以查看原始介绍。</p>
+<section id="credits-electron" class="level2">
+<h2 class="anchored" data-anchor-id="credits-electron">单电子干涉实验</h2>
+<p><a href="./lecture01.html#sec-l01-interference">第一讲单电子干涉小节</a>与独立样节采用以下资料。</p>
+<ul>
+<li><strong>逐点累积实验图：</strong> 外村彰（Akira Tonomura）团队；Wikimedia Commons贡献者Belsazar。<a href="https://commons.wikimedia.org/wiki/File:Double-slit_experiment_results_Tonomura_2.jpg">图片页</a>说明图像来自外村彰提供的材料。选用<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>许可，保留署名，原图未裁剪或改色，仅设置显示尺寸。</li>
+<li><strong>电子双棱镜装置示意：</strong> Hitachi，<a href="https://www.hitachi.com/rd/research/materials/quantum/doubleslit/index.html">Double-slit experiment</a>。文件为 <code>figures/sample-electron/tonomura-apparatus.gif</code>，用于说明电子源、双棱镜和探测器。该图按原网页出处署名，开放再分发许可尚未核实。</li>
+<li><strong>外村彰肖像：</strong> JST ERATO，<a href="https://www.jst.go.jp/erato/en/research_area/completed/tij_P.html">研究项目介绍</a>。文件为 <code>figures/sample-electron/tonomura-portrait.jpg</code>。开放再分发许可尚未核实。</li>
+</ul>
+<p>实验论文：A. Tonomura等，<em>Demonstration of Single-Electron Buildup of an Interference Pattern</em>，<em>American Journal of Physics</em> <strong>57</strong>，117–120（1989）。实验使用电子双棱镜，图中的条纹由逐次电子探测记录累积而成。</p>
+</section>
+<section id="credits-ion-trap" class="level2">
+<h2 class="anchored" data-anchor-id="credits-ion-trap">NIST离子阱照片</h2>
+<p><a href="./lecture01.html#fig-ion-trap">第一讲“光与控制”部分</a>采用Y. Colombe/NIST摄影，图片编号11PML011。</p>
+<p>来源：<a href="https://www.nist.gov/image/quantumcomputingiontrappingjpg">NIST：Quantum Computing—Ion Trapping</a>。使用依据为<a href="https://www.nist.gov/copyrights-disclaimers">NIST Copyrights and Disclaimers</a>中关于未标注版权限制的公开资料及图片署名的说明。原图未修改，仅设置网页尺寸。图中展示用于操控离子的电极、支架与连线。</p>
+</section>
+<section id="credits-people" class="level2">
+<h2 class="anchored" data-anchor-id="credits-people">教师原课件中的人物和历史图片</h2>
+<p>以下图片取自教师提供的《从量子力学到量子信息科学.pptx》，保存在 <code>figures/people/</code>。文件名中的页码便于回查原课件。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>文件</th>
+<th>本讲用途</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>s4-image6.png</code></td>
+<td>普朗克不同时期肖像</td>
+</tr>
+<tr class="even">
+<td><code>s4-image9.png</code></td>
+<td>玻尔与爱因斯坦合影，玻尔在左、爱因斯坦在右</td>
+</tr>
+<tr class="odd">
+<td><code>s4-image8.png</code></td>
+<td>玻尔肖像</td>
+</tr>
+<tr class="even">
+<td><code>s5-image10.png</code></td>
+<td>德布罗意肖像</td>
+</tr>
+<tr class="odd">
+<td><code>s5-image11.png</code></td>
+<td>薛定谔肖像</td>
+</tr>
+<tr class="even">
+<td><code>s5-image12.png</code></td>
+<td>海森堡肖像</td>
+</tr>
+<tr class="odd">
+<td><code>s12-image20.jpeg</code></td>
+<td>薛定谔猫的概念插图</td>
+</tr>
+<tr class="even">
+<td><code>s13-image23.png</code></td>
+<td>Bell肖像</td>
+</tr>
+<tr class="odd">
+<td><code>s13-image22.jpeg</code></td>
+<td>2022年诺贝尔物理学奖相关人物图</td>
+</tr>
+<tr class="even">
+<td><code>s21-image30.png</code></td>
+<td>Feynman肖像</td>
+</tr>
+<tr class="odd">
+<td><code>s21-image31.png</code></td>
+<td>Deutsch肖像</td>
+</tr>
+<tr class="even">
+<td><code>s25-image37.png</code></td>
+<td>Shor肖像</td>
+</tr>
+</tbody>
+</table>
+<p>玻尔与爱因斯坦合影的摄影者为Paul Ehrenfest，可对照<a href="https://commons.wikimedia.org/wiki/File:Niels_Bohr_Albert_Einstein_by_Ehrenfest.jpg">原照片资料页</a>。图中左为玻尔、右为爱因斯坦，照片年份与正文所列工作年份不同。</p>
+<p>其中，薛定谔猫插图内署名为“搜狐号@大可数学人生工作室”；2022年诺贝尔奖人物插画署名为Niklas Elmehed / Nobel Prize Outreach。</p>
+<p>这些图片的当前可追溯来源是教师原课件；原摄影者、绘图者及开放许可尚未逐一核实。人物生平与物理史实另有正文文献支持。面向公开网站发布时，可逐张补齐许可或换用来源明确的替代图片。</p>
+</section>
+<section id="本项目生成的模型图" class="level2">
+<h2 class="anchored" data-anchor-id="本项目生成的模型图">本项目生成的模型图</h2>
+<p>第一讲中的黑体、光电效应、氢谱线、二能级、Bell装置与相关、半导体与受激辐射、模21周期及傅里叶概率图保存在 <code>figures/lecture01/</code>。它们根据本讲的模型生成：黑体近似对照图采用2000 K，并用相对误差标明有效范围；光电效应示例取逸出功2 eV；Bell采用理想偏振纠缠态 <span class="math inline">\(|\Phi^+\rangle=(|HH\rangle+|VV\rangle)/\sqrt2\)</span>，同方向测量结果相同；傅里叶图使用64标签、余数为1的11项条件态。</p>
+
+<p>电子样节的复数箭头、八位置概率与模拟计数图，由 <code>scripts/make_electron_sample.py</code> 生成。补充讲义A中的Mach–Zehnder装置、复平面概率幅、干涉曲线与有限次计数图，由 <code>scripts/make_figures.py</code> 生成。有限次计数使用固定随机种子，展示理想模型的统计波动。</p>
+</section>
+<section id="算法工作量增长图" class="level2">
+<h2 class="anchored" data-anchor-id="算法工作量增长图">算法工作量增长图</h2>
+<p>第一讲开场的 <code>figures/lecture01/complexity-growth.svg</code> 由教学模型生成，比较朴素试除、数域筛启发式渐近主项与三次多项式示例。横轴为十进制位数，三条曲线分别在20位处归一化，纵轴为对数刻度。数域筛使用标准主项常数，蓝色多项式曲线用于说明增长类型。公式和参数见正文展开框。</p>
+</section>
+<section id="credits-blackbody" class="level2">
+<h2 class="anchored" data-anchor-id="credits-blackbody">黑体辐射的教学插图</h2>
+<p>正文对照图采用教师提供的教材截图，保存在 <code>figures/external/textbook-blackbody.png</code>。图中包含实验点及维恩、瑞利–金斯、普朗克曲线；截图未附教材名称、页码和实验温度，书目信息待补。</p>
+<p>此前的IIT Bombay对照图已退出正文展示，旧文件仅作历史存档。</p>
+<p>空腔图来自Samuel J. Ling、Jeff Sanny、William Moebs编写，OpenStax出版的《University Physics Volume 3》第6.1节：<a href="https://openstax.org/books/university-physics-volume-3/pages/6-1-blackbody-radiation">Blackbody Radiation</a>，图6.2。图片原样保留，许可为<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>。<a href="https://openstax.org/books/university-physics-volume-3/pages/1-introduction">Access for free at OpenStax</a>。</p>
+<p>公式展开框中的 <code>blackbody-limits.svg</code> 由 <code>scripts/make_blackbody_limits.py</code> 根据2000 K下的三条公式绘制；上图比较0.25—6 μm的谱形，下图延伸到200 μm，以近似公式与Planck公式的比值标明误差不超过5%的有效范围。三条均为理论曲线。</p>
+</section>
+<section id="media-blackbody-photoelectric" class="level2">
+<h2 class="anchored" data-anchor-id="media-blackbody-photoelectric">黑体辐射与光电效应的视频、交互模拟</h2>
+<p>第一讲与课堂保持相同的视频选择。灯丝加热、光电效应和双缝动画三个MP4副本保存在 <code>assets/videos/</code>，可随讲义离线回看。PhET和OSP交互模型也随讲义保存；Quantum Flytrap选读实验与外部文献仍需联网。视频为实验演示或动画，模拟为理论模型的可视化。<a href="assets/simulations/README.md">模拟来源与本地适配</a>及<a href="assets/simulations/photoelectric/README.md">光电效应说明</a>保留原记录。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>资源</th>
+<th>提供者与来源</th>
+<th>讲义中的用途</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>灯丝加热与黑体辐射</td>
+<td>BYU Physics Demonstrations，<a href="https://www.youtube.com/watch?v=rnReWgrO14A">Blackbody radiation</a></td>
+<td>与课堂一致的约58秒实验视频，本地文件 <code>blackbody-byu.mp4</code></td>
+</tr>
+<tr class="even">
+<td>Blackbody Spectrum</td>
+<td>PhET Interactive Simulations，University of Colorado Boulder，<a href="https://phet.colorado.edu/sims/html/blackbody-spectrum/latest/blackbody-spectrum_all.html?locale=zh_CN">中文模拟</a></td>
+<td>调温并比较谱峰位置、辐射强弱与颜色</td>
+</tr>
+<tr class="odd">
+<td>Photoelectric Effect</td>
+<td>WSU Physics Videos，Weber State University，<a href="https://www.youtube.com/watch?v=7uyIXdO0li4">视频</a>、<a href="https://physics.weber.edu/amiri/physicsvideos/part2/modern_physics/default.asp">实验说明</a></td>
+<td>比较可见光和紫外光使带负电锌板放电的效果</td>
+</tr>
+<tr class="even">
+<td>Photoelectric Effect Simulator</td>
+<td>OSP Singapore；Fu-Kwun Hwang、lookang、tina、Félix J. García Clemente，<a href="https://sg.iwant2study.org/ospsg/index.php?id=344:photoelectriceffectwee3">资源与嵌入说明</a></td>
+<td>分别改变波长、光强和电压，观察电子与电流</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="原子光谱的实验影像与交互模型" class="level2">
+<h2 class="anchored" data-anchor-id="原子光谱的实验影像与交互模型">原子光谱的实验影像与交互模型</h2>
+<ul>
+<li><strong>氢放电管的可见光谱图：</strong> Umop503的原创作品，<a href="https://commons.wikimedia.org/wiki/File:Hydrogen_emission_spectrum.png">Wikimedia Commons来源页</a>，2021年4月19日，CC0 1.0。图像保存在 <code>figures/external/hydrogen-emission-spectrum.png</code>，原样使用；无波长标尺，正文不由像素位置推算波长或由图像亮度推算相对强度。</li>
+<li><strong>连续与线状光谱对比：</strong> <code>atomic-spectra-comparison.svg</code> 沿用课堂模型图，统一400—700 nm标尺；中性氢、氦、汞的代表性空气波长来自<a href="https://physics.nist.gov/PhysRefData/Handbook/Tables/hydrogentable2.htm">NIST氢表</a>、<a href="https://physics.nist.gov/PhysRefData/Handbook/Tables/heliumtable2.htm">氦表</a>、<a href="https://physics.nist.gov/PhysRefData/Handbook/Tables/mercurytable2.htm">汞表</a>。不表示完整谱线清单或实测相对强度。原来的长光谱视频已从正文移除。</li>
+<li><strong>Models of the Hydrogen Atom：</strong> PhET Interactive Simulations，University of Colorado Boulder，<a href="https://phet.colorado.edu/sims/html/models-of-the-hydrogen-atom/latest/models-of-the-hydrogen-atom_all.html?locale=zh_CN">中文HTML5模拟</a>、<a href="https://github.com/phetsims/models-of-the-hydrogen-atom/blob/main/doc/model.md">官方模型说明</a>。本地HTML副本嵌入，提供光谱、能级两个页面；界面中原子动画和“实验”模式均为软件模拟。</li>
+</ul>
+<p>此前生成的 <code>balmer.svg</code> 保留在公式后的计算展开框，用于核对模型波长与跃迁，正文的现象展示改用上述资源。</p>
+</section>
+<section id="课后同步的图像与视频2026年9月14日" class="level2">
+<h2 class="anchored" data-anchor-id="课后同步的图像与视频2026年9月14日">课后同步的图像与视频（2026年9月14日）</h2>
+<ul>
+<li><strong>玻恩统计与不确定性：</strong> <code>born-distribution-wide.svg</code> 与 <code>uncertainty.svg</code> 沿用本课件的高斯模型图。前者是模拟计数与理论密度，后者使用无量纲单位，取ħ=1；均非历史实验数据。</li>
+<li><strong>双缝动画：</strong> <code>double-slit-cartoon.mp4</code> 和海报 <code>slide10-image18.png</code> 来自教师原PPT第10页；本地完整保留画面和音轨。动画的拟人化表现用于教学，不能据其画面推断粒子的经典轨迹或意识导致测量。</li>
+<li><strong>历史背景：</strong> 《上帝掷骰子吗？》封面与《奥本海默》海报来自教师原课件。<code>quantum-history-zhang.jpg</code> 是张天蓉所著《群星闪耀——量子物理史话》，对应<a href="https://www.tup.com.cn/booksCenter/book_08815401.html">清华大学出版社书目</a>，2021年，ISBN 9787302565048。书名与副标题一起列出，作者单列。</li>
+<li><strong>IBM整机照片：</strong> <code>ibm-quantum-system-two-2026.jpg</code> 来自<a href="https://newsroom.ibm.com/2026-09-10-ibm,-lockheed-martin-announce-swiss-quantum-innovation-hub-at-eth-zurich,-anchored-by-switzerlands-first-ibm-quantum-computer">IBM 2026年9月10日新闻稿</a>的Poughkeepsie配图，版权归IBM。图中是美国既有Quantum System Two超导量子计算系统；新闻稿报道瑞士合作，不意味着该图摄于瑞士。发布日期与照片拍摄日期分开处理。</li>
+</ul>
+<p>以上资源从当前课堂课件同步到讲义；复制不改变原始署名与许可条件。图片说明区分整机、装置部件、理论模型和实拍结果。</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="1" role="list" style="display: none">
+<div id="ref-bell1964" class="csl-entry" role="listitem">
+[1] J. S. Bell. On the Einstein Podolsky Rosen paradox. <em>Physics Physique Fizika</em>, 1, 195～200, 1964. <a href="https://doi.org/10.1103/PhysicsPhysiqueFizika.1.195">https://doi.org/10.1103/PhysicsPhysiqueFizika.1.195</a>.
+</div>
+<div id="ref-rsa250" class="csl-entry" role="listitem">
+[2] F. Boudot, P. Gaudry, A. Guillevic, N. Heninger, E. Thomé, 和 P. Zimmermann. Factorization of RSA-250. 2020. <a href="https://caramba.loria.fr/rsa250.txt">https://caramba.loria.fr/rsa250.txt</a> (accessed 2026-09-12).
+</div>
+<div id="ref-broglie1929" class="csl-entry" role="listitem">
+[3] L. de Broglie. The Wave Nature of the Electron: Nobel Lecture. 1929. <a href="https://www.nobelprize.org/uploads/2016/04/broglie-lecture.pdf">https://www.nobelprize.org/uploads/2016/04/broglie-lecture.pdf</a> (accessed 2026-09-10).
+</div>
+<div id="ref-chsh1969" class="csl-entry" role="listitem">
+[4] J. F. Clauser, M. A. Horne, A. Shimony, 和 R. A. Holt. Proposed Experiment to Test Local Hidden-Variable Theories. <em>Physical Review Letters</em>, 23, 880～884, 1969. <a href="https://doi.org/10.1103/PhysRevLett.23.880">https://doi.org/10.1103/PhysRevLett.23.880</a>.
+</div>
+<div id="ref-epr1935" class="csl-entry" role="listitem">
+[5] A. Einstein, B. Podolsky, 和 N. Rosen. Can Quantum-Mechanical Description of Physical Reality Be Considered Complete? <em>Physical Review</em>, 47, 777～780, 1935. <a href="https://doi.org/10.1103/PhysRev.47.777">https://doi.org/10.1103/PhysRev.47.777</a>.
+</div>
+<div id="ref-feynman1965" class="csl-entry" role="listitem">
+[6] R. P. Feynman, R. B. Leighton, 和 M. Sands. The Feynman Lectures on Physics, Volume III. Addison-Wesley, 1965. <a href="https://www.feynmanlectures.caltech.edu/III_01.html">https://www.feynmanlectures.caltech.edu/III_01.html</a>.
+</div>
+<div id="ref-fox2006" class="csl-entry" role="listitem">
+[7] M. Fox. Quantum Optics: An Introduction. Oxford University Press, 2006. <a href="https://doi.org/10.1093/oso/9780198566724.001.0001">https://doi.org/10.1093/oso/9780198566724.001.0001</a>.
+</div>
+<div id="ref-gidney2025rsa" class="csl-entry" role="listitem">
+[8] C. Gidney. How to factor 2048 bit <span>RSA</span> integers with less than a million noisy qubits. 2025. <a href="https://doi.org/10.48550/arXiv.2505.15917">https://doi.org/10.48550/arXiv.2505.15917</a>.
+</div>
+<div id="ref-gottesman1998" class="csl-entry" role="listitem">
+[9] D. Gottesman. The Heisenberg Representation of Quantum Computers. 1998. <a href="https://arxiv.org/abs/quant-ph/9807006">https://arxiv.org/abs/quant-ph/9807006</a>.
+</div>
+<div id="ref-grangier1986" class="csl-entry" role="listitem">
+[10] P. Grangier, G. Roger, 和 A. Aspect. Experimental Evidence for a Photon Anticorrelation Effect on a Beam Splitter: A New Light on Single-Photon Interferences. <em>Europhysics Letters</em>, 1, 173～179, 1986. <a href="https://doi.org/10.1209/0295-5075/1/4/004">https://doi.org/10.1209/0295-5075/1/4/004</a>.
+</div>
+<div id="ref-tonomuraexperiment" class="csl-entry" role="listitem">
+[11] Hitachi. Double-slit experiment. <a href="https://www.hitachi.com/rd/research/materials/quantum/doubleslit/">https://www.hitachi.com/rd/research/materials/quantum/doubleslit/</a> (accessed 2026-09-09).
+</div>
+<div id="ref-ibmquantumstates" class="csl-entry" role="listitem">
+[12] IBM Quantum Learning. Quantum information: Quantum state vectors. <a href="https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/single-systems/quantum-information">https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/single-systems/quantum-information</a> (accessed 2026-09-10).
+</div>
+<div id="ref-ibmteleport" class="csl-entry" role="listitem">
+[13] IBM Quantum Learning. Quantum teleportation. <a href="https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/entanglement-in-action/quantum-teleportation">https://quantum.cloud.ibm.com/learning/en/courses/basics-of-quantum-information/entanglement-in-action/quantum-teleportation</a> (accessed 2026-09-09).
+</div>
+<div id="ref-ibmshor" class="csl-entry" role="listitem">
+[14] IBM Quantum Learning. Shor’s algorithm. <a href="https://quantum.cloud.ibm.com/learning/en/courses/fundamentals-of-quantum-algorithms/phase-estimation-and-factoring/shor-algorithm">https://quantum.cloud.ibm.com/learning/en/courses/fundamentals-of-quantum-algorithms/phase-estimation-and-factoring/shor-algorithm</a> (accessed 2026-09-09).
+</div>
+<div id="ref-ligosqueezing" class="csl-entry" role="listitem">
+[15] LIGO. LIGO Surpasses the Quantum Limit. 2023. <a href="https://www.ligo.caltech.edu/LA/news/ligo20231023">https://www.ligo.caltech.edu/LA/news/ligo20231023</a> (accessed 2026-09-09).
+</div>
+<div id="ref-planckbio" class="csl-entry" role="listitem">
+[16] Nobel Prize. Max Planck: Biographical. <a href="https://www.nobelprize.org/prizes/physics/1918/planck/biographical/">https://www.nobelprize.org/prizes/physics/1918/planck/biographical/</a> (accessed 2026-09-09).
+</div>
+<div id="ref-einsteinlight" class="csl-entry" role="listitem">
+[17] Nobel Prize. The Dual Nature of Light as Reflected in the Nobel Archives. <a href="https://www.nobelprize.org/prizes/themes/the-dual-nature-of-light-as-reflected-in-the-nobel-archives">https://www.nobelprize.org/prizes/themes/the-dual-nature-of-light-as-reflected-in-the-nobel-archives</a> (accessed 2026-09-09).
+</div>
+<div id="ref-laserhistory" class="csl-entry" role="listitem">
+[18] Nobel Prize. The History of the Laser. <a href="https://educationalgames.nobelprize.org/educational/physics/laser/facts/history.html">https://educationalgames.nobelprize.org/educational/physics/laser/facts/history.html</a> (accessed 2026-09-09).
+</div>
+<div id="ref-nobel1956" class="csl-entry" role="listitem">
+[19] Nobel Prize. The Nobel Prize in Physics 1956. 1956. <a href="https://www.nobelprize.org/prizes/physics/1956/summary/">https://www.nobelprize.org/prizes/physics/1956/summary/</a> (accessed 2026-09-09).
+</div>
+<div id="ref-nobel2012" class="csl-entry" role="listitem">
+[20] Nobel Prize. The Nobel Prize in Physics 2012: Press release. 2012. <a href="https://www.nobelprize.org/prizes/physics/2012/press-release/">https://www.nobelprize.org/prizes/physics/2012/press-release/</a> (accessed 2026-09-09).
+</div>
+<div id="ref-nobel2022" class="csl-entry" role="listitem">
+[21] Nobel Prize. The Nobel Prize in Physics 2022: Press release. 2022. <a href="https://www.nobelprize.org/prizes/physics/2022/press-release/">https://www.nobelprize.org/prizes/physics/2022/press-release/</a> (accessed 2026-09-09).
+</div>
+<div id="ref-openstaxblackbody" class="csl-entry" role="listitem">
+[22] OpenStax. University Physics Volume 3: Blackbody Radiation. <a href="https://openstax.org/books/university-physics-volume-3/pages/6-1-blackbody-radiation">https://openstax.org/books/university-physics-volume-3/pages/6-1-blackbody-radiation</a> (accessed 2026-09-12).
+</div>
+<div id="ref-openstaxphotoelectric" class="csl-entry" role="listitem">
+[23] OpenStax. University Physics Volume 3: Photoelectric Effect. <a href="https://openstax.org/books/university-physics-volume-3/pages/6-2-photoelectric-effect">https://openstax.org/books/university-physics-volume-3/pages/6-2-photoelectric-effect</a> (accessed 2026-09-12).
+</div>
+<div id="ref-shor1997" class="csl-entry" role="listitem">
+[24] P. W. Shor. Polynomial-Time Algorithms for Prime Factorization and Discrete Logarithms on a Quantum Computer. <em>SIAM Journal on Computing</em>, 26, 1484～1509, 1997. <a href="https://doi.org/10.1137/S0097539795293172">https://doi.org/10.1137/S0097539795293172</a>.
+</div>
+<div id="ref-schrodinger1935" class="csl-entry" role="listitem">
+[25] J. D. Trimmer. The Present Situation in Quantum Mechanics: A Translation of Schrödinger’s Cat Paradox Paper. <em>Proceedings of the American Philosophical Society</em>, 124, 323～338, 1980. <a href="https://www2.unicamp.br/~chibeni/textosdidaticos/schrodinger-1935-cat.pdf">https://www2.unicamp.br/~chibeni/textosdidaticos/schrodinger-1935-cat.pdf</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./supplement-photon-estimates.html" class="pagination-link" aria-label="补充讲义B　光子能量与通量估算">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">补充讲义B　光子能量与通量估算</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link" aria-label="参考文献">
+        <span class="nav-page-text">参考文献</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

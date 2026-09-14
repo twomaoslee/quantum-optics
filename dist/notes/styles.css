@@ -1,0 +1,117 @@
+:root { --ink: #233947; --accent: #1c6970; }
+body { color: #25343c; background: #fffefb; }
+h1,h2,h3,h4,.sidebar,.toc-title {
+  font-family: "Source Han Sans", "PingFang SC", sans-serif;
+}
+h1 { color: var(--ink); font-weight: 700; line-height: 1.4; }
+h2 { color: var(--ink); margin-top: 2.2em; padding-bottom: .35em; border-bottom: 1px solid #dce5e6; }
+h3 { font-size: 1.18em; margin-top: 1.6em; }
+a { color: var(--accent); }
+p { margin-bottom: 1.1em; }
+.sidebar { font-size: .9rem; }
+#TOC ul.collapse { display: block; }
+#TOC a { line-height: 1.55; padding-top: .32em; padding-bottom: .32em; }
+.callout { background: #f3f8f7; border-radius: 3px; }
+.callout-body { font-size: 1rem !important; line-height: 1.85; }
+blockquote { border-left: 3px solid var(--accent); color: #35515a; }
+figcaption { line-height: 1.65; font-size: .9rem; text-align: left; }
+table { font-size: .91rem; }
+th,td { padding: .65em .7em !important; }
+.math.display { display: block; overflow-x: auto; padding: .2em 0; }
+.chapter-intro { color: #54717a; font-size: 1.08em; }
+@media(max-width: 700px) { body { font-size: 17px; } h1 { font-size: 1.85rem; } }
+.person-note { display:grid; grid-template-columns:210px 1fr; gap:24px; align-items:center; margin:2em 0; padding:20px 0; border-top:1px solid #dce5e6; border-bottom:1px solid #dce5e6; }
+.person-note > .quarto-figure { margin:0; }
+.person-note > p { margin:0; }
+.person-note figure { margin:0; }
+.person-note figcaption { font-size:.75rem; }
+.people-row { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; align-items:start; max-width:720px; margin:1.3em auto; }
+.people-row > .quarto-figure { min-width:0; margin:0; }
+.people-row figure { display:flex; flex-direction:column; align-items:center; margin:0; }
+.people-row figure p { margin:0 0 .45em; }
+.people-row img { display:block; width:100%; max-width:150px; height:180px; object-fit:contain; margin:0; }
+.people-row figcaption { width:100%; text-align:center; font-size:.82rem; line-height:1.55; }
+@media(max-width:700px) {
+ .person-note { display:block; }
+ .person-note .quarto-figure { max-width:200px; margin:0 auto 20px; }
+ .people-row { gap:10px; }
+ .people-row img { height:120px; }
+ .people-row figcaption { font-size:.72rem; }
+ main table { display:block; overflow-x:auto; }
+}
+
+.factor-challenge { margin:1.6em 0; padding:1.1em 1.25em; background:#eef4f4; border-left:3px solid var(--accent); font-family:"SFMono-Regular",Consolas,monospace; font-size:1.05rem; line-height:1.9; overflow-wrap:anywhere; }
+.factor-challenge p { margin:0; }
+
+/* Embedded teaching resources keep their controls inside the reading column. */
+.course-media { margin: 1.2em 0 .6em; width: 100%; }
+.course-media iframe { display: block; width: 100%; border: 1px solid #dce5e6; border-radius: 4px; background: #f3f8f7; }
+.course-video { aspect-ratio: 16 / 9; }
+.course-blackbody { aspect-ratio: 4 / 3; min-height: 320px; }
+@media print {
+  .course-media { display: none; }
+}
+
+.course-lab-launcher { margin: 1.2em 0; padding: 1.3em; background: #eef5f4; border-left: 3px solid var(--accent); }
+.course-lab-launcher p { margin-bottom: .65em; }
+.course-lab-title { font-family: "Source Han Sans", "PingFang SC", sans-serif; font-weight: 700; font-size: 1.15em; }
+.course-lab-button { display: inline-block; padding: .55em 1em; background: var(--accent); color: white; border-radius: 4px; text-decoration: none; }
+.course-lab-button:hover, .course-lab-button:focus { background: #154e54; color: white; }
+.course-lab-launcher .course-lab-hint { margin: .8em 0 0; font-size: .9em; }
+
+.course-experiment-video { display: block; width: 100%; max-height: 540px; aspect-ratio: 4 / 3; background: #000; margin: auto; }
+.course-cartoon-video { aspect-ratio: 16 / 9; }
+.course-hydrogen { aspect-ratio: 3 / 2; min-height: 300px; }
+
+/* Credits sit with their resource, below the main reading hierarchy. */
+.source-note { font-size: .78rem; line-height: 1.55; color: #64717a; margin: .35em 0 1.1em; }
+.source-note p { margin: 0; }
+.source-note a { color: inherit; text-underline-offset: .15em; }
+
+.course-youtube { border: 1px solid #dce5e6; border-radius: 4px; overflow: hidden; }
+.course-player-visual { position: relative; aspect-ratio: 16 / 9; min-height: 200px; background: #182d35; }
+.course-player-stage, .course-player-cover { position: absolute; inset: 0; }
+.course-player-stage iframe { height: 100%; border: 0; border-radius: 0; }
+.course-player-cover { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.4em; color: #fff; text-align: center; background: #182d35; }
+.course-player-cover p { margin: .3em 0; }
+.course-player-title { font-family: "Source Han Sans", "PingFang SC", sans-serif; font-size: 1.25em; font-weight: 600; }
+.course-player-cover .course-player-meta { font-size: .85em; color: #c9d9dd; }
+.course-player-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .8em 1.2em; padding: .85em 1em .4em; }
+.course-player-start { border: 0; border-radius: 3px; padding: .55em .9em; color: #fff; background: var(--accent); font: inherit; cursor: pointer; }
+.course-player-start:disabled { opacity: .6; cursor: wait; }
+.course-player-start:focus-visible { outline: 3px solid #a6c8ca; outline-offset: 3px; }
+.course-player-controls a { font-size: .9em; }
+.course-youtube .course-player-status { margin: 0; padding: .25em 1.2em .9em; font-size: .8rem; line-height: 1.5; color: #536671; }
+.course-youtube [hidden] { display: none !important; }
+
+/* Local interactive models, embedded with native iframes. */
+.course-photoelectric { height: 540px; }
+@media (max-width: 700px) { .course-photoelectric { height: 480px; } }
+
+/* A section's contribution to the lecture narrative. */
+.story-step { margin: 1.15em 0; padding: .15em 0 .15em .9em; border-left: 3px solid var(--accent); }
+.story-step p { margin: 0; }
+.story-step strong { color: var(--accent); }
+
+/* Official Quantum Flytrap optical bench. */
+.course-flytrap { height: 740px; }
+.course-media.flytrap-expanded { position: fixed; inset: 0; z-index: 10000; width: 100vw; height: 100dvh; margin: 0; padding: 8px; background: #fff; display: flex; flex-direction: column; }
+.course-media.flytrap-expanded .course-flytrap { flex: 1; min-height: 0; height: auto; }
+.course-media.flytrap-expanded .course-flytrap-toolbar { flex: 0 0 36px; }
+.course-flytrap-toolbar { display:flex; align-items:center; gap:1em; margin-top:.4em; font-size:.85rem; }
+.course-flytrap-toolbar button { font:inherit; padding:.3em .8em; cursor:pointer; color:#fff; background:var(--accent); border:0; border-radius:3px; }
+
+/* Reading recommendations: reserve more space for the complete middle title.
+   Equal-height originals; the square first image has empty side margins. */
+.history-reading-gallery { container-type: inline-size; }
+.history-reading-gallery table { display: table; width: 100%; table-layout: fixed; }
+.history-reading-gallery th, .history-reading-gallery td { padding: .65em .3em !important; text-align: center; vertical-align: top; }
+.history-reading-gallery th { white-space: nowrap; vertical-align: middle; }
+.history-reading-gallery col:nth-child(1) { width: 28% !important; }
+.history-reading-gallery col:nth-child(2) { width: 46% !important; }
+.history-reading-gallery col:nth-child(3) { width: 26% !important; }
+.history-cover { display: flex; justify-content: center; height: clamp(100px, 32cqi, 240px); overflow: hidden; }
+.history-cover img { display: block; height: 100%; width: auto; max-width: none; flex: 0 0 auto; margin: 0; }
+@container (max-width: 540px) {
+  .history-reading-gallery th { white-space: normal; overflow-wrap: anywhere; }
+}
