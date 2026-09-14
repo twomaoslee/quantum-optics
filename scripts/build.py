@@ -4,6 +4,8 @@ from pathlib import Path
 from datetime import datetime
 from html import escape
 import argparse
+import base64
+import hashlib
 import json
 import re
 import shutil
@@ -12,6 +14,21 @@ from release import PUBLISHED, AFTER_CLASS, withheld
 SITE = Path(__file__).resolve().parents[1]
 ROOT = SITE.parent
 DIST = SITE / 'dist'
+
+def use_shared_slide_images(directory):
+    """Reuse byte-identical published assets instead of inline slide images."""
+    assets = {}
+    for path in sorted((directory/'assets').rglob('*')):
+        if path.is_file():
+            assets.setdefault(hashlib.sha256(path.read_bytes()).digest(), path)
+    pattern = re.compile(r'(<(?:img|source|video)\b[^>]*?\bsrc=")(data:image/[^;,]+;base64,([A-Za-z0-9+/=\s]+))(")')
+    for path in directory.glob('*.html'):
+        def replace(match):
+            asset = assets.get(hashlib.sha256(base64.b64decode(match[3])).digest())
+            if asset is None:
+                return match[0]
+            return match[1] + asset.relative_to(directory).as_posix() + match[4]
+        path.write_text(pattern.sub(replace, path.read_text()))
 
 def copy_tree(source, destination):
     def ignore(directory, names):
@@ -73,6 +90,7 @@ def main():
     for name in ('lecture01.html','lecture02.html','lecture01-backup.html'):
         if not withheld(name):
             shutil.copy2(slides/name, DIST/'slides'/name)
+    use_shared_slide_images(DIST/'slides')
     (DIST/'assets').mkdir()
     shutil.copy2(slides/'assets/branding/csu-logo.png', DIST/'assets/csu-logo.png')
     (DIST/'downloads').mkdir()
