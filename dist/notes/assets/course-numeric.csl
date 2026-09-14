@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" version="1.0" class="in-text" default-locale="en-US">
+  <info>
+    <title>Quantum course compact numeric references</title>
+    <id>https://example.org/styles/quantum-course-numeric</id>
+    <updated>2026-09-09T00:00:00+00:00</updated>
+  </info>
+  <macro name="author">
+    <names variable="author">
+      <name initialize-with=". " delimiter=", " and="text"/>
+      <substitute><text variable="title"/></substitute>
+    </names>
+  </macro>
+  <citation collapse="citation-number">
+    <sort><key variable="citation-number"/></sort>
+    <layout prefix="[" suffix="]" delimiter=", "><text variable="citation-number"/></layout>
+  </citation>
+  <bibliography entry-spacing="1" hanging-indent="true">
+    <sort><key macro="author"/><key variable="title"/></sort>
+    <layout suffix=".">
+      <text variable="citation-number" prefix="[" suffix="] "/>
+      <text macro="author" suffix=". "/>
+      <text variable="title" suffix=". "/>
+      <group delimiter=", " suffix=". ">
+        <text variable="container-title" font-style="italic"/>
+        <text variable="volume"/>
+        <text variable="page"/>
+        <text variable="publisher"/>
+        <date variable="issued"><date-part name="year"/></date>
+      </group>
+      <choose>
+        <if variable="DOI"><text variable="DOI" prefix="https://doi.org/"/></if>
+        <else><text variable="URL"/></else>
+      </choose>
+      <date variable="accessed" prefix=" (accessed " suffix=")" delimiter="-">
+        <date-part name="year"/><date-part name="month" form="numeric-leading-zeros"/><date-part name="day" form="numeric-leading-zeros"/>
+      </date>
+    </layout>
+  </bibliography>
+</style>
