@@ -128,7 +128,7 @@ def main():
             continue
         name=f'lecture{number:02d}'
         changed=datetime.fromtimestamp(max((notes/f'{name}.html').stat().st_mtime,(slides/f'{name}.html').stat().st_mtime)).strftime('%Y-%m-%d')
-        download = '<a class="download" href="downloads/lecture01-slides.pdf" download>课件 PDF · 49 页 · 14.4 MB ↓</a>' if number==1 else ''
+        download = f'<a class="download" href="downloads/lecture01-slides.pdf" download>课件 PDF · 49 页 · {pdf.stat().st_size/1_000_000:.1f} MB ↓</a>' if number==1 else ''
         rows.append(f'''<article class="lecture"><div class="lecture-number" aria-hidden="true">{number:02d}</div><div><h3><a href="notes/{name}.html"><span class="sr-only">第 {number} 讲：</span>{title}</a></h3><p>{summary}</p><p class="revision">资料更新：{changed}</p></div><div class="actions"><a class="action primary" href="notes/{name}.html" aria-label="阅读第{number}讲讲义">在线讲义</a><a class="action" href="slides/{name}.html" aria-label="打开第{number}讲课件">课堂课件</a>{download}</div></article>''')
     blocks=[]
     for title,lectures in units:
