@@ -1,0 +1,25 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>输入偏振、分析与单光子计数</title><link rel="stylesheet" href="interactive.css"><style>.experiment{display:grid;grid-template-columns:1fr 1fr;gap:12px}.detector{padding:12px;border:2px solid #d7e4ee;border-radius:6px}.detector.active{border-color:#0070c0;background:#eaf4fc}.events{display:flex;gap:5px;flex-wrap:wrap;min-height:30px;margin:10px 0}.event{display:inline-block;width:23px;text-align:center;border:1px solid #8198ab;color:#0068ac;font-size:16px;line-height:25px}.event.minus{color:#4c5f6d;background:#edf1f4}.probability-table{width:100%;border-collapse:collapse;font-size:16px}.probability-table td,.probability-table th{border-bottom:1px solid #d9e5ed;text-align:left;padding:6px}.stage-name{color:#0070c0;font-weight:600}.theory{margin-top:14px}@media(max-width:480px){.experiment{grid-template-columns:1fr}.probability-table{font-size:15px}}</style><body><main>
+<h1>用同样的方法准备光子，再更换测量方式</h1>
+<p class="pill">按理论概率生成的模拟记录 · 每次输入一个光子</p>
+<div class="controls"><label for="preparation">输入设置</label><select id="preparation"><option value="A">A：每次固定正45°</option><option value="B">B：随机H或V，各占一半</option></select></div>
+<div class="controls"><label for="angle">分析正口方向</label><input id="angle" type="range" min="0" max="90" step="1" value="0"><output id="degrees">0°</output><button data-angle="0">H/V分析</button><button data-angle="45">正／负45°分析</button></div>
+<div class="card"><p class="stage-name" id="setup"></p><p class="hint">每种设置使用新准备的光子。滑块转动的是分析基，准备光子的方法保持不变；更换设置会清空旧计数。</p></div>
+<div class="controls"><button id="one">发送一个</button><button id="hundred">重复100次</button><button id="thousand">重复1000次</button><button id="reset">清空记录</button></div>
+<div class="experiment"><section class="detector" id="detector-plus"><h2 id="plus-name">正口：H</h2><div class="count" id="plus-count">0</div><p id="plus-frequency">尚无样本</p></section><section class="detector" id="detector-minus"><h2 id="minus-name">负口：V</h2><div class="count" id="minus-count">0</div><p id="minus-frequency">尚无样本</p></section></div>
+<p id="last-event" class="result" aria-live="polite">先预测这组设置的结果，再发送光子或显示理论概率。</p>
+<p class="hint">最近24次模拟结果：每格是一整个试验，+ / −表示记录到光子的出口。</p><div id="events" class="events" aria-label="最近的模拟出口记录"></div>
+<button id="reveal">显示理论概率与模拟频率对照</button>
+<div id="theory" class="theory" hidden><table class="probability-table"><thead><tr><th>出口</th><th>理论概率</th><th>模拟计数比例</th></tr></thead><tbody><tr><td>正口</td><td id="p-plus"></td><td id="f-plus"></td></tr><tr><td>负口</td><td id="p-minus"></td><td id="f-minus"></td></tr></tbody></table><p class="hint" id="explain"></p></div>
+<p class="hint">百分比的分母是当前设置下的全部试验数。有限样本不必恰好符合理论比例。该演示不是实验数据，也不能用来证明它采用的概率规则；单个记录不意味着光子在分析前已经具有对应的偏振。</p>
+<script>
+const $=id=>document.getElementById(id);let counts=[0,0],events=[],last=null,revealed=false;
+function getSetting(){const mode=$('preparation').value,beta=+$('angle').value;let p=mode==='A'?Math.cos((45-beta)*Math.PI/180)**2:.5;if(Math.abs(p)<1e-12)p=0;if(Math.abs(p-1)<1e-12)p=1;return {mode,beta,p}}
+function labels(b){return b===0?['H','V']:b===45?['+45°','−45°']:[b+'°',(b-90)+'°']}
+function draw(){const s=getSetting(),N=counts[0]+counts[1],names=labels(s.beta),pct=v=>(100*v).toFixed(1)+'%';$('degrees').textContent=s.beta+'°';$('setup').textContent=(s.mode==='A'?'每次输入正45°偏振':'每次随机输入H或V偏振')+' → '+names.join(' / ')+'分析 → 两个出口记录';
+['plus','minus'].forEach((key,i)=>{$(key+'-name').textContent=(i?'负口：':'正口：')+names[i];$(key+'-count').textContent=counts[i];$(key+'-frequency').textContent=N?counts[i]+' / '+N+' = '+pct(counts[i]/N):'尚无样本';$('detector-'+key).classList.toggle('active',last?.port===i);$('p-'+key).textContent=pct(i?1-s.p:s.p);$('f-'+key).textContent=N?pct(counts[i]/N):'尚无样本'});
+$('events').innerHTML=events.map(i=>'<span class="event '+(i?'minus':'')+'">'+(i?'−':'+')+'</span>').join('');$('last-event').textContent=last?'共模拟 '+N+' 次；最近一个光子的输入偏振为 '+last.prepared+'，记录于'+(last.port?'负口':'正口')+'。':'先预测这组设置的结果，再发送光子或显示理论概率。';$('theory').hidden=!revealed;$('reveal').hidden=revealed;
+$('explain').textContent=s.mode==='A'?'A：理论正口概率由入射偏振方向与分析正口方向的夹角决定；分析方向为45°时正结果确定。':'B：对H和V两种输入态分别计算，再按各一半加权；任意这里的线偏振分析方向都给出各半。';window.labState={...s,counts:[...counts],N,events:[...events],last,revealed};}
+function reset(){counts=[0,0];events=[];last=null;revealed=false;draw()}
+function send(n){const s=getSetting();for(let i=0;i<n;i++){const prep=s.mode==='A'?45:(Math.random()<.5?0:90);const q=Math.cos((prep-s.beta)*Math.PI/180)**2;const port=Math.random()<q?0:1;counts[port]++;events.push(port);if(events.length>24)events.shift();last={prepared:s.mode==='A'?'+45°':prep===0?'H':'V',port};}draw()}
+$('one').onclick=()=>send(1);$('hundred').onclick=()=>send(100);$('thousand').onclick=()=>send(1000);$('reset').onclick=reset;$('preparation').onchange=reset;$('angle').oninput=reset;document.querySelectorAll('[data-angle]').forEach(b=>b.onclick=()=>{$('angle').value=b.dataset.angle;reset()});$('reveal').onclick=()=>{revealed=true;draw()};draw();
+</script></main><script src="embed.js"></script></body></html>

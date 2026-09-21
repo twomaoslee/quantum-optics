@@ -1,0 +1,21 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>三块偏振片：状态随透过更新</title><link rel="stylesheet" href="interactive.css"><body><main><h1>三块偏振片：状态随透过更新</h1>
+<p class="pill">理想模型 · 以第一块H偏振片后的1000个光子为起点</p>
+<div class="controls"><label for="angle">中间角度</label><input id="angle" type="range" min="0" max="90" value="45"><output id="degrees">45°</output></div>
+<div class="controls"><button id="insert">插入中间偏振片</button><button id="order" disabled>将中间片移到V之后</button><button id="reset">重置</button></div>
+<div class="flow" id="flow"></div>
+<button id="reveal">查看各步透过与状态</button>
+<div class="result" id="result" aria-live="polite">先预测：最后还有多少光子透过？它们沿什么方向偏振？</div>
+<p class="hint">各步透过率的分母是该片前的光子数；最终比例的分母始终是起点的1000个。计数是理论期望，实际有限次记录会波动；被吸收的光子不再进入下一步。</p>
+<script>
+const $=id=>document.getElementById(id);let inserted=false,reversed=false,revealed=false;
+const pct=p=>(100*p).toFixed(1)+'%';const clean=x=>Math.abs(x)<1e-12?0:x;
+function axis(a){return '<svg class="axis" viewBox="0 0 130 80" role="img" aria-label="透光轴'+a+'度"><circle cx="65" cy="40" r="31" fill="#edf5fc" stroke="#a5bdcf"/><line x1="40" y1="40" x2="90" y2="40" stroke="#0070c0" stroke-width="4" transform="rotate('+(-a)+' 65 40)"/></svg>'}
+function draw(){const a=+$('angle').value;const axes=inserted?(reversed?[90,a]:[a,90]):[90];let prev=0,n=1000;const states=[{angle:0,n:1000}];
+$('degrees').textContent=a+'°';$('insert').textContent=inserted?'移除中间偏振片':'插入中间偏振片';$('insert').setAttribute('aria-pressed',inserted);$('order').disabled=!inserted;$('order').textContent=reversed?'将中间片放回H与V之间':'将中间片移到V之后';
+let html='<section class="stage"><h2>初始偏振态</h2>'+axis(0)+'<div><div class="state">|H⟩</div><div class="count">1000</div><span class="muted">已通过第一块H片</span></div></section>';
+axes.forEach((ang,i)=>{const q=clean(Math.cos((ang-prev)*Math.PI/180)**2),before=n;n=clean(n*q);const state=ang===90?'|V⟩':ang===0?'|H⟩':'|'+ang+'°⟩';states.push({angle:ang,input:before,q,n});html+='<section class="stage"><h2>第'+(i+1)+'步 · '+ang+'°偏振片</h2>'+axis(ang)+'<div><div class="state">'+(revealed?(n>0?state:'无透过光子'):'透过后？')+'</div><div class="count">'+(revealed?n.toFixed(1):'？')+'</div><span class="muted">'+(revealed?(before>0?'本步透过率 '+pct(q):'无入射光，不定义本步实测比例'):'先预测本步透过率')+'</span></div></section>';prev=ang});
+$('flow').style.gridTemplateColumns=window.innerWidth>570?'repeat('+states.length+',1fr)':'';$('flow').innerHTML=html;
+$('result').innerHTML=revealed?'最终透过：<strong>'+n.toFixed(1)+' / 1000 = '+pct(n/1000)+'</strong>。'+(n>0?'通过最后一片的光沿其透光轴偏振。':'后面的偏振片不能让已被吸收的光子重新出现。'):'先预测：最后还有多少光子透过？它们沿什么方向偏振？';
+$('reveal').hidden=revealed;window.labState={angle:a,inserted,reversed,p:n/1000,states};}
+$('angle').oninput=draw;$('insert').onclick=()=>{inserted=!inserted;if(!inserted)reversed=false;revealed=false;draw()};$('order').onclick=()=>{reversed=!reversed;revealed=false;draw()};$('reveal').onclick=()=>{revealed=true;draw()};$('reset').onclick=()=>{inserted=false;reversed=false;revealed=false;$('angle').value=45;draw()};window.addEventListener('resize',draw);draw();
+</script></main><script src="embed.js"></script></body></html>

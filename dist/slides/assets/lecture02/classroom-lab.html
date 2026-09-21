@@ -1,0 +1,84 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>量子比特课堂交互</title>
+<style>
+*{box-sizing:border-box}body{margin:0;color:#202122;background:white;font:26px/1.4 "PingFang SC","Microsoft YaHei",sans-serif}main{width:100%;height:100vh;display:flex;flex-direction:column;gap:12px;padding:4px 8px}button,select,input{font:inherit}button,select{padding:7px 14px;border:1px solid #adc3d3;border-radius:5px;background:#f2f6fa;color:#123a56;cursor:pointer}button.active,button.primary{background:#0070c0;color:white;border-color:#0070c0}button:disabled,select:disabled,input:disabled{opacity:.45;cursor:default}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #0070c0;outline-offset:2px}.toolbar{display:flex;gap:12px;align-items:center;min-height:52px;flex-wrap:nowrap}.toolbar label{display:flex;gap:10px;align-items:center;white-space:nowrap}input[type=range]{width:210px;accent-color:#0070c0}output{min-width:76px;color:#0070c0;font-weight:600}.columns{grid-template-rows:minmax(0,1fr);display:grid;grid-template-columns:1fr 1fr;gap:26px;flex:1;min-height:0}.visual,.readout{background:#f4f7fa;padding:12px 18px;min-width:0;min-height:0;display:flex;flex-direction:column;gap:8px}.subhead{font-size:27px;color:#0070c0;font-weight:600;margin:0}.caption{font-size:22px;color:#526776;margin:0}.visual svg{width:100%;height:0;min-height:0;flex:1 1 0}.barrow{display:grid;grid-template-columns:70px 1fr 96px;gap:10px;align-items:center;margin:10px 0}.track{height:26px;background:#d7e3ed}.fill{height:100%;background:#0070c0}.barrow:nth-of-type(even) .fill{background:#5d7484}.value{text-align:right;font-variant-numeric:tabular-nums}.stats{font-size:30px;font-weight:600;color:#0070c0;margin:0}.events{display:flex;gap:4px;height:42px;align-items:center;flex-wrap:nowrap}.event{background:#0070c0;color:white;min-width:24px;text-align:center;font-size:22px}.event.minus{background:#5d7484}.prompt{color:#0070c0;font-size:26px;min-height:37px;margin:0}.bottom{display:flex;gap:14px;align-items:center;min-height:52px}.bottom .caption{margin-left:auto;max-width:480px}.wide-range input[type=range]{width:320px}.inline-note{font-size:23px;color:#526776}.hidden{display:none!important}svg text{font-family:inherit;fill:#253d4e}svg .label{font-size:28px}svg .small{font-size:22px}.formula{font-size:29px;color:#0070c0}.result-line{font-size:28px;margin:8px 0}.strong{font-weight:600;color:#0070c0}
+</style></head><body><main id="app"></main><script>
+'use strict';
+const mode=new URLSearchParams(location.search).get('mode')||'preparation';
+const app=document.querySelector('#app');
+const $=id=>document.getElementById(id), rad=d=>d*Math.PI/180;
+const pct=p=>(100*p).toFixed(1)+'%';
+let state={mode,revealed:false,angle:0,kind:'pure',counts:[0,0],events:[],phase:0,time:0,reversed:false,running:false};
+const bars=(labels)=>labels.map((l,i)=>`<div class="barrow"><span>${l}</span><div class="track"><div class="fill" id="fill${i}" style="width:0%"></div></div><span class="value" id="value${i}">?</span></div>`).join('');
+const axes='<line x1="65" y1="160" x2="400" y2="160" stroke="#9cb0bf" stroke-width="2"/><line x1="230" y1="300" x2="230" y2="20" stroke="#9cb0bf" stroke-width="2"/>';
+const arrow='<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0L7,3L0,6" fill="none" stroke="#0070c0" stroke-width="1.5"/></marker></defs>';
+function probabilities(){if(mode==='preparation'){let p=state.kind==='pure'?Math.cos(rad(45-state.angle))**2:.5;return[p,1-p]}if(mode==='phase'){let p=state.kind==='pure'?(1+Math.cos(rad(state.phase)))/2:.5;return[.5,.5,p,1-p]}return state.reversed?[0,Math.cos(rad(90-state.angle))**2,0]:[Math.cos(rad(state.angle))**2,Math.cos(rad(90-state.angle))**2,Math.cos(rad(state.angle))**2*Math.cos(rad(90-state.angle))**2]}
+function setbar(i,p,show=true){$('fill'+i).style.width=show?100*p+'%':'0%';$('value'+i).textContent=show?pct(p):'?'}
+function reset(){state.counts=[0,0];state.events=[];state.revealed=false;update()}
+function presetButtons(attr,values){return values.map(v=>`<button data-${attr}="${v}">${v}°</button>`).join('')}
+if(mode==='preparation'){
+ app.innerHTML=`<div class="toolbar"><select id="kind" aria-label="制备"><option value="pure">A：固定正45度</option><option value="mixed">B：随机H或V</option></select><label>分析方向 <input id="angle" type="range" min="0" max="90" step="1" value="0"><output id="angle-value">0°</output></label>${presetButtons('angle',[0,45,90])}</div><div class="columns"><div class="visual"><p class="subhead">同一种制备，重复试验</p><svg id="diagram" viewBox="0 0 520 255" aria-label="制备与分析示意"></svg><div class="events" id="events"></div><p class="caption">最近16次记录；每次只记一个出口。</p></div><div class="readout"><p class="subhead">计数与频率</p><p id="total" class="stats"></p>${bars(['正口','负口'])}<p id="theory" class="prompt">先预测，再抽样或揭示理论。</p><p class="caption">改变制备或分析方向，旧计数清零。</p></div></div><div class="bottom"><button id="one" class="primary">发射1次</button><button id="hundred">累计100次</button><button id="reveal">揭示理论</button><button id="reset">清空</button></div>`;
+ $('kind').onchange=()=>{state.kind=$('kind').value;reset()};$('angle').oninput=()=>{state.angle=+$('angle').value;reset()};
+ document.querySelectorAll('[data-angle]').forEach(b=>b.onclick=()=>{$('angle').value=b.dataset.angle;state.angle=+b.dataset.angle;reset()});
+ function sample(n){for(let i=0;i<n;i++){let prep=state.kind==='pure'?45:Math.random()<.5?0:90;let plus=Math.random()<Math.cos(rad(prep-state.angle))**2;state.counts[plus?0:1]++;state.events.push(plus?'+':'−');state.events=state.events.slice(-16)}update()}
+ $('one').onclick=()=>sample(1);$('hundred').onclick=()=>sample(100);$('reset').onclick=reset;
+}else if(mode==='polarizers'){
+ state.angle=45;
+ app.innerHTML=`<div class="toolbar wide-range"><label>中间片方向 <input id="angle" type="range" min="0" max="90" step="1" value="45"><output id="angle-value">45°</output></label>${presetButtons('angle',[0,30,45,90])}<button id="order">移到末尾</button></div><div class="columns"><div class="visual"><p class="subhead" id="sequence">H → 中间片 → V</p><svg id="diagram" viewBox="0 0 520 260" aria-label="偏振片顺序示意"></svg><p class="caption">统计从第一块H片之后开始；输入1000个。</p></div><div class="readout"><p class="subhead">每一步的保留态与期望计数</p><p id="step1" class="result-line">第一步：？</p><p id="step2" class="result-line">第二步：？</p><p id="total" class="stats">总透过：？</p><p id="theory" class="prompt">每一步：取当前偏振与下一透光轴夹角的余弦平方。</p></div></div><div class="bottom"><button id="reveal" class="primary">揭示结果</button><button id="reset">回到45度原顺序</button></div>`;
+ $('angle').oninput=()=>{state.angle=+$('angle').value;state.revealed=false;update()};
+ document.querySelectorAll('[data-angle]').forEach(b=>b.onclick=()=>{$('angle').value=b.dataset.angle;state.angle=+b.dataset.angle;state.revealed=false;update()});
+ $('order').onclick=()=>{state.reversed=!state.reversed;state.revealed=false;update()};$('reset').onclick=()=>{state.angle=45;state.reversed=false;$('angle').value=45;state.revealed=false;update()};
+}else{
+ app.innerHTML=`<div class="toolbar"><select id="kind" aria-label="制备"><option value="pure">固定等权纯态</option><option value="mixed">随机H/V混合</option></select><label>相位延迟 <input id="phase" type="range" min="0" max="360" step="1" value="0"><output id="phase-value">0°</output></label>${presetButtons('phase',[0,90,180,270])}</div><div class="columns"><div class="visual"><p class="subhead">对应的经典偏振图像</p><svg id="diagram" viewBox="0 0 460 320" aria-label="固定位置处经典电场端点轨迹"></svg><p class="caption" id="shape">固定位置处，电场端点随时间的轨迹。</p></div><div class="readout"><p class="subhead">单光子理论概率</p>${bars(['H','V','正口','负口'])}<p id="theory" class="prompt">哪一组分析能看出相位变化？</p></div></div><div class="bottom"><button id="reveal" class="primary">揭示概率</button><button id="play">播放电场周期</button><label>时刻 <input id="time" aria-label="周期内时刻" type="range" min="0" max="360" value="0"></label><p class="caption" id="device">固定H/V主轴；两分量大小不变。</p></div>`;
+ $('kind').onchange=()=>{state.kind=$('kind').value;stop();state.revealed=false;update()};
+ $('phase').oninput=()=>{state.phase=+$('phase').value;update()};
+ document.querySelectorAll('[data-phase]').forEach(b=>b.onclick=()=>{state.phase=+b.dataset.phase;$('phase').value=state.phase;update()});
+ $('time').oninput=()=>{stop();state.time=+$('time').value;update()};
+ $('play').onclick=()=>{state.running?stop():start()};
+}
+$('reveal').onclick=()=>{state.revealed=!state.revealed;update()};
+function update(){
+ const ps=probabilities();
+ if(mode==='preparation'){
+  $('angle-value').textContent=state.angle+'°';const n=state.counts[0]+state.counts[1];
+  $('total').textContent=`${n}次：正口${state.counts[0]}，负口${state.counts[1]}`;
+  ps.forEach((_,i)=>setbar(i,n?state.counts[i]/n:0,n>0));
+  $('theory').textContent=state.revealed?`理论：正口${pct(ps[0])}，负口${pct(ps[1])}`:'先预测，再抽样或揭示理论。';
+  $('events').innerHTML=state.events.map(x=>`<span class="event ${x==='−'?'minus':''}">${x}</span>`).join('');
+  const x=260,y=127,dx=58*Math.cos(rad(state.angle)),dy=-58*Math.sin(rad(state.angle));
+  $('diagram').innerHTML=arrow+`<rect x="8" y="80" width="135" height="95" rx="6" fill="#e5eff7"/><text x="75" y="120" text-anchor="middle" class="label">${state.kind==='pure'?'固定＋45°':'随机H/V'}</text><text x="75" y="156" text-anchor="middle" class="small">单光子制备</text><path d="M145 127H190M320 127L420 60M320 127L420 200" stroke="#0070c0" stroke-width="3" fill="none" marker-end="url(#arrow)"/><circle cx="260" cy="127" r="65" fill="none" stroke="#9cb0bf" stroke-width="2"/><line x1="${x-dx}" y1="${y-dy}" x2="${x+dx}" y2="${y+dy}" stroke="#0070c0" stroke-width="5"/><text x="430" y="70" class="label">正口</text><text x="430" y="210" class="label">负口</text><text x="230" y="232" class="label">${state.angle}°</text>`;
+ }else if(mode==='polarizers'){
+  $('angle-value').textContent=state.angle+'°';$('order').textContent=state.reversed?'恢复中间片':'移到末尾';
+  const arr=state.reversed?[0,90,state.angle]:[0,state.angle,90];
+  $('sequence').textContent=state.reversed?`H → V → ${state.angle}°`:`H → ${state.angle}° → V`;
+  $('diagram').innerHTML=arrow+arr.map((a,i)=>{let x=80+180*i,dx=42*Math.cos(rad(a)),dy=-42*Math.sin(rad(a));return `<circle cx="${x}" cy="105" r="51" fill="white" stroke="#9cb0bf" stroke-width="2"/><line x1="${x-dx}" y1="${105-dy}" x2="${x+dx}" y2="${105+dy}" stroke="#0070c0" stroke-width="5"/><text x="${x}" y="197" text-anchor="middle" class="label">${i===0?'H':a+'°'}</text>`+(i<2?`<path d="M${x+58} 105H${x+120}" fill="none" stroke="#0070c0" stroke-width="3" marker-end="url(#arrow)"/>`:'')}).join('');
+  const count1=1000*ps[0],count2=1000*ps[2];
+  $('step1').textContent=state.revealed?`第一步：${pct(ps[0])} → ${count1.toFixed(1)}个`:'第一步：？';
+  $('step2').textContent=state.revealed?(count1<1e-10?'第二步：无入射样本':`第二步：${pct(ps[1])} → ${count2.toFixed(1)}个`):'第二步：？';
+  $('total').textContent=state.revealed?`总透过：${pct(ps[2])}`:'总透过：？';
+  $('theory').textContent=state.revealed?(count1<1e-10?'第一步已阻挡，没有后续输出态。':count2<1e-10?`第一步保留态：${arr[1]}°；末片无输出。`:`保留态：${arr[1]}° → ${arr[2]}°`):'每一步：取当前偏振与下一透光轴夹角的余弦平方。';
+ }else{
+  const pure=state.kind==='pure',phi=rad(state.phase),t=rad(state.time),cx=230,cy=160,scale=116;
+  $('phase-value').textContent=state.phase+'°';$('phase').disabled=!pure;$('time').disabled=!pure;$('play').disabled=!pure;
+  document.querySelectorAll('[data-phase]').forEach(b=>b.disabled=!pure);
+  let path='';for(let j=0;j<=180;j++){let a=j*2*Math.PI/180;path+=(j?'L':'M')+(cx+scale*Math.cos(a)).toFixed(2)+','+(cy-scale*Math.cos(a-phi)).toFixed(2)}
+  const x=cx+scale*Math.cos(t),y=cy-scale*Math.cos(t-phi);
+  $('diagram').innerHTML=axes+`<text x="410" y="170" class="label">H</text><text x="240" y="25" class="label">V</text>`+(pure?`<path d="${path}" fill="none" stroke="#0070c0" stroke-width="4"/><path d="M${cx} ${cy}L${x} ${y}" stroke="#5d7484" stroke-width="3"/><circle cx="${x}" cy="${y}" r="7" fill="#0070c0"/>`:'<rect x="60" y="86" width="340" height="135" fill="#f4f7fa"/><text x="230" y="142" text-anchor="middle" class="label">随机混合</text><text x="230" y="186" text-anchor="middle" class="small">H、V两类制备</text>');
+  ps.forEach((p,i)=>setbar(i,p,state.revealed));
+  $('theory').textContent=state.revealed?(pure?'H/V不变；正／负口随相位变化。':'两组分析都各半。'):'哪一组分析能看出相位变化？';
+  const linear=Math.abs(Math.sin(phi))<1e-8,circular=Math.abs(Math.cos(phi))<1e-8;
+  $('shape').textContent=pure?`${linear?'线偏振':circular?'圆偏振':'椭圆偏振'}：电场端点随时间的轨迹。`:'每次选取H或V，两类制备各占一半。';
+  $('device').textContent=pure?`相对光程差：${(state.phase/360).toFixed(2)}个波长`:'随机H/V制备，各占一半。';
+ }
+ $('reveal').textContent=state.revealed?'隐藏理论':mode==='polarizers'?'揭示结果':mode==='phase'?'揭示概率':'揭示理论';
+ document.querySelectorAll('[data-angle]').forEach(b=>b.classList.toggle('active',+b.dataset.angle===state.angle));
+ document.querySelectorAll('[data-phase]').forEach(b=>b.classList.toggle('active',+b.dataset.phase===state.phase));
+ window.labState={...state,probabilities:ps};
+}
+let raf=0,last=0;
+function tick(now){if(!state.running)return;if(last)state.time=(state.time+(now-last)*.04)%360;last=now;$('time').value=state.time;update();raf=requestAnimationFrame(tick)}
+function start(){state.running=true;last=0;$('play').textContent='暂停电场周期';raf=requestAnimationFrame(tick)}
+function stop(){state.running=false;cancelAnimationFrame(raf);if($('play'))$('play').textContent='播放电场周期';if(window.labState)window.labState.running=false}
+window.addEventListener('message',ev=>{if(ev.source===parent&&ev.data?.type==='lecture-visibility'&&!ev.data.visible)stop()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop()});
+update();
+</script></body></html>

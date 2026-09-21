@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第二讲　量子比特：状态、测量与调控 – 从光与原子理解量子世界</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./sample-electron-interference.html" rel="next">
+<link href="./lecture01.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fde17a09709beee24c8ebe31026d36d2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+  <script defer="" src="assets/mathjax/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css?v=2120fb756dc2">
+<link rel="stylesheet" href="lecture02-notes.css">
+<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style></head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lecture02.html"><span class="chapter-title">第二讲　量子比特：状态、测量与调控</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">从光与原子理解量子世界</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">如何使用这份讲义</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./outline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">全课程讲义目录</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">第一讲　绪论：从量子力学到量子信息科学</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture02.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">第二讲　量子比特：状态、测量与调控</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sample-electron-interference.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">一个一个到达的电子，怎样形成干涉条纹？</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./supplement-interference.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">补充讲义A　单光子干涉的完整计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./supplement-photon-estimates.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">补充讲义B　光子能量与通量估算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./image-credits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">插图来源</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">参考文献</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">目录</h2>
+   
+  <ul class="collapse">
+  <li><a href="#sec-l02-start" id="toc-sec-l02-start" class="nav-link active" data-scroll-target="#sec-l02-start">从一个光子的偏振开始</a></li>
+  <li><a href="#sec-l02-preparations" id="toc-sec-l02-preparations" class="nav-link" data-scroll-target="#sec-l02-preparations">同样是各半，偏振状态是否相同？</a></li>
+  <li><a href="#sec-l02-state" id="toc-sec-l02-state" class="nav-link" data-scroll-target="#sec-l02-state">怎样用量子态计算读出概率？</a></li>
+  <li><a href="#sec-l02-calculation" id="toc-sec-l02-calculation" class="nav-link" data-scroll-target="#sec-l02-calculation">光子经过元件后，下一步该用哪个状态？</a></li>
+  <li><a href="#sec-l02-phase" id="toc-sec-l02-phase" class="nav-link" data-scroll-target="#sec-l02-phase">不靠筛选，怎样改变光子的偏振态？</a></li>
+  <li><a href="#sec-l02-qubit" id="toc-sec-l02-qubit" class="nav-link" data-scroll-target="#sec-l02-qubit">从光子偏振中，我们认出了怎样的量子比特？</a></li>
+  <li><a href="#sec-l02-platforms" id="toc-sec-l02-platforms" class="nav-link" data-scroll-target="#sec-l02-platforms">同一个量子比特，不同的物理载体</a></li>
+  <li><a href="#sec-l02-outlook" id="toc-sec-l02-outlook" class="nav-link" data-scroll-target="#sec-l02-outlook">回到开场：怎样使用一个量子比特？</a></li>
+  <li><a href="#sec-l02-exercises" id="toc-sec-l02-exercises" class="nav-link" data-scroll-target="#sec-l02-exercises">核心自查与练习</a></li>
+  <li><a href="#来源与进一步阅读" id="toc-来源与进一步阅读" class="nav-link" data-scroll-target="#来源与进一步阅读">来源与进一步阅读</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-lecture02" class="quarto-section-identifier"><span class="chapter-title">第二讲　量子比特：状态、测量与调控</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>量子力学怎样改变我们处理信息的方式？一个著名例子是<a href="https://arxiv.org/abs/quant-ph/9508027">Shor算法</a>，它给出了在量子计算机上高效地将整数分解为素因数的方法。算法的具体步骤将在后面的算法专题中展开；本讲先追问它的物理基础：<strong>量子计算用什么承载信息，又怎样操作和读取这些信息？</strong></p>
+<p>普通计算机的信息需要物理载体，例如可以用不同电压范围表示0和1。量子计算同样需要载体，其基本信息单元称为<strong>量子比特</strong>。要使用它，就要能把系统准备到所需的起始状态、通过物理作用改变状态，并由测量取得结果。这些步骤涉及什么物理过程，需要怎样的状态描述，是理解量子算法的基础。</p>
+<p>我们从一个具体对象入手：<strong>一个光子的偏振</strong>。第一讲已经介绍了逐个探测事件、概率幅和干涉；现在用光子偏振状态的准备与测量，把这些概念连接成可以计算的描述。一次选定方式的读出只有0或1，但读出之前光子可以处于哪些状态、可以怎样操作，以及这些选择如何影响结果，都值得仔细考察。理解了这个例子，再看自旋、原子和电路如何提供同样的量子比特结构。</p>
+<div class="l02-core">
+<p><strong>贯穿本讲：一个光子怎样成为量子比特？怎样描述和操作它，才能预测读出的结果？</strong></p>
+<ol type="1">
+<li><strong>从一个光子开始。</strong> 怎样用它的偏振表示0和1，又怎样通过测量读出？</li>
+<li><strong>认识量子态。</strong> 只知道光子在水平、竖直两个出口的出现概率，够不够预测其他测量的结果？</li>
+<li><strong>研究操作的影响。</strong> 让光子经过不同的光学元件，读出结果会怎样变化？我们怎样预测？</li>
+<li><strong>回到量子比特。</strong> 原子、电路也能承载量子比特吗？它们与光子偏振有什么共同点？</li>
+</ol>
+</div>
+<section id="sec-l02-start" class="level2">
+<h2 class="anchored" data-anchor-id="sec-l02-start">从一个光子的偏振开始</h2>
+<section id="和1对应什么物理对象" class="level3">
+<h3 class="anchored" data-anchor-id="和1对应什么物理对象">0和1对应什么物理对象？</h3>
+<p>先为0和1这两个标签找到具体的物理含义：选择光子的两种能够可靠区分的偏振状态。</p>
+<p>让光沿固定方向传播。在垂直于传播方向的平面内，若电场沿一条固定直线振动，就称为线偏振光。把两条互相垂直的参考方向称为水平与竖直，分别标记为H、V。实验中，把光子准备到所需偏振状态的过程称为<strong>制备</strong>。我们可以分别制备H偏振或V偏振的单光子，并约定H代表0、V代表1。<strong>两种情况下都有一个光子，0不表示没有光子。</strong></p>
+<p>怎样区分H、V这两种偏振？先回顾经典光学中的偏振片：用它产生指定方向的线偏振光时，称为<strong>起偏器</strong>；用它选择一个偏振方向、通过透过光强分析入射偏振时，称为<strong>检偏器</strong>。这两个名称说明的是元件在实验中的用途。对于常见的吸收式偏振片，沿透光轴的电场分量透过，与透光轴垂直的分量被吸收。</p>
+<p>现在希望同时记录两个互相垂直的偏振结果，就使用<strong>偏振分束器（PBS）</strong>。它也能承担检偏的作用，但将两个分量分别送往两个出口：在本讲的装置设置中，H分量透射，V分量反射。这样，在两个出口各放一个探测器，就能分别记录H、V结果。</p>
+<p>对于理想的单光子测量，H偏振的光子必然在H口被记录，V偏振的光子必然在V口被记录。我们把这套用偏振分束器区分H、V、用探测器读出结果的装置称为<strong>H/V偏振分析器</strong>，下文简称“H/V分析器”。本讲先假定每次确有一个入射光子、分束过程无损耗，两个探测器都能准确记录到达的光子。</p>
+<div id="fig-l02-readout" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-readout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/qubit-readout-topview-gpt.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="图&nbsp;2.1: 单光子偏振的制备与读出装置俯视示意（GPT Image生成）。单光子输入经过偏振制备元件，到达偏振分束器；H分量沿直通路径进入H口探测器，V分量沿反射路径进入V口探测器。虚线标示光路，0和1是出口记录的编码。"><img src="assets/lecture02/qubit-readout-topview-gpt.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-readout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.1: 单光子偏振的制备与读出装置俯视示意（GPT Image生成）。单光子输入经过偏振制备元件，到达偏振分束器；H分量沿直通路径进入H口探测器，V分量沿反射路径进入V口探测器。虚线标示光路，0和1是出口记录的编码。
+</figcaption>
+</figure>
+</div>
+<p>图中制备元件的通光方向沿输入光轴；PBS的H出口与输入共线，V出口与它垂直。实际装置中，这些元件的通光中心需要调到同一高度。实际实验中的对应元件可参看<a href="https://experimentationlab.berkeley.edu/node/44">伯克利大学教学实验的偏振分析装置</a>；该实验用两套分析装置测量一对光子。</p>
+<div class="l02-core">
+<p><strong>核心知识点：比特标签需要物理编码；单光子偏振可以提供两个可区分的编码态。</strong></p>
+</div>
+<p>我们已经用H、V两种偏振状态分别表示0和1。光子还可以处于哪些偏振状态？让这样的光子通过同一个H/V偏振分束器，两个出口会记录到怎样的结果？</p>
+<p>下面考察45度线偏振：在H轴向右、V轴向上的横截面图中，电场沿“／”方向来回振动，与H、V两个方向的夹角都是45度。</p>
+</section>
+<section id="从两路光强到逐次计数" class="level3">
+<h3 class="anchored" data-anchor-id="从两路光强到逐次计数">45度偏振的光子，会读出0还是1？</h3>
+<p>为了理解45度偏振的读出，先用熟悉的光束实验求两路强度，再考察逐个输入光子时怎样记录。</p>
+<p>这里让已知方向的线偏振光通过检偏器，用马吕斯定律计算透过光强。设入射光的电场幅度为 <span class="math inline">\(E_0\)</span>、光强为 <span class="math inline">\(I_{\rm in}\)</span>，理想偏振片的透光轴与入射偏振方向之间的夹角为 <span class="math inline">\(\theta\)</span>。偏振片透过沿其透光轴的电场分量，幅度为 <span class="math inline">\(E_t=E_0\cos\theta\)</span>。由于光强与电场幅度的模平方成正比，透过光强 <span class="math inline">\(I_t\)</span> 满足</p>
+<p><span id="eq-l02-malus"><span class="math display">\[
+I_t=I_{\rm in}\cos^2\theta.
+\tag{2.1}\]</span></span></p>
+<p>这就是<strong>马吕斯定律</strong>：入射偏振与透光轴平行时全部透过，垂直时透过为零。<a href="https://openstax.org/books/university-physics-volume-3/pages/1-7-polarization">马吕斯定律与电场投影</a></p>
+<p>将检偏器换为前面介绍的H/V偏振分束器，就能同时测量两路光强。令入射线偏振与H方向的夹角为 <span class="math inline">\(\theta\)</span>，它在H、V方向上的电场分量分别为 <span class="math inline">\(E_0\cos\theta\)</span>、<span class="math inline">\(E_0\sin\theta\)</span>，两路光强分别满足</p>
+<p><span class="math display">\[
+I_H=I_{\rm in}\cos^2\theta,\qquad
+I_V=I_{\rm in}\sin^2\theta.
+\]</span></p>
+<p>理想无损分束时，<span class="math inline">\(I_H+I_V=I_{\rm in}\)</span>。这里的 <span class="math inline">\(I_{\rm in}\)</span> 是<strong>到达分束器的光强</strong>。</p>
+<p>现在代入45度偏振，即 <span class="math inline">\(\theta=45^\circ\)</span>。电场的两个投影为</p>
+<p><span class="math display">\[
+\begin{aligned}
+E_H&amp;=E_0\cos45^\circ=\frac{E_0}{\sqrt2},\\
+E_V&amp;=E_0\sin45^\circ=\frac{E_0}{\sqrt2}.
+\end{aligned}
+\]</span></p>
+<p>相应地，<span class="math inline">\(I_H=I_V=I_{\rm in}/2\)</span>。普通光束在两个出口同时有光，两路平均光强各为入射的一半。</p>
+<div id="fig-l02-malus-apparatus" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-malus-apparatus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/malus-power-topview-gpt.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="图&nbsp;2.2: 经典光束的两路光功率测量装置俯视示意（GPT Image生成）。起偏器制备45度线偏振，PBS将H、V分量分到两个出口，两只光功率探头分别接收它们。虚线标示光路；功率计显示区域表示两个测量通道。"><img src="assets/lecture02/malus-power-topview-gpt.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-malus-apparatus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.2: 经典光束的两路光功率测量装置俯视示意（GPT Image生成）。起偏器制备45度线偏振，PBS将H、V分量分到两个出口，两只光功率探头分别接收它们。虚线标示光路；功率计显示区域表示两个测量通道。
+</figcaption>
+</figure>
+</div>
+<p>图中的起偏器就是用于制备线偏振光的偏振片，其透光轴与H方向成45度。光功率探头收集整束光；在两路光都被完整接收的理想条件下，功率比例也满足 <span class="math inline">\(P_H/P_{\rm in}=\cos^2\theta\)</span>、<span class="math inline">\(P_V/P_{\rm in}=\sin^2\theta\)</span>，其中 <span class="math inline">\(P_{\rm in}\)</span> 是到达PBS的光功率。入射光为45度线偏振时，两个探头各接收其中一半。</p>
+<p>现在每次送入一个45度偏振的光子。第一讲介绍过，单光子探测表现为逐个事件。在这里的理想条件下，一次试验只有一个探测器记录到光子；重复许多次这样的试验，两路计数比例各趋近于一半。有限次数不要求恰好各半。</p>
+<div id="fig-l02-counts" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-counts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/projection-counts-gpt.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="图&nbsp;2.3: 从经典分量到单光子计数（GPT Image生成的教学示意）。左图是45度线偏振电场在H、V方向上的投影，两个分量的幅度均为原来的1/√2，对应光强各半；右图用一组示意记录展示每次只有一个出口探测到光子。"><img src="assets/lecture02/projection-counts-gpt.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-counts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.3: 从经典分量到单光子计数（GPT Image生成的教学示意）。左图是45度线偏振电场在H、V方向上的投影，两个分量的幅度均为原来的1/√2，对应光强各半；右图用一组示意记录展示每次只有一个出口探测到光子。
+</figcaption>
+</figure>
+</div>
+<p><strong>为什么光强的比例能与光子计数的比例联系起来？</strong> 这里每个光子的频率相同，能量也相同。两个探测器完整接收各自出口的光时，接收到的总能量与光子数成正比。因此，两路平均光功率各占一半，就对应长期计数各占一半。对于每次只送入一个光子的试验，某个出口的计数占总次数的比例，会随着试验次数增多而趋近于光子在这个出口被探测到的概率。45度偏振对应的两个概率都是 <span class="math inline">\(1/2\)</span>。<a href="https://www.feynmanlectures.caltech.edu/III_11.html">光子偏振的两态描述</a></p>
+<div class="l02-core">
+<p><strong>核心知识点：45度偏振的光子，一次H/V测量仍只读出0或1，两种结果的概率各为一半。</strong></p>
+</div>
+<p>把“每次都输入45度偏振光子”的方法记为<strong>A</strong>。再考虑另一种输入方法<strong>B</strong>：每次以相同概率随机选择H偏振或V偏振，送入同一个H/V分束器。</p>
+<p>对B，我们已经知道每种输入会去哪里：H光子必然进入H口，V光子必然进入V口。两种输入被选中的概率各为一半，因此两个出口的长期计数也各占一半。这里结果的随机性来自输入的随机选择；每个光子进入装置前已经具有选定的H或V偏振。</p>
+<p>两种输入都使H、V出口的计数各占一半。那么，<strong>A中的光子会不会也像B一样，进入装置前就已经是H或V偏振，只是我们不知道是哪一种？</strong> 要判断这一点，可以保持A、B各自的准备方法，换一个测量方向。如果两种输入的统计出现差别，就说明它们不能被当作同一种状态。</p>
+</section>
+</section>
+<section id="sec-l02-preparations" class="level2">
+<h2 class="anchored" data-anchor-id="sec-l02-preparations">同样是各半，偏振状态是否相同？</h2>
+<section id="用同样的方法准备光子换一种测量" class="level3">
+<h3 class="anchored" data-anchor-id="用同样的方法准备光子换一种测量">把分析器转到45度，两种输入还一样吗？</h3>
+<p>如果A与B真是同一种状态，它们在换一种测量后也应给出相同的统计。我们仍按A、B各自的方法准备新的一批光子，保持准备入射偏振的元件设置不变，只改变后面测量装置所区分的两个偏振方向。在这里的装置模型中，将偏振分束器绕入射光的传播方向转动45度，并让探测器对准相应出口，就是“把分析器转到45度”。</p>
+<p>这与两块偏振片实验中固定起偏器、转动检偏器的思路相同：保持输入偏振不变，改变测量方向。这里使用偏振分束器，同时记录两个出口的结果。</p>
+<p>让新准备的光子进入这套装置，两个出口分别接收45度偏振和与它垂直的偏振，称为<strong>45度出口</strong>和<strong>垂直出口</strong>；“垂直”在这里指与45度方向垂直，对应图中的“＼”方向。</p>
+<p>A的偏振与45度出口的分析方向一致，理想情况下每个光子都从这个出口被探测到。对于B，H和V各自在两个分析方向上的投影大小相同，每一种输入都产生各半统计，混合后仍然各半。这个结论可以先由熟悉的偏振投影关系判断。</p>
+<div id="fig-l02-preparations" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-preparations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/preparation-comparison.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="图&nbsp;2.4: A、B两种输入在两组测量下的理论概率。A中每个光子都是45度偏振，B中每次随机选择H或V，两种选择等概率。各格使用按相应方法新准备的光子；换成45度及其垂直方向测量，统计差别就显现出来。"><img src="assets/lecture02/preparation-comparison.svg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-preparations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.4: A、B两种输入在两组测量下的理论概率。A中每个光子都是45度偏振，B中每次随机选择H或V，两种选择等概率。各格使用按相应方法新准备的光子；换成45度及其垂直方向测量，统计差别就显现出来。
+</figcaption>
+</figure>
+</div>
+<details class="l02-lab l02-comparison" open=""><summary>动手比较：转动分析器，两组计数怎样变？</summary><iframe data-external="1" src="assets/lecture02/comparison-lab.html" title="并排比较45度偏振态与H/V随机混合态" loading="lazy"></iframe></details>
+<div class="l02-core">
+<p><strong>核心知识点：H/V测量中的“各半”不能说明光子原本就是H或V。换到45度方向测量，A的光子全部从45度出口出来，B的光子只有一半从这个出口出来。</strong></p>
+</div>
+</section>
+<section id="l02-why-state" class="level3">
+<h3 class="anchored" data-anchor-id="l02-why-state">怎样在数学上区分这两种输入？</h3>
+<p>换到45度方向测量，A的光子全部从45度出口出来，B的光子只有一半从这个出口出来。因此，每次输入45度偏振，与每次随机输入H或V，是两种不同的情况。</p>
+<p>如果只用“H、V两个结果的概率各为一半”来描述输入，A、B就会被写成完全相同的一组数字。可是，同样改用45度方向测量，A、B需要给出不同的预测。<strong>这组数字遗漏了区分两种输入所需的信息。</strong></p>
+<p>我们需要把这种区别保留在状态的数学描述中，使它既能算出H/V测量中的各半，也能算出45度测量中的差别。<strong>量子态就是用来预测系统各种测量结果及其概率的状态描述。</strong> 下面从熟悉的偏振分解出发，建立这样的数学表示，再用它计算A、B的测量结果。</p>
+<div class="l02-core">
+<p><strong>核心知识点：只写“H、V各半”会把A、B混为一谈；状态的数学描述必须保留两者的区别，才能预测换方向后的不同结果。</strong></p>
+</div>
+</section>
+</section>
+<section id="sec-l02-state" class="level2">
+<h2 class="anchored" data-anchor-id="sec-l02-state">怎样用量子态计算读出概率？</h2>
+<p>先给H、V和45度偏振写出数学表示，再说明怎样针对一个测量方向计算概率。最后用这套规则算回A、B的差别，检查它是否解释了前面的比较。</p>
+<section id="l02-state-coordinates" class="level3">
+<h3 class="anchored" data-anchor-id="l02-state-coordinates">怎样把偏振状态写成数学表达式？</h3>
+<p>回顾45度偏振的电场分解：H、V两个分量同号，幅度都是总幅度的 <span class="math inline">\(1/\sqrt2\)</span>。与45度方向垂直的偏振则有大小相等、符号相反的两个分量。两者的分量平方相同，分量之间的相对关系却不同。数学描述需要保留这种关系。</p>
+<p>选H、V偏振态作为两个基本向量，记为 <span class="math inline">\(|H\rangle\)</span>、<span class="math inline">\(|V\rangle\)</span>，称为一组<strong>基底</strong>，其中每个向量称为<strong>基矢</strong>。我们约定用第一、第二个坐标分别表示H、V分量，于是</p>
+<p><span class="math display">\[
+|H\rangle=\begin{pmatrix}1\\0\end{pmatrix},\qquad
+|V\rangle=\begin{pmatrix}0\\1\end{pmatrix}.
+\]</span></p>
+<p>这种写法称为<strong>狄拉克记号</strong>。其中 <span class="math inline">\(|H\rangle\)</span>、<span class="math inline">\(|V\rangle\)</span> 这样的向量称为<strong>右矢（ket）</strong>；用于描述量子态的向量称为<strong>态矢量</strong>。选定基底后，可以用一列坐标表示右矢，如上面的两个列向量。</p>
+<p>能用一个态矢量完整描述的状态称为<strong>纯态</strong>，H、V和45度偏振都是例子。</p>
+<p>把偏振分量的相对大小与符号保留下来，45度偏振态与它的垂直偏振态分别记为 <span class="math inline">\(|+\rangle\)</span>、<span class="math inline">\(|-\rangle\)</span>，写为</p>
+<p><span class="math display">\[
+|+\rangle=\frac{|H\rangle+|V\rangle}{\sqrt2},\qquad
+|-\rangle=\frac{|H\rangle-|V\rangle}{\sqrt2}.
+\]</span></p>
+<p>这里用 <span class="math inline">\(+\)</span>、<span class="math inline">\(-\)</span> 标记两个态，分别对应H、V分量同号与异号的组合。后文把对应的45度出口、垂直出口简记为 <span class="math inline">\(+\)</span> 出口、<span class="math inline">\(-\)</span> 出口；这些符号是状态与结果的标签。</p>
+<p>展开式中的系数称为<strong>概率幅</strong>。这与第一讲的波函数有什么联系？以电子的位置为例，<strong>波函数 <span class="math inline">\(\psi(x)\)</span> 是纯态在位置基底中的表示</strong>：它给出随位置 <span class="math inline">\(x\)</span> 变化的概率幅。同样，本讲选定H、V基底后，用两个概率幅表示光子的偏振纯态。</p>
+<p>第一讲介绍的<strong>玻恩（Max Born）的波函数统计诠释</strong>，将概率幅与测量统计联系起来：归一化位置波函数的模平方 <span class="math inline">\(|\psi(x)|^2\)</span> 给出位置的概率密度，对一个区间积分就得到电子出现在该区间的概率。在本讲的两出口测量中，结果只有H、V两种，对应概率幅的模平方直接给出各结果的概率。这就是这里使用的<strong>玻恩规则（Born规则）</strong>。例如，45度态 <span class="math inline">\(|+\rangle\)</span> 的H、V概率幅都是 <span class="math inline">\(1/\sqrt2\)</span>，对应的概率都是 <span class="math inline">\(1/2\)</span>。</p>
+<p>对于与它垂直的偏振态 <span class="math inline">\(|-\rangle\)</span>，从展开式中读出H、V两个结果的概率幅，分别记为 <span class="math inline">\(a_H\)</span>、<span class="math inline">\(a_V\)</span>：</p>
+<p><span class="math display">\[
+a_H=\frac{1}{\sqrt2},\qquad a_V=-\frac{1}{\sqrt2}.
+\]</span></p>
+<p>取模平方，得到这两个结果的概率：</p>
+<p><span class="math display">\[
+\begin{aligned}
+P(H)&amp;=|a_H|^2=\left|\frac{1}{\sqrt2}\right|^2=\frac12,\\
+P(V)&amp;=|a_V|^2=\left|-\frac{1}{\sqrt2}\right|^2=\frac12.
+\end{aligned}
+\]</span></p>
+<p>V分量的负号在取模平方后消去。因此，<span class="math inline">\(|+\rangle\)</span> 与 <span class="math inline">\(|-\rangle\)</span> 的概率幅虽然不同，H/V测量的结果概率却相同。</p>
+<div id="fig-l02-coordinates" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-coordinates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/polarization-coordinates.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="图&nbsp;2.5: 四种线偏振态与H/V坐标的对应。每个小圆表示传播方向垂直截面中的偏振轴；上标T表示转置，将横写的两个坐标排成列向量。"><img src="assets/lecture02/polarization-coordinates.svg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-coordinates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.5: 四种线偏振态与H/V坐标的对应。每个小圆表示传播方向垂直截面中的偏振轴；上标T表示转置，将横写的两个坐标排成列向量。
+</figcaption>
+</figure>
+</div>
+<p>在本讲的理想条件下，每次送入一个光子，必定在H、V两个出口中的一个被探测到，而且一次只出现一个结果。因此，H、V两个结果的概率之和必须为1。</p>
+<p>要让态矢量中的系数直接作为概率幅，它们的模平方之和也必须为1。将所有系数乘上同一个适当的因子，使其满足这个条件，同时保持各分量的相对关系，称为<strong>归一化</strong>。一般的归一化偏振纯态写为</p>
+<p><span class="math display">\[
+|\psi\rangle=\alpha|H\rangle+\beta|V\rangle
+=\begin{pmatrix}\alpha\\\beta\end{pmatrix},\qquad
+|\alpha|^2+|\beta|^2=1.
+\]</span></p>
+<p>例如，45度偏振的两个分量同号且大小相等，可以先用系数 <span class="math inline">\((1,1)\)</span> 记下这个相对关系。但它们的模平方之和为2，需要同时除以 <span class="math inline">\(\sqrt2\)</span>，才能得到两个概率幅 <span class="math inline">\(1/\sqrt2\)</span>，对应概率各为 <span class="math inline">\(1/2\)</span>、总和为1。这就是前面展开式中 <span class="math inline">\(1/\sqrt2\)</span> 因子的作用。</p>
+<p>概率幅 <span class="math inline">\(\alpha\)</span>、<span class="math inline">\(\beta\)</span> 可以是复数；目前先用上述实数例子建立计算，后面通过光学元件的相位延迟解释复数系数的物理作用。随机H/V输入怎样描述，将在算回A、B的差别时处理。</p>
+<div class="l02-core">
+<p><strong>核心知识点：偏振纯态用H、V基底中的概率幅表示；概率幅既保留大小，也保留分量之间的相对关系。</strong></p>
+</div>
+</section>
+<section id="l02-born-rule" class="level3">
+<h3 class="anchored" data-anchor-id="l02-born-rule">怎样从量子态算出某个出口的概率？</h3>
+<p>前面选用的是<strong>H、V基底</strong> <span class="math inline">\(\{|H\rangle,|V\rangle\}\)</span>。同一个输入态在这组基底中写为</p>
+<p><span class="math display">\[
+|\psi\rangle=\alpha|H\rangle+\beta|V\rangle.
+\]</span></p>
+<p>两个展开系数 <span class="math inline">\(\alpha\)</span>、<span class="math inline">\(\beta\)</span> 分别是H、V结果的概率幅。因此，用前面的偏振分束器把H、V分量分到两个出口，再由探测器记录时，两个出口的概率分别为</p>
+<p><span class="math display">\[
+P(H)=|\alpha|^2,\qquad P(V)=|\beta|^2.
+\]</span></p>
+<p>现在保持输入光子的状态不变，把分析器转到45度方向。两个出口分别对应45度偏振态 <span class="math inline">\(|+\rangle\)</span> 和与它垂直的偏振态 <span class="math inline">\(|-\rangle\)</span>。为计算这两个出口的概率，改用<strong>45度及其垂直偏振基底</strong> <span class="math inline">\(\{|+\rangle,|-\rangle\}\)</span>，把同一个输入态写为</p>
+<p><span class="math display">\[
+|\psi\rangle=a_+|+\rangle+a_-|-\rangle.
+\]</span></p>
+<p>这里的两个展开系数 <span class="math inline">\(a_+\)</span>、<span class="math inline">\(a_-\)</span> 分别是两个新出口的概率幅，对应概率为</p>
+<p><span class="math display">\[
+P(+)=|a_+|^2,\qquad P(-)=|a_-|^2.
+\]</span></p>
+<p>因此，接下来要解决的是：已知旧基底中的系数 <span class="math inline">\(\alpha\)</span>、<span class="math inline">\(\beta\)</span>，怎样求出新基底中的系数 <span class="math inline">\(a_+\)</span>、<span class="math inline">\(a_-\)</span>？</p>
+<p>暂时取 <span class="math inline">\(\alpha\)</span>、<span class="math inline">\(\beta\)</span> 为实数，借助熟悉的向量投影来计算。<span class="math inline">\(|+\rangle\)</span>、<span class="math inline">\(|-\rangle\)</span> 的坐标向量长度都为1，且互相垂直，因此输入向量在这组基底中的展开系数，就是它沿两个方向的投影系数。</p>
+<p>先求45度出口的概率幅 <span class="math inline">\(a_+\)</span>。在H/V基底中，输入态的坐标为 <span class="math inline">\((\alpha,\beta)\)</span>，<span class="math inline">\(|+\rangle\)</span> 的坐标为 <span class="math inline">\((1/\sqrt2,1/\sqrt2)\)</span>。输入向量在这个单位向量上的投影系数由点积给出：</p>
+<p><span class="math display">\[
+a_+=\left(\frac{1}{\sqrt2},\frac{1}{\sqrt2}\right)\cdot(\alpha,\beta)
+=\frac{\alpha+\beta}{\sqrt2}.
+\]</span></p>
+<p>同样，用 <span class="math inline">\(|-\rangle\)</span> 的坐标求另一个出口的概率幅：</p>
+<p><span class="math display">\[
+a_-=\left(\frac{1}{\sqrt2},-\frac{1}{\sqrt2}\right)\cdot(\alpha,\beta)
+=\frac{\alpha-\beta}{\sqrt2}.
+\]</span></p>
+<p>点乘时，两个向量都用H/V坐标表示；算出的 <span class="math inline">\(a_+\)</span>、<span class="math inline">\(a_-\)</span> 则是同一个输入态在新基底 <span class="math inline">\(\{|+\rangle,|-\rangle\}\)</span> 中的展开系数。将它们分别取模平方，就得到新测量的两个出口概率。</p>
+<p>刚才计算45度出口的概率幅时，用到了两个向量：实际输入光子的态 <span class="math inline">\(|\psi\rangle\)</span>，以及该出口检验的偏振态 <span class="math inline">\(|+\rangle\)</span>。计算H出口时，第二个向量就换成 <span class="math inline">\(|H\rangle\)</span>。为了用一个公式处理不同出口，我们把所选出口标为 <span class="math inline">\(a\)</span>，它检验的偏振态统一记为 <span class="math inline">\(|a\rangle\)</span>。</p>
+<p>例如，选H出口时，<span class="math inline">\(|a\rangle=|H\rangle\)</span>；选45度出口时，<span class="math inline">\(|a\rangle=|+\rangle\)</span>。如果送入的光子恰好处于这个偏振态，理想装置就必然在所选出口记录到它。实际输入也可以是其他态；我们要算的正是它在这个出口被探测到的概率。</p>
+<p>现在允许概率幅为复数。在同一H/V基底中，将归一化的输入态和所选出口检验的态分别写为</p>
+<p><span class="math display">\[
+|\psi\rangle=\begin{pmatrix}\alpha\\\beta\end{pmatrix},\qquad
+|a\rangle=\begin{pmatrix}u\\v\end{pmatrix}.
+\]</span></p>
+<p><span class="math inline">\(\alpha\)</span>、<span class="math inline">\(\beta\)</span> 是输入态的H、V分量；<span class="math inline">\(u\)</span>、<span class="math inline">\(v\)</span> 是所选出口检验的态的H、V分量。<span class="math inline">\(a\)</span> 是该出口的标签。例如，选H出口时 <span class="math inline">\((u,v)=(1,0)\)</span>，选45度出口时 <span class="math inline">\((u,v)=(1/\sqrt2,1/\sqrt2)\)</span>。</p>
+<p>求输入态沿 <span class="math inline">\(|a\rangle\)</span> 的投影系数，需要把实数点积推广为复数向量的<strong>内积</strong>：先对 <span class="math inline">\(|a\rangle\)</span> 的各分量取复共轭，再把列向量转为行向量。取复共轭就是保持实部不变、将虚部变号，用星号 <span class="math inline">\(*\)</span> 表示。这两个步骤合称<strong>共轭转置</strong>，得到的行向量记为<strong>左矢（bra）</strong> <span class="math inline">\(\langle a|\)</span>：</p>
+<p><span class="math display">\[
+\langle a|=(u^*,v^*).
+\]</span></p>
+<p>再将它与输入态的列向量相乘，得到内积：</p>
+<p><span class="math display">\[
+\langle a|\psi\rangle
+=(u^*,v^*)\begin{pmatrix}\alpha\\\beta\end{pmatrix}
+=u^*\alpha+v^*\beta.
+\]</span></p>
+<p>实数的复共轭等于它自身，因此这个计算在实数情况下就回到前面的点积。采用共轭还保证了向量与自身的内积为 <span class="math inline">\(\langle\psi|\psi\rangle=|\alpha|^2+|\beta|^2\)</span>，即各分量的模平方之和，称为向量的<strong>范数平方</strong>；归一化态的这个值为1。</p>
+<p>H、V两态满足 <span class="math inline">\(\langle H|V\rangle=0\)</span>，称为<strong>正交</strong>。理想两出口分析器用一对归一化、正交的态 <span class="math inline">\(|a\rangle\)</span>、<span class="math inline">\(|a_\perp\rangle\)</span> 表示两个结果方向，这对态称为<strong>测量基</strong>；下标 <span class="math inline">\(\perp\)</span> 标记另一个正交态。前面H/V分析器的测量基是 <span class="math inline">\(\{|H\rangle,|V\rangle\}\)</span>；将分析器转到45度后，测量基就是 <span class="math inline">\(\{|+\rangle,|-\rangle\}\)</span>。</p>
+<p>现在用前面的<strong>玻恩规则</strong>将投影与测量联系起来：指定结果的概率幅是上述内积，结果概率是其模平方：</p>
+<p><span class="math display">\[
+P(a|\psi)=|\langle a|\psi\rangle|^2,\qquad
+P(a_\perp|\psi)=|\langle a_\perp|\psi\rangle|^2.
+\]</span></p>
+<p><span class="math inline">\(P(a|\psi)\)</span> 表示输入态为 <span class="math inline">\(|\psi\rangle\)</span> 时得到结果 <span class="math inline">\(a\)</span> 的概率。两个结果的概率相加为1。这是将态矢量与实验统计联系起来的物理规则；它对线偏振给出的预测与前面的偏振投影规律一致。</p>
+<div class="l02-core">
+<p><strong>核心知识点：确定输入态与测量基，求内积得到概率幅，再取模平方得到该出口的概率。</strong></p>
+</div>
+</section>
+<section id="l02-coherence-mixture" class="level3">
+<h3 class="anchored" data-anchor-id="l02-coherence-mixture">用这套规则解释45度偏振与随机H/V的差别</h3>
+<p>现在用刚建立的计算规则，重新比较前面的两种输入：</p>
+<ul>
+<li><strong>A：每次送入的光子都处于45度偏振态</strong> <span class="math inline">\(|+\rangle\)</span>。</li>
+<li><strong>B：每次随机选择H偏振或V偏振的光子送入</strong>，两种选择的概率各为 <span class="math inline">\(1/2\)</span>。</li>
+</ul>
+<p>两种输入在H/V测量中都给出各半的统计；换到45度及其垂直方向测量，结果却不同。下面分别计算两种输入在这组测量下的概率，解释差别从何而来。</p>
+<div id="fig-l02-measurement-45" class="quarto-float quarto-figure quarto-figure-center anchored" alt="偏振测量设置前后对照：A每次输入45度偏振，B随机输入H或V且各半；左侧测量H/V，右侧测量45度及与其垂直的偏振。右下图的负出口标签通过引线指向灰色反斜向偏振轴。">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-measurement-45-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/pbs-measurement-45-comparison-gpt-v2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="图&nbsp;2.6: 偏振测量设置的前后对照（GPT Image生成的功能示意）。上方标明A、B两种输入，以及PBS与两个探测器的连接关系；下方圆图表示垂直于入射光轴的截面中的测量偏振方向。右图蓝色“／”对应45度偏振（+），灰色“＼”对应与它垂直的偏振（−），虚线H、V轴作为固定参考。两次测量保持A、B各自的输入方式不变。"><img src="assets/lecture02/pbs-measurement-45-comparison-gpt-v2.png" class="img-fluid figure-img" alt="偏振测量设置前后对照：A每次输入45度偏振，B随机输入H或V且各半；左侧测量H/V，右侧测量45度及与其垂直的偏振。右下图的负出口标签通过引线指向灰色反斜向偏振轴。"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-measurement-45-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.6: 偏振测量设置的前后对照（GPT Image生成的功能示意）。上方标明A、B两种输入，以及PBS与两个探测器的连接关系；下方圆图表示垂直于入射光轴的截面中的测量偏振方向。右图蓝色“／”对应45度偏振（+），灰色“＼”对应与它垂直的偏振（−），虚线H、V轴作为固定参考。两次测量保持A、B各自的输入方式不变。
+</figcaption>
+</figure>
+</div>
+<p>对于A，每个输入态都是 <span class="math inline">\(|+\rangle=(|H\rangle+|V\rangle)/\sqrt2\)</span>。将这个展开式代入出口概率幅的计算，得到</p>
+<p><span class="math display">\[
+\begin{aligned}
+\langle+|+\rangle
+&amp;=\frac{1}{\sqrt2}\langle+|H\rangle
++\frac{1}{\sqrt2}\langle+|V\rangle=1,\\
+\langle-|+\rangle
+&amp;=\frac{1}{\sqrt2}\langle-|H\rangle
++\frac{1}{\sqrt2}\langle-|V\rangle=0.
+\end{aligned}
+\]</span></p>
+<p>以第一行为例，<span class="math inline">\(\langle+|H\rangle\)</span> 是H态在 <span class="math inline">\(+\)</span> 出口的概率幅，再乘以输入态中H分量的系数 <span class="math inline">\(1/\sqrt2\)</span>，就得到H项对该出口概率幅的贡献；V项同理。两项都是 <span class="math inline">\(1/2\)</span>，相加得到 <span class="math inline">\(+\)</span> 出口的总概率幅1。对于 <span class="math inline">\(-\)</span> 出口，两项分别为 <span class="math inline">\(1/2\)</span> 和 <span class="math inline">\(-1/2\)</span>，相加得到0。最后对各出口的总概率幅取模平方，得到A的两个出口概率：</p>
+<p><span class="math display">\[
+\begin{aligned}
+P_A(+)&amp;=|\langle+|+\rangle|^2=1,\\
+P_A(-)&amp;=|\langle-|+\rangle|^2=0.
+\end{aligned}
+\]</span></p>
+<p>对于B，每次输入的是H态或V态中的一种。H输入、V输入在这组测量下都给出两个出口各半的概率。再按两种输入各被选中 <span class="math inline">\(1/2\)</span> 的概率加权，得到B的两个出口概率：</p>
+<p><span class="math display">\[
+\begin{aligned}
+P_B(+)&amp;=\frac12P(+|H)+\frac12P(+|V)=\frac12,\\
+P_B(-)&amp;=\frac12P(-|H)+\frac12P(-|V)=\frac12.
+\end{aligned}
+\]</span></p>
+<p>这就算回了前面的差别。A的H、V分量具有确定的相对关系，可以在同一个结果的概率幅中相加，称为相对于H/V基底的<strong>相干叠加</strong>。B则是不同试验中随机选择H或V，称为<strong>随机混合</strong>。</p>
+<p>如果不保留每次究竟选了H还是V的信息，这批光子的偏振用<strong>混合态</strong>描述。它不能用A的单个态矢量替代：两者在45度及其垂直方向分析中的预测不同。第六讲将引入密度矩阵，统一描述纯态和混合态；这里的B已可用两种输入各自的概率及其权重计算。</p>
+<div class="l02-core">
+<p><strong>核心知识点：相干叠加中，同一结果的概率幅先相加；随机混合中，不同输入态的结果概率按权重相加。45度偏振与等概率随机H/V输入因此给出不同预测。</strong></p>
+</div>
+</section>
+<section id="l02-basis-versus-operation" class="level3">
+<h3 class="anchored" data-anchor-id="l02-basis-versus-operation">换一种写法，等于改变光子的状态吗？</h3>
+<p>刚才用H/V基和45度及其垂直方向组成的基计算。同一个H态也可以写成</p>
+<p><span class="math display">\[
+|H\rangle=\frac{|+\rangle+|-\rangle}{\sqrt2}.
+\]</span></p>
+<p>右边出现了两个分量，光子的状态是否因此改变？把 <span class="math inline">\(|+\rangle\)</span>、<span class="math inline">\(|-\rangle\)</span> 的定义代入：</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{|+\rangle+|-\rangle}{\sqrt2}
+&amp;=\frac{1}{\sqrt2}\left(
+\frac{|H\rangle+|V\rangle}{\sqrt2}
++\frac{|H\rangle-|V\rangle}{\sqrt2}
+\right)\\
+&amp;=\frac12\left(2|H\rangle+|V\rangle-|V\rangle\right)\\
+&amp;=|H\rangle.
+\end{aligned}
+\]</span></p>
+<p>V分量一正一负相消，最后仍是原来的H态。改变的是描述所用的坐标，光子没有经历任何新的操作。</p>
+<p>一般输入 <span class="math inline">\(|\psi\rangle=\alpha|H\rangle+\beta|V\rangle\)</span> 在45度及其垂直方向基中的坐标为</p>
+<p><span class="math display">\[
+c_+=\frac{\alpha+\beta}{\sqrt2},\qquad
+c_-=\frac{\alpha-\beta}{\sqrt2}.
+\]</span></p>
+<p>如果实际转动分析器，这两个坐标可用于预测新测量的结果；如果只在纸上换一种展开方式，原装置的结果不会改变。还有第三种操作：分析器不动，让入射光子的偏振发生变化。这时改变的是输入态，也需要重新计算读出概率。</p>
+<details class="l02-lab"><summary>对照操作：改变坐标写法与改变偏振方向</summary><p>左栏只转动数学参考基，右栏实际改变光子的偏振方向；实验室H分析器始终不动。灰色参考轴的转动不代表实际分析器转动。</p><iframe data-external="1" src="assets/lecture02/basis-lab.html" title="对照操作：改变坐标写法与改变偏振方向" loading="lazy"></iframe></details>
+<div class="l02-core">
+<p><strong>核心知识点：换基底只改变同一个态的坐标写法；实际改变分析器或输入态，才改变实验中所测的问题或被测对象。</strong></p>
+</div>
+</section>
+</section>
+<section id="sec-l02-calculation" class="level2">
+<h2 class="anchored" data-anchor-id="sec-l02-calculation">光子经过元件后，下一步该用哪个状态？</h2>
+<p>前面每次都给定一个输入态，预测一次偏振测量的结果。现在考虑光依次经过多个元件的情况。先回顾经典光学中的三块偏振片实验，再把熟悉的光强计算改写为单光子的通过概率计算，看看每一步应该使用哪个偏振态。</p>
+<section id="l02-three-polarizers" class="level3">
+<h3 class="anchored" data-anchor-id="l02-three-polarizers">从马吕斯定律回顾三块偏振片实验</h3>
+<p>让光依次通过水平、竖直两块理想偏振片。记第一块水平片之后的光强为 <span class="math inline">\(I_H\)</span>，此时光是H偏振，与第二块的透光轴垂直。由马吕斯定律，末端光强为 <span class="math inline">\(I_H\cos^2 90^\circ=0\)</span>。</p>
+<p>在两者之间插入一块45度偏振片。通过中间片后，光强降为 <span class="math inline">\(I_H\cos^2 45^\circ=I_H/2\)</span>，偏振方向也变为45度。它与最后一块竖直片的透光轴夹角为45度，因此末端光强为</p>
+<p><span class="math display">\[
+I_{\mathrm{out}}=I_H\cos^2 45^\circ\cos^2 45^\circ=\frac{I_H}{4}.
+\]</span></p>
+<p>经典光学已经完整解释了重新透光的现象。连续使用马吕斯定律时，每一步都要使用上一块偏振片透过光的偏振方向。现在逐个送入光子，用前面建立的量子态与概率规则描述同一排列：<strong>一个光子通过中间片后，应该用哪个态计算它通过最后一片的概率？</strong></p>
+<div id="fig-l02-polarizers" class="quarto-float quarto-figure quarto-figure-center anchored" alt="上下两排对照：水平片与竖直片之间没有其他元件时，无透过光；在中间插入45度偏振片后，光依次呈H、45度和V偏振，末端重新有透过光。">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-polarizers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/polarizers-comparison-gpt.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="图&nbsp;2.7: 两种偏振片排列的对照（GPT Image生成的教学示意）。圆内短线表示透光轴，光路箭头表示传播方向。上排的H偏振光被竖直片阻挡；下排插入45度片后，透过中间片的光变为45度偏振，随后能够部分通过竖直片，出射光为V偏振。光路粗细仅作示意。"><img src="assets/lecture02/polarizers-comparison-gpt.png" class="img-fluid figure-img" alt="上下两排对照：水平片与竖直片之间没有其他元件时，无透过光；在中间插入45度偏振片后，光依次呈H、45度和V偏振，末端重新有透过光。"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-polarizers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.7: 两种偏振片排列的对照（GPT Image生成的教学示意）。圆内短线表示透光轴，光路箭头表示传播方向。上排的H偏振光被竖直片阻挡；下排插入45度片后，透过中间片的光变为45度偏振，随后能够部分通过竖直片，出射光为V偏振。光路粗细仅作示意。
+</figcaption>
+</figure>
+</div>
+<details class="l02-video"><summary>实验短片 · 插入偏振片后，光重新出现（48秒）</summary>
+<p>观察插入并转动中间偏振片时，屏幕上的光斑如何变化。视频以线偏振光作为输入，末端另有分析片；装置的竖直／水平方向与正文可以整体互换，关键是相对夹角。</p>
+<video controls="" playsinline="" preload="metadata" poster="assets/lecture02/polarizers-demo.jpg" aria-label="偏振片实验短片"><source src="assets/lecture02/polarizers-demo.mp4" type="video/mp4"></video>
+<p class="source-note">Shaoul Ezekiel，MIT OpenCourseWare，<a href="https://ocw.mit.edu/courses/res-6-006-video-demonstrations-in-lasers-and-optics-spring-2008/resources/polarization-rotation-using-polarizers/">Polarization Rotation Using Polarizers</a>。教学节选，原声保留；上方中文为观察提示，非逐字字幕；<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>。这是经典光学演示，并非单光子实验。</p>
+</details>
+<div class="l02-core">
+<p><strong>核心知识点：经典计算逐步追踪光强和透过光的偏振方向；单光子计算则逐步追踪通过概率和通过后的偏振态。计算下一步时，要使用上一步透过后的状态。</strong></p>
+</div>
+</section>
+<section id="l02-polarizer-output" class="level3">
+<h3 class="anchored" data-anchor-id="l02-polarizer-output">透过后的偏振状态怎样决定下一步结果？</h3>
+<p>在理想偏振片的单光子描述中，通过概率由输入态在透光轴所对应偏振态上的投影计算；若光子通过，透过后的偏振态就是这条轴所对应的态。对于H偏振光子和45度偏振片，前面的玻恩规则给出 <span class="math inline">\(P(+|H)=|\langle+|H\rangle|^2=1/2\)</span>；若它通过，后续状态就是 <span class="math inline">\(|+\rangle\)</span>。</p>
+<p>再让留下来的光子通过竖直偏振片，应该计算 <span class="math inline">\(P(V|+)=1/2\)</span>。最初的H态已经不能描述此时的输入。以第一块水平片<strong>之后</strong>的光子数为起点，两步总透过概率为</p>
+<p><span class="math display">\[
+P(\text{依次透过}|H)=P(+|H)P(V|+)=\frac12\times\frac12=\frac14.
+\]</span></p>
+<p>第二个因子的分母是已经通过中间片的光子数。例如最初有1000个H偏振光子，期望500个通过中间片、250个通过末片。这个四分之一的通过概率与经典计算的光强比例一致；连续计算能够得到这一结果，关键在于第二步使用了透过中间片后的 <span class="math inline">\(|+\rangle\)</span> 态。</p>
+<p>更一般地，中间片的透光轴与H方向成 <span class="math inline">\(\theta\)</span> 角，透过态为</p>
+<p><span class="math display">\[
+|\theta\rangle=\cos\theta|H\rangle+\sin\theta|V\rangle.
+\]</span></p>
+<p>于是</p>
+<p><span class="math display">\[
+\begin{aligned}
+P(\text{依次透过}|H)&amp;=P(\theta|H)P(V|\theta)\\
+&amp;=\cos^2\theta\sin^2\theta\\
+&amp;=\frac14\sin^2(2\theta).
+\end{aligned}
+\]</span></p>
+<div id="fig-l02-transmission" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-transmission-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/transmission.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="图&nbsp;2.8: 理论透过概率。分母是第一块水平片之后的光子数；横轴是中间片的角度。"><img src="assets/lecture02/transmission.svg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-transmission-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.8: 理论透过概率。分母是第一块水平片之后的光子数；横轴是中间片的角度。
+</figcaption>
+</figure>
+</div>
+<p>中间片在45度时总透过率为四分之一，在0度或90度时为零。若把它移到竖直片之后，H光子先被竖直片完全阻挡，后面的元件便没有光子可继续处理。操作顺序改变了光子遇到每块偏振片时的状态，因而改变最终结果。</p>
+<p>这里统一以第一块H片之后为起点。若从第一块片之前的理想非偏振光算起，还需乘上第一块片的一半透过率，三片总比例就是八分之一。</p>
+<details class="l02-lab"><summary>操作模型：转动中间片，再交换顺序</summary><p>先预测，再查看各步透过后的状态、条件透过率与期望计数。统计起点在第一块水平片之后。</p><iframe data-external="1" src="assets/lecture02/polarizer-lab.html" title="操作模型：转动中间片，再交换顺序" loading="lazy"></iframe></details>
+<div class="l02-core">
+<p><strong>核心知识点：每一步都用该步实际的输入态计算；沿指定透过路径的总概率，是各步条件概率的乘积。</strong></p>
+</div>
+</section>
+<section id="l02-state-update" class="level3">
+<h3 class="anchored" data-anchor-id="l02-state-update">怎样把“选出结果，再更新状态”写成一般规则？</h3>
+<p>三块偏振片已经展示：知道“通过的概率”还不够，还必须知道“通过后的状态”。把这一点推广到能将正交态分到不同路径的理想分析器，就得到本讲采用的状态更新规则。</p>
+<p>设输入为 <span class="math inline">\(|\psi\rangle\)</span>，分析器的某个结果对应归一化态 <span class="math inline">\(|a\rangle\)</span>。Born规则给出该结果的概率</p>
+<p><span class="math display">\[
+p_a=P(a|\psi)=|\langle a|\psi\rangle|^2.
+\]</span></p>
+<p>如果选择这个非零概率的结果分支，并保留光子供下一步操作，留下光子的状态就是 <span class="math inline">\(|a\rangle\)</span>。<strong>以已经选到这个结果为条件描述的状态，称为条件态。</strong> 这种以正交结果态作分辨、选中后留下对应态的理想模型，称为<strong>投影测量</strong>。</p>
+<div id="fig-l02-update" class="quarto-float quarto-figure quarto-figure-center anchored" alt="光子进入第一台理想分析器后，保留的a分支沿蓝色光路进入下一台分析器，其输入态为a态；另一分支向下被挡住。第二台分析器的两个出口连接末端探测器。">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-update-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/conditional-update-gpt.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="图&nbsp;2.9: 保留分支后的连续测量（GPT Image生成的功能示意）。输入态为 |\psi\rangle，以概率 p_a 进入保留的a分支；该分支上的光子以 |a\rangle 态进入下一台分析器，另一分支被挡住。两台分析器之间不放置吸收式探测器，探测记录在末端形成。"><img src="assets/lecture02/conditional-update-gpt.png" class="img-fluid figure-img" alt="光子进入第一台理想分析器后，保留的a分支沿蓝色光路进入下一台分析器，其输入态为a态；另一分支向下被挡住。第二台分析器的两个出口连接末端探测器。"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-update-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.9: 保留分支后的连续测量（GPT Image生成的功能示意）。输入态为 <span class="math inline">\(|\psi\rangle\)</span>，以概率 <span class="math inline">\(p_a\)</span> 进入保留的a分支；该分支上的光子以 <span class="math inline">\(|a\rangle\)</span> 态进入下一台分析器，另一分支被挡住。两台分析器之间不放置吸收式探测器，探测记录在末端形成。
+</figcaption>
+</figure>
+</div>
+<p>没有额外作用时，立即对留下的光子重复同一种分析，得到同一结果的概率是 <span class="math inline">\(|\langle a|a\rangle|^2=1\)</span>。换一种测量基时，再从当前态 <span class="math inline">\(|a\rangle\)</span> 出发求内积。这里用于连续操作的是保留下来的分支；末端探测器吸收光子并形成记录，已被吸收的光子不会再进入下一步。</p>
+<p>前面的路径已经经过选择，所以使用条件概率相乘。若让不同路径保持相干并重新合并，则需要像第一讲的干涉那样，把通向同一结果的概率幅相加。</p>
+<div class="l02-core">
+<p><strong>核心知识点：Born规则回答“这个结果多常出现”；理想投影测量的更新规则回答“选中这个结果后，留下的系统处于什么态”。</strong></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="选读：用投影算符表示状态更新">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>选读：用投影算符表示状态更新
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>在这里，<strong>算符</strong>是作用于态矢量的线性变换，在选定基底中可以写成矩阵。将列向量 <span class="math inline">\(|a\rangle\)</span> 与行向量 <span class="math inline">\(\langle a|\)</span> 相乘，得到一个矩阵，称为它们的外积。由此外积定义投影算符 <span class="math inline">\(\hat\Pi_a=|a\rangle\langle a|\)</span>，便有 <span class="math inline">\(\hat\Pi_a|\psi\rangle=|a\rangle\langle a|\psi\rangle\)</span>：它保留输入态沿 <span class="math inline">\(|a\rangle\)</span> 的分量。</p>
+<p>这个向量的范数平方是结果概率 <span class="math inline">\(p_a\)</span>。当 <span class="math inline">\(p_a&gt;0\)</span> 时，把它除以 <span class="math inline">\(\sqrt{p_a}\)</span> 就得到归一化条件态。若 <span class="math inline">\(|a_\perp\rangle\)</span> 是与 <span class="math inline">\(|a\rangle\)</span> 正交的另一个归一化结果态，完整测量满足 <span class="math inline">\(\hat\Pi_a+\hat\Pi_{a_\perp}=\hat I\)</span>；单位算符 <span class="math inline">\(\hat I\)</span> 对应单位矩阵，作用后保持输入向量不变。</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-l02-phase" class="level2">
+<h2 class="anchored" data-anchor-id="sec-l02-phase">不靠筛选，怎样改变光子的偏振态？</h2>
+<p>偏振片的筛选已经是一种量子态调控：留下的光子具有所需的偏振态，但一部分光子被吸收或丢弃。<strong>能否保留光子，同时把给定的输入态变成所需的输出态？</strong> 下面考虑用理想无损光学元件来完成这样的调控。</p>
+<p>先选一个已经认识的例子：把45度偏振的 <span class="math inline">\(|+\rangle\)</span> 态变成 <span class="math inline">\(|-\rangle\)</span> 态。我们先比较这两个态的表达式，找出元件需要改变什么，再用测量检验转换是否实现。</p>
+<section id="l02-phase-device" class="level3">
+<h3 class="anchored" data-anchor-id="l02-phase-device">从两个态的表达式，怎样找到调控方法？</h3>
+<p>输入态为 <span class="math inline">\(|+\rangle=(|H\rangle+|V\rangle)/\sqrt2\)</span>，目标态为 <span class="math inline">\(|-\rangle=(|H\rangle-|V\rangle)/\sqrt2\)</span>。比较可见，两分量的大小相同，区别在于相对符号：只需让V分量相对于H分量变号，就能完成这个转换。在线偏振电场中，这对应把一个分量的振动相对另一个延迟半个周期。</p>
+<div id="fig-l02-relative-phase-waveforms" class="quarto-float quarto-figure quarto-figure-center anchored" alt="左右对照的电场时间波形：左侧H和V分量同时达到波峰，合成45度线偏振，对应加态；右侧H达到波峰时V达到波谷，振幅不变，合成与原方向垂直的线偏振，对应减态。">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-relative-phase-waveforms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/relative-phase-waveforms-gpt.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="图&nbsp;2.10: 相对延迟半个周期如何改变偏振方向（GPT Image生成的教学示意）。曲线表示同一束光在固定位置的H、V经典电场分量随时间的变化；上下分开画出是为了比较，两条曲线不代表两条空间光路。左侧两分量等幅同相，右侧等幅反相；每列的虚线标出同一时刻。下方分别给出合成电场的偏振方向及对应的偏振态。"><img src="assets/lecture02/relative-phase-waveforms-gpt.png" class="img-fluid figure-img" alt="左右对照的电场时间波形：左侧H和V分量同时达到波峰，合成45度线偏振，对应加态；右侧H达到波峰时V达到波谷，振幅不变，合成与原方向垂直的线偏振，对应减态。"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-relative-phase-waveforms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.10: 相对延迟半个周期如何改变偏振方向（GPT Image生成的教学示意）。曲线表示同一束光在固定位置的H、V经典电场分量随时间的变化；上下分开画出是为了比较，两条曲线不代表两条空间光路。左侧两分量等幅同相，右侧等幅反相；每列的虚线标出同一时刻。下方分别给出合成电场的偏振方向及对应的偏振态。
+</figcaption>
+</figure>
+</div>
+<p>可以让两个偏振分量通过同一块双折射元件。双折射是指光沿两个特定偏振方向传播时具有不同的折射率；把这两个方向称为元件的主轴，并将它们分别对准H和V。两分量通过相同厚度，却积累不同的传播相位。两者的相位差就是<strong>相对相位</strong>。</p>
+<p>设元件无额外损耗，给H、V分量分别增加相位 <span class="math inline">\(\delta_H\)</span>、<span class="math inline">\(\delta_V\)</span>。相位增加 <span class="math inline">\(\delta\)</span> 时，复概率幅乘上 <span class="math inline">\(e^{i\delta}\)</span>；这个因子的模为1，保留原来的幅度大小。45度输入因此变为</p>
+<p><span class="math display">\[
+\frac{e^{i\delta_H}|H\rangle+e^{i\delta_V}|V\rangle}{\sqrt2}
+=e^{i\delta_H}\frac{|H\rangle+e^{i\phi}|V\rangle}{\sqrt2},\qquad
+\phi=\delta_V-\delta_H.
+\]</span></p>
+<p>这里 <span class="math inline">\(\phi\)</span> 记录V分量相对于H分量增加的相位。若元件厚度为 <span class="math inline">\(L\)</span>，H、V方向的折射率为 <span class="math inline">\(n_H,n_V\)</span>，真空波长为 <span class="math inline">\(\lambda_0\)</span>，采用传播相位为正的约定，则</p>
+<p><span class="math display">\[
+\phi=\frac{2\pi(n_V-n_H)L}{\lambda_0}.
+\]</span></p>
+<p>因此，改变两分量的光程差就能连续调节相对相位。<span class="math inline">\(\phi=0\)</span> 时两分量同相；<span class="math inline">\(\phi=\pi\)</span> 时 <span class="math inline">\(e^{i\phi}=-1\)</span>，就得到与45度垂直的偏振所需的相对负号。</p>
+<p>前面写出的输出态中，还有一个乘在整个态上的共同因子 <span class="math inline">\(e^{i\delta_H}\)</span>，称为<strong>整体相位</strong>。它对任一结果的概率满足</p>
+<p><span class="math display">\[
+|\langle a|e^{i\delta_H}\psi\rangle|^2
+=|e^{i\delta_H}|^2|\langle a|\psi\rangle|^2
+=|\langle a|\psi\rangle|^2.
+\]</span></p>
+<div id="l02-global-phase">
+<p>计算读出概率时可以省略这个共同因子。可是，前面改变V分量的一个负号就改变了偏振，为什么这里的共同因子却不影响测量？比较下面两种写法，就能看出区别：</p>
+<p><span class="math display">\[
+-|+\rangle=\frac{-|H\rangle-|V\rangle}{\sqrt2},\qquad
+|-\rangle=\frac{|H\rangle-|V\rangle}{\sqrt2}.
+\]</span></p>
+<p>左边同时改变两个分量的符号，是给整个 <span class="math inline">\(|+\rangle\)</span> 乘上相位因子 <span class="math inline">\(-1\)</span>。H、V的相对关系仍然同号，所以45度及其垂直方向测量仍必然得到 <span class="math inline">\(+\)</span> 结果。右边只改变V分量相对于H的符号，45度及其垂直方向测量必然得到 <span class="math inline">\(-\)</span> 结果。</p>
+<p>因此，相差整体相位的两个态矢量表示同一个物理纯态；相对相位的变化则可能对应不同状态。这也说明态矢量的每一个写法，不一定代表一种新的可区分状态。</p>
+</div>
+<p>省略整体相位后，延迟元件的输出态可写为</p>
+<p><span class="math display">\[
+|\psi_\phi\rangle=\frac{|H\rangle+e^{i\phi}|V\rangle}{\sqrt2}.
+\]</span></p>
+<p>当 <span class="math inline">\(\phi=\pi\)</span> 时，输出态就是 <span class="math inline">\(|-\rangle\)</span>，实现了开头提出的转换。理想无损元件通过改变两分量的相位关系完成调控，无需吸收或丢弃一部分光子。</p>
+<p>这也显示了复数概率幅的物理作用：它记录两个偏振分量经历不同光程后形成的相位关系。虽然偏振态已经改变，两个分量的模平方仍为 <span class="math inline">\(1/2\)</span>，所以H/V测量的概率保持各半。仅测H/V无法检验这次转换，需要换一组测量。</p>
+<div class="l02-core">
+<p><strong>核心知识点：沿H、V主轴的无损延迟元件，能通过光程差改变两分量的相对相位，同时保持H/V测量概率不变。</strong></p>
+</div>
+</section>
+<section id="l02-phase-readout" class="level3">
+<h3 class="anchored" data-anchor-id="l02-phase-readout">怎样用测量检验偏振态的转换？</h3>
+<p>前面已经知道，在 <span class="math inline">\(\{|+\rangle,|-\rangle\}\)</span> 测量基下，<span class="math inline">\(|+\rangle\)</span> 态必定给出 <span class="math inline">\(+\)</span> 结果，<span class="math inline">\(|-\rangle\)</span> 态必定给出 <span class="math inline">\(-\)</span> 结果。因此，把输出光子送入这组测量装置，就能检验转换是否实现。对一般相位 <span class="math inline">\(\phi\)</span>，仍用已经建立的内积规则：</p>
+<p><span class="math display">\[
+\begin{aligned}
+a_+&amp;=\langle+|\psi_\phi\rangle=\frac{1+e^{i\phi}}2,\\
+a_-&amp;=\langle-|\psi_\phi\rangle=\frac{1-e^{i\phi}}2.
+\end{aligned}
+\]</span></p>
+<p>对<span class="math inline">\(+\)</span> 出口，H、V分量分别贡献概率幅 <span class="math inline">\(1/2\)</span> 与 <span class="math inline">\(e^{i\phi}/2\)</span>。相对相位改变了这两个贡献相加后的大小，因而</p>
+<p><span class="math display">\[
+P(+|\psi_\phi)=\frac{1+\cos\phi}{2},\qquad
+P(-|\psi_\phi)=\frac{1-\cos\phi}{2}.
+\]</span></p>
+<p>相位0时 <span class="math inline">\(+\)</span> 出口概率为1；相位 <span class="math inline">\(\pi\)</span> 时 <span class="math inline">\(-\)</span> 出口概率为1。这给出了 <span class="math inline">\(|+\rangle\)</span> 态变为 <span class="math inline">\(|-\rangle\)</span> 态的测量检验。<strong>同一次无损调控保持了H/V概率各半，却把这组测量的确定结果从 <span class="math inline">\(+\)</span> 变为 <span class="math inline">\(-\)</span>：状态是否改变，不能只由一组测量的概率判断。</strong></p>
+<div id="fig-l02-phase" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-phase-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/phase-probability.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="图&nbsp;2.11: 相对相位与理论概率。H/V各半不变，45度及其垂直方向概率随相位互补变化。每一种分析使用按相同方法新准备的光子。"><img src="assets/lecture02/phase-probability.svg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-phase-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.11: 相对相位与理论概率。H/V各半不变，45度及其垂直方向概率随相位互补变化。每一种分析使用按相同方法新准备的光子。
+</figcaption>
+</figure>
+</div>
+<p>相位还可以取中间值。<span class="math inline">\(\phi=\pm\pi/2\)</span> 对应两种相反旋向的圆偏振，经典对应电场的端点在横截面上随时间沿圆周运动；其他一般取值对应椭圆偏振。这些状态在H/V中的概率仍各半，45度及其垂直方向的概率则随相位连续变化。</p>
+<details class="l02-lab l02-slide-lab"><summary>动手调节相位：同时观察概率幅与测量概率</summary><p class="lab-instruction">拖动相位滑块，或切换随机H/V输入作比较。<a href="assets/lecture02/phase-lab.html" target="_blank" rel="noopener">单独打开</a>可放大查看。</p><iframe data-external="1" src="assets/lecture02/phase-lab.html" title="相位调控：16比9单页交互" loading="lazy" allow="fullscreen" allowfullscreen=""></iframe></details>
+<details class="l02-video"><summary>实验选看 · 四分之一波片怎样改变偏振？（81秒）</summary>
+<p>波片两主轴方向的分量获得相对四分之一周期的延迟，即相位差π/2。片段先展示椭圆偏振，再把入射线偏振与波片主轴的夹角调至约45度，观察转动末端分析片时光斑强度近似不变。</p>
+<video controls="" playsinline="" preload="metadata" poster="assets/lecture02/waveplate-demo.jpg" aria-label="四分之一波片实验短片"><source src="assets/lecture02/waveplate-demo.mp4" type="video/mp4"></video>
+<p>这里转动波片会改变入射光在其主轴上的分量，不等同于这里的可调延迟模型在固定H/V分量下连续扫描相位。已知线偏振光通过近似无损波片，支持对这里偏振态的判断；单凭转动线偏振分析片时强度不变，不能普遍区分圆偏振与非偏振光。</p>
+<p class="source-note">Shaoul Ezekiel，MIT OpenCourseWare，<a href="https://ocw.mit.edu/courses/res-6-006-video-demonstrations-in-lasers-and-optics-spring-2008/resources/quarter-wave-plate/">Quarter-wave Plate</a>。教学节选，原声保留；上方中文为观察提示，非逐字字幕；<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>。</p>
+</details>
+<p>对于H/V等概率随机混合，每次输入的是H或V中的一个态。前面主轴固定沿H、V的延迟元件只给该输入态乘上整体相位，两种输入的偏振及其权重都不变，所以45度及其垂直方向统计始终各半。这个对比再次表明，相干叠加中的相对相位可以影响读出，随机混合则按各类输入的概率加权。</p>
+<p>前面比较45度偏振与随机H/V混合时，换到 <span class="math inline">\(\{|+\rangle,|-\rangle\}\)</span> 测量基，就能看出两者的区别。但还有一个更容易混淆的例子：当纯态 <span class="math inline">\(|\psi_\phi\rangle\)</span> 的相对相位为 <span class="math inline">\(\phi=\pi/2\)</span> 时，它在H/V测量和 <span class="math inline">\(\{|+\rangle,|-\rangle\}\)</span> 测量中都给出各半的概率，与随机H/V混合完全相同。只看这两组统计，我们还能区分它们吗？</p>
+<p>这时需要再换一组测量。这个纯态对应前面介绍的圆偏振，可以用圆偏振测量基将它与随机H/V混合区分开；选做题将给出这组基并计算。两组测量的统计相同，仍不足以断定两个状态相同；选择能够显示其差别的测量，是识别状态的关键。</p>
+<div class="l02-core">
+<p><strong>核心知识点：相对相位改变同一结果的概率幅相加，因此能改变读出概率；H/V两路各半并未记录这个相位信息。</strong></p>
+</div>
+</section>
+</section>
+<section id="sec-l02-qubit" class="level2">
+<h2 class="anchored" data-anchor-id="sec-l02-qubit">从光子偏振中，我们认出了怎样的量子比特？</h2>
+<p>回到开头的0和1。我们已经看到，单光子偏振可以用H、V两个可区分的态编码，也可以处于它们的相干叠加态；测量结果还取决于概率幅的相对相位。把H、V重新标记为 <span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span>，任意偏振纯态就写为</p>
+<p><span class="math display">\[
+|\psi\rangle=\alpha|0\rangle+\beta|1\rangle,\qquad
+|\alpha|^2+|\beta|^2=1.
+\]</span></p>
+<p>所有这些纯态的态矢量都可以用两个基矢 <span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span> 的线性组合表示。这两个基矢张成一个<strong>二维量子态空间</strong>，在量子力学中也称为<strong>二维希尔伯特空间</strong>（Hilbert space）。这里，它就是前面一直使用的、带有内积的二维复向量空间：两个复数给出态矢量的坐标，内积用于计算测量结果的概率幅。以这样的态空间承载信息的基本单元，就是一个量子比特。在这里，我们固定光子的传播模式，只使用偏振这一可变化的物理属性，称为偏振自由度。</p>
+<p>两项都非零时，除了大小还需要相对相位；整体相位不区分纯态。量子比特也可以处于混合态，H、V等概率随机混合就是一个例子。</p>
+<p>一次选定基下的测量给出一个结果。要确定这批光子的状态，需要反复用同样的方法准备光子，并在适当的不同测量基下积累统计。态矢量描述可预测的结果概率，一次读出的0或1只是其中的一条记录。</p>
+<div class="l02-core">
+<p><strong>核心知识点：量子比特由二维量子态空间描述，编码基矢的物理含义取决于载体。</strong></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="选读：Bloch球怎样汇总这些纯态？">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>选读：Bloch球怎样汇总这些纯态？
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>本讲的二维纯态也可用球面坐标表示。忽略整体相位后，任意归一化纯态可参数化为</p>
+<p><span class="math display">\[
+\begin{gathered}
+|\psi\rangle=\cos\frac{\vartheta}{2}|0\rangle
++e^{i\varphi}\sin\frac{\vartheta}{2}|1\rangle,\\
+0\leq\vartheta\leq\pi,\quad 0\leq\varphi&lt;2\pi.
+\end{gathered}
+\]</span></p>
+<p>其中 <span class="math inline">\(\vartheta\)</span> 是从球的北极起算的极角，<span class="math inline">\(\varphi\)</span> 是方位角。对应的单位球面坐标为</p>
+<p><span class="math display">\[
+\boldsymbol r=(\sin\vartheta\cos\varphi,\,
+\sin\vartheta\sin\varphi,\,\cos\vartheta).
+\]</span></p>
+<p>这里的球面是态空间的表示，不是粒子的空间轨迹。两正交态位于对跖点；等权叠加位于赤道，相对相位决定经度。两极处只有一个分量非零，方位角不再区分状态。</p>
+<p>对偏振采用 <span class="math inline">\(|0\rangle=|H\rangle\)</span>、<span class="math inline">\(|1\rangle=|V\rangle\)</span> 的约定时，两态在球上相对，尽管两条实际线偏振方向相差90度。这再次体现态空间角度与装置空间角度的区别。</p>
+<p>可继续使用 <a href="https://phet.colorado.edu/en/simulations/quantum-measurement">PhET：Quantum Measurement</a> 中的Bloch球页面，比较球面方向与测量统计。它是需联网打开的选读资源；本讲的核心计算不依赖该模拟。</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-l02-platforms" class="level2">
+<h2 class="anchored" data-anchor-id="sec-l02-platforms">同一个量子比特，不同的物理载体</h2>
+<p>光子偏振已经提供了两种可区分的编码态，以及它们的叠加、操作和读出。<strong>如果另一个物理系统也能提供这样的两态空间，能否沿用刚才的描述与计算？</strong> 我们先看自旋，再看从原子和电路的多个能级中选出两个态的做法。</p>
+<section id="l02-spin-encoding" class="level3">
+<h3 class="anchored" data-anchor-id="l02-spin-encoding">除了偏振，粒子的自旋怎样提供两个编码态？</h3>
+<p>我们熟悉的轨道角动量来自空间运动，自旋则是粒子的内禀角动量，不能直接解释成小球的机械自转。以电子的自旋自由度为例，沿选定 <span class="math inline">\(z\)</span> 方向测量分量，结果为 <span class="math inline">\(+\hbar/2\)</span> 或 <span class="math inline">\(-\hbar/2\)</span>，其中 <span class="math inline">\(\hbar=h/(2\pi)\)</span>。使这次测量确定得到正、负结果的两个态，分别记为 <span class="math inline">\(|z+\rangle\)</span>、<span class="math inline">\(|z-\rangle\)</span>。它们提供另一组两态编码。</p>
+<p>内部性质怎样被读出？Stern–Gerlach原子束装置利用非均匀磁场，使不同磁矩分量产生不同偏转，把内部性质关联到输出路径。对银原子，现代解释中主要磁矩来自未配对电子的自旋；忽略核自旋及相关耦合等细节后，可以采用理想自旋二分之一模型。<a href="https://www.feynmanlectures.caltech.edu/III_06.html">自旋二分之一的实验与理论背景</a></p>
+<div id="fig-l02-sg-apparatus" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-sg-apparatus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/sg-apparatus-gpt.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="图&nbsp;2.12: Stern–Gerlach装置示意。银原子束经过准直，在非均匀磁场中分成两束，分别到达记录板上的A、B位置。细箭头表示磁场方向。（GPT Image生成）"><img src="assets/lecture02/sg-apparatus-gpt.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-sg-apparatus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.12: Stern–Gerlach装置示意。银原子束经过准直，在非均匀磁场中分成两束，分别到达记录板上的A、B位置。细箭头表示磁场方向。（GPT Image生成）
+</figcaption>
+</figure>
+</div>
+<p>图中的记录板用于观察原子束的分裂。后面讨论连续测量时，我们会让其中一束原子继续进入下一台装置，考察改变测量方向后会得到什么结果。</p>
+<div class="l02-core">
+<p><strong>核心知识点：自旋是内禀角动量；自旋二分之一系统沿指定方向的分量测量只有两个结果。</strong></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="选读：历史记录、人物与梯度力">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>选读：历史记录、人物与梯度力
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>1922年，奥托·施特恩（Otto Stern）与瓦尔特·格拉赫（Walther Gerlach）通过银原子束实验检验空间量子化：角动量在磁场方向上的投影，是否只能取离散值？实验还依赖精密机械师阿道夫·施密特（Adolf Schmidt）的装置制作。<a href="https://www.uni-frankfurt.de/en/newsroom/uni-report/ausgabe-1-2026/1922-die-geburt-der-quantenphysik-in-frankfurt">法兰克福大学实验史</a></p>
+<div id="fig-l02-team" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-team-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/stern-gerlach-team.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="图&nbsp;2.13: 从左至右：奥托·施特恩（Otto Stern）、精密机械师阿道夫·施密特（Adolf Schmidt）、瓦尔特·格拉赫（Walther Gerlach）。三人参与了1922年的实验工作。"><img src="assets/lecture02/stern-gerlach-team.jpg" class="img-fluid figure-img" width="640"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-team-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.13: 从左至右：奥托·施特恩（Otto Stern）、精密机械师阿道夫·施密特（Adolf Schmidt）、瓦尔特·格拉赫（Walther Gerlach）。三人参与了1922年的实验工作。
+</figcaption>
+</figure>
+</div>
+<div class="source-note">
+<p>照片来源：法兰克福大学；原署名Archive Institut für Kernphysik/Physikalischer Verein。</p>
+</div>
+<p>若采用连续磁矩取向的简单经典模型，偏转应连续分布；实际银原子束的记录出现了分裂结构。历史记录呈现的是有限宽度的沉积痕迹，教科书的两条细线则是对两个输出分量的理想化表示。</p>
+<div id="fig-l02-record" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-record-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/sg-record.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="图&nbsp;2.14: 格拉赫1922年致玻尔的明信片中的银原子束实验记录：左侧无磁场，右侧有磁场。右侧沉积痕迹出现分裂。"><img src="assets/lecture02/sg-record.jpg" class="img-fluid figure-img" width="660"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-record-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.14: 格拉赫1922年致玻尔的明信片中的银原子束实验记录：左侧无磁场，右侧有磁场。右侧沉积痕迹出现分裂。
+</figcaption>
+</figure>
+</div>
+<div class="source-note">
+<p>历史记录转载于Friedrich与Herschbach的<a href="https://physicstoday.aip.org/features/stern-and-gerlach-how-a-bad-cigar-helped-reorient-atomic-physics">Physics Today文章</a>，2003年，图4；原署名AIP Emilio Segrè Visual Archives。</p>
+</div>
+<p>在束流附近磁场方向近似固定、取为z轴，且磁矩分量 <span class="math inline">\(\mu_z\)</span> 在通过时近似不变的模型中，<span class="math inline">\(U=-\mu_zB_z\)</span>，因此 <span class="math inline">\(F_z\simeq\mu_z\partial B_z/\partial z\)</span>。场梯度将不同磁矩分量映射为不同偏转。均匀磁场仍可产生转矩，但没有这里用于分束的梯度力。</p>
+</div>
+</div>
+</div>
+</section>
+<section id="l02-spin-basis" class="level3">
+<h3 class="anchored" data-anchor-id="l02-spin-basis">沿z方向结果确定，改沿x方向测量会怎样？</h3>
+<p>若粒子处于 <span class="math inline">\(|z+\rangle\)</span>，沿z方向测量必然得到正结果。改沿x方向测量时，两种结果的概率是多少？偏振的经验提示我们先找到x方向测量的两个结果态，再计算它们与输入态的内积。现在缺少的正是这两个态在z基底中的表达式。</p>
+<p>自旋分量这样的可测物理量称为<strong>可观测量</strong>。量子力学用<strong>算符</strong>表示可观测量；选定基底后，这里可以把算符写成作用于态矢量的矩阵。矩阵与测量的联系由本征值方程给出：</p>
+<p><span class="math display">\[
+\hat S_n|n\pm\rangle=\pm\frac{\hbar}{2}|n\pm\rangle.
+\]</span></p>
+<p>这里 <span class="math inline">\(n\)</span> 表示所选的测量方向。满足方程的态称为 <span class="math inline">\(\hat S_n\)</span> 的<strong>本征态</strong>，右侧乘上的数称为<strong>本征值</strong>：处于该态时，沿n方向测量自旋分量，结果就确定为相应本征值。因此，找出x方向的结果态，就是求 <span class="math inline">\(\hat S_x\)</span> 的两个本征态。</p>
+<p>取 <span class="math inline">\(|z+\rangle=(1,0)^{\mathsf T}\)</span>、<span class="math inline">\(|z-\rangle=(0,1)^{\mathsf T}\)</span> 为基底，其中上标 <span class="math inline">\(\mathsf T\)</span> 表示转置成列向量。自旋二分之一模型给出</p>
+<p><span class="math display">\[
+\hat S_z=\frac{\hbar}{2}\begin{pmatrix}1&amp;0\\0&amp;-1\end{pmatrix},\qquad
+\hat S_x=\frac{\hbar}{2}\begin{pmatrix}0&amp;1\\1&amp;0\end{pmatrix}.
+\]</span></p>
+<p>这两个矩阵是自旋模型的物理输入，规定z、x测量在同一个二维态空间中的对应关系。下面通过求解本征态，把它们转成可计算的测量预测。</p>
+<p>对 <span class="math inline">\(\hat S_z\)</span>，代入两个基矢就得到 <span class="math inline">\(\hat S_z|z\pm\rangle=\pm(\hbar/2)|z\pm\rangle\)</span>，与它们各自确定的z测量结果一致。</p>
+<p>对 <span class="math inline">\(\hat S_x\)</span>，令候选态的坐标为 <span class="math inline">\((u,v)^{\mathsf T}\)</span>。正本征值方程要求 <span class="math inline">\((v,u)^{\mathsf T}=(u,v)^{\mathsf T}\)</span>，所以 <span class="math inline">\(v=u\)</span>；归一化后，可选 <span class="math inline">\(u=v=1/\sqrt2\)</span>。负本征值方程则给出 <span class="math inline">\(v=-u\)</span>。于是</p>
+<p><span class="math display">\[
+|x+\rangle=\frac{|z+\rangle+|z-\rangle}{\sqrt2},\qquad
+|x-\rangle=\frac{|z+\rangle-|z-\rangle}{\sqrt2}.
+\]</span></p>
+<p>现在可以回答本节开头的问题：</p>
+<p><span class="math display">\[
+P(x+|z+)=|\langle x+|z+\rangle|^2=\frac12,\qquad
+P(x-|z+)=\frac12.
+\]</span></p>
+<p>同一个输入态在z方向有确定结果，在x方向却给出两个等概率结果。这与偏振中“保持输入态、换分析方向”的计算方法相同；两个方向的具体态矢量关系则来自自旋模型。</p>
+<div class="l02-core">
+<p><strong>核心知识点：可观测量用算符表示，本征态对应确定结果，本征值对应测量值。</strong></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="选读：自旋二分之一中的“二分之一”">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>选读：自旋二分之一中的“二分之一”
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>角动量量子数记为 <span class="math inline">\(s\)</span>。自旋二分之一意味着 <span class="math inline">\(s=1/2\)</span>，其分量的磁量子数为 <span class="math inline">\(m=\pm1/2\)</span>，对应 <span class="math inline">\(S_z=m\hbar\)</span>。同一模型还有 <span class="math inline">\(\hat S_y=(\hbar/2)\begin{pmatrix}0&amp;-i\\i&amp;0\end{pmatrix}\)</span>。这些矩阵满足 <span class="math inline">\([\hat S_x,\hat S_y]=i\hbar\hat S_z\)</span>，其中 <span class="math inline">\([A,B]=AB-BA\)</span>，以及 <span class="math inline">\(\hat S_x^2+\hat S_y^2+\hat S_z^2=(3/4)\hbar^2\hat I\)</span>。所以分量测量值的大小 <span class="math inline">\(\hbar/2\)</span>，不等于由总角动量平方定义的大小 <span class="math inline">\(\sqrt3\hbar/2\)</span>。本讲后续计算只需正文中的z、x矩阵；完整的角动量理论由量子力学课程展开。</p>
+</div>
+</div>
+</div>
+</section>
+<section id="l02-spin-sequence" class="level3">
+<h3 class="anchored" data-anchor-id="l02-spin-sequence">中途选出x正支，再测z方向会怎样？</h3>
+<p>已经知道 <span class="math inline">\(|z+\rangle\)</span> 在x测量中两路各半。如果中途只留下x正支，再沿z方向测量，它还会保持原来的确定结果吗？</p>
+<p>与偏振片的连续选择一样，我们采用理想分析器把两个结果送往不同路径，挡住一支、保留另一支，最后才探测。假定传输中没有额外自旋演化；可取束流沿y方向传播，x、z为横向分析轴。先沿z分析、选出正支，便制备了 <span class="math inline">\(|z+\rangle\)</span>。</p>
+<p>直接再沿z分析，正结果概率为1。若先沿x分析并只保留正支，当前态就变为 <span class="math inline">\(|x+\rangle\)</span>；用它预测最后的z分析，两种结果各半。因此指定序列的概率为</p>
+<p><span class="math display">\[
+P(x+,z+|z+)=P(x+|z+)P(z+|x+)=\frac14.
+\]</span></p>
+<p>末台的“一半”以保留下来的x正样本为分母；指定路径的“四分之一”以最初的z正样本为分母。</p>
+<div id="fig-l02-sequences" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-sequences-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/sg-sequences-gpt.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="图&nbsp;2.15: 三种自旋测量设置的对照。SG x、SG z分别表示沿x、z方向的理想自旋分析器。第三行保留x正支后，末端两路各占初始样本的25%，也就是保留样本的一半。（GPT Image生成）"><img src="assets/lecture02/sg-sequences-gpt.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-sequences-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.15: 三种自旋测量设置的对照。SG x、SG z分别表示沿x、z方向的理想自旋分析器。第三行保留x正支后，末端两路各占初始样本的25%，也就是保留样本的一半。（GPT Image生成）
+</figcaption>
+</figure>
+</div>
+<details class="l02-lab l02-slide-lab"><summary>动手比较：三种自旋测量设置</summary><p class="lab-instruction">逐行预测并查看结果，切换末端比例的分母作比较。<a href="assets/lecture02/spin-lab.html" target="_blank" rel="noopener">单独打开</a>可放大查看。</p><iframe data-external="1" src="assets/lecture02/spin-lab.html" title="三种自旋测量设置：16比9交互对照" loading="lazy" allow="fullscreen" allowfullscreen=""></iframe></details>
+<p>在真实空间，x、z分析轴相差90度，H偏振与45度偏振只相差45度；上述重叠概率却都是一半。正交态的判据始终是内积为零，例如 <span class="math inline">\(\langle z+|z-\rangle=0\)</span>，而 <span class="math inline">\(\langle z+|x+\rangle\ne0\)</span>。不要把真实空间的两条垂直轴误当成两个正交态。</p>
+<div class="l02-core">
+<p><strong>核心知识点：不同载体共享条件概率与状态更新规则，但态空间关系不能直接换成相同的装置角度。</strong></p>
+</div>
+</section>
+<section id="l02-atomic-qubit" class="level3">
+<h3 class="anchored" data-anchor-id="l02-atomic-qubit">原子有许多能级，怎样选出一个量子比特？</h3>
+<p>偏振与自旋二分之一提供了天然的两态例子。原子或离子一般有许多内部能级，能否也用来承载一个量子比特？</p>
+<p>做法是选取两个适合准备、控制和区分的正交内部态，例如由电子与核的角动量耦合产生的两个超精细态，标为 <span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span>。这两个态及其线性组合构成整个状态空间中的一个<strong>二维子空间</strong>，其中纯态仍写作 <span class="math inline">\(\alpha|0\rangle+\beta|1\rangle\)</span>。<a href="https://www.nist.gov/publications/experimental-primer-trapped-ion-quantum-computer">NIST：离子量子比特的内部态编码</a></p>
+<p>其余能级仍然存在。在应保持编码的操作中进入其他状态，称为<strong>泄漏</strong>。因此，有效两能级描述的适用条件包括：在所关心的操作与精度范围内，其他态的影响能够受到控制。</p>
+<p>这时使用“有效自旋二分之一”语言，表示这个子空间的二维数学结构；并不意味着两个能级的真实总角动量一定是二分之一。</p>
+<div class="l02-core">
+<p><strong>核心知识点：系统可以有许多能级，量子比特编码只使用其中选定的两个正交态。</strong></p>
+</div>
+</section>
+<section id="l02-circuit-qubit" class="level3">
+<h3 class="anchored" data-anchor-id="l02-circuit-qubit">电路也能提供两个可单独操控的能级吗？</h3>
+<p>既然可以从多个能级中选择两个态，载体就不必局限于天然原子。我们也可以设计一个具有离散量子能级的超导电路，让它成为“人工原子”。</p>
+<p>电路中的量子能级已有实验依据。<strong>2025年诺贝尔物理学奖</strong>授予约翰·克拉克（John Clarke）、米歇尔·德沃雷（Michel H. Devoret）和约翰·马丁尼斯（John M. Martinis），表彰他们发现了电路中的宏观量子隧穿和能量量子化。这些实验表明，电路的集体自由度也能表现出量子行为，为后来利用超导电路构造量子比特奠定了基础。<a href="https://www.nobelprize.org/prizes/physics/2025/press-release/">诺贝尔奖官方介绍</a></p>
+<p>怎样把电路的量子能级用于编码和控制？下面以<strong>transmon</strong>为例，看看电路结构怎样帮助我们选出并操控两个能级。</p>
+<p>先从熟悉的<strong>LC电路</strong>出发：电容 <span class="math inline">\(C\)</span> 的电场能与电感 <span class="math inline">\(L\)</span> 的磁场能相互交换，形成简谐振荡。量子化后，它对应一个能级等间隔的简谐振子。问题是，驱动最低两级跃迁的频率，也恰好对应更高相邻能级的跃迁；单靠选择频率，很难把操作限制在最低两级。</p>
+<p>解决办法是给电路引入非线性。<strong>约瑟夫森结</strong>由两个超导体隔着极薄的绝缘层构成，在这里起到非线性电感的作用。用它替代LC电路中的线性电感，并与较大的电容并联，就得到transmon的基本电路。约瑟夫森结使能级间隔不再相等，这称为<strong>非简谐性</strong>；较大的并联电容则帮助降低电荷扰动的影响。<a href="https://arxiv.org/abs/cond-mat/0703002">Koch等：transmon的原始设计</a></p>
+<div id="fig-l02-levels" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l02-levels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture02/transmon-from-lc.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="图&nbsp;2.16: 从LC振子到transmon的电路与能级示意。上方对比基本电路，下方对比能级结构；f_{01}、f_{12} 分别表示最低两级和其上相邻两级之间的跃迁频率。右侧蓝色的 |0\rangle、|1\rangle 是选定的编码态，灰色的更高能级仍然存在。"><img src="assets/lecture02/transmon-from-lc.svg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l02-levels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2.16: 从LC振子到transmon的电路与能级示意。上方对比基本电路，下方对比能级结构；<span class="math inline">\(f_{01}\)</span>、<span class="math inline">\(f_{12}\)</span> 分别表示最低两级和其上相邻两级之间的跃迁频率。右侧蓝色的 <span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span> 是选定的编码态，灰色的更高能级仍然存在。
+</figcaption>
+</figure>
+</div>
+<p>现在选择最低两级作为 <span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span>。由于它们之间的跃迁频率 <span class="math inline">\(f_{01}\)</span> 与通向更高能级的 <span class="math inline">\(f_{12}\)</span> 不同，就可以用频率接近 <span class="math inline">\(f_{01}\)</span> 的微波脉冲，主要驱动这两个编码态之间的跃迁。这就是这里的设计思路：<strong>先把等间隔能级变成非等间隔，再利用频率差选择性地控制最低两级。</strong> transmon的非简谐性较弱，微波脉冲仍需适当设计，以减少向更高能级的泄漏。<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8335598/">超导量子比特的电路与微波控制</a></p>
+<p>我们已经有三种不同来源的两态结构：偏振自由度、实际自旋，以及多能级体系中选出的有效子空间。它们所用的器件与物理量不同，概率幅和测量规则则可以共用。</p>
+<div class="l02-core">
+<p><strong>核心知识点：电路的量子能级也能承载量子比特，选择性操作依赖适当的能级结构。</strong></p>
+</div>
+</section>
+</section>
+<section id="sec-l02-outlook" class="level2">
+<h2 class="anchored" data-anchor-id="sec-l02-outlook">回到开场：怎样使用一个量子比特？</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>载体</th>
+<th>两个编码态来自哪里？</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>单光子偏振</td>
+<td>固定传播模式中的H、V偏振</td>
+</tr>
+<tr class="even">
+<td>电子自旋</td>
+<td>沿选定方向的两个自旋分量本征态</td>
+</tr>
+<tr class="odd">
+<td>原子或离子</td>
+<td>选定的两个内部态</td>
+</tr>
+<tr class="even">
+<td>超导电路</td>
+<td>设计出的能级结构中选定的两个态</td>
+</tr>
+</tbody>
+</table>
+<p>相同频率的H、V光子可以具有相同能量，所以跨越所有这些例子的共同点是二维态空间，而不是必须有两个不同能量值。对许多物质实现，“有效两能级系统”仍是很有用的描述。</p>
+<div class="l02-core">
+<p><strong>核心知识点：量子比特的共同基础是可操控的二维量子子空间，两个编码态不必具有不同能量。</strong></p>
+</div>
+<p>开头由Shor算法提出的问题是：量子计算用什么承载信息，又怎样操作和读取它？我们从一个光子的偏振出发，比较45度偏振态与H/V随机混合态，发现只知道H/V测量的概率还不足以描述状态。为预测不同测量的结果，我们引入量子态的数学表示，随后用它计算连续选择和相位变化后的读出概率，最后把同一套描述用于其他载体。<strong>制备决定起始态，操作改变状态，量子态与测量方式共同决定读出概率。</strong> 这就是贯穿这些实验与计算的主线。</p>
+<p><strong>怎样写入？</strong> 通过物理操作制备状态，结果选择也是一种制备方法。<strong>怎样描述？</strong> 纯态需要归一化的概率幅及其相对相位，随机混合还需要更一般的描述。<strong>怎样预测操作后的读出？</strong> 先确定后续态，再选定测量基，用Born规则计算结果概率。</p>
+<p>量子算法进一步把多个量子比特的状态、相干操作和测量组织起来，以取得解决问题所需的信息。后面的算法专题将解释Shor算法如何完成这件事；本讲建立了理解其中基本物理单元的语言。</p>
+<p>紧接着要解决的是控制问题。筛选可以制备状态，但会舍弃部分样本。下一讲将研究：能否施加可控作用，让状态在两个基矢之间发生所需的相干演化？这将把量子态的描述推进到二能级系统的控制。</p>
+</section>
+<section id="sec-l02-exercises" class="level2">
+<h2 class="anchored" data-anchor-id="sec-l02-exercises">核心自查与练习</h2>
+<div class="l02-core">
+<p><strong>核心知识点：用预测、条件概率和测量设计检查理解，而不只识别公式。</strong></p>
+</div>
+<p>先自查三个问题：为什么只知道H/V测量的概率各半，还不能确定量子态？三块偏振片计算的每一步输入态是什么？“二维量子态空间”与“只有两个不同能量值”是否等价？前两问分别由A、B两种输入的比较与状态更新回答；第三问可用同频率的H/V偏振作为反例。</p>
+<p>以下均采用本讲理想模型。比较不同测量基时，每次按同样的方法准备新样本。第1—4题为核心练习，第5—6题用于迁移与选做。</p>
+<p><strong>1. 区分量子态。</strong> A每次输入45度偏振的光子；B每次以相同概率随机输入H或V偏振的光子。分别计算H结果与45度结果的概率，说明哪种分析能够区分二者的统计。</p>
+<p><strong>2. 角度、顺序与分母。</strong> 第一块水平片之后有1000个H光子，随后为30度偏振片和竖直片。求各步透过的期望数及状态。交换后两片，最终结果怎样？</p>
+<p><strong>3. 相位延迟。</strong> 输入为45度偏振，元件给H、V分别增加相位 <span class="math inline">\(\delta_H=\pi/3\)</span>、<span class="math inline">\(\delta_V=5\pi/6\)</span>。写出输出态，计算H口与45度口的概率。如果两个相位同时增加 <span class="math inline">\(\pi/4\)</span>，概率怎样变化？</p>
+<p><strong>4. 复概率幅。</strong> 给定 <span class="math inline">\(|\psi\rangle=(\sqrt3/2)|H\rangle+(i/2)|V\rangle\)</span>。检验归一化，分别计算H/V测量和45度及其垂直方向测量的结果概率。</p>
+<p><strong>5. 迁移到自旋。</strong> 初始自旋态为 <span class="math inline">\(|z+\rangle\)</span>，沿x分析只保留负支，再沿z分析。写出中间条件态，求末台两个结果的条件概率及“x负、z负”路径概率。</p>
+<p><strong>6. 设计另一组测量（选做）。</strong> B每次以相同概率随机输入H或V偏振的光子；C每次的输入态都是 <span class="math inline">\((|H\rangle+i|V\rangle)/\sqrt2\)</span>。它们在H/V测量和45度及其垂直方向测量中都各半。验证 <span class="math inline">\(|c_\pm\rangle=(|H\rangle\pm i|V\rangle)/\sqrt2\)</span> 正交归一，计算B、C得到 <span class="math inline">\(c_+\)</span> 的概率。</p>
+<div class="callout callout-style-default callout-note callout-titled" title="答案与推理核对">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">注记</span>答案与推理核对
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>A、B的H概率都是 <span class="math inline">\(1/2\)</span>。A的45度概率为1；B为 <span class="math inline">\((1/2)(1/2)+(1/2)(1/2)=1/2\)</span>，因此45度及其垂直方向分析能够在重复试验的统计中区分二者。</li>
+<li>中间透过概率 <span class="math inline">\(\cos^230^\circ=3/4\)</span>，期望750个，状态为30度线偏振。末台条件透过概率 <span class="math inline">\(\sin^230^\circ=1/4\)</span>，期望187.5个，状态为V。非整数表示期望值。交换后先遇到竖直片，透过为零。</li>
+<li>输出为 <span class="math inline">\(e^{i\pi/3}(|H\rangle+i|V\rangle)/\sqrt2\)</span>，相对相位 <span class="math inline">\(\pi/2\)</span>。H概率与45度概率都是 <span class="math inline">\(1/2\)</span>。共同增加相位只改变整体相位，所有概率不变。</li>
+<li>范数平方为 <span class="math inline">\(3/4+1/4=1\)</span>。H/V概率为 <span class="math inline">\(3/4,1/4\)</span>；45度及其垂直方向概率幅为 <span class="math inline">\((\sqrt3\pm i)/(2\sqrt2)\)</span>，概率都是 <span class="math inline">\(1/2\)</span>。</li>
+<li>中间保留态为 <span class="math inline">\(|x-\rangle=(|z+\rangle-|z-\rangle)/\sqrt2\)</span>。末台两个条件概率各半，指定路径相对于初始样本的概率为 <span class="math inline">\(1/4\)</span>。</li>
+<li>两态范数平方为1，<span class="math inline">\(\langle c_+|c_-\rangle=[1+(-i)(-i)]/2=0\)</span>。B给出 <span class="math inline">\(P(c_+)=1/2\)</span>，C给出 <span class="math inline">\(P(c_+)=1\)</span>。固定相对相位的纯态可以与随机混合在更多测量中显现区别。</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="来源与进一步阅读" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="来源与进一步阅读">来源与进一步阅读</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/quant-ph/9508027">Shor：Polynomial-Time Algorithms for Prime Factorization and Discrete Logarithms on a Quantum Computer</a>：开场所提整数分解算法的原始论文；算法细节留待后续专题。</li>
+<li><a href="https://www.feynmanlectures.caltech.edu/III_11.html">费曼物理学讲义第三卷第11章</a>：光子偏振与两态概率幅。</li>
+<li><a href="https://www.feynmanlectures.caltech.edu/III_06.html">费曼物理学讲义第三卷第6章</a>：自旋二分之一与分析器。</li>
+<li><a href="https://www.feynmanlectures.caltech.edu/II_35.html">费曼物理学讲义第二卷第35章</a>：磁矩、磁场与Stern–Gerlach装置。</li>
+<li><a href="https://physicstoday.aip.org/features/stern-and-gerlach-how-a-bad-cigar-helped-reorient-atomic-physics">Friedrich与Herschbach，Physics Today</a>：SG历史与实验记录。</li>
+<li><a href="https://www.nist.gov/publications/experimental-primer-trapped-ion-quantum-computer">NIST：Experimental Primer on the Trapped Ion Quantum Computer</a>：离子内部态编码。</li>
+<li><a href="https://arxiv.org/abs/1904.06560">Krantz等，A Quantum Engineer’s Guide to Superconducting Qubits</a>：超导电路、非谐性与控制。</li>
+<li><a href="./supplement-interference.html">补充讲义A：单光子干涉</a>：在相干路径中先相加概率幅，再计算概率。</li>
+</ul>
+<script src="assets/lecture02/notes-media.js"></script>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./lecture01.html" class="pagination-link" aria-label="第一讲　绪论：从量子力学到量子信息科学">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">第一讲　绪论：从量子力学到量子信息科学</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      
+  </div>
+</nav>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

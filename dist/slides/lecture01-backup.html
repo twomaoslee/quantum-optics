@@ -1654,139 +1654,43 @@ margin-right: 0; }
 <h2>薛定谔的猫：把微观事件放大，会怎样？</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="grid wide"><div><img role="img" aria-label="薛定谔猫思想实验漫画" alt="薛定谔猫思想实验漫画" class src="assets/from-ppt/s12-image20.jpeg"></div><div><p class="label">薛定谔 · 1935</p><p class="vertical-flow">微观事件<br>↓<br>探测装置留下记录<br>↓<br>猫的宏观状态</p></div></div><p class="cat-question">量子态的叠加，与一次看到的确定结果怎样联系？</p></div>
 <a class="backup-link" href="lecture01.html#/quantum-measurement">返回主课件 ↗</a>
-<aside class="notes">
-<p>1935年的思想实验将微观随机事件通过装置关联到猫的宏观命运。它用于突出量子描述与宏观确定经验之间的问题，不要求学生接受一个未经讨论的唯一诠释，也不把意识当成触发测量的必要条件。</p>
-<p>来源与补充：</p>
-<p>漫画：教师原课件；图内署名“搜狐号@大可数学人生工作室”。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="b-bloch" class="slide level2 lecture-slide">
 <h2>量子比特：最简单的量子信息单元</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="grid qubit-story"><div><figure class><img role="img" aria-label="经典比特与量子比特Bloch球示意" src="assets/from-ppt/slide17-image27.png" alt="经典比特与量子比特Bloch球示意" class><figcaption>经典比特与量子比特</figcaption></figure></div><div><p class="label">两个基本状态：0与1</p><div class="equation">\[|\psi\rangle=a|0\rangle+b|1\rangle\]</div><div class="fragment " data-fragment-index="0"><div class="equation">\[|a|^2+|b|^2=1\]</div><p class="compact">按0、1读出：<br>概率分别是 \(|a|^2\) 与 \(|b|^2\)。</p></div><div class="fragment " data-fragment-index="1"><p class="minor">球面上的方向，表示不同的纯态。</p></div></div></div></div>
 <a class="backup-link" href="lecture01.html#/qubit">返回主课件 ↗</a>
-<aside class="notes">
-<p>这是原PPT的Bloch球图。球面不是电子的物理位置，也不是许多个经典比特；它表示单量子比特纯态。原图顶端为0、底端为1，其他球面点为不同叠加。a、b的模平方是选定基读出的概率，归一化使两者相加为1。无需讲球坐标参数或混态。</p>
-<p>来源与补充：</p>
-<p>二能级与偏振均为编码示意。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="b-hadamard" class="slide level2 lecture-slide">
 <h2>量子操作：让量子态按设计演化</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><p class="label">从一个确定状态开始</p><div class="equation">\[|0\rangle\]</div><div class="operation-arrow">↓　施加Hadamard门</div><div class="equation">\[\frac{|0\rangle+|1\rangle}{\sqrt{2}}\]</div><div class="fragment " data-fragment-index="0"><div class="grid two"><div><div class="story-line"><p class="label">控制后的状态</p><p class="compact">按0、1测量，两种结果各占一半。</p></div></div><div><div class="story-line"><p class="label">再施加同样的Hadamard门</p><p class="compact">理想情况下回到确定的0。</p></div></div></div></div></div>
 <a class="backup-link" href="lecture01.html#/quantum-operations">返回主课件 ↗</a>
-<aside class="notes">
-<p>用H门两次等于恒等操作的实例，说明可控相干演化具有可逆性。第一次不是测量，不先随机选一个0或1；若中间先测量，后果会不同。H称为Hadamard门，是幺正变换的例子。解释1/√2平方等于1/2即可，不要求矩阵计算。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="b-blackbody" class="slide level2 lecture-slide">
 <h2>备选A｜三种辐射公式与适用范围</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="grid wide"><div><img role="img" aria-label="三种辐射规律的教材对照图" alt="三种辐射规律的教材对照图" class src="assets/lecture01-v2/textbook-blackbody.png"></div><div><div class="small-math"><div class="equation">\[B_\lambda=\frac{2hc^2}{\lambda^5(e^x-1)}\]</div><div class="equation">\[x=\frac{hc}{\lambda k_BT}\]</div><div class="equation">\[x\gg1:\ B_\lambda\approx\frac{2hc^2}{\lambda^5}e^{-x}\]</div><div class="equation">\[x\ll1:\ B_\lambda\approx\frac{2ck_BT}{\lambda^4}\]</div></div></div></div></div>
 <a class="backup-link" href="lecture01.html#/blackbody-planck">返回主课件 ↗</a>
-<aside class="notes">
-<p>解释x的无量纲含义。误差定义使用近似式除Planck式，右图长波范围延至200微米。</p>
-<p>来源与补充：</p>
-<p>图：教师提供的教材比较图；公式采用每单位波长的光谱辐亮度。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="b-photoelectric" class="slide level2 lecture-slide">
 <h2>备选B｜光电效应与遏止电压</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="grid wide"><div><img role="img" aria-label="光电效应阈频和最大动能" alt="光电效应阈频和最大动能" class src="assets/lecture01-v2/photoelectric-aligned.svg"></div><div><div class="equation">\[eU_s=K_{\max}=h\nu-W\]</div><ul><li>反向电压使电子减速。</li><li>电流刚为零时，最快电子也到不了收集极。</li><li>固定频率加亮：电流增加，遏止电压不变。</li></ul></div></div></div>
 <a class="backup-link" href="lecture01.html#/photon-energy">返回主课件 ↗</a>
-<aside class="notes">
-<p>可返回OSP界面I vs V对照曲线。</p>
-<p>来源与补充：</p>
-<p>逸出功2.9 eV，与主线模拟一致；Us为反向遏止电压大小。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="b-balmer" class="slide level2 lecture-slide">
 <h2>备选C｜从能级差算到656 nm</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="grid wide"><div><img role="img" aria-label="氢原子Balmer线系" alt="氢原子Balmer线系" class src="assets/lecture01/balmer.svg"></div><div><div class="small-math"><div class="equation">\[E_n\approx-\frac{13.6\ \mathrm{eV}}{n^2}\]</div><div class="equation">\[\begin{aligned}\Delta E&amp;=13.6\left(\frac14-\frac19\right)\mathrm{eV}\\&amp;\approx1.89\ \mathrm{eV}\end{aligned}\]</div><div class="equation">\[\lambda=\frac{hc}{\Delta E}\approx\frac{1240}{1.89}\ \mathrm{nm}\approx656\ \mathrm{nm}\]</div></div></div></div></div>
 <a class="backup-link" href="lecture01.html#/bohr-states">返回主课件 ↗</a>
-<aside class="notes">
-<p>说明初态n=3，末态n=2，放出的光子能量为正。</p>
-<p>来源与补充：</p>
-<p>氢原子近似能级；能量零点在电离阈值。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="b-complex" class="slide level2 lecture-slide">
 <h2>备选D｜概率幅的复数计算</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="grid two"><div><div class="law"><div class="equation">\[A=x+iy\]</div><div class="equation">\[|A|^2=x^2+y^2\]</div><div class="equation">\[e^{i\phi}=\cos\phi+i\sin\phi\]</div></div></div><div><div class="law"><div class="equation">\[a=\frac14,\quad b=\frac14e^{i\phi}\]</div><div class="equation">\[P=|a+b|^2=\frac{1+\cos\phi}{8}\]</div><div class="equation">\[\phi=\frac\pi3\quad\Rightarrow\quad P=\frac3{16}\]</div></div></div></div></div>
 <a class="backup-link" href="lecture01.html#/phase-pattern">返回主课件 ↗</a>
-<aside class="notes">
-<p>从实部虚部算一次，再用余弦表达式检验。</p>
-<p>来源与补充：</p>
-<p>单个探测结果的幅度算例。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="qubit-phase" class="slide level2 lecture-slide">
 <h2>相对相位：同样的概率，可以是不同的态</h2>
@@ -1816,21 +1720,7 @@ display:block!important;
 
 </div>
 <a class="backup-link" href="lecture01.html#/quantum-operations">返回主课件 ↗</a>
-<aside class="notes">
-<p>2分钟。上下两种测量方式对比。H是同一个操作，不能误说两种状态各用不同操作辨别。</p>
-<p>来源与补充：</p>
-<p>H为Hadamard操作：将两个计算基矢按相干规则重新组合；矩阵形式留待后续课。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="joint-control" class="slide level2 lecture-slide">
 <h2>组合量子比特：四种标签与受控操作</h2>
@@ -1865,95 +1755,31 @@ display:block!important;
 
 </div><div><p class="label">第一个比特控制第二个</p><p class="compact">控制位为1，才翻转目标位。</p><div class="law"><div class="equation">\[\frac{|0\rangle+|1\rangle}{\sqrt2}|0\rangle\]</div><div class="equation">\[\longrightarrow\frac{|00\rangle+|11\rangle}{\sqrt2}\]</div></div><p class="compact">同一个操作，也作用于叠加中的每一项。</p></div></div></div>
 <a class="backup-link" href="lecture01.html#/quantum-operations">返回主课件 ↗</a>
-<aside class="notes">
-<p>经典多比特扩展标签数量；量子多比特还能相干叠加这些联合标签。用受控翻转表说明操作，再利用线性性处理叠加输入。结果通常不能写成两个单比特纯态的乘积，这就是接下来纠缠概念的入口。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="decoherence" class="slide level2 lecture-slide">
 <h2>退相干：路径信息留下后，条纹会怎样？</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="grid wide"><div><img role="img" aria-label="八输出模型中相干制备与混合的不同概率" alt="八输出模型中相干制备与混合的不同概率" class src="assets/sample-electron/coherent-mixture.svg"></div><div><p class="label">两路之间保持相干</p><p class="compact">相位参与决定位置分布。</p><p class="label">路径被装置或环境区分</p><p class="compact">只看电子位置，干涉减弱或消失。</p></div></div></div>
 <a class="backup-link" href="lecture01.html#/quantum-measurement">返回主课件 ↗</a>
-<aside class="notes">
-<p>2分钟。路径记录与环境建立关联，使局部干涉减少。不要将退相干说成独自解决了单次测量结果问题。</p>
-<p>来源与补充：</p>
-<p>归一化八输出模型示意；完全可区分路径对应局部相干项消失。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="phase-calculation" class="slide level2 lecture-slide">
 <h2>相长与相消：亲手算三个结果</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><p class="label">固定一个探测位置，两路幅度的长度都取1/4。</p><img role="img" aria-label="三种相位下的幅度相加及概率" alt="三种相位下的幅度相加及概率" class="phasor-wide" src="assets/lecture01-v2/phasor-addition.svg"><div class="grid three results"><div><div class="equation">\[\phi=0\quad P=\frac14\]</div></div><div><div class="equation">\[\phi=\frac\pi2\quad P=\frac18\]</div></div><div><div class="equation">\[\phi=\pi\quad P=0\]</div></div></div></div>
 <a class="backup-link" href="lecture01.html#/phase-pattern">返回主课件 ↗</a>
-<aside class="notes">
-<p>3分钟。用同向加法算1/4，垂直情况用勾股算1/8，反向相消得到0。三个图始终并排，保持比较。</p>
-<p>来源与补充：</p>
-<p>单位置理论算例；概率幅固定长度，变化的是相对方向。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="order-cost" class="slide level2 lecture-slide">
 <h2>改成求周期，为什么仍然需要新算法？</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="grid two"><div><div class="law"><p class="label">逐项计算</p><div class="equation">\[a^x\bmod N\]</div><p class="compact">直到余数第一次回到1。</p><p class="compact">需要 \(r\) 次模乘。</p></div></div><div><div class="law"><p class="label">输入规模是二进制位数</p><div class="equation">\[2^{n-1}\le N&lt;2^n\]</div><p class="compact">周期可能达到与整数同量级。</p><div class="equation">\[r\sim N\sim2^n\]</div></div></div></div><p class="hint">问题变成：能否不走完整个周期，就提取周期信息？</p></div>
 <a class="backup-link" href="lecture01.html#/shor-overview">返回主课件 ↗</a>
-<aside class="notes">
-<p>这是逐项枚举周期的最坏增长尺度，不是所有经典求阶算法的下界，更不是所有整数的周期都等于N。每次模乘本身还要付出多项式位运算成本。Shor的目标是让整个算法按输入位数多项式增长。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="superposition-input" class="slide level2 lecture-slide">
 <h2>叠加输入：让许多指数共同参与演化</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="grid two"><div><p class="label">三个量子比特，八种指数标签</p><img role="img" aria-label="八个等概率幅的计算基标签" alt="八个等概率幅的计算基标签" class src="assets/lecture01-v2/uniform-amplitudes.svg"></div><div><p class="label">每个比特施加一次H操作</p><div class="equation">\[|0\rangle^{\otimes m}\longrightarrow\frac1{\sqrt{2^m}}\sum_{x=0}^{2^m-1}|x\rangle\]</div><p class="compact">用 \(m\) 个操作，制备包含 \(2^m\) 项的等幅叠加。</p><p class="compact">能共同参与计算；不能一次读出所有项。</p></div></div></div>
 <a class="backup-link" href="lecture01.html#/shor-overview">返回主课件 ↗</a>
-<aside class="notes">
-<p>这正是叠加态的重要作用：有效制备指数多个计算基分量。图只画m=3，后面的21实例选择更大的寄存器。指数多项本身并不保证加速，还要看演化和读出是否都高效。H为前面介绍的Hadamard操作。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="modular-joint" class="slide level2 lecture-slide">
 <h2>受控模幂：把指数与余数关联起来</h2>
@@ -1990,57 +1816,19 @@ display:block!important;
 
 <div class="grid two"><div><div class="law"><p class="label">第一组量子比特</p><p class="compact">保存指数标签 \(x\)</p></div></div><div><div class="law"><p class="label">第二组量子比特</p><p class="compact">保存相应余数 \(f(x)\)</p></div></div></div></div>
 <a class="backup-link" href="lecture01.html#/shor-overview">返回主课件 ↗</a>
-<aside class="notes">
-<p>受控模幂是可逆量子电路，对整个叠加态相干作用；不是逐项经典查表。联合态通常产生纠缠。表格仅展示前8项以便对照，不是全寄存器。Q为2的幂，图例和后续Q=512或64区分。电路分解留到后续，不误说一个基本门就算完全部模幂。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="measurement-branch" class="slide level2 lecture-slide">
 <h2>直接测量，为什么还读不出周期？</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="grid two"><div><p class="label">若两组都直接读出</p><div class="equation">\[(x,f(x))=(8,4)\]</div><p class="compact">一次只给一对数值，不能直接得到周期。</p><p class="compact">为了看清干涉，先考察余数读出1的分支。</p></div><div><div class="law"><p class="label">剩下的指数可以是</p><div class="equation">\[0,6,12,18,\ldots\]</div><p class="compact">这些指数仍保持相干。</p><p class="compact">接下来让这些贡献重新组合。</p></div></div></div><img role="img" aria-label="Q为64时余数1条件分支的归一化幅度" alt="Q为64时余数1条件分支的归一化幅度" class="comb-short" src="assets/lecture01-v2/period-comb.svg"></div>
 <a class="backup-link" href="lecture01.html#/shor-overview">返回主课件 ↗</a>
-<aside class="notes">
-<p>第一项8、4是可能测量对。条件分支展示的是测量第二寄存器后第一寄存器的纯态；不一定要实际测量第二寄存器，这只是方便解释。图中Q=64、0至60每6步一项，共11项；不是直接对余数数值做普通傅里叶变换。每个单次位置记录仍随机。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="fourier-readout" class="slide level2 lecture-slide">
 <h2>傅里叶干涉：周期变成读出概率峰</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><img role="img" aria-label="上：Q为64的余数1条件态概率幅；下：该态经过QFT得到的测量概率" alt="上：Q为64的余数1条件态概率幅；下：该态经过QFT得到的测量概率" class="qft-pair" src="assets/lecture01-v2/qft-pair.svg"></div>
 <a class="backup-link" href="lecture01.html#/shor-overview">返回主课件 ↗</a>
-<aside class="notes">
-<p>上下图使用同一个Q=64、余数1条件态。上图高度是幅度，下图是概率，不能混淆。QFT给每个输出k的各项附加相位并相加；k/Q接近s/r处形成峰。这里64仅用于画清机制，下一页恢复周期换成足够精度的512。正、逆傅里叶在本例概率相同。</p>
-<p>来源与补充：</p>
-<p>Q=64的归一化条件态；上下图使用同一寄存器和相同横向刻度。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="period-recovery" class="slide level2 lecture-slide">
 <h2>从一次读出，到可检验的候选周期</h2>
@@ -2070,153 +1858,49 @@ display:block!important;
 
 <div class="law"><div class="equation">\[2^6\bmod21=1\quad\Longrightarrow\quad\gcd(2^3\pm1,21)=7,3\]</div></div></div>
 <a class="backup-link" href="lecture01.html#/shor-overview">返回主课件 ↗</a>
-<aside class="notes">
-<p>连分数把k/Q变成小分母有理数，分母可能只是阶的因子。不能所有测量都宣称成功。候选需模幂验证，合适偶周期才能用平方差提因子。本页一个成功例、一个部分信息例；完整连分数放备选。标准选择N²≤Q&lt;2N²，足以支持常用恢复精度论证。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="shor-demo" class="slide level2 lecture-slide">
 <h2>课堂实验：从余数到概率峰，再恢复因子</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="embedded-simulation"><iframe data-external="1" allow="fullscreen" allowfullscreen src="assets/lecture01-v2/shor-demo.html" title="Shor周期读出课堂演示"></iframe></div><p class="experiment-cues">选择21、35或143　｜　计算条件态的傅里叶概率　｜　抽样读出并验证候选周期</p></div>
 <a class="backup-link" href="lecture01.html#/shor-overview">返回主课件 ↗</a>
-<aside class="notes">
-<p>演示由Python精确生成小规模条件态和QFT概率，HTML在本地完成抽样及连分数检验。明确选择余数读出1的条件分支，这不是完整含噪量子计算机。先21，再35和143，重复抽样观察成功和部分信息。不能根据已知周期手绘概率峰。本页支持离线。</p>
-<p>来源与补充：</p>
-<p>小规模经典数值模拟；<a href="https://quantumai.google/cirq/experiments/shor" target="_blank" rel="noopener">算法参考：Google Quantum AI</a></p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="shor-advantage" class="slide level2 lecture-slide">
 <h2>叠加、受控演化与干涉，怎样共同带来优势？</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="algorithm"><div class="law"><p class="label">叠加输入</p><p class="compact">高效制备许多<br>指数标签的叠加。</p></div><div class="law"><p class="label">受控演化与干涉</p><p class="compact">相干计算模幂关系。<br>把周期转成概率峰。</p></div><div class="law"><p class="label">读出与经典恢复</p><p class="compact">获得有用样本。<br>验证周期、提取因子。</p></div></div><p class="hint">整套过程的资源随输入位数按多项式增长。</p></div>
 <a class="backup-link" href="lecture01.html#/shor-overview">返回主课件 ↗</a>
-<aside class="notes">
-<p>回应开场：叠加使指数多个分量共同参与，但测量不能一次读取所有结果；模幂结构与傅里叶干涉使全局周期成为可读出的信息。纠缠是标准实现中联合演化的重要组成，但Bell检验不是算法步骤。经典波也能干涉，量子优势还依赖整个编码和电路的资源规模。与最佳已知经典分解算法相比有超多项式优势，并不是证明经典分解必须指数时间。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="b-rsa" class="slide level2 lecture-slide">
 <h2>备选F｜RSA耗时估算的假设</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="small-math"><div class="equation">\[F(N)=\exp\!\left[(64/9)^{1/3}(\ln N)^{1/3}(\ln\ln N)^{2/3}\right]\]</div><div class="equation">\[T(N)\approx2700\frac{F(N)}{F(N_0)}\ \text{核年}\]</div></div><div class="grid two"><div><div class="law"><p class="label">经典侧：课堂数量级外推</p><p class="compact">N₀取RSA-250；N取约2²⁰⁴⁸。<br>约6×10¹⁴核年 ÷ 10⁶核心<br>得到约6×10⁸年。</p></div></div><div><div class="law"><p class="label">量子侧：Gidney 2025设计条件</p><p class="compact">物理门错误率0.1%。<br>表面码周期1微秒。<br>控制系统响应10微秒。</p></div></div></div></div>
 <a class="backup-link" href="lecture01.html#/shor-growth">返回主课件 ↗</a>
-<aside class="notes">
-<p>明确是两套不同的资源条件，不能将核数等同于物理量子比特数。</p>
-<p>来源与补充：</p>
-<p><a href="https://arxiv.org/abs/2505.15917" target="_blank" rel="noopener">Gidney 2025</a>；经典侧脚本见讲义。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="b-qft" class="slide level2 lecture-slide">
 <h2>备选G｜周期条件态的傅里叶概率</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="equation">\[|\psi\rangle=\frac1{\sqrt{11}}\sum_{j=0}^{10}|6j\rangle\quad(Q=64)\]</div><div class="equation">\[P(k)=\frac1{64\times11}\left|\sum_{j=0}^{10}e^{2\pi i(6j)k/64}\right|^2\]</div><img role="img" aria-label="直接从归一化条件态计算的傅里叶概率" alt="直接从归一化条件态计算的傅里叶概率" class="backup-qft" src="assets/lecture01/fourier-period.svg"></div>
 <a class="backup-link" href="lecture01.html#/shor-overview">返回主课件 ↗</a>
-<aside class="notes">
-<p>离散有限寄存器的精确表达。周期不整除64，所以峰不全在整数Q/r处；不能画成只有6根非零柱。归一化和直接求和已数值核对。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="b-shor" class="slide level2 lecture-slide">
 <h2>备选H｜连分数给出候选，模幂检验结果</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="grid two"><div><div class="law"><div class="equation">\[\frac{85}{512}=[0;6,42,2]\]</div><div class="equation">\[\frac16\ \Longrightarrow\ q=6\]</div><div class="equation">\[2^6\bmod21=1\]</div></div></div><div><div class="law"><div class="equation">\[\frac{256}{512}=\frac12\]</div><p class="compact">分母2不等于完整周期。</p><div class="equation">\[2^2\bmod21=4\ne1\]</div><p class="compact">重复采样，可获得其他分母。</p></div></div></div><p class="hint">若周期为奇数，或半周期幂为−1，则换底数重试。</p></div>
 <a class="backup-link" href="lecture01.html#/shor-overview">返回主课件 ↗</a>
-<aside class="notes">
-<p>85/512欧几里得算法得到[0;6,42,2]。6是候选，经检验给出因子。一般算法通过模幂与候选检验，不采用从1到r遍历来验证最小性。本讲只展示基本恢复流程；部分分母可积累最小公倍数后再检验。</p>
-<p>来源与补充：</p>
-<p>前一页Q=64仅展示谱形；这里Q=512满足标准精度选取。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="b-jc" class="slide level2 lecture-slide">
 <h2>备选：光与原子相互作用的模型</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><p class="label">Jaynes–Cummings模型</p><div class="equation">\[\hat H=\hbar\omega_c\hat a^\dagger\hat a+\frac{\hbar\omega_a}{2}\hat\sigma_z+\hbar g(\hat a\hat\sigma_++\hat a^\dagger\hat\sigma_-)\]</div><p class="compact">一个量子化场模，与一个两能级原子交换激发。</p><p class="minor">场、原子、耦合：在后续课程中逐项学习。</p></div>
 <a class="backup-link" href="lecture01.html#/light-matter-control">返回主课件 ↗</a>
-<aside class="notes">
-<p>适用两能级、单模及旋波近似。符号在后续课程系统定义，正文只通过驱动能级说明控制。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="b-reading" class="slide level2 lecture-slide">
 <h2>更多量子力学的故事</h2>
 <div class="s-nav"><a href="lecture01.html#/opening" class>整数分解</a><a href="lecture01.html#/classical-crises" class>量子力学</a><a href="lecture01.html#/qubit" class>量子信息</a><a href="lecture01.html#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲 · 备选</span></div><div class="s-body"><div class="grid three reading-row"><div><figure class><img role="img" aria-label="原PPT推荐读物" src="assets/from-ppt/slide6-image13.png" alt="原PPT推荐读物" class></figure></div><div><figure class><img role="img" aria-label="张天蓉《群星闪耀：量子物理史话》" src="assets/story/quantum-history-zhang.jpg" alt="张天蓉《群星闪耀：量子物理史话》" class></figure></div><div><figure class><img role="img" aria-label="原PPT影视推荐" src="assets/from-ppt/slide6-image15.png" alt="原PPT影视推荐" class></figure></div></div></div>
 <a class="backup-link" href="lecture01.html#/course-outlook">返回主课件 ↗</a>
-<aside class="notes">
-<p>保留原PPT第6页的课后阅读和影视入口。历史通俗作品帮助形成兴趣，具体物理表述仍以课程讲解为准。</p>
-<p>来源与补充：</p>
-<p>图片与推荐：教师原课件。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 
 </section>
     </div>

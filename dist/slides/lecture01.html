@@ -1654,914 +1654,263 @@ margin-right: 0; }
 <section id="opening" class="slide level2 lecture-slide">
 <h2>从量子力学到量子信息科学</h2>
 <div class="s-nav"><a href="#/opening" class="active">整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><p class="cover-course">量子光学</p><p class="cover-kicker">第一讲 · 绪论</p><p class="cover-title">从量子力学到量子信息科学</p><p class="cover-author">李梓民<br>中南大学物理学院<br><a href="mailto:zimin.li@csu.edu.cn">zimin.li@csu.edu.cn</a><br>2026年下半年</p><div class="cover-art"><img role="img" aria-label="蓝灰色量子纠缠概念插画：成对的关联波形" src="assets/story/entanglement-cover.png" alt="蓝灰色量子纠缠概念插画：成对的关联波形" class></div></div>
-<aside class="notes">
-<p>0.5分钟。以光与原子为入口，立即进入整数问题。</p>
-<p>封面为使用内置imagegen生成的蓝灰色量子纠缠艺术概念插画，不是粒子的真实照片或实验数据，关联波形不表示可传递超光速信号。生成提示词保存于assets/story/entanglement-cover-prompt.txt。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="factor-small" class="slide level2 lecture-slide">
 <h2>整数分解：寻找质因子</h2>
 <div class="s-nav"><a href="#/opening" class="active">整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid two number-panels"><div class="fragment" data-fragment-index="0"><p class="label">先看一个熟悉的数</p><div class="answer-stack"><div class="fragment fade-out question" data-fragment-index="1"><div class="equation">\[21=\ ?\]</div></div><div class="fragment answer" data-fragment-index="1"><div class="equation">\[21=3\times7\]</div></div></div></div><div class="fragment" data-fragment-index="2"><p class="label">再试一个稍大的数</p><div class="answer-stack"><div class="fragment fade-out question" data-fragment-index="3"><div class="equation">\[221=\ ?\]</div></div><div class="fragment answer" data-fragment-index="3"><div class="equation">\[221=13\times17\]</div></div></div></div></div><div class="fragment large-integer" data-fragment-index="4"><p class="label">如果换成250位的整数呢？</p><div class="rsa-number">21403246502407449612644230728393335630086147151447<br>55017797754920881418023447140136643345519095804679<br>61099285187247091458768739626192155736304745477052<br>08051190564931066876915900197594056934574522305893<br>25976697471681738069364894699871578494975937497937</div></div></div>
-<aside class="notes">
-<p>初始只显示标题。依次按右键：21问号、3×7答案、221问号、13×17答案，最后显示完整RSA-250整数。试除过程口述。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="rsa250" class="slide level2 lecture-slide">
 <h2>RSA-250分解挑战：寻找答案与验证答案</h2>
 <div class="s-nav"><a href="#/opening" class="active">整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><p class="label">两个125位素数，相乘就能验证答案</p><div class="grid two rsa-factors"><div class="rsa-factor"><span>p =</span><div>6413528947707158027879019<br>0170577389084825014742943<br>4472081168596320245323446<br>3023862359875266834770873<br>7661925585694639798853367</div></div><div class="rsa-factor"><span>q =</span><div>3337202759497815655622601<br>0605355114227940760344767<br>5546667845209870238417292<br>1003708025744867329688187<br>7565718986258036932062711</div></div></div><div class="fragment" data-fragment-index="0"><p class="compact">2020年完成分解　·　<strong>约2700核年</strong></p><div class="pnp-brief"><p class="label">P与NP：能高效验证，是否就能高效求解？</p><p class="compact">P：能在经典多项式时间内判定。<br>NP：肯定答案有可在经典多项式时间内核验的证明。</p></div></div></div>
-<aside class="notes">
-<p>承接上一页完整整数，展示两个完整因子。再显示计算成本与P、NP简介。P与NP严格定义于判定问题；以寻找因子与乘法验证的差别作直观引入，不将整数分解宣称为NP完全问题。两个因子的乘积已用Python逐位核对。 RSA-250是一个250位十进制整数的分解挑战名称，不是密码算法的版本号，也不表示250比特。下一页介绍RSA密码为什么与整数分解有关。</p>
-<p>来源与补充：</p>
-<p><a href="https://eprint.iacr.org/2020/697" target="_blank" rel="noopener">RSA-250分解报告</a>；核年为所有CPU核心工作时间的累加。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="rsa-context" class="slide level2 lecture-slide">
 <h2>RSA：为什么整数分解关系到信息安全？</h2>
 <div class="s-nav"><a href="#/opening" class="active">整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><p class="label">RSA是一种公钥密码：公钥可以公开，私钥需要保密。</p><div class="grid two"><div><div class="story-line"><p class="label">公开的乘积</p><p class="compact">公钥中包含大整数 \(N\)。</p></div><div class="equation">\[N=p\times q\]</div></div><div><div class="story-line"><p class="label">保密的质因子</p><p class="compact">两个大素数 \(p\)、\(q\)<br>用于生成私钥。</p></div><p class="compact">知道它们，就能计算对应的私钥。</p></div></div><div class="fragment " data-fragment-index="0"><div class="story-line"><p class="label">如果能高效分解大整数呢？</p><p class="compact">RSA赖以保护私钥的计算困难，就会受到挑战。</p></div></div></div>
-<aside class="notes">
-<p>RSA以Rivest、Shamir、Adleman三人的姓氏首字母命名。公钥实际包含模数N和指数e；p、q用于计算私钥，不能把私钥简单等同于两个质因子。此处只解释整数分解与RSA的联系，不展开加密公式和填充规则。RSA-250是分解挑战整数的名称，250指十进制位数。高效分解足以破坏RSA，但不宣称RSA求逆与分解已被证明等价。来源：https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=934896 。下一页引出：如果量子物理能改变分解整数所需的工作量，会怎样？</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="shor-growth" class="slide level2 lecture-slide">
 <h2>为什么计算会与量子物理有关？</h2>
 <div class="s-nav"><a href="#/opening" class="active">整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid wide"><div><img role="img" aria-label="按20位归一化的三类增长曲线" alt="按20位归一化的三类增长曲线" class src="assets/lecture01-v2/complexity-growth.svg"></div><div><figure class="person"><img role="img" aria-label="Peter Shor" alt="Peter Shor" class src="assets/from-ppt/s25-image37.png"><figcaption><span class="person-name"><span>彼得·肖尔</span><span lang="en">Peter Shor</span><span>1994</span></span></figcaption></figure><p class="compact">试除：指数<br>数域筛：亚指数<br><strong>Shor：多项式</strong></p></div></div></div>
 <a class="backup-link" href="lecture01-backup.html#/b-rsa" target="_blank" rel="noopener">备选内容 ↗</a>
-<aside class="notes">
-<p>先解释图的横轴是整数位数，纵轴是相对工作量。各曲线独立归一化，不代表实际运行时间。1994年Shor提出多项式时间量子分解算法；这里只提出悬念。转场：先回到量子物理诞生时，人们面对的实验问题。</p>
-<p>来源与补充：</p>
-<p><a href="https://arxiv.org/abs/quant-ph/9508027" target="_blank" rel="noopener">Shor原论文</a>；蓝线用三次方示意多项式增长，各曲线独立归一化，不代表实际用时。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="classical-crises" class="slide level2 lecture-slide">
 <h2>经典物理的三大困境</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid three crisis-row"><div><figure class><img role="img" aria-label="原课件黑体辐射示意" src="assets/from-ppt/s3-image3.png" alt="原课件黑体辐射示意" class></figure><p class="label">黑体辐射</p><p class="compact">光谱为什么是这样的？</p></div><div><div class="fragment " data-fragment-index="0"><figure class><img role="img" aria-label="原课件光电效应示意" src="assets/from-ppt/s3-image4.png" alt="原课件光电效应示意" class></figure><p class="label">光电效应</p><p class="compact">为什么颜色如此关键？</p></div></div><div><div class="fragment " data-fragment-index="1"><figure class><img role="img" aria-label="经典原子图像" src="assets/from-ppt/s3-image5.png" alt="经典原子图像" class></figure><p class="label">原子稳定性</p><p class="compact">电子为什么不落入原子核？</p></div></div></div></div>
-<aside class="notes">
-<p>按三个实验问题展开。它们是在不同时间逐步显现的经典理论困难，不说成同一天出现的三个事件。第三幅是原课件的经典原子示意，并不是现代原子的电子运动轨迹。</p>
-<p>来源与补充：</p>
-<p>图片：教师原课件。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="blackbody-video" class="slide level2 lecture-slide">
 <h2>黑体辐射：加热灯丝，观察光怎样变化</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><span class="fragment video-play-step" data-fragment-index="0" aria-hidden="true"></span><video data-external="1" class="embedded-video" controls playsinline preload="metadata" poster="assets/story/blackbody-byu-poster.jpg" src="assets/story/blackbody-byu.mp4" aria-label="Blackbody radiation — BYU Physics Demonstrations"></video></div>
 <a class="backup-link media-original" data-preview-link="false" href="https://www.youtube.com/watch?v=rnReWgrO14A" target="_blank" rel="noopener">原站观看 ↗</a>
-<aside class="notes">
-<p>播放BYU的灯丝升温短片，从头观察灯丝的亮度和颜色怎样一起变化：刚能看见发光时是什么颜色，继续加热又变成什么颜色？再留意分光后的连续色带。灯丝不是理想黑体，其发射率依赖波长；把真实热辐射现象与后页PhET的理想黑体模型区分。播放器直接嵌入本页，需要连接YouTube；离开本页由Reveal暂停播放，返回时保留播放器和播放位置。 保留BYU原视频rnReWgrO14A，完整视频与音轨随课件本地保存。直接双击HTML，下一步全屏播放，无需启动服务器或联网。原站链接保留用于溯源。</p>
-<p>视频操作：进入页面等待下一步；第一次下一步全屏播放。播放结束或返回时暂停并退出视频全屏，下一次前进继续课件。视频文件已随课件保存，直接打开HTML即可离线播放；转发时保留assets目录。</p>
-<p>来源与补充：</p>
-<p><a href="https://www.youtube.com/watch?v=rnReWgrO14A" target="_blank" rel="noopener">BYU Physics Demonstrations · Blackbody radiation</a></p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="blackbody-spectrum" class="slide level2 lecture-slide">
 <h2>黑体辐射：温度怎样改变光谱与颜色？</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="embedded-simulation"><iframe data-external="1" allow="fullscreen" allowfullscreen src="assets/simulations/blackbody-spectrum.html?locale=zh_CN" title="黑体光谱"></iframe></div></div>
 <a class="backup-link" href="lecture01-backup.html#/b-blackbody" target="_blank" rel="noopener">备选内容 ↗</a>
-<aside class="notes">
-<p>黑体定义为完全吸收各波长、各方向入射辐射的理想物体。热平衡光谱由温度决定。PhET是这个理想模型，普通灯丝只是热辐射的实验入口。依次调2000、3000、6000 K，并留意坐标缩放。颜色由偏红向白、蓝白变化，并非最后呈纯紫色。操作提示口述。观察之后问：什么公式能解释完整谱形？</p>
-<p>来源与补充：</p>
-<p><a href="https://phet.colorado.edu/en/simulations/blackbody-spectrum" target="_blank" rel="noopener">PhET Interactive Simulations</a>；黑体光谱理论模拟。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="blackbody-planck" class="slide level2 lecture-slide">
 <h2>黑体辐射：光谱两端的近似与普朗克的统一</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid planck-story"><div><img role="img" aria-label="实验光谱与Wien、Rayleigh–Jeans、Planck曲线" src="assets/lecture01-v2/textbook-blackbody.png" alt="实验光谱与Wien、Rayleigh–Jeans、Planck曲线" class><p class="compact">短波端：Wien近似<br>长波端：Rayleigh–Jeans近似</p></div><div><div class="planck-result"><div class="planck-person-row"><div class="planck-portraits"><img role="img" aria-label="普朗克年轻与年长时的照片" src="assets/from-ppt/s4-image6.png" alt="普朗克年轻与年长时的照片" class><div class="planck-mask fragment fade-out" data-fragment-index="1" aria-hidden="true"></div></div><p class="label"><span class="person-name"><span>马克斯·普朗克</span><span lang="en">Max Planck</span><span>1900</span></span></p></div><div class="fragment " data-fragment-index="0"><p class="label">能量交换一份一份地进行</p><div class="equation">\[\varepsilon=h\nu\]</div><p class="compact">同一个公式，<br>解释整条实验光谱。</p></div></div></div></div></div>
 <a class="backup-link" href="lecture01-backup.html#/b-blackbody" target="_blank" rel="noopener">备选内容 ↗</a>
-<aside class="notes">
-<p>先讲左侧：Wien近似适用于短波端，Rayleigh–Jeans近似适用于长波端；这是按适用范围比较，不是严格的提出年代顺序。右侧年轻普朗克照片先可见，年长照片被挡板遮住。第一次前进展示普朗克的解释：频率为ν的振子以hν为单位交换能量；h是普朗克常量，ν是频率。不把1900年的假设讲成后来完整的光子理论。最后一次前进只移除挡板，揭开年长照片；此时可口头开玩笑“学物理催人老”，不写在投影上。再前进才离开本页。照片来自原PPT，是不同时期肖像，右侧照片不表示1900年当天的外貌。</p>
-<p>来源与补充：</p>
-<p>图：教师提供的教材截图，原教材信息待补；普朗克（Max Planck），1900年。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="photoelectric-video" class="slide level2 lecture-slide">
 <h2>光电效应：光照使金属释放电子</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><span class="fragment video-play-step" data-fragment-index="0" aria-hidden="true"></span><div class="media-with-aside"><video data-external="1" aria-label="锌板验电器光电效应实验" class="embedded-video" controls playsinline preload="metadata" src="assets/story/photoelectric-weber.mp4"></video><div class="media-cues"><img role="img" aria-label="光照金属表面，电子逸出的示意图" src="assets/from-ppt/s3-image4.png" alt="光照金属表面，电子逸出的示意图" class="photoemission-diagram"><p class="label">观察验电器指针</p><p class="compact">比较强可见光与紫外光照射下，指针的变化。</p></div></div></div>
 <a class="backup-link media-original" data-preview-link="false" href="https://physics.weber.edu/amiri/physicsvideos/part2/modern_physics/videos/photoelectriceffect.mp4" target="_blank" rel="noopener">原站观看 ↗</a>
-<aside class="notes">
-<p>用锌板和验电器观察放电。强可见光不能明显放电，紫外光能使带负电的验电器放电。</p>
-<p>视频操作：进入页面等待下一步；第一次下一步全屏播放。播放结束或返回时暂停并退出视频全屏，下一次前进继续课件。视频文件已随课件保存，直接打开HTML即可离线播放；转发时保留assets目录。</p>
-<p>来源与补充：</p>
-<p><a href="https://physics.weber.edu/amiri/physicsvideos/part2/modern_physics/default.asp" target="_blank" rel="noopener">Weber State University · Amiri，Photoelectric Effect</a></p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="photoelectric-controls" class="slide level2 lecture-slide">
 <h2>光电效应：分别改变颜色与亮度</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="embedded-simulation"><iframe data-external="1" allow="fullscreen" allowfullscreen src="assets/simulations/photoelectric/index.html" title="光电效应交互实验"></iframe></div></div>
-<aside class="notes">
-<p>保持默认逸出功2.9 eV、电压0 V。依次选择红光700 nm、紫光400 nm，并改变强度。后页计算沿用相同逸出功。PhET旧版依赖Java转译，课堂优先使用已本地化的OSP版本。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="photon-energy" class="slide level2 lecture-slide">
 <h2>爱因斯坦：光以一份一份的能量参与作用</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid einstein-story"><div><figure class><img role="img" aria-label="爱因斯坦单人肖像" src="assets/story/einstein.jpg" alt="爱因斯坦单人肖像" class><figcaption><span class="person-name"><span>阿尔伯特·爱因斯坦</span><span lang="en">Albert Einstein</span><span>1905</span></span></figcaption></figure></div><div><p class="label">光量子假说 · 1905</p><p class="compact">每份光能量由频率决定。</p><div class="equation">\[E=h\nu\]</div><div class="fragment " data-fragment-index="0"><div class="equation">\[h\nu=W+K_{\max}\]</div><p class="compact energy-sentence">光子能量 = 逸出功 + 电子最大动能</p></div><div class="fragment " data-fragment-index="1"><p class="compact">频率够高，才有电子逸出；<br>固定频率加亮，电子事件增多。</p></div></div></div></div>
 <a class="backup-link" href="lecture01-backup.html#/b-photoelectric" target="_blank" rel="noopener">备选内容 ↗</a>
-<aside class="notes">
-<p>先解释E、h、ν，不要求学生认识符号。以跨过门槛比喻逸出功，但说明能量来自单个光子的吸收。W是金属逸出功，Kmax是最大动能。限于本演示的单光子模型与给定条件。强度影响事件率，不把电子速度说成随强度变大。原数值比较移到备选页。</p>
-<p>来源与补充：</p>
-<p>单光子光电效应模型；爱因斯坦（Albert Einstein），1905年。</p>
-<p>爱因斯坦肖像：Nobel Foundation archive，https://www.nobelprize.org/prizes/physics/1921/einstein/facts/ 。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="atomic-stability" class="slide level2 lecture-slide">
 <h2>原子为什么不会塌缩？</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid story-wide"><div><figure class><img role="img" aria-label="经典绕核图像" src="assets/from-ppt/s3-image5.png" alt="经典绕核图像" class><figcaption>先尝试经典的绕核图像</figcaption></figure></div><div><p class="label">电子在原子核周围转弯</p><div class="fragment " data-fragment-index="0"><p class="compact">带电粒子加速运动<br>→ 按经典电磁理论辐射能量</p></div><div class="fragment " data-fragment-index="1"><p class="compact">不断失去能量<br>→ 无法保持稳定的绕核运动</p></div><div class="fragment " data-fragment-index="2"><p class="label">可是，我们身边的原子是稳定的。</p></div></div></div></div>
-<aside class="notes">
-<p>从转弯意味着加速度讲起，不预设学生知道量子态。图只提出经典模型的问题，不代表真实轨道。经典能量持续辐射造成不稳定，由此引出玻尔的定态假设。</p>
-<p>来源与补充：</p>
-<p>图片：教师原课件。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="atomic-spectrum" class="slide level2 lecture-slide">
 <h2>原子光谱：为什么只出现特定颜色？</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid atomic-spectra-layout"><div><img role="img" aria-label="共同波长标尺下的连续光谱及氢、氦、汞的代表性谱线示意" src="assets/story/atomic-spectra-comparison.svg" alt="共同波长标尺下的连续光谱及氢、氦、汞的代表性谱线示意" class="spectra-comparison"><p class="minor">氢的实测光谱</p><img role="img" aria-label="氢放电管可见发射光谱实拍" src="assets/lecture01-v2/hydrogen-emission-spectrum.png" alt="氢放电管可见发射光谱实拍" class="hydrogen-photo"></div><div><div class="story-line"><p class="label">连续光谱</p><p class="compact">颜色连续相接。</p></div><div class="story-line"><p class="label">原子光谱</p><p class="compact">只在特定位置<br>出现亮线。</p></div><div class="fragment " data-fragment-index="0"><p class="label">不同原子，<br>有不同的谱线组合。</p><p class="compact">为什么颜色不是任意的？</p></div></div></div></div>
-<aside class="notes">
-<p>取消本页视频。先比较连续彩带与离散谱线，再比较不同元素。左上是按NIST空气波长绘制的代表性中性原子谱线示意：横轴400—700nm，未画全部谱线，氢的近邻精细结构在此尺度合并；颜色仅示意波长，线宽和亮度不代表实测强度。氦与汞的代表线也只用于比较位置与组合。下方保留原氢放电管光谱照片，该照片无标定横轴，不与上图刻度直接对齐。过渡到玻尔：原子为什么只吸收或发出某些颜色？这提示原子内的能量变化受到限制，下一页再介绍定态和跃迁。数据：https://physics.nist.gov/PhysRefData/Handbook/Tables/hydrogentable2.htm；https://physics.nist.gov/PhysRefData/Handbook/Tables/heliumtable2.htm；https://physics.nist.gov/PhysRefData/Handbook/Tables/mercurytable2.htm。</p>
-<p>来源与补充：</p>
-<p>氢光谱实拍：https://commons.wikimedia.org/wiki/File:Hydrogen_spectrum_visible.png；谱线位置：NIST Handbook of Basic Atomic Spectroscopic Data。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="bohr-states" class="slide level2 lecture-slide">
 <h2>玻尔：原子只能处于某些能量状态</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid person-story"><div><figure class="story-person"><img role="img" aria-label="玻尔" src="assets/from-ppt/s4-image8.png" alt="玻尔" class><figcaption><span class="person-name"><span>尼尔斯·玻尔</span><span lang="en">Niels Bohr</span><span>1913</span></span></figcaption></figure></div><div><p class="label">定态：处于这些状态时，不持续辐射</p><img role="img" aria-label="高低两个能级与发光跃迁示意" src="assets/story/energy-levels.svg" alt="高低两个能级与发光跃迁示意" class="bohr-levels"><div class="fragment " data-fragment-index="0"><p class="compact">跃迁：在两个能量状态之间改变</p><div class="equation">\[E_{\mathrm{high}}-E_{\mathrm{low}}=h\nu\]</div><p class="compact">能量差决定吸收或发出的光的颜色。</p></div></div></div></div>
-<aside class="notes">
-<p>介绍定态与跃迁是玻尔模型的假设。图只画两个能级方便读图，实际原子有多个能级。high和low分别指高、低能量状态，能量差对应一个光子的能量。玻尔模型成功解释氢光谱，但没有建立普遍适用的原子理论。下一页用模拟看跃迁。</p>
-<p>来源与补充：</p>
-<p>玻尔模型与图片：教师原课件。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="atomic-levels" class="slide level2 lecture-slide">
 <h2>原子能级：一条谱线对应一个能量差</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="atom-with-aside"><div class="embedded-simulation"><iframe data-external="1" allow="fullscreen" allowfullscreen src="assets/simulations/hydrogen-atom.html?locale=zh_CN&amp;screens=2&amp;initialScreen=2" title="氢原子模型"></iframe></div><div class="media-cues"><p class="label">选择玻尔模型</p><p class="compact">打开光源，<br>观察能级跃迁。</p><div class="equation">\[E_{高}-E_{低}=h\nu\]</div></div></div></div>
 <a class="backup-link" href="lecture01-backup.html#/b-balmer" target="_blank" rel="noopener">备选内容 ↗</a>
-<aside class="notes">
-<p>选择Bohr模型，观察吸收、跃迁和发射的对应。这里是离散能级的模型演示，不把电子轨道图当作现代量子力学中的实际路径。玻尔（Niels Bohr）把能级差与光频率联系起来，但能级为什么只能取这些值，仍需要新的电子状态与运动规律。</p>
-<p>来源与补充：</p>
-<p><a href="https://phet.colorado.edu/en/simulations/models-of-the-hydrogen-atom" target="_blank" rel="noopener">PhET Interactive Simulations · 氢原子模型</a></p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="quantum-breakthroughs" class="slide level2 lecture-slide">
 <h2>三次突破：量子观念逐步形成</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid three breakthrough-row"><div><figure class><img role="img" aria-label="普朗克肖像组合" src="assets/from-ppt/s4-image6.png" alt="普朗克肖像组合" class></figure><p class="label"><span class="person-name"><span>马克斯·普朗克</span><span lang="en">Max Planck</span><span>1900</span></span></p><p class="compact">能量交换的基本单位</p></div><div><div class="fragment " data-fragment-index="0"><figure class><img role="img" aria-label="爱因斯坦单人肖像" src="assets/story/einstein.jpg" alt="爱因斯坦单人肖像" class></figure><p class="label"><span class="person-name"><span>阿尔伯特·爱因斯坦</span><span lang="en">Albert Einstein</span><span>1905</span></span></p><p class="compact">光量子解释光电效应</p></div></div><div><div class="fragment " data-fragment-index="1"><figure class><img role="img" aria-label="玻尔肖像" src="assets/from-ppt/s4-image8.png" alt="玻尔肖像" class></figure><p class="label"><span class="person-name"><span>尼尔斯·玻尔</span><span lang="en">Niels Bohr</span><span>1913</span></span></p><p class="compact">定态与能级跃迁</p></div></div></div><div class="fragment " data-fragment-index="2"><p class="story-question">这些成功的假设，能否来自一套统一理论？</p></div></div>
-<aside class="notes">
-<p>对应原课件“量子论的诞生”。三项贡献逐个回顾，强调问题推动观念改变。普朗克的量子化对象与爱因斯坦的光量子假说不同。转入物质波与现代量子力学。</p>
-<p>来源与补充：</p>
-<p>人物图片：教师原课件与NobelPrize.org。</p>
-<p>爱因斯坦肖像：Nobel Foundation archive，https://www.nobelprize.org/prizes/physics/1921/einstein/facts/ 。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="matter-waves" class="slide level2 lecture-slide">
 <h2>德布罗意：物质也具有波动性</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid matter-focus"><div><figure class="person"><img role="img" aria-label="德布罗意" alt="德布罗意" class src="assets/from-ppt/s5-image10.png"><figcaption><span class="person-name"><span>路易·德布罗意</span><span lang="en">Louis de Broglie</span><span>1924</span></span></figcaption></figure></div><div><p class="label">把波长与粒子的动量联系起来</p><div class="equation">\[\lambda=\frac hp\]</div><p class="compact">动量越大，波长越短。</p><div class="law"><p class="label">怎样检验这个假设？</p><p class="compact">让电子照射晶体，<br>观察是否出现衍射。</p></div></div></div></div>
-<aside class="notes">
-<p>从光既显现波动性又有光量子出发，提出物质是否也有波动性。λ是波长，p是动量，h是普朗克常量。1924年的物质波假设可由电子干涉等实验检验。下一页介绍的外村彰实验是后来清楚展示单电子干涉的实验，不称为1924年紧接着进行的首个验证。</p>
-<p>来源与补充：</p>
-<p>人物照片：教师原课件。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="matter-wave-evidence" class="slide level2 lecture-slide">
 <h2>电子的波动性：从早期验证到单电子演示</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="evidence-timeline"><div class="story-line"><p class="label">1927 · 电子衍射</p><p class="compact">戴维孙—革末实验、汤姆孙的薄膜实验：<br>电子束照射晶体，呈现波的衍射特征。</p></div><div class="fragment " data-fragment-index="0"><div class="story-line"><p class="label">1929 · 德布罗意获诺贝尔物理学奖</p><p class="compact">物质波的预言已有电子衍射实验支持。</p></div></div><div class="fragment " data-fragment-index="1"><div class="story-line"><p class="label">1989 · 单电子累积演示</p><p class="compact">接下来借助外村彰团队的实验，<br>看清“一次一个亮点，累积形成条纹”。</p></div></div></div></div>
-<aside class="notes">
-<p>先澄清光波与电子物质波：光的干涉早已为人所知，但不能直接证明电子也有波动性。1927年克林顿·约瑟夫·戴维孙（Clinton Joseph Davisson）与莱斯特·哈尔伯特·革末（Lester Halbert Germer）观察到镍晶体对电子的衍射；乔治·佩吉特·汤姆孙（George Paget Thomson）与Alexander Reid独立开展电子通过薄膜的衍射实验。德布罗意于1929年获奖，戴维孙和汤姆孙于1937年获奖；获奖年不等于实验年。https://www.nobelprize.org/prizes/themes/the-nobel-prize-in-physics-1901-2000/ ；https://www.nobelprize.org/uploads/2018/06/davisson-lecture.pdf 。1989年外村彰等人的实验提供直观的单电子逐次累积记录，不是电子波动性的首次验证。https://doi.org/10.1119/1.16104 。此处为教学暂时前望到1989年，后面返回1926年建立的量子力学，讨论这些现象怎样得到统一描述。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="electron-apparatus" class="slide level2 lecture-slide">
 <h2>电子波的干涉：怎样观察到条纹？</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid wide"><div><img role="img" aria-label="电子源、双棱镜、探测器的装置示意" alt="电子源、双棱镜、探测器的装置示意" class src="assets/sample-electron/tonomura-apparatus.gif"></div><div><p class="label"><span class="person-name"><span>外村彰</span><span lang="en">Akira Tonomura</span><span>1989</span></span>团队的单电子实验</p><ul><li>电子源发射并加速电子。</li><li>细丝两侧的电子波在下游重叠。</li><li>探测器登记每次到达的位置。</li></ul></div></div></div>
-<aside class="notes">
-<p>2分钟。沿Source、biprism、Detector讲解。它不是机械双缝，双棱镜利用细丝两侧的电场使电子波偏转。 本页是1989年发表的直观单电子累积演示，不是1927年的早期电子衍射实验。</p>
-<p>来源与补充：</p>
-<p><a href="https://www.hitachi.com/rd/research/materials/quantum/doubleslit/index.html" target="_blank" rel="noopener">Hitachi实验介绍</a></p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="electron-buildup" class="slide level2 lecture-slide">
 <h2>一次一个电子：从亮点到干涉条纹</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid two electron-times"><div><div class="law"><p class="label">相邻电子平均间隔</p><div class="equation">\[0.1\ \mathrm{s}\]</div></div></div><div><div class="law"><p class="label">电子穿越装置的时间</p><div class="equation">\[10^{-8}\ \mathrm{s}\]</div></div></div></div><div class="electron-sequence"><div class="fragment current-visible" data-fragment-index="0"><div class="electron-window"><img role="img" aria-label="电子记录累积第1阶段" alt="电子记录累积第1阶段" src="assets/figures/tonomura-electrons.jpg" style="--stage:0"></div><p class="build-caption">记录逐渐增加 · 1 / 5</p></div><div class="fragment current-visible" data-fragment-index="1"><div class="electron-window"><img role="img" aria-label="电子记录累积第2阶段" alt="电子记录累积第2阶段" src="assets/figures/tonomura-electrons.jpg" style="--stage:1"></div><p class="build-caption">记录逐渐增加 · 2 / 5</p></div><div class="fragment current-visible" data-fragment-index="2"><div class="electron-window"><img role="img" aria-label="电子记录累积第3阶段" alt="电子记录累积第3阶段" src="assets/figures/tonomura-electrons.jpg" style="--stage:2"></div><p class="build-caption">记录逐渐增加 · 3 / 5</p></div><div class="fragment current-visible" data-fragment-index="3"><div class="electron-window"><img role="img" aria-label="电子记录累积第4阶段" alt="电子记录累积第4阶段" src="assets/figures/tonomura-electrons.jpg" style="--stage:3"></div><p class="build-caption">记录逐渐增加 · 4 / 5</p></div><div class="fragment" data-fragment-index="4"><div class="electron-window"><img role="img" aria-label="电子记录累积第5阶段" alt="电子记录累积第5阶段" src="assets/figures/tonomura-electrons.jpg" style="--stage:4"></div><p class="build-caption">记录逐渐增加 · 5 / 5</p></div></div></div>
-<aside class="notes">
-<p>先比较两个时间尺度：相邻电子平均间隔0.1秒，穿越装置约10⁻⁸秒。再按右键依次显示五幅真实累积图，每次替换上一幅；左键回退。电子彼此分开通过，局域亮点累积后仍出现条纹。</p>
-<p>来源与补充：</p>
-<p><a href="https://www.hitachi.com/rd/research/materials/quantum/doubleslit/index.html" target="_blank" rel="noopener">Hitachi实验介绍</a>；实验图：Belsazar / CC BY-SA 3.0；原图五阶段依次放大展示。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="wave-particle" class="slide level2 lecture-slide">
 <h2>波粒二象性：从动画理解双缝干涉</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="duality-cartoon"><span class="fragment video-play-step" data-fragment-index="0" aria-hidden="true"></span><video data-external="1" class="embedded-video" controls playsinline preload="metadata" poster="assets/from-ppt/slide10-image18.png" src="assets/from-ppt/s10-media2.mp4" aria-label="原PPT第10页：网球双缝干涉动画"></video></div></div>
-<aside class="notes">
-<p>使用教师原PPT第10页内嵌的“网球双缝干涉”动画，保留完整视频及声音，约2分33秒。进入本页后第一次按下一步启动播放，第二次按下一步翻页；离开本页或退回播放前一步时暂停，原生播放控件继续可用。重新进入本页后仍由下一步启动，并从暂停位置续播。原文件为ppt/media/media2.mp4，海报为ppt/media/image18.png。承接前面的单电子实验，借动画帮助初学者理解双缝干涉。动画是教学比喻，不是实际电子实验录像；不要把宏观网球的行为直接等同于电子。看完回收两个观察：一次探测是局域记录，累积结果可呈现干涉分布。波粒二象性是对这些表现的概括，不作为另一个独立公设。转场：怎样用统一理论计算这些结果？下一页介绍薛定谔方程。</p>
-<p>视频操作：进入页面等待下一步；第一次下一步全屏播放。播放结束或返回时暂停并退出视频全屏，下一次前进继续课件。视频文件已随课件保存，直接打开HTML即可离线播放；转发时保留assets目录。</p>
-<p>来源与补充：</p>
-<p>视频及海报：教师原PPT第10页内嵌素材。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="schrodinger" class="slide level2 lecture-slide">
 <h2>薛定谔：用方程描述物质波的演化</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid person-story"><div><figure class="story-person"><img role="img" aria-label="薛定谔" src="assets/from-ppt/s5-image11.png" alt="薛定谔" class><figcaption><span class="person-name"><span>埃尔温·薛定谔</span><span lang="en">Erwin Schrödinger</span><span>1926</span></span></figcaption></figure></div><div><img role="img" aria-label="自由粒子高斯波包在两个时刻的概率密度" src="assets/story/wave-evolution.svg" alt="自由粒子高斯波包在两个时刻的概率密度" class><div class="equation">\[i\hbar\frac{\partial\psi}{\partial t}=\hat H\psi\]</div><p class="symbol-guide">\(\psi\)：描述量子状态的波函数<br>\(\hat{H}\)：描述系统能量与相互作用</p><p class="label">已知初始状态，就能计算它怎样演化。</p></div></div></div>
-<aside class="notes">
-<p>方程只用于认识，不要求求解。ψ不是一条电子轨道；H是哈密顿算符，描述能量和相互作用；ℏ=h/(2π)，i是虚数单位。本图是自由粒子高斯波包的理论概率密度，两时刻可见平移和展宽，取无量纲ℏ=m=1；曲线不是电子轨迹。下一页再解释它和探测概率的关系。</p>
-<p>来源与补充：</p>
-<p>肖像：教师原课件；曲线：自由粒子高斯波包理论模型。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="born-probability" class="slide level2 lecture-slide">
 <h2>玻恩：波函数怎样联系实验结果？</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid person-story born-story"><div><figure class="story-person"><img role="img" aria-label="马克斯·玻恩肖像" src="assets/story/max-born.jpg" alt="马克斯·玻恩肖像" class><figcaption><span class="person-name"><span>马克斯·玻恩</span><span lang="en">Max Born</span><span>1926</span></span></figcaption></figure></div><div><img role="img" aria-label="高斯概率密度抽样：少量位置记录与800次记录的直方图" src="assets/story/born-distribution-wide.svg" alt="高斯概率密度抽样：少量位置记录与800次记录的直方图" class="born-chart"><p class="compact">一次探测：得到一个位置。</p><div class="fragment " data-fragment-index="0"><p class="compact">重复测量：位置分布呈现统计规律。</p></div><div class="fragment " data-fragment-index="1"><div class="equation">\[\rho(x)=|\psi(x)|^2\]</div><p class="compact">波函数模的平方，给出位置的概率密度。</p></div></div></div></div>
-<aside class="notes">
-<p>左侧肖像与薛定谔、海森堡页一致。右侧图为教学模拟抽样，不是新的实验数据。ρ是概率密度，区间概率对应曲线下的面积，单个点的密度不是区间概率。用前面真实单电子实验的分布作联系。玻恩于1926年提出概率解释；1954年为获奖年。来源：https://www.nobelprize.org/uploads/2018/06/born-lecture.pdf 。</p>
-<p>肖像：Lotte Meitner-Graf，NobelPrize.org，https://www.nobelprize.org/prizes/physics/1954/born/facts/ 。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="uncertainty" class="slide level2 lecture-slide">
 <h2>海森堡：位置与动量的共同限制</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid person-story"><div><figure class="story-person"><img role="img" aria-label="海森堡" src="assets/from-ppt/s5-image12.png" alt="海森堡" class><figcaption><span class="person-name"><span>维尔纳·海森堡</span><span lang="en">Werner Heisenberg</span><span>1927</span></span></figcaption></figure></div><div><img role="img" aria-label="窄位置分布对应宽动量分布，宽位置分布对应窄动量分布" src="assets/story/uncertainty.svg" alt="窄位置分布对应宽动量分布，宽位置分布对应窄动量分布" class><div class="equation">\[\Delta x\,\Delta p\geq\frac{\hbar}{2}\]</div><p class="label">位置越集中，动量就越分散。</p><p class="minor">\(\Delta\) 表示重复制备、测量得到的分布宽度。</p></div></div></div>
-<aside class="notes">
-<p>先读两组高斯分布，再看公式。Δx和Δp分别是位置和动量的标准差。它们描述同一量子态在各自测量中的分布，不是仅由仪器不精确造成的误差。图取无量纲ℏ=1，两个例子都达到最小不确定乘积。1925年海森堡建立矩阵力学，1927年提出不确定性关系；二者不要混成同一年。</p>
-<p>来源与补充：</p>
-<p>肖像：教师原课件；曲线：最小不确定高斯态。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="quantum-timeline" class="slide level2 lecture-slide">
 <h2>从量子假设到量子力学</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="timeline-story"><div class="story-line"><p class="label">1900—1913</p><p class="compact">普朗克、爱因斯坦、玻尔：量子假设解释实验</p></div><div class="fragment " data-fragment-index="1"><div class="story-line"><p class="label">1924</p><p class="compact">德布罗意：物质波</p></div></div><div class="fragment " data-fragment-index="2"><div class="story-line"><p class="label">1925—1926</p><p class="compact">海森堡、薛定谔：建立量子力学的演化规律</p></div></div><div class="fragment " data-fragment-index="3"><div class="story-line"><p class="label">1926—1927</p><p class="compact">玻恩、海森堡：概率解释与不确定性关系</p></div></div></div></div>
-<aside class="notes">
-<p>用这条时间线回收人物与贡献。矩阵力学和波动力学是同一理论的不同表述。先让学生记住理论有状态、演化、测量三部分，不背诵人名年代。接下来讨论这套理论给我们的新概念。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="history-reading" class="slide level2 lecture-slide">
 <h2>历史背景：更多量子力学的故事</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid three history-books"><div><figure class><img role="img" aria-label="《上帝掷骰子吗？》封面" src="assets/from-ppt/slide6-image13.png" alt="《上帝掷骰子吗？》封面" class></figure><p class="label">《上帝掷骰子吗？》</p><p class="compact">曹天元</p></div><div><figure class><img role="img" aria-label="张天蓉《群星闪耀：量子物理史话》封面" src="assets/story/quantum-history-zhang.jpg" alt="张天蓉《群星闪耀：量子物理史话》封面" class></figure><p class="label">《群星闪耀》<span class="book-subtitle">——量子物理史话</span></p><p class="compact">张天蓉</p></div><div><figure class><img role="img" aria-label="《奥本海默》电影海报" src="assets/from-ppt/slide6-image15.png" alt="《奥本海默》电影海报" class></figure><p class="label">《奥本海默》</p><p class="compact">电影 · 2023</p></div></div></div>
-<aside class="notes">
-<p>沿用原PPT第6页的历史读物与《奥本海默》电影海报，作为更多人物和时代故事的入口。第一本以故事串联观念转折；第二本已按教师指定换成张天蓉《群星闪耀：量子物理史话》，清华大学出版社，2021年，ISBN 9787302565048。封面及书目信息：https://www.tup.com.cn/booksCenter/book_08815401.html 。电影以奥本海默的经历呈现科学与时代的关系。这些历史背景材料不替代教材定义。转场：历史告诉我们新理论怎样形成，接下来回到电子干涉，看看新理论怎样解释、改变实验结果。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="superposition" class="slide level2 lecture-slide">
 <h2>叠加态：先叠加概率幅，再计算概率</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><p class="concept-bridge">刚才看到了条纹：两路都开，为什么不是简单相加？</p><div class="grid three path-comparison"><div><p class="label">只开上路：\(\psi_1\)</p><img role="img" aria-label="只开上路：路径示意与平滑的屏幕计数曲线" src="assets/story/two-path-1.svg" alt="只开上路：路径示意与平滑的屏幕计数曲线" class></div><div><p class="label">只开下路：\(\psi_2\)</p><img role="img" aria-label="只开下路：路径示意与平滑的屏幕计数曲线" src="assets/story/two-path-2.svg" alt="只开下路：路径示意与平滑的屏幕计数曲线" class></div><div><div class="fragment " data-fragment-index="0"><p class="label">两路都开</p><img role="img" aria-label="相干开放两路：出现干涉；灰虚线是两次单路计数之和" src="assets/story/two-path-3.svg" alt="相干开放两路：出现干涉；灰虚线是两次单路计数之和" class></div></div></div><div class="fragment " data-fragment-index="1"><div class="equation">\[\psi=\psi_1+\psi_2\]</div><p class="concept-takeaway">两路相干开放时，先叠加概率幅，再计算探测概率。</p></div></div>
-<aside class="notes">
-<p>从前面的电子双棱镜过渡到更容易画清路径的双缝模型，说明装置不同而两部分电子波重叠的问题相同。虚线路径只是装置示意，不是电子轨迹。上、下路径贡献分别为ψ1和ψ2；源强与开放通道耦合固定。灰虚线为相同源强下两次单路计数之和，蓝线为相干双路计数。这里ψ是屏上一个位置的总概率幅。不能把|ψ1|²+|ψ2|²当成相干双路结果。图为理想模型，单路计数g/4，双路g[1+cos(2πx)]/2，g=exp(-x²/4)。没有把概念图当实验数据。参考：Feynman Lectures III-1，https://www.feynmanlectures.caltech.edu/III_01.html 。这里从屏上概率幅引入叠加；下一页明确路径叠加态的写法，并与随机选择一路比较。随后再改变相位观察干涉。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="superposition-coherence" class="slide level2 lecture-slide">
 <h2>叠加态与随机选择，怎样区分？</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><p class="concept-bridge">叠加态：上、下路径态 \(|u\rangle\)、\(|d\rangle\) 的相干线性组合。</p><div class="grid two coherence-comparison"><div><div class="coherence-preparation"><p class="label">相干叠加</p><div class="equation">\[|\psi\rangle=\frac{|u\rangle+|d\rangle}{\sqrt{2}}\]</div></div><div class="fragment " data-fragment-index="0"><div class="story-line"><p class="label">直接测路径</p><p class="compact">上、下各有一半概率。</p></div></div><div class="fragment " data-fragment-index="1"><div class="story-line"><p class="label">用平衡合束器重新合并两路</p><p class="compact">调好相位后，全部从 \(D_0\) 输出。</p></div></div></div><div><div class="coherence-preparation"><p class="label">随机选择一路</p><p class="mixture-preparation">每次只制备上路或下路，<br>两种制备各占一半。</p></div><div class="fragment " data-fragment-index="0"><div class="story-line"><p class="label">直接测路径</p><p class="compact">上、下各有一半概率。</p></div></div><div class="fragment " data-fragment-index="1"><div class="story-line"><p class="label">用同一个合束器重新合并</p><p class="compact">\(D_0\)、\(D_1\) 各有一半概率。</p></div></div></div></div><div class="fragment " data-fragment-index="2"><p class="concept-takeaway">相同的路径概率，可以对应不同的量子态。</p></div></div>
-<aside class="notes">
-<p>叠加原理：在同一允许的状态空间中，态矢量的归一化线性组合仍可构成纯态。这里仅讨论正交的两条路径，不涉及超选择规则。竖线与尖括号共同表示量子态。左侧是等幅同相的纯态；右侧是每次随机制备u或d的非相干统计混合，不把它写成一个纯态矢量。直接路径测量不能区分二者。换成理想平衡合束器，约定U|u&gt;=(|D0&gt;+|D1&gt;)/sqrt(2)，U|d&gt;=(|D0&gt;-|D1&gt;)/sqrt(2)，所以左侧变成|D0&gt;，右侧两输出各半。此时不是先测路径再合束；两种测量方案分别用于同样制备的不同批次。D0、D1是两个输出端。用电子双棱镜类比引入理想两模干涉仪，不宣称前面的屏幕实验只有两个探测位置。经典相干波也能给出相同的强度干涉：本页区分相干叠加与路径随机混合，并不凭此证明量子计算优势。下一页保持相干叠加，只改变相对相位，观察条纹移动。来源：Feynman Lectures III-1 https://www.feynmanlectures.caltech.edu/III_01.html 。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="phase-pattern" class="slide level2 lecture-slide">
 <h2>控制相位：让干涉条纹移动</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="embedded-simulation story-interactive"><iframe data-external="1" src="assets/story/path-interference.html" title="同一双缝装置：改变下路相位，观察条纹移动" allow="fullscreen" allowfullscreen></iframe></div></div>
 <a class="backup-link" href="lecture01-backup.html#/b-complex" target="_blank" rel="noopener">备选内容 ↗</a>
-<aside class="notes">
-<p>相位可先解释为波动所处的进度，控制其中一路的势或传播条件可以改变相对相位。先从0调到180度，比较屏中心由增强变为抵消，再看条纹移动。相干传播没有随机选定一条路。曲线是相对计数I=g[1+cos(2πx+φ)]/2，g=exp(-x²/4)，坐标无量纲；灰虚线始终为φ=0参考曲线，不是另一次实验数据。下一页回到读出：这里的计数曲线来自许多次制备与测量，一次探测只得到一个位置。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="measurement-readout" class="slide level2 lecture-slide">
 <h2>测量：一次一个结果，重复才看见分布</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><p class="concept-bridge">刚才改变的是整组条纹；一次探测能告诉我们什么？</p><div class="grid two readout-comparison"><div><p class="label">少量电子：分散的落点</p><div class="electron-window"><img role="img" aria-label="单电子干涉实验的早期少量记录" src="assets/figures/tonomura-electrons.jpg" alt="单电子干涉实验的早期少量记录" style="--stage:0"></div></div><div><div class="fragment " data-fragment-index="0"><p class="label">累积记录：稳定的条纹</p><div class="electron-window"><img role="img" aria-label="同一实验累积形成的干涉条纹" src="assets/figures/tonomura-electrons.jpg" alt="同一实验累积形成的干涉条纹" style="--stage:4"></div></div></div></div><div class="fragment " data-fragment-index="1"><p class="concept-takeaway">每次重新制备，再测量；统计结果，才能读出分布。</p></div><div class="fragment " data-fragment-index="2"><p class="concept-takeaway">如果还想知道它走哪条路，会改变这幅分布吗？</p></div></div>
-<aside class="notes">
-<p>回看外村彰单电子实验的早期与后期记录，图片不是新做的模拟。早期画面也包含多次探测，不能说成单个电子的照片。每次位置探测得到一个局域结果；要估计分布，需要同样制备后重复测量。联系前面玻恩概率解释，不把同一个电子连续测量很多次当作独立抽样。下一页保持末端位置测量不变，在途中加入路径记录，比较结果。</p>
-<p>来源与补充：</p>
-<p>原实验图的来源沿用电子累积页。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="quantum-measurement" class="slide level2 lecture-slide">
 <h2>如果先记录路径，干涉还在吗？</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="embedded-simulation story-interactive"><iframe data-external="1" src="assets/story/path-interference.html?mode=measurement" title="保持两路开放：在干涉之前留下路径记录" allow="fullscreen" allowfullscreen></iframe></div></div>
 <a class="backup-link" href="lecture01-backup.html#/b-cat" target="_blank" rel="noopener">备选内容 ↗</a>
-<aside class="notes">
-<p>承接上一页提出的“能否同时知道路径”问题。对照两种情况：都在末端测量位置；只改变途中是否留下完整、可区分的路径记录。理想纯态制备和相干记录作用下，上下两路分别关联到正交的记录装置状态，电子与装置形成纠缠。忽略装置记录，只统计屏幕位置时干涉项消失。无需人读取记录；部分可区分记录一般降低条纹可见度，不简单等同于完全消失。下一页从电子与记录装置必须共同描述，推广到两个可分别测量的粒子。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="entanglement-states" class="slide level2 lecture-slide">
 <h2>纠缠：两个光子构成不可分的联合态</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><p class="concept-bridge">\(A\)、\(B\)：两个光子；\(H\)、\(V\)：水平、竖直偏振。</p><div class="equation">\[|\Phi\rangle=\frac{|H\rangle_A|H\rangle_B+|V\rangle_A|V\rangle_B}{\sqrt{2}}\]</div><p class="joint-state-caption">“都水平”与“都竖直”的相干叠加，属于两个光子的整体。</p><div class="fragment " data-fragment-index="0"><p class="concept-takeaway">不能用两个光子各自独立的状态，代替这个联合态。</p></div><div class="fragment " data-fragment-index="1"><div class="grid two photon-pair-readout"><div><div class="story-line"><p class="label">只看一个光子</p><p class="compact">按水平、竖直方向测量：<br>\(H\)、\(V\) 各有一半概率。</p></div></div><div><div class="story-line"><p class="label">对照两个光子的结果</p><p class="compact">都水平，或都竖直；<br>在这组测量中，结果总相同。</p></div></div></div></div><div class="fragment " data-fragment-index="2"><p class="story-question">仅凭结果相同还不够：换个测量方向，再比较。</p></div><div class="fragment entanglement-meme" data-fragment-index="3"><img role="img" aria-label="用户提供的扫雷梗图，用作双光子纠缠态页结束前的课堂幽默" src="assets/story/entanglement-minesweeper-meme.png" alt="用户提供的扫雷梗图，用作双光子纠缠态页结束前的课堂幽默" class></div></div>
-<aside class="notes">
-<p>播放顺序：正文三次逐步展示结束后，再按下一步展示完整扫雷梗图；继续前进进入“这些关联，能用预先约定的答案解释吗？”，按上一步恢复本页正文。图片未经裁切或改绘，保留原水印。可口头说“这是不是很像网上说的量子纠缠？”随后点明：扫雷属于经典关联，不能作为量子纠缠、Bell违背或超光速作用的物理解释。借此回扣“仅凭结果相关还不够”，再引出下一页的检验问题。这些说明仅放在讲者备注里。上一页用路径记录说明一个系统可以与另一个系统关联；现在换成更对称、容易分别测量的两个光子，不再并排放“电子与装置”和“两个粒子”两个未解释的例子。A、B标记光子；H、V是同一实验室约定下的正交水平与竖直偏振。这里给出一个理想纯Bell态，两个分量之间保持相干。此纯态不能写成单光子纯态的乘积；各个光子的约化态是混态，不是说单光子没有任何状态描述。正文“不能用各自独立的状态代替”仅针对本例，不把纯态乘积判据不加说明地推广为所有混态的纠缠判据。按H/V测量，HH与VV各半；但随机各半制备HH或VV的普通统计混合也有相同结果，所以这一组数据不能认证纠缠。实验上必须比较多组适当的测量设置，下一页引出Bell对局域隐变量模型的限制。对本Bell态，两边同取实线偏振基时可有相同结果，但不声称任意不同测量方向都相同。不能通过单边选择测量向另一边超光速传信。来源：https://www.nobelprize.org/prizes/physics/2022/summary/ 。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="entanglement-history" class="slide level2 lecture-slide">
 <h2>这些关联，能用预先约定的答案解释吗？</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class="active">量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid three entangle-original"><div><figure class><img role="img" aria-label="原课件中的EPR争论报纸报道" src="assets/from-ppt/s13-image21.png" alt="原课件中的EPR争论报纸报道" class></figure><p class="label">1935 · EPR</p><p class="compact">量子理论是否完备？</p></div><div><figure class><img role="img" aria-label="原课件中的约翰·贝尔肖像" src="assets/from-ppt/s13-image23.png" alt="原课件中的约翰·贝尔肖像" class></figure><p class="label">1964 · 贝尔</p><p class="compact">比较不同设置的测量关联。</p></div><div><figure class><img role="img" aria-label="原课件中的2022年诺奖三位获奖者" src="assets/from-ppt/s13-image22.jpeg" alt="原课件中的2022年诺奖三位获奖者" class></figure><p class="label">2022 · 诺贝尔物理学奖</p><p class="compact">纠缠实验与量子信息科学。</p></div></div><p class="concept-takeaway">能否用可控的量子态处理信息？</p></div>
-<aside class="notes">
-<p>保留用户原课件的三张图，作为纠缠问题的简短历史收束。EPR讨论理论完备性；Bell把特定局域隐变量解释转成可检验约束，实验在适当条件下违反这些约束。不能说任何预先给定模型都被排除，更不能据此声称超光速传信。不展开Bell公式。总结前面的能力：制备叠加、控制干涉、测量读出、建立与检验共同状态，以“能否用可控的量子态处理信息”转入下一节，先从量子比特这一最简单的信息单元讲起，再说明制备、控制和读出的操作。来源：https://www.nobelprize.org/prizes/physics/2022/summary/ 。</p>
-<p>来源与补充：</p>
-<p><a href="https://www.nobelprize.org/prizes/physics/2022/summary/1/" target="_blank" rel="noopener">2022年诺贝尔物理学奖 · 图片与简介</a></p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="qubit" class="slide level2 lecture-slide">
 <h2>量子比特：用两个状态承载信息</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class="active">量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid path-state-language"><div><img role="img" aria-label="熟悉的两条路径及干涉分布" src="assets/story/two-path-3.svg" alt="熟悉的两条路径及干涉分布" class></div><div><p class="label">上路记为0，下路记为1</p><div class="equation">\[|0\rangle\qquad |1\rangle\]</div><div class="fragment " data-fragment-index="0"><p class="compact">它们的叠加，构成一个量子比特</p><div class="equation">\[|\psi\rangle=a|0\rangle+b|1\rangle\]</div></div><div class="fragment " data-fragment-index="1"><p class="compact">\(a\)、\(b\)：两路的概率幅，<br>包含大小和相位。</p><p class="label">按路径读出，每次得到0或1。</p></div></div></div></div>
 <a class="backup-link" href="lecture01-backup.html#/b-bloch" target="_blank" rel="noopener">备选内容 ↗</a>
-<aside class="notes">
-<p>量子信息一节从这里开始。承接上一节收束的问题：既然能制备、控制和测量量子态，能否用它处理信息？把学生已经理解的两条正交路径状态命名为0和1。竖线与尖括号一起表示一个量子态，不是绝对值。a、b是复概率幅，不是概率，模平方相加为1。理想路径测量时结果0、1的概率分别是|a|²、|b|²；这里的路径测量与前面在屏幕上测量位置不是同一个测量设置。两条路径只是量子比特的一种实现，原子的两个能级也可用同样语言描述。Bloch球移到备选页，主线不要求球坐标。下一页把单个比特的叠加推广到多个量子比特的联合态，再整理信息处理步骤。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="multi-qubit-superposition" class="slide level2 lecture-slide">
 <h2>多个量子比特：叠加的是联合状态</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class="active">量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><p class="label">两个量子比特的计算基底由四个基矢组成：</p><div class="equation">\[|\Psi\rangle=a_{00}|00\rangle+a_{01}|01\rangle+a_{10}|10\rangle+a_{11}|11\rangle\]</div><div class="grid three state-space-growth"><div class="story-line"><p class="label">1个量子比特</p><p class="compact">\(2\) 个基矢</p></div><div class="story-line"><p class="label">2个量子比特</p><p class="compact">\(4\) 个基矢</p></div><div class="story-line"><p class="label">\(n\) 个量子比特</p><p class="compact">\(2^n\) 个基矢</p></div></div><div class="fragment " data-fragment-index="0"><p class="concept-takeaway">联合态可以纠缠，不能总拆成各个比特的独立状态。</p></div><div class="fragment " data-fragment-index="1"><p class="label">测量全部比特，一次只得到一个比特串。</p></div></div>
-<aside class="notes">
-<p>从上一页一个量子比特的两个概率幅，扩展到两比特联合状态的四个概率幅。术语：这里的00、01、10、11是计算基底的四个正交归一基矢，不是最低能量意义的基态。它们是Z⊗I与I⊗Z的共同本征态；本征态必须说明对应哪个算符。除非哈密顿量在该基底中对角化，否则它们未必是能量本征态。不要将“基矢”笼统改为“本征态”。四个模平方之和为1。00表示两个比特都为0，而不是十进制一百；按两个比特各自的计算基测量，输出ij概率是|a_ij|²。n个两能级系统的张量积空间维数是2<sup>n；这里说计算基底的基矢数，不说存在2</sup>n个独立可读出的经典存储单元。经典n比特也有2<sup>n种可能配置，经典概率分布也可有2</sup>n个概率；区别不能只靠“可能性多”来论证。一般纯态需2^n个复振幅表示，但乘积态以及其他有结构态可以简洁描述。四个基矢都参与叠加不等于纠缠，例如|+&gt;|+&gt;是乘积态；(|00&gt;+|11&gt;)/sqrt(2)是不能分解的纠缠态，可回扣前面的共同状态。仅维数大不保证经典模拟困难，也不保证任意态能高效制备。下一页把操作推广到整个联合态。来源：https://learning.quantum.ibm.com/course/basics-of-quantum-information/multiple-systems 。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="quantum-operations" class="slide level2 lecture-slide">
 <h2>量子操作：制备、控制，再读出</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class="active">量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><p class="concept-bridge">从两条路径出发，把操作推广到多个量子比特。</p><div class="grid three operations-chain"><div><div class="story-line"><p class="label">1 · 制备</p><p class="compact">从已知状态开始，<br>产生可控的相干叠加。</p></div></div><div><div class="fragment " data-fragment-index="0"><div class="story-line"><p class="label">2 · 控制</p><p class="compact">调节相位与比特间耦合，<br>操控联合态的概率幅。</p></div></div></div><div><div class="fragment " data-fragment-index="1"><div class="story-line"><p class="label">3 · 读出</p><p class="compact">探测一个结果；<br>重复制备，统计分布。</p></div></div></div></div><div class="fragment " data-fragment-index="2"><p class="concept-takeaway">控制量子态，是为了让有用的结果更容易出现。</p></div><div class="fragment " data-fragment-index="3"><p class="story-question">经典波也能干涉，量子优势还需要什么？</p></div></div>
 <a class="backup-link" href="lecture01-backup.html#/b-hadamard" target="_blank" rel="noopener">备选内容 ↗</a>
-<aside class="notes">
-<p>这页把同一实验从物理现象翻译为制备、控制、读出的操作流程，不突然引入门矩阵。并不是任何相位变化都改变0/1路径测量的概率；需要重新混合两路，使相对相位通过干涉影响读出分布。相干分束、路径调相与重新合束可实现量子比特操作，但本页不是完整电路。先建立设计量子演化影响测量统计的思想，后面Shor将设计目标换成提取周期。多比特处理还需要比特间的耦合操作，不能仅靠互不作用的单比特调相。下一页正面说明经典波也能干涉，计算优势需要比较完整算法的资源成本。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="quantum-advantage" class="slide level2 lecture-slide">
 <h2>经典波也能干涉，量子优势在哪里？</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class="active">量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="advantage-story"><div class="story-line"><p class="label">干涉并非量子独有</p><p class="compact">经典波也能叠加、调相，并模拟单比特干涉。</p></div><div class="fragment " data-fragment-index="0"><div class="story-line"><p class="label">比较的是随规模增长的资源需求</p><p class="compact">用经典波逐项编码 \(2^n\) 个概率幅，需要 \(2^n\) 个模式。</p></div></div><div class="fragment " data-fragment-index="1"><div class="story-line"><p class="label">算法决定能否获得加速</p><p class="compact">高效制备与控制，利用干涉提取问题的结构。</p></div></div></div><div class="fragment " data-fragment-index="2"><p class="concept-takeaway">叠加、纠缠和干涉，都不自动保证计算更快。</p></div><div class="fragment " data-fragment-index="3"><p class="story-question">稍后看Shor：提取周期，再用它分解整数。</p></div></div>
-<aside class="notes">
-<p>本页回答为何不能用“会干涉”定义量子计算优势。经典两模波可模拟单比特的幅度与相位操作。若以一个独立经典波模式对应一个联合基矢来直接模拟一般n比特态，需要2^n个模式；这是特定直接编码的资源开销，不是所有经典算法都要指数资源的证明。经典随机系统的联合分布也可很大，因此大空间本身不构成优势证据。量子模型通过组合n个两能级系统及局域相互作用操控联合态，但任意态制备、任意幺正变换通常不高效。算法必须利用结构，使状态制备、运算、重复测量及经典后处理的总成本可控；叠加中写下多个函数值不等于测量能读出所有值。纠缠也不是充分条件，例如稳定子电路可产生纠缠并仍能经典高效模拟。本课用Shor周期寻找展示算法如何利用相干结构，量子多项式时间优于已知最佳经典通用分解算法的渐近成本；没有证明所有经典分解算法都必然超多项式，也不是现有硬件破解RSA的性能宣称。来源：https://learning.quantum.ibm.com/course/basics-of-quantum-information/multiple-systems ；https://learning.quantum.ibm.com/course/fundamentals-of-quantum-algorithms/quantum-algorithmic-foundations 。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="quantum-information" class="slide level2 lecture-slide">
 <h2>量子信息科学：获取、处理与传递信息</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class="active">量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="information-story"><div class="story-line"><p class="label">获取信息 · 量子精密测量</p><p class="compact">用量子态感知时间、场和微小变化。</p></div><div class="fragment " data-fragment-index="0"><div class="story-line"><p class="label">处理信息 · 量子计算</p><p class="compact">设计量子演化，解决计算任务。</p></div></div><div class="fragment " data-fragment-index="1"><div class="story-line"><p class="label">传递信息 · 量子通信</p><p class="compact">用量子态建立关联，完成通信任务。</p></div></div></div></div>
-<aside class="notes">
-<p>沿用原PPT第20页三条线，量子精密测量不要替换成量子模拟。例子口述：原子钟、量子算法、量子密钥分发。量子隐形传态仍需经典通信，不宣称超光速通信。把学生熟悉的信息获取、处理、传递作为理解入口。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="computing-history" class="slide level2 lecture-slide">
 <h2>量子计算的想法怎样发展起来？</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class="active">量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid three computing-people"><div><figure class><img role="img" aria-label="费曼" src="assets/from-ppt/s21-image30.png" alt="费曼" class><figcaption><span class="person-name"><span>理查德·费曼</span><span lang="en">Richard Feynman</span><span>1982</span></span></figcaption></figure><p class="compact">用量子系统<br>模拟量子物理。</p></div><div><div class="fragment " data-fragment-index="0"><figure class><img role="img" aria-label="Deutsch" src="assets/from-ppt/s21-image31.png" alt="Deutsch" class><figcaption><span class="person-name"><span>戴维·多伊奇</span><span lang="en">David Deutsch</span><span>1985</span></span></figcaption></figure><p class="compact">建立通用量子<br>计算的理论模型。</p></div></div><div><div class="fragment " data-fragment-index="1"><figure class><img role="img" aria-label="Shor" src="assets/from-ppt/s25-image37.png" alt="Shor" class><figcaption><span class="person-name"><span>彼得·肖尔</span><span lang="en">Peter Shor</span><span>1994</span></span></figcaption></figure><p class="compact">找到高效分解<br>整数的量子算法。</p></div></div></div></div>
-<aside class="notes">
-<p>以想法的发展组织人物，不罗列硬件纪录。Feynman的Simulating Physics with Computers发表于1982年；Deutsch发表于1985年的通用量子计算机论文；Shor算法提出于1994年。本页只保留费曼、Deutsch和Shor，接下来回到整数分解的具体例子。来源：https://doi.org/10.1007/BF02650179 ；https://www.cs.princeton.edu/courses/archive/fall06/cos576/papers/deutsch85.pdf ；https://arxiv.org/abs/quant-ph/9508027 。</p>
-<p>来源与补充：</p>
-<p>肖像：教师原课件。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="quantum-order" class="slide level2 lecture-slide">
 <h2>回到开头：怎样帮助整数分解？</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class="active">量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><p class="label">大整数很难直接找因子。</p><div class="equation">\[N=p\times q\]</div><div class="fragment " data-fragment-index="0"><p class="story-question">Shor的转化：先找一个模幂序列的周期。</p></div><div class="fragment " data-fragment-index="1"><div class="grid two"><div><div class="story-line"><p class="label">课堂上的小例子</p><p class="compact">取N=21，从2的幂开始。</p></div></div><div><div class="story-line"><p class="label">要观察的量</p><p class="compact">每次只保留除以21的余数。</p></div></div></div></div></div>
-<aside class="notes">
-<p>p和q这里代表待求因子。先解释“模”的含义就是取余数，不要求学生有数论基础。底数2与21互素，适合这个实例；一般选取底数还需要互素检查，成功提取因子也有条件，这些放在备注与备选页。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="period21" class="slide level2 lecture-slide">
 <h2>寻找周期：不断乘2，再除以21取余数</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class="active">量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><p class="label">从1开始，每一步乘2，再取余数。</p><div class="residue-story"><span class="residue-value">1</span><span class="fragment residue-step" data-fragment-index="0"><span class="residue-arrow">→</span><span class="residue-value">2</span></span><span class="fragment residue-step" data-fragment-index="1"><span class="residue-arrow">→</span><span class="residue-value">4</span></span><span class="fragment residue-step" data-fragment-index="2"><span class="residue-arrow">→</span><span class="residue-value">8</span></span><span class="fragment residue-step" data-fragment-index="3"><span class="residue-arrow">→</span><span class="residue-value">16</span></span><span class="fragment residue-step" data-fragment-index="4"><span class="residue-arrow">→</span><span class="residue-value">11</span></span><span class="fragment residue-step" data-fragment-index="5"><span class="residue-arrow">→</span><span class="residue-value">1</span></span></div><div class="fragment " data-fragment-index="5"><img role="img" aria-label="重复出现的余数序列，周期为6" src="assets/lecture01/period21.svg" alt="重复出现的余数序列，周期为6" class="period-story-chart"><p class="story-question">经过6步回到1，随后重新重复。</p></div></div>
 <a class="backup-link" href="lecture01-backup.html#/order-cost" target="_blank" rel="noopener">备选内容 ↗</a>
-<aside class="notes">
-<p>按右键逐步相乘。16乘2得到32，32=21+11，所以余数11；11乘2得到22，余数1。最小正整数周期r=6。此处逐项计算用来理解周期，真正Shor算法不会先经典遍历完整长周期。</p>
-<p>来源与补充：</p>
-<p>底数2、模数21；图中为精确整数运算。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="factor-from-period" class="slide level2 lecture-slide">
 <h2>知道周期，怎样得到因子？</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class="active">量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="story-line"><p class="label">6步回到余数1</p><p class="compact">所以 \(2^6-1\) 能被21整除。</p></div><div class="fragment " data-fragment-index="0"><div class="equation">\[2^6-1=(2^3-1)(2^3+1)=7\times9\]</div></div><div class="fragment " data-fragment-index="1"><div class="grid two"><div><div class="story-line"><p class="label">7与21的最大公因数</p><p class="compact">7</p></div></div><div><div class="story-line"><p class="label">9与21的最大公因数</p><p class="compact">3</p></div></div></div></div><div class="fragment " data-fragment-index="2"><div class="equation">\[21=3\times7\]</div></div></div>
 <a class="backup-link" href="lecture01-backup.html#/b-shor" target="_blank" rel="noopener">备选内容 ↗</a>
-<aside class="notes">
-<p>平方差公式是本页唯一代数步骤。先算2³=8，再得到7、9。解释最大公因数是两数共有的最大因子。并不是简单拿7×9当作21；要分别与21取最大公因数。一般要求周期偶数且a^(r/2)不等于−1模N，本例满足。</p>
-<p>来源与补充：</p>
-<p>此例阶r=6，半阶幂8模21不等于±1；一般情形需检查并可能换底数重试。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="shor-overview" class="slide level2 lecture-slide">
 <h2>Shor的量子步骤：让周期显现在测量中</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class="active">量子信息</a><a href="#/quantum-hardware" class>光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="shor-flow"><div class="story-line"><p class="label">叠加输入</p><p class="compact">制备多个指数的相干叠加</p></div><div class="story-line"><p class="label">模幂运算</p><p class="compact">建立指数与余数的关联</p></div><div class="story-line"><p class="label">干涉与读出</p><p class="compact">把周期信息转成测量分布</p></div></div><div class="grid shor-summary"><div><img role="img" aria-label="有限周期态经过傅里叶变换后的概率峰" src="assets/lecture01/fourier-period.svg" alt="有限周期态经过傅里叶变换后的概率峰" class="shor-peaks"></div><div><p class="label">一次测量提供一条线索。</p><div class="fragment " data-fragment-index="0"><p class="compact">重复取样，用经典计算恢复周期，<br>再检验并提取因子。</p></div><div class="fragment " data-fragment-index="1"><p class="compact">高效分解大整数，将威胁开头介绍的RSA密码。</p></div></div></div></div>
 <a class="backup-link" href="lecture01-backup.html#/b-qft" target="_blank" rel="noopener">备选内容 ↗</a>
-<aside class="notes">
-<p>图沿用有限周期条件态Q=64、r=6的傅里叶概率计算，只用于直观展示周期和概率峰的联系；Q=64不足以保证一般Shor周期恢复，不作为完整可扩展实现。无需解释寄存器或连分数。叠加允许相干处理多个输入，但测量不返回所有函数值；量子优势来自可高效实现的整体演化与后处理。图为经典计算模拟，不是量子设备运行结果。最后回扣RSA：足够大且可可靠执行Shor算法的量子计算机可通过分解模数破坏RSA；课堂的21例子不是现实密钥破解演示。</p>
-<p>来源与补充：</p>
-<p>有限周期态的傅里叶概率示意；详细模型见备选页。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="quantum-hardware" class="slide level2 lecture-slide">
 <h2>怎样制造一台量子计算机？</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class="active">光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid hardware-system"><div><figure class><img role="img" aria-label="IBM Quantum System Two，Poughkeepsie系统实拍" src="assets/story/ibm-quantum-system-two-2026.jpg" alt="IBM Quantum System Two，Poughkeepsie系统实拍" class><figcaption>IBM Quantum System Two<br>超导量子计算系统 · 美国波基普西</figcaption></figure></div><div><div class="story-line"><p class="label">制备</p><p class="compact">从可重复的初态开始。</p></div><div class="story-line"><p class="label">控制</p><p class="compact">用微波脉冲操控量子比特。</p></div><div class="story-line"><p class="label">读出</p><p class="compact">把微波测量信号变成记录。</p></div></div></div></div>
-<aside class="notes">
-<p>旧图是Y. Colombe/NIST拍摄的离子阱实验装置局部，不能把它直接叫作一台有确定型号的完整量子计算机。现改为IBM Quantum System Two整机实拍，地点为美国Poughkeepsie。照片采用IBM于2026-09-10发布的官方新闻稿配图；这一日期是资料发布日期，不是照片拍摄日期。新闻稿报道瑞士将部署的新系统，不能将配图误称为瑞士已投运的系统。System Two采用超导量子计算平台，具有低温、控制和经典计算等基础设施；本页据此把控制与读出文案改为微波。该类系统与离子阱的物理实现不同，下一页再比较技术路线。来源：https://newsroom.ibm.com/2026-09-10-ibm,-lockheed-martin-announce-swiss-quantum-innovation-hub-at-eth-zurich,-anchored-by-switzerlands-first-ibm-quantum-computer 。</p>
-<p>来源与补充：</p>
-<p>照片：IBM，2026-09-10官方新闻稿配图。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="qubit-platforms" class="slide level2 lecture-slide">
 <h2>量子比特可以由什么实现？</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class="active">光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid three platform-types"><div><div class="platform-icon icon-0"><img role="img" aria-label="原PPT的超导电路平台示意" src="assets/from-ppt/slide27-image38.png" alt="原PPT的超导电路平台示意" class></div><p class="label">超导电路</p><p class="compact">电路的两个量子能级</p><div class="fragment " data-fragment-index="0"><p class="minor">用微波脉冲控制</p></div></div><div><div class="platform-icon icon-1"><img role="img" aria-label="原PPT的囚禁离子平台示意" src="assets/from-ppt/slide27-image38.png" alt="原PPT的囚禁离子平台示意" class></div><p class="label">囚禁离子</p><p class="compact">原子内部的两个状态</p><div class="fragment " data-fragment-index="0"><p class="minor">用激光或微波控制</p></div></div><div><div class="platform-icon icon-2"><img role="img" aria-label="原PPT的半导体量子点平台示意" src="assets/from-ppt/slide27-image38.png" alt="原PPT的半导体量子点平台示意" class></div><p class="label">半导体量子点</p><p class="compact">电子的两个自旋状态</p><div class="fragment " data-fragment-index="0"><p class="minor">用电场、磁场等控制</p></div></div></div></div>
-<aside class="notes">
-<p>沿用原PPT第27页的三种平台，从原图中仅显示对应图标，文字重新排版。超导由微波控制，离子常由激光或微波控制，自旋量子点可通过电磁场控制。这里不排名平台，也不讲未经核验的性能纪录。</p>
-<p>来源与补充：</p>
-<p>平台示意：教师原课件。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="light-matter-control" class="slide level2 lecture-slide">
 <h2>怎样控制量子态？光与原子再次相遇</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class="active">光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="grid two"><div><img role="img" aria-label="外场驱动两个原子能级之间的跃迁" src="assets/lecture01/qubit-levels.svg" alt="外场驱动两个原子能级之间的跃迁" class></div><div><div class="story-line"><p class="label">调节光的频率</p><p class="compact">选择要驱动的跃迁。</p></div><div class="fragment " data-fragment-index="0"><div class="story-line"><p class="label">调节光的强度与作用时间</p><p class="compact">控制两个状态的概率幅。</p></div></div><div class="fragment " data-fragment-index="1"><div class="story-line"><p class="label">调节光的相位</p><p class="compact">控制叠加态的相对相位。</p></div></div></div></div></div>
 <a class="backup-link" href="lecture01-backup.html#/b-jc" target="_blank" rel="noopener">备选内容 ↗</a>
-<aside class="notes">
-<p>回到开头介绍过的光谱与能级，但现在从解释现象走向主动控制。受驱两能级是入门模型，频率选择跃迁还需考虑选择定则等条件。原课件最后的Jaynes–Cummings模型作为后续量子光学的主题，首次绪论不要求学生读懂其哈密顿量。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section id="course-outlook" class="slide level2 lecture-slide">
 <h2>从量子力学到量子信息科学</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class="active">光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"><div class="outlook-story"><div class="story-line"><p class="label">认识量子规律</p><p class="compact">从光谱、电子干涉到状态与测量</p></div><div class="fragment " data-fragment-index="0"><div class="story-line"><p class="label">学会制备与控制</p><p class="compact">光的量子态、原子的量子态与相互作用</p></div></div><div class="fragment " data-fragment-index="1"><div class="story-line"><p class="label">理解量子信息任务</p><p class="compact">计算、通信与精密测量</p></div></div></div><div class="fragment " data-fragment-index="2"><p class="story-question">这门课：研究光与物质怎样在量子层面相互作用。</p></div></div>
 <a class="backup-link" href="lecture01-backup.html#/b-blackbody" target="_blank" rel="noopener">备选内容 ↗</a>
-<aside class="notes">
-<p>回扣大数分解开场：我们已经看到了为什么需要新物理、如何描述与控制量子态，以及周期信息怎样帮助计算。课程后续系统学习数学和动力学。本节要求学生带走现象、问题与基本概念之间的联系。</p>
-<p>来源与补充：</p>
-<p>第一讲主线到此结束；下方“备选推导”按主题进入。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 </section>
 <section role="img" id="closing-gif" class="slide level2 lecture-slide" data-state="closing-gif" data-background-image="data:image/gif;base64,R0lGODdhgAc4BNUAAAAAAAwMDBQUFBsbGyMjIysrKzQ0NDs7O0RERExMTFRUVFxcXGVlZW9vb3Jycnt7e4ODg4uLi5SUlJubm6Ojo6urq7S0tLu7u8PDw8zMzNTU1Nzc3OTk5O3t7fLy8v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAACAALAAAAACABzgEAAb/wI5wSCwaj8ikcslsOp/QqHRKrVqv2Kx2y+16v+CweEwum8/otHrNbrvf8Lh8Tq/b7/i8fs/v+/+AgYKDhIWGh4iJiouMjY6PkJGSk5SVlpeYmZqbnJ2en6ChoqOkpaanqKmqq6ytrq+wsbKztLW2t7i5uru8vb6/wMHCw8TFxsfIycrLzM3Oz9DR0tPU1dbX2Nna29zd3t/g4eLj5OXm5+jp6uvs7e7v8PHy8/T19vf4+fr7/P3+/wADChxIsKDBgwgTKlzIsKHDhxAjSpxIsaLFixgzatzIsaPHjyBDihxJsqTJkyhTqlzJsqXLlzBjypxJs6bNmzhz6tzJs6fP/59AgwodSrSo0aNIkypdyrSp06dQo0qdSrWq1atYs2rdyrWr169gw4odS7as2bNo06pdy7at27dw48qdS7eu3bt48+rdy7ev37+AAwseTLiw4cOIEytezLix48eQI0ueTLmy5cuYM2vezLmz58+gQ4seTbq06dOoU6tezbq169ewY8ueTbu27du4c+vezbu379/AgwsfTry48ePIkytfzry58+fQo0ufTr269evYs2vfzr279+/gw4sfT768+fPo06tfz769+/fw48ufT7++/fv48+vfz7+///8ABijggAQWaOCBCCao4IIMNujggxBGKOGEFFZo4YUYZqjhhhx26P/hhyCGKOKIJJZo4okopqjiiiy26OKLMMYo44w01mjjjTjmqOOOPPbo449ABinkkEQWaeSRSCap5JJMNunkk1BGKeWUVFZp5ZVYZqnlllx26eWXYIYp5phklmnmmWimqeaabLbp5ptwxinnnHTWaeedeOap55589unnn4AGKuighBZq6KGIJqrooow26uijkEYq6aSUVmrppZhmqummnHbq6aeghirqqKSWauqpqKaq6qqsturqq7DGKuustNZq66245qrrrrz26uuvwAYr7LDEFmvsscgmq+yyzDbr7LPQRivttNRWa+212Gar7bbcduvtt+CGK+645JZr7rnopqv/7rrstuvuu/DGK++89NZr77345qvvvvz26++/AAcs8MAEF2zwwQgnrPDCDDfs8MMQRyzxxBRXbPHFGGes8cYcd+zxxyCHLPLIJJds8skop6zyyiy37PLLMMcs88w012zzzTjnrPPOPPfs889ABy300EQXbfTRSCet9NJMN+3001BHLfXUVFdt9dVYZ6311lx37fXXYIct9thkl2322WinrfbabLft9ttwxy333HTXbffdeOet99589+3334AHLvjghBdu+OGIJ6744ow37vjjkEcu+eSUV2755ZhnrvnmnHfu+eeghy766KSXbvrpqKeu+uqst+7667DHLvvstNdu//vtuOeu++689+7778AHL/zwxBdv/PHIJ6/88sw37/zz0Ecv/fTUV2/99dhnr/323Hfv/ffghy/++OSXb/756Kev/vrst+/++/DHL//89Ndv//3456///vz37///AAygAAdIwAIa8IAITKACF8jABjrwgRCMoAQnSMEKWvCCGMygBjfIwQ568IMgDKEIR0jCEprwhChMoQpXyMIWuvCFMIyhDGdIwxra8IY4zKEOd8jDHvrwh0AMohCHSMQiGvGISEyiEpfIxCY68YlQjKIUp0jFKlrxiljMoha3yMUuevGLYAyjGMdIxjKa8YxoTKMa18jGNrrxjXCMoxznSMc62v/xjnjMox73yMc++vGPgAykIAdJyEIa8pCITKQiF8nIRjrykZCMpCQnSclKWvKSmMykJjfJyU568pOgDKUoR0nKUprylKhMpSpXycpWuvKVsIylLGdJy1ra8pa4zKUud8nLXvryl8AMpjCHScxiGvOYyEymMpfJzGY685nQjKY0p0nNalrzmtjMpja3yc1uevOb4AynOMdJznKa85zoTKc618nOdrrznfCMpzznSc962vOe+MynPvfJz376858ADahAB0rQghr0oAhNqEIXytCGOvShEI2oRCdK0Ypa9KIYzahGN8rRjnr0oyANqUhHStKSmvSkKE2pSlfK0pa69KX/MI2pTGdK05ra9KY4zalOweeBnvr0p0ANqlCD+qehDnWnTjCqUpfKVKHSqalORaoSonoEDlj1qljFahKU+tSeDiGrVx2CT6XagaMWwaob0IAGMsBWtmLgrXC9gFwvAFe4tpWtat2AVY1g1jT9tAMc2EAG3jrXuWIgAxrQa1nHmlOzXnUDaR3sBSxQgQpQ4LIUmIBmJyCBznp2s5rFbGUtQFfEQlavHBArUdH0V8FeoAKclUAEZhuBzlLAAhjQQGr/SlPeEgGtax0sBuRqgcx2lrYRgIBylfuA5jp3uculbWcnQIEKkPateE3sXovA2DF5lQMawEBxJQCBBzjgvOdt/y4EJHDbDCjWqzA9amAjO1zKZlazx2Wuc9HL3/M2oAH95a9zH6Dc2U6XuqM9bF53S1Uu/ZQDGYBtcs3rgP9aGMAOIDB7LZABDviWpU4F73Anm9kJU7jCF06xilfM4hSjV721re51EyuE1Tp4rBqoQATM22IXP0ACFtjAYj2gUqB+Na1rFe9lOTthFP+XAVCOcpR73GMpW/nCGX5AbUNLWrwqtsYfrtJ3M2ABCTygAVNuMZT/+4AJXEC33SWpTz/wge+G175MLu+JnUzlPvu5xQIm8JZlnFsG0znOUXpwBiiw4z+7GAITsIAGFntSIwc2A6+VbXlRLGVHe/rTKU5zlv/XS4ELuJfB8KWSnSsAAT7/178udnWGJXABBouUt4FNcnEn0GQLXxnUwP7zrzGsZep2WbtgRvSSiAzeC0zgzCp29aul7QAIVEC3lPZoUC+tZNmeONjgDjegsxzjLr83zEoisgYsMIFWTzvYbX5ztjua6rR2e8cVXrO4981vLGv4tof9cqrTLQQIU8Dd05Z2nxnggAhUAAMeHrhFLb3W1/J60wrvt8bDnV4IRMDYhR6yxIc01g1cwMxYhrWfOd2A9Up63hNvLaYpQF6Vb/zmOD8vqU0tZCMbyafgtUAEMv5nlVebAhkYcr+gumz4Xtri+EazvnFO9X2vOcMfrwDPUyv/ciJ5dQMYOLi4Xf3jC/R85PQSKp3XXmd0C0nm48V41edO9Y5v2L0iJ/LbiUxmlG+84ZK2db6g6vYgfRfssEU43Rc/92pP4OHn9roHOICBdhMd3BCgAAbObi9L51qtoF8w133eo7+KuLjJvTzjVw9sfVc7AgDHttJL/3Wh8/jmP65Ah9Hurp4eugORnSxlKztaU2vXA4fmfY1Mj2le35710K87gSON98LTaKwGV/zf12t25cNLxK81rmenW93SfrmsPMK+YNnt7qlH//1WZwCA1/tw2etdR0DXwMlVz3FrY9v75WJ6d2ZcyaVnA1ZgEoBgPNd1NgJ3jKZ98BeBGod1/5EWcso2Iz6FeENHd222ebPHLtinfw+IXizWXxoGeR94fV8XYWbGfxL4gsCGdaX2f/fXgOpWZtDWeA63ewAYLoy1fs7ngv7mcIV2gS1yeOFVAX4nfzDYhFYHYFpWaqeWgjLiVYu2gXTneJJmhORiZxdAc5sWg8X2clyYIvmHARL2fE64hvuWYfRXhGW4Ij1FeS1oYUIIalGYdD34LTj2hUN3hyUIaR4Ic0dIZIhXh3ZIgmy4iD3GX0NYamdXgy8CXxsgdHwGiJ6WYRMAcXvYLX3IaDk4drAHhy4Sgn6ohhiGiYz4gopoh1H4ZqgWI2Mmdlj2d4kYAYFHiOJScmEXhv/8JoNmh36FqG7O1mqquIrIuGI6N4OxOIk36Hc294uXmHke2InZsoI6doyNqGXXJngton+Wl4zi+Iuwx2FCposognyTF3ZYGI1tSHaRBmfWaC2+1wEsiIqgFo2aWI2SOCJwV3PjGJAcd4KwaH3+WGeV2GiNJ2ujGHH96C0PVowK544l6I4OAGQ8+JAgwotKGIoC+ZHA9oqRyCI+pQEUgI+L53jdN4/TUnKLZowl6GgTSYScVyJ2xo5n5n4guZML1wCvSIMaGSLfhQESoI1j53/ouC2+5wEmB4pG2WdaOGksOSHYR2bOx5NYGYOQpnvNaJNzuG4QgGYReJEQl5TY8lf/V4iSE5h7ehiUG2JnZQaBWTmXUPljuTiVFeJV4PgAOrl68gcBd+mW1YKNUbd4eRhxIlKV7PeUdAmSWthhVLiRkxdhQ9eXjAdlD6B5NcktQIeGiJiSgsh1QjlmccmYjemY9AeZcZghPWVyAPmCbGmW1AKXr8l4sxaMwughXhiOp9mbRQdpgZmYepdjcvl+KomYSvmVEmmajeiKuEiDujmHVlmcvlmd0QacGSmYeclsi+aRY8mNUomXx/J17MicVOZk57WD3qgh8LVutWmd8BmIQBae2kmVX7d/a5hhmimbzqJoHbl6l7iDm8mazAaO1BmfCDp/bgadHQJ0lCmWFAl9/xcZeKupLCFYmgCKZQLKnxGil4uZoCCqjMD5f9HZAQYKoeaZiSh2dMEonsKSf8uZoXa4oS5aINhXeQcaogiqkudYowZihaCYiPCncrHpo75ScqcooRqqewNqIWOWjToapY+2n0Y6IN91cs8XoVmInqHJoePZmU45lg3HpF7KIA5aZikqpQI5ppxYpQCyajkqgVpGhm56KxdamEM6ptVXnwuCY+wnlgCmpjoqf3ZJnxhCnieZjEfHj9GCfB9gjx9qh7Z5i2Rap/yxm4qnpTdnZZzaqZ76qaAaqqI6qpYJoJAGi2WaINKJpuJolxkJLepocu2WpZr6i5SqmnyqqsR4cP+XmKZVRqrAGqzCOqxMKIEsGp5O2poSWayMyKMVGiw3enBq2IpVh56Fup4diqhYmHC2mV4D9q3gGq7iOq7kWq7mKq7UGn1ROIi5ma0mqmPeyYjgGZnGwpH45qufVm201qO5+qPcCa/4Wpe1lYCgVbAGe7AIm7AKu7AMa7Cahoq1+ovrqlfPSiBD+WwBu5ab2JVfOoeeGa9D2qWWmh8w6nfR54bsZV2FtbIs27Iu+7IwG7My27KUxVm+iGGsd5GV2q8BApfbOo6Ax6AdC3wsGKesd5gV668m+oVG+3cEqWChF7VSO7VUW7VWe7VYS7WDVbN4mrMjmqoCgqhhCZLU2KT/xEKeHRmxtlmkPGuj6xik6vpx5iiakJBrOJmxLUZgmoetffqo97iTsVlnHTuZkeqE+kqnFOKzINt4pyqPjsp2kBu5kju5lFu5lnu5kdtaEmmccyq0ZrqOvBmoq8ilboacxQKjocutIRuPYGulyLe0z8a5tAaUhFe7tnu7uAthODikbcZhDvm5rWmJKdesARpkBqkrvMir0aa2Ofe1I2sfjkp5jIa3LMaNbfm8dcCRY2ucp7oBSXupQOqRzJuzNpeZuDosD/axyki9jei8bduzPeWeOSmh4Hm8ipB/QmessHe9CnKmRcms7BuDlzifvwssaJm2o+u+2cpslaeWjVe//9h7B9iHnxFYdvx6IAdsslnpcob6KyVLYQnMuhEcH0+6vScLwe9LCENZlC9obXuKwff5mVnJo/SKK8qZuosYla37ppO3brHLrACKwikcCDfKwnKKkaYbtqi7uDu5qI47xKaCpOSFj+NbrQr8IGD6s/TrcBpgv4lQcvnLiqdawPDroTjsmC4Ge/LmxaySvNRZxXV3xQ3SnrYXwMqot9kJxXzgkqwGqBXMxWBWxoAlq9pnx9LIZxPLsbSSgWiokOvbhDo8wu6BqA68tgScd7jLVE+Qybaruxosp5totiT7YCIIgYb8juWrxk+sx5+il0rYtGIswqwMvV/JqjB4rA7Jyf+anFS6rMlBd8ZDisTfyx5A9cuwDLRkp8aRKMmRgqTA3Kxy3KeGyLRrGIXmiFpglc3aDFbYTLdMgFWQtc3irM2RxX6VnIUXlnktOsvgQVSXVrinSa3AOIV59yraCseri7hzzHf/abj/dl11FdACPdAErWDenATgJVwFvdALHX41d8oph8g7uMPioXaCu35gCNHGqa9SuMw2FsXS2c9rGs39C1g4qtHbOGjEt9Is3dIubVmXlWDnyARgZ1+i9dI4DdPEt2RTjNKJOI1uNpLyEWKI98wJ6oaPZ4EfTSpV+co+nY8kDcOAtW5a7M+ChlxYndVandUel4C5iAR6B2FKuNX/ZF3WyHWzzfqcfOsdhPdbwcduqSeoWLZekWZ854fJRpUpK4iDsIbPEhrVSgt2tCiOAVbYhl3Y01a2NcZXQgB2iHjYkA3ZAUmNyMrWQyW5qXZVA9jTcn3HpIZburVdi4XZfdXMfMdu4vvUKwfYbuvJqk1lxEqqPhnUgaxajX0BESB1sQ2qAcmWZKwdpIcEwKVWbhV3nAbEcn11xaZ1h4VYorcEwd0oznzM+em+zHweymrUCarcoVzbte2aLNfZznrdq3G7Bfd5wSVckwXT+NVrnQ2Vbrhl1CVjdNXczq1do2e7guKSYfqRK8rBDIgg6gaw7/1qgtijjA18WFqLgop1/9dWw8XBdL/FbcRVWTxtYula4DLprV0938VXWqHNXU2FJb3Ms3stwwG5ouuayyXe4m19HEOpvA2+oo43iP2od64Zin49l4u61r/RYEaAVpHVVoRlWZslW7Mld0/WaRq+cExObB5nYARLaPZtWqg1VUudbi6eq1bo1LGmqFx6yVs+5rtMHFJ8zvBpdAe+2Nx12xq84zMcb57rG1z1WJAFepJl0/eF5PrVXI7Y5HUXaOrV4fNN31CbV+GMakCOJKQ3zmAFBfdpeegJ5ynZ1694ao6e6Zq+6VmlWuQdGqRZ1Tqq5t3drmye48Pb4K4qyruBdrlG5COGZ5qmX5QO6IE+6P8dTt9yZd/IxlfsPIxON19JxtCEBeIzjeWARZlGl+FsqIjplbK7TuzSPu3UXldelt+fzhli+9onS+NrburCiOpCKtcsyuq2gWtINuzrjVlH/rB7Zusp/mKC9lmFXln1nV0CN8zOaHr0RWJ7Pn4A/1lap5rIXsq9WusA+mJRHvAM3/AO//AQz/ChpbJTyMazYcY5yO3dmtilfuNuTqvv3buTJri8UcyuZQHDR4B97ufMDu9NLO/PRegyZm4s7iPd9eriZeSzfq7/1qIFj9qxhvCVXmGCzvNGf/TlioDGtnViBRweC7eiG6WkbuMJDt6pLvUWtuLZbhlhbW+7ll9KfmH/T+7y8cnhAwty9Pzro9l2RLvueaZnke3swNlzWO7JOv7nYG6Rcb/3fN/3ATbo5abUai8ac3hymdrZ8qeJuDlwlEjB4h3mPq8bvLhrJsbyGk/2YpplMAZyQo0jSwl8aHhx3yaG82mWqxq7Py301Xr57ziGr1ryrclqvZrcUEjbhIjjjk/u1grIFF0ayfvQmB/87cte/Dj47Hl4M8fZY5d7lX0Ep3/3LS/8N9dw1KfItYFjiXr1o/5qE8vmRIDjDYz3Uj+NSOfjr3GTYcqp0g/v6i+DSr18ew2GINyGAK58zx/Rqr/+4/aG3kvyuAEEHk+Hg5k8GsmGw6F0PqFR6ZRa/7U2GFmGkvl4QCITS4bT6QzNaTQnQ4lAIF6mUru93vF5fdP5mGA2ztDSCAsNDxETFRcZGx0fISMlJykrLS8xMzUzhTo0LCQg+PRIS01PUVNVV0sdIMQ0BDdnaWttb3FzdXd5e31/bYWG2CpCR02Z5pYgJCxiOxGF2CyOnJKVWbO1t1kfIigwOKCBycvNz9HT1SeFOTQuJI6xuenxkr8iIiQmKCwwNMoscmeBwoQJEt7ImVePIZVjDR5IuABQ2DqLFzFm1LgxUTt4SLI0FDmSZEltWxxEDCdsEEeXL2HGlDmTpqSKGzAUE5XqGh9XzZ61LCTtUzUu10wmVUoqZYQKZP9k1ZQ6lWpVc51wVojw8OHSbF3ASNhHoUIFCxcwYMgA0NEGDWkvXLBQgUJBsQkXemXF1SmgqFYBBxY8+FEnYhCwhNS7mHHjVSFdPS0zjnBly5cxZ85184KbB12ZIl0G9K8hotSQHE3mmPXSlM3IVNQ8m3btdJ2KIrbT+kreJymZkT2rVsOGDRyQT0LOwbiGDBkwyK1wMA5o3qdcwSptm3t375qIwnOw+3p58+X9TBQn9Ht79+/h/7qJwbP1PaJ/OttO6LTRJD3PC3Cb7PSjLL4DEfyukwy0AknAKFaDoosvJCALreKOM4Ml2RjZcA3m3MrgArpCkePBUiJ6ar8EWWz/kTBhcHIDi/9OrNFGehhw4JsLAmHPxR+BDNI7rHKS4LO98GOmQB819GAg/5YQ7cYpIZwnu5UMFFLLLTnqhL6dqKRRQm8qrOBC4wJqckNIPCwExLdGpAChI8OcwhsKYmOSyz35LGcIDYpJrc5BCXVolBTZ6lPRRRnNSBoGjfkqSdKyVMPJogSNMsJCp5SyKQsCWbHRUUm1pB0jwOT0P2bM/CdDD/WkBFYzkHuLoDfsC/NOLGMt1ddfFRmijVRVLXZQbFwBJ6BegW3W2WeH2AAeYlUBcLQlO7oUNWukNPbBbiODqtJnyQXWsI9ytRG4ffwpbjJYmWUTXsM2EHG6EtOt/zE7Hpss119zacUgHm8JDhPZiPgV9d+FGQbSMAZFyTcPa/MLKtsnM7W24AC7hQgcixsOWVFoNrBgqxt9g6jCdtOclZc1iXALA4KMTIxbiR1r6qke4xXZ5/dIFm/joU+0MgJn1uv556WZHmw+KJGMsGKF+8u4Y6Jb01jlMdZr2msWDQMUMZS7es1MtmA+p013iqRTNZQhAOe4cb+um7awTcYZ671N2lRHyRS2W/DBXWqHwZMHnBTbaLSFUmu+c9ZYR7npJtzyF6OlL9Oif/NGjAxeZWmdtevtLFJub4z7n64vb70yIisYW1PIaXdtHtV5dl333dUW4p0JqF2FYiVBPv+k6ptTrl2pnpQhcAMOeY9eqvCg5pgrJf2q3CLZ3LkAeHmSvy49ipSW3vzb/vRe9quVbz9xbPxY/Pz56TdV2AbpGZ5SPY9XLXz3R8I8nyAqcPUz4FW0VTN9WeMLnwvEBz6gvdF5IIJ/oga1/sea8bHugB1EB27U5z8AjvB9h/ocBz2YQhVKA1V6m5jiimeaxlltUyRMCvO44I0KxFCFPezFo0AxHiqZbXWCkOBQ0tYIeDnCQ2wLlAs1OAH1HNGHVbwE7GQ3OxtuERU1fMVECmhFMQ4OK+jKHwypNkPkQZGLPPGUzng4RjliwnBBRAkbXZMicVFRhkkM1hIjURFiRGD/czWKCNf4OEdFZosIn0CcFtsYSXvcTm5hXOQlGQYNR2awFWikW//+wz5JcoNiYKFAHDGZyg45KSdbuWPRUgQIPzJOdGlIjiTSpKYjbqgIT+xUX3qkSmGu0gzSGthRRpnMKhgNaZYc5jNJFbbY4bE3nuSfGv1HTWXeQYD3iFsGjAhNcQ6lA9L6Xii/pUeeaW9ejXSOuxzBHA3ME54u+yNWIOW2JZjHJ68o0DgBeoaAOU6b21Tewf4QqvIFlKEOyxwFghe15hEvjRhbo0Hr0U1TghN6DR3mJ07HSb0Q8V3xqiURmCMiCwwnQwLBiVyGA09dKvFhgfrWACWwQ48CVFgQ/x2FSDFKQmR9M5w7NSqfhpEB1BTUUFKj6CexGcoaBlWizPsCnop61FQOUlBAXV4s17mIWsoTLgQ5CLugIlByEkGpZ+WHWdACupKyE3YKPA/8vpFWraYSN6BwkFep2r45bOGpC93rYbvTPc8wRH/yk6FFsxlYbWgUOFg1LGLnt4Y2EBKZ/NRhWk16E3vJCS+VDYeGTBMwiH4GOPqYgJlAZ0RmCfJwhczaT1W3LMzO8VRaEeI+JatMPuSoL0nb7XHhg4asnO6MTt3fxTB10eAKT6NX5Shyx7iGL/2UqRndUVjvGTNbyak6TbCDH/yiVv5kzih2WFc/XFVSsXrEDd09I/8Xcota7FoRhNWb7jY3mMj9DrgqePseDiXlXMciEbJSBex/qwQgUz6DwD7U7jnRaZ7xZdV4FExqZyZQWjosAb0KlWE5jZCa3YAlDBS4QGxP2uH0VYM8rBmqsvRb4RRKM3gPhvDG/oa2y+qYyIXLnG+7meCJPpdxDdaUj3+czTl0wSkULnIHL+w2KDdER1wL3IbqBYqITeFKJkYiio+Qq59UIHsdPfNAHsmb5iXrtAK+suVOleYZZTjKI7ySce8c6AI/dCcCVHI/mdxhJz+uzy98iOd4ZGdB1y3L3L0OE/LrZkvR6i06Ma8WJPSK9LKHSHqGAqhVdrZlxephPi3PUBP/6sxJ49mCGOZCowFIIFTOmtcbIZKrDV3VVSX6sdGNLK67ARsU9np3hkmxpeUchkhDdRidNoZ1cBtr9W4aJ6YGroTWXERN90ta9X3bYmA9amafrx2/0+dUkV2sheyLfENe9703Q+gmSM2+Dkb0gte7aFHGe2K4kzW+l0YkI0G7NfGLRQUZyRz6cLbGnV2GtknN3lSlbAt3Uk8aZ0xDdP80PWZGeLOx4lfwEZxgVjokeE8e896hGNhzPvSwAW4pgcOb5WQ22g7fJXNaR0toUs3aZ3PHOLZ2huIV53OZc8ztFlr8CSHx+B6ZJM049xsZJJdI6ITuuoq0NaI9LxiB8iTp/7CvXVb61uKWwa3gXQti53CPst+8Aap+sZ3SZTwmJBuzL4VmvdoXzFe6TS51W2cQ7fLtIyttHXhkASXofCdc2NTHdbO/+otCtvzncfHrQttc2NeaOyifrPnAeuqLlQc90zD/SJ7nMad7VHr3Iu9z/GL8xN3euMTo7foTA8qukv/p0Tz/+r73lbmb99aa025v5U9/vTQfvU+43tjTRzX1zm/qAPN6cOr/qt0XkL3d97Kj7XuiM2UH9+7VfWbfM3yZ/ty+B2IU55Efv5lqH7+vWGIaIk/1vI/LrMGfsO7/FNAm3I7fbs70KsrY/K0ApQDvcmruFtBZ8Ob8CJApDgnGrv+pCEJMbxAv6sht6visAnfvApZtvRKoA0OD/5IvA38Gb5qPAvXF6/pP+mjw9URv30iPuuQuArfl2HAQdVbwefyvB7mkpjgwZ1Sn3jrMDACFsyYJ/hLvBBdPzeShynSrj6wPBh2NC5wCBJnQZwKQ7I5wUPTI8c7wDasvRq4vBd1oCKGq7sRwm35OlpYQDh3K+m4m8A4pUXyk/KAmXUpw27Tw9wzlCQKsUjSpQfKwmrAhbsCoD/1wTzDv79ZQXZRN/DLRBxswCKvFmqCrCCewE1PQAZRt3EKRUfori2avb1oPqlBMK/YM8N5vVXhP/lAwSvYAmNLInNyvb+DnhDDxFbX/pCKqcBJVUXi+yQ2VkQl/8O2yzxSbTAK77xnnocRAcRp/BIj8qzHacFwMB39WDBGzLf7i8Bcf7E7SrsnyCQlvCH5qrwXB0VzOsWac7hkZAyW+oc14MB9PrhodsPSm5g61kdFw8MZmkCBh0Unayrbq8Qk6Dx85wwrvAwtNUBbmj+rs4WhgrvregQJEjjHKcSAhMhwLLwJy0R9Zg7AAJxlX8t5+7WQOUgiXLOeaBA/9kbtE8htr8kDEkSKN0RqEERKTyiS7jiMV0SPdkZoeAE+Eb9MOIxBR8h5pcigRRHSGxRlh0h7QK2lUkit77SaBEPseMCFDcCEH7gh/YtrMclFQ/88rDobyViQ8OPGFnDLj0IwRSSFHKE8pGylv6PGGlOAD8XEuI5KFbCosS8I3JocPt5IxBQ0t8eMa7bAtUXEbw3JXFtMyWZL9gAcrI3Mds9BS8o+aEtEvP5IOl8knAlIJp7CczAg2A8iEEKksRTO5qs23IDM3ywYCZrIye/PKYGcrMnMtC+sUCWoWj1CPhPI4uaMaje4okwAevzC1QErL+JIX2VHxAJOb/s3KUosIonJ5jsESMZA6tyQAJ06fxCQ4S1EeQJPD3PPzkrOUmJPYGMwtoZMCdW0683M2nJC7wNLiPitYaGWzusqFWrP30vMKSSyvttMQuAokReLnzLBAG/+znJSq+J6MPrto3pLSFT005vYTGHGz6zbTOWkI/e7O4IwzRQFjAxG0IitUp7KumJ5NQxsRPFOz1MazmpJw78ipO9XSGGWwKm20CZ1wcwKURH3OSmi0Rp8Uu/bTbzRzJ7fPJ8Pybzo0S4my2swvR7EzIWvTmAoqQn1xCydJHvASEsvJ8Fo0o5AF+ZyUTIVkPh7z3Kg0Th1xNvGTT2VuS5GlS8uTCJ9TRn9sEPfUULuDXopOFze0n6SINk8MztoUNTuSSOnPCpjJ9mSIGIXIUcmzSQlUUic1Wg6HKwKVKX7jRFmV7RA1VEv0RbOxMxkSLksOSWtVQYqpUqd0QP5jNgn/8ypLtC8lFE4pVAmIc0zXazXvtLm4QCIeMlgdaik1MlZV4aoEUluF7laB1EW9lFFjNEFH6c86UlxrQ7k+AlCVQjEJUw7diFnftEhLwRKTjsFaaUlPM4e+Dljd1UX81JX60VutIAv+RiB5s2APi1yr9T50VdEAFFWDS2euC2KHZBgERsvU1RGliHymUBs7CV/b0VlPweHyUiL9aqRILlPblWMTpNWMUmHvYCpJlWbxTWJZVCcXVSF59S29jy151jaczdswNg+mss0UbR6XVUg/VeNwVQ9S0mK952a5zFOf8mjLlIVyD2d7Q9Sk0Wt5zWdRVfvQVbq48btQ1GwDo9LK/3UkonVPWcjcovbiwnMRq5ZpAxIjH0prGQv7rhRuW+Rgf2s+xVZCTvRhDdej0FZRce5LLzZk3Wch6BVLH/c2BkpfTYI4s7UnM+9epfYpQXVuuemLNPXNGERw8fQ/wDVSN1dBDMfVFtcKdJYsZ/dsj0w5E7U/eZLuKrchu3FkC3V3reLCPLckQNdu8W9amMpNU3Z5J+blupbHYBa/cKxrkbdVT2WxbrcCVXeWulfHIhd4KXdoixXX5OFKHbd8/US1qHckHqA4O6xkFo509XZIqRZ1eyPvgunEPCF2sndVtvd94XcmEDd8o6DzjjeBCex8EbI5d7VRLfdyj6IMZReCZf9Cs+pjYhkid1sWf+UzNFBWPPt2YoKyENFAbAoYIvKLezn4bqyTgUlsMCNohpGzd/lzgv0z4IZXFV8jYTRXh3uBqwB2XitJKUk4ernWNSe0i1a4Nl3YLsGPKo3YPUSn3PRPbBvvgbN4t5KTtUixDs9VaC2YG8k2jAUDpMBkafHgEe9X5fQX6ky3f0EYd6dYgKvYdmD3AtlYi2vYi+MnHgM5gl1VEnOyPs+YM9NYFeFxVQ+ZHIgOb+E4Z0cWcJu4jkWNf/8yheN4j89sgLNoeXiRXxB4kn2tjPD21qgU7fpVlZELnxS5jHO1kWGUbX219iRZln+IlYrhgqFAjkuVjvP/1o6hWGVXVpSrj5Qd42p9mYaTMxcvObgIy8UIMZWjmb8SeeEW2YyD1pHTVYjZs5e3OfSAaC+9gpiRaJOPuZOn9pP99woA+HpbmIDJMZOL+JwniL2klEQ37G35uaHwSeW++ZbDOZeNEC7LMJYHGiNOQ52Xgp2n1Zix44mbdX5DWe9YmArxGSX1WZsfGn2ixaLp8zWQJsZG+qgexqBt+aIrttjUt5qViaJXente8JlDeo7z9517cXpBOWeZedOcOZ9TWqRvGoGExY4S9gizAJqTeq9a2ptf2lwTuoLHeQ1TYomROqrlBfdcVyRsuknc+aJPmG/nWY85moo/ejHG2qtv//RRCLip15A4nRauWTqpXDqJwXly13ahBbRuzRmv7QdEmTKfp4iFy7opSzeZNVqo15qP29ouC5ewBUOQBEaYJQlhRtKyA2qqyZivEdqv0TirGzLvYmGwPZsBG2maEJtki7mnzbqxMzqo6Xmo966PR8oLVXu1ryKCxEazuWhy2tO3VQm0l9OHgxf1etXsBE+GjVsXSMYwUZKrebqEN5K289W21Xp1m1m3aY+Iuzq6Qw+COGB0YVLwBJq8Fwm5DxqmcRmrdbkAQXOf2fv2blMvRJiJ85ux9zeeX/NnlxlUCLOoR2qN7fu+y7sDQlS4SQiqFfyZ3LuqOymm/3OmHZx2Pv+wtyP8nkSwGOkX6EbYpE9Wu4E6raugnjvaHSZ7Xi10vTscogP3M403wWOc1thqr/M4VePbYjHc+R6inG38xhcEfPUbi6GHJUqmW/0bmWsbxakAtfHTZrNSRYb8xsHjnkF888Jlg7FcjCZctOH7qn38kXtuIaLVob+8FhbkT9eZqwdBdJqxFM8aKpXZFD7LDZkxaxU3MlmFo8Z7zTlhGM7UGog3KDlc0C8nzHecEntcps2c5ZgpdBU9y0mzlOcVNtZpTeSwu6QXhaGczNy3iSBFzLnMga+80ivBS5S2IckWxlX9gBhdwPsaAkt7vuPNSiSgzgKdyBPZlQzdz1uRgiL/CILwr5XCOjbr/HQbnczAitih3YJu0ACRks3UPNYh+gMY3MgzfG8iOdWxHQ31mqpNvcIf/cIjneDmzA8AvddjvPw4kaYhZINkSyLd3Kf31s4fO3W1ktN/UTitAVsBLdw1wsNMtgAHFNwJvmFmPW2xscxN+8xht8oSHduT1mqWx5+Ig56sDbtL/L/vWJ6b3SFYZePpKTrqK2SL964X3lEiqNwwvWj5teJbvmkaXnJtXZxx/cyVRAnd3df/xHZHXlYP0LXqoi4OgpCucdnxmNa7iEL44egLAi+CfWtDKRppvuZl5eW/pBPp7HlyWOstbNxDe+ir9NyB+McR/m8VHuiX//x3rf43UuIL4oC1EofpRd7pq8UL4KC8dpHadzS1217saamXuhjIkTXsCX/HyD65gZa0dR6wzQ7CF3/VnQR6Q/3j5X59TdjEQd3sHR00OB87knDwK7+PDL/bIQd3POz0Pejm0fevU9H7Mtf17acIWln14x7kHZu7OeVQ2P7nbb+PsuLwnY/1FX/4M6vx39uqIV+hZ5/LUV34sbyvxpFoPh2tQZ8NtcP0lR9G/rUTkZ/6lX9UYF+50zfdeX5nst7iefigMHq7M79QGvbay/9lHNP4N2/873/5cxwIJA8H0dFoEI/KJbPpLCaREIlF0/F4OtrtFsvRWCaPJdToPKPT6v81u+1+o4mRKuea5eLz+j2/7/8DBgoOEhYaHiImKi4yNjoWYnV8XQjBWV5irkVJTWBsaN1xRW5gTECYIaFmrrK+OTxIXGjURT7a3uLm6u7y9vr+AgdieXBgVESotiovMytDUHgOB09TV1tfY2drb3PvRnJkWAhBHW22lpVPVdnxeYGJkZE3z9PXN73GfrJ38/f7/wMM+EdaMVPJ7CF0s8kBhE76QnXJQsqgEnMJL2p6hoFWLYEeP4IMKZLfsGLHDmJMqbKNxg3SRsKMKXMmzZoev4UbV6QcSkzopFCx0jGPuzBjKspbqXRpxYYb99mMKnUq1UbSNBw7ynTpQqcPiUr/LHUK6VauDyJUEDq0Ktu2bt8uGkbqZNm6TFu+hKt3L9++fq1mASduyM5UzH4yDAoV7Bej8QrbjTzvVQQKGRb/zax5sy+54sZKvtjVISiwHSaCNhw6YWILn9Zyji17tjW5xpCtzk0P7weItH8DDy48GM7B8iyuQqxObTti77Smgqx7uqvlmIdjz57ZCwYKuKlPRsWQ9BXTqMX3BJ/JQeVovrXDj6/dNl319uHwfi9/P//+sovrFAVy6x1nHWwRNQYPUtLdp5457FFwgUsH+lehhQAVpWCDrIzmSWl4jCIWehu2AosFGXBA4YUrslhTSbelR2KDDDSQX4s34pjjTYHl/0SYgDHCoZxiKmYI3U8yTiedAxJUgGJeOkIZ5S0hUpAakkGK59WHooRFEU9XXsIQNK/pJ6WZZ05DXwRgslljhC71hqacc9JpCIA+mjGgTwUOWaYdCRqZVJuRSWeikyrWmSia34AxzqBtdPgViF2mpuejTFBGx3WKctqpIB70RkqVl5IopoRPepqqqjfeeRyQrvC5DpHOObagpaSmBNkrE8iSIqKrAlshd1WOiGs8TZH3XoheqmbsE07VEay004LqwQYXjOqsg8/Isum034L7H4/GFXYrluUa6GeRj5mrbT3lipkBmeHSy18kjWrVLpiRbhnRaSKS5a4qsDTpbb0H5/9Y7bWmuAveeLL6ibDEE7s4boB5vqpQrMztsa6tGTe8zHFnpdUFxSfPFmJ9ITc7noflTfovs/peqUpLBqOcM3zV4suybvgU/KvOQxOdTavwHraxwR7zxKDP73aVD8xFUw2XO5RA1zC/U/t7XsAsL0kHqlWTnXIWWFXy9GpnWeZr2W/D3ZnFeH4pstKzAsouyGrviQrbGwkdt+AB4USsz1srS2mxIcc77+CP9xVJBt7tzTdr0I4NueabNydJj64mjW6fzeX9seUIbULwoZyzTvhpFzArcJbJmgdw3VqrQ2bErfMO0oszn74VPhdw1LvxnB/9Y+gCpkv6c3oHbw8qDUH/fLz113iRQQVpaz37y4nLXGnlSKru6+7Xo79NSViLFz1T7LkGyvnp039w8hgvn2fzHdOqYXQ0uw9SZECLhwJXvwMe4l7dgUADaCQ7ZH2vdjMb34Zo9IAIcQyBGjRaYC7wnXIEUDQD1JQBN2jCTt3vdue4m7r6FyinhdAnI5wFzk5oQz8wygJrYlyWxtQv+YVPeSGbAw1LeMMjJmIUOlQFBWOokAE2qXhInKKnUtisFYquevwrXdMA6MQ4VAQWErLD/KiIxDsUxErG6ooPYfONUgzha87aVQGNaMY74lAiFrBSE7+oCTLczI54HGR/rOhFNQhJi3pg2v/66Md7aIlr/4QcpGckoEZSdYgjECEIHBfnLIKppYyTHGVE9MhAOT5SGWysIylb2SJDOvIeLHRerboYy1QigW0o+qErz5i97d0ySeJ5AGmeJI2JxFGFuIIQ4ATZyzvWAiunVCYukzMwXmXwmdqMzyg+hzS7ZTGbk+JiI6u5HlBKcptHpNIlH2UOE82iWsOYZ2M+eEVMckuc6nxm4aZ5T3P2TQnlc+Y+C2o1iXhTiKqc5RafZzqAWuJhrzGoL7VwLUetkYnc+sQHejOMjv4rW6h053KkSNFe3gt2gYKoNcvVHredNKac6Sa5FIpF5o2uobUsJ0td0Z4JyfSGv+QeJt/JpKfM843be//hGstXw6BOMXuDOVZPw1QgXgEVqlrdC00vRk0ChXNpLoReVdtgKJhuFYEqsycmAXlUDWwgWhz4gjEsGUwHEdBxaaXkUD1ZViw1hQpZ3Sthp9JVuv0TrDhVJGMcasu/soGYvSJoYePWTcOBjW0ngusGNJABbEUgmYxzSjwpW1njgeoDxaDcVyEbUXia9rSyxcZhQQfOxeoTQY7lqWvPwJAm6XW2xzumcQ53lglUwAIXuIAFKjCB0N7VYfA0qXCF2hsOwA40h+ztPUgmlOqC9yO1LcN248DQRY71odx9EBGpG97WvYguDuzeAyAQgftGAAIPEG3ICFZHUb63dwrLbnT/udsA7z41wAoGxv0ExaHzNnanR+rtQsSouwXzjp0Fto+DwVaZbsUWw4KrJH8NnJxn5FbEKu4Fo7KbTBgqVn85RS85JwxZXWEOwCsmWosNN18TT4dtvUrwjpGHhQ1kBciqJOZlMlfkJz/iDnOxa2tjnI4ZR9h/Ni5roSrTZB1DGWXHxBYDf6zk0DDzwmFG3zCkuWEDLwmpYF4znf+QoNBWuW+4FWuNO1xVHE+AsXV+21VUeuaf5ZOMg7bevTB76PVEYIxEXjSliXKaHoGwvL6F8Dh3u+U/L+TDE5pzpelV6Ng9WnhT6JaiSw3fLGRADG82MFp2GWJXP1nDI7UyUATN/6U+w5ilD6LCoUiNa3DdKwxl3nWq7YHOWx9bYtKI9awNDIEKsDLa2o4ZOCrAx/xd2de6lbCfeyvZuEJ721UsClGR0Oxc5dXJ6i7biyRQbe4G0tjzVnE0dVji28pY3PIDtqb9SIRn2Frf+1YVo5L87pWI6b8LH9wbd/jwS+R74tGuxUX/vdCw4s3T5f5rpoKr8ZwNC88XFw31iqjwk39Lyh5s4Mrxg8FJw3zHKc8awMOd4j+JPNi4RMlxm5nzoa313jV/WMKPTu/AgGHZNXcDMQXu9DDfa6mzTuTPGfnpaiIHHyfC+dVXxUnWmnnqJ8ame8uus256m+ZqjyyTvuz2Rf/Lhcxb5/Svg15wy4U9r2S/e6ry/lylN/thLn854VEYllGlfe5PeGm6G7/VkuQEJQXnOp/9jvhLhV2yLrf8xK7mnThGXvKIFHLCGU/6RFHpAQxIveqRNUbXv16ryyqx0BHJ93FreeRfdBplojj43MM+MKKqBO1r7wQhjx75Yj6bSmfv/DjAU/pQjmZWkhFLzoec3L2PYegl0Ebcax9K35hyO6+PqSlge/Hpp1iyxWB993cXLVbg5fzf6wUCNwP4tRDBfd6++BbJyEur9V+4oJEGgJYD3B/+HcHsQciQKeAC1ktfRSB4zF4HOhB5oYIHNl9dDJP+tR0GVpfkaB249Vr/16XXY4Gd5v2NJqEgA2LBB3SAAzKMBDZBonkU+tWg+hFDd7DVhhBBfdnXfUGAfnlckkBR0wVheK1VE0bU7w2c5wHUQQDN7VVeFL5SteQgAPIgJ4DYD3qhqb0OqlHHKyxhBEiABEwABSSXBdBhc1HABLxhfhHGGvYQFJ7hbK2fGN5UwLkgAZIcyUjcH1LLmLGWBFag7gChIq5IKOBLAV6C9VGGHCoXBmBABsDVXHHABnRWBmAAc1GAJVFhWbxTJ5ygJKZVDpkCz1kVyA2g3x3iT12gKwJLoZ2eJT4SG96cvOkip3CfyvFhfTHJBWSAJ8YVLXRUnEjCKGKABZwidPmi/yYwkQRk2zAWVnGo4SwSYueJH5fVV6AlIjcGC6MYQyzK0jWqTWJgUCuio6Jw37eh2RRQgAV0YjNGCxnN0xbMlTRSI5VJxrCJTSTOIxXRVCzekhUC3Tj2FGUEWusl5CJeGuwYY9O8W2Jgm8lVpONpgZuRwT2aY1z5o5MlFdTVVfspha7Umjx+ZEHVgmCc4ikUmNgVIqbdGGWYnzKaD0LGZCH1GEHKkpJloj6iWxcG5X4wiqP93TkgY4QkYEr+46RQ5aUNpH65I6aYg+Ap5VIiUSiGw3PJ4iUemP7xmU6SI/wpo0kKI1jSCUFswFjiWQQKnxMxCI20BgbQ0PHBJYsUjv9oPeUl6iVbyosmXSX/pGQ0flZNGsEG5gq6BCNQ/qUGEUQ49OJT4mRa7tTQFcF+TYE5ltZXVqZQQh1oyeJg8tCz1B0NliY98ggFrNT7HBdS/qTCJdW/KFsqSg+6YFM6vaY6/SNdUSMe6uF+IWdyKmdyfmYEYBVw+osDVgmeLGd1Wud1Ymd2aud2cud+vQJoumEc5uMF8GVSkmZwysdwasA0kuVWNpVzVkBb+iN61glOBB9X4KM+wtVJMkJuzuUFOBd0taRvghh9npR/rmdx4teCMmiDKqF9IZd79EFX5dcSJqGDYmiGauiGcmiHeuiC2lcSml98duIncgllGmh6quP/UjUQZELU/RGMBb5liuKIfc7mRThQObZlP1LmTLLfY27g+MEK8wQjjVJUasXJXE5jBVBAkzrpk0JplOYjX6IVekXjNEpplmrplnJpl3rpl4JpcimjiSLpjBqpnNxgWGyPVroWGx4VJKLomYqL59wnRhxcT5aWGerCP85lGFjjEwSgZBaonApnVYaiBnjWMirqojJqozJjPwbCoTrqpFJqpVrqpWJqpmoqojaj/OQmoRYenyboc7GkE33gccXnVFYlqEqJjZoFPu4of3qDen5WgPLmg23CRvklq64TVfrqr5oWsArrsBJrsRrrsSJrnPKqaV6pc5UqXsKq/C3rmQRm/0tqlqqeZx5JhHRiFNSoAi5m67QK2Dw9Y7ma67maq5meKLqya7u667vCa7zK67z+4KqKq9nxKWaiomq6k5tO6WiG671uxx1ogKOhjkSm6mvoKTWo5zrq4d6NkK0J7DYl668mUMVibMZq7MYSwrBO7IUYqmcBaHtOYAghY6qSqb1+bI3moLfd26lWhn66pcoSx3B2FpYSpbNhVZWubM/ygrL6rF/YLJb+afQcoXPqJ2IGbZQcWXG9y8kOGc1y0Ira1b3FC0wubdZ+in6A4lx1jNbOh1wmaDVqpXsulCbUV3jG38wGLNhy1RBSjosmB6rG6qeShFzWqgQI6Dwg2K667f/S5gUoiuLg8iOPtu3fwkRHfEGt1uSt8mEa+CuJ9iV0Iq6FpJT9jWB1JKOJzqdAKG7ejoXcssFoSFrlmi4OAWRAdhaiKiqicpbXnm52IGit4mHZmm3opC1yjSmcxu4Xek7cZS42Qqh+niTQ9meaEqd32KQyOJXx9u5rEsShJiopluJycWIneuInRsvhPu8/fGpArieAkm0yiWDwpkT5CpR9jSh5aq+nOm/3UsVMYoC9tSgcdCBQ/OtDSC3hvMTijqx+taj5YkqteST8gq2oUu9y0WEFMDAD06H1lijbGjBtVOXNNhfJTqDoMoUIhhF8yqz7vu8Et8XZ+JgAyx17TKT//nJvLvhnY9alCZcDMclZCItwUB5qKS4wk97hBPCweDqw9XIu/9WwXlzlDY9sHjLhXYrGZ6btG+pueSKmug4xdgxLzo4u3bbeCu9pmkrCetoqAEnkqUjxFE+rpJaiDvNwHi6oE8ehmEbw9tIwGdPWqkoqKZqicSbxEpSvB7bBHvNxDDdxG5PnG5eSFsuxYZ3m6QWwH+sl65mkrErF9/7nmpoBIzdy3RXwIQvs+oWvHRpnhTIhaIpoG2/iYQKRJv9FYhoxk+Kxd/LrE3yn+pIyFIOwIaMyIqtMt8IyrPIuEd8gDvYpBvsW/BVbHN/yGTbgZ12w3i6hK2MMG8qyJu7j//Yec+RYrBnjMCvjod4+aCjjCQh+pyhf6BvCoSZa76MW7/5WM1PS1PgqZzQTb2qNsUx8VJwkLzMvJ4QmbC6u8736b3HicyWjby6JqDR7IqT2s9Daq+AmavUyFwPvMDc/aHK2IX45cZOKKQQfJiieqC0ndFXg7chu80VL7iPPc1QY6iSP9EV/sN9+dGWK5ZLWLuoxwAIsgALgNE7b9Kmqr0E/8ksr9DWH4up6VvU2lw43aRrDoXhi9BySZ/ZyqtcKK1AnDEF08lE/8EF7qtlYdTbX4QerM1WnKCfL9L420E0nQFojwFojQALo9Af2dHKVKBwbs1j/gsWmruq6LqNe7//1MqrrimLXGm5i2nWNyiVRA7ZJnzRb5Kb0um5Uu29hgyqjMK7eDkFNK0ACrPUBHIABeLYBHEBbv7UUuKE5a7VLS3biErYeCDZCW6XdpjaaRsxi/wZtx3ZMdhOWtidma7YBFAABAHdwE0ABhLZbL0Bhqq1ynXZd33bNbiyyNrdsE+vOTHd0nynU0S6VoTUCGAABDEAAgHd4B4AAEABot/VxH5gsiykznrJ1W/Nze7R7a8ZUs/Nqy7eR3nNdZjZ3F8AADIAA+Ddw/zeAl3dxo3cgr3dfxvd9M3iDO3ipqbR293Z/D4ABKMCBxdECHAABAHgBGMB5IzccJvhPP3iJm/j/iSOfSucXBCoAd3v3ABTAAlDALIhlBTiAAYD3AJQ3iJN2OSv3fqI2igv5kBO5ioWibuPZTR8AhRdAAkCABpjrBlAAA1C4jn94AqA3T8bhj8NukXv5l4P59mnBPQPwAiTAhpO3AkRaB6SrNCkAAYz3jitAliPjlu8uHId5nuv5nleW8lX2WJi5AXx3ATgA4KCrB2hABByAABD4lc85Qfs4+yo2n1N6pVu6Nq0f7UIXA7S4oAeAAUTABrirB1yAAyRAATD6jhs3pNs5LV/6q8N6rEcVdo+sfnP3fx+ABHDAuxaDBLx5qjv6ArD6eEIx1sr6sSN7ssONOg5kkp85hSPA/wSwObxqAAQggHeTd7AzgJu2Ojozt7KDe7iL+ySqZFYagZkvOXAnAAUgqbt2wPwuAKpn+wEY97bXuUEDeZCP+77ze7/7rgU7ZgME+m8XgAJUQLvzOgUowHdnu2gfN7ebMy0vuL9TfMVbvFt0U62fQk0jwG+XNwNYAL1+QLWfeoCDdr2zYXiOJ3vr+8W7/MvDPBEzZq1fdosTPAI0wAWIvAdMDpUzOozT+6OnfKQv98TH/NEjfdJfQ36PgZJ7d5M/AAaIPEgpPId3uMM3sspzeXsrfdd7/ddLBZk3/Zn7twEsQARkwNR3VKIvgKDrOHHX+7D/uD6Afd3b/d2DBDgc8f/GBzqjH0ADTACUq721WIADHMCAE0Bxz7m9h6YcSrqx433kS/7k34KK830CGIAABMABPIBrqP0zdkAFMMDhjzdxY33KC7LEU/7qs37rN4KK1/ypgzcCRMBGfP4zItkDXDuAw7jDE7RzOr6rG73rE3/xIzvss3jHA0AArLsV3D7oX4Duw3kAVLjvQ/wmpuy3G//2cz+fi6WCjgGnK38AGHyKPD/oV4DufzeMB/uwl7Rrd3/8y7/SNyDOlnmLE8DyL8AFIPzzYxcQQBIEgWBgQCQUC4bjAZFMKJULJrPhdDoebdf7BYfFY3LZfEan1Wt22/2Gx+Vzet1+x+f1e37f/wf/DBQcJCw0PERMVFxkbHR8hIyUnKSstETj6uDQwKigkIBwaFhIOCAIEGDI+GBtdX2Fjf3wuHgYCgggQFJicoKSorLCuiQuNj5GTlZeZm52foaOlp6mrra+xs7W3nbL3Mi4qJiICGVQKD0daNCQbXdv5bAQIhogKDjgbXqKAK66yuIWUOBAggUNHkSYUOFChg0dPoQYUeIfD1w4fAs37kEDcwgMnCLgYMM7krI6YBBSQECAI0mW6IPAb4q/YVsm3sSZU+dOnj19/gQaVOhQokUDVdTEycKnCBsXKDjwUUABCBxKXn1Fy9YpAboOIHjpS2YFC8IAGkWbVu1atm3dvoUb/1fuXLqQkG7CsBSU01IFCBA4EMEqVsIfOFyIsMDAACP38okFVvafFqR1LV/GnFnzZs6dPX8GHbqLRaWfIPA14LdAAgmDC2P1kGFCgwMBAAgwgO9lg30SpkgeVrGyaOLFjR9Hnlz5cubNj29QOgGUKFIfdS2Y4Pr11dgTGKjs6nh3799mRztHn179evbt3b+HH38PRnHkHHRUjaBBhQ7bC3fQgIIGEOBKPCYacCAm38iyQoOahpMvQgknpLBCCy/EMMOA6NOIIwUQKGCA1R6woD//CPNggwoeqA2AI77azYkIoiCLJoAg1DBHHXfksUcffwRywovyYmojc0yZaoEIMP8w8UTYVGxgsQFEhPHABGecoEbzbAqySy+/BDNMMcckMyG89DptlFIGCKCABijIwAMnC0tRHgUGuO2eJKxUMLItcSwzUEEHJbRQQw9FVIwzTbuPlANWMsABCzaQc87COECptlz0TMDKB7AsbzIuEyW1VFNPRTVVVTnLZJOM7GOgOgEAMAACDLSzFKt4HCCQMV32ZABB8hgUNZNVj0U2WWWXZbbZabwBp74H7jvHANsMkIDSXLfbwIIIEsBzqq86DVasBYHLwlhn12W3XXffhTfeMu7isCkPPbLtAAqa3BbFw1icUsRdxlMw1JrkRThhhRdmuOEf6QWnyFE+LCDfCvr/9c+DwxKrOJeBDxwWXcrUdbhkk09GOWWV47qrtOkmBhEAABCwAOMTO5BNgVkFrjLYkP8keWWhhya6aKOPtgYp6Ih82dGKAUjgAptvziAlxqgEC+Q+iT0Yaa+/Bjtsscf2A9pOxinnwwPAUwCDqakWsAAAWNIzxq0tuCADDW4ElGy//wY8cMFTtqheIz+UigAG3H77RA4quBMVrGP8lEa89eZ7cM0357xzz1MlLdoOj/RLxAZWafxEDbw7gE2Bsy638iwvdzDzz2/HPXfdd6eQNKbTdPSvAhB4APXUt9P4Agc6ntxTLGvUO7igeae+euuvx76uRZtOwDoDFIiAneNv/65ggRAbG5fP52kPLnv334c/fvkn2r6c6uo5gIEJRhr/RBUfQMBK6vExBPWJAuy70fwUuEAGNtCByahX2kBUjwQ4oAL8659/TtIA8GBNCbFbXxVqt4XpPdCEJ0RhClXYhlYZ7l4qIYACIGABXGXwUhRgAJJeRy5hgQqBKwRiEIU4RBS2UHT2egqIurIACTDJhidKHgQQcLVfUc6HeRvhqIi4RS520Yuaa5XLkPghIigOTvx64nYw4IDFGAEwwBLWLw4owq590Y53xGMeURbG3zUKHbmQlLbS6Dg7gccecPRFFOYYvbOUUI+PhGQkJUkqb7hMgq1rU/HQOMjXeEADEv8AFy5aogAFxE6OeMNAFvs2SVa20pWv3FHhjjitjiymTRDAICedhIGtFOFXvIijIlEpKlgW05jHRKZ7ZPmqw3mETdiqoS5fc5IJmO9qBoLJWCSjymR205vfBCdmliktNUWFMQeYQKWkOScOTEABKmHJx3wWk8jQMV3hxGc+9blPn/gOTXxZG2MQQAF1rtNJGZAAAwzgS2yaSwqozCI/JTpRilY0IFxYGpr8mJopJYCgBrVUinDYRio9pjcPtScJLbpSlrbUpcTAiEZrKTwFVKCgIPWfBBTjq9zkI5goTeUGKPNSohbVqEf9gwvx8xcDMKBmOA2pbGhDgClh86dzDCr/UrW6Va529QxDYubETCEiBDhAalDN1eOmWoThJeCDV4Vo+7w6V7rWlaXbQyI6RCRDxqHVUqujja8KQMBEopSRdkVsYhX7zfpRp3tTaqoEjOdXJ3myArwiQjxdYkphYlF6iwVtaEWLR1fJVFYCOIADKCA+ylrqcbyaVZvGVUq4evaeo8VtbnV7Qg5NxxzdKwICZpjL1jpJAyuaohsJuw+gRnS3z4VudKt3kVlSS4kDYM2tipur5CXGWi6SJ2RmsiXplte85/Vby/JCziSqZAAKWO0mt6vBnM1qKj21mzYbdBb09te//92jPyXmNCMs4II3nS/VIvDOa+pGa/otFoAl/zxhCrNLaZYEKD0YcAH5JliDGEio3MDr4HnOaLyYG2qFVbxiFidKadFiVKw8UsYGYADBHqaaO+lhj57xpmBc42+LhTxkInepItR9lQSlUoAHsBbHucJZQluHPtiZy2AJLHKWtbzlCY1TI9RaG1VrRdwnzwlnArJWeHpmZSBz2c1vhjN6BNwhp/0lMNEsc44VStXmlfhc5I1zoAU9aM0IWAJ5Tc1fENCaPGPszLDN05p/VqxVEtrSl8Z0PzuQUdOghqbZaTTGLMtBVPDYp1f6M4pTnGlWt9rVE6FPjBcwQcAwYF+hFnWAMIuKujnPcg2q46uFPWxiCySC1g0RAcrKH/9ci3oDIEaAbfrcQ8ulVKXFxna2tc0MJJPzSEQogAw53GybnYSNRvCgr2dno1Vv293vhrcj8OoUqLCpAPqLE7lttrEFnMJjiJTdlc8Tb4IX3OB+qB9A7W1BDdxY35XdwASi7aJf0la8bb72wTW+cY6zAS+e4N5CA2CAB1yAAw5/+C5ZxOeKm9LEGHdkx2U+c4NDK8kbhVQEMtDhlDvpJDo1pDx9vL79jozmR0d6vCHGTOuK/ADZQnnPofjJIUyp4uqrdoSTvnWuD7tls3zhSgaKZ6nPyQMYiIBCedrjk2K862+H+6XVq5e8rq0ICWB22acGoAowgAhqht3Qf61qLcb/3fCHH/KF+1hOtj1V72/bgAQYTGWCEZ3wiMd85lX84nDI2iMhGsACzvr4qcWGAudmSRWxPjtgB1nzr4e9dDkvraZT1U19Jf3eLdBvVIjr1LKD3t5cH3viFx+0SsNAWElnZwdMNvc2i3gOr7kLdQd/+MbHfva7emQx0tsUh4SAk58v6n+JvCvUB2FnL6999re/qIYGXveYCj7xj99mFvgOY8TlkgVQ27DBdr8AFEB+gj/HWoxa2x/7S53HAaAdWy6iG6GYG8AJpMBiOrZYSYBkKysKIDMF7JfYkKK/uzr/C4a9ybgKRMEUdCXDQTYjSIAZIjsPDCkLcIAhaIyBSb9F/xKqSlPBHvTBLvqGpRgdMmIJJnIiGWwcTFkw0COrt7qSLBGh6/vBKaRCIBoSuqO3KXIRBqiAhkPC46maDPQlHOQNEysLE6zCNFRDFUq4csITdTC5qPtCM7sACGCw11mCAqKRvBGqNfTDP1ygj2MUN3SR4pHDOTQzhLpDwPggGYFCrQPESJTE3AmjjPAtR8ETAsAlROwflHgntsqaMvSNsvisSTTFUwQjTWDBWpoVAogAnuPEbTmJb2ErfOi/BBnFVMIyVOTFXgybZRowxJmVApCAQ4xFS8mABmCTNyqlJ6QCB2k3X5TGaVyZAmQ8NkGnY+yfDngAkECCZvyUR5Qrav8kx3J0GH+SDvvpC4GiAG0cnw6AABjKjTwMxwPSxcIzx3zURwvDKA1gupmiIJtyxwWMx3pwjP6rHHs0QQncx4Z0yFPBqOpaqutwvIGcGg1wgDL6RoSUiTO8rYcEyZBMFaWCivxogNGzSEfbvWXUjSagJyqYDIYUyZmkSTDptiH8vu95ANxLyZDCFFBaiba6RSiYgnvEx5pEyqTskjYMniNgAJ3TRuGQSqnsAg6wyqu8iA3QSujQgK7MgIh5AMUwgo0URYXcRaVEy7TkkcZSEyk5gAaYgPojvamsjKvUyqzUSq/MgOS7gL7sSwsAzAoQTAqgAOloigUYK/xpxHq0AGL/UsvHhEwMySi02agpIZ4LGr+IxIDN3My/tADBBE3QJMzClIBDi4DTJAcIUM0HmBYHEAUMJKnB2hM9FMfItM3bjA8jUj6KubsIMLnx47uwZAIGiJUFeApSQk7kdKvlRIDmdM7nPIDolE4DSLSqIsOE9Ejc1M7tlDMvGyMQQYUEmICdGz9MgQADkJnew4X1ZM/2dM8igM/4jM+AsYfc4D994AcGQUPu5M/+JA7dHERSIBBUqClByj0AiQARm5v1lJkGddD0fE/5lM+AMciP6QXs5MMT9M8N5VDL4CONKieuWBxj1DcPqIADkBmDLIAVZdG/sAcWhdEVpc4ZpdEazY3Z/6KcXyjBdJHJDvXRHx2KSuojDDSF2zgdGcQAnbmvr3jOJm3S5YTSKJVSJSAl43S5wStFINXSLS0KWcqLL+sIU2AJkZDBZLQO8UjONFVT42TTNnXTNiXOcnEo6HmQHuXSO8XThvDOZvqIMe1A0tOABfOefIjTQjXUQ0XUBlDURUUQ1zyp38AiKczTSaVUhwid3ZyxqXiAGCw7Bqy64aEtRXVNRl1U1zTVU0XVU2VN1lTNGVGkYIieaKzUWaXVg/CnCtgLxhOzqpBBnKkmkAAWJ3iCVSVWVlXNY0XWZD3W0yzNCagnszjLWpXWaQ0ItqwOv1A2wZDB5MlIlmjJK0HNcP8VV2YtzXI1V3N11tHUksOi1nZ1V274hiGdNe9RAFBDwg04T83qFFGMAmf1138F2HQdzYElTLIATH9g13dV2IWdhliTAFqiGPyxNVh8vA6YgEcpqV6Qo9Dk2I4NTcAE2YOtAitIWIY12ZNdBpLsldWQFIp9PMihqirymfzEG7+02ZvFWc7kzK/sSlXiQZQF2qBdhJscIyQpACUZty9UHlqzRQQxw5H9yqiV2qjt2art2bu8ytH4WaHl2q4NBGtdE9yAy3z7QoRSqLEkF1yEwqDCAqtsW6yEW7j12rml20doLCJljEjpQhJFnouARpDqFikCRXqk2aCS1HmZyrpV3MX/3YPKcNi0eSzUgoA4bBxaAAV+sDGDAhAKuBPfG8oF4UMeZYPEZdzSNV05WDpx8C3EESidc1nViQCPOIAFuDXNxYAG0EiwwM+HukfhON3fBV5ASF06E0YBQID94Vus2DQM+FUjuDOc0oAHSLaD9DHQvQIS2trg1d7tVYO5K8y6Aw+P4tTtwJTZmKCgfIA/TaMNiF0XNYC0fckMlVXupd/6xQRrJLD3EkiMKd/vKALGcJEjBakOoADFsD3dlZFc3E/7ZeAGRtxNs6SmAz3Rc7QMoICwjM1wWQAaSt69qwUFKKMDoEeihMksdeATdmCbAzklS7bFwRi02ymry42KEYDs/xrf4zE9UhsAW3TJ/KQjDUXhIOZe75Sg0nET56ManTK/X/GIIkit1QIp80yzb5ynUczQ7BXiLK7bS/W2kmSq5ouq2chA+twFvQo3WwEpjZE4XptNZ4xCLNbiOPbaRaEzdDik4rGUiAMX+PwlKgURO3MqnPIAC1DSg6xiszxKOVbkumVK+dMF+ssYVwE6XBhL/jNO+aOg2jWo251eER5KH77eRRbl0uUAcDCtMVY2uFTfd+gW72I52SQX4nyKgMKNCFhlG9KAlGAq+KVZxxzlX+7aC+RN7CKRG4aFDqhDcElRTomRe1koACAATQJcAZkyUJ1Z3kVDOwXmbZ5VooVYAv/pCgWQgN8kjPKtQZWItD25UFrCxFzgQg143dT5uchhxM8Vx4/k5nx+1yv8Xu8DCVsjT+WlQUw2SBKLo1CAGXp4QRoyqORRRhf51nCEyYXUZn226A790AFbk1zYDy8siU2rQ3BmK6ETC3vBjynJnwRs6OglgNsgyydQ4B2s6Iumaf7M6Fxt55CgXJLYGAbolYK+T3MpTYSuDuERLrkcpA6QABruKY0F5T6c6ZqW6tu8aaLeaCY7wndQwuS6QUvOpn7FSSOuMUGmgADCw91F5KlW6y2tasfCJKym2FKuADv0tx3KUUUizHSUYCNQAAvo4LfZPWwFVYQkyuyc37VGbNz/rGqFAyRyloV4sMOPkOHZCpY40qYVduvwRV6Q4iVU5mE3jsmoTuzRDsmbrrt/ji+TqIUhSFH7/D0DqtnPJN4mllztMihda50jeCuJjsLDJu3fVkrdpL2TTuW4zIoNuIAJOOeV2L8l8JRf4N3OHO5zmLKmGs+/djQQS4CgDEVcVMhxBO7whszeglzr0AUudA2RmioyNmiHChUNMGVZgwrbq6ASGeALWIBW/GzeRjHRFu//LsdGjoq/E67G1EoMOL1HoWRm7gU2G6a8ZBqTpphPM2YwVEbNoi2JNmwA53ClpGMJR4CAIqtbBDMRRNNbfFRiqR2iVUcRr5UKT50NkF70/9lX774cAOzwHHdIvLBEdQzx0oHPKQlyr7hPy35WYuI0nGZdP8UpDmhfptLdMlzbBdbxKtfHZcJCD0mAEJeK9yTy3bgqLeEmHp9udLiNER1gHBqrwS7LMzRhK4dzX1SvHn9NUtjyRHNR4Zmt576i1jM6JAPR4CHQ1F4nWuCYrvhsEg5dII7zRp9EiCESyuSIp3CrEJdOJqXS525WrKI0x8UwmAGPAr/l8bGscxul3dVPmXb0VUfFMIKxQ0NoWSalSl/OKpXTgAu+OvVdVZTI+3FKyRpghAog3JhNmLbH64VjVlf2H1waSySHaVHU4kRONq3sOc314TMW8qaO+T4ks//CqQ6ogO32vWaM3/5e9nOXROpaL6ZYTVGI9jgV1ZI+F3+IwFWaN2eO2ZrCbpvB75il4jY3SnQX+D9U988kzdRkzVRlVWbtBz83OkW5QKfBxnTCqQxgIz3fV2Mv4YHneD9U9847+NQ8jSeICVcFhhI8mJh7sU4IUGGE5leEXqvRbae+5463+Sr02+T7TE9w1nIlV4E1WNsaGZU3tKagllLYmeaL5xg/veSyZoCHRka/+akXwE3YywsITE/IaymYgqC3tu7ldTonxNA7I82VDd6rZ9qcaNGl+rYPQN/1273kS6zfeZHdTJ6VHjvlI5ADcfe6TBgvPUzp1lN3xGNXdbf/R3z2q0u/he+v7Eyo1RsHaduHXwN+BlNf/57wwSn2tZZRsueNT/bEF33Mc9u8hO+rfds60HZd1QUwHmCJq6r9fmp8Hv3ah71d1wK73MqsHXo4KHo+jVkKTuPyEewoN/YNt/3kv/0SskoxCP0v8J2b+y27q+G8M6ilTbamVduN923l9/7bv4PZC9C+wIWn8+h1MtuFwg1e5t0H+f73zzy6pMo6ULwsZ8WRKzkD1aXA1ZSnx04gwGg2HY+ng0wql8ym8wmNSqfUqvWKzWq33K73Cw6Lx+Sy+YxOq9fstvsNj8vn9Lr9js/r9/y+/w8YGGjUwaGBYUExEfHgwLCQcDAg/1CwIIHh8aG5ydnp+Qka+uGxQZEQAECAkLDQ4AAhMVFxkbHBQSiYq7vL2+v7CxwsPExcbHyMnKy8zNzs/AwtRsixkXFRMSEB4dCwoIBAMKDqUNEheo6ePorBIJB6kKDA4PAQIWshxFEUzd/v/w8woMCBBAsaPIgwocKFDBvGwWUIEQUJjBwtQGCAAIECCiRwUAcy5CYNDggEIGAAgYJWD2BRwFdrn8OZNGvavIkzp86dPHv6/Ak0qB1q1rBp4wbpQIFwBiBsEAk13QYIBsQVgNfqlb1ZtfQJ/Qo2rNixZMuaPYs2rdq1gghtOJRo0YMGDL5lFEDAQYaofEN1mKAgI/9KlQwa1JPwMh/bxYwbO34MObLkyZQrW55yxFDRRdseRTI5YIGFW31Lb+pg4UECAnhVZnU5awiSI5dr276NO7fu3bx7+/ZthOiFRNrmQkJQQICABJc+mi7tIQOFBgUCDMA6r54sWraK0P4NPrz48eTLmz+PPj0at3AVMaJrV/kBBxQ0PDfdIUMEAwAEpJRnWASI4aOBV9+ph2CCCi7IYIMOPghhQLQJh00EnSUVDkcQYHAffhQcAEAABazy2oBCECFThCquyGKLLr4IY4wuVjPcRBAYp4BSGhnAgAWZdNjXBQmEeFU82W3FnVcyLslkk04+CWWUUs4UkQUVNlIXRgX/DDBAAhT8CGRU7EwyGIDacdXdlGquyWabbr4JZ5xfUGgjUpFsKcABHoXJVwYOHKBRkSy5RKCSch6KaKKKLspoo7u5lYFEcnVj1wAiQqABmHyCpAEECQhmACuuEKrYgY6eimqqqq7Kaqv9TKPBZhXVFYmlBDRgwQaaborOBhIsAOgAoS4wD6kFpuhqssouy2yzzj7rxTQ0EndhAuDgpUAEFzjHq1S/BjtssSYeayq05p6LbrrqrivlhO1RNFeWWxJwAAMTPNVtOp0ipxFWo46rT7nsDkxwwQYfjLBtFHJm0aca0fvAXvmiMyZeBhywUoDbZUBuwh5/DHLIIo9cU5U2/xoXyV2hcTixKB1QgECI9BKmMZoBk4xzzjrvzHPPgJg8aZZKBRBAAha03Ekhh1QgAXUBUEKiuLJg0BWyPl+NddZab811EpnRWGG1yKFyAAXmIP1BBxpcMMEDwIYjzgGuGWasoV3fjXfeeu/tLG1vSVQcpRihYoAEmfI6jSEXUBBBAwkkZ10BKbFy5MZp8o155ppvzjmU7mZgpVwNGyCAiOQcHmYHG2CATWffKMXlAJKvYiYsltvdee667857778tfFQ3n1GiAAQXnN2h2hY0nuOWkwhg1cW0F6bVBIkd63v22m/PffdmmRy4N8jFzYDZpRXyN3EOXFSVcspFv0o8Wf8dRoHN3t+Pf/767z8QNZLOCgkDLEUVEkAeVPJjAW0I7wACfFigJHcAucmPei2JxSwUw78ManCDHOwgIMDGMEoxkDUFeAC+RKI6DFAAAgwYH9GeFr0Ixk8BK2EABW2XmKoJzIM87KEPfwjEKMAKcO8RGmgYwLJzeAB820jKUtwHPZTIjXYrIVYDXNESAVnPAkmaTRC/CMYwinF/0pLVNoQHDqIpgAK6EgUpVMhCh8XuYQWQnPSouAAruoIeEIiAFivARQyOcZCELKQhMee3d90IPmMLwAEeUAENnM0I7mJdBBwQGEsBYJNRhOAMa1iYPT4gixKIRf24yDEi4OKQrGz/pStf6bEJgXBWCvgUl+jFAAlcYAgRYZrrUga3Tt4xHqC8ogPokUUBmRKQF6BagQK2Q1hKc5rUrKaqQBi842SETAuIAAUucI3GPe550IveMImZx1AesyV91KL1ThlIXlpznvSspz3lBL4i1pKBlvLPAl7RROSUjmjClCAN06nOUUKgnaV8ZwWY2cxUGuieFK2oRS/6oMzAJWxIed1SYsjAOsItUBczKEKNiUyGmrJ+EHUmL3GH0ZjKdKY0vQ2krjERAL5OgOR0XwwR8Ml0olShfWwoBVhqgUA6cwO2mGhNnwrVqEr1LEMMXXEsUkstwe2WnkwAOvW4zmQ21HoP5WJE/zn2UkNFc6psbatb32qQMv5vkY/IKgIiaICSAvWr6kypH8eK1EBmIJVNhathD4vYxP4DIrHCKUXomkcaenWyfKVeSosaC7K21KVMVRIlV6nY0Ip2tKTNRUQca6FG0OURka2iDS1LVGVOQLNJPesQmmq3z5Z2t7ztrW/Z8LVI4ZQzo+TGFV/b19gCtqxKRWthZwPa30p3utStrhWkdYgaZcNCNyruMZHJTtnSFpxUc+5zvaNb66p3vexVLzUaayVFlNKPC62vH2V71LKS17wcgGl7/wvgAO/2a7HCwDUqcNTZlnLBs3VoSwd72/5Cl5ICrrCFL+zWxL3FGkm1EoKPCv9i5jazvBFW62fXiuEUq3jF9HxvpDBg4OF0uLYjhnBn/cviHOt4x9Wc0HtjNVgYGxjGEC6x19LL4yQrecmG7C81mKqBKEeZqbjNbXSZjOUsa9mHTr6xE1C85TCLecy8OzEUTnxlMqt5zWxus5vfDOc414bCcq6zne+M5zzrec987rOf/wzoQAt60IQutKEPjehEK3rRjG60ox8N6UhLetKUrrSlL43pTGt605zutKc/DepQi3rUpC61qU+N6lSretWsbrWrXw3rWMt61rSuta1vjetc63rXvO61r38N7GALe9jELraxj43sZCt72cxutrOfDe1oS3va1K62ta+N7Wz/a3vb3O62t78N7nCLe9zkLre5z43udKt73exut7vfDe94y3ve9K63ve+N73zre9/87re//w3wgAt84AQvuMEPjvCEK3zhDG+4wx8O8YhLfOIUr7jFL47xjGt84xzvuMc/DvKQi3zkJC+5yU+O8pSrfOUsb7nLXw7zmMt85jSvuc1vjvOc63znPO+5z38O9KALfehEL7rRj470pCt96UxvutOfDvWoS33qVK+61a+O9axrfetc77rXvw72sIt97GQvu9nPjva0q33tbG+7298O97jLfe50r7vd7473vOt973zvu9//DvjAC37whC+84Q+P+MQrfvGMb7zjHw/5yEt+//KUr7zlL4/5zGt+85zvvOc/D/rQi370pC+96U+P+tSrfvWsb73rXw/72Mt+9rSvve1vj/vc6373vO+9738P/OALf/jEL77xj4/85Ct/+cxvvvOfD/3oS3/61K++9a+P/exrf/vc7773vw/+8It//OQvv/nPj/70q3/97G+/+98P//jLf/70r7/974///Ot///zvv///D4ABKIADSIAFaIAHiIAJqIALyIAN6IAPCIERKIETSIEVaIEXiIEZqIEbyIEd6IEfCIIhKIIjSIIlaIIniIIpqIIryIIt6IIvCIMxKIMzSIM1aIM3iIM5qIM7yIM96IM/CIRBKIRDSIRFaJ2ER4iESaiES8iETeiETwiFUSiFU0iFVWiFV4iFWaiFW8iFXeiFXwiGYSiGY0iGZWiGZ4iGaaiGa8iGbeiGbwiHcSiHc0iHdWiHd4iHeaiHe8iHfeiHfwiIgSiIg0iIhWiIh4iIiaiIi8iIjeiIjwiJkSiJk0iJlWiJl4iJmaiJm8iJneiJnwiKoSiKo0iKpWiKp4iKqaiKq8iKiRUEADs=" data-background-size="contain" data-background-color="#eeeeee">
 <h2>一键三连</h2>
 <div class="s-nav"><a href="#/opening" class>整数分解</a><a href="#/classical-crises" class>量子力学</a><a href="#/qubit" class>量子信息</a><a href="#/quantum-hardware" class="active">光与控制</a><span class="lecture-label">第一讲</span></div><div class="s-body"></div>
-<aside class="notes">
-<p>用户提供的原始GIF全屏作为结束页；上一页课程总结仍保留。已核验源文件只有1帧、无动画时长，当前按原文件显示，不宣称具有动画。</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
+
 
 </section>
     </div>

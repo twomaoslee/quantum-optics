@@ -116,7 +116,7 @@
 
 ## 2026-09-14 封面与历史背景页
 
-- `story/entanglement-cover.png`：内置imagegen新生成的白底蓝灰色艺术概念插画，用于封面。非实验图像；提示词见`story/entanglement-cover-prompt.txt`。原KVA图仍用于共同量子态引入页。
+- `story/entanglement-cover.png`：内置imagegen新生成的白底蓝灰色艺术概念插画，用于封面。非实验图像；原KVA图仍用于共同量子态引入页。
 - “历史背景：更多量子力学的故事”：沿用原PPT第6页的`from-ppt/slide6-image13.png`、`slide6-image14.jpeg`及`slide6-image15.png`，依次为两本书封与《奥本海默》电影海报。
 
 ## 波粒二象性动画片

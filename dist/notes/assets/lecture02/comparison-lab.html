@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>转动测量方向，比较两种输入</title>
+<link rel="stylesheet" href="interactive.css">
+<style>
+body{font-size:16px;line-height:1.4;background:#f5f8fb}
+main{max-width:900px;margin:auto;padding:10px}h1{font-size:20px;margin:0 0 8px}
+.analysis-control{display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:center;margin-bottom:8px}
+.compass{width:72px;height:72px}.compass text{font-size:16px}
+.controls{display:flex;gap:6px;align-items:center;flex-wrap:nowrap;margin:0;font-size:14px}
+.controls label{white-space:nowrap}.controls input[type=range]{flex:1;min-width:40px;width:100%;max-width:none}.controls output{min-width:32px;text-align:right}
+.presets{margin-top:7px}.presets button{flex:1;padding:4px 6px;font-size:14px;line-height:1.4;min-height:30px}.presets button[aria-pressed=true]{background:#0070c0;color:#fff}
+.actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:9px 0}
+.actions button{padding:5px 2px;font-size:14px;line-height:1.4;min-height:32px}#hundred{background:#0070c0;color:#fff}
+.comparison{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.sample{border:1px solid #c4d8e7;border-radius:7px;padding:10px;min-width:0;background:#fff}
+.sample h2{color:#0070c0;font-size:17px;line-height:1.3;margin:0;min-height:24px}
+.trial-total{color:#617585;font-size:12px;margin:4px 0 7px}
+.barrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px;margin:8px 0;font-size:14px}
+.barrow>span{grid-column:1;grid-row:1}.barrow strong{grid-column:2;grid-row:1;font-size:21px;line-height:1.2;text-align:right;font-variant-numeric:tabular-nums}
+.barrow .track{grid-column:1/-1;grid-row:2;height:12px}.count-label{display:none}
+.events{display:flex;gap:3px;margin:7px 0 0;min-height:18px}
+.event{width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#0070c0;color:white;font-size:11px;line-height:1}.event.minus{background:#617585}
+.theory{border-top:1px dashed #d4e1eb;margin-top:7px;padding-top:5px;font-size:12px;min-height:24px}.theory p{margin:0}
+.legend-note{font-size:12px;color:#617585;margin:6px 0;line-height:1.4}
+.footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:7px}
+#reveal{padding:4px 8px;font-size:12px;line-height:1.4;white-space:nowrap}
+.footer .hint{font-size:12px;margin:0;line-height:1.4}
+.explanation{background:transparent;border:0;padding:0;margin:0;color:#155b90;font-size:14px;line-height:1.4;min-height:40px}
+.explanation p{margin:0}
+@media(max-width:420px){main{padding:8px}.analysis-control{grid-template-columns:58px minmax(0,1fr);gap:8px}.compass{width:58px;height:58px}.comparison{gap:7px}.sample{padding:8px}.sample h2{font-size:15px;min-height:39px}.presets button{font-size:13px;padding:4px}.controls{font-size:13px}.actions button{font-size:13px}.footer{align-items:start}.footer .hint{max-width:165px}.theory{min-height:42px}}
+</style>
+</head>
+<body><main>
+<h1>转动测量方向，比较两种输入</h1>
+<div class="analysis-control">
+  <svg id="analyzer" class="compass" viewBox="0 0 160 160" role="img" aria-label="测量的两个正交偏振方向"></svg>
+  <div>
+    <div class="controls"><label for="angle">分析方向</label><input id="angle" type="range" min="0" max="90" step="1" value="0"><output id="degrees" for="angle">0°</output></div>
+    <div class="controls presets"><button data-angle="0" aria-pressed="true">H/V</button><button data-angle="45" aria-pressed="false">45°及垂直方向</button><button data-angle="90" aria-pressed="false">90°</button></div>
+  </div>
+</div>
+<div class="comparison">
+  <section class="sample" aria-labelledby="title-a">
+    <h2 id="title-a">A：固定45°</h2>
+    <p class="trial-total" id="total-a">已测0次</p>
+    <div class="events" id="events-a" aria-label="A组最近6次模拟结果"></div>
+    <div id="bars-a"></div><div class="theory" id="theory-a" hidden></div>
+  </section>
+  <section class="sample" aria-labelledby="title-b">
+    <h2 id="title-b">B：随机H或V</h2>
+    <p class="trial-total" id="total-b">已测0次</p>
+    <div class="events" id="events-b" aria-label="B组最近6次模拟结果"></div>
+    <div id="bars-b"></div><div class="theory" id="theory-b" hidden></div>
+  </section>
+</div>
+<div class="controls actions"><button id="one">各测1次</button><button id="hundred">各测100次</button><button id="thousand">各测1000次</button><button id="reset">清空计数</button></div>
+<p class="legend-note">圆点：最近6次模拟结果。蓝色1为所选方向，灰色2为其垂直方向。</p>
+<div id="explanation" class="explanation" aria-live="polite"></div>
+<div class="footer"><button id="reveal" aria-pressed="false">对照理论概率</button><p class="hint">计数为模拟；转动方向后重新计数。</p></div>
+<script>
+const $=id=>document.getElementById(id);
+const clamp=p=>p<1e-12?0:p>1-1e-12?1:p;
+const projection=(input,beta)=>clamp(Math.cos((input-beta)*Math.PI/180)**2);
+const sample=()=>({counts:[0,0],events:[],last:null});
+let groups={a:sample(),b:sample()},revealed=false;
+const angle=()=>Number($('angle').value);
+const labels=b=>b===0?['H','V']:b===45?['45°','垂直']:b===90?['V','H']:['选定方向','垂直方向'];
+const pct=p=>(100*p).toFixed(1)+'%';
+function compass(beta){
+ const point=(a,r)=>[80+r*Math.cos(a*Math.PI/180),80-r*Math.sin(a*Math.PI/180)];
+ const axis=(a,c)=>{const p=point(a,51),q=point(a+180,51);return '<line x1="'+p[0]+'" y1="'+p[1]+'" x2="'+q[0]+'" y2="'+q[1]+'" stroke="'+c+'" stroke-width="4"/>'};
+ $('analyzer').innerHTML='<circle cx="80" cy="80" r="56" fill="#f5f9fc" stroke="#c1d6e6"/><path d="M12 80H145 M80 145V12" stroke="#c1ccd4" stroke-dasharray="3 4"/>'+axis(beta,'#0070c0')+axis(beta+90,'#617585')+'<text x="143" y="99">H</text><text x="87" y="16">V</text>';
+}
+function draw(){
+ const beta=angle(),names=labels(beta),pa=projection(45,beta),ph=projection(0,beta),pv=projection(90,beta);
+ $('degrees').textContent=beta+'°';compass(beta);
+ document.querySelectorAll('[data-angle]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.angle)===beta)));
+ for(const key of ['a','b']){
+  const g=groups[key],n=g.counts[0]+g.counts[1],p=key==='a'?pa:.5;
+  $('total-'+key).textContent='已测'+n+'次';
+  $('events-'+key).innerHTML=g.events.map(port=>'<span class="event '+(port?'minus':'')+'">'+(port?'2':'1')+'</span>').join('');
+  $('bars-'+key).innerHTML=g.counts.map((count,i)=>'<div class="barrow"><span>'+names[i]+'口</span><div class="track"><div class="bar '+(i?'secondary':'')+'" style="width:'+(n?100*count/n:0)+'%"></div></div><strong>'+(n?pct(count/n):'—')+'</strong></div><p class="count-label">'+count+' / '+n+' 次</p>').join('');
+  $('theory-'+key).style.visibility=revealed?'visible':'hidden';$('theory-'+key).hidden=false;
+  $('theory-'+key).innerHTML='<p>理论：'+names[0]+' '+Math.round(100*p)+'% · '+names[1]+' '+Math.round(100*(1-p))+'%</p>';
+ }
+ $('reveal').textContent=revealed?'隐藏理论概率':'对照理论概率';$('reveal').setAttribute('aria-pressed',String(revealed));
+ const n=groups.a.counts[0]+groups.a.counts[1];
+ $('explanation').textContent=!n?(beta===45?'两组输入保持不变。各测100次，比较45°出口的比例。':'先在H/V方向各测100次，再转到45°测量新样本。'):beta===45?'45°出口：A已记录'+groups.a.counts[0]+'/'+n+'次，B已记录'+groups.b.counts[0]+'/'+n+'次。':(beta===0||beta===90)?'两组是否都接近各半？转到45°后，再各测100次。':'继续转动方向，比较A、B的出口比例怎样变化。';
+ window.labState={angle:beta,revealed,probabilities:{a:[pa,1-pa],b:[.5,.5]},groups:JSON.parse(JSON.stringify(groups))};
+}
+function reset(){groups={a:sample(),b:sample()};draw();}
+function measure(n){
+ const beta=angle();for(let i=0;i<n;i++)for(const key of ['a','b']){
+  const input=key==='a'?45:Math.random()<.5?0:90;
+  const port=Math.random()<projection(input,beta)?0:1,g=groups[key];g.counts[port]++;g.events.push(port);g.events=g.events.slice(-6);g.last={input:input===45?'45°':input===0?'H':'V',port};
+ }draw();
+}
+function changeAngle(){reset();}
+ $('angle').oninput=changeAngle;document.querySelectorAll('[data-angle]').forEach(b=>b.onclick=()=>{$('angle').value=b.dataset.angle;changeAngle();});
+ $('one').onclick=()=>measure(1);$('hundred').onclick=()=>measure(100);$('thousand').onclick=()=>measure(1000);$('reset').onclick=reset;$('reveal').onclick=()=>{revealed=!revealed;draw();};draw();
+</script>
+<script src="embed.js"></script>
+</main></body></html>

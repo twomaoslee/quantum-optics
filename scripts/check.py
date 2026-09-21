@@ -38,11 +38,13 @@ for path in DIST.rglob('*'):
         errors.append(f'Unreleased course material in output: {path.relative_to(DIST)}')
     if path.stat().st_size>=100*1024*1024:errors.append(f'File exceeds GitHub limit: {path.relative_to(DIST)}')
     if path.suffix=='.html':
+        if path.parent == DIST/'slides' and re.search(r'<aside\b[^>]*class="[^"]*\bnotes\b', path.read_text()):
+            errors.append(f'Speaker notes in student slides: {path.name}')
         p=Links();p.feed(path.read_text())
         for ref in p.refs:check_ref(path,ref)
     elif path.suffix=='.css':
         for ref in re.findall(r'url\(\s*[\"\']?([^\)\"\']+)',path.read_text()):check_ref(path,ref)
-for required in ['index.html','notes/index.html','downloads/lecture01-slides.pdf','.nojekyll'] + [f'{folder}/lecture{n:02d}.html' for folder in ('notes','slides') for n in PUBLISHED]:
+for required in ['index.html','notes/index.html','.nojekyll'] + [f'downloads/lecture{n:02d}-slides.pdf' for n in PUBLISHED] + [f'{folder}/lecture{n:02d}.html' for folder in ('notes','slides') for n in PUBLISHED]:
     if not (DIST/required).exists():errors.append('Missing entrypoint: '+required)
 for item in json.loads((DIST/'notes/search.json').read_text()):
     if withheld(item.get('href', '')):

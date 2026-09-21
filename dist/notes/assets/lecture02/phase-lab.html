@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>相位调控：概率幅与测量概率</title>
+<link rel="stylesheet" href="../vendor/katex/katex.min.css">
+<link rel="stylesheet" href="phase-lab.css">
+<script defer src="../vendor/katex/katex.min.js"></script>
+<script defer src="phase-lab.js"></script>
+</head><body>
+<main id="slide" aria-label="相位调控交互演示，16比9单页">
+<header><h1>相位改变，测量结果怎样变？</h1>
+<label class="mode-label" for="mode">输入</label>
+<select id="mode"><option value="pure">45°偏振：相干叠加</option><option value="mixed">随机H或V：各半</option></select>
+<button id="fullscreen" type="button">全屏</button></header>
+<section class="controls" aria-label="相位控制">
+<label for="phase">相对相位 <span class="math" data-math="\phi"></span></label>
+<input id="phase" type="range" min="0" max="360" step="1" value="0" aria-label="V相对H的相位，单位为度">
+<output id="degrees" for="phase" aria-live="off"></output>
+<div class="presets" role="group" aria-label="常用相位">
+<button type="button" data-phase="0" aria-label="相位零"><span class="math" data-math="0"></span></button>
+<button type="button" data-phase="90" aria-label="相位二分之π"><span class="math" data-math="\frac{\pi}{2}"></span></button>
+<button type="button" data-phase="180" aria-label="相位π"><span class="math" data-math="\pi"></span></button>
+<button type="button" data-phase="270" aria-label="相位二分之三π"><span class="math" data-math="\frac{3\pi}{2}"></span></button>
+</div><span class="device">理想无损延迟元件 · H/V主轴固定</span></section>
+<section id="state" class="state-strip" aria-label="输出状态">
+<span class="state-label">输出</span>
+<div class="pure-only math" data-math="\displaystyle |\psi_\phi\rangle=\frac{|H\rangle+e^{i\phi}|V\rangle}{\sqrt{2}}"></div>
+<div class="mixed-only mixed-state">H或V，各占一半；偏振态与权重均不变。</div>
+<span class="pure-only state-note">两分量大小不变</span></section>
+<section class="workspace" aria-label="两个出口的计算">
+<div class="pure-only phasors">
+<section class="outlet"><h2><span class="math" data-math="+"></span> 出口 <small>两项相加</small></h2>
+<svg id="plus-svg" viewBox="0 0 440 200" role="img" aria-label="加出口概率幅的复平面矢量相加"></svg>
+<div class="equation math" data-math="\displaystyle a_+=\frac{1}{2}+\frac{e^{i\phi}}{2}=\frac{1+e^{i\phi}}{2}"></div></section>
+<section class="outlet"><h2><span class="math" data-math="-"></span> 出口 <small>第二项带负号</small></h2>
+<svg id="minus-svg" viewBox="0 0 440 200" role="img" aria-label="减出口概率幅的复平面矢量相加"></svg>
+<div class="equation math" data-math="\displaystyle a_-=\frac{1}{2}-\frac{e^{i\phi}}{2}=\frac{1-e^{i\phi}}{2}"></div></section></div>
+<div class="mixed-only mixture">
+<div class="mix-explanation"><h2>每次输入H或V中的一种</h2><p>延迟元件只给该态增加整体相位。</p><p>分别计算两类输入，再将概率按权重相加。</p></div>
+<div class="mix-calculation">
+<div class="math" data-math="\displaystyle P(+)=\frac12 P(+|H)+\frac12 P(+|V)=\frac12"></div>
+<div class="math" data-math="\displaystyle P(-)=\frac12 P(-|H)+\frac12 P(-|V)=\frac12"></div>
+<p>这里没有可相加的H、V相干概率幅。</p></div></div></section>
+<section class="measurements" aria-label="两组测量的理论概率">
+<section class="probability"><h2>H/V测量 <small>始终各半</small></h2>
+<div class="barrow"><span class="math" data-math="P(H)"></span><div class="track"><div id="h-bar" class="bar"></div></div><output id="h-value"></output></div>
+<div class="barrow"><span class="math" data-math="P(V)"></span><div class="track"><div id="v-bar" class="bar secondary"></div></div><output id="v-value"></output></div></section>
+<section class="probability"><h2><span class="math" data-math="\{|+\rangle,|-\rangle\}"></span> 测量 <small id="pm-note">取概率幅的模平方</small></h2>
+<div class="barrow"><span class="math" data-math="P(+)"></span><div class="track"><div id="plus-bar" class="bar"></div></div><output id="plus-value"></output></div>
+<div class="barrow"><span class="math" data-math="P(-)"></span><div class="track"><div id="minus-bar" class="bar secondary"></div></div><output id="minus-value"></output></div></section></section>
+<footer><div class="pure-only legend"><span class="h-item">H项</span><span class="v-item">V项</span><span class="sum-item">总概率幅</span><span class="footnote">箭头在复平面中，不是光路。</span></div>
+<div class="mixed-only">随机混合：改变相位，不改变这两组测量的概率。</div><span class="samples">两组测量分别使用新样本</span></footer>
+</main><noscript>此交互需要启用JavaScript；相位调控的公式与结论见讲义正文。</noscript>
+</body></html>

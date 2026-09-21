@@ -1,4 +1,4 @@
 {
-  "published_lectures": [1],
-  "after_class_lectures": [2]
+  "published_lectures": [1, 2],
+  "after_class_lectures": []
 }

@@ -1,0 +1,16 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>三块偏振片 · 理论模型</title><link rel="stylesheet" href="lab.css"><body>
+<h1>三块偏振片：先预测，再查看透过率</h1>
+<div class="controls"><label for="angle">中间角度</label><input id="angle" type="range" min="0" max="90" step="1" value="45"><output id="degrees" for="angle">45°</output><button id="insert">插入中间偏振片</button><button id="order" disabled>把它移到最后</button></div>
+<svg viewBox="0 0 1000 210" role="img" aria-label="水平偏振光依次通过偏振片的示意"><defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#0070c0"/></marker></defs><path d="M50 80H920" stroke="#0070c0" stroke-width="4" marker-end="url(#arr)"/><g fill="#edf4fa" stroke="#0070c0" stroke-width="3"><circle cx="160" cy="80" r="44"/><circle id="middle-circle" cx="470" cy="80" r="44" hidden/><circle cx="770" cy="80" r="44"/></g><g stroke="#0070c0" stroke-width="5"><path d="M125 80H195"/><path id="middle-axis" d="M435 80H505" hidden/><path id="last-axis" d="M770 45V115"/></g><g fill="#202122" text-anchor="middle" font-size="27"><text x="160" y="158">H：水平</text><text id="middle-label" x="470" y="158">中间留空</text><text id="last-label" x="770" y="158">V：竖直</text></g></svg>
+<div class="controls"><button id="reveal">查看结果</button><button id="reset">重置</button></div><p class="result" id="result" aria-live="polite">预测：最后会不会有光透过？</p><p class="hint">理论平均透过率；以第一块水平偏振片之后的光子数为分母。</p>
+<script>if(window.self!==window.top)document.body.classList.add("embedded");
+const $=id=>document.getElementById(id);let inserted=false,reversed=false,shown=false;
+function state(){const a=+$('angle').value;return{angle:a,inserted,reversed,p:inserted&&!reversed?Math.sin(2*a*Math.PI/180)**2/4:0};}
+function update(){const s=state();$('degrees').value=s.angle+'°';$('insert').textContent=inserted?'移除中间偏振片':'插入中间偏振片';$('order').disabled=!inserted;$('order').textContent=reversed?'把它移回中间':'把它移到最后';
+$('middle-circle').toggleAttribute('hidden',!inserted);$('middle-axis').toggleAttribute('hidden',!inserted);
+$('middle-axis').setAttribute('transform',`rotate(${- (reversed?90:s.angle)} 470 80)`);
+$('last-axis').setAttribute('transform',`rotate(${reversed?90-s.angle:0} 770 80)`);
+$('middle-label').textContent=inserted?(reversed?'V：竖直':s.angle+'°'):'中间留空';$('last-label').textContent=reversed?s.angle+'°':'V：竖直';
+$('result').textContent=shown?`最终透过率 ${(100*s.p).toFixed(2)}%`:'预测：最后会不会有光透过？';window.labState=s;}
+$('angle').oninput=()=>update();$('insert').onclick=()=>{inserted=!inserted;reversed=false;update()};$('order').onclick=()=>{reversed=!reversed;update()};$('reveal').onclick=()=>{shown=true;update()};$('reset').onclick=()=>{inserted=false;reversed=false;shown=false;$('angle').value=45;update()};update();
+</script></body></html>

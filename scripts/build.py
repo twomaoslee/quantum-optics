@@ -74,7 +74,8 @@ def main():
     notes = root / 'quantum-notes/_book'
     slides = root / 'quantum-slides'
     pdf = root / '量子光学 · 第一讲：从量子力学到量子信息科学.pdf'
-    required = [notes/'index.html', pdf] + [folder/f'lecture{n:02d}.html' for folder in (notes, slides) for n in PUBLISHED]
+    pdfs = {1: (pdf, 49), 2: (root/'output/pdf/第二讲课件.pdf', 43)}
+    required = [notes/'index.html'] + [pdfs[n][0] for n in PUBLISHED] + [folder/f'lecture{n:02d}.html' for folder in (notes, slides) for n in PUBLISHED]
     for path in required:
         if not path.is_file():
             raise SystemExit(f'Missing source: {path.name}; render the course before publishing.')
@@ -87,14 +88,26 @@ def main():
     if not missing_poster.exists():
         shutil.copy2(slides/'assets/from-ppt/slide10-image18.png', missing_poster)
     copy_tree(slides/'assets', DIST/'slides/assets')
-    for name in ('lecture01.html','lecture02.html','lecture01-backup.html'):
+    # Retain attribution and licensing, but not internal review or prompt references.
+    for path in DIST.rglob('SOURCES.md'):
+        text = path.read_text()
+        text = re.sub(r'^- `qa/.*\n?', '', text, flags=re.M)
+        text = re.sub(r'^本次独立概率.*\n?', '', text, flags=re.M)
+        text = re.sub(r'截取与加工脚本及检查证据见`qa/[^`]+`。', '', text)
+        text = re.sub(r'验证另用.*?结果保存于 `verification.json`。', '', text)
+        text = re.sub(r'(?:完整初始与修订提示词|提示词完整保存在|完整提示词见|提示词见)[^。]*。', '', text)
+        path.write_text(text)
+    for name in ('lecture01.html','lecture02.html','lecture01-backup.html','lecture02-backup.html'):
         if not withheld(name):
-            shutil.copy2(slides/name, DIST/'slides'/name)
+            text = (slides/name).read_text()
+            text = re.sub(r'<aside\b[^>]*class="[^"]*\bnotes\b[^"]*"[^>]*>.*?</aside>', '', text, flags=re.S)
+            (DIST/'slides'/name).write_text(text)
     use_shared_slide_images(DIST/'slides')
     (DIST/'assets').mkdir()
     shutil.copy2(slides/'assets/branding/csu-logo.png', DIST/'assets/csu-logo.png')
     (DIST/'downloads').mkdir()
-    shutil.copy2(pdf, DIST/'downloads/lecture01-slides.pdf')
+    for n in sorted(PUBLISHED):
+        shutil.copy2(pdfs[n][0], DIST/f'downloads/lecture{n:02d}-slides.pdf')
     shutil.copy2(SITE/'site.css', DIST/'site.css')
     (DIST/'.nojekyll').touch()
     notes_nav = '''<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style>'''
@@ -120,7 +133,7 @@ def main():
         units.append((unit_title,lectures))
     summaries = {
         1: ('从量子力学到量子信息科学', '整数分解 → 量子力学 → 量子信息 → 光与控制'),
-        2: ('量子态与测量', '从三块偏振片与连续测量出发，理解量子态、Born 规则与相对相位。')
+        2: ('量子比特：状态、测量与调控', '从偏振实验出发，用量子态预测测量，理解筛选、相位调控与不同物理系统中的量子比特。')
     }
     rows=[]
     for number,(title,summary) in summaries.items():
@@ -128,7 +141,7 @@ def main():
             continue
         name=f'lecture{number:02d}'
         changed=datetime.fromtimestamp(max((notes/f'{name}.html').stat().st_mtime,(slides/f'{name}.html').stat().st_mtime)).strftime('%Y-%m-%d')
-        download = f'<a class="download" href="downloads/lecture01-slides.pdf" download>课件 PDF · 49 页 · {pdf.stat().st_size/1_000_000:.1f} MB ↓</a>' if number==1 else ''
+        download = f'<a class="download" href="downloads/{name}-slides.pdf" download>课件 PDF · {pdfs[number][1]} 页 · {pdfs[number][0].stat().st_size/1_000_000:.1f} MB ↓</a>'
         rows.append(f'''<article class="lecture"><div class="lecture-number" aria-hidden="true">{number:02d}</div><div><h3><a href="notes/{name}.html"><span class="sr-only">第 {number} 讲：</span>{title}</a></h3><p>{summary}</p><p class="revision">资料更新：{changed}</p></div><div class="actions"><a class="action primary" href="notes/{name}.html" aria-label="阅读第{number}讲讲义">在线讲义</a><a class="action" href="slides/{name}.html" aria-label="打开第{number}讲课件">课堂课件</a>{download}</div></article>''')
     blocks=[]
     for title,lectures in units:

@@ -1,0 +1,28 @@
+/* Lecture 2 uses the established reading layout with the course blue palette. */
+:root { --accent:#0070c0; --ink:#202122; }
+body {background:white;color:#202122;}
+h1,h2,h3 {color:#0070c0;}
+.callout {background:#f3f7fb;}
+.l02-lab {border-top:2px solid #a4c6e2;margin:1.5em 0;padding:1em;background:#f5f8fb;}
+.l02-lab summary {color:#0070c0;cursor:pointer;font-weight:600;}
+.l02-lab iframe {display:block;border:0;width:100%;height:460px;margin-top:1em;}
+@media print {.l02-lab {display:none;}}
+@media(max-width:600px) {.l02-lab {padding:.5em;} .l02-lab iframe {height:600px;}}
+.l02-comparison{padding:.65em;}
+.l02-comparison summary{font-size:.95em;line-height:1.5;}
+.l02-comparison iframe{height:440px;margin-top:.4em;}
+.l02-slide-lab{padding:.6em;}
+.l02-slide-lab .lab-instruction{font-size:.85em;margin:.4em 0;line-height:1.5;}
+.l02-slide-lab iframe{width:100%;height:auto;aspect-ratio:16/9;margin-top:.5em;}
+
+.l02-video{border-top:2px solid #a4c6e2;margin:1.5em 0;padding:1em;background:#f5f8fb}
+.l02-video summary{color:#0070c0;cursor:pointer;font-weight:600}
+.l02-video video{display:block;width:100%;max-width:680px;aspect-ratio:480/424;object-fit:contain;background:#101820;margin:1em auto}
+.l02-video .source-note{font-size:.8em;line-height:1.6}
+@media(max-width:600px){.l02-video{padding:.5em}}
+@media print{.l02-video{display:none}}
+
+/* One explicit learning point at the start of each instructional subsection. */
+.l02-core{border-left:3px solid #0070c0;padding:.45em .85em;margin:.8em 0 1.1em;background:#f1f6fb;font-size:.95em;line-height:1.65}
+.l02-core p{margin:0}
+.l02-core strong{font-weight:600}

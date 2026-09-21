@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>三种自旋测量设置</title>
+<link rel="stylesheet" href="../vendor/katex/katex.min.css">
+<link rel="stylesheet" href="spin-lab.css">
+<script defer src="../vendor/katex/katex.min.js"></script>
+<script defer src="spin-lab.js"></script>
+</head>
+<body><main id="slide">
+<header><h1>中途选出一个分支，末端结果会怎样？</h1><button id="fullscreen">全屏</button></header>
+<div class="controls"><label for="reference">末端比例的分母</label><select id="reference"><option value="initial">各行初始样本</option><option value="last">末台入射样本</option></select><span class="spacer"></span><button id="reveal-all">显示全部结果</button><button id="reset">重新预测</button></div>
+<p class="guide">每行从1000个 <span data-math="|z+\rangle"></span> 粒子出发。先预测两路比例，再点击该行的“查看结果”。</p>
+<div id="experiments" aria-label="三种自旋分析设置"></div>
+<footer><span id="basis-note">末端百分比以各行初始1000个粒子为分母。</span><span>计数为理论期望值</span></footer>
+</main></body></html>
