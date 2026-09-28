@@ -10,6 +10,7 @@ import json
 import re
 import shutil
 import subprocess
+from urllib.parse import unquote
 from release import PUBLISHED, AFTER_CLASS, withheld
 
 SITE = Path(__file__).resolve().parents[1]
@@ -178,6 +179,11 @@ def main():
         items = [item for item in json.loads(search.read_text()) if not withheld(item.get('href', ''))]
         if partial_update:
             items = preserved_search + [item for item in items if item.get('href', '').split('#')[0] in refreshed_pages]
+        # Quarto's incremental index may retain entries for renamed syllabus headings.
+        outline_ids = set(re.findall(r'\bid="([^"]+)"', (DIST/'notes/outline.html').read_text()))
+        items = [item for item in items
+                 if not item.get('href', '').startswith('outline.html#')
+                 or unquote(item['href'].split('#', 1)[1]) in outline_ids]
         for item in items:
             for key in ('title', 'section', 'text'):
                 if isinstance(item.get(key), str):
