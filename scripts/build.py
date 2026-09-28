@@ -42,6 +42,7 @@ def copy_tree(source, destination):
 
 def sanitize_notes(text):
     text = text.replace('量子调控：如何控制一个量子比特？', '量子调控：如何控制量子态？')
+    text = text.replace('量子比特：状态、测量与调控', '量子比特：如何描述状态与预测测量？')
     text = re.sub(r'<link\b[^>]*href="([^\"]*lecture\d+[^\"]*)"[^>]*>',
                   lambda m: '' if withheld(m[1]) else m[0], text)
     # Keep the syllabus, but remove reading invitations for unreleased chapters.
@@ -92,23 +93,28 @@ def main():
     parser.add_argument('--source-root', type=Path, default=ROOT)
     parser.add_argument('--update-lectures', type=int, nargs='+',
                         help='Preserve other note pages and search entries from the committed release.')
+    parser.add_argument('--update-curriculum', action='store_true',
+                        help='Refresh the syllabus and shared titles while preserving published chapter bodies.')
     args = parser.parse_args()
+    updated_lectures = args.update_lectures or []
+    partial_update = bool(updated_lectures or args.update_curriculum)
     root = args.source_root.resolve()
     preserved_notes = {}
     preserved_search = []
-    if args.update_lectures:
-        if not set(args.update_lectures) <= PUBLISHED:
+    if partial_update:
+        if not set(updated_lectures) <= PUBLISHED:
             raise SystemExit('Requested lecture is not authorized in publication.json.')
         names = subprocess.check_output(['git', 'ls-tree', '-r', '--name-only', 'HEAD', 'dist/notes'], cwd=SITE, text=True).splitlines()
         for name in names:
             path = Path(name)
             if path.parent != Path('dist/notes') or path.suffix != '.html' or path.name in {'index.html', 'outline.html'}:
                 continue
-            if any(path.name == f'lecture{n:02d}.html' for n in args.update_lectures):
+            if any(path.name == f'lecture{n:02d}.html' for n in updated_lectures):
                 continue
             preserved_notes[path.name] = subprocess.check_output(['git', 'show', f'HEAD:{name}'], cwd=SITE)
         previous_search = json.loads(subprocess.check_output(['git', 'show', 'HEAD:dist/notes/search.json'], cwd=SITE))
-        preserved_search = [item for item in previous_search if not any(f'lecture{n:02d}.html' in item.get('href', '') for n in args.update_lectures)]
+        refreshed_pages = {'index.html', 'outline.html'} | {f'lecture{n:02d}.html' for n in updated_lectures}
+        preserved_search = [item for item in previous_search if item.get('href', '').split('#')[0] not in refreshed_pages]
     notes = root / 'quantum-notes/_book'
     slides = root / 'quantum-slides'
     pdf = root / '量子光学 · 第一讲：从量子力学到量子信息科学.pdf'
@@ -156,10 +162,6 @@ def main():
     notes_nav = '''<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style>'''
     for path in (DIST/'notes').glob('*.html'):
         text = sanitize_notes(path.read_text())
-        if path.name == 'index.html':
-            text = text.replace('16讲目录与前两讲讲义', '16讲目录与已发布讲义')
-            if 3 in PUBLISHED:
-                text = text.replace('<section id="其他内容"', '<p><a href="lecture03.html">第三讲：量子调控——如何控制量子态？</a>从自由演化与共振驱动出发，讨论脉冲参数、叠加态制备与检验，以及单比特量子门。</p>\n<section id="其他内容"', 1)
         text = text.replace('</head>',notes_nav+'</head>',1)
         text = re.sub(r'(<main\b[^>]*>)',r'\1<a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>',text,count=1)
         path.write_text(text)
@@ -174,12 +176,13 @@ def main():
     search = DIST/'notes/search.json'
     if search.exists():
         items = [item for item in json.loads(search.read_text()) if not withheld(item.get('href', ''))]
-        if args.update_lectures:
-            items = preserved_search + [item for item in items if any(f'lecture{n:02d}.html' in item.get('href', '') for n in args.update_lectures)]
+        if partial_update:
+            items = preserved_search + [item for item in items if item.get('href', '').split('#')[0] in refreshed_pages]
         for item in items:
             for key in ('title', 'section', 'text'):
                 if isinstance(item.get(key), str):
                     item[key] = item[key].replace('量子调控：如何控制一个量子比特？', '量子调控：如何控制量子态？')
+                    item[key] = item[key].replace('量子比特：状态、测量与调控', '量子比特：如何描述状态与预测测量？')
                     if item.get('href', '').startswith('outline.html'):
                         item[key] = item[key].replace('第3讲　怎样控制一个量子比特？', '第3讲　量子调控：如何控制量子态？')
             if isinstance(item.get('text'),str):
@@ -188,12 +191,14 @@ def main():
     source = (root/'quantum-notes/outline.qmd').read_text()
     units = []
     for unit_title, unit_text in re.findall(r'^## (第[一二三四]单元：[^\n]+)\n(.*?)(?=^## |\Z)',source,re.M|re.S):
-        lectures = re.findall(r'^### 第(\d+)讲[　 ]+([^\n]+)',unit_text,re.M)
+        lectures = [(number, re.sub(r'\s*\{[^}]*\}\s*$', '', title))
+                    for number, title in re.findall(r'^### 第(\d+)讲[　 ]+([^\n]+)',unit_text,re.M)]
         units.append((unit_title,lectures))
+    titles = {int(number): title for _, lectures in units for number, title in lectures}
     summaries = {
-        1: ('绪论：从量子力学到量子信息科学', '整数分解 → 量子力学 → 量子信息 → 光与控制'),
-        2: ('量子比特：状态、测量与调控', '从偏振实验出发，用量子态预测测量，理解筛选、相位调控与不同物理系统中的量子比特。'),
-        3: ('量子调控：如何控制量子态？', '从量子态的演化出发，学习共振驱动、脉冲时长与相位调控，制备并检验目标态，理解单比特量子门。')
+        1: (titles[1], '整数分解 → 量子力学 → 量子信息 → 光与控制'),
+        2: (titles[2], '从偏振实验出发，用量子态预测测量，理解筛选、相位调控与不同物理系统中的量子比特。'),
+        3: (titles[3], '从量子态的演化出发，学习共振驱动、脉冲时长与相位调控，制备并检验目标态，理解单比特量子门。')
     }
     rows=[]
     for number,(title,summary) in summaries.items():
@@ -210,7 +215,7 @@ def main():
             n=int(number)
             short=summaries[n][0] if n in summaries else name
             content=f'<a href="notes/lecture{n:02d}.html">{escape(short)}</a>' if n in PUBLISHED else escape(short)
-            status = '可阅读' if n in PUBLISHED else ('授课后发布' if n in AFTER_CLASS else '待更新')
+            status = '可阅读' if n in PUBLISHED else ('课题汇报' if n == 15 else '授课后发布')
             rows2.append(f'<li><span class="num">{n:02d}</span><span>{content}</span><span class="status">{status}</span></li>')
         blocks.append(f'<section class="unit"><h3>{escape(title)}</h3><ol>{"".join(rows2)}</ol></section>')
     page=(SITE/'index.template.html').read_text().replace('{{LECTURES}}',''.join(rows)).replace('{{CURRICULUM}}',''.join(blocks))
