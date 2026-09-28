@@ -209,15 +209,16 @@ def main():
         download = f'<a class="download" href="downloads/{name}-slides.pdf" download>课件 PDF · {pdfs[number][1]} 页 · {pdfs[number][0].stat().st_size/1_000_000:.1f} MB ↓</a>'
         rows.append(f'''<article class="lecture"><div class="lecture-number" aria-hidden="true">{number:02d}</div><div><h3><a href="notes/{name}.html"><span class="sr-only">第 {number} 讲：</span>{title}</a></h3><p>{summary}</p><p class="revision">资料更新：{changed}</p></div><div class="actions"><a class="action primary" href="notes/{name}.html" aria-label="阅读第{number}讲讲义">在线讲义</a><a class="action" href="slides/{name}.html" aria-label="打开第{number}讲课件">课堂课件</a>{download}</div></article>''')
     blocks=[]
-    for title,lectures in units:
+    for unit_number, (title,lectures) in enumerate(units, 1):
         rows2=[]
         for number,name in lectures:
             n=int(number)
             short=summaries[n][0] if n in summaries else name
             content=f'<a href="notes/lecture{n:02d}.html">{escape(short)}</a>' if n in PUBLISHED else escape(short)
             status = '可阅读' if n in PUBLISHED else ('课题汇报' if n == 15 else '授课后发布')
-            rows2.append(f'<li><span class="num">{n:02d}</span><span>{content}</span><span class="status">{status}</span></li>')
-        blocks.append(f'<section class="unit"><h3>{escape(title)}</h3><ol>{"".join(rows2)}</ol></section>')
+            rows2.append(f'<li><span class="num">{n:02d}</span><span class="lecture-title">{content}</span><span class="status">{status}</span></li>')
+        first, last = int(lectures[0][0]), int(lectures[-1][0])
+        blocks.append(f'<section class="unit" aria-labelledby="unit-{unit_number}"><div class="unit-heading"><h3 id="unit-{unit_number}">{escape(title)}</h3><p class="unit-range">第 {first}—{last} 讲</p></div><ol start="{first}">{"".join(rows2)}</ol></section>')
     page=(SITE/'index.template.html').read_text().replace('{{LECTURES}}',''.join(rows)).replace('{{CURRICULUM}}',''.join(blocks))
     page=page.replace('{{PUBLISHED_NUMBERS}}', '、'.join(str(n) for n in sorted(PUBLISHED)))
     (DIST/'index.html').write_text(page)
