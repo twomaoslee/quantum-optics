@@ -54,6 +54,36 @@ for required in ['index.html','notes/index.html','.nojekyll'] + [f'downloads/lec
 for item in json.loads((DIST/'notes/search.json').read_text()):
     if withheld(item.get('href', '')):
         errors.append('Unreleased lecture in search: '+item['href'])
+# Partial releases preserve chapter bodies, but must share one current sidebar.
+class Sidebar(HTMLParser):
+    def __init__(self):
+        super().__init__(); self.links=[]; self.active=[]; self.link=None
+    def handle_starttag(self, tag, attrs):
+        attrs=dict(attrs)
+        if tag == 'a' and 'sidebar-link' in attrs.get('class', '').split():
+            self.link=[attrs.get('href', ''), '']
+            self.links.append(self.link)
+            if 'active' in attrs.get('class', '').split():
+                self.active.append(attrs.get('href', ''))
+                if attrs.get('aria-current') != 'page':
+                    errors.append('Active sidebar link lacks aria-current')
+    def handle_data(self, text):
+        if self.link is not None: self.link[1] += text
+    def handle_endtag(self, tag):
+        if tag == 'a': self.link=None
+
+canonical=None
+for page in sorted((DIST/'notes').glob('*.html')):
+    match=re.search(r'<nav\b[^>]*\bid="quarto-sidebar"[^>]*>.*?</nav>', page.read_text(), re.S)
+    if not match:
+        errors.append(f'Missing notes sidebar: {page.name}'); continue
+    sidebar=Sidebar(); sidebar.feed(match[0])
+    if canonical is None: canonical=sidebar.links
+    elif sidebar.links != canonical:
+        errors.append(f'Inconsistent notes sidebar: {page.name}')
+    expected=[href for href, _ in sidebar.links if href.removeprefix('./') == page.name]
+    if sidebar.active != expected:
+        errors.append(f'Incorrect current chapter in sidebar: {page.name}')
 if errors:
     print('\n'.join(errors));sys.exit(1)
 print(f'PASS: HTML and CSS local references resolve; entrypoints present; files under 100 MiB. {len(external)} external URLs retained (not network-tested).')

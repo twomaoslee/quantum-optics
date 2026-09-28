@@ -67,6 +67,25 @@ def sanitize_notes(text):
     text = text.replace('本讲的实验照片、教材插图和人物图均保存在本地，出处见', '本讲实验照片、教材插图和人物图的出处见')
     return text
 
+def sync_notes_sidebar(directory, source):
+    """Refresh shared navigation even when chapter bodies are preserved."""
+    pattern = r'<nav\b[^>]*\bid="quarto-sidebar"[^>]*>.*?</nav>'
+    match = re.search(pattern, source.read_text(), re.S)
+    if not match:
+        raise RuntimeError(f'Missing canonical sidebar in {source.name}')
+    sidebar = re.sub(r'[ \t]+$', '', sanitize_notes(match[0]), flags=re.M)
+    for page in directory.glob('*.html'):
+        def mark_current(link):
+            tag = link[0].replace(' sidebar-link active', ' sidebar-link').replace(' aria-current="page"', '')
+            if link[1].removeprefix('./') == page.name:
+                tag = tag.replace('sidebar-link"', 'sidebar-link active" aria-current="page"')
+            return tag
+        current = re.sub(r'<a\b[^>]*href="([^"]+)"[^>]*>', mark_current, sidebar)
+        text, count = re.subn(pattern, lambda _: current, page.read_text(), flags=re.S)
+        if count != 1:
+            raise RuntimeError(f'Expected one sidebar in {page.name}, found {count}')
+        page.write_text(text)
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-root', type=Path, default=ROOT)
@@ -145,6 +164,9 @@ def main():
         path.write_text(text)
     for name, content in preserved_notes.items():
         (DIST/'notes'/name).write_bytes(content)
+    # Body preservation must not restore stale chapter names or retired links.
+    nav_source = notes / (f'lecture{args.update_lectures[0]:02d}.html' if args.update_lectures else 'index.html')
+    sync_notes_sidebar(DIST/'notes', nav_source)
     for path in (DIST/'notes/assets/lecture01').glob('*.json'):
         path.unlink()
     # Search is rebuilt from the sanitized output to avoid stale internal text.
