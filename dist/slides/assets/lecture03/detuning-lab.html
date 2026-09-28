@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>失谐、球面轨迹与翻转概率</title>
+<link rel="stylesheet" href="../vendor/katex/katex.min.css"><link rel="stylesheet" href="bloch.css"><link rel="stylesheet" href="detuning-lab.css">
+<script defer src="../vendor/katex/katex.min.js"></script><script defer src="figure-print.js"></script><script defer src="control-bloch-drawing.js"></script><script defer src="detuning-lab.js"></script>
+<link rel="stylesheet" href="classroom.css"><script defer src="classroom.js"></script></head><body><main id="slide">
+<header><h1 id="title">失谐改变轨迹与翻转概率</h1><div class="tools"><button id="reset">重置</button><button id="fullscreen">全屏</button></div></header>
+<div id="frame-note">驱动旋转坐标</div><div class="meta">初态 <span data-math="|0\rangle"></span> · <span data-math="\Omega/(2\pi)=5\,\mathrm{MHz}"></span></div>
+<svg id="detuning-sphere" viewBox="0 0 660 500" role="img" aria-label="失谐时围绕倾斜轴的球面轨迹"></svg>
+<svg id="detuning-chart" viewBox="0 0 530 390" role="img" aria-label="测得1的概率随脉冲时长的变化"></svg>
+<div id="axis-key">灰色：旋转轴 <span data-math="\mathbf n_{\mathrm R}"></span></div>
+<div id="results"><div id="current-prob"></div><div id="max-prob"></div><div id="peak-time"></div></div>
+<div class="controls">
+<div class="control-group"><div class="control-row"><label for="detuning">失谐比 <span data-math="\Delta/\Omega"></span></label><input id="detuning" type="range" min="-2" max="2" step=".01" value="1"><output id="detuning-value"></output></div><div class="presets"><button data-ratio="-1">−1</button><button data-ratio="0">0</button><button data-ratio="1">+1</button><button data-ratio="2">+2</button></div></div>
+<div class="control-group time-group"><div class="control-row"><label for="duration">作用时间</label><input id="duration" type="range" min="0" max="250" step="any" value="100"><output id="duration-value"></output></div><div class="presets"><button id="peak">首个最高点</button><button id="resonance">回到共振</button><button id="original">100 ns</button><button id="play">播放</button></div></div>
+</div></main></body></html>

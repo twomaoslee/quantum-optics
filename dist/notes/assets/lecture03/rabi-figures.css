@@ -1,0 +1,32 @@
+:root{color-scheme:light;--blue:#0070c0;--ink:#20384c;--gray:#657a8d;--rule:#d9e4ec;--pale:#eef6fc}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff}
+body{font:24px/1.45 "PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink)}
+#slide{position:absolute;width:1280px;height:720px;transform-origin:top left;background:white}
+header{position:absolute;left:36px;right:36px;top:23px;height:86px;border-bottom:2px solid var(--blue)}
+h1{font-size:36px;line-height:1.3;margin:0 0 6px;color:var(--blue);font-weight:650}
+.subtitle{margin:0;font-size:20px;color:var(--gray)}.katex{font-size:1em}
+.formula{position:absolute;font-size:24px}.small{font-size:19px;color:var(--gray)}
+.foot{position:absolute;left:36px;right:36px;bottom:20px;border-top:1px solid var(--rule);padding-top:12px;font-size:18px;color:var(--gray);line-height:1.6}
+svg{position:absolute;display:block}svg text{font:21px "PingFang SC","Microsoft YaHei",sans-serif;fill:var(--ink)}
+.label{position:absolute;font-size:23px;font-weight:600;color:var(--ink)}
+.row-title{position:absolute;font-size:25px;font-weight:650;color:var(--blue)}
+.center{text-align:center}.states{position:absolute;top:490px;left:0;right:0;height:130px}
+.state{position:absolute;width:200px;transform:translateX(-50%);text-align:center;font-size:23px}
+.state .name{font-size:21px;color:var(--gray);margin-bottom:3px}.state .math{font-size:25px;height:59px;display:grid;place-items:center;line-height:1}
+.state .prob{font-size:20px;margin-top:6px;color:var(--blue)}
+button{font:inherit;font-size:21px;background:white;border:1px solid #a8c3d7;border-radius:5px;padding:7px 17px;color:var(--blue);cursor:pointer}
+button:hover,button[aria-pressed=true]{background:var(--pale);border-color:var(--blue)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+#fullscreen{position:absolute;right:0;top:4px}
+.controls{position:absolute;left:36px;right:36px;top:123px;display:flex;align-items:center;gap:15px;height:48px}
+.controls label{font-size:23px}.controls input{width:390px;accent-color:var(--blue);cursor:pointer}
+.controls output{font-size:25px;color:var(--blue);font-variant-numeric:tabular-nums;width:98px}
+.controls .presets{display:flex;gap:9px;margin-left:auto}
+.result{position:absolute;top:590px;left:36px;right:36px;display:flex;align-items:center;gap:25px;height:64px}
+.result .state-output{font-size:28px;flex:1;min-width:0}.result .prob-output{font-size:30px;color:var(--blue);min-width:240px;text-align:right}
+.interactive .foot{font-size:18px;display:flex;justify-content:space-between;gap:24px;line-height:1.4}
+@media print{
+  input,button{visibility:hidden}
+  .controls input,.controls .presets{display:none}
+  #slide{print-color-adjust:exact;-webkit-print-color-adjust:exact;}
+}

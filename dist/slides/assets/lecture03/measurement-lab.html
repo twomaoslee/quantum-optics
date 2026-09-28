@@ -1,0 +1,11 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>固定与转动的测量参照</title>
+<link rel="stylesheet" href="../vendor/katex/katex.min.css"><link rel="stylesheet" href="bloch.css"><link rel="stylesheet" href="measurement-lab.css"><link rel="stylesheet" href="classroom.css">
+<script defer src="../vendor/katex/katex.min.js"></script><script defer src="figure-print.js"></script><script defer src="control-bloch-drawing.js"></script><script defer src="measurement-lab.js"></script><script defer src="classroom.js"></script></head>
+<body><main id="slide"><header><h1>同一演化，不同测量参照</h1><div class="tools"><button id="reset">重置</button><button id="fullscreen">全屏</button></div></header>
+<div class="measurement-caption">初态 <span data-math="|+\rangle"></span> 自由演化后，球上画分析前的状态；<span data-math="P_0^{\mathrm{out}}"></span> 是分析后测得0的概率。</div>
+<div class="measurement-heading left">分析方向固定在实验室</div><div class="measurement-heading right">分析方向跟随共振参考</div>
+<svg id="fixed" viewBox="0 0 660 500" role="img" aria-label="固定坐标中的自由演化"></svg><svg id="rotating" viewBox="0 0 660 500" role="img" aria-label="相互作用绘景中的自由演化"></svg>
+<div id="fixed-result" class="measurement-result left"></div><div id="rotating-result" class="measurement-result right"></div>
+<div class="measurement-setting left">调整分析脉冲相位，区分固定的正、负x方向态</div><div class="measurement-setting right">固定分析脉冲相位，区分正、负<span data-math="x_{\mathrm I}"></span>方向态</div>
+<div class="controls"><label for="time">等待 <span data-math="t/T_0"></span></label><input id="time" aria-label="等待时间，以自由演化周期计" type="range" min="0" max="1" step=".005" value=".25"><output id="time-value"></output><div class="presets"><button data-time="0">0</button><button data-time="0.25">1/4周期</button><button data-time="0.5">半周期</button><button data-time="1">一周期</button></div><span class="initial-text"><span data-math="T_0=2\pi/\omega_0"></span></span></div>
+</main></body></html>

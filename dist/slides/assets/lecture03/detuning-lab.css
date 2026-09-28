@@ -1,0 +1,19 @@
+#frame-note{position:absolute;left:36px;top:112px;color:var(--blue);font-size:24px}
+.meta{position:absolute;right:38px;top:112px;font-size:23px;color:var(--gray)}
+#detuning-sphere{left:14px;top:150px;width:665px;height:430px}
+#detuning-chart{left:712px;top:150px;width:530px;height:390px}
+#axis-key{position:absolute;left:180px;top:566px;font-size:24px;color:var(--gray)}
+#results{position:absolute;left:759px;top:524px;width:460px;font-size:25px;display:grid;grid-template-columns:1fr 1fr;gap:12px 8px}
+#current-prob{color:var(--blue)}#max-prob{color:var(--gray)}#peak-time{grid-column:1/-1;font-size:23px}
+.controls{top:615px;height:95px;align-items:flex-start;padding-top:10px;gap:30px}
+.control-group{flex:1;min-width:0}.control-row{display:flex;align-items:center;gap:12px;font-size:23px;white-space:nowrap}
+.control-row input{width:240px}.control-row output{min-width:70px}
+.presets{margin-top:7px;gap:7px}.presets button{padding:3px 11px;font-size:20px}#play{margin-left:auto}
+.curves #detuning-sphere,.curves #axis-key,.curves .time-group{display:none}
+.curves #frame-note{color:var(--gray)}
+.curves #detuning-chart{left:36px;top:150px;width:900px;height:440px}
+.curves #results{left:970px;top:238px;width:270px;display:flex;flex-direction:column;gap:36px;font-size:27px}
+.curves #peak-time{font-size:23px}
+.curves .control-group{flex:0 0 auto;display:flex;gap:35px;align-items:center}
+.curves .control-group.time-group{display:none}
+.curves .presets{margin:0}.curves .control-row input{width:430px}

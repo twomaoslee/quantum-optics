@@ -151,12 +151,12 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lecture02.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">第二讲　一个量子比特：从制备与测量到量子态</span></a>
+  <a href="./lecture02.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">第二讲　量子比特：状态、测量与调控</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sample-electron-interference.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">一个一个到达的电子，怎样形成干涉条纹？</span></a>
+  <a href="./lecture03.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">第三讲　量子调控：如何控制一个量子比特？</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -195,7 +195,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#第1讲-绪论从量子力学到量子信息科学" id="toc-第1讲-绪论从量子力学到量子信息科学" class="nav-link" data-scroll-target="#第1讲-绪论从量子力学到量子信息科学">第1讲　绪论：从量子力学到量子信息科学</a></li>
   <li><a href="#第2讲-一个量子比特从制备与测量到量子态" id="toc-第2讲-一个量子比特从制备与测量到量子态" class="nav-link" data-scroll-target="#第2讲-一个量子比特从制备与测量到量子态">第2讲　一个量子比特：从制备与测量到量子态</a></li>
-  <li><span>第3讲　怎样控制一个量子比特？（授课后发布）</span></li>
+  <li><a href="#lecture03-plan" id="toc-lecture03-plan" class="nav-link" data-scroll-target="#lecture03-plan">第3讲　怎样控制一个量子比特？</a></li>
   <li><a href="#第4讲-两个系统为什么不能分别拥有完整状态" id="toc-第4讲-两个系统为什么不能分别拥有完整状态" class="nav-link" data-scroll-target="#第4讲-两个系统为什么不能分别拥有完整状态">第4讲　两个系统为什么不能分别拥有完整状态？</a></li>
   <li><a href="#第5讲-爱因斯坦的质疑怎样成为实验" id="toc-第5讲-爱因斯坦的质疑怎样成为实验" class="nav-link" data-scroll-target="#第5讲-爱因斯坦的质疑怎样成为实验">第5讲　爱因斯坦的质疑怎样成为实验？</a></li>
   <li><a href="#第6讲-薛定谔猫与消失的干涉" id="toc-第6讲-薛定谔猫与消失的干涉" class="nav-link" data-scroll-target="#第6讲-薛定谔猫与消失的干涉">第6讲　薛定谔猫与消失的干涉</a></li>
@@ -291,17 +291,19 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="lecture03-plan">第3讲　怎样控制一个量子比特？</h3>
 <p><strong>核心问题：</strong> 怎样让系统可控地从一个状态变到另一个状态？</p>
 <ol type="1">
-<li>从磁共振到原子与超导量子比特</li>
-<li>二能级近似与驱动的物理来源</li>
-<li>哈密顿量、薛定谔方程与幺正演化；用简单单比特门连接操作与数学</li>
-<li>共振驱动下的Rabi振荡</li>
-<li>翻转脉冲与制备叠加的脉冲</li>
-<li>失谐怎样改变振荡</li>
+<li>从已知状态到目标状态：控制要改变什么、怎样检验</li>
+<li>原子、离子与transmon：不同载体怎样提供两个编码态</li>
+<li>能量算符与自由演化：概率不变，状态是否不变</li>
+<li>布洛赫球：把概率分配、相对相位及其变化画出来</li>
+<li>共振驱动与Rabi振荡：先观察脉冲时长的效果，再求解演化</li>
+<li>驱动相位与分析脉冲：制备并辨别不同的叠加态</li>
+<li>失谐：为什么延长脉冲也不一定能翻转</li>
+<li>单比特门与组合脉冲：同一操作对不同输入做什么，次序为何重要</li>
 </ol>
-<p><strong>先修：</strong> 前两讲；二维矩阵、简单微分方程。<br>
-<strong>核心计算：</strong> 从给定有效哈密顿量求共振激发概率。<br>
-<strong>选学：</strong> 旋转参考系与旋波近似的推导。<br>
-<strong>学会的标志：</strong> 根据驱动强度预测脉冲时长，检查零驱动与初始时刻的极限。</p>
+<p><strong>先修：</strong> 前两讲的概率幅、相对相位与二维状态；所需矩阵和演化记号在正文中说明。<br>
+<strong>核心计算：</strong> 共振激发概率、目标叠加态的脉冲参数、相位读出和操作次序。<br>
+<strong>推导拓展：</strong> 旋波近似、失谐演化与组合脉冲的详细计算；旋转坐标的定义和读图方法属于正文主线。<br>
+<strong>学会的标志：</strong> 用概率曲线与布洛赫球解释时长、强度、相位和频率的作用，并为一个目标状态选定控制及检验步骤。</p>
 </section>
 <section id="第4讲-两个系统为什么不能分别拥有完整状态" class="level3">
 <h3 class="anchored" data-anchor-id="第4讲-两个系统为什么不能分别拥有完整状态">第4讲　两个系统为什么不能分别拥有完整状态？</h3>

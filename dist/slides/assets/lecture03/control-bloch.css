@@ -1,0 +1,28 @@
+/* Section 6 uses the same 1280 × 720 course canvas as section 5. */
+.frame-title{position:absolute;top:116px;font-size:27px;color:var(--blue);font-weight:600;text-align:center;width:600px}
+.frame-title.left{left:25px}.frame-title.right{left:655px}
+.frame-sphere{position:absolute;top:156px;width:600px;height:430px}
+.frame-sphere.left{left:25px}.frame-sphere.right{left:655px}
+.frame-phase{position:absolute;top:566px;width:600px;text-align:center;font-size:27px}
+.frame-phase.left{left:25px}.frame-phase.right{left:655px}
+.frame-controls{gap:20px}.frame-controls label{display:flex;align-items:center;gap:16px}
+.frame-controls input{width:320px}.frame-controls output{width:76px}
+.frame-controls .ticks{display:flex;gap:9px}.frame-controls .initial-text{margin-left:auto;white-space:nowrap}
+.rabi-meta{position:absolute;top:114px;left:728px;font-size:24px;color:var(--gray)}
+.rabi-frame{position:absolute;top:115px;left:36px;font-size:25px;color:var(--blue)}
+.rabi-sphere{left:16px;top:152px;width:650px;height:438px}
+#rabi-chart{left:720px;top:163px;width:520px;height:350px}
+.rabi-angle{position:absolute;left:55px;top:568px;width:530px;text-align:center;font-size:29px}
+.rabi-result{position:absolute;left:750px;right:36px;top:505px;display:flex;flex-direction:column;gap:3px}
+.rabi-result .state-output{font-size:28px;min-height:58px;display:flex;align-items:center}
+.rabi-result .prob-output{font-size:25px;color:var(--blue)}
+.rabi-controls{gap:19px}.rabi-controls label{display:flex;gap:15px;align-items:center;white-space:nowrap}
+.rabi-controls input{width:340px}.rabi-controls output{width:99px;font-size:26px}
+.rabi-controls .presets{margin:0 0 0 auto;gap:12px}
+.rabi-controls .presets button{padding:7px 20px}
+.observation .rabi-sphere,.observation .rabi-frame,.observation .rabi-angle,.observation .state-output{display:none}
+.observation .rabi-meta{left:36px;top:118px}
+.observation #rabi-chart{left:55px;top:178px;width:1170px;height:415px}
+.observation .rabi-result{left:940px;top:112px;right:36px;align-items:flex-end}
+.observation .prob-output{font-size:30px}
+@media print{.rabi-controls .presets{visibility:hidden}}

@@ -1,0 +1,8 @@
+.measurement-caption{position:absolute;top:108px;left:30px;right:30px;font-size:26px;line-height:1.4;text-align:center}
+.measurement-heading{position:absolute;top:163px;width:580px;text-align:center;font-size:28px;color:var(--blue)}
+.left{left:30px}.right{left:670px}
+#fixed,#rotating{top:200px;width:610px;height:340px}#fixed{left:15px}#rotating{left:655px}
+.measurement-result{position:absolute;top:551px;width:580px;text-align:center;font-size:30px;color:var(--blue)}
+.measurement-setting{position:absolute;top:596px;width:580px;text-align:center;font-size:23px;color:var(--gray)}
+.controls{top:652px;height:57px;gap:20px;font-size:25px}.controls input{width:210px}.controls output{width:75px}.controls .presets{margin:0}.controls .initial-text{margin-left:auto}
+.controls label,.controls .initial-text{white-space:nowrap;flex-shrink:0}

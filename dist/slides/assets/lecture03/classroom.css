@@ -1,0 +1,176 @@
+@import url("classroom-typography.css");
+/* Shared classroom viewport: remove standalone chrome, keep all scientific inputs. */
+#slide.classroom{height:var(--classroom-height,600px)!important;padding:0}
+#slide.classroom>header{display:none}
+.classroom-body{position:absolute;left:0;top:-94px;width:1280px;height:720px}
+.classroom .frame-period{position:absolute;left:530px;top:554px;width:220px;text-align:center;font-size:27px;color:var(--gray)}
+/* Two equal, tightly cropped spheres; controls use a dedicated side column. */
+.classroom.frames-reading .classroom-body{top:0;height:540px}
+.classroom.frames-reading .frame-title{top:0;width:506px;font-size:27px;line-height:36px}
+.classroom.frames-reading .frame-title.left,.classroom.frames-reading .frame-sphere.left,.classroom.frames-reading .frame-phase.left{left:0}
+.classroom.frames-reading .frame-title.right,.classroom.frames-reading .frame-sphere.right,.classroom.frames-reading .frame-phase.right{left:520px}
+.classroom.frames-reading .frame-sphere{top:36px;width:506px;height:466px}
+.classroom.frames-reading .frame-phase{top:502px;width:506px;font-size:29px;line-height:38px}
+.classroom.frames-reading .frame-controls{left:1050px;right:12px;top:16px;height:508px;padding:8px 0 8px 18px;border-top:0;border-left:1px solid var(--rule);display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:20px;font-size:26px}
+.classroom.frames-reading .frame-controls .initial-text{margin:0;text-align:center}
+.classroom.frames-reading .frame-period{position:static;width:auto;font-size:27px}
+.classroom.frames-reading .frame-controls label{display:grid;grid-template-columns:1fr 76px;gap:10px;align-items:center}
+.classroom.frames-reading .frame-controls label>span{grid-column:1;grid-row:1}
+.classroom.frames-reading .frame-controls output{grid-column:2;grid-row:1;text-align:right}
+.classroom.frames-reading .frame-controls input{grid-column:1 / -1;grid-row:2;width:100%;margin:0}
+.classroom.frames-reading .frame-controls .ticks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.classroom.frames-reading .frame-controls button{font-size:25px;padding:6px 8px}
+.classroom.compare .classroom-body{top:0;height:560px}
+.classroom.compare #content{height:560px;display:grid;grid-template-rows:486px 60px;gap:14px;padding:0 12px}
+.classroom.compare .compare-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;min-height:0}
+.classroom.compare .compare-grid::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:#bfd2e1;pointer-events:none}
+.classroom.compare .compare-panel{display:grid;grid-template-columns:minmax(0,1fr) 206px;grid-template-rows:42px 436px;gap:8px 12px;min-width:0;min-height:0}
+.classroom.compare .compare-panel h2{grid-column:1 / -1;font-size:30px;line-height:1.4;color:var(--blue);text-align:center;margin:0}
+.classroom.compare .compare-figure{position:relative;min-width:0;min-height:0;height:436px}
+.classroom.compare .compare-figure svg[role=img]{position:absolute;inset:0;width:100%;height:100%;min-width:0;min-height:0;max-width:100%;max-height:100%}
+.classroom.compare .compare-figure #left-sphere,.classroom.compare .compare-figure #right-sphere{left:0;top:0}
+.classroom.compare .compare-readout{display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:32px;min-width:0}
+.classroom.compare .compare-readout .state-label{position:static;width:auto;font-size:33px}
+.classroom.compare .compare-readout .half-prob{position:static;width:auto;display:grid;gap:24px;font-size:29px;line-height:1.3;text-align:center}
+.classroom.compare .compare-conclusion{margin:0;padding:10px 16px;border-left:4px solid var(--blue);background:var(--pale);font-size:30px;line-height:1.3}
+#slide.classroom.transmon-classroom{display:grid;padding:8px 12px;grid-template-rows:440px 44px;gap:10px}
+.transmon-classroom .workspace{height:440px;padding-top:0;grid-template-columns:300px 430px minmax(0,1fr);gap:20px}
+.transmon-classroom .workspace>section{min-width:0}
+.transmon-classroom h2{margin-bottom:8px}
+.transmon-classroom #circuit{width:300px;height:180px;margin:8px 0}
+.transmon-classroom .level-chart{transform:scale(.88);transform-origin:top left}
+.transmon-classroom .axis-caption{font-size:24px;line-height:1.35;margin:0 0 8px}
+.transmon-classroom .frequency-panel h2{margin-bottom:8px}
+.transmon-classroom .frequency-definition{font-size:26px;line-height:1.35}
+.transmon-classroom .frequency-values{margin-top:8px;gap:4px}
+.transmon-classroom #frequencies{margin-top:4px;height:180px}
+.transmon-classroom .separation{padding-top:8px;margin-top:4px}
+.transmon-classroom .separation strong{font-size:30px}
+.transmon-classroom .frequency-reading{margin-top:8px}
+.transmon-classroom .transmon-footer{display:grid;grid-template-columns:520px minmax(0,1fr);gap:20px;align-items:center;border-top:1px solid var(--rule)}
+.transmon-classroom .transmon-footer #fixed-parameter{margin:0;font-size:20px;line-height:1.3;white-space:nowrap}
+.transmon-classroom .transmon-footer #fixed-parameter br{display:none}
+.transmon-classroom .transmon-footer #fixed-parameter .katex{margin:0 8px}
+.transmon-classroom .transmon-footer .frequency-reading{margin:0;font-size:24px;line-height:1.3}
+.transmon-classroom>footer{display:none}
+.strength-tuning{position:absolute;left:355px;top:115px;display:flex;align-items:center;gap:15px;font-size:25px}
+.strength-tuning input{width:270px;accent-color:var(--blue)}.strength-tuning output{width:112px;color:var(--blue)}
+.strength-mode .rabi-meta{left:36px}
+.frequency-reading{font-size:26px;line-height:1.4;color:#0070c0;margin:16px 0 0}
+.classroom.pulse-reading .classroom-body{top:0;height:560px}
+.classroom.pulse-reading .rabi-frame{left:12px;top:0}
+.classroom.pulse-reading .rabi-meta{left:688px;top:0}
+.classroom.pulse-reading #rabi-sphere{left:0;top:32px;width:650px;height:446px}
+.classroom.pulse-reading #rabi-chart{left:670px;top:36px;width:600px;height:350px}
+.classroom.pulse-reading .rabi-angle{left:12px;top:466px;width:626px;font-size:29px;line-height:1.1}
+.classroom.pulse-reading .rabi-result{left:688px;right:12px;top:390px;height:100px;display:grid;grid-template-columns:minmax(0,1fr) 142px;align-items:center;gap:18px}
+.classroom.pulse-reading .rabi-result .state-output{min-height:0;min-width:0;white-space:nowrap}
+.classroom.pulse-reading .rabi-result .prob-output{text-align:right;white-space:nowrap}
+.classroom.pulse-reading .rabi-controls{left:12px;right:12px;top:500px;height:60px;display:grid;grid-template-columns:540px minmax(0,1fr) 68px;gap:16px;align-items:center}
+.classroom.pulse-reading .pulse-time-control{display:grid;grid-template-columns:150px minmax(0,1fr) 92px;gap:12px;align-items:center;min-width:0}
+.classroom.pulse-reading .pulse-time-control label{gap:10px}
+.classroom.pulse-reading .pulse-time-control input{width:100%;min-width:0;margin:0}
+.classroom.pulse-reading .pulse-time-control output{width:auto;text-align:right;font-size:26px}
+.classroom.pulse-reading .rabi-controls .presets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0;min-width:0}
+.classroom.pulse-reading .rabi-controls .presets button{display:flex;justify-content:center;align-items:center;gap:10px;width:100%;min-width:0;height:46px;padding:6px 10px;font-size:23px;line-height:1.3}
+.classroom.pulse-reading .rabi-controls .preset-caption{display:inline;margin:0;font-size:23px;line-height:1.3}
+.classroom.pulse-reading .rabi-controls .inline-reset{width:68px;height:46px;padding:6px 8px;font-size:23px;line-height:1.3}
+.preset-caption{display:block;font-size:22px;margin-top:2px}
+.classroom .inline-reset{font-size:21px;padding:4px 10px;flex-shrink:0;white-space:nowrap}
+.classroom .controls,.classroom .frame-controls,.classroom .rabi-controls{gap:14px}
+.classroom .controls label{min-width:0}
+.classroom .controls input,.classroom .frame-controls input,.classroom .rabi-controls input{min-width:80px;flex-shrink:1}
+.classroom .angle-controls{gap:24px}
+.classroom .angle-controls label{flex:1}
+.classroom .angle-controls input{width:230px;flex:1}
+.classroom .range-labels{align-items:center}
+/* State explorer only: larger sphere, all controls in the right-hand column. */
+.classroom:is(.state-tuning,.definition-slide) .classroom-body{top:0;height:560px}
+.classroom:is(.state-tuning,.definition-slide) #sphere{left:0;top:4px;width:690px;height:552px}
+.classroom.definition-slide .definition-panel{left:704px;top:8px;width:568px}
+.classroom.state-tuning .state-panel{left:704px;top:8px;width:552px}
+.classroom.state-tuning h2{font-size:28px}
+.classroom.state-tuning #state-formula{height:74px;font-size:32px}
+.classroom.state-tuning .prob-title{margin:4px 0 10px}
+.classroom.state-tuning .prob-row{margin-bottom:14px}
+.classroom.state-tuning .prob-label{margin-bottom:6px}
+.classroom.state-tuning .track{height:22px}
+.classroom.state-tuning .angle-controls{position:static;height:auto;margin-top:20px;padding-top:14px;display:flex;flex-direction:column;align-items:stretch;gap:14px}
+.classroom.state-tuning .angle-controls label{flex:none;gap:12px;height:38px}
+.classroom.state-tuning .angle-controls input{width:auto;flex:1}
+.classroom.state-tuning .presets{flex-wrap:wrap;gap:8px;margin-top:16px}
+.classroom.state-tuning .phase-presets{margin-left:4px}
+.classroom.state-tuning .presets button{font-size:24px;padding:6px 10px}
+.classroom.state-tuning .presets .inline-reset{margin-left:auto}
+@media print{.classroom-body{top:-94px}.strength-tuning input{visibility:hidden}}
+.gate-teaching #left-sphere,.gate-teaching #right-sphere{top:173px;width:375px;height:375px}
+.gate-teaching #left-sphere{left:8px}.gate-teaching #right-sphere{left:648px}
+.gate-teaching .gate-definition{position:absolute;top:192px;width:240px;min-height:300px;padding:18px 14px;box-sizing:border-box;background:#f1f6fa;display:flex;flex-direction:column;justify-content:flex-start;gap:14px;font-size:26px;line-height:1.4}
+.gate-teaching .gate-definition.left{left:389px}.gate-teaching .gate-definition.right{left:1029px}
+.gate-teaching .gate-definition h3{font-size:26px;color:var(--blue);margin:0;line-height:1.4}
+.gate-teaching .gate-definition .katex{font-size:1em}
+.gate-teaching .controls{top:665px;height:48px}
+/* Basic gates: shared input first, then aligned definitions and live outputs.
+   Scope these rules so Hadamard and operation-order layouts remain unchanged. */
+/* Shared by X/Z and rotation/Hadamard: full-width controls, two equal diagrams. */
+.classroom.gate-basic .classroom-body{top:0;height:560px;display:grid;grid-template-rows:48px minmax(0,1fr);gap:12px;padding:0 12px;box-sizing:border-box}
+.classroom.gate-basic .controls{position:static;width:auto;height:48px;margin:0;padding:0 8px;border-top:0;border-bottom:1px solid var(--rule);font-size:28px;gap:14px}
+.classroom.gate-basic .controls button{font-size:26px;padding:4px 12px}
+.classroom.gate-basic .frame-note{font-size:24px}
+.classroom.gate-basic .gate-basic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;min-height:0}
+.classroom.gate-basic .gate-basic-panel{display:grid;grid-template-rows:44px 42px minmax(0,1fr);gap:6px;min-width:0}
+.classroom.gate-basic .gate-basic-heading{display:flex;justify-content:center;align-items:center;gap:18px;background:var(--pale)}
+.classroom.gate-basic .column-title{position:static;width:auto;min-height:0;font-size:32px}
+.classroom.gate-basic .gate-basic-heading h3{margin:0;font-size:29px;color:var(--blue);line-height:1.3}
+.classroom.gate-basic .gate-basic-mappings{display:flex;align-items:center;justify-content:space-evenly;gap:12px;font-size:27px}
+.classroom.gate-basic .gate-basic-diagram{display:grid;grid-template-columns:minmax(0,1fr) 198px;align-items:center;gap:6px;min-height:0}
+.classroom.gate-basic #left-sphere,.classroom.gate-basic #right-sphere{position:static;width:100%;height:100%;min-height:0}
+.classroom.gate-basic .readout{position:static;width:auto;min-width:0;display:flex;flex-direction:column;gap:16px}
+.classroom.gate-basic .readout h3{font-size:27px;color:var(--gray);font-weight:400;text-align:center;margin:0}
+.classroom.gate-basic .state-result{font-size:30px;height:52px;white-space:nowrap}
+.classroom.gate-basic .prob-result{font-size:27px;height:auto;min-height:74px;line-height:1.5}
+.classroom.gate-basic .readout .track,.classroom.gate-basic .readout .bar{height:20px}
+.classroom.analysis-teaching .classroom-body{top:0;height:560px}
+.classroom.analysis-teaching .analysis-layout{height:560px;padding:0 12px;display:grid;grid-template-columns:454px 454px minmax(0,1fr);gap:14px}
+.classroom.analysis-teaching .analysis-panel{position:relative;min-width:0;min-height:0;display:grid;grid-template-rows:34px 444px 68px;gap:7px}
+.classroom.analysis-teaching .analysis-panel+.analysis-panel::before{content:"";position:absolute;left:-8px;top:0;bottom:0;width:2px;background:#bfd2e1;pointer-events:none}
+.classroom.analysis-teaching .row-label{position:static;width:auto;justify-content:center;font-size:30px;line-height:34px}
+.classroom.analysis-teaching .analysis-figure{position:relative;min-width:0;min-height:0}
+.classroom.analysis-teaching .analysis-sphere{inset:0;width:100%;height:100%}
+.classroom.analysis-teaching #plus-sphere,.classroom.analysis-teaching #minus-sphere{left:0}
+.classroom.analysis-teaching .readout{position:static;width:auto;margin:0 12px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:38px 28px;gap:2px 22px}
+.classroom.analysis-teaching .readout .prob-row{display:block;margin:0}
+.classroom.analysis-teaching .readout .prob-label{width:auto;line-height:30px}
+.classroom.analysis-teaching .readout .track{height:8px}
+.classroom.analysis-teaching .output-state{grid-column:1/-1;margin:0;font-size:25px;line-height:28px;white-space:nowrap}
+.classroom.analysis-teaching .analysis-sidebar{min-width:0;border-left:1px solid var(--rule);padding:8px 0 8px 16px;display:flex;flex-direction:column;justify-content:space-between;gap:20px}
+.classroom.analysis-teaching .analysis-prescription{position:static;display:flex;flex-direction:column;gap:9px;font-size:25px;line-height:1.4}
+.classroom.analysis-teaching .analysis-prescription h3{margin:0;color:var(--blue);font-size:28px;line-height:1.3}
+.classroom.analysis-teaching .analysis-drive{font-size:24px;white-space:nowrap}
+.classroom.analysis-teaching .controls{position:static;height:auto;border:0;display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:12px;align-items:center;font-size:25px}
+.classroom.analysis-teaching .controls label{grid-column:1;grid-row:1;white-space:nowrap}
+.classroom.analysis-teaching #progress-value{grid-column:2;grid-row:1;width:auto;text-align:right;white-space:nowrap}
+.classroom.analysis-teaching .controls input{grid-column:1/-1;grid-row:2;width:100%;min-width:0;margin:0}
+.classroom.analysis-teaching #analysis-angle{grid-column:1/-1;grid-row:3;margin:0;font-size:25px}
+.classroom.analysis-teaching .controls button{height:42px;padding:5px 12px;font-size:24px}
+.classroom.analysis-teaching #play{grid-column:1;grid-row:4}
+.classroom.analysis-teaching #reset{grid-column:2;grid-row:4}
+.classroom.measurement-reading .classroom-body{top:0;height:560px}
+.classroom.measurement-reading .measurement-layout{height:560px;display:grid;grid-template-columns:466px 466px minmax(0,1fr);gap:16px;padding:0 12px}
+.classroom.measurement-reading .measurement-panel{display:grid;grid-template-rows:40px 38px minmax(0,1fr) 42px;gap:6px;min-height:0}
+.classroom.measurement-reading .measurement-heading,.classroom.measurement-reading .measurement-setting,.classroom.measurement-reading .measurement-result{position:static;width:auto;margin:0;line-height:1.35}
+.classroom.measurement-reading .measurement-heading{font-size:28px}
+.classroom.measurement-reading .measurement-setting{font-size:24px}
+.classroom.measurement-reading .measurement-result{font-size:31px}
+.classroom.measurement-reading .measurement-figure{position:relative;min-height:0}
+.classroom.measurement-reading :is(#fixed,#rotating){inset:0;width:100%;height:100%}
+.classroom.measurement-reading .measurement-sidebar{border-left:1px solid var(--rule);padding:8px 0 8px 20px;display:flex;flex-direction:column;justify-content:space-between;gap:20px}
+.classroom.measurement-reading .measurement-caption{position:static;font-size:25px;text-align:left;line-height:1.45}
+.classroom.measurement-reading .measurement-caption p{margin:0 0 12px}
+.classroom.measurement-reading .controls{position:static;height:auto;border:0;display:flex;flex-direction:column;align-items:stretch;gap:18px;font-size:26px}
+.classroom.measurement-reading .controls label{display:flex;align-items:center;gap:8px}
+.classroom.measurement-reading .controls output{width:auto;margin-left:auto}
+.classroom.measurement-reading .controls input{width:100%;margin:0}
+.classroom.measurement-reading .controls .presets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0}
+.classroom.measurement-reading .controls button{font-size:24px;padding:6px 8px}
+.classroom.measurement-reading .controls .initial-text{margin:0;text-align:center}

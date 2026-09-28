@@ -1,0 +1,19 @@
+.definition-slide #sphere{left:0;top:100px;width:605px;height:540px}
+.definition-panel{position:absolute;left:630px;top:123px;width:625px}
+.definition-formula{font-size:34px;line-height:1.5;white-space:nowrap;color:var(--blue)}
+.definition-scope{margin:16px 0 22px;font-size:24px;line-height:1.5;color:var(--gray)}
+.angle-definition h2{font-size:32px;color:var(--blue);margin:0 0 8px}
+.angle-definition ul{font-size:32px;line-height:1.45;margin:0;padding-left:1.15em}
+.angle-definition li+li{margin-top:5px}
+.angle-definition li::marker{color:var(--blue)}
+.height-formula{font-size:27px;margin:8px 0}
+.prob-formula{font-size:28px;margin:7px 0 9px}
+.phase-definition{margin-top:22px}
+.definition-slide .current-example,.definition-slide .definition-probabilities,.definition-slide .angle-controls{display:none}
+.current-example{display:flex;align-items:center;gap:22px;margin-top:8px;border-top:1px solid var(--rule);padding-top:9px}
+.current-example>span{font-size:22px;color:var(--gray);flex-shrink:0}
+.definition-slide #state-formula{height:56px;font-size:28px}
+.definition-probabilities{display:flex;gap:28px;margin-top:8px}
+.definition-probabilities>div{display:flex;align-items:center;gap:12px;font-size:24px;flex:1}
+.definition-probabilities .track{height:13px;flex:1}
+.definition-probabilities output{font-size:23px;color:var(--blue);width:78px;text-align:right}

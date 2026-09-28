@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>改变电容，观察能级与跃迁频率</title>
+<link rel="stylesheet" href="../vendor/katex/katex.min.css">
+<link rel="stylesheet" href="transmon-lab.css">
+<script defer src="../vendor/katex/katex.min.js"></script>
+<script defer src="transmon-spectrum-data.js"></script>
+<script defer src="figure-print.js"></script>
+<script defer src="transmon-lab.js"></script>
+</head><body>
+<main id="slide" aria-label="改变电路设计参数：16比9单页演示">
+<header><div><p class="eyebrow">从电路结构到可区分的跃迁</p><h1>改变电容，能级怎样变？</h1></div><button id="reset" type="button">重置</button><button id="fullscreen" type="button">全屏</button></header>
+<div class="workspace">
+<section class="controls" aria-label="电路类型和电容控制">
+<h2>1. 改变电路设计</h2>
+<div class="mode-buttons" role="group" aria-label="选择电路"><button id="lc" type="button" aria-pressed="false">理想 LC</button><button id="transmon" type="button" aria-pressed="true">transmon</button></div>
+<p class="print-mode">transmon</p>
+<svg id="circuit" viewBox="0 0 290 210" role="img" aria-label="并联电容和电感的电路"></svg>
+<label for="capacitance">总电容 <span data-math="C"></span><output id="c-value" for="capacitance">60 fF</output></label>
+<input type="range" id="capacitance" min="40" max="120" step="1" value="60" aria-label="总电容，单位飞法">
+<div class="range-labels"><span>40 fF</span><span>120 fF</span></div>
+<p class="small" id="fixed-parameter"></p>
+</section>
+<section class="levels-panel" aria-label="最低三个能级">
+<h2>2. 最低三个能级</h2>
+<p class="axis-caption">相对基态的能量 <span data-math="(E_n-E_0)/h"></span>（GHz）</p>
+<div class="level-chart"><svg id="levels" viewBox="0 0 400 410" role="img" aria-label="最低三个能级的相对能量"></svg><div id="level-labels"></div></div>
+</section>
+<section class="frequency-panel" aria-label="两个跃迁频率的比较">
+<h2>3. 能否用频率区分？</h2>
+<div class="frequency-values"><p><span data-math="\nu_{01}"></span><output id="f01"></output></p><p><span data-math="\nu_{12}"></span><output id="f12"></output></p></div>
+<svg id="frequencies" viewBox="0 0 430 230" role="img" aria-label="同一频率刻度上的两个跃迁频率"></svg>
+<div class="separation"><span>两种跃迁的频率差</span><strong id="separation"></strong></div>
+</section>
+</div>
+<footer><p id="conclusion" aria-live="polite"></p></footer>
+</main><noscript>请启用JavaScript以显示计算图。</noscript>
+</body></html>

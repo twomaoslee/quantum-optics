@@ -1,0 +1,35 @@
+.frame-note{position:absolute;left:36px;top:110px;color:var(--blue);font-size:23px}
+.meta{position:absolute;right:38px;top:112px;color:var(--gray);font-size:23px}
+.compare svg[role=img]{top:145px;width:610px;height:415px}.compare #left-sphere{left:15px}.compare #right-sphere{left:655px}
+.compare .state-label{position:absolute;top:548px;width:580px;text-align:center;font-size:31px}
+.compare #left-state{left:30px}.compare #right-state{left:670px}
+.compare .half-prob{position:absolute;top:630px;width:500px;display:flex;align-items:center;gap:20px;font-size:26px}
+.compare .half-prob.left{left:74px}.compare .half-prob.right{left:714px}
+.half-track{display:flex;height:24px;width:250px;background:var(--pale)}.half-track i{width:50%;background:var(--blue)}.half-track b{width:50%;background:var(--gray)}
+.control #phase-sphere{left:12px;top:142px;width:700px;height:446px}
+.control .state-panel{left:750px;top:155px;width:490px}
+.control #state-formula{height:88px;font-size:28px}
+.control .prob-row{margin-bottom:21px}.control .prob-label{font-size:26px;margin-bottom:7px}.control .prob-label output{font-size:26px}.control .track{height:24px}
+.control #relative-phase{font-size:27px;margin-top:24px}
+.control .target-line{display:flex;gap:14px;align-items:center;margin-top:23px;font-size:23px}
+.control #angle-output{position:absolute;left:70px;top:567px;font-size:26px}
+.control .axis-key{position:absolute;left:442px;top:570px;color:var(--gray);font-size:23px}
+.control .controls{top:615px;height:95px;align-items:flex-start;padding-top:10px;gap:30px}
+.control .control-group{flex:1;min-width:0}.control .control-row{display:flex;align-items:center;gap:12px;white-space:nowrap;font-size:23px}
+.control .control-row input{width:240px}.control .control-row output{min-width:62px}
+.control .presets{margin-top:7px;gap:7px}.control .presets button{padding:3px 12px;font-size:20px}
+.control #play{margin-left:auto}.control .target-line button{font-size:21px;padding:4px 12px}
+.analysis .meta{top:112px}
+.analysis .row-label{position:absolute;top:155px;width:160px;font-size:30px;display:flex;align-items:center;gap:12px}
+.analysis #input-plus{left:55px}.analysis #input-minus{left:695px}
+.analysis .row-label small{font-size:23px;color:var(--gray)}
+.analysis .analysis-sphere{top:145px;width:610px;height:390px}
+.analysis #plus-sphere{left:15px}.analysis #minus-sphere{left:655px}
+.analysis .readout{position:absolute;top:520px;width:480px}
+.analysis #plus-readout{left:80px}.analysis #minus-readout{left:720px}
+.analysis .readout .prob-row{margin-bottom:12px;display:flex;align-items:center;gap:15px}.analysis .readout .prob-label{font-size:25px;margin-bottom:0;width:175px;flex-shrink:0}.analysis .readout .prob-label output{font-size:25px}.analysis .readout .track{height:22px}
+.analysis .output-state{font-size:25px;margin-top:4px;color:var(--gray);text-align:center}
+.analysis .separator{position:absolute;left:639px;top:170px;height:456px;border-left:1px solid var(--rule)}
+.analysis .controls{top:656px;height:54px;gap:20px}.analysis .controls input{width:330px}.analysis #progress-value{width:100px}
+.analysis #analysis-angle{margin-left:auto;font-size:25px}
+@media print{.target-line button{visibility:hidden}.target-line .target-caption{visibility:visible}}

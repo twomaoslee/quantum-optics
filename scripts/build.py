@@ -9,6 +9,7 @@ import hashlib
 import json
 import re
 import shutil
+import subprocess
 from release import PUBLISHED, AFTER_CLASS, withheld
 
 SITE = Path(__file__).resolve().parents[1]
@@ -69,12 +70,30 @@ def sanitize_notes(text):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-root', type=Path, default=ROOT)
+    parser.add_argument('--update-lectures', type=int, nargs='+',
+                        help='Preserve other note pages and search entries from the committed release.')
     args = parser.parse_args()
     root = args.source_root.resolve()
+    preserved_notes = {}
+    preserved_search = []
+    if args.update_lectures:
+        if not set(args.update_lectures) <= PUBLISHED:
+            raise SystemExit('Requested lecture is not authorized in publication.json.')
+        names = subprocess.check_output(['git', 'ls-tree', '-r', '--name-only', 'HEAD', 'dist/notes'], cwd=SITE, text=True).splitlines()
+        for name in names:
+            path = Path(name)
+            if path.parent != Path('dist/notes') or path.suffix != '.html' or path.name in {'index.html', 'outline.html'}:
+                continue
+            if any(path.name == f'lecture{n:02d}.html' for n in args.update_lectures):
+                continue
+            preserved_notes[path.name] = subprocess.check_output(['git', 'show', f'HEAD:{name}'], cwd=SITE)
+        previous_search = json.loads(subprocess.check_output(['git', 'show', 'HEAD:dist/notes/search.json'], cwd=SITE))
+        preserved_search = [item for item in previous_search if not any(f'lecture{n:02d}.html' in item.get('href', '') for n in args.update_lectures)]
     notes = root / 'quantum-notes/_book'
     slides = root / 'quantum-slides'
     pdf = root / '量子光学 · 第一讲：从量子力学到量子信息科学.pdf'
-    pdfs = {1: (pdf, 49), 2: (root/'output/pdf/第二讲课件.pdf', 43)}
+    pdfs = {1: (pdf, 49), 2: (root/'output/pdf/第二讲课件.pdf', 43),
+            3: (root/'output/pdf/第三讲课件-主讲页.pdf', 46)}
     required = [notes/'index.html'] + [pdfs[n][0] for n in PUBLISHED] + [folder/f'lecture{n:02d}.html' for folder in (notes, slides) for n in PUBLISHED]
     for path in required:
         if not path.is_file():
@@ -96,8 +115,12 @@ def main():
         text = re.sub(r'截取与加工脚本及检查证据见`qa/[^`]+`。', '', text)
         text = re.sub(r'验证另用.*?结果保存于 `verification.json`。', '', text)
         text = re.sub(r'(?:完整初始与修订提示词|提示词完整保存在|完整提示词见|提示词见)[^。]*。', '', text)
+        # Prompt subsections are internal production records, not attribution.
+        if 'lecture03' in path.parts:
+            text = re.sub(r'^### [^\n]*提示词[^\n]*\n.*?(?=^## |\Z)', '', text, flags=re.M|re.S)
+            text = '\n'.join(line for line in text.splitlines() if not re.search(r'qa/|scripts/|提示词|核验记录|未对外发布|原始生成文件', line)) + '\n'
         path.write_text(text)
-    for name in ('lecture01.html','lecture02.html','lecture01-backup.html','lecture02-backup.html'):
+    for name in [f'lecture{n:02d}{suffix}.html' for n in sorted(PUBLISHED) for suffix in ('', '-backup')]:
         if not withheld(name):
             text = (slides/name).read_text()
             text = re.sub(r'<aside\b[^>]*class="[^"]*\bnotes\b[^"]*"[^>]*>.*?</aside>', '', text, flags=re.S)
@@ -113,15 +136,23 @@ def main():
     notes_nav = '''<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style>'''
     for path in (DIST/'notes').glob('*.html'):
         text = sanitize_notes(path.read_text())
+        if path.name == 'index.html':
+            text = text.replace('16讲目录与前两讲讲义', '16讲目录与已发布讲义')
+            if 3 in PUBLISHED:
+                text = text.replace('<section id="其他内容"', '<p><a href="lecture03.html">第三讲：量子调控——如何控制一个量子比特？</a>从自由演化与共振驱动出发，讨论脉冲参数、叠加态制备与检验，以及单比特量子门。</p>\n<section id="其他内容"', 1)
         text = text.replace('</head>',notes_nav+'</head>',1)
         text = re.sub(r'(<main\b[^>]*>)',r'\1<a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>',text,count=1)
         path.write_text(text)
+    for name, content in preserved_notes.items():
+        (DIST/'notes'/name).write_bytes(content)
     for path in (DIST/'notes/assets/lecture01').glob('*.json'):
         path.unlink()
     # Search is rebuilt from the sanitized output to avoid stale internal text.
     search = DIST/'notes/search.json'
     if search.exists():
         items = [item for item in json.loads(search.read_text()) if not withheld(item.get('href', ''))]
+        if args.update_lectures:
+            items = preserved_search + [item for item in items if any(f'lecture{n:02d}.html' in item.get('href', '') for n in args.update_lectures)]
         for item in items:
             if isinstance(item.get('text'),str):
                 item['text'] = re.sub(r'图件计算与本讲新增算例的核验记录可分别查看.*?讲义计算核验。','',item['text'])
@@ -133,7 +164,8 @@ def main():
         units.append((unit_title,lectures))
     summaries = {
         1: ('从量子力学到量子信息科学', '整数分解 → 量子力学 → 量子信息 → 光与控制'),
-        2: ('量子比特：状态、测量与调控', '从偏振实验出发，用量子态预测测量，理解筛选、相位调控与不同物理系统中的量子比特。')
+        2: ('量子比特：状态、测量与调控', '从偏振实验出发，用量子态预测测量，理解筛选、相位调控与不同物理系统中的量子比特。'),
+        3: ('量子调控：如何控制一个量子比特？', '从量子态的演化出发，学习共振驱动、脉冲时长与相位调控，制备并检验目标态，理解单比特量子门。')
     }
     rows=[]
     for number,(title,summary) in summaries.items():

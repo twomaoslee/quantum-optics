@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>布洛赫球坐标与量子态的对应</title>
+<link rel="stylesheet" href="../vendor/katex/katex.min.css"><link rel="stylesheet" href="bloch.css">
+<link rel="stylesheet" href="bloch-definition.css"><link rel="stylesheet" href="classroom.css">
+<script defer src="../vendor/katex/katex.min.js"></script><script defer src="figure-print.js"></script>
+<script defer src="bloch.js"></script><script defer src="classroom.js"></script>
+</head><body data-kind="state">
+<main id="slide" class="definition-slide">
+<header><h1>布洛赫球坐标与量子态的对应</h1><div class="tools"><button id="reset">重置</button><button id="fullscreen">全屏</button></div></header>
+<svg id="sphere" viewBox="45 -5 555 515" role="img" aria-label="单位布洛赫球：极角从正z轴量起，方位角在xy平面从正x向正y量起"></svg>
+<section class="definition-panel">
+  <div class="definition-formula" data-math="\displaystyle |\psi\rangle=\cos\frac{\theta}{2}|0\rangle+e^{i\varphi}\sin\frac{\theta}{2}|1\rangle"></div>
+  <p class="definition-scope">从球心指向球面点的箭头称为Bloch向量。</p>
+  <div class="angle-definition">
+    <h2>极角 <span data-math="\theta"></span></h2>
+    <ul>
+      <li>从 <span data-math="+z"></span> 轴量到Bloch向量</li>
+      <li>取值范围：<span data-math="0\leq\theta\leq\pi"></span></li>
+    </ul>
+  </div>
+  <div class="angle-definition phase-definition">
+    <h2>方位角 <span data-math="\varphi"></span></h2>
+    <ul>
+      <li>先将Bloch向量投影到 <span data-math="xy"></span> 平面</li>
+      <li>从 <span data-math="+x"></span> 轴朝 <span data-math="+y"></span> 轴量到投影方向</li>
+      <li><span data-math="0\leq\varphi&lt;2\pi"></span>；两极处方位角无定义</li>
+    </ul>
+  </div>
+  <div class="current-example"><span>当前状态</span><div id="state-formula"></div></div>
+  <div class="definition-probabilities">
+    <div><span data-math="P_0"></span><div class="track"><div id="p0-bar" class="bar"></div></div><output id="p0-value"></output></div>
+    <div><span data-math="P_1"></span><div class="track"><div id="p1-bar" class="bar secondary"></div></div><output id="p1-value"></output></div>
+  </div>
+</section>
+<div class="controls angle-controls">
+<label>极角 <span data-math="\theta"></span><input id="polar" type="range" min="0" max="180" step="1" value="60" aria-label="极角，度"><output id="polar-value"></output></label>
+<label>方位角 <span data-math="\varphi"></span><input id="azimuth" type="range" min="0" max="360" step="1" value="90" aria-label="方位角，度"><output id="azimuth-value"></output></label>
+</div>
+</main></body></html>

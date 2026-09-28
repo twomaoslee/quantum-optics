@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>共振时的慢项与快项：相位取样示意</title>
+<link rel="stylesheet" href="../vendor/katex/katex.min.css"><link rel="stylesheet" href="rabi-figures.css">
+<script defer src="../vendor/katex/katex.min.js"></script><script defer src="rabi-figures.js"></script></head>
+<body data-figure="phase"><main id="slide" aria-label="共振时慢项与快项的相位取样和比较">
+<header><h1>共振时：慢项同向，快项转动</h1><p class="subtitle">扣除自由演化相位后 · <span data-math="\omega_{\mathrm d}=\omega_0"></span> · 在同一个快振荡周期内，等间隔取样8次</p></header>
+<div class="label" style="left:36px;top:130px">1. 看不同时刻的相位方向</div>
+<div class="label" style="left:754px;top:130px">2. 把等长箭头首尾相接</div>
+<div class="row-title" style="left:36px;top:184px">差频项</div>
+<div class="formula" style="left:164px;top:183px" data-math="e^{i(\omega_0-\omega_{\mathrm d})t}=1"></div>
+<div class="row-title" style="left:36px;top:417px">和频项</div>
+<div class="formula" style="left:164px;top:416px" data-math="e^{i(\omega_0+\omega_{\mathrm d})t}=e^{i2\omega_{\mathrm d}t}"></div>
+<svg id="phase-chart" viewBox="0 0 1280 720" style="inset:0;width:1280px;height:720px" role="img" aria-label="上行八个相位箭头同向，下行相位箭头转过一周；等权向量和分别增长或闭合为零"></svg>
+<div class="label center" style="left:738px;top:356px;width:500px;color:var(--blue)">同向相加，向量和增长</div>
+<div class="label center" style="left:738px;top:616px;width:500px">转过一周，等权向量和为零</div>
+<div class="small" style="left:36px;top:619px;position:absolute">箭头的角度表示复数的相位。</div>
+<div class="foot">概率幅在一个快振荡周期内近似不变时，快相位的贡献大部分相互抵消。</div>
+</main></body></html>

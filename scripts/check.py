@@ -36,6 +36,11 @@ for path in DIST.rglob('*'):
     if not path.is_file():continue
     if withheld(path.relative_to(DIST)):
         errors.append(f'Unreleased course material in output: {path.relative_to(DIST)}')
+    if any(part in {'qa', 'archive', '__pycache__'} for part in path.relative_to(DIST).parts) or 'prompt' in path.name.lower():
+        errors.append(f'Internal production file in output: {path.relative_to(DIST)}')
+    if 'lecture03' in path.parts and path.suffix in {'.html', '.js', '.css', '.md'}:
+        if re.search(r'/Users/|file:///|qa/|提示词|核验记录', path.read_text()):
+            errors.append(f'Internal record in lecture 3 output: {path.relative_to(DIST)}')
     if path.stat().st_size>=100*1024*1024:errors.append(f'File exceeds GitHub limit: {path.relative_to(DIST)}')
     if path.suffix=='.html':
         if path.parent == DIST/'slides' and re.search(r'<aside\b[^>]*class="[^"]*\bnotes\b', path.read_text()):

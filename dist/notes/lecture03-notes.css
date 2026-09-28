@@ -1,0 +1,17 @@
+.l03-lab{margin:1.4em 0;border-top:2px solid #a4c6e2;padding:.7em 0}
+.l03-lab summary{color:#0070c0;font-weight:600;cursor:pointer}
+.l03-lab .lab-instruction{font-size:.85em;margin:.5em 0;line-height:1.6}
+.l03-lab iframe{display:block;width:100%;height:auto;aspect-ratio:16/9;border:1px solid #d7e3ec;margin:.6em 0 0;background:white}
+.l03-computational-figure {margin:1.4em 0 .6em;}
+.l03-computational-figure iframe {display:block;width:100%;height:auto;aspect-ratio:16/9;border:1px solid #d7e3ec;background:white;}
+.l03-figure-tools {font-size:.85em;margin:.3em 0 1.4em;}
+@media print{
+  .l03-lab,.l03-figure-tools{display:none}
+  .l03-computational-figure{break-inside:avoid;page-break-inside:avoid;}
+  .l03-computational-figure iframe{display:block;border:0;}
+}
+/* Match lecture 2's course palette; reading geometry comes from the book. */
+:root { --accent:#0070c0; --ink:#202122; }
+body {background:white;color:#202122;}
+h1,h2,h3 {color:#0070c0;}
+.callout {background:#f3f7fb;}

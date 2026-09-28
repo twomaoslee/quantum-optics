@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>单比特操作与操作顺序</title>
+<link rel="stylesheet" href="../vendor/katex/katex.min.css"><link rel="stylesheet" href="bloch.css"><link rel="stylesheet" href="gates-lab.css">
+<script defer src="../vendor/katex/katex.min.js"></script><script defer src="figure-print.js"></script><script defer src="control-bloch-drawing.js"></script><script defer src="gates-lab.js"></script>
+<link rel="stylesheet" href="classroom.css"><script defer src="classroom.js"></script></head><body><main id="slide">
+<header><h1 id="title"></h1><div class="tools"><button id="reset">重置</button><button id="fullscreen">全屏</button></div></header>
+<div class="column-title left" id="left-title"></div><div class="column-title right" id="right-title"></div>
+<svg id="left-sphere" viewBox="0 0 660 500" role="img" aria-label="左侧操作后的量子态"></svg>
+<svg id="right-sphere" viewBox="0 0 660 500" role="img" aria-label="右侧操作后的量子态"></svg>
+<div class="divider"></div>
+<div class="readout left"><div class="state-result" id="left-state"></div><div class="prob-result" id="left-prob"></div><div class="track"><div class="bar" id="left-bar"></div></div></div>
+<div class="readout right"><div class="state-result" id="right-state"></div><div class="prob-result" id="right-prob"></div><div class="track"><div class="bar" id="right-bar"></div></div></div>
+<div class="controls"><div id="input-controls">输入 <button data-input="zero" data-math="|0\rangle"></button><button data-input="one" data-math="|1\rangle"></button><button data-input="plus" data-math="|+\rangle"></button><button data-input="minus" data-math="|-\rangle"></button></div><div id="step-controls"><button data-step="0">初态</button><button data-step="1">第一步</button><button data-step="2">第二步</button></div><span class="frame-note">相互作用绘景</span></div>
+</main></body></html>

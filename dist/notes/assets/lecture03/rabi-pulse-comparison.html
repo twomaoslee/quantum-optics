@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>什么时候关闭脉冲：Rabi振荡与三个关断时刻</title>
+<link rel="stylesheet" href="../vendor/katex/katex.min.css"><link rel="stylesheet" href="rabi-figures.css">
+<script defer src="../vendor/katex/katex.min.js"></script><script defer src="rabi-figures.js"></script></head>
+<body data-figure="comparison"><main id="slide" aria-label="共振Rabi振荡与二分之pi、pi及二pi脉冲对照">
+<header><h1>什么时候关闭脉冲？</h1><p class="subtitle">初态 <span data-math="|0\rangle"></span> · 理想共振模型 · 固定 <span data-math="\Omega/(2\pi)=5\,\mathrm{MHz}"></span> · 只改变持续时间</p></header>
+<div class="small" style="position:absolute;left:36px;top:117px">三种脉冲包络：分别进行实验，不同时施加</div>
+<svg id="rabi-chart" viewBox="0 0 1280 720" style="inset:0;width:1280px;height:720px" role="img" aria-label="Rabi激发概率随时间振荡，50纳秒为等权叠加，100纳秒为翻转，200纳秒回到初态"></svg>
+<div id="plot-formula" class="formula" style="left:500px;top:244px;font-size:25px" data-math="P_1(t)=\sin^2\!\dfrac{\Omega t}{2}"></div>
+<div class="formula" style="left:65px;top:141px;font-size:20px" data-math="\pi/2"></div>
+<div class="formula" style="left:81px;top:175px;font-size:20px" data-math="\pi"></div>
+<div class="formula" style="left:70px;top:209px;font-size:20px" data-math="2\pi"></div>
+<div class="states">
+<div class="state" style="left:338px"><div class="name"><span data-math="\pi/2"></span> 脉冲 · 50 ns</div><div class="math" data-math="\dfrac{|0\rangle-i|1\rangle}{\sqrt2}"></div><div class="prob">等权叠加，保留相位</div></div>
+<div class="state" style="left:546px"><div class="name"><span data-math="\pi"></span> 脉冲 · 100 ns</div><div class="math" data-math="|1\rangle"></div><div class="prob">完成翻转</div></div>
+<div class="state" style="left:962px"><div class="name"><span data-math="2\pi"></span> 脉冲 · 200 ns</div><div class="math" data-math="|0\rangle"></div><div class="prob">回到初态</div></div>
+</div>
+<div class="foot">曲线是假设持续驱动的参考；三个末态分别取各自关断时刻。<br>末态均在扣除自由演化相位的表示中，忽略整体相位；理想两能级、旋波近似，不含损耗与泄漏。</div>
+</main></body></html>

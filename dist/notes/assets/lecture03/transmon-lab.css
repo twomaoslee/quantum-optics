@@ -1,0 +1,39 @@
+:root{color-scheme:light;--blue:#0070c0;--navy:#17456e;--ink:#253646;--gray:#607487;--rule:#d7e3ec;--pale:#eff7fc}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#fff}
+body{font:24px/1.45 "PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink)}
+#slide{position:absolute;width:1280px;height:720px;padding:28px 30px 22px;transform-origin:top left;display:grid;grid-template-rows:86px 510px 46px;gap:14px;background:#fff}
+header{display:flex;align-items:center;gap:14px;border-bottom:2px solid var(--blue);padding-bottom:16px}
+header>div{margin-right:auto}.eyebrow{font-size:19px;color:var(--gray);margin:0 0 2px}h1{font-size:36px;line-height:1.25;color:var(--navy);margin:0}h2{font-size:26px;line-height:1.2;margin:0 0 18px;color:var(--navy)}
+button{font:inherit;font-size:22px;padding:8px 15px;background:#fff;color:var(--navy);border:1px solid #a9c3d7;border-radius:5px;cursor:pointer}
+button:hover,button[aria-pressed=true]{background:var(--pale);border-color:var(--blue);color:var(--blue)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.workspace{display:grid;grid-template-columns:290px 430px 1fr;gap:20px;padding-top:10px}
+.levels-panel,.frequency-panel{border-left:1px solid var(--rule);padding-left:20px}
+.mode-buttons{display:flex;gap:10px}.mode-buttons button{font-size:22px;flex:1;padding:8px 5px}
+#circuit{width:290px;height:210px;display:block;margin:12px 0 18px}
+.controls label{display:flex;gap:8px;align-items:center;font-size:27px}.controls output{margin-left:auto;color:var(--blue);font-size:30px;font-weight:600;font-variant-numeric:tabular-nums}
+input[type=range]{display:block;width:100%;height:28px;margin:6px 0 0;accent-color:var(--blue);cursor:pointer}
+.range-labels{display:flex;justify-content:space-between;color:var(--gray);font-size:18px}
+.small{font-size:20px;line-height:1.5;color:var(--gray);margin:12px 0 0}
+.axis-caption{font-size:18px;margin:-3px 0 0;white-space:nowrap}
+.level-chart{position:relative;width:400px;height:410px}.level-chart svg{display:block;width:400px;height:410px}
+.level-label{position:absolute;font-size:25px;line-height:1.1;transform:translateY(-50%);color:var(--blue)}
+.level-label.gray{color:var(--gray)}.gap-label{position:absolute;font-size:22px;line-height:1.1;transform:translateY(-50%)}
+svg text{font:20px "PingFang SC","Microsoft YaHei",sans-serif;fill:var(--ink)}
+.panel-note{font-size:18px;color:var(--gray);line-height:1.45;margin:8px 0 0}
+.frequency-values{display:flex;flex-direction:column;gap:8px;margin-top:24px}
+.frequency-values p{display:flex;align-items:center;gap:22px;margin:0;font-size:32px}.frequency-values output{font-variant-numeric:tabular-nums;font-size:38px;color:var(--blue)}
+.frequency-values p:nth-child(2) output{color:var(--gray)}
+#frequencies{width:430px;height:230px;display:block;margin:15px -12px 0}
+.separation{display:flex;align-items:baseline;gap:16px;border-top:1px solid var(--rule);padding-top:15px;margin-top:10px}.separation span{font-size:21px}.separation strong{font-size:36px;color:var(--blue);font-variant-numeric:tabular-nums;white-space:nowrap}
+footer{border-top:1px solid var(--rule);padding-top:12px}
+#conclusion{font-size:25px;color:var(--navy);margin:0;line-height:1.3}
+.model-note{font-size:18px;color:var(--gray);margin:0}.katex{font-size:1em}
+.print-mode{display:none;}
+@media print{
+  button,input,.range-labels{visibility:hidden}
+  .mode-buttons{display:none}
+  .print-mode{display:block;margin:0;height:49px;color:var(--blue);font-weight:600;}
+  #slide{print-color-adjust:exact;-webkit-print-color-adjust:exact;}
+}

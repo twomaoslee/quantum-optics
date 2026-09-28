@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>固定坐标与相互作用绘景</title>
+<link rel="stylesheet" href="../vendor/katex/katex.min.css"><link rel="stylesheet" href="bloch.css"><link rel="stylesheet" href="control-bloch.css">
+<script defer src="../vendor/katex/katex.min.js"></script><script defer src="figure-print.js"></script><script defer src="control-bloch-drawing.js"></script><script defer src="bloch-frames.js"></script>
+<link rel="stylesheet" href="classroom.css"><script defer src="classroom.js"></script></head><body><main id="slide" aria-label="同一自由演化在两套坐标中的对照">
+<header><h1>同一自由演化，两套坐标</h1><div class="tools"><button id="reset">重置</button><button id="fullscreen">全屏</button></div></header>
+<div class="frame-title left">固定坐标</div><div class="frame-title right">相互作用绘景</div>
+<svg id="fixed-sphere" class="frame-sphere left" viewBox="0 0 660 500" role="img" aria-label="固定坐标中沿赤道转动的状态"></svg>
+<svg id="rotating-sphere" class="frame-sphere right" viewBox="0 0 660 500" role="img" aria-label="随自由演化转动的坐标中保持正x方向的状态"></svg>
+<div id="fixed-phase" class="frame-phase left"></div><div class="frame-phase right" data-math="\varphi_{\mathrm I}=0"></div>
+<div class="controls frame-controls"><button id="play">播放</button><label><span data-math="t/T_0"></span><input id="time" type="range" min="0" max="1" step="0.001" value="0.25" aria-label="时间占自由演化周期的比例"><output id="time-value"></output></label><div class="ticks"><button data-time="0" data-math="0"></button><button data-time="0.25" data-math="T_0/4"></button><button data-time="0.5" data-math="T_0/2"></button><button data-time="1" data-math="T_0"></button></div><span class="initial-text">初态 <span data-math="|+\rangle"></span></span></div>
+</main></body></html>

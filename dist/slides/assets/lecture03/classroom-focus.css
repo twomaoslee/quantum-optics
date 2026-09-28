@@ -1,0 +1,31 @@
+:root{color-scheme:light;--blue:#0070c0;--gray:#657a8d;--rule:#d9e4ec;--ink:#20384c}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff}
+body{font:26px/1.4 "PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink)}
+#focus-canvas{width:780px;height:525px;position:absolute;transform-origin:top left;background:#fff}
+#context{position:absolute;left:22px;top:4px;right:10px;font-size:25px;color:var(--gray);white-space:nowrap}
+#plot{position:absolute;left:0;top:40px;width:780px;height:375px}
+#sphere{display:none;position:absolute;left:0;top:27px;width:470px;height:385px}
+#sphere-readout{display:none;position:absolute;left:480px;right:8px;top:55px;gap:20px;flex-direction:column}
+.sphere-mode #plot{display:none}.sphere-mode #sphere{display:block}.sphere-mode #sphere-readout{display:flex}
+.sphere-mode #sphere-readout .term{color:var(--gray);font-size:24px;margin-bottom:8px}
+.sphere-mode #sphere-readout .value{font-size:28px;color:var(--blue)}
+.sphere-mode #sphere-readout .equation{font-size:27px;white-space:nowrap}
+.mini-track{height:16px;background:#edf5fb;margin-top:12px}.mini-track i{display:block;background:var(--blue);height:100%}
+.equator #sphere{left:85px;top:10px;width:600px;height:355px}
+.equator #sphere-readout{display:flex;left:22px;right:18px;top:362px;height:52px;flex-direction:row;align-items:center;justify-content:center;gap:24px}
+.equator #sphere-readout .term{margin:0;flex-shrink:0}
+.equator #sphere-readout .equation{font-size:30px;color:var(--blue)}
+#controls{position:absolute;left:22px;right:18px;top:419px;border-top:1px solid var(--rule);padding-top:12px;display:flex;flex-direction:column;gap:12px}
+.control-row{display:flex;align-items:center;gap:14px;height:34px;white-space:nowrap}
+.control-row label{font-size:25px;min-width:108px}.control-row input{width:250px;accent-color:var(--blue);cursor:pointer;flex:1;min-width:0}
+.control-row output{font-size:27px;color:var(--blue);min-width:106px;font-variant-numeric:tabular-nums}
+.presets{display:flex;align-items:center;gap:12px;justify-content:flex-start}
+.rabi .presets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:100%}
+.rabi .presets button{width:100%;padding:6px 10px}
+button{font:inherit;font-size:24px;border:1px solid #b6cada;background:#fff;color:var(--blue);border-radius:4px;padding:5px 12px;cursor:pointer;white-space:nowrap;line-height:1.25}
+button[aria-pressed=true],button:hover{background:#edf5fb;border-color:var(--blue)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+svg text{font:24px "PingFang SC","Microsoft YaHei",sans-serif;fill:var(--ink)}
+.katex{font-size:1em}.two-controls .control-row label{min-width:144px}.two-controls .control-row output{min-width:110px}
+.two-controls .control-row button{font-size:23px;padding:5px 8px}
+@media print{input,button{visibility:hidden}#focus-canvas{print-color-adjust:exact;-webkit-print-color-adjust:exact}}

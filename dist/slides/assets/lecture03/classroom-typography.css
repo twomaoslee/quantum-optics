@@ -1,0 +1,6 @@
+/* Match the host deck. Mathematical glyphs keep their proper math typefaces. */
+:root{--course-font:"Source Sans Pro","PingFang SC","Microsoft YaHei",sans-serif}
+body,button,input,select,output,svg text{font-family:var(--course-font)}
+.katex .cjk_fallback,.katex .text .cjk_fallback{font-family:var(--course-font)!important}
+.controls,.frame-controls,.rabi-controls{font-size:30px}
+.katex .text{font-family:var(--course-font)}

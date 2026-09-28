@@ -1,0 +1,2138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第三讲　量子调控：如何控制一个量子比特？ – 从光与原子理解量子世界</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./supplement-interference.html" rel="next">
+<link href="./lecture02.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fde17a09709beee24c8ebe31026d36d2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+  <script defer="" src="assets/mathjax/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css?v=2120fb756dc2">
+<link rel="stylesheet" href="lecture03-notes.css">
+<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style></head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lecture03.html"><span class="chapter-title">第三讲　量子调控：如何控制一个量子比特？</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">从光与原子理解量子世界</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">如何使用这份讲义</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./outline.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">全课程讲义目录</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture01.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">第一讲　绪论：从量子力学到量子信息科学</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture02.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">第二讲　量子比特：状态、测量与调控</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lecture03.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">第三讲　量子调控：如何控制一个量子比特？</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./supplement-interference.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">补充讲义A　单光子干涉的完整计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./supplement-photon-estimates.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">补充讲义B　光子能量与通量估算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./image-credits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">插图来源</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">参考文献</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">目录</h2>
+   
+  <ul>
+  <li><a href="#sec-l03-control-task" id="toc-sec-l03-control-task" class="nav-link active" data-scroll-target="#sec-l03-control-task">1. 从已知状态到目标状态</a>
+  <ul class="collapse">
+  <li><a href="#l03-known-controls" id="toc-l03-known-controls" class="nav-link" data-scroll-target="#l03-known-controls">1.1 筛选与相位调控：已经能做什么？</a></li>
+  <li><a href="#l03-phase-limit" id="toc-l03-phase-limit" class="nav-link" data-scroll-target="#l03-phase-limit">1.2 相位调控的范围：哪些转换还做不到？</a></li>
+  <li><a href="#l03-target-and-operation" id="toc-l03-target-and-operation" class="nav-link" data-scroll-target="#l03-target-and-operation">1.3 控制任务：怎样选择操作并检验结果？</a></li>
+  </ul></li>
+  <li><a href="#sec-l03-atomic-qubit" id="toc-sec-l03-atomic-qubit" class="nav-link" data-scroll-target="#sec-l03-atomic-qubit">2. 原子与离子：怎样选出一个量子比特？</a>
+  <ul class="collapse">
+  <li><a href="#l03-atomic-encoding" id="toc-l03-atomic-encoding" class="nav-link" data-scroll-target="#l03-atomic-encoding">2.1 从原子能级到两个编码态</a></li>
+  <li><a href="#l03-ion-trap" id="toc-l03-ion-trap" class="nav-link" data-scroll-target="#l03-ion-trap">2.2 离子阱：把原子留住，再操控内部态</a></li>
+  <li><a href="#l03-optical-drive" id="toc-l03-optical-drive" class="nav-link" data-scroll-target="#l03-optical-drive">2.3 对选定的两个态，怎样施加控制？</a></li>
+  </ul></li>
+  <li><a href="#sec-l03-transmon" id="toc-sec-l03-transmon" class="nav-link" data-scroll-target="#sec-l03-transmon">3. transmon：怎样用电路构造一个量子比特？</a>
+  <ul class="collapse">
+  <li><a href="#l03-lc-levels" id="toc-l03-lc-levels" class="nav-link" data-scroll-target="#l03-lc-levels">3.1 从熟悉的振荡电路到量子能级</a></li>
+  <li><a href="#l03-junction-anharmonicity" id="toc-l03-junction-anharmonicity" class="nav-link" data-scroll-target="#l03-junction-anharmonicity">3.2 从等间隔能级到非简谐电路</a></li>
+  <li><a href="#l03-transmon-control" id="toc-l03-transmon-control" class="nav-link" data-scroll-target="#l03-transmon-control">3.3 选择两个编码态，用微波实施控制</a></li>
+  </ul></li>
+  <li><a href="#sec-l03-dynamics" id="toc-sec-l03-dynamics" class="nav-link" data-scroll-target="#sec-l03-dynamics">4. 量子态怎样随时间变化？</a>
+  <ul class="collapse">
+  <li><a href="#l03-energy-operator" id="toc-l03-energy-operator" class="nav-link" data-scroll-target="#l03-energy-operator">4.1 从两个能级到能量算符</a></li>
+  <li><a href="#l03-schrodinger" id="toc-l03-schrodinger" class="nav-link" data-scroll-target="#l03-schrodinger">4.2 从能量描述到时间演化规律</a></li>
+  <li><a href="#l03-free-evolution" id="toc-l03-free-evolution" class="nav-link" data-scroll-target="#l03-free-evolution">4.3 不施加驱动：概率不变，状态就不变吗？</a></li>
+  </ul></li>
+  <li><a href="#l03-bloch-sphere" id="toc-l03-bloch-sphere" class="nav-link" data-scroll-target="#l03-bloch-sphere">5. 布洛赫球：怎样把量子态及其变化画出来？</a>
+  <ul class="collapse">
+  <li><a href="#l03-bloch-coordinates" id="toc-l03-bloch-coordinates" class="nav-link" data-scroll-target="#l03-bloch-coordinates">5.1 一个量子态，需要哪些信息才能确定？</a></li>
+  <li><a href="#l03-bloch-reading" id="toc-l03-bloch-reading" class="nav-link" data-scroll-target="#l03-bloch-reading">5.2 怎样从布洛赫球上读出概率和相位？</a></li>
+  <li><a href="#l03-bloch-evolution" id="toc-l03-bloch-evolution" class="nav-link" data-scroll-target="#l03-bloch-evolution">5.3 自由演化在布洛赫球上是什么轨迹？</a></li>
+  </ul></li>
+  <li><a href="#l03-resonant-drive" id="toc-l03-resonant-drive" class="nav-link" data-scroll-target="#l03-resonant-drive">6. 共振驱动：怎样用脉冲控制状态转换？</a>
+  <ul class="collapse">
+  <li><a href="#l03-rabi-observation" id="toc-l03-rabi-observation" class="nav-link" data-scroll-target="#l03-rabi-observation">6.1 改变脉冲时长，会看到什么？</a></li>
+  <li><a href="#l03-oscillating-drive" id="toc-l03-oscillating-drive" class="nav-link" data-scroll-target="#l03-oscillating-drive">6.2 怎样把驱动写入演化方程？</a></li>
+  <li><a href="#l03-resonance-rwa" id="toc-l03-resonance-rwa" class="nav-link" data-scroll-target="#l03-resonance-rwa">6.3 为什么驱动频率要接近跃迁频率？</a></li>
+  <li><a href="#l03-rabi-solution" id="toc-l03-rabi-solution" class="nav-link" data-scroll-target="#l03-rabi-solution">6.4 共振时，两个概率幅怎样变化？</a></li>
+  <li><a href="#l03-pulse-duration" id="toc-l03-pulse-duration" class="nav-link" data-scroll-target="#l03-pulse-duration">6.5 什么时候关闭脉冲？</a></li>
+  </ul></li>
+  <li><a href="#l03-drive-phase" id="toc-l03-drive-phase" class="nav-link" data-scroll-target="#l03-drive-phase">7. 驱动相位：怎样制备指定的叠加态？</a>
+  <ul class="collapse">
+  <li><a href="#l03-phase-target" id="toc-l03-phase-target" class="nav-link" data-scroll-target="#l03-phase-target">7.1 概率各半，为什么还没有完全确定状态？</a></li>
+  <li><a href="#l03-phase-coupling" id="toc-l03-phase-coupling" class="nav-link" data-scroll-target="#l03-phase-coupling">7.2 驱动场的相位怎样进入量子态？</a></li>
+  <li><a href="#l03-phase-preparation" id="toc-l03-phase-preparation" class="nav-link" data-scroll-target="#l03-phase-preparation">7.3 怎样同时选定概率和相对相位？</a></li>
+  <li><a href="#l03-phase-readout" id="toc-l03-phase-readout" class="nav-link" data-scroll-target="#l03-phase-readout">7.4 怎样确认相位真的被控制了？</a></li>
+  </ul></li>
+  <li><a href="#l03-detuning" id="toc-l03-detuning" class="nav-link" data-scroll-target="#l03-detuning">8. 偏离共振：为什么延长脉冲也不一定能翻转？</a>
+  <ul class="collapse">
+  <li><a href="#l03-detuning-observation" id="toc-l03-detuning-observation" class="nav-link" data-scroll-target="#l03-detuning-observation">8.1 原来的翻转脉冲，还能使用吗？</a></li>
+  <li><a href="#l03-detuning-frame" id="toc-l03-detuning-frame" class="nav-link" data-scroll-target="#l03-detuning-frame">8.2 频率差怎样进入演化方程？</a></li>
+  <li><a href="#l03-detuned-rabi" id="toc-l03-detuned-rabi" class="nav-link" data-scroll-target="#l03-detuned-rabi">8.3 为什么振荡更快，却翻转得不完整？</a></li>
+  <li><a href="#l03-detuning-calibration" id="toc-l03-detuning-calibration" class="nav-link" data-scroll-target="#l03-detuning-calibration">8.4 哪些问题可以靠调整时长解决？</a></li>
+  </ul></li>
+  <li><a href="#l03-single-qubit-gates" id="toc-l03-single-qubit-gates" class="nav-link" data-scroll-target="#l03-single-qubit-gates">9. 从控制脉冲到单比特操作</a>
+  <ul class="collapse">
+  <li><a href="#l03-unitary-map" id="toc-l03-unitary-map" class="nav-link" data-scroll-target="#l03-unitary-map">9.1 只知道一个初态的结果，是否已经知道这个操作？</a></li>
+  <li><a href="#l03-x-z-gates" id="toc-l03-x-z-gates" class="nav-link" data-scroll-target="#l03-x-z-gates">9.2 翻转与相位改变，怎样写成量子门？</a></li>
+  <li><a href="#l03-hadamard" id="toc-l03-hadamard" class="nav-link" data-scroll-target="#l03-hadamard">9.3 能制备正号叠加态的脉冲，就是Hadamard门吗？</a></li>
+  <li><a href="#l03-gate-order" id="toc-l03-gate-order" class="nav-link" data-scroll-target="#l03-gate-order">9.4 两个操作的先后顺序，为什么重要？</a></li>
+  <li><a href="#l03-gate-implementation" id="toc-l03-gate-implementation" class="nav-link" data-scroll-target="#l03-gate-implementation">9.5 怎样把这些门落实为组合脉冲？</a></li>
+  <li><a href="#l03-control-summary" id="toc-l03-control-summary" class="nav-link" data-scroll-target="#l03-control-summary">9.6 回到本讲：怎样完成一次可检验的控制？</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-lecture03" class="quarto-section-identifier"><span class="chapter-title">第三讲　量子调控：如何控制一个量子比特？</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sec-l03-control-task" class="level2">
+<h2 class="anchored" data-anchor-id="sec-l03-control-task">1. 从已知状态到目标状态</h2>
+<p>第二讲中，我们已经学会根据光子的偏振态预测测量结果，也见过光学元件怎样改变偏振态。现在进一步提出一个问题：<strong>如果已经知道输入态，并指定了希望得到的输出态，应该怎样选择物理操作？</strong></p>
+<p>先从熟悉的偏振实验出发，看看已有的操作能够完成什么任务，又有哪些转换需要新的控制方法。</p>
+<section id="l03-known-controls" class="level3">
+<h3 class="anchored" data-anchor-id="l03-known-controls">1.1 筛选与相位调控：已经能做什么？</h3>
+<p>让水平偏振的光子经过透光轴为45度的理想偏振片，透过的概率为一半。留下的光子都具有45度偏振态</p>
+<p><span class="math display">\[
+|+\rangle=\frac{|H\rangle+|V\rangle}{\sqrt{2}},
+\]</span></p>
+<p>其中 <span class="math inline">\(|H\rangle\)</span>、<span class="math inline">\(|V\rangle\)</span> 分别表示水平、竖直偏振态。这样可以制备所需的叠加态，但一部分输入光子被吸收。如果希望让每一个输入光子都能继续参与后面的操作，就需要寻找保留光子的转换方法。</p>
+<p>第二讲介绍的相位延迟元件给出了一个例子。将它的两条主轴固定沿H、V方向，让V分量相对于H分量多积累 <span class="math inline">\(\pi\)</span> 的相位，就能实现</p>
+<p><span class="math display">\[
+|+\rangle
+=\frac{|H\rangle+|V\rangle}{\sqrt{2}}
+\quad\longrightarrow\quad
+|-\rangle
+=\frac{|H\rangle-|V\rangle}{\sqrt{2}}.
+\]</span></p>
+<p>两个分量的大小没有变化，但它们从同号变成异号，光子的线偏振方向因此发生改变。虽然转换前后在H/V测量中的概率仍然各半，在正、负45度方向的测量中，两态却给出不同的确定结果。</p>
+<p><strong>筛选通过保留部分样本得到所需状态；理想无损的相位延迟元件则保留光子，通过改变相对相位实现特定的状态转换。</strong></p>
+</section>
+<section id="l03-phase-limit" class="level3">
+<h3 class="anchored" data-anchor-id="l03-phase-limit">1.2 相位调控的范围：哪些转换还做不到？</h3>
+<p>现在保持相位延迟元件的主轴方向不变，将输入换成水平偏振态 <span class="math inline">\(|H\rangle\)</span>。调节相位延迟，能否把它转换为竖直偏振态 <span class="math inline">\(|V\rangle\)</span>？</p>
+<p>设一般输入为 <span class="math inline">\(\alpha|H\rangle+\beta|V\rangle\)</span>，其中 <span class="math inline">\(\alpha\)</span>、<span class="math inline">\(\beta\)</span> 是两个分量的概率幅。省略不影响测量概率的整体相位后，这个元件的作用为</p>
+<p><span class="math display">\[
+\alpha|H\rangle+\beta|V\rangle
+\quad\longrightarrow\quad
+\alpha|H\rangle+e^{i\phi}\beta|V\rangle,
+\]</span></p>
+<p>其中 <span class="math inline">\(\phi\)</span> 是V分量相对于H分量增加的相位。由于 <span class="math inline">\(|e^{i\phi}|=1\)</span>，H、V两个结果的概率始终分别为 <span class="math inline">\(|\alpha|^2\)</span>、<span class="math inline">\(|\beta|^2\)</span>。</p>
+<p>对于水平偏振输入，V分量的概率幅原本为零，乘上相位因子后仍然为零。因此，无论怎样调节相位延迟，这个设置的输出都保持水平偏振，不能变成竖直偏振。</p>
+<div id="fig-l03-phase-retarder" class="quarto-float quarto-figure quarto-figure-center anchored" alt="左右两栏比较同一相位延迟元件：左栏正45度叠加态变为负45度叠加态，H概率幅不变、V概率幅变号；右栏水平偏振保持水平，H概率幅为1、V概率幅为0，输入与输出相同。">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-phase-retarder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture03/phase-retarder-two-inputs-gpt.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="图&nbsp;3.1: 相对相位延迟为 \pi 时，同一元件将 |+\rangle 变为 |-\rangle，而水平偏振保持不变。"><img src="assets/lecture03/phase-retarder-two-inputs-gpt.png" class="img-fluid figure-img" alt="左右两栏比较同一相位延迟元件：左栏正45度叠加态变为负45度叠加态，H概率幅不变、V概率幅变号；右栏水平偏振保持水平，H概率幅为1、V概率幅为0，输入与输出相同。"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-phase-retarder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.1: 相对相位延迟为 <span class="math inline">\(\pi\)</span> 时，同一元件将 <span class="math inline">\(|+\rangle\)</span> 变为 <span class="math inline">\(|-\rangle\)</span>，而水平偏振保持不变。
+</figcaption>
+</figure>
+</div>
+<p><strong>要在固定的H/V基底中完成水平到竖直的翻转，必须改变两个分量的大小，仅调节相对相位不够。</strong> 这里的限制来自元件主轴固定沿H、V的设置；改变主轴方向，也会改变元件对H、V分量的作用。可见，能完成一种状态转换的操作，并不一定能完成另一种转换，控制方式需要根据目标选择。</p>
+</section>
+<section id="l03-target-and-operation" class="level3">
+<h3 class="anchored" data-anchor-id="l03-target-and-operation">1.3 控制任务：怎样选择操作并检验结果？</h3>
+<p>沿用第二讲的编码约定</p>
+<p><span class="math display">\[
+|0\rangle=|H\rangle,\qquad |1\rangle=|V\rangle,
+\]</span></p>
+<p>我们可以从同一个初态 <span class="math inline">\(|0\rangle\)</span> 出发，提出两个不同的控制目标。</p>
+<p>第一个目标是得到 <span class="math inline">\(|1\rangle\)</span>，即完成一次<strong>状态翻转</strong>。第二个目标是保留光子，并得到叠加态</p>
+<p><span class="math display">\[
+|+\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}}.
+\]</span></p>
+<p>第二个目标既要求两个分量等大，也要求它们的相对相位为零。仅仅使0、1两个测量结果各占一半，还没有完整地指定这个目标态。</p>
+<p>目标确定以后，还需要选择能够检验它的测量。对于翻转，理想输出在0/1测量中应当总是给出1。对于上述叠加态，除了检查0、1概率各半，还可以在 <span class="math inline">\(\{|+\rangle,|-\rangle\}\)</span> 基下测量：目标态应当总是给出 <span class="math inline">\(+\)</span> 结果，而相对负号的叠加态会给出 <span class="math inline">\(-\)</span> 结果。实验中，每次重新准备相同初态、执行相同操作，再通过重复测量积累统计，就能检验控制结果。</p>
+<p><strong>本讲的控制任务，是从给定初态出发，选择物理作用及其参数，使系统到达指定目标态，并由测量检验结果。</strong></p>
+<p>在偏振实验中，控制作用来自光学元件。原子和电路中的量子比特又可以怎样操控？要回答这个问题，首先需要找到它们的两个编码态，再研究外加作用怎样使状态发生变化。本讲将以这些系统为例，学习怎样选择作用方式和持续时间，使给定初态演化到目标态。</p>
+</section>
+</section>
+<section id="sec-l03-atomic-qubit" class="level2">
+<h2 class="anchored" data-anchor-id="sec-l03-atomic-qubit">2. 原子与离子：怎样选出一个量子比特？</h2>
+<section id="l03-atomic-encoding" class="level3">
+<h3 class="anchored" data-anchor-id="l03-atomic-encoding">2.1 从原子能级到两个编码态</h3>
+<p>第一讲中，我们见过原子的离散谱线：原子从一个较高能量的内部态跃迁到较低能量的内部态时，可以发射光，光子的能量等于这两个态的能量差。不同跃迁对应不同频率，形成一条条谱线。这说明原子的内部状态能够发生可观测的变化。我们现在关心的是：能否从这些状态中选出两个，分别表示0和1，并控制它们之间的转换？</p>
+<p>这里的<strong>内部态</strong>，描述的是电子的空间分布、自旋等内部自由度的量子状态，与原子整体位于何处、怎样运动分开讨论。能级图用水平线标示具有确定能量的内部态，纵轴向上表示能量增加。例如，同一个原子可以留在实验装置的同一小片区域，内部能量却因为吸收或发射光而发生变化。</p>
+<p>选定两个适合编码的正交内部态，分别记为 <span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span>。本节考虑它们具有不同能量的情形，将对应能量记为 <span class="math inline">\(E_0\)</span>、<span class="math inline">\(E_1\)</span>，并取 <span class="math inline">\(E_1&gt;E_0\)</span>。这两个态及其线性组合构成一个<strong>编码子空间</strong>：整个原子有许多可能的状态，而我们用其中的这个二维部分承载一个量子比特。在这个子空间中，纯态仍然写为</p>
+<p><span class="math display">\[
+|\psi\rangle=\alpha|0\rangle+\beta|1\rangle,
+\qquad |\alpha|^2+|\beta|^2=1.
+\]</span></p>
+<p>这里的 <span class="math inline">\(\alpha\)</span>、<span class="math inline">\(\beta\)</span> 仍是概率幅；在这两个编码态组成的基下测量，结果概率分别为 <span class="math inline">\(|\alpha|^2\)</span>、<span class="math inline">\(|\beta|^2\)</span>。与第二讲相比，态矢量和测量规则保持相同，0和1所对应的物理状态从光子偏振换成了原子内部态。</p>
+<div id="fig-l03-atomic-encoding" class="quarto-float quarto-figure quarto-figure-center anchored" alt="左侧多能级图中两个蓝色内部态被标记为0和1，其余内部态用灰线表示；右侧在相同能量位置画出两个选定态，两栏下方统一列出叠加态及归一化关系。纵轴表示能量。">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-atomic-encoding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture03/atomic-level-encoding-gpt-v3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="图&nbsp;3.2: 从原子的多个内部态中选出两个编码态。蓝线表示选定态，右侧为它们构成的编码子空间。"><img src="assets/lecture03/atomic-level-encoding-gpt-v3.png" class="img-fluid figure-img" alt="左侧多能级图中两个蓝色内部态被标记为0和1，其余内部态用灰线表示；右侧在相同能量位置画出两个选定态，两栏下方统一列出叠加态及归一化关系。纵轴表示能量。"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-atomic-encoding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.2: 从原子的多个内部态中选出两个编码态。蓝线表示选定态，右侧为它们构成的编码子空间。
+</figcaption>
+</figure>
+</div>
+<p>实验上，我们需要能把原子准备到已知初态，能施加作用改变这两个态的概率幅，也能区分它们的读出结果；状态及叠加态的相位关系还需要保持足够长的时间，让这些操作能够完成。如果操作使系统进入编码之外的状态，就称为<strong>泄漏</strong>。<strong>原子量子比特使用的是多能级系统中选定的两个内部态。</strong></p>
+</section>
+<section id="l03-ion-trap" class="level3">
+<h3 class="anchored" data-anchor-id="l03-ion-trap">2.2 离子阱：把原子留住，再操控内部态</h3>
+<p>为了对同一个粒子反复准备、操作和测量，实验还需要让它留在一个可接近的小区域内。一个可行办法是使用<strong>离子</strong>：原子失去或获得电子后带电，分别形成正离子或负离子。下面以失去一个电子的正离子为例。由于带有电荷，它会受到电场力，因此可以利用适当的电磁场装置限制其空间运动；这种装置称为<strong>离子阱</strong>。</p>
+<p>以一种常用的线性离子阱为例，电极上的交变电压产生周期变化的电场，在适当的电压和频率下限制离子的横向运动；另外的静态电场提供沿阱轴方向的束缚。两者配合，使离子留在真空中的一个小区域内，并可在其中振动。图中左侧画的是垂直于阱轴的横截面，四个圆形表示电极的截面。</p>
+<div id="fig-l03-ion-trap" class="quarto-float quarto-figure quarto-figure-center anchored" alt="四个电极横截面围绕中心的一个正离子，控制光从左向右经过离子，上方镜头与探测器收集读出阶段的荧光；右侧能级图标出同一离子的0和1两个内部态及光场驱动。">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-ion-trap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture03/ion-trap-internal-states-gpt-v3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="图&nbsp;3.3: 离子阱、控制光与荧光读出装置。右侧能级图表示阱内同一离子的两个内部编码态。"><img src="assets/lecture03/ion-trap-internal-states-gpt-v3.png" class="img-fluid figure-img" alt="四个电极横截面围绕中心的一个正离子，控制光从左向右经过离子，上方镜头与探测器收集读出阶段的荧光；右侧能级图标出同一离子的0和1两个内部态及光场驱动。"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-ion-trap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.3: 离子阱、控制光与荧光读出装置。右侧能级图表示阱内同一离子的两个内部编码态。
+</figcaption>
+</figure>
+</div>
+<p><strong>离子阱负责限制空间运动，控制光操控内部态，探测光则通过荧光响应区分读出结果。</strong></p>
+<p>荧光为什么能够读出状态？探测光把其中一个编码态激发到一个辅助态；辅助态发射光子后又主要回到原来的编码态，于是这一过程可以重复，积累出容易探测的荧光。另一个编码态不参与这个过程，因而较暗。镜头收集荧光，探测器记录光子数，从而区分两个结果。</p>
+<div class="source-note">
+<p>装置与测量依据：<a href="https://nvlpubs.nist.gov/nistpubs/sp958-lide/html/200-202.html">NIST：线性离子阱中的交变与静态电场</a>；<a href="https://arxiv.org/abs/0802.1684">Myerson等：通过荧光计数读出离子量子比特</a>。</p>
+</div>
+</section>
+<section id="l03-optical-drive" class="level3">
+<h3 class="anchored" data-anchor-id="l03-optical-drive">2.3 对选定的两个态，怎样施加控制？</h3>
+<p>接下来，我们选用一类能够由激光直接驱动的两态编码：较低能量的内部态作为 <span class="math inline">\(|0\rangle\)</span>，寿命较长的激发态作为 <span class="math inline">\(|1\rangle\)</span>。这里的“激发态”指能量高于最低能量状态的内部态。即使不施加控制光，激发态也可能自发发射光子，转变到较低能量的状态，这是一种<strong>自发衰变</strong>；寿命描述这个过程发生的典型时间尺度。这里要求激发态的寿命比控制操作的时间长，才有机会在系统明显衰变之前，通过光场完成所需的状态转换。在这种编码中，两态的能量差对应光学频率，因此称为<strong>光学量子比特</strong>；它描述的是原子或离子的内部态编码，光在这里承担控制作用。</p>
+<div class="source-note">
+<p>实验例子：<a href="https://arxiv.org/abs/quant-ph/0003096">钙离子中利用基态与长寿命激发态编码，并用激光操控叠加态</a>。</p>
+</div>
+<p>对于已经选定、能够被所用光场连接的这两个态，先回顾第一讲的能量关系：频率为 <span class="math inline">\(\nu\)</span> 的一个光子具有能量 <span class="math inline">\(h\nu\)</span>，其中 <span class="math inline">\(h\)</span> 是普朗克常量。若吸收一个光子完成从 <span class="math inline">\(E_0\)</span> 到 <span class="math inline">\(E_1\)</span> 的跃迁，对应的跃迁频率为</p>
+<p><span class="math display">\[
+\nu_0=\frac{E_1-E_0}{h}.
+\]</span></p>
+<p>将控制光的频率调到接近 <span class="math inline">\(\nu_0\)</span>，就能针对这对状态施加驱动。但这个能量关系还没有告诉我们作用多久，也没有给出操作结束后的概率幅。即使频率已经选对，得到完整的翻转还是某个叠加态，仍需要研究光场作用下的时间演化。</p>
+<p><strong>能级差帮助我们选择驱动频率，目标态则要求进一步确定作用方式和持续时间。</strong> 例如，每次先把离子准备在 <span class="math inline">\(|0\rangle\)</span>，保持控制光的其他条件不变，只改变照射时间，再通过重复实验测量0、1出现的概率。这样可以观察两个编码态的占据概率随作用时间怎样变化，但这些概率还不能确定叠加态的相对相位。如果还要检验相对相位是否符合目标，就需要像第一节那样，进一步选择合适的测量基。后面将用二能级模型计算这类实验。</p>
+<p>现在，我们已经知道天然原子的内部结构能够提供编码态；如果换成可以人工设计的电路，能否也得到两个可单独操控的量子态？</p>
+</section>
+</section>
+<section id="sec-l03-transmon" class="level2">
+<h2 class="anchored" data-anchor-id="sec-l03-transmon">3. transmon：怎样用电路构造一个量子比特？</h2>
+<section id="l03-lc-levels" class="level3">
+<h3 class="anchored" data-anchor-id="l03-lc-levels">3.1 从熟悉的振荡电路到量子能级</h3>
+<p>原子已经能够提供量子比特，为什么还要研究电路？上一节中，我们是在原子已有的能级中挑选合适的两个态。但设计实验时，我们还希望选择方便驱动的跃迁频率，安排控制信号怎样作用于量子比特，并考虑以后怎样让多个量子比特相互作用。这就提出一个问题：除了选择天然系统，能否通过设计器件，获得适合这些任务的量子系统？</p>
+<p>电路的电容、电感和连接方式可以由人设计。如果它的量子能级也随这些参数改变，我们就有机会从器件结构出发，设计编码态及其控制方式。原子能级可以用外场调节；电路则进一步把元件参数与连接方式变成设计量子系统的工具。我们先从熟悉的LC振荡电路出发，看看它能否提供需要的两个态。</p>
+<p>在理想LC电路中，电容 <span class="math inline">\(C\)</span> 储存电场能，电感 <span class="math inline">\(L\)</span> 储存磁场能。电容放电形成电流，磁场能增加；随后电流又使电容充电，能量在两者之间交换，形成频率为</p>
+<p><span class="math display">\[
+\nu_{\mathrm{LC}}=\frac{1}{2\pi\sqrt{LC}}
+\]</span></p>
+<p>的简谐振荡。这里变化的是电路中的电荷、电流等整体变量，不是某个原子中电子的内部状态。</p>
+<p>经典理论允许这一振荡具有连续的能量。将同一个振荡模式作量子描述后，它成为量子简谐振子，允许的能量是</p>
+<p><span class="math display">\[
+E_n=h\nu_{\mathrm{LC}}\left(n+\frac12\right),
+\qquad n=0,1,2,\ldots
+\]</span></p>
+<p>其中 <span class="math inline">\(n\)</span> 是能级编号，<span class="math inline">\(h\)</span> 是普朗克常量。这里先采用量子简谐振子的能级结论，不把它当作由经典振荡公式直接推出的结果。本节要用的是相邻两级的能量差始终相同，都等于 <span class="math inline">\(h\nu_{\mathrm{LC}}\)</span>。</p>
+<p>从实验条件看，为什么日常电路中不容易看到一个个量子能级？电路会与环境交换能量，普通电阻还会耗散振荡能量。实验中采用低损耗的超导电路，并把它冷却到很低的温度，以减少热激发和能量损失，才有利于分辨和操控低能量量子态。超导材料在合适的低温条件下可以无直流电阻地传导电流，但这不意味着实际量子电路完全没有损耗。</p>
+<p>有了离散能级，似乎只需将最低两级标为 <span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span>，就得到量子比特。然而，给两个态命名只是第一步：施加驱动时，状态能否主要留在它们组成的空间内？<strong>电路可以具有离散量子能级，但能否把其中两个态作为可控的量子比特，还取决于能否有选择地操控它们。</strong></p>
+</section>
+<section id="l03-junction-anharmonicity" class="level3">
+<h3 class="anchored" data-anchor-id="l03-junction-anharmonicity">3.2 从等间隔能级到非简谐电路</h3>
+<p>先只看最低三个能级，对应的态记作 <span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span>、<span class="math inline">\(|2\rangle\)</span>。从第零级到第一级、从第一级到第二级的跃迁频率分别是</p>
+<p><span class="math display">\[
+\nu_{01}=\frac{E_1-E_0}{h},
+\qquad
+\nu_{12}=\frac{E_2-E_1}{h}.
+\]</span></p>
+<p>对理想LC电路，能级等间隔，所以 <span class="math inline">\(\nu_{01}=\nu_{12}\)</span>。用某个频率驱动最低两级时，这个频率也正好对应通向第三级的跃迁。因此，单靠选择驱动频率，不能把这两种跃迁区分开；驱动过程中可能进入 <span class="math inline">\(|2\rangle\)</span>，离开选定的编码空间。这就是上一节所说的泄漏。</p>
+<p>如果能使相邻能级的间隔不再相同，两种跃迁就对应不同频率，我们才有机会利用频率差选择其中一种。这种偏离简谐振子等间隔能级的性质称为<strong>非简谐性</strong>。问题因此变成：怎样修改电路，使它不再是一个理想的简谐振子？</p>
+<p>一个关键元件是<strong>约瑟夫森结</strong>。这里考虑两个超导体之间隔着极薄绝缘层的结构。绝缘层原本阻碍电荷通过，但在量子描述中，即使没有足够能量越过这道能量障碍，仍可能穿过它，这称为<strong>量子隧穿</strong>。在这种足够薄的结构中，超导电流因而可以通过绝缘层。在振荡电路中，这个结可以起到非线性电感的作用；“非线性”意味着不能始终用一个固定电感值描述它的响应。用结代替线性电感后，电路偏离了理想简谐振子，其能级也不再严格等间隔。</p>
+<p>将约瑟夫森结与较大的电容并联，并选择适当的器件参数，就能构成<strong>transmon</strong>量子比特的基本电路。</p>
+<div id="fig-l03-transmon-structure" class="quarto-float quarto-figure quarto-figure-center anchored" alt="从左到右依次为电容与线性电感并联的LC电路、电容与约瑟夫森结并联的transmon简化电路、结的材料结构放大示意。结由两个超导体及其间的极薄绝缘层组成。">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-transmon-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture03/lc-to-transmon-structure-gpt-v4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="图&nbsp;3.4: 用约瑟夫森结替代LC电路的线性电感，构成transmon的基本电路；右侧为结的材料结构。"><img src="assets/lecture03/lc-to-transmon-structure-gpt-v4.png" class="img-fluid figure-img" alt="从左到右依次为电容与线性电感并联的LC电路、电容与约瑟夫森结并联的transmon简化电路、结的材料结构放大示意。结由两个超导体及其间的极薄绝缘层组成。"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-transmon-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.4: 用约瑟夫森结替代LC电路的线性电感，构成transmon的基本电路；右侧为结的材料结构。
+</figcaption>
+</figure>
+</div>
+<p>下面固定约瑟夫森结参数，只改变总电容，比较理想LC电路与transmon的最低三个能级。LC参照电路的电感取该结在小振幅下的等效电感，两种电路使用同一个电容值；这样比较的是把结近似为线性电感与保留其非线性后的区别。图中将能量除以 <span class="math inline">\(h\)</span>，用频率单位表示，并把最低能级作为能量零点；这不会改变任何能级差。GHz表示每秒十亿次，MHz表示每秒百万次，电容单位fF为 <span class="math inline">\(10^{-15}\,\mathrm{F}\)</span>。</p>
+<p>先保持电容不变，切换理想LC与transmon，比较两个跃迁频率是否相同；再改变电容，观察整体频率与两种跃迁的频率差怎样变化。</p>
+<div id="fig-l03-transmon-comparison" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-transmon-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe data-external="1" src="assets/lecture03/transmon-lab.html" title="改变电容：能级与跃迁频率计算图" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-transmon-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.5: 理想LC电路与transmon的能级和跃迁频率随电容的变化（数值计算）。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/transmon-lab.html" target="_blank" rel="noopener">单独打开计算图</a>，或使用图内全屏按钮放大。
+</p>
+<p>在LC模式下，改变电容会移动能级，但两个相邻间隔始终相等。在transmon模式下，两个间隔不同；随着电容增大，两种跃迁的频率差减小。<strong>非简谐性提供了可用于选择跃迁的频率差。</strong></p>
+<p>既然增大电容会缩小两种跃迁的频率差，为什么transmon还要使用较大的电容？它的收益是降低对环境电荷扰动的敏感性：附近电荷的波动可能使跃迁频率发生变化，合适的设计能减弱这种变化。因此，电容的选择需要兼顾对扰动的稳定性与跃迁的可区分性。<a href="https://arxiv.org/abs/cond-mat/0703002">transmon的原始设计与这一取舍</a></p>
+<div class="source-note">
+<p>计算采用<a href="https://arxiv.org/html/cond-mat/0703002v2">Koch等的transmon电路模型</a>，固定描述结作用强度的能量参数 <span class="math inline">\(E_J/h=20\,\mathrm{GHz}\)</span>，静电偏置取零；LC参照电感约为 <span class="math inline">\(8.17\,\mathrm{nH}\)</span>。总电容为 <span class="math inline">\(40\)</span>—<span class="math inline">\(120\,\mathrm{fF}\)</span>，默认取 <span class="math inline">\(60\,\mathrm{fF}\)</span>。</p>
+</div>
+</section>
+<section id="l03-transmon-control" class="level3">
+<h3 class="anchored" data-anchor-id="l03-transmon-control">3.3 选择两个编码态，用微波实施控制</h3>
+<p>现在选择transmon的最低能量态和第一激发态，分别作为 <span class="math inline">\(|0\rangle\)</span> 和 <span class="math inline">\(|1\rangle\)</span>。这两个态属于同一个电路振荡模式，不是普通数字电路的低、高电压，也不是简单的电流向左、向右。更高能级仍然存在；只有当它们对所研究操作的影响足够小时，才可以主要使用这两个态及其叠加来描述量子比特。</p>
+<p>怎样让它们发生所需的转换？在这里，外加作用来自通过控制线路耦合到电路的微波电信号。“微波”是电磁波的一个频段，与前面用来控制原子的光一样，都可以通过与系统相互作用改变其量子态。将信号频率选在接近 <span class="math inline">\(\nu_{01}\)</span> 的位置，并适当选择强度和形状，就能主要驱动两个编码态之间的转换。持续有限时间的控制信号称为<strong>脉冲</strong>；频率选对以后，脉冲持续多久仍会影响最终得到的状态。<a href="https://arxiv.org/abs/1904.06560">超导量子电路及其微波控制的物理背景</a></p>
+<p>回看原子和电路的两个例子：原子使用天然形成的内部能级，transmon使用人工设计电路的量子能级；上一节选定的光学编码用激光控制，transmon用微波控制。称电路为“人工原子”，指的是它也能提供离散能级和可驱动的跃迁。<strong>物理载体和控制装置可以不同，选定两态后，概率幅、相对相位及测量规则仍然可以共用。</strong></p>
+<p>将两种载体并列，控制问题的共同部分就更清楚了：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">要比较的内容</th>
+<th style="text-align: left;">本讲选用的原子或离子编码</th>
+<th style="text-align: left;">transmon</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">两个编码态</td>
+<td style="text-align: left;">低能内部态与长寿命激发态</td>
+<td style="text-align: left;">电路最低能量态与第一激发态</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">控制信号</td>
+<td style="text-align: left;">激光</td>
+<td style="text-align: left;">微波电信号</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">选择控制对象</td>
+<td style="text-align: left;">选定可由光场连接的跃迁</td>
+<td style="text-align: left;">利用非简谐性区分相邻跃迁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">下一步共同要计算的量</td>
+<td style="text-align: left;">概率幅与相对相位随时间的变化</td>
+<td style="text-align: left;">概率幅与相对相位随时间的变化</td>
+</tr>
+</tbody>
+</table>
+<p>我们已经知道两个编码态从哪里来，也知道用什么施加作用，但还不能回答：作用一段时间之后，两个概率幅和相对相位究竟变成多少？为此，需要把系统本身的能量和外加作用写入同一个数学描述，再建立状态随时间变化的规律。这将引出下一节的哈密顿量与薛定谔方程。</p>
+</section>
+</section>
+<section id="sec-l03-dynamics" class="level2">
+<h2 class="anchored" data-anchor-id="sec-l03-dynamics">4. 量子态怎样随时间变化？</h2>
+<section id="l03-energy-operator" class="level3">
+<h3 class="anchored" data-anchor-id="l03-energy-operator">4.1 从两个能级到能量算符</h3>
+<p>前面已经知道怎样用原子或电路提供两个编码态，也知道可以用激光或微波施加控制。但要判断控制改变了什么，先需要一个没有控制时的参照：<strong>准备好初态以后，不施加驱动，只等待一段时间，状态会不会变化？仅仅等待，能否把 <span class="math inline">\(|0\rangle\)</span> 变成 <span class="math inline">\(|1\rangle\)</span>？</strong></p>
+<p>这里固定两个能量态 <span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span> 作为基底，其能量分别为 <span class="math inline">\(E_0\)</span>、<span class="math inline">\(E_1\)</span>，并取 <span class="math inline">\(E_1&gt;E_0\)</span>。在所研究的时间内，先忽略环境引起的能量损失和相位扰动，也忽略更高能级的影响；未施加控制时，这两个能量保持不变。将初始时刻记为 <span class="math inline">\(t=0\)</span>，任一时刻的纯态写成</p>
+<p><span class="math display">\[
+|\psi(t)\rangle=\alpha(t)|0\rangle+\beta(t)|1\rangle,
+\qquad |\alpha(t)|^2+|\beta(t)|^2=1.
+\]</span></p>
+<p>这里 <span class="math inline">\(t\)</span> 表示时间，<span class="math inline">\(\alpha(t)\)</span>、<span class="math inline">\(\beta(t)\)</span> 是随时间变化的复概率幅。在固定的能量基底中，状态变化由这两个系数记录。<span class="math inline">\(|\alpha(t)|^2\)</span>、<span class="math inline">\(|\beta(t)|^2\)</span> 分别是此时测得0、1的概率；两项都非零时，还需要知道它们的相对相位。</p>
+<p>第二讲讨论自旋时，我们已经用算符表示可观测量：处于某个本征态时，测量结果确定为相应本征值。能量也是可观测量，表示能量的算符称为<strong>哈密顿量</strong>。未施加控制时的哈密顿量记为 <span class="math inline">\(H_0\)</span>。因为两个编码态具有确定的能量，所以</p>
+<p><span class="math display">\[
+H_0|0\rangle=E_0|0\rangle,\qquad
+H_0|1\rangle=E_1|1\rangle.
+\]</span></p>
+<p>也就是说，<span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span> 是 <span class="math inline">\(H_0\)</span> 的本征态，<span class="math inline">\(E_0\)</span>、<span class="math inline">\(E_1\)</span> 是对应的本征值。在按 <span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span> 排列的基底中，两态的坐标分别为 <span class="math inline">\((1,0)^{\mathsf T}\)</span>、<span class="math inline">\((0,1)^{\mathsf T}\)</span>，其中上标 <span class="math inline">\(\mathsf T\)</span> 表示转为列向量。因此，满足上面两式的矩阵表示是</p>
+<p><span class="math display">\[
+H_0=
+\begin{pmatrix}
+E_0&amp;0\\
+0&amp;E_1
+\end{pmatrix}.
+\]</span></p>
+<p>例如，这个矩阵乘以 <span class="math inline">\((1,0)^{\mathsf T}\)</span> 就得到 <span class="math inline">\((E_0,0)^{\mathsf T}\)</span>，即原向量乘以 <span class="math inline">\(E_0\)</span>。矩阵的两个对角元由两态能量确定，非对角元为零；这里还没有加入外加控制。<strong>能级图上的两个能量，可以写成作用于态矢量的能量算符；这个矩阵形式对应于我们选定的能量基底。</strong></p>
+</section>
+<section id="l03-schrodinger" class="level3">
+<h3 class="anchored" data-anchor-id="l03-schrodinger">4.2 从能量描述到时间演化规律</h3>
+<p>知道一个态的能量，还不等于知道它下一时刻变成什么。要把能量描述与状态变化联系起来，需要采用量子力学的动力学基本规律——<strong>薛定谔方程</strong>：</p>
+<p><span class="math display">\[
+i\hbar\frac{\mathrm d}{\mathrm dt}|\psi(t)\rangle
+=H(t)|\psi(t)\rangle.
+\]</span></p>
+<p>其中 <span class="math inline">\(i\)</span> 是满足 <span class="math inline">\(i^2=-1\)</span> 的虚数单位，<span class="math inline">\(\hbar=h/(2\pi)\)</span>，<span class="math inline">\(H(t)\)</span> 是当时的哈密顿量。左边的时间导数描述态矢量变化的速率，右边由系统本身及其受到的作用决定。这个方程不是由前面的能级图直接推导出的，而是本节用来预测演化的物理规律。它描述的是这里忽略环境影响时的连续演化，不是测量后按结果筛选状态的规则。</p>
+<p>先取没有驱动的 <span class="math inline">\(H(t)=H_0\)</span>。基底不随时间变化，因此对态矢量求导，就是分别对两个概率幅求导。代入上一小节的矩阵，得到</p>
+<p><span class="math display">\[
+i\hbar
+\begin{pmatrix}
+\dfrac{\mathrm d\alpha}{\mathrm dt}\\[4pt]
+\dfrac{\mathrm d\beta}{\mathrm dt}
+\end{pmatrix}
+=
+\begin{pmatrix}E_0&amp;0\\0&amp;E_1\end{pmatrix}
+\begin{pmatrix}\alpha\\\beta\end{pmatrix}
+=
+\begin{pmatrix}E_0\alpha\\E_1\beta\end{pmatrix}.
+\]</span></p>
+<p>因此，这一个态矢量方程等价于两个方程：</p>
+<p><span class="math display">\[
+i\hbar\frac{\mathrm d\alpha}{\mathrm dt}=E_0\alpha,\qquad
+i\hbar\frac{\mathrm d\beta}{\mathrm dt}=E_1\beta.
+\]</span></p>
+<p>它们分别规定两个概率幅怎样随时间变化。此时右边没有另一分量，所以两式可以分别求解。要确定唯一的演化，还需要给出初始概率幅 <span class="math inline">\(\alpha(0)\)</span>、<span class="math inline">\(\beta(0)\)</span>；只给哈密顿量而不说明初态，并不能确定最终得到哪个态。</p>
+<p><strong>给定哈密顿量和初态，薛定谔方程规定状态怎样变化。<span class="math inline">\(H|\psi\rangle\)</span> 本身不是操作后的末态；必须根据方程演化到指定时刻，才能得到末态。</strong></p>
+</section>
+<section id="l03-free-evolution" class="level3">
+<h3 class="anchored" data-anchor-id="l03-free-evolution">4.3 不施加驱动：概率不变，状态就不变吗？</h3>
+<p>先解刚才的两个方程。对于恒定的 <span class="math inline">\(E_0\)</span>、<span class="math inline">\(E_1\)</span>，满足初始条件的解为</p>
+<p><span class="math display">\[
+\begin{aligned}
+\alpha(t)&amp;=\alpha(0)e^{-iE_0t/\hbar},\\
+\beta(t)&amp;=\beta(0)e^{-iE_1t/\hbar}.
+\end{aligned}
+\]</span></p>
+<p>可以直接检查这个答案，而不必先学习一般微分方程的求解方法。以第一式为例，对指数函数求导得到</p>
+<p><span class="math display">\[
+\frac{\mathrm d\alpha}{\mathrm dt}
+=-\frac{iE_0}{\hbar}\alpha(t).
+\]</span></p>
+<p>两边乘以 <span class="math inline">\(i\hbar\)</span>，就回到原来的方程；在 <span class="math inline">\(t=0\)</span> 时，指数因子为1，也满足给定的初始条件。第二式的检查完全相同。指数中的 <span class="math inline">\(E_jt/\hbar\)</span> 是无量纲的相位，<span class="math inline">\(j=0,1\)</span>；由 <span class="math inline">\(e^{-i\chi}=\cos\chi-i\sin\chi\)</span> 可知，其模为1。因此</p>
+<p><span class="math display">\[
+|\alpha(t)|^2=|\alpha(0)|^2,\qquad
+|\beta(t)|^2=|\beta(0)|^2.
+\]</span></p>
+<p>两个能量态的测量概率没有改变，归一化也保持不变。然而，这还不能告诉我们整个量子态是否改变，因为相对相位也参与决定测量结果。</p>
+<p>先看初态只有一个能量分量的情况。如果 <span class="math inline">\(|\psi(0)\rangle=|0\rangle\)</span>，就有</p>
+<p><span class="math display">\[
+|\psi(t)\rangle=e^{-iE_0t/\hbar}|0\rangle.
+\]</span></p>
+<p>这里整个态只乘上同一个相位因子。第二讲已经说明，整体相位不改变任何测量结果的概率，因此这仍表示同一个物理纯态。特别是，测得1的概率始终为零：在这个模型中，仅仅等待不能把 <span class="math inline">\(|0\rangle\)</span> 变成 <span class="math inline">\(|1\rangle\)</span>。</p>
+<p>再看一个同时包含两个能量分量的初态：</p>
+<p><span class="math display">\[
+|\psi(0)\rangle=\frac{|0\rangle+|1\rangle}{\sqrt2}.
+\]</span></p>
+<p>代入两个概率幅的解，并把共同因子提出来，得到</p>
+<p><span class="math display">\[
+|\psi(t)\rangle=
+e^{-iE_0t/\hbar}
+\frac{|0\rangle+e^{-i(E_1-E_0)t/\hbar}|1\rangle}{\sqrt2}.
+\]</span></p>
+<p>最前面的因子是整体相位，可以在计算测量概率时略去。定义能量差 <span class="math inline">\(\Delta E=E_1-E_0\)</span>，以及随等待时间增加的量 <span class="math inline">\(\chi(t)=\Delta E\,t/\hbar\)</span>，则同一个物理纯态可以用下面的态矢量表示：</p>
+<p><span class="math display">\[
+|\widetilde\psi(t)\rangle
+=\frac{|0\rangle+e^{-i\chi(t)}|1\rangle}{\sqrt2}.
+\]</span></p>
+<p>波浪号只是标记这个省略了整体相位的代表，并不表示另外施加了一次物理操作。<span class="math inline">\(|1\rangle\)</span> 分量相对于 <span class="math inline">\(|0\rangle\)</span> 分量的相位为 <span class="math inline">\(-\chi(t)\)</span>，其变化由能量差决定。两分量的模平方依然各为 <span class="math inline">\(1/2\)</span>，但相对相位通常已不再为零。</p>
+<p>怎样从测量中看出这种变化？固定两组测量设置作比较。第一组仍区分 <span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span>；第二组区分它们的正、负等权叠加态，定义为</p>
+<p><span class="math display">\[
+|+\rangle=\frac{|0\rangle+|1\rangle}{\sqrt2},\qquad
+|-\rangle=\frac{|0\rangle-|1\rangle}{\sqrt2}.
+\]</span></p>
+<p>这是两个归一化、正交的态，与第二讲正、负45度偏振分析使用同样的数学关系；这里的0、1则是所选原子或电路的能量态。每次实验都重新准备同一个初态，等待选定的时间，再选择一组测量，而不是在等待过程中连续测量同一个系统。比较不同等待时间时，第二组测量始终使用上面定义的同一对态，不随自由演化一起改变。</p>
+<p>沿用Born规则，得到正号结果的概率幅为</p>
+<p><span class="math display">\[
+\langle+|\widetilde\psi(t)\rangle
+=\frac{1+e^{-i\chi(t)}}{2}.
+\]</span></p>
+<p>将它取模平方，利用 <span class="math inline">\(e^{i\chi}+e^{-i\chi}=2\cos\chi\)</span>，得到</p>
+<p><span class="math display">\[
+\begin{aligned}
+P_+(t)
+&amp;=\frac{(1+e^{-i\chi})(1+e^{i\chi})}{4}\\
+&amp;=\frac{1+\cos\chi(t)}{2}.
+\end{aligned}
+\]</span></p>
+<p>负号结果的概率为 <span class="math inline">\(P_-(t)=1-P_+(t)\)</span>。在 <span class="math inline">\(t=0\)</span> 时，初态就是 <span class="math inline">\(|+\rangle\)</span>，所以 <span class="math inline">\(P_+=1\)</span>。当等待到 <span class="math inline">\(t=\pi\hbar/\Delta E\)</span> 时，<span class="math inline">\(\chi=\pi\)</span>，态变为 <span class="math inline">\(|-\rangle\)</span>，所以 <span class="math inline">\(P_+=0\)</span>、<span class="math inline">\(P_-=1\)</span>。这两个时刻若改测0、1，结果仍然各半。可见，“0、1概率没有变化”不等于“所有测量都看不出变化”。</p>
+<p>第七节将用分析脉冲实现这里的测量，把相位差转换成0、1的读出概率差。<strong>自由演化保持能量基底中的占据概率，却可以改变叠加态的相对相位，从而改变其他固定测量基中的结果概率。</strong></p>
+<p>仅仅等待不能把 <span class="math inline">\(|0\rangle\)</span> 翻转为 <span class="math inline">\(|1\rangle\)</span>，但等待可以改变叠加态的相对相位。要把这两种变化区分开，先需要一幅同时记录概率分配与相对相位的图；随后再研究怎样用驱动改变这幅图上的状态。</p>
+</section>
+</section>
+<section id="l03-bloch-sphere" class="level2">
+<h2 class="anchored" data-anchor-id="l03-bloch-sphere">5. 布洛赫球：怎样把量子态及其变化画出来？</h2>
+<p>第四节中，从等权叠加态出发，即使测得0、1的概率一直各半，等待仍会改变相对相位，并改变另一组测量的结果。如果只画两根概率柱，这种变化就看不出来。能否用一幅图同时记录概率分配与相对相位，让状态的变化成为一条看得见的轨迹？</p>
+<section id="l03-bloch-coordinates" class="level3">
+<h3 class="anchored" data-anchor-id="l03-bloch-coordinates">5.1 一个量子态，需要哪些信息才能确定？</h3>
+<p>仍采用固定的能量基底 <span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span>，讨论归一化的纯态 <span class="math inline">\(|\psi\rangle=\alpha|0\rangle+\beta|1\rangle\)</span>。两个概率幅都是复数，但描述物理态时不必保留四个独立实数：归一化规定两个概率之和为1，整体相位又不影响测量结果。具体地，将 <span class="math inline">\(\alpha\)</span>、<span class="math inline">\(\beta\)</span> 分别写成模与相位因子的乘积，再提取共同相位，就可以用下面的形式表示同一个物理态：</p>
+<p><span class="math display">\[
+|\psi\rangle=\sqrt{P_0}|0\rangle+
+e^{i\varphi}\sqrt{1-P_0}|1\rangle.
+\]</span></p>
+<p>这里 <span class="math inline">\(P_0=|\alpha|^2\)</span> 是测得0的概率，<span class="math inline">\(P_1=1-P_0\)</span> 是测得1的概率；<span class="math inline">\(\varphi\)</span> 是 <span class="math inline">\(|1\rangle\)</span> 分量相对于 <span class="math inline">\(|0\rangle\)</span> 分量的相位。因此，两分量都存在时，<strong>一个概率与一个相对相位就足以确定这个纯态</strong>。只有一个分量时，相位全部成为整体相位，状态就是相应的 <span class="math inline">\(|0\rangle\)</span> 或 <span class="math inline">\(|1\rangle\)</span>。</p>
+<p>球面上的位置也可以用两个角来确定。取半径为1的球，约定北极表示 <span class="math inline">\(|0\rangle\)</span>，南极表示 <span class="math inline">\(|1\rangle\)</span>，赤道表示两种结果概率各半。从正 <span class="math inline">\(z\)</span> 轴向下量到该点方向的角称为<strong>极角</strong>，记为 <span class="math inline">\(\theta\)</span>，范围为0到 <span class="math inline">\(\pi\)</span>；<strong>方位角</strong>用相对相位 <span class="math inline">\(\varphi\)</span> 表示，从正 <span class="math inline">\(x\)</span> 轴朝正 <span class="math inline">\(y\)</span> 轴量起。相差 <span class="math inline">\(2\pi\)</span> 的方位角对应同一方向。这是一张量子态的坐标图：高度记录概率分配，横向方向记录相对相位。</p>
+<p>下图把两个角与状态、概率联动起来。先固定方位角，只改变极角，观察两种概率怎样变化；再固定极角，改变方位角，观察概率条与球面点各自怎样变化。</p>
+<div id="fig-l03-bloch-state" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-bloch-state-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-bloch-state-lab" data-external="1" src="assets/lecture03/bloch-state.html" title="布洛赫球的极角、方位角与量子态和测量概率" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-bloch-state-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.6: 纯态与布洛赫球面点的对应。极角决定0、1的概率分配，方位角记录相对相位。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/bloch-state.html" target="_blank" rel="noopener">单独打开计算图</a>。
+</p>
+<p>下面推导这套对应关系。为了让高度直接反映两个结果的偏向程度，将球面点的竖直坐标定义为</p>
+<p><span class="math display">\[
+z=P_0-P_1.
+\]</span></p>
+<p>在单位球上，极角与高度满足 <span class="math inline">\(z=\cos\theta\)</span>；再结合 <span class="math inline">\(P_0+P_1=1\)</span>，得到</p>
+<p><span class="math display">\[
+P_0=\frac{1+\cos\theta}{2}=\cos^2\frac{\theta}{2},
+\qquad
+P_1=\frac{1-\cos\theta}{2}=\sin^2\frac{\theta}{2}.
+\]</span></p>
+<p>半角由这个坐标约定与三角恒等式产生：当极角从0增加到 <span class="math inline">\(\pi\)</span> 时，概率恰好从确定测得0过渡到确定测得1。再用相对相位 <span class="math inline">\(\varphi\)</span> 作为方位角，于是</p>
+<p><span class="math display">\[
+|\psi\rangle=
+\cos\frac{\theta}{2}|0\rangle+
+e^{i\varphi}\sin\frac{\theta}{2}|1\rangle
+\]</span></p>
+<p>就与球面上的一点对应起来，其坐标为</p>
+<p><span class="math display">\[
+(x,y,z)=
+(\sin\theta\cos\varphi,\,
+\sin\theta\sin\varphi,\,
+\cos\theta).
+\]</span></p>
+<p>这称为<strong>布洛赫球表示</strong>，从球心指向该点的箭头称为布洛赫向量。它的方向记录量子态的概率分配和相对相位。对这里的纯态，<span class="math inline">\(x^2+y^2+z^2=1\)</span>，箭头末端位于球面；同一物理态的不同整体相位对应同一个点。在两极，<span class="math inline">\(x=y=0\)</span>，所有方位角汇聚到同一点，正好对应只有一个分量时无需相对相位的情形。</p>
+</section>
+<section id="l03-bloch-reading" class="level3">
+<h3 class="anchored" data-anchor-id="l03-bloch-reading">5.2 怎样从布洛赫球上读出概率和相位？</h3>
+<p>先读球面点的高度。北极的 <span class="math inline">\(\theta=0\)</span>，所以 <span class="math inline">\(P_0=1\)</span>、<span class="math inline">\(P_1=0\)</span>；赤道上 <span class="math inline">\(\theta=\pi/2\)</span>，两种结果各占一半；南极的 <span class="math inline">\(\theta=\pi\)</span>，则有 <span class="math inline">\(P_0=0\)</span>、<span class="math inline">\(P_1=1\)</span>。例如，图的默认极角为 <span class="math inline">\(\pi/3\)</span>，因此 <span class="math inline">\(P_0=3/4\)</span>、<span class="math inline">\(P_1=1/4\)</span>。改变方位角后，这两个概率保持不变，因为同一条纬线上的点具有相同的高度。</p>
+<p>再看赤道上的不同方向。此时两个概率幅的大小都为 <span class="math inline">\(1/\sqrt2\)</span>，方位角决定两分量怎样叠加：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">方位角 <span class="math inline">\(\varphi\)</span></th>
+<th style="text-align: left;">量子态</th>
+<th style="text-align: left;">球面方向</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((|0\rangle+|1\rangle)/\sqrt2=|+\rangle\)</span></td>
+<td style="text-align: left;">正 <span class="math inline">\(x\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\pi/2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((|0\rangle+i|1\rangle)/\sqrt2\)</span></td>
+<td style="text-align: left;">正 <span class="math inline">\(y\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\pi\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((|0\rangle-|1\rangle)/\sqrt2=|-\rangle\)</span></td>
+<td style="text-align: left;">负 <span class="math inline">\(x\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(3\pi/2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((|0\rangle-i|1\rangle)/\sqrt2\)</span></td>
+<td style="text-align: left;">负 <span class="math inline">\(y\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>它们在0、1测量中都给出各半的概率，却是四个不同的状态。布洛赫球因此把前面反复遇到的区别直接画了出来：<strong>高度记录概率之差，同一纬线上的方向记录相对相位。</strong></p>
+<p>这些不同方向怎样反映在测量结果中？沿用第四节的固定测量基底 <span class="math inline">\(\{|+\rangle,|-\rangle\}\)</span>。对于刚才的一般状态，得到正号结果的概率幅为</p>
+<p><span class="math display">\[
+\langle+|\psi\rangle=
+\frac{\cos(\theta/2)+e^{i\varphi}\sin(\theta/2)}{\sqrt2}.
+\]</span></p>
+<p>取模平方时，两个模平方项之和为1，交叉项为 <span class="math inline">\(2\cos(\theta/2)\sin(\theta/2)\cos\varphi=\sin\theta\cos\varphi\)</span>，所以</p>
+<p><span class="math display">\[
+P_+=\frac{1+\sin\theta\cos\varphi}{2}
+=\frac{1+x}{2},\qquad
+P_-=\frac{1-x}{2}.
+\]</span></p>
+<p>这样，0、1测量的概率由竖直坐标 <span class="math inline">\(z\)</span> 决定，而正、负叠加态测量的概率由横坐标 <span class="math inline">\(x\)</span> 决定。例如，正 <span class="math inline">\(x\)</span> 方向的 <span class="math inline">\(|+\rangle\)</span> 给出 <span class="math inline">\(P_+=1\)</span>，负 <span class="math inline">\(x\)</span> 方向的 <span class="math inline">\(|-\rangle\)</span> 给出 <span class="math inline">\(P_+=0\)</span>；两者的 <span class="math inline">\(P_0\)</span> 却同为 <span class="math inline">\(1/2\)</span>。改变测量基底，就能读出仅比较高度时看不到的状态差别。</p>
+</section>
+<section id="l03-bloch-evolution" class="level3">
+<h3 class="anchored" data-anchor-id="l03-bloch-evolution">5.3 自由演化在布洛赫球上是什么轨迹？</h3>
+<p>现在把第四节已求出的自由演化翻译成球面运动。设初态的两个角为 <span class="math inline">\(\theta_0\)</span>、<span class="math inline">\(\varphi_0\)</span>，沿用能量差 <span class="math inline">\(\Delta E=E_1-E_0&gt;0\)</span>。在固定的能量基底中，省略整体相位后的状态为</p>
+<p><span class="math display">\[
+|\widetilde\psi(t)\rangle=
+\cos\frac{\theta_0}{2}|0\rangle+
+e^{i(\varphi_0-\Delta E\,t/\hbar)}
+\sin\frac{\theta_0}{2}|1\rangle.
+\]</span></p>
+<p>与球面表示逐项比较，得到</p>
+<p><span class="math display">\[
+\theta(t)=\theta_0,\qquad
+\varphi(t)=\varphi_0-\frac{\Delta E}{\hbar}t.
+\]</span></p>
+<p>极角保持不变，因此点停留在同一条纬线上；方位角随时间减小，因此点绕 <span class="math inline">\(z\)</span> 轴转动。从正 <span class="math inline">\(z\)</span> 轴一端朝球心看，转动方向是顺时针。这里的坐标轴始终由同一组基底与相位约定确定。对于两分量都存在的初态，相对相位减少 <span class="math inline">\(2\pi\)</span> 后回到同一物理态，所需时间为</p>
+<p><span class="math display">\[
+T=\frac{2\pi\hbar}{\Delta E}.
+\]</span></p>
+<p>取具体初态 <span class="math inline">\(|+\rangle\)</span>，它位于赤道的正 <span class="math inline">\(x\)</span> 方向。用刚才的演化式依次计算四分之一周期的几个时刻，得到：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">等待时间</th>
+<th style="text-align: left;">省略整体相位后的状态</th>
+<th style="text-align: left;">球面方向</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((|0\rangle+|1\rangle)/\sqrt2\)</span></td>
+<td style="text-align: left;">正 <span class="math inline">\(x\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(T/4\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((|0\rangle-i|1\rangle)/\sqrt2\)</span></td>
+<td style="text-align: left;">负 <span class="math inline">\(y\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(T/2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((|0\rangle-|1\rangle)/\sqrt2\)</span></td>
+<td style="text-align: left;">负 <span class="math inline">\(x\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(3T/4\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((|0\rangle+i|1\rangle)/\sqrt2\)</span></td>
+<td style="text-align: left;">正 <span class="math inline">\(y\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(T\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((|0\rangle+|1\rangle)/\sqrt2\)</span></td>
+<td style="text-align: left;">正 <span class="math inline">\(x\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>整段演化中，<span class="math inline">\(P_0=P_1=1/2\)</span>，而 <span class="math inline">\(x(t)=\cos(2\pi t/T)\)</span>，因此</p>
+<p><span class="math display">\[
+P_+(t)=\frac{1+\cos(2\pi t/T)}{2}.
+\]</span></p>
+<p>这正是第四节得到的概率变化，现在它与球面点沿赤道转动对应起来。下图将同一时刻的球面位置和概率曲线对齐；曲线表示分别等待不同时间后再测量的预测。默认显示 <span class="math inline">\(t=T/4\)</span>，此时球面点已从正 <span class="math inline">\(x\)</span> 方向走到负 <span class="math inline">\(y\)</span> 方向，三种所显示的概率都为 <span class="math inline">\(1/2\)</span>。</p>
+<div id="fig-l03-bloch-free" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-bloch-free-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-bloch-free-lab" data-external="1" src="assets/lecture03/bloch-free.html" title="自由演化的布洛赫球轨迹与两组测量概率" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-bloch-free-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.7: 自由演化的球面轨迹与测量概率。圆点标出当前状态，已走过的轨迹加深显示。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/bloch-free.html" target="_blank" rel="noopener">单独打开计算图</a>。
+</p>
+<p>再将初态切换为 <span class="math inline">\(|0\rangle\)</span>。自由演化只给它乘上整体相位，所以球面点始终停在北极，<span class="math inline">\(P_0=1\)</span>、<span class="math inline">\(P_1=0\)</span>；由于 <span class="math inline">\(x=0\)</span>，在正、负叠加态测量中则始终各半。一般叠加态沿纬线运动，两个能量态位于不动的两极，这两种情况来自同一个自由演化规律。</p>
+<p>回到控制目标：若要从 <span class="math inline">\(|0\rangle\)</span> 变成 <span class="math inline">\(|1\rangle\)</span>，球面点就要从北极到达南极，概率分配也必须改变。<strong>自由演化保持纬度，而翻转需要改变纬度。</strong>下一节将先观察驱动下概率怎样变化，再把激光或微波的作用写进演化方程，求出怎样选择驱动频率与脉冲时长，完成所需的状态转换。</p>
+</section>
+</section>
+<section id="l03-resonant-drive" class="level2">
+<h2 class="anchored" data-anchor-id="l03-resonant-drive">6. 共振驱动：怎样用脉冲控制状态转换？</h2>
+<p>前两节说明，仅仅等待不能完成从0到1的翻转；在球面上，这个目标要求状态从北极到达南极。现在把任务说得更具体：每次都从 <span class="math inline">\(|0\rangle\)</span> 出发，施加一段激光或微波，再关闭驱动。驱动应选什么频率？持续多久，才能在最后测量时得到1？本节用一个理想的两态模型，算出这两个问题的答案。</p>
+<section id="l03-rabi-observation" class="level3">
+<h3 class="anchored" data-anchor-id="l03-rabi-observation">6.1 改变脉冲时长，会看到什么？</h3>
+<p>先明确怎样比较。每次重新准备 <span class="math inline">\(|0\rangle\)</span>，施加一段振幅不变、频率相同的驱动，只改变关断时刻。选定一个脉冲持续时间后，重复这组操作和测量，用得到1的频率估计 <span class="math inline">\(P_1\)</span>；再更换持续时间。这样得到的曲线记录的是不同实验批次的统计。</p>
+<p>激光和微波的场都随时间振荡。用 <span class="math inline">\(\omega_{\mathrm d}\)</span> 表示外加场的<strong>驱动角频率</strong>，用正的参数 <span class="math inline">\(\Omega\)</span> 表示场与两态之间的<strong>耦合强度</strong>。改变场的振幅可以改变 <span class="math inline">\(\Omega\)</span>，不必同时改变 <span class="math inline">\(\omega_{\mathrm d}\)</span>；场强如何换算成 <span class="math inline">\(\Omega\)</span> 还取决于所选跃迁。两者都以 <span class="math inline">\(\mathrm{rad/s}\)</span> 为单位，但分别描述场振荡的快慢和作用的强弱。</p>
+<p>两态自身的跃迁角频率由能量差决定：</p>
+<p><span class="math display">\[
+\omega_0=\frac{E_1-E_0}{\hbar}=2\pi\nu_{01}.
+\]</span></p>
+<p>其中 <span class="math inline">\(\nu_{01}\)</span> 是能级图中以Hz表示的跃迁频率。先把驱动调到 <span class="math inline">\(\omega_{\mathrm d}=\omega_0\)</span>，这一频率匹配称为<strong>共振</strong>。驱动从 <span class="math inline">\(t=0\)</span> 开始，持续到 <span class="math inline">\(t=\tau\)</span>；<span class="math inline">\(\tau\)</span> 是<strong>脉冲持续时间</strong>。打开期间保持振幅包络不变，称为矩形脉冲，包络内的场仍在振荡。本节保持驱动初相位为零，沿用第四节忽略环境影响和更高能级的两态模型。</p>
+<p>如果照射得更久，测得1的概率是否会一直增加？先看弱驱动下的模型预测，此时耦合强度远小于两态的跃迁角频率。图中固定 <span class="math inline">\(\Omega/(2\pi)=5\,\mathrm{MHz}\)</span>：脉冲持续50 ns时，两种结果各半；到100 ns时，确定得到1；继续到200 ns，反而确定回到0。<strong>持续驱动下，两态的占据概率会往复振荡，而不是一直向1累积。</strong>这种现象称为拉比振荡。</p>
+<div id="fig-l03-rabi-observation" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-rabi-observation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-rabi-observation-lab" data-external="1" src="assets/lecture03/rabi-pulse-lab.html?mode=observation" title="共振模型中测得1的概率随脉冲时长的变化" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-rabi-observation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.8: 共振下的拉比振荡（模型预测）。每个横坐标对应一种脉冲时长；圆点标出该时长下的读出概率。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/rabi-pulse-lab.html?mode=observation" target="_blank" rel="noopener">单独打开计算图</a>。
+</p>
+<p>图提出了两个问题：驱动为什么既能把状态送向1，又能把它送回来？怎样从驱动强度计算合适的关断时刻？下面建立耦合方程，解释这条曲线，再把它与球面轨迹对应起来。</p>
+</section>
+<section id="l03-oscillating-drive" class="level3">
+<h3 class="anchored" data-anchor-id="l03-oscillating-drive">6.2 怎样把驱动写入演化方程？</h3>
+<p><span id="l03-need-coupling"></span></p>
+<p>先回到第四节的自由演化方程。无驱动时，<span class="math inline">\(\beta(t)\)</span> 只是初值 <span class="math inline">\(\beta(0)\)</span> 乘以一个相位因子；如果一开始没有 <span class="math inline">\(|1\rangle\)</span> 分量，之后这个分量也一直为零。要从 <span class="math inline">\(|0\rangle\)</span> 出发产生 <span class="math inline">\(|1\rangle\)</span> 分量，所加作用就不能只是让两个分量各自积累相位，还必须让它们在演化方程中发生联系。</p>
+<p>将外加控制对哈密顿量的贡献记为 <span class="math inline">\(H_{\mathrm c}(t)\)</span>，系统的总哈密顿量写成</p>
+<p><span class="math display">\[
+H(t)=H_0+H_{\mathrm c}(t).
+\]</span></p>
+<p>为看清这种联系在数学上是什么样，先取一个最简单的实耦合示例：</p>
+<p><span class="math display">\[
+H_{\mathrm c}(t)=
+\begin{pmatrix}
+0&amp;g(t)\\
+g(t)&amp;0
+\end{pmatrix}.
+\]</span></p>
+<p>这里 <span class="math inline">\(g(t)\)</span> 是实数函数，描述这个示例中的耦合作用强度，单位是能量。两个非零元素位于矩阵的非对角位置。将总哈密顿量与状态列向量相乘，再代入薛定谔方程，得到</p>
+<p><span class="math display">\[
+\begin{aligned}
+i\hbar\frac{\mathrm d\alpha}{\mathrm dt}
+&amp;=E_0\alpha+g(t)\beta,\\
+i\hbar\frac{\mathrm d\beta}{\mathrm dt}
+&amp;=g(t)\alpha+E_1\beta.
+\end{aligned}
+\]</span></p>
+<p>现在，一个概率幅的变化会受到另一个概率幅影响，这就是这里所说的<strong>两态耦合</strong>。例如，初态为 <span class="math inline">\(|0\rangle\)</span> 时，<span class="math inline">\(\alpha(0)=1\)</span>、<span class="math inline">\(\beta(0)=0\)</span>；若此时 <span class="math inline">\(g(0)\ne0\)</span>，第二式给出 <span class="math inline">\(\mathrm d\beta/\mathrm dt|_{t=0}=-ig(0)/\hbar\)</span>，不再为零。因此，控制可以使原本为零的 <span class="math inline">\(|1\rangle\)</span> 概率幅开始增长。这里判断的是概率幅的变化，不是说概率 <span class="math inline">\(|\beta|^2\)</span> 会在初始时刻按同样的线性速率增长。</p>
+<p>有耦合并不意味着一定完成翻转。最终状态还取决于 <span class="math inline">\(g(t)\)</span> 如何随时间变化，以及作用持续多久，必须继续求解才能知道。<strong>在固定的能量基底中，要改变两态的占据概率，需要能将两个概率幅联系起来的作用；非对角耦合项提供了这样的可能。</strong></p>
+<p>激光和微波的电磁场随时间振荡。对于能够被这个场连接的两个态，在驱动打开期间，取</p>
+<p><span class="math display">\[
+g(t)=\hbar\Omega\cos(\omega_{\mathrm d}t).
+\]</span></p>
+<p>这样，6.1的耦合强度 <span class="math inline">\(\Omega\)</span> 进入能量矩阵：<span class="math inline">\(\hbar\Omega\)</span> 是非对角元的振幅，<span class="math inline">\(\omega_{\mathrm d}\)</span> 决定它振荡的快慢。矩形包络使这个振幅在 <span class="math inline">\(0\leq t\leq\tau\)</span> 内保持不变；关闭后 <span class="math inline">\(g(t)=0\)</span>，开关边沿理想化为瞬时变化。</p>
+<p><strong>驱动频率、耦合强度和作用时长现在都进入了同一个模型。</strong>要解释共振时为什么出现前图中的振荡，接下来需要分离系统已有的自由演化与驱动引起的变化。</p>
+</section>
+<section id="l03-resonance-rwa" class="level3">
+<h3 class="anchored" data-anchor-id="l03-resonance-rwa">6.3 为什么驱动频率要接近跃迁频率？</h3>
+<p>直接求解6.2节的耦合方程时，概率幅中混合了两种变化：即使没有驱动也会积累的自由演化相位，以及驱动新引起的变化。自由演化已经求过，因此可以先把这部分写出来，定义两个新的系数 <span class="math inline">\(a(t)\)</span>、<span class="math inline">\(b(t)\)</span>：</p>
+<p><span class="math display">\[
+\begin{aligned}
+\alpha(t)&amp;=a(t)e^{-iE_0t/\hbar},\\
+\beta(t)&amp;=b(t)e^{-iE_1t/\hbar}.
+\end{aligned}
+\]</span></p>
+<p>将状态改用这两个系数表示，记为</p>
+<p><span class="math display">\[
+|\psi_{\mathrm I}(t)\rangle=a(t)|0\rangle+b(t)|1\rangle.
+\]</span></p>
+<p>这种分离自由演化的表示称为<strong>相互作用绘景</strong>，下标I标记这一表示。没有驱动时，<span class="math inline">\(a\)</span>、<span class="math inline">\(b\)</span> 保持不变；有驱动时，它们记录驱动引起的变化。由于分离出的相位因子的模为1，能量基底中的概率仍为 <span class="math inline">\(P_0=|a|^2\)</span>、<span class="math inline">\(P_1=|b|^2\)</span>。</p>
+<p>这一步在布洛赫球上是什么意思？第五节使用固定坐标，自由演化使方位角以速率 <span class="math inline">\(-\omega_0\)</span> 变化。现在让横向坐标轴也以这个速率绕 <span class="math inline">\(z\)</span> 轴转动，并在 <span class="math inline">\(t=0\)</span> 与原坐标轴重合。自由演化的点与坐标轴一起转动，相对于新坐标便保持不动。由上面两个概率幅的关系可知，固定坐标中的相对相位比 <span class="math inline">\(b\)</span> 相对于 <span class="math inline">\(a\)</span> 的相位少 <span class="math inline">\(\omega_0t\)</span>，因此两套坐标满足</p>
+<p><span class="math display">\[
+\theta_{\mathrm I}(t)=\theta(t),\qquad
+\varphi_{\mathrm I}(t)=\varphi(t)+\omega_0t.
+\]</span></p>
+<p>下标I同样用于新坐标中的角度及坐标分量。两套坐标的 <span class="math inline">\(z\)</span> 轴相同，点的高度与0、1概率相同，横向方向则相差 <span class="math inline">\(\omega_0t\)</span>。<strong>扣除自由演化相位，几何上就是改用随自由演化转动的坐标；我们仍在描述同一个物理过程。</strong></p>
+<p>以初态 <span class="math inline">\(|+\rangle=(|0\rangle+|1\rangle)/\sqrt2\)</span> 的自由演化为例。固定坐标中，它沿赤道从正 <span class="math inline">\(x\)</span> 方向走向负 <span class="math inline">\(y\)</span> 方向；在新坐标中，<span class="math inline">\(a=b=1/\sqrt2\)</span> 始终不变，所以它一直位于正 <span class="math inline">\(x_{\mathrm I}\)</span> 方向。下图将这两种表示并列，时间单位取自由演化周期 <span class="math inline">\(T_0=2\pi/\omega_0\)</span>。</p>
+<div id="fig-l03-bloch-frames" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-bloch-frames-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-bloch-frames-lab" data-external="1" src="assets/lecture03/bloch-frames.html" title="同一自由演化在固定坐标和相互作用绘景中的布洛赫球表示" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-bloch-frames-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.9: 同一自由演化在两套坐标中的表示。初态为正号等权叠加态；右图用随自由演化转动的坐标读出状态。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/bloch-frames.html" target="_blank" rel="noopener">单独打开计算图</a>。
+</p>
+<p>有了这套表示，接下来只需求出驱动怎样改变 <span class="math inline">\(a\)</span>、<span class="math inline">\(b\)</span>。需要恢复固定坐标中的状态时，再放回相位因子：</p>
+<p><span class="math display">\[
+|\psi(t)\rangle=e^{-iE_0t/\hbar}
+\left[a(t)|0\rangle+e^{-i\omega_0t}b(t)|1\rangle\right].
+\]</span></p>
+<p>这里最前面的因子是整体相位，括号内的因子则决定两套坐标之间的方位角差。</p>
+<p>看第二个概率幅的方程如何变化。对 <span class="math inline">\(\beta=b e^{-iE_1t/\hbar}\)</span> 求导，代入 <span class="math inline">\(i\hbar\dot\beta=g\alpha+E_1\beta\)</span>，得到</p>
+<p><span class="math display">\[
+\begin{aligned}
+i\hbar\dot b+E_1b
+&amp;=g(t)a e^{i(E_1-E_0)t/\hbar}+E_1b,\\
+i\dot b&amp;=\frac{g(t)}{\hbar}a e^{i\omega_0t}.
+\end{aligned}
+\]</span></p>
+<p>上面的点表示对时间求导。自由演化产生的 <span class="math inline">\(E_1b\)</span> 在等式两边相消；同样处理第一个方程，得到 <span class="math inline">\(i\dot a=[g(t)/\hbar]b e^{-i\omega_0t}\)</span>。再利用</p>
+<p><span class="math display">\[
+\cos(\omega_{\mathrm d}t)
+=\frac{e^{i\omega_{\mathrm d}t}+e^{-i\omega_{\mathrm d}t}}{2},
+\]</span></p>
+<p>两个方程成为</p>
+<p><span class="math display">\[
+\begin{aligned}
+i\dot a&amp;=\frac{\Omega}{2}
+\left[e^{-i(\omega_0-\omega_{\mathrm d})t}
++e^{-i(\omega_0+\omega_{\mathrm d})t}\right]b,\\
+i\dot b&amp;=\frac{\Omega}{2}
+\left[e^{i(\omega_0-\omega_{\mathrm d})t}
++e^{i(\omega_0+\omega_{\mathrm d})t}\right]a.
+\end{aligned}
+\]</span></p>
+<p>频率匹配的作用现在出现了：每个方程都含有一个按<strong>频率差</strong>变化的相位因子，另一个按<strong>频率和</strong>变化。当 <span class="math inline">\(\omega_{\mathrm d}\)</span> 接近 <span class="math inline">\(\omega_0\)</span> 时，前者变化慢，后者则以接近 <span class="math inline">\(2\omega_0\)</span> 的角频率快速变化。</p>
+<p>为什么这一区别有用？复数 <span class="math inline">\(e^{i\theta}\)</span> 可以画成复平面上长度为1、方向角为 <span class="math inline">\(\theta\)</span> 的箭头。求某段时间内的概率幅变化，需要把各个短时间内的变化相加；方向近似相同的贡献可以积累，快速转动的贡献则会大部分互相抵消。但这要求相位因子之外的系数 <span class="math inline">\(a\)</span>、<span class="math inline">\(b\)</span> 在一个快振荡周期内变化很小。我们因此限制在弱耦合、接近共振的范围：</p>
+<p><span class="math display">\[
+\Omega\ll\omega_0,\qquad
+|\omega_{\mathrm d}-\omega_0|\ll\omega_0.
+\]</span></p>
+<p>在跨越许多快振荡周期、关注较慢的状态转换时，可以近似忽略频率和项的快速贡献，保留频率差项。这叫作<strong>旋转波近似</strong>，英文缩写为RWA。它保留慢演化的主要贡献，略去快振荡带来的小修正。</p>
+<p>特别地，当 <span class="math inline">\(\omega_{\mathrm d}=\omega_0\)</span> 时，频率差为零，留下的相位因子不再随时间转动，这正是6.1采用的<strong>共振条件</strong>。下面的图在这一条件下比较两个相位因子，让我们看清“同向积累”与“转动抵消”的区别。</p>
+<div id="fig-l03-rwa-phase" class="quarto-float quarto-figure quarto-figure-center anchored" alt="共振时慢相位的八个箭头同向，快相位的八个箭头均匀转过一圈；首尾相接分别累加和闭合。">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-rwa-phase-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="assets/lecture03/rwa-phase-comparison.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="图&nbsp;3.10: 共振时的相位取样与相加。在同一个快振荡周期内等间隔取样8次，差频项同向累加，和频项的等权向量和闭合。"><img src="assets/lecture03/rwa-phase-comparison.png" class="img-fluid figure-img" alt="共振时慢相位的八个箭头同向，快相位的八个箭头均匀转过一圈；首尾相接分别累加和闭合。"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-rwa-phase-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.10: 共振时的相位取样与相加。在同一个快振荡周期内等间隔取样8次，差频项同向累加，和频项的等权向量和闭合。
+</figcaption>
+</figure>
+</div>
+<p>因此，选择接近跃迁频率的驱动，是为了让扣除自由演化后的一部分耦合贡献能够持续积累。<strong>近共振与弱耦合使我们能够分开慢变化和快变化；共振时，旋转波近似进一步把振荡驱动化为常系数的两态耦合。</strong>下面就在这一条件下求解。</p>
+</section>
+<section id="l03-rabi-solution" class="level3">
+<h3 class="anchored" data-anchor-id="l03-rabi-solution">6.4 共振时，两个概率幅怎样变化？</h3>
+<p>令 <span class="math inline">\(\omega_{\mathrm d}=\omega_0\)</span>，并按旋转波近似去掉快速项，得到</p>
+<p><span class="math display">\[
+i\dot a=\frac{\Omega}{2}b,\qquad
+i\dot b=\frac{\Omega}{2}a.
+\]</span></p>
+<p>系数中的 <span class="math inline">\(1/2\)</span> 来自上一小节对余弦的分解。每次从 <span class="math inline">\(|0\rangle\)</span> 出发，意味着 <span class="math inline">\(a(0)=1\)</span>、<span class="math inline">\(b(0)=0\)</span>。下面用这组初始条件求解。</p>
+<p>要解开两个相互联系的一阶方程，可以先对第一式再求一次导数，并用第二式消去 <span class="math inline">\(\dot b\)</span>：</p>
+<p><span class="math display">\[
+\begin{aligned}
+\dot a&amp;=-i\frac{\Omega}{2}b,\\
+\ddot a&amp;=-i\frac{\Omega}{2}\dot b
+=-\frac{\Omega^2}{4}a.
+\end{aligned}
+\]</span></p>
+<p>这与大学物理中简谐振动的方程具有相同形式，只是这里变化的是概率幅，而非物体的位置。由 <span class="math inline">\(a(0)=1\)</span> 和 <span class="math inline">\(\dot a(0)=0\)</span>，得到 <span class="math inline">\(a(t)=\cos(\Omega t/2)\)</span>；再由 <span class="math inline">\(b=2i\dot a/\Omega\)</span> 求出另一个系数：</p>
+<p><span class="math display">\[
+\begin{aligned}
+a(t)&amp;=\cos\frac{\Omega t}{2},\\
+b(t)&amp;=-i\sin\frac{\Omega t}{2}.
+\end{aligned}
+\]</span></p>
+<p>这里的 <span class="math inline">\(-i\)</span> 不能省略，它决定两个分量的相对相位。将两式代回原来的两个一阶方程，可同时满足它们；在 <span class="math inline">\(t=0\)</span> 时也回到给定初态。由Born规则，得到</p>
+<p><span class="math display">\[
+\begin{aligned}
+P_0(t)&amp;=\cos^2\frac{\Omega t}{2},\\
+P_1(t)&amp;=\sin^2\frac{\Omega t}{2}.
+\end{aligned}
+\]</span></p>
+<p>两概率之和始终为1。当 <span class="math inline">\(t=0\)</span> 时 <span class="math inline">\(P_1=0\)</span>；固定作用时间，让驱动强度趋于零，也有 <span class="math inline">\(P_1\to0\)</span>，与上一节“没有驱动就不能从0变成1”的结论一致。随着作用时间增加，<span class="math inline">\(P_1\)</span> 会先上升、再下降，周期为 <span class="math inline">\(2\pi/\Omega\)</span>。这就得到了6.1先展示的<strong>拉比振荡</strong>；在本节的共振模型和符号约定下，<span class="math inline">\(\Omega\)</span> 就是拉比角频率。它通常远小于场本身的振荡角频率 <span class="math inline">\(\omega_{\mathrm d}\)</span>。</p>
+<p>因此，6.1中50、100、200 ns的三种结果来自同一条概率曲线，关断时刻决定我们读出曲线上的哪一点。</p>
+<p>这条概率曲线对应怎样的球面运动？先把第五节的坐标关系写成便于代入概率幅的形式：</p>
+<p><span class="math display">\[
+x_{\mathrm I}=2\operatorname{Re}(a^*b),\qquad
+y_{\mathrm I}=2\operatorname{Im}(a^*b),\qquad
+z_{\mathrm I}=|a|^2-|b|^2.
+\]</span></p>
+<p>其中星号表示复共轭，<span class="math inline">\(\operatorname{Re}\)</span>、<span class="math inline">\(\operatorname{Im}\)</span> 分别取实部与虚部。这些关系来自两角表示中的 <span class="math inline">\(a^*b=\tfrac12\sin\theta_{\mathrm I}e^{i\varphi_{\mathrm I}}\)</span>：分别取实部、虚部，就回到球面点的横向坐标。代入刚才求出的 <span class="math inline">\(a\)</span>、<span class="math inline">\(b\)</span>，有 <span class="math inline">\(a^*b=-\tfrac{i}{2}\sin\Omega t\)</span>，从而</p>
+<p><span class="math display">\[
+\mathbf r_{\mathrm I}(t)=
+\bigl(0,-\sin\Omega t,\cos\Omega t\bigr).
+\]</span></p>
+<p>因此，点始终在 <span class="math inline">\(y_{\mathrm I}z_{\mathrm I}\)</span> 平面内，从北极出发，先经过负 <span class="math inline">\(y_{\mathrm I}\)</span> 方向，再到南极；它绕正 <span class="math inline">\(x_{\mathrm I}\)</span> 轴按右手方向转动。这里的旋转角记为 <span class="math inline">\(\gamma(t)=\Omega t\)</span>，可以连续增加。它与第五节从北极量起、范围为0到 <span class="math inline">\(\pi\)</span> 的极角 <span class="math inline">\(\theta\)</span> 不同：转过南极后，旋转角继续增加，极角则开始减小。</p>
+<p>球面高度与测量概率之间仍满足 <span class="math inline">\(P_1=(1-z_{\mathrm I})/2\)</span>。点从北极走到南极时，<span class="math inline">\(P_1\)</span> 从0升到1；继续转回北极时，<span class="math inline">\(P_1\)</span> 又降到0。下图让同一个作用时间同时确定球面点与曲线上的标记。取 <span class="math inline">\(\Omega/(2\pi)=5\,\mathrm{MHz}\)</span>，一次完整旋转用时200 ns；拖动时间，比较四分之一圈、半圈和一圈的位置。</p>
+<div id="fig-l03-rabi-bloch" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-rabi-bloch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-rabi-bloch-lab" data-external="1" src="assets/lecture03/rabi-pulse-lab.html?mode=continuous" title="共振驱动的布洛赫球旋转与拉比振荡概率联动图" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-rabi-bloch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.11: 共振驱动下的球面轨迹与测得1的概率。球面采用相互作用绘景，旋转角为驱动强度与作用时间的乘积。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/rabi-pulse-lab.html?mode=continuous" target="_blank" rel="noopener">单独打开计算图</a>。
+</p>
+<p><strong>拉比振荡与球面旋转是同一演化的两种表达：前者显示测量概率，后者同时记录概率分配和相对相位。</strong>驱动越久，点转过的角度越大，却不会一直靠近南极。要得到目标状态，就需要选择恰当的关断时刻。</p>
+</section>
+<section id="l03-pulse-duration" class="level3">
+<h3 class="anchored" data-anchor-id="l03-pulse-duration">6.5 什么时候关闭脉冲？</h3>
+<p>要从 <span class="math inline">\(|0\rangle\)</span> 完全转到 <span class="math inline">\(|1\rangle\)</span>，就要让 <span class="math inline">\(P_1(\tau)=1\)</span>。第一次达到这个条件时，<span class="math inline">\(\Omega\tau/2=\pi/2\)</span>，因此</p>
+<p><span class="math display">\[
+\tau_\pi=\frac{\pi}{\Omega}.
+\]</span></p>
+<p>此时 <span class="math inline">\(a=0\)</span>、<span class="math inline">\(b=-i\)</span>，球面旋转角 <span class="math inline">\(\gamma=\Omega\tau_\pi=\pi\)</span>，点恰好从北极到达南极。恢复自由演化因子后，状态为 <span class="math inline">\(-i e^{-iE_1\tau_\pi/\hbar}|1\rangle\)</span>，与 <span class="math inline">\(|1\rangle\)</span> 只相差整体相位，完成了从0到1的翻转。我们把这一脉冲称为 <strong><span class="math inline">\(\pi\)</span> 脉冲</strong>；名称中的 <span class="math inline">\(\pi\)</span> 就是相互作用绘景中转过半圈的角度。</p>
+<p>如果只作用一半时间，取 <span class="math inline">\(\tau_{\pi/2}=\pi/(2\Omega)\)</span>，就得到 <span class="math inline">\(a=1/\sqrt2\)</span>、<span class="math inline">\(b=-i/\sqrt2\)</span>，两个能量测量结果各占一半。这称为 <strong><span class="math inline">\(\pi/2\)</span> 脉冲</strong>。此时转过四分之一圈，点到达赤道的负 <span class="math inline">\(y_{\mathrm I}\)</span> 方向，对应的状态为</p>
+<p><span class="math display">\[
+|\psi_{\mathrm I}(\tau_{\pi/2})\rangle
+=\frac{|0\rangle-i|1\rangle}{\sqrt2}.
+\]</span></p>
+<p>它与正 <span class="math inline">\(x_{\mathrm I}\)</span> 方向的 <span class="math inline">\((|0\rangle+|1\rangle)/\sqrt2\)</span> 具有相同的高度，却位于赤道的不同位置，因而有不同的相对相位。在原来的固定坐标中，还要计入自由演化：<span class="math inline">\(\varphi=\varphi_{\mathrm I}-\omega_0t\)</span>。驱动期间的完整状态为</p>
+<p><span class="math display">\[
+|\psi(t)\rangle=e^{-iE_0t/\hbar}\left[\cos\frac{\Omega t}{2}|0\rangle-i e^{-i\omega_0t}\sin\frac{\Omega t}{2}|1\rangle\right].
+\]</span></p>
+<p>其中最前面是整体相位，括号内的 <span class="math inline">\(e^{-i\omega_0t}\)</span> 给出从转动坐标恢复到固定坐标时的方位角变化。两套坐标中的点始终等高，因此给出相同的0、1概率。</p>
+<p>用一个具体数值检查这些时间。在上述弱耦合条件下，取 <span class="math inline">\(\Omega/(2\pi)=5\,\mathrm{MHz}\)</span>，也就是概率振荡每秒重复五百万次。于是</p>
+<p><span class="math display">\[
+\begin{aligned}
+\tau_\pi&amp;=\frac{1}{2\times5\times10^6}\,\mathrm{s}
+=100\,\mathrm{ns},\\
+\tau_{\pi/2}&amp;=50\,\mathrm{ns},\\
+\frac{2\pi}{\Omega}&amp;=200\,\mathrm{ns}.
+\end{aligned}
+\]</span></p>
+<p>所以，50 ns时关闭，点到达赤道，两个结果各半；100 ns时关闭，点到达南极，确定得到1；若持续到200 ns，<span class="math inline">\(a=-1\)</span>、<span class="math inline">\(b=0\)</span>，点又回到北极，与 <span class="math inline">\(|0\rangle\)</span> 表示同一个物理态。这最后一种满足 <span class="math inline">\(\Omega\tau=2\pi\)</span> 的脉冲称为 <strong><span class="math inline">\(2\pi\)</span> 脉冲</strong>。球面点转过一整圈，态矢量则多了一个整体负号。</p>
+<p>关闭脉冲后会怎样？此时 <span class="math inline">\(g(t)=0\)</span>，在相互作用绘景中，<span class="math inline">\(a\)</span>、<span class="math inline">\(b\)</span> 及球面点都停在关断时的位置。在固定坐标中，自由演化仍在继续：叠加态沿关断时所在的纬线运动，方位角继续以速率 <span class="math inline">\(-\omega_0\)</span> 变化；两极则保持不动。两种描述都保持球面高度不变，因此0、1概率在关断后保持不变。</p>
+<p>下图在这里再次给出球面与概率曲线，直接比较不同关断时刻。每次从 <span class="math inline">\(|0\rangle\)</span> 开始，保持共振和耦合强度不变，只改变脉冲持续时间。球面显示相互作用绘景中的关断末态；右侧蓝线在关断后保持水平，灰虚线则给出继续驱动的比较。先用三个按钮比较50、100、200 ns，再拖动滑块观察中间值。</p>
+<div id="fig-l03-rabi-pulses" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-rabi-pulses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-rabi-lab" data-external="1" src="assets/lecture03/rabi-pulse-lab.html" title="脉冲关断末态的布洛赫球位置与拉比振荡概率联动图" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-rabi-pulses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.12: 脉冲时长决定球面旋转角与关断末态。左侧采用相互作用绘景；右侧蓝实线表示本次脉冲下的概率，灰虚线表示持续驱动的参考。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/rabi-pulse-lab.html" target="_blank" rel="noopener">单独打开计算图</a>，或使用图内全屏按钮放大。
+</p>
+<p><strong>在理想共振、弱耦合且忽略环境影响的两态模型中，<span class="math inline">\(\pi\)</span> 脉冲可将初态0翻转为1，<span class="math inline">\(\pi/2\)</span> 脉冲可产生两态等权叠加；脉冲时长控制的不是一次随机“跳跃何时发生”，而是末态的概率幅。</strong>至此，开头的任务有了可计算的答案：把驱动调到所选跃迁的共振频率，并在 <span class="math inline">\(\tau=\pi/\Omega\)</span> 时关闭，就能在这个模型中实现从0到1的转换。若频率不匹配，不能直接使用这里的翻转时长；若目标是指定相对相位的叠加态，也还需要考虑驱动相位与自由演化，这正是后续控制要解决的问题。</p>
+</section>
+</section>
+<section id="l03-drive-phase" class="level2">
+<h2 class="anchored" data-anchor-id="l03-drive-phase">7. 驱动相位：怎样制备指定的叠加态？</h2>
+<p>第六节已经能够把球面点从北极转到南极，也能在赤道上停下。但是，赤道上有许多不同的叠加态；如果要求停在其中指定的一点，应该怎样选择脉冲？下面保持共振，继续使用第六节的弱耦合两态模型，考察此前固定为零的驱动初相位。</p>
+<section id="l03-phase-target" class="level3">
+<h3 class="anchored" data-anchor-id="l03-phase-target">7.1 概率各半，为什么还没有完全确定状态？</h3>
+<p>第六节从 <span class="math inline">\(|0\rangle\)</span> 出发，施加 <span class="math inline">\(\pi/2\)</span> 脉冲，得到</p>
+<p><span class="math display">\[
+|\psi_{\mathrm I}\rangle=\frac{|0\rangle-i|1\rangle}{\sqrt2}.
+\]</span></p>
+<p>现在希望得到的却是 <span class="math inline">\(|+\rangle=(|0\rangle+|1\rangle)/\sqrt2\)</span>。本节先在相互作用绘景中指定目标：球上的坐标轴记为 <span class="math inline">\(x_{\mathrm I},y_{\mathrm I},z_{\mathrm I}\)</span>，它们随自由演化转动；去掉自由演化相位后的系数记为 <span class="math inline">\(a,b\)</span>。在这套坐标中，刚才的结果位于赤道的负 <span class="math inline">\(y_{\mathrm I}\)</span> 方向，目标位于正 <span class="math inline">\(x_{\mathrm I}\)</span> 方向。</p>
+<div id="fig-l03-phase-states" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-phase-states-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-phase-states-lab" data-external="1" src="assets/lecture03/phase-lab.html?mode=compare" title="概率各半但相对相位不同的两个量子态" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-phase-states-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.13: 两个状态的球面高度相同，方位不同；直接测量0、1均得到各半的概率。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/phase-lab.html?mode=compare" target="_blank" rel="noopener">单独打开对照图</a>。
+</p>
+<p>两态的差别不是整体相位：若给左式乘上一个公共因子，使 <span class="math inline">\(|0\rangle\)</span> 的系数与右式相同，<span class="math inline">\(|1\rangle\)</span> 前面的 <span class="math inline">\(-i\)</span> 仍然存在。它们有相同的概率分配，却有不同的相对相位。仅改变第六节脉冲的时长，球面点会一直沿 <span class="math inline">\(y_{\mathrm I}z_{\mathrm I}\)</span> 平面内的圆运动，不能到达正 <span class="math inline">\(x_{\mathrm I}\)</span> 方向。<strong>要制备指定的叠加态，除了控制转过多少角度，还要能够改变旋转轴的方向。</strong></p>
+</section>
+<section id="l03-phase-coupling" class="level3">
+<h3 class="anchored" data-anchor-id="l03-phase-coupling">7.2 驱动场的相位怎样进入量子态？</h3>
+<p>此前耦合项随 <span class="math inline">\(\cos(\omega_0t)\)</span> 振荡。现在改为</p>
+<p><span class="math display">\[
+g(t)=\hbar\Omega\cos(\omega_0t+\phi_{\mathrm d}).
+\]</span></p>
+<p>这里仍取驱动角频率等于跃迁角频率 <span class="math inline">\(\omega_0\)</span>，耦合强度 <span class="math inline">\(\Omega\)</span> 不变。新增的 <span class="math inline">\(\phi_{\mathrm d}\)</span> 是<strong>驱动相位</strong>：相对于同一个时间原点，它决定场在振荡周期中的位置。例如 <span class="math inline">\(\phi_{\mathrm d}=0\)</span> 时 <span class="math inline">\(g(0)=\hbar\Omega\)</span>，<span class="math inline">\(\phi_{\mathrm d}=\pi/2\)</span> 时 <span class="math inline">\(g(0)=0\)</span>，随后向负值变化。两者的振幅与周期相同，振荡的时间位置不同。<span class="math inline">\(\phi_{\mathrm d}\)</span> 描述外加场；<span class="math inline">\(\varphi_{\mathrm I}\)</span> 描述量子态两个分量的相对相位，二者不是同一个量。</p>
+<p>相位需要共同的参照。比较不同脉冲时，我们使用同一参考振荡器和连续的时间基准；各脉冲的相位都相对于这一参照设置。这样，“把驱动相位改变 <span class="math inline">\(\pi/2\)</span>”才对应一个确定、可重复的操作。</p>
+<p>这个改变怎样进入概率幅？6.3已经把自由演化分离出来，得到</p>
+<p><span class="math display">\[
+i\dot a=\frac{g(t)}{\hbar}e^{-i\omega_0t}b,\qquad
+i\dot b=\frac{g(t)}{\hbar}e^{i\omega_0t}a.
+\]</span></p>
+<p>把带相位的余弦分解后，第一式中的乘积为</p>
+<p><span class="math display">\[
+\frac{g(t)}{\hbar}e^{-i\omega_0t}
+=\frac{\Omega}{2}
+\left[e^{i\phi_{\mathrm d}}+e^{-i(2\omega_0t+\phi_{\mathrm d})}\right].
+\]</span></p>
+<p>第二项仍然快速振荡。沿用旋转波近似，略去它；第二个方程中的快速项同样略去，留下</p>
+<p><span class="math display">\[
+i\dot a=\frac{\Omega}{2}e^{i\phi_{\mathrm d}}b,\qquad
+i\dot b=\frac{\Omega}{2}e^{-i\phi_{\mathrm d}}a.
+\]</span></p>
+<p>与第六节相比，耦合强度没有改变，但两个方向的耦合各自带上了互为复共轭的相位因子。在一次脉冲内保持 <span class="math inline">\(\phi_{\mathrm d}\)</span> 不变，对第一式再求导时，这两个因子相乘为1，因此仍有 <span class="math inline">\(\ddot a=-(\Omega^2/4)a\)</span>。由初始条件 <span class="math inline">\(a(0)=1,b(0)=0\)</span>，先求出 <span class="math inline">\(a\)</span>，再由 <span class="math inline">\(b=(2i/\Omega)e^{-i\phi_{\mathrm d}}\dot a\)</span> 得到</p>
+<p><span class="math display">\[
+|\psi_{\mathrm I}(t)\rangle
+=\cos\frac{\Omega t}{2}|0\rangle
+-i e^{-i\phi_{\mathrm d}}\sin\frac{\Omega t}{2}|1\rangle.
+\]</span></p>
+<p>取模平方，相位因子消去，仍有 <span class="math inline">\(P_1(t)=\sin^2(\Omega t/2)\)</span>；但两个系数的相对相位已经改变。对于 <span class="math inline">\(0&lt;\Omega t&lt;\pi\)</span>，正弦、余弦都为正，相对相位可以直接写成</p>
+<p><span class="math display">\[
+\varphi_{\mathrm I}=-\frac{\pi}{2}-\phi_{\mathrm d}
+\pmod{2\pi}.
+\]</span></p>
+<p>这里 <span class="math inline">\(\pmod{2\pi}\)</span> 表示相差整数个整圈的角度对应同一个方向。<strong>从 <span class="math inline">\(|0\rangle\)</span> 出发，固定共振脉冲的强度和时长，改变驱动相位会改变末态的相对相位，却不改变0、1的概率。</strong></p>
+</section>
+<section id="l03-phase-preparation" class="level3">
+<h3 class="anchored" data-anchor-id="l03-phase-preparation">7.3 怎样同时选定概率和相对相位？</h3>
+<p>把刚得到的两个概率幅代入球面坐标关系</p>
+<p><span class="math display">\[
+x_{\mathrm I}=2\operatorname{Re}(a^*b),\qquad
+y_{\mathrm I}=2\operatorname{Im}(a^*b),\qquad
+z_{\mathrm I}=|a|^2-|b|^2,
+\]</span></p>
+<p>其中星号表示复共轭，<span class="math inline">\(\operatorname{Re}\)</span> 与 <span class="math inline">\(\operatorname{Im}\)</span> 分别取实部和虚部。令旋转角 <span class="math inline">\(\gamma=\Omega t\)</span>，计算得到</p>
+<p><span class="math display">\[
+\mathbf r_{\mathrm I}(t)=
+\bigl(-\sin\phi_{\mathrm d}\sin\gamma,\,
+-\cos\phi_{\mathrm d}\sin\gamma,\,
+\cos\gamma\bigr).
+\]</span></p>
+<p>这个轨迹对应哪根旋转轴？定义赤道平面内的单位向量</p>
+<p><span class="math display">\[
+\mathbf n=(\cos\phi_{\mathrm d},-\sin\phi_{\mathrm d},0).
+\]</span></p>
+<p>它与上式中的 <span class="math inline">\(\mathbf r_{\mathrm I}\)</span> 始终垂直，所以轨迹是垂直于 <span class="math inline">\(\mathbf n\)</span>、经过南北两极的大圆。刚开始时，球面点沿 <span class="math inline">\((-\sin\phi_{\mathrm d},-\cos\phi_{\mathrm d},0)\)</span> 方向离开北极，正好是绕 <span class="math inline">\(\mathbf n\)</span> 按右手方向转动的切向方向。因此，驱动相位选定赤道内的旋转轴，<span class="math inline">\(\Omega t\)</span> 决定沿这条圆轨迹走多远。<span class="math inline">\(\phi_{\mathrm d}=0\)</span> 时恢复绕正 <span class="math inline">\(x_{\mathrm I}\)</span> 轴的旋转；<span class="math inline">\(\phi_{\mathrm d}=3\pi/2\)</span> 时则绕正 <span class="math inline">\(y_{\mathrm I}\)</span> 轴，从北极走向正 <span class="math inline">\(x_{\mathrm I}\)</span> 方向。</p>
+<p>下图把这两个控制量分开。先保持脉冲时长为50 ns，只改变驱动相位：末态始终位于赤道，概率条不变。再固定驱动相位、改变时长：旋转轴不动，球面点沿同一条圆轨迹运动，概率随高度改变。图中固定 <span class="math inline">\(\Omega/(2\pi)=5\,\mathrm{MHz}\)</span>，因此50 ns对应四分之一圈。</p>
+<div id="fig-l03-phase-control" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-phase-control-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-phase-control-lab" data-external="1" src="assets/lecture03/phase-lab.html" title="驱动相位与脉冲时长控制旋转轴和量子态的联动图" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-phase-control-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.14: 共振脉冲的相位选择旋转轴，时长选择旋转角。灰色箭头表示旋转轴，蓝色表示状态与轨迹。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/phase-lab.html" target="_blank" rel="noopener">单独打开计算图</a>。
+</p>
+<p>现在完成开头的任务：从 <span class="math inline">\(|0\rangle\)</span> 制备 <span class="math inline">\(|+\rangle\)</span>。目标在赤道，先选 <span class="math inline">\(\tau=\pi/(2\Omega)\)</span>；再令 <span class="math inline">\(\phi_{\mathrm d}=3\pi/2\)</span>，有 <span class="math inline">\(-i e^{-i\phi_{\mathrm d}}=1\)</span>，于是</p>
+<p><span class="math display">\[
+|\psi_{\mathrm I}(\tau)\rangle
+=\frac{|0\rangle+|1\rangle}{\sqrt2}=|+\rangle.
+\]</span></p>
+<p>在上述强度下，这就是一个持续50 ns、驱动相位为 <span class="math inline">\(3\pi/2\)</span> 的脉冲。下面在同一计算图上用空心圆标出目标；初始设置仍是第六节的零相位脉冲。保持时长不变，改变相位，使蓝色末态点与目标重合。</p>
+<div id="fig-l03-phase-target" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-phase-target-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-phase-target-lab" data-external="1" src="assets/lecture03/phase-lab.html?target=plus" title="调节驱动相位使脉冲末态到达正号等权叠加态" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-phase-target-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.15: 从已知初态到指定目标。空心圆标出正号等权叠加态，实心点是当前脉冲的末态。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/phase-lab.html?target=plus" target="_blank" rel="noopener">单独打开计算图</a>。
+</p>
+<p>同样的方法可以用于一般目标纯态</p>
+<p><span class="math display">\[
+|\psi_{\mathrm{tar},\mathrm I}\rangle
+=\cos\frac{\theta_{\mathrm{tar}}}{2}|0\rangle
++e^{i\varphi_{\mathrm{tar},\mathrm I}}
+\sin\frac{\theta_{\mathrm{tar}}}{2}|1\rangle.
+\]</span></p>
+<p>这里 <span class="math inline">\(\theta_{\mathrm{tar}}\)</span> 是目标极角，范围为0到 <span class="math inline">\(\pi\)</span>；<span class="math inline">\(\varphi_{\mathrm{tar},\mathrm I}\)</span> 是目标在相互作用绘景中的相对相位。与脉冲解逐项比较，只需选择</p>
+<p><span class="math display">\[
+\tau=\frac{\theta_{\mathrm{tar}}}{\Omega},\qquad
+\phi_{\mathrm d}=-\frac{\pi}{2}-\varphi_{\mathrm{tar},\mathrm I}
+\pmod{2\pi}.
+\]</span></p>
+<p>在两极只有一个非零分量，相对相位无需指定。这个结果说明，从已知的北极出发，选择脉冲的时长与相位，就能到达球面上的任意目标点。</p>
+<p>若目标改为原来固定坐标中、关断时刻 <span class="math inline">\(\tau\)</span> 的状态，则要用 <span class="math inline">\(\varphi(\tau)=\varphi_{\mathrm I}(\tau)-\omega_0\tau\)</span> 换算。也就是说，先由目标极角确定 <span class="math inline">\(\tau\)</span>，再将 <span class="math inline">\(\varphi_{\mathrm{tar},\mathrm I}=\varphi_{\mathrm{tar}}+\omega_0\tau\)</span> 代入上式。这样，目标状态、驱动相位与关断时刻使用的是同一个时间参照。<strong>脉冲时长与相位共同决定完整的目标纯态，而不仅是一次测量的概率分配。</strong></p>
+</section>
+<section id="l03-phase-readout" class="level3">
+<h3 class="anchored" data-anchor-id="l03-phase-readout">7.4 怎样确认相位真的被控制了？</h3>
+<p>制备完成后，仅测量0、1还不足以检验相对相位。例如</p>
+<p><span class="math display">\[
+|+\rangle=\frac{|0\rangle+|1\rangle}{\sqrt2},\qquad
+|-\rangle=\frac{|0\rangle-|1\rangle}{\sqrt2}
+\]</span></p>
+<p>都给出各半的概率。下面的输入态同样在相互作用绘景中定义。它们可以分别由驱动相位 <span class="math inline">\(3\pi/2\)</span> 和 <span class="math inline">\(\pi/2\)</span> 的半时长脉冲制备。怎样使用同一个后续操作，将它们区分开？</p>
+<p>思路是先把赤道两端的点转到南北两极，再按原来的方式测量0、1。为此施加一个驱动相位为 <span class="math inline">\(\pi/2\)</span> 的脉冲：它的旋转轴是负 <span class="math inline">\(y_{\mathrm I}\)</span>，转过四分之一圈时，正 <span class="math inline">\(x_{\mathrm I}\)</span> 方向到北极，负 <span class="math inline">\(x_{\mathrm I}\)</span> 方向到南极。这段在测量之前施加、用于选择所分析状态方向的脉冲，称为<strong>分析脉冲</strong>。它与前面的制备脉冲使用同一相位参照。</p>
+<p>需要核对的是，这个脉冲对输入的叠加态究竟怎样作用。将 <span class="math inline">\(\phi_{\mathrm d}=\pi/2\)</span> 代入7.2的耦合方程，得到</p>
+<p><span class="math display">\[
+\dot a=\frac{\Omega}{2}b,\qquad
+\dot b=-\frac{\Omega}{2}a.
+\]</span></p>
+<p>此处以 <span class="math inline">\(s\)</span> 表示从分析脉冲开始算起的经过时间；驱动相位仍相对于原来连续的参考振荡器设置。对一般输入系数 <span class="math inline">\(a_{\mathrm{in}},b_{\mathrm{in}}\)</span>，解为</p>
+<p><span class="math display">\[
+\begin{aligned}
+a(s)&amp;=a_{\mathrm{in}}\cos\frac{\Omega s}{2}
++b_{\mathrm{in}}\sin\frac{\Omega s}{2},\\
+b(s)&amp;=b_{\mathrm{in}}\cos\frac{\Omega s}{2}
+-a_{\mathrm{in}}\sin\frac{\Omega s}{2}.
+\end{aligned}
+\]</span></p>
+<p>对两式求导即可回到上述方程，<span class="math inline">\(s=0\)</span> 时也恢复输入系数。取分析脉冲时长 <span class="math inline">\(s=\pi/(2\Omega)\)</span>，便得到</p>
+<p><span class="math display">\[
+a_{\mathrm{out}}=\frac{a_{\mathrm{in}}+b_{\mathrm{in}}}{\sqrt2},\qquad
+b_{\mathrm{out}}=\frac{b_{\mathrm{in}}-a_{\mathrm{in}}}{\sqrt2}.
+\]</span></p>
+<p>输入 <span class="math inline">\(|+\rangle\)</span> 时，两个系数相加进入0通道，在1通道相消，输出为 <span class="math inline">\(|0\rangle\)</span>；输入 <span class="math inline">\(|-\rangle\)</span> 时，0通道相消，输出为 <span class="math inline">\(-|1\rangle\)</span>。后者的负号是整体相位，测量仍确定得到1。于是，同一个分析脉冲把原先藏在相对相位中的差别，转换为0、1读出的差别。</p>
+<p>下图同时推进这两个输入的演化。左右两图使用完全相同的分析脉冲：开始时概率条相同，脉冲结束时分别得到0和1。默认显示完成态；将进度退回零，再播放，可以看见概率怎样逐步分开。</p>
+<div id="fig-l03-phase-analysis" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-phase-analysis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-phase-analysis-lab" data-external="1" src="assets/lecture03/phase-lab.html?mode=analysis" title="同一个分析脉冲将正负叠加态映射到不同能量态" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-phase-analysis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.16: 相位差转换为读出概率差。左右两图分别从正、负叠加态出发，共用同一个绕负 <span class="math inline">\(y_{\mathrm I}\)</span> 轴的分析脉冲。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/phase-lab.html?mode=analysis" target="_blank" rel="noopener">单独打开计算图</a>。
+</p>
+<p>对一般输入态，分析后的0概率为</p>
+<p><span class="math display">\[
+P_0^{\mathrm{out}}
+=\frac{|a_{\mathrm{in}}+b_{\mathrm{in}}|^2}{2}
+=\frac12+\operatorname{Re}(a_{\mathrm{in}}^*b_{\mathrm{in}})
+=\frac{1+x_{\mathrm I}^{\mathrm{in}}}{2}.
+\]</span></p>
+<p>这个关系与第五节的 <span class="math inline">\(P_+=(1+x)/2\)</span> 形式相同，这里分析的是相互作用绘景中的正、负 <span class="math inline">\(x_{\mathrm I}\)</span> 方向。若制备目标是本节定义的 <span class="math inline">\(|+\rangle\)</span>，固定这个分析设置后应确定得到0；在重复实验中，可以统计0的比例来检验这一预测。</p>
+<p>怎样用它实现第四节中那组固定的测量基？设自由演化结束、分析脉冲开始的时刻为 <span class="math inline">\(t_{\mathrm m}\)</span>。固定坐标中正 <span class="math inline">\(x\)</span> 方向的态，在相互作用绘景中的方位角为 <span class="math inline">\(\omega_0t_{\mathrm m}\)</span>。因此，需要随等待时间调整分析脉冲的方向。由7.2的相位约定，半时长分析脉冲应取</p>
+<p><span class="math display">\[
+\phi_{\mathrm a}=\frac{\pi}{2}-\omega_0t_{\mathrm m}\pmod{2\pi},
+\]</span></p>
+<p>其中 <span class="math inline">\(\phi_{\mathrm a}\)</span> 是相对于连续共振参考的分析脉冲相位。它把上述方向转到北极，把其反方向转到南极。对一般输入，读出概率于是为</p>
+<p><span class="math display">\[
+P_0^{\mathrm{out}}=
+\frac{1+x_{\mathrm I}\cos(\omega_0t_{\mathrm m})
++y_{\mathrm I}\sin(\omega_0t_{\mathrm m})}{2}
+=\frac{1+x(t_{\mathrm m})}{2}.
+\]</span></p>
+<p>第四节从 <span class="math inline">\(|+\rangle\)</span> 开始自由演化的例子，在相互作用绘景中一直有 <span class="math inline">\(x_{\mathrm I}=1,y_{\mathrm I}=0\)</span>，故这套分析设置给出 <span class="math inline">\([1+\cos(\omega_0t_{\mathrm m})]/2\)</span>，恢复了第四节的结果。若分析相位始终固定为 <span class="math inline">\(\pi/2\)</span>，测量方向就与自由演化一起转动，同一例子的读出始终为0。两种设置分别回答“状态相对于固定方向怎样变化”和“状态相对于共振参考怎样变化”。</p>
+<p><strong>驱动相位使我们能制备指定的叠加态，分析脉冲则把相位信息转换成可读出的概率。</strong>至此，从已知初态到目标态、再到检验目标的操作已经连在一起。上述计算始终要求频率对准共振；下一节将改变驱动频率，研究偏离共振后，为什么原来的翻转脉冲不再一定有效。</p>
+</section>
+</section>
+<section id="l03-detuning" class="level2">
+<h2 class="anchored" data-anchor-id="l03-detuning">8. 偏离共振：为什么延长脉冲也不一定能翻转？</h2>
+<p>前面从 <span class="math inline">\(|0\rangle\)</span> 出发，把频率对准跃迁，作用一个 <span class="math inline">\(\pi\)</span> 脉冲就能到达 <span class="math inline">\(|1\rangle\)</span>。现在保持同一个初态、同样的驱动强度，只把驱动频率略微调高或调低。原来的翻转时刻还有效吗？如果没能完全翻转，多照一会儿能否补救？本节继续使用弱耦合、近共振的两态模型，先比较现象，再计算频率偏差怎样改变控制。</p>
+<section id="l03-detuning-observation" class="level3">
+<h3 class="anchored" data-anchor-id="l03-detuning-observation">8.1 原来的翻转脉冲，还能使用吗？</h3>
+<p>将驱动角频率与跃迁角频率之差定义为<strong>失谐</strong>：</p>
+<p><span class="math display">\[
+\Delta=\omega_{\mathrm d}-\omega_0.
+\]</span></p>
+<p><span class="math inline">\(\Delta=0\)</span> 表示共振，正失谐表示驱动频率偏高，负失谐表示偏低。本节固定驱动初相位为零，打开期间的耦合仍为 <span class="math inline">\(g(t)=\hbar\Omega\cos(\omega_{\mathrm d}t)\)</span>。我们只改变 <span class="math inline">\(\Delta\)</span>，不同时改变强度 <span class="math inline">\(\Omega\)</span>；在不同的脉冲时长处，分别重复制备、驱动和测量，用测得1的频率估计 <span class="math inline">\(P_1\)</span>。</p>
+<p>先看模型给出的曲线。图中固定 <span class="math inline">\(\Omega/(2\pi)=5\,\mathrm{MHz}\)</span>：共振时，第一个最高点位于100 ns，正好对应原来的 <span class="math inline">\(\pi\)</span> 脉冲。加入失谐后，曲线的最高点变矮、振荡周期变短；原来的100 ns也不再是第一个最高点。将失谐换成绝对值相同的相反数，两条失谐概率曲线重合。下面的计算将解释这些变化。</p>
+<div id="fig-l03-detuning-curves" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-detuning-curves-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-detuning-curves-lab" data-external="1" src="assets/lecture03/detuning-lab.html?mode=curves" title="共振与失谐时测得1的概率曲线比较" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-detuning-curves-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.17: 频率偏差改变振荡的周期和幅度。灰虚线为共振，蓝实线为当前失谐的模型预测；竖线标出原来的共振翻转时刻。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/detuning-lab.html?mode=curves" target="_blank" rel="noopener">单独打开计算图</a>。
+</p>
+<p>曲线提出了两个不同的问题：最高点为什么提前了？最高点为什么又达不到1？要回答它们，需要看失谐怎样进入概率幅的演化。</p>
+</section>
+<section id="l03-detuning-frame" class="level3">
+<h3 class="anchored" data-anchor-id="l03-detuning-frame">8.2 频率差怎样进入演化方程？</h3>
+<p>6.3已分离自由演化，并在旋转波近似中保留差频项。对现在的失谐约定，两个方程成为</p>
+<p><span class="math display">\[
+i\dot a=\frac{\Omega}{2}e^{i\Delta t}b,\qquad
+i\dot b=\frac{\Omega}{2}e^{-i\Delta t}a.
+\]</span></p>
+<p>共振时指数因子为1；不共振时，它们以失谐角频率转动。因此，即使驱动的振幅保持不变，在原来的相互作用绘景中，耦合仍带有随时间变化的相位。</p>
+<p>我们已经用过一次“让坐标轴跟着已知转动走”的办法。这里让坐标轴跟随驱动，而不是跟随自由演化。定义新的系数 <span class="math inline">\(u,v\)</span>：</p>
+<p><span class="math display">\[
+a(t)=u(t)e^{i\Delta t/2},\qquad
+b(t)=v(t)e^{-i\Delta t/2}.
+\]</span></p>
+<p>两个乘因子的模都为1，所以仍有 <span class="math inline">\(P_0=|u|^2\)</span>、<span class="math inline">\(P_1=|v|^2\)</span>。记新坐标中的方位角为 <span class="math inline">\(\varphi_{\mathrm R}\)</span>，R表示这套<strong>驱动旋转坐标</strong>。从系数的相对相位可读出</p>
+<p><span class="math display">\[
+\varphi_{\mathrm R}
+=\varphi_{\mathrm I}+\Delta t
+=\varphi+\omega_{\mathrm d}t.
+\]</span></p>
+<p>也就是说，新横向坐标轴相对于固定坐标以角速度 <span class="math inline">\(-\omega_{\mathrm d}\)</span> 转动，而6.3的坐标轴以 <span class="math inline">\(-\omega_0\)</span> 转动。两套轴都在 <span class="math inline">\(t=0\)</span> 对齐，共振时始终重合。它们共享同一根 <span class="math inline">\(z\)</span> 轴，因此球面高度和0、1概率也相同。后面的失谐球面图将用下标R标明这套坐标。</p>
+<p>这次换坐标带来了什么计算便利？把 <span class="math inline">\(a=u e^{i\Delta t/2}\)</span> 代入第一个方程，可得</p>
+<p><span class="math display">\[
+i\dot u-\frac{\Delta}{2}u=\frac{\Omega}{2}v.
+\]</span></p>
+<p>第二式同理。把它们合在一起，得到</p>
+<p><span class="math display">\[
+i\frac{\mathrm d}{\mathrm dt}
+\begin{pmatrix}u\\v\end{pmatrix}
+=\frac12
+\begin{pmatrix}\Delta&amp;\Omega\\\Omega&amp;-\Delta\end{pmatrix}
+\begin{pmatrix}u\\v\end{pmatrix}.
+\]</span></p>
+<p>右边的系数现在不随时间变化。按薛定谔方程的形式，将整个系数矩阵乘以 <span class="math inline">\(\hbar\)</span>，就得到驱动旋转坐标中的有效哈密顿量</p>
+<p><span class="math display">\[
+H_{\mathrm R}=\frac{\hbar}{2}
+\begin{pmatrix}\Delta&amp;\Omega\\\Omega&amp;-\Delta\end{pmatrix}.
+\]</span></p>
+<p>非对角元 <span class="math inline">\(\hbar\Omega/2\)</span> 仍然连接两个概率幅；对角元中的 <span class="math inline">\(\Delta\)</span> 则记录系统自由演化与坐标转动之间的频率差。<strong>失谐没有消除耦合，而是在同一套演化方程中加入了额外的相位变化。</strong></p>
+</section>
+<section id="l03-detuned-rabi" class="level3">
+<h3 class="anchored" data-anchor-id="l03-detuned-rabi">8.3 为什么振荡更快，却翻转得不完整？</h3>
+<p>现在从相同的初态求解：<span class="math inline">\(u(0)=1,v(0)=0\)</span>。为简化书写，将方程中的矩阵记为</p>
+<p><span class="math display">\[
+M=\begin{pmatrix}\Delta&amp;\Omega\\\Omega&amp;-\Delta\end{pmatrix}.
+\]</span></p>
+<p>直接相乘得到 <span class="math inline">\(M^2=(\Omega^2+\Delta^2)I_2\)</span>，其中 <span class="math inline">\(I_2\)</span> 是二维单位矩阵。对一阶方程再求一次导数，便有</p>
+<p><span class="math display">\[
+\frac{\mathrm d^2}{\mathrm dt^2}
+\begin{pmatrix}u\\v\end{pmatrix}
+=-\frac{\Omega^2+\Delta^2}{4}
+\begin{pmatrix}u\\v\end{pmatrix}.
+\]</span></p>
+<p>这仍是第六节用过的振动方程。定义 <span class="math inline">\(\Omega_{\mathrm R}=\sqrt{\Omega^2+\Delta^2}\)</span>，称为<strong>广义拉比角频率</strong>。由原来的一阶方程，初始导数为 <span class="math inline">\(\dot u(0)=-i\Delta/2\)</span>、<span class="math inline">\(\dot v(0)=-i\Omega/2\)</span>；结合初值，得到</p>
+<p><span class="math display">\[
+\begin{aligned}
+u(t)&amp;=\cos\frac{\Omega_{\mathrm R}t}{2}
+-i\frac{\Delta}{\Omega_{\mathrm R}}\sin\frac{\Omega_{\mathrm R}t}{2},\\
+v(t)&amp;=-i\frac{\Omega}{\Omega_{\mathrm R}}\sin\frac{\Omega_{\mathrm R}t}{2}.
+\end{aligned}
+\]</span></p>
+<p>取第二个系数的模平方，就是可与前图比较的结果：</p>
+<p><span class="math display">\[
+P_1(t)=\frac{\Omega^2}{\Omega^2+\Delta^2}
+\sin^2\!\left(\frac{\sqrt{\Omega^2+\Delta^2}\,t}{2}\right).
+\]</span></p>
+<p>这个式子中的两个因素各自解释一种现象。正弦中的角频率增大，因而概率振荡周期缩短为 <span class="math inline">\(2\pi/\Omega_{\mathrm R}\)</span>；正弦前面的系数小于1，因而振荡的最高点降低为</p>
+<p><span class="math display">\[
+P_{1,\max}=\frac{\Omega^2}{\Omega^2+\Delta^2}.
+\]</span></p>
+<p>因此，“变化得更快”并不等于“更快完成翻转”。非零失谐下，单纯等待不能让这条曲线超过它的最高点。两式都只含 <span class="math inline">\(\Delta^2\)</span>，也解释了为什么正、负失谐具有相同的占据概率曲线。</p>
+<p>在球面上，这种限制对应什么？利用 <span class="math inline">\(x_{\mathrm R}=2\operatorname{Re}(u^*v)\)</span>、<span class="math inline">\(y_{\mathrm R}=2\operatorname{Im}(u^*v)\)</span>、<span class="math inline">\(z_{\mathrm R}=|u|^2-|v|^2\)</span>，并记 <span class="math inline">\(\eta=\Omega_{\mathrm R}t\)</span>，代入上面的解，得到</p>
+<p><span class="math display">\[
+\begin{aligned}
+x_{\mathrm R}&amp;=\frac{\Omega\Delta}{\Omega_{\mathrm R}^2}(1-\cos\eta),\\
+y_{\mathrm R}&amp;=-\frac{\Omega}{\Omega_{\mathrm R}}\sin\eta,\\
+z_{\mathrm R}&amp;=\frac{\Delta^2+\Omega^2\cos\eta}{\Omega_{\mathrm R}^2}.
+\end{aligned}
+\]</span></p>
+<p>这些坐标描述绕单位向量</p>
+<p><span class="math display">\[
+\mathbf n_{\mathrm R}
+=\frac{(\Omega,0,\Delta)}{\Omega_{\mathrm R}}
+\]</span></p>
+<p>的旋转。可以直接检验：球面点在这根轴上的投影始终满足 <span class="math inline">\(\mathbf n_{\mathrm R}\cdot\mathbf r_{\mathrm R}=\Delta/\Omega_{\mathrm R}\)</span>，即保持初态北极的投影不变。共振时轴沿正 <span class="math inline">\(x_{\mathrm R}\)</span> 方向，轨迹经过南北两极；失谐使轴向上或向下倾斜。南极在该轴上的投影为 <span class="math inline">\(-\Delta/\Omega_{\mathrm R}\)</span>，与北极不同，所以非零失谐的这条轨迹到不了南极。</p>
+<p>下图将球面轨迹与概率曲线联动。先比较零失谐与 <span class="math inline">\(\Delta/\Omega=1\)</span>，观察旋转轴和最高概率；再把失谐换成 <span class="math inline">\(-1\)</span>。此时概率曲线相同，但 <span class="math inline">\(x_{\mathrm R}\)</span> 分量反号，轨迹向另一侧偏移：<strong>占据概率相同，并不意味着整个状态演化相同。</strong></p>
+<div id="fig-l03-detuning-bloch" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-detuning-bloch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-detuning-bloch-lab" data-external="1" src="assets/lecture03/detuning-lab.html" title="失谐导致旋转轴倾斜和最大激发概率降低的联动图" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-detuning-bloch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.18: 驱动旋转坐标中的球面轨迹与测得1的概率。灰色箭头是旋转轴，蓝色是当前状态与轨迹；右图灰虚线为共振参照。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/detuning-lab.html" target="_blank" rel="noopener">单独打开计算图</a>。
+</p>
+<p>用具体数值检查这一解释。仍取 <span class="math inline">\(\Omega/(2\pi)=5\,\mathrm{MHz}\)</span>，再取 <span class="math inline">\(\Delta/(2\pi)=5\,\mathrm{MHz}\)</span>，便有 <span class="math inline">\(\Omega_{\mathrm R}=\sqrt2\,\Omega\)</span>。第一个最高点提前到 <span class="math inline">\(\pi/\Omega_{\mathrm R}\approx70.7\,\mathrm{ns}\)</span>，但其概率只有 <span class="math inline">\(1/2\)</span>；若仍在原来的100 ns关断，概率约为0.317。把 <span class="math inline">\(\Delta\)</span> 调回零，结果恢复为共振拉比振荡，最高概率回到1。这些比较都保持 <span class="math inline">\(\Omega\)</span> 和 <span class="math inline">\(|\Delta|\)</span> 远小于 <span class="math inline">\(\omega_0\)</span>，沿用前面的旋转波近似。</p>
+</section>
+<section id="l03-detuning-calibration" class="level3">
+<h3 class="anchored" data-anchor-id="l03-detuning-calibration">8.4 哪些问题可以靠调整时长解决？</h3>
+<p>“没有翻转成功”可能来自不同原因。若频率已经共振，只是关断时刻选错，球面点仍沿经过南北两极的大圆运动，调整时长可以使它到达南极。若存在固定失谐，在这里的恒幅单脉冲模型中，调整时长只能沿已经倾斜的轨迹继续走，不能改变轨迹能到达的最高概率。</p>
+<p>下面从失谐比为1、时长100 ns开始。先点“首个最高点”，把关断时刻改到约70.7 ns，概率会升到一半，但仍不能完全翻转。再点“回到共振”，只改变频率，时间仍保留；最后再次选择首个最高点，才回到100 ns的完整翻转。这个顺序把“找最佳时刻”与“校准频率”分开。</p>
+<div id="fig-l03-detuning-repair" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-detuning-repair-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-detuning-repair-lab" data-external="1" src="assets/lecture03/detuning-lab.html?mode=repair" title="分别调整关断时刻与驱动频率以比较翻转效果" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-detuning-repair-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.19: 调整时长可以找到当前轨迹的最高概率；调回共振后，轨迹才重新经过南极。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/detuning-lab.html?mode=repair" target="_blank" rel="noopener">单独打开计算图</a>。
+</p>
+<p>这也说明为什么实验中需要分别检查频率、强度与时长。频率决定是否共振，强度和时长共同决定转过的角度，相位决定共振时横向旋转轴的方向。<strong>在给定模型中，先找对可达目标的轨迹，再选择合适的关断时刻，才能完成目标控制。</strong>前面一直问“一个初态会变成什么”；接下来把同一个操作用于不同输入，看看怎样把脉冲写成可以组合的量子操作。</p>
+</section>
+</section>
+<section id="l03-single-qubit-gates" class="level2">
+<h2 class="anchored" data-anchor-id="l03-single-qubit-gates">9. 从控制脉冲到单比特操作</h2>
+<p>一个脉冲不仅作用于我们选来举例的初态。若把输入换成另一个能量态，或换成不同叠加态，同一个脉冲也会给出相应输出。要把它作为可重复使用的控制步骤，就需要知道它对所有输入的作用，而不只是记住某一次“从0到1”的结果。本节回到共振，并统一在第六、七节的相互作用绘景中表示输入和输出。</p>
+<section id="l03-unitary-map" class="level3">
+<h3 class="anchored" data-anchor-id="l03-unitary-map">9.1 只知道一个初态的结果，是否已经知道这个操作？</h3>
+<p>先以第七节的共振脉冲为例。令旋转角 <span class="math inline">\(\gamma=\Omega\tau\)</span>，并简记 <span class="math inline">\(c=\cos(\gamma/2)\)</span>、<span class="math inline">\(s=\sin(\gamma/2)\)</span>。已知从 <span class="math inline">\(|0\rangle\)</span> 出发的结果是</p>
+<p><span class="math display">\[
+|0\rangle\longmapsto c|0\rangle-i e^{-i\phi_{\mathrm d}}s|1\rangle.
+\]</span></p>
+<p>把初始条件换为 <span class="math inline">\(a(0)=0,b(0)=1\)</span>，同一组耦合方程给出另一个结果：</p>
+<p><span class="math display">\[
+|1\rangle\longmapsto-i e^{i\phi_{\mathrm d}}s|0\rangle+c|1\rangle.
+\]</span></p>
+<p>两个基矢的输出都确定后，一般输入也就能确定。原因是薛定谔方程对态矢量是线性的：若两个解分别由两个基矢演化而来，它们按初始系数 <span class="math inline">\(a_{\mathrm{in}},b_{\mathrm{in}}\)</span> 作同样的线性组合，就满足一般叠加态的初始条件和演化方程。因此</p>
+<p><span class="math display">\[
+\begin{pmatrix}a_{\mathrm{out}}\\b_{\mathrm{out}}\end{pmatrix}
+=
+\underbrace{\begin{pmatrix}
+c&amp;-i e^{i\phi_{\mathrm d}}s\\
+-i e^{-i\phi_{\mathrm d}}s&amp;c
+\end{pmatrix}}_{U(\gamma,\phi_{\mathrm d})}
+\begin{pmatrix}a_{\mathrm{in}}\\b_{\mathrm{in}}\end{pmatrix}.
+\]</span></p>
+<p>第一列是输入 <span class="math inline">\(|0\rangle\)</span> 的输出系数，第二列是输入 <span class="math inline">\(|1\rangle\)</span> 的输出系数。这个矩阵 <span class="math inline">\(U\)</span> 称为演化操作；它把初态直接映射到指定时刻的末态。与之不同，哈密顿量 <span class="math inline">\(H\)</span> 出现在微分方程中，规定每一时刻的变化速率。不能把 <span class="math inline">\(H|\psi\rangle\)</span> 当成施加脉冲后的末态。</p>
+<p>这样的演化为什么保持总概率为1？上面矩阵的每一列都满足 <span class="math inline">\(c^2+s^2=1\)</span>，两列的内积则为</p>
+<p><span class="math display">\[
+c(-i e^{i\phi_{\mathrm d}}s)
++(i e^{i\phi_{\mathrm d}}s)c=0.
+\]</span></p>
+<p>也就是说，两个列向量仍然归一且正交。把这一性质写成矩阵关系，就是 <span class="math inline">\(U^\dagger U=I_2\)</span>；符号 <span class="math inline">\(\dagger\)</span> 表示先转置，再将每个元素取复共轭，<span class="math inline">\(I_2\)</span> 是二维单位矩阵。这类矩阵称为<strong>幺正矩阵</strong>。对任意归一化输入，都有</p>
+<p><span class="math display">\[
+\langle\psi_{\mathrm{out}}|\psi_{\mathrm{out}}\rangle
+=\langle\psi_{\mathrm{in}}|U^\dagger U|\psi_{\mathrm{in}}\rangle=1.
+\]</span></p>
+<p>我们把用于信息处理的一步这样的单比特幺正操作称为<strong>单比特量子门</strong>。这里的“门”规定完整的输入—输出关系；脉冲则是实现它的一种物理手段。</p>
+</section>
+<section id="l03-x-z-gates" class="level3">
+<h3 class="anchored" data-anchor-id="l03-x-z-gates">9.2 翻转与相位改变，怎样写成量子门？</h3>
+<p>先看两个作用不同的操作。第一个交换两种基矢，称为 <span class="math inline">\(X\)</span> 门；第二个保留 <span class="math inline">\(|0\rangle\)</span>、让 <span class="math inline">\(|1\rangle\)</span> 的系数变号，称为 <span class="math inline">\(Z\)</span> 门：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">操作</th>
+<th style="text-align: left;">输入 <span class="math inline">\(|0\rangle\)</span></th>
+<th style="text-align: left;">输入 <span class="math inline">\(|1\rangle\)</span></th>
+<th style="text-align: left;">一般输入 <span class="math inline">\(a|0\rangle+b|1\rangle\)</span> 的输出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(X\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(|1\rangle\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(|0\rangle\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(b|0\rangle+a|1\rangle\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(Z\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(|0\rangle\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(-|1\rangle\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(a|0\rangle-b|1\rangle\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>按9.1的列向量规则，它们的矩阵为</p>
+<p><span class="math display">\[
+X=\begin{pmatrix}0&amp;1\\1&amp;0\end{pmatrix},\qquad
+Z=\begin{pmatrix}1&amp;0\\0&amp;-1\end{pmatrix}.
+\]</span></p>
+<p><span class="math inline">\(X\)</span> 交换两个概率幅，因而交换0、1的概率；<span class="math inline">\(Z\)</span> 不改变这两个概率，却使两个非零分量的相对相位增加 <span class="math inline">\(\pi\)</span>。例如 <span class="math inline">\(X|0\rangle=|1\rangle\)</span>，而 <span class="math inline">\(Z|0\rangle=|0\rangle\)</span>；若输入换成 <span class="math inline">\(|+\rangle\)</span>，则 <span class="math inline">\(X|+\rangle=|+\rangle\)</span>，<span class="math inline">\(Z|+\rangle=|-\rangle\)</span>。后一个比较在0、1测量下都是各半，但球面点位于赤道的相反两端。</p>
+<div id="fig-l03-x-z" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-x-z-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-x-z-lab" data-external="1" src="assets/lecture03/gates-lab.html?mode=basic" title="X门与Z门对同一个量子态的作用比较" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-x-z-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.20: 同一个输入经过不同操作。切换输入，比较球面位置与测量概率；球面使用相互作用绘景。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/gates-lab.html?mode=basic" target="_blank" rel="noopener">单独打开操作图</a>。
+</p>
+<p>这些门与前面的脉冲怎样对应？将 <span class="math inline">\(\gamma=\pi,\phi_{\mathrm d}=0\)</span> 代入共振脉冲矩阵，得到 <span class="math inline">\(U(\pi,0)=-iX\)</span>。这个 <span class="math inline">\(-i\)</span> 对所有输入都相同，只给完整输出态乘上整体相位，因此该脉冲实现了 <span class="math inline">\(X\)</span> 门的单比特状态变换。</p>
+<p>为了描述组合脉冲，将绕正 <span class="math inline">\(x_{\mathrm I}\)</span> 和正 <span class="math inline">\(y_{\mathrm I}\)</span> 轴的旋转分别记为</p>
+<p><span class="math display">\[
+\begin{aligned}
+R_x(\gamma)&amp;=U(\gamma,0)
+=\begin{pmatrix}c&amp;-is\\-is&amp;c\end{pmatrix},\\
+R_y(\gamma)&amp;=U(\gamma,3\pi/2)
+=\begin{pmatrix}c&amp;-s\\s&amp;c\end{pmatrix}.
+\end{aligned}
+\]</span></p>
+<p>这些记号把前面已经见过的旋转写成完整操作；接下来可以比较它们对不同输入的作用。</p>
+</section>
+<section id="l03-hadamard" class="level3">
+<h3 class="anchored" data-anchor-id="l03-hadamard">9.3 能制备正号叠加态的脉冲，就是Hadamard门吗？</h3>
+<p>第七节的 <span class="math inline">\(R_y(\pi/2)\)</span> 能把 <span class="math inline">\(|0\rangle\)</span> 变成 <span class="math inline">\(|+\rangle\)</span>。另一个常用操作——<strong>Hadamard门</strong>——也能做到这一点。我们用 <span class="math inline">\(U_{\mathrm H}\)</span> 表示这个门，避免与哈密顿量 <span class="math inline">\(H\)</span> 混淆。它的完整定义是</p>
+<p><span class="math display">\[
+U_{\mathrm H}|0\rangle=|+\rangle,\qquad
+U_{\mathrm H}|1\rangle=|-\rangle.
+\]</span></p>
+<p>“对 <span class="math inline">\(|0\rangle\)</span> 的结果相同”是否足以说明两种操作相同？先在下图中保持输入 <span class="math inline">\(|0\rangle\)</span>，两边输出重合；再将输入切换为 <span class="math inline">\(|+\rangle\)</span>，左边的半时长脉冲把它送到南极，右边的Hadamard门却把它送到北极。两种操作可以通过这次读出直接区分。</p>
+<div id="fig-l03-hadamard-comparison" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-hadamard-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-hadamard-lab" data-external="1" src="assets/lecture03/gates-lab.html" title="半时长旋转与Hadamard门对不同输入的比较" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-hadamard-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.21: 一个输入的输出相同，不代表两个操作相同。共用输入按钮可在两个操作间作直接比较。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/gates-lab.html" target="_blank" rel="noopener">单独打开操作图</a>。
+</p>
+<p>为什么会出现这个差别？由两个基矢的输出构造矩阵，有</p>
+<p><span class="math display">\[
+U_{\mathrm H}=\frac1{\sqrt2}
+\begin{pmatrix}1&amp;1\\1&amp;-1\end{pmatrix},
+\qquad
+R_y(\pi/2)=\frac1{\sqrt2}
+\begin{pmatrix}1&amp;-1\\1&amp;1\end{pmatrix}.
+\]</span></p>
+<p>两者第一列相同，第二列反号。这个反号只作用于一列，不能提成整个操作共有的整体相位。当输入是两个基矢的叠加时，两列的贡献会相加，这个差别便会影响干涉结果。直接代入 <span class="math inline">\(|+\rangle=(1,1)^{\mathsf T}/\sqrt2\)</span>，得到</p>
+<p><span class="math display">\[
+R_y(\pi/2)|+\rangle=|1\rangle,\qquad
+U_{\mathrm H}|+\rangle=|0\rangle,
+\]</span></p>
+<p>正是图中的两种结果。只验证一个已知输入的制备结果，还不能确定对任意输入是否实现了目标门。</p>
+<p><strong>是否实现了同一个单比特门，要比较它们对所有输入的作用，允许整体共有的相位差。</strong></p>
+</section>
+<section id="l03-gate-order" class="level3">
+<h3 class="anchored" data-anchor-id="l03-gate-order">9.4 两个操作的先后顺序，为什么重要？</h3>
+<p>现在已经有了可以组合的操作。取同一个初态 <span class="math inline">\(|+\rangle\)</span>，只交换 <span class="math inline">\(U_{\mathrm H}\)</span> 与 <span class="math inline">\(X\)</span> 的顺序。第一种顺序为</p>
+<p><span class="math display">\[
+|+\rangle\xrightarrow{U_{\mathrm H}}|0\rangle
+\xrightarrow{X}|1\rangle;
+\]</span></p>
+<p>第二种顺序为</p>
+<p><span class="math display">\[
+|+\rangle\xrightarrow{X}|+\rangle
+\xrightarrow{U_{\mathrm H}}|0\rangle.
+\]</span></p>
+<p>两个序列使用相同的门，却分别确定得到1和0。每个门都作用于前一步留下的状态，而不是始终作用于最初的输入，所以顺序会影响最后结果。</p>
+<p>下图上方的一根线表示同一个量子比特沿操作序列推进，方框表示门，按从左到右的顺序阅读；这种表示称为<strong>量子线路</strong>。它记录操作次序，不是粒子在空间中经过两只实体门的路线。点击“初态”“第一步”“第二步”，比较两侧相同阶段的状态与概率。</p>
+<div id="fig-l03-gate-order" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-l03-gate-order-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<iframe id="l03-gate-order-lab" data-external="1" src="assets/lecture03/gates-lab.html?mode=order" title="交换Hadamard门与X门顺序后状态和读出结果的比较" loading="eager" allow="fullscreen *" allowfullscreen="">
+</iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-gate-order-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3.22: 线路从左向右读；同一阶段并列显示两种顺序的状态。末态不同源于第二个门接收到的输入不同。
+</figcaption>
+</figure>
+</div>
+<p class="l03-figure-tools">
+<a href="assets/lecture03/gates-lab.html?mode=order" target="_blank" rel="noopener">单独打开操作图</a>。
+</p>
+<p>用矩阵表示同样的顺序：先施加 <span class="math inline">\(U_1\)</span>，再施加 <span class="math inline">\(U_2\)</span>，就有</p>
+<p><span class="math display">\[
+|\psi_{\mathrm{out}}\rangle
+=U_2\bigl(U_1|\psi_{\mathrm{in}}\rangle\bigr),
+\qquad U_{\mathrm{total}}=U_2U_1.
+\]</span></p>
+<p>从右向左的矩阵作用顺序与从左向右的线路阅读顺序描述的是同一个过程。一般不能随意交换矩阵乘法的顺序。这里两种顺序甚至给出不同的0、1概率，因此不只是整体相位不同。</p>
+</section>
+<section id="l03-gate-implementation" class="level3">
+<h3 class="anchored" data-anchor-id="l03-gate-implementation">9.5 怎样把这些门落实为组合脉冲？</h3>
+<p>前面已经比较了门的完整作用，也知道操作顺序会影响结果。现在用已经掌握的共振脉冲构造 <span class="math inline">\(Z\)</span> 和Hadamard门：抽象矩阵规定目标，脉冲序列给出实现方法。</p>
+<p>用9.2定义的旋转矩阵，先做 <span class="math inline">\(R_x(\pi)\)</span>，再做 <span class="math inline">\(R_y(\pi)\)</span>，其总作用为</p>
+<p><span class="math display">\[
+R_y(\pi)R_x(\pi)
+=\begin{pmatrix}0&amp;-1\\1&amp;0\end{pmatrix}
+\begin{pmatrix}0&amp;-i\\-i&amp;0\end{pmatrix}
+=iZ.
+\]</span></p>
+<p>矩阵右侧的操作先作用，因为它先乘到输入列向量上。这两个脉冲因而可以实现 <span class="math inline">\(Z\)</span> 门，差别同样只是对全部输出共有的整体相位。制备和组合这些脉冲时，保持第七节所述的连续相位参照。</p>
+<p>Hadamard门也可以用前面的操作组成。先做 <span class="math inline">\(Z\)</span>，再做 <span class="math inline">\(R_y(\pi/2)\)</span>，则</p>
+<p><span class="math display">\[
+R_y(\pi/2)Z
+=\frac1{\sqrt2}\begin{pmatrix}1&amp;1\\1&amp;-1\end{pmatrix}
+=U_{\mathrm H}.
+\]</span></p>
+<p>若把 <span class="math inline">\(Z\)</span> 换成刚才的两个物理脉冲，完整的脉冲顺序是先 <span class="math inline">\(R_x(\pi)\)</span>，再 <span class="math inline">\(R_y(\pi)\)</span>，最后 <span class="math inline">\(R_y(\pi/2)\)</span>；总作用为 <span class="math inline">\(iU_{\mathrm H}\)</span>。因此，抽象门给出目标变换，具体实现可以是一段脉冲，也可以是一串脉冲。</p>
+</section>
+<section id="l03-control-summary" class="level3">
+<h3 class="anchored" data-anchor-id="l03-control-summary">9.6 回到本讲：怎样完成一次可检验的控制？</h3>
+<p>本讲从一个具体问题出发：已有一个量子比特，怎样把已知初态变成目标态，并确认操作完成？原子和离子用内部态编码，transmon用电路的低能量态编码；它们的载体不同，但选定两态后，可以用同一套概率幅、动力学与测量规则描述。</p>
+<p>对这里的两态驱动模型，各个控制量承担不同职责：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">控制量</th>
+<th style="text-align: left;">在本讲模型中的作用</th>
+<th style="text-align: left;">可直接观察的结果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">驱动频率 <span class="math inline">\(\omega_{\mathrm d}\)</span></td>
+<td style="text-align: left;">决定失谐；共振时允许从北极完整翻转到南极</td>
+<td style="text-align: left;">振荡的周期、最大激发概率及轨迹</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">耦合强度 <span class="math inline">\(\Omega\)</span></td>
+<td style="text-align: left;">决定共振旋转速率</td>
+<td style="text-align: left;">达到同一旋转角所需的时长</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">脉冲时长 <span class="math inline">\(\tau\)</span></td>
+<td style="text-align: left;">决定在给定轨迹上何时停下</td>
+<td style="text-align: left;">球面末态及读出概率</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">驱动相位 <span class="math inline">\(\phi_{\mathrm d}\)</span></td>
+<td style="text-align: left;">选择共振旋转轴的横向方向</td>
+<td style="text-align: left;">相同概率分配下不同的相对相位</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">操作顺序</td>
+<td style="text-align: left;">决定每一步接收到的输入态</td>
+<td style="text-align: left;">中间态以及最终测量结果</td>
+</tr>
+</tbody>
+</table>
+<p>把这些量放回一次实验：先选择编码态并准备已知初态，再按目标选择频率、强度、相位与时长；完成控制后，用能区分目标与候选错误状态的测量来读出。翻转可以直接测0、1；叠加态的相位则需要配合分析脉冲。最后通过重复制备、操作和测量，比较统计结果与预测。</p>
+<p>下面四个问题分别检查时长、频率、完整操作与球面读图。均采用本讲的理想两态模型，驱动强度为 <span class="math inline">\(\Omega/(2\pi)=5\,\mathrm{MHz}\)</span>，输入与目标在相互作用绘景中指定。</p>
+<ol type="1">
+<li>从 <span class="math inline">\(|0\rangle\)</span> 出发，怎样制备 <span class="math inline">\(|+\rangle\)</span>？再用哪个分析脉冲，能使理想读出确定得到0？</li>
+<li>若 <span class="math inline">\(\Delta/(2\pi)=5\,\mathrm{MHz}\)</span>，仅调整恒幅脉冲时长，最大能得到多大的 <span class="math inline">\(P_1\)</span>？第一次达到它需要多久？</li>
+<li>某个操作把 <span class="math inline">\(|0\rangle\)</span> 变成 <span class="math inline">\(|+\rangle\)</span>，能否据此认定它是Hadamard门？给出本讲中的两个操作和一个能区分它们的输入。</li>
+<li><span class="math inline">\(|+\rangle\)</span> 和 <span class="math inline">\(|-\rangle\)</span> 在布洛赫球上高度相同、方向相反。它们的0、1概率是否相同？怎样用本讲的操作将它们区分开？</li>
+</ol>
+<div class="l03-check-answers">
+<p><strong>核对答案</strong></p>
+<ol type="1">
+<li>制备脉冲取 <span class="math inline">\(\tau=50\,\mathrm{ns}\)</span>、<span class="math inline">\(\phi_{\mathrm d}=3\pi/2\)</span>，得到 <span class="math inline">\(|+\rangle\)</span>。分析脉冲取相同强度、时长50 ns、相位 <span class="math inline">\(\pi/2\)</span>，并共用连续相位参照；它把 <span class="math inline">\(|+\rangle\)</span> 映射为 <span class="math inline">\(|0\rangle\)</span>。</li>
+<li>此时 <span class="math inline">\(|\Delta|=\Omega\)</span>，所以最大概率为 <span class="math inline">\(1/2\)</span>，第一次达到它的时刻为 <span class="math inline">\(\pi/(\sqrt2\,\Omega)\approx70.7\,\mathrm{ns}\)</span>。延长时长不会提高这个上限。</li>
+<li>不能。<span class="math inline">\(R_y(\pi/2)\)</span> 与 <span class="math inline">\(U_{\mathrm H}\)</span> 都把 <span class="math inline">\(|0\rangle\)</span> 变成 <span class="math inline">\(|+\rangle\)</span>；改用 <span class="math inline">\(|+\rangle\)</span> 输入，前者输出 <span class="math inline">\(|1\rangle\)</span>，后者输出 <span class="math inline">\(|0\rangle\)</span>。</li>
+<li>两态都位于赤道，<span class="math inline">\(P_0=P_1=1/2\)</span>；分别位于正、负 <span class="math inline">\(x_{\mathrm I}\)</span> 方向。施加驱动相位为 <span class="math inline">\(\pi/2\)</span>、时长50 ns的同一个分析脉冲后，分别确定得到0和1。</li>
+</ol>
+</div>
+<p><strong>我们现在不仅能描述一个量子比特的状态，还能计算、组合并检验它的受控变化。</strong>如果换成两个量子比特，分别对它们施加这样的单比特操作，是否就能得到所有可能的联合状态？要回答这个问题，需要把“两个系统各自的状态”与“两个系统共同的状态”区分开，这就是下一讲的起点。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./lecture02.html" class="pagination-link" aria-label="第二讲　量子比特：状态、测量与调控">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">第二讲　量子比特：状态、测量与调控</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./supplement-interference.html" class="pagination-link" aria-label="补充讲义A　单光子干涉的完整计算">
+        <span class="nav-page-text"><span class="chapter-title">补充讲义A　单光子干涉的完整计算</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

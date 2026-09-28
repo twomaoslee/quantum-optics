@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>拉比旋转与脉冲末态</title>
+<link rel="stylesheet" href="../vendor/katex/katex.min.css"><link rel="stylesheet" href="bloch.css"><link rel="stylesheet" href="control-bloch.css">
+<script defer src="../vendor/katex/katex.min.js"></script><script defer src="figure-print.js"></script><script defer src="control-bloch-drawing.js"></script><script defer src="rabi-bloch.js"></script>
+</head><body><main id="slide" aria-label="拉比振荡的布洛赫球轨迹与概率联动">
+<header><h1 id="title">关断时刻决定末态</h1><div class="tools"><button id="reset">重置</button><button id="fullscreen">全屏</button></div></header>
+<div class="rabi-frame">相互作用绘景</div><div class="rabi-meta">初态 <span data-math="|0\rangle"></span> · <span data-math="\Omega/(2\pi)=5\,\mathrm{MHz}"></span></div>
+<svg id="rabi-sphere" class="rabi-sphere" viewBox="0 0 660 500" role="img" aria-label="绕x轴旋转的布洛赫向量"></svg>
+<svg id="rabi-chart" viewBox="0 0 520 350" role="img" aria-label="测得1的概率随时间的变化"></svg>
+<div id="angle-output" class="rabi-angle"></div>
+<div class="result rabi-result"><div id="state-output" class="state-output"></div><div id="prob-output" class="prob-output"></div></div>
+<div class="controls rabi-controls"><label for="duration"><span id="time-label">关断时刻</span> <span id="time-symbol"></span></label><input id="duration" type="range" min="0" max="250" step="1" value="100" aria-label="关断时刻，纳秒"><output id="duration-value" for="duration"></output><div class="presets"><button data-time="50" data-math="\pi/2"></button><button data-time="100" data-math="\pi"></button><button data-time="200" data-math="2\pi"></button></div></div>
+</main></body></html>

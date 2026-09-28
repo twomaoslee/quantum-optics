@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>量子态与布洛赫球</title>
+<link rel="stylesheet" href="../vendor/katex/katex.min.css"><link rel="stylesheet" href="bloch.css">
+<script defer src="../vendor/katex/katex.min.js"></script><script defer src="figure-print.js"></script><script defer src="bloch.js"></script>
+</head><body data-kind="state">
+<main id="slide" aria-label="量子态与布洛赫球的16比9交互图">
+<header><h1>量子态与布洛赫球</h1><div class="tools"><button id="reset">重置</button><button id="fullscreen">全屏</button></div></header>
+<svg id="sphere" viewBox="0 0 660 500" role="img" aria-label="标出极角、方位角和状态方向的布洛赫球"></svg>
+<section class="state-panel"><h2>当前状态</h2><div id="state-formula"></div>
+<h2 class="prob-title">测量概率</h2>
+<div class="prob-row"><div class="prob-label"><span data-math="P_0"></span><output id="p0-value"></output></div><div class="track"><div id="p0-bar" class="bar"></div></div></div>
+<div class="prob-row"><div class="prob-label"><span data-math="P_1"></span><output id="p1-value"></output></div><div class="track"><div id="p1-bar" class="bar secondary"></div></div></div>
+<div class="presets" aria-label="典型状态与相位档位"><button data-state="0" data-math="|0\rangle"></button><button data-state="1" data-math="|1\rangle"></button><button data-state="plus" data-math="|+\rangle"></button><button data-state="minus" data-math="|-\rangle"></button><span class="phase-presets"><span data-math="\varphi="></span><button data-phase="90" data-math="\pi/2" aria-label="方位角设为二分之π"></button><button data-phase="180" data-math="\pi" aria-label="方位角设为π"></button><button data-phase="270" data-math="3\pi/2" aria-label="方位角设为二分之三π"></button></span></div></section>
+<div class="controls angle-controls">
+<label>极角 <span data-math="\theta"></span><input id="polar" type="range" min="0" max="180" step="1" value="60" aria-label="极角，度"><output id="polar-value"></output></label>
+<label>方位角 <span data-math="\varphi"></span><input id="azimuth" type="range" min="0" max="360" step="1" value="90" aria-label="方位角，度"><output id="azimuth-value"></output></label>
+</div>
+</main></body></html>

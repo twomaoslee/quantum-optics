@@ -1,0 +1,28 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LC与transmon的能级对照</title><link rel="stylesheet" href="../vendor/katex/katex.min.css">
+<script defer src="../vendor/katex/katex.min.js"></script><script defer src="transmon-spectrum-data.js"></script>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:white;color:#253646;font-family:"PingFang SC","Microsoft YaHei",sans-serif}
+main{width:1280px;height:720px;padding:30px 40px}h1{font-size:38px;color:#0070c0;margin:0 0 12px}p{margin:0}header p{font-size:22px;color:#536a7d}.panels{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:22px}.panel:nth-child(2){border-left:1px solid #d7e3ec;padding-left:30px}h2{font-size:28px;margin:0 0 8px;color:#17456e}.chart{position:relative;height:320px;width:550px}.chart svg{width:550px;height:320px}svg text{font:22px "PingFang SC",sans-serif;fill:#536a7d}.label{position:absolute;font-size:27px;transform:translateY(-50%);line-height:1.1}.values{font-size:24px;display:grid;gap:8px;border-top:1px solid #d7e3ec;padding-top:14px}.result{font-size:26px;color:#0070c0;margin-top:12px}footer{font-size:20px;color:#536a7d;margin-top:15px;padding-top:12px;border-top:1px solid #d7e3ec}.katex{font-size:1em}
+</style></head><body><main>
+<header><h1>同一个电容，两种能级结构</h1><p>总电容 60 fF · 相同纵轴尺度 · 能量零点取最低能级 · 模型计算，非实验数据</p></header>
+<div class="panels" id="panels"></div>
+<footer>LC参照采用结的小振幅等效电感；transmon保留结的非线性。仅显示最低三级。</footer>
+</main><script>
+window.addEventListener('DOMContentLoaded',()=>{
+const row=TRANSMON_SPECTRA.rows.find(r=>r.c===60), blue='#0070c0',gray='#607487';
+const tex=(t,cls='',style='')=>'<span class="'+cls+'" style="'+style+'" data-math="'+t+'"></span>';
+const y=e=>288-e/16*242;
+document.getElementById('panels').innerHTML=[false,true].map(t=>{
+const en=t?row.levels:[0,row.lc,row.lc*2], f0=t?row.f01:row.lc,f1=t?row.f12:row.lc;
+let svg='<path d="M57 35V288H535" stroke="#607487" stroke-width="1.5" fill="none"/>';
+for(let v=0;v<=16;v+=4)svg+='<path d="M52 '+y(v)+'H535" stroke="#d7e3ec"/><text x="43" y="'+(y(v)+7)+'" text-anchor="end">'+v+'</text>';
+let labels=tex('(E_n-E_0)/h\\; (\\mathrm{GHz})','label','left:18px;top:16px;font-size:20px;');
+en.forEach((e,i)=>{svg+='<path d="M95 '+y(e)+'H290" stroke="'+(i===2?gray:blue)+'" stroke-width="4"/>';labels+=tex('|'+i+'\\rangle','label','left:300px;top:'+y(e)+'px;color:'+(i===2?gray:blue));});
+[0,1].forEach(i=>{const lo=y(en[i]),hi=y(en[i+1]);svg+='<path d="M383 '+lo+'H397M390 '+lo+'V'+hi+'M383 '+hi+'H397" stroke="'+(i?gray:blue)+'" stroke-width="2"/>';labels+=tex('\\nu_{'+i+(i+1)+'}','label','left:411px;top:'+((lo+hi)/2)+'px;font-size:24px');});
+return '<section class="panel"><h2>'+(t?'transmon：非等间隔':'理想 LC：等间隔')+'</h2><div class="chart"><svg viewBox="0 0 550 320" role="img" aria-label="三个能级的同尺度比较">'+svg+'</svg>'+labels+'</div><div class="values"><p>'+tex('\\nu_{01}='+f0.toFixed(3)+'\\,\\mathrm{GHz}')+'</p><p>'+tex('\\nu_{12}='+f1.toFixed(3)+'\\,\\mathrm{GHz}')+'</p></div><p class="result">'+(t?'两种跃迁相差 '+((f0-f1)*1000).toFixed(1)+' MHz':'两种跃迁频率重合')+'</p></section>';
+}).join('');
+document.querySelectorAll('[data-math]').forEach(el=>katex.render(el.dataset.math,el,{throwOnError:true}));
+window.comparisonReady=true;
+});
+</script></body></html>
