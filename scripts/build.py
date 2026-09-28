@@ -41,6 +41,7 @@ def copy_tree(source, destination):
     shutil.copytree(source, destination, ignore=ignore, dirs_exist_ok=True)
 
 def sanitize_notes(text):
+    text = text.replace('量子调控：如何控制一个量子比特？', '量子调控：如何控制量子态？')
     text = re.sub(r'<link\b[^>]*href="([^\"]*lecture\d+[^\"]*)"[^>]*>',
                   lambda m: '' if withheld(m[1]) else m[0], text)
     # Keep the syllabus, but remove reading invitations for unreleased chapters.
@@ -158,12 +159,12 @@ def main():
         if path.name == 'index.html':
             text = text.replace('16讲目录与前两讲讲义', '16讲目录与已发布讲义')
             if 3 in PUBLISHED:
-                text = text.replace('<section id="其他内容"', '<p><a href="lecture03.html">第三讲：量子调控——如何控制一个量子比特？</a>从自由演化与共振驱动出发，讨论脉冲参数、叠加态制备与检验，以及单比特量子门。</p>\n<section id="其他内容"', 1)
+                text = text.replace('<section id="其他内容"', '<p><a href="lecture03.html">第三讲：量子调控——如何控制量子态？</a>从自由演化与共振驱动出发，讨论脉冲参数、叠加态制备与检验，以及单比特量子门。</p>\n<section id="其他内容"', 1)
         text = text.replace('</head>',notes_nav+'</head>',1)
         text = re.sub(r'(<main\b[^>]*>)',r'\1<a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>',text,count=1)
         path.write_text(text)
     for name, content in preserved_notes.items():
-        (DIST/'notes'/name).write_bytes(content)
+        (DIST/'notes'/name).write_text(sanitize_notes(content.decode()))
     # Body preservation must not restore stale chapter names or retired links.
     nav_source = notes / (f'lecture{args.update_lectures[0]:02d}.html' if args.update_lectures else 'index.html')
     sync_notes_sidebar(DIST/'notes', nav_source)
@@ -176,6 +177,11 @@ def main():
         if args.update_lectures:
             items = preserved_search + [item for item in items if any(f'lecture{n:02d}.html' in item.get('href', '') for n in args.update_lectures)]
         for item in items:
+            for key in ('title', 'section', 'text'):
+                if isinstance(item.get(key), str):
+                    item[key] = item[key].replace('量子调控：如何控制一个量子比特？', '量子调控：如何控制量子态？')
+                    if item.get('href', '').startswith('outline.html'):
+                        item[key] = item[key].replace('第3讲　怎样控制一个量子比特？', '第3讲　量子调控：如何控制量子态？')
             if isinstance(item.get('text'),str):
                 item['text'] = re.sub(r'图件计算与本讲新增算例的核验记录可分别查看.*?讲义计算核验。','',item['text'])
         search.write_text(json.dumps(items,ensure_ascii=False))
@@ -185,9 +191,9 @@ def main():
         lectures = re.findall(r'^### 第(\d+)讲[　 ]+([^\n]+)',unit_text,re.M)
         units.append((unit_title,lectures))
     summaries = {
-        1: ('从量子力学到量子信息科学', '整数分解 → 量子力学 → 量子信息 → 光与控制'),
+        1: ('绪论：从量子力学到量子信息科学', '整数分解 → 量子力学 → 量子信息 → 光与控制'),
         2: ('量子比特：状态、测量与调控', '从偏振实验出发，用量子态预测测量，理解筛选、相位调控与不同物理系统中的量子比特。'),
-        3: ('量子调控：如何控制一个量子比特？', '从量子态的演化出发，学习共振驱动、脉冲时长与相位调控，制备并检验目标态，理解单比特量子门。')
+        3: ('量子调控：如何控制量子态？', '从量子态的演化出发，学习共振驱动、脉冲时长与相位调控，制备并检验目标态，理解单比特量子门。')
     }
     rows=[]
     for number,(title,summary) in summaries.items():
