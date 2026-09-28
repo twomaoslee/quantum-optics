@@ -27,7 +27,8 @@
       for(const op of ops){v=apply(mat[op],v);stages.push(v.slice());}
       v=stages[mode==='order'?state.step:1];const vector=[2*v[0]*v[1],0,v[0]*v[0]-v[1]*v[1]],p0=v[0]*v[0],p1=v[1]*v[1];
       D.drawSphere($(side+'-sphere'),{vector,suffix:'_{\\mathrm I}'});
-      D.math($(side+'-state'),tex(v));D.math($(side+'-prob'),'P_0='+(p0*100).toFixed(1)+'\\%\\quad P_1='+(p1*100).toFixed(1)+'\\%');
+      const applied=ops.slice(0,mode==='order'?state.step:1).reverse().map(op=>op==='R'?'R_y(\\pi/2)':op==='H'?'U_{\\mathrm H}':op).join('');
+      D.math($(side+'-state'),applied?applied+names[state.input]+'='+tex(v):tex(v));D.math($(side+'-prob'),'P_0='+(p0*100).toFixed(1)+'\\%\\quad P_1='+(p1*100).toFixed(1)+'\\%');
       $(side+'-bar').style.width=(p0*100)+'%';
       results.push({operations:ops,amplitudes:v,stages,vector,p0,p1});
     }

@@ -258,7 +258,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#l03-unitary-map" id="toc-l03-unitary-map" class="nav-link" data-scroll-target="#l03-unitary-map">9.1 只知道一个初态的结果，是否已经知道这个操作？</a></li>
   <li><a href="#l03-x-z-gates" id="toc-l03-x-z-gates" class="nav-link" data-scroll-target="#l03-x-z-gates">9.2 翻转与相位改变，怎样写成量子门？</a></li>
-  <li><a href="#l03-hadamard" id="toc-l03-hadamard" class="nav-link" data-scroll-target="#l03-hadamard">9.3 能制备正号叠加态的脉冲，就是Hadamard门吗？</a></li>
+  <li><a href="#l03-hadamard" id="toc-l03-hadamard" class="nav-link" data-scroll-target="#l03-hadamard">9.3 能制备 <span class="math inline">\(|+\rangle\)</span> 的脉冲，就是Hadamard门吗？</a></li>
   <li><a href="#l03-gate-order" id="toc-l03-gate-order" class="nav-link" data-scroll-target="#l03-gate-order">9.4 两个操作的先后顺序，为什么重要？</a></li>
   <li><a href="#l03-gate-implementation" id="toc-l03-gate-implementation" class="nav-link" data-scroll-target="#l03-gate-implementation">9.5 怎样把这些门落实为组合脉冲？</a></li>
   <li><a href="#l03-control-summary" id="toc-l03-control-summary" class="nav-link" data-scroll-target="#l03-control-summary">9.6 回到本讲：怎样完成一次可检验的控制？</a></li>
@@ -908,7 +908,7 @@ g(t)=\hbar\Omega\cos(\omega_{\mathrm d}t).
 </iframe>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-bloch-frames-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-图&nbsp;3.9: 同一自由演化在两套坐标中的表示。初态为正号等权叠加态；右图用随自由演化转动的坐标读出状态。
+图&nbsp;3.9: 同一自由演化在两套坐标中的表示。初态为 <span class="math inline">\(|+\rangle\)</span>；右图用随自由演化转动的坐标读出状态。
 </figcaption>
 </figure>
 </div>
@@ -1077,7 +1077,7 @@ z_{\mathrm I}=|a|^2-|b|^2.
 <p>第六节已经能够把球面点从北极转到南极，也能在赤道上停下。但是，赤道上有许多不同的叠加态；如果要求停在其中指定的一点，应该怎样选择脉冲？下面保持共振，继续使用第六节的弱耦合两态模型，考察此前固定为零的驱动初相位。</p>
 <section id="l03-phase-target" class="level3">
 <h3 class="anchored" data-anchor-id="l03-phase-target">7.1 概率各半，为什么还没有完全确定状态？</h3>
-<p>第六节从 <span class="math inline">\(|0\rangle\)</span> 出发，施加 <span class="math inline">\(\pi/2\)</span> 脉冲，得到</p>
+<p>第六节从 <span class="math inline">\(|0\rangle\)</span> 出发，在 <span class="math inline">\(0\le t\le\tau\)</span> 期间施加零初相位的共振驱动 <span class="math inline">\(g(t)=\hbar\Omega\cos(\omega_0t)\)</span>，到 <span class="math inline">\(\tau\)</span> 时关闭驱动。取 <span class="math inline">\(\Omega/(2\pi)=5\,\mathrm{MHz}\)</span>、<span class="math inline">\(\tau=50\,\mathrm{ns}\)</span>，旋转角为 <span class="math inline">\(\Omega\tau=\pi/2\)</span>，得到</p>
 <p><span class="math display">\[
 |\psi_{\mathrm I}\rangle=\frac{|0\rangle-i|1\rangle}{\sqrt2}.
 \]</span></p>
@@ -1179,11 +1179,11 @@ z_{\mathrm I}=|a|^2-|b|^2,
 <div id="fig-l03-phase-target" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-l03-phase-target-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<iframe id="l03-phase-target-lab" data-external="1" src="assets/lecture03/phase-lab.html?target=plus" title="调节驱动相位使脉冲末态到达正号等权叠加态" loading="eager" allow="fullscreen *" allowfullscreen="">
+<iframe id="l03-phase-target-lab" data-external="1" src="assets/lecture03/phase-lab.html?target=plus" title="调节驱动相位使脉冲末态到达目标态 |+〉" loading="eager" allow="fullscreen *" allowfullscreen="">
 </iframe>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-phase-target-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-图&nbsp;3.15: 从已知初态到指定目标。空心圆标出正号等权叠加态，实心点是当前脉冲的末态。
+图&nbsp;3.15: 从已知初态到指定目标。空心圆标出相互作用绘景中的 <span class="math inline">\(|+\rangle\)</span>，实心点是当前脉冲的末态。
 </figcaption>
 </figure>
 </div>
@@ -1215,6 +1215,15 @@ z_{\mathrm I}=|a|^2-|b|^2,
 \]</span></p>
 <p>都给出各半的概率。下面的输入态同样在相互作用绘景中定义。它们可以分别由驱动相位 <span class="math inline">\(3\pi/2\)</span> 和 <span class="math inline">\(\pi/2\)</span> 的半时长脉冲制备。怎样使用同一个后续操作，将它们区分开？</p>
 <p>思路是先把赤道两端的点转到南北两极，再按原来的方式测量0、1。为此施加一个驱动相位为 <span class="math inline">\(\pi/2\)</span> 的脉冲：它的旋转轴是负 <span class="math inline">\(y_{\mathrm I}\)</span>，转过四分之一圈时，正 <span class="math inline">\(x_{\mathrm I}\)</span> 方向到北极，负 <span class="math inline">\(x_{\mathrm I}\)</span> 方向到南极。这段在测量之前施加、用于选择所分析状态方向的脉冲，称为<strong>分析脉冲</strong>。它与前面的制备脉冲使用同一相位参照。</p>
+<p>具体地，设分析脉冲从时刻 <span class="math inline">\(t_{\mathrm m}\)</span> 开始，持续 <span class="math inline">\(\tau_{\mathrm a}\)</span>，这一段驱动为</p>
+<p><span class="math display">\[
+g_{\mathrm a}(t)=
+\begin{cases}
+\hbar\Omega\cos(\omega_0t+\pi/2),&amp;t_{\mathrm m}\le t&lt;t_{\mathrm m}+\tau_{\mathrm a},\\
+0,&amp;\text{其他时刻}.
+\end{cases}
+\]</span></p>
+<p>这里的 <span class="math inline">\(t\)</span> 仍是与制备脉冲共用的时间坐标，并未在分析脉冲开始时把参考振荡器的相位归零。取 <span class="math inline">\(\Omega/(2\pi)=5\,\mathrm{MHz}\)</span>、<span class="math inline">\(\tau_{\mathrm a}=50\,\mathrm{ns}\)</span>：先施加这段脉冲，随后关闭驱动，再测量0、1。</p>
 <p>需要核对的是，这个脉冲对输入的叠加态究竟怎样作用。将 <span class="math inline">\(\phi_{\mathrm d}=\pi/2\)</span> 代入7.2的耦合方程，得到</p>
 <p><span class="math display">\[
 \dot a=\frac{\Omega}{2}b,\qquad
@@ -1235,15 +1244,15 @@ a_{\mathrm{out}}=\frac{a_{\mathrm{in}}+b_{\mathrm{in}}}{\sqrt2},\qquad
 b_{\mathrm{out}}=\frac{b_{\mathrm{in}}-a_{\mathrm{in}}}{\sqrt2}.
 \]</span></p>
 <p>输入 <span class="math inline">\(|+\rangle\)</span> 时，两个系数相加进入0通道，在1通道相消，输出为 <span class="math inline">\(|0\rangle\)</span>；输入 <span class="math inline">\(|-\rangle\)</span> 时，0通道相消，输出为 <span class="math inline">\(-|1\rangle\)</span>。后者的负号是整体相位，测量仍确定得到1。于是，同一个分析脉冲把原先藏在相对相位中的差别，转换为0、1读出的差别。</p>
-<p>下图同时推进这两个输入的演化。左右两图使用完全相同的分析脉冲：开始时概率条相同，脉冲结束时分别得到0和1。默认显示完成态；将进度退回零，再播放，可以看见概率怎样逐步分开。</p>
+<p>下图对照两组独立实验：分别准备 <span class="math inline">\(|+\rangle\)</span> 或 <span class="math inline">\(|-\rangle\)</span>，施加完全相同的分析脉冲，然后读出。开始时两组的0、1概率相同，完成脉冲后分别确定得到0和1。默认显示完成态；将进度退回零再播放，可以观察状态怎样转动。中途的概率条表示“若此时关闭驱动并测量”的预测，并不表示在同一次演化中持续测量系统。</p>
 <div id="fig-l03-phase-analysis" class="l03-computational-figure quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-l03-phase-analysis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<iframe id="l03-phase-analysis-lab" data-external="1" src="assets/lecture03/phase-lab.html?mode=analysis" title="同一个分析脉冲将正负叠加态映射到不同能量态" loading="eager" allow="fullscreen *" allowfullscreen="">
+<iframe id="l03-phase-analysis-lab" data-external="1" src="assets/lecture03/phase-lab.html?mode=analysis" title="同一个分析脉冲将 |+〉与 |−〉映射到不同能量态" loading="eager" allow="fullscreen *" allowfullscreen="">
 </iframe>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-l03-phase-analysis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-图&nbsp;3.16: 相位差转换为读出概率差。左右两图分别从正、负叠加态出发，共用同一个绕负 <span class="math inline">\(y_{\mathrm I}\)</span> 轴的分析脉冲。
+图&nbsp;3.16: 相位差转换为读出概率差。左右两图分别从 <span class="math inline">\(|+\rangle\)</span>、<span class="math inline">\(|-\rangle\)</span> 出发，共用同一个绕负 <span class="math inline">\(y_{\mathrm I}\)</span> 轴的分析脉冲。
 </figcaption>
 </figure>
 </div>
@@ -1427,7 +1436,37 @@ z_{\mathrm R}&amp;=\frac{\Delta^2+\Omega^2\cos\eta}{\Omega_{\mathrm R}^2}.
 <p>一个脉冲不仅作用于我们选来举例的初态。若把输入换成另一个能量态，或换成不同叠加态，同一个脉冲也会给出相应输出。要把它作为可重复使用的控制步骤，就需要知道它对所有输入的作用，而不只是记住某一次“从0到1”的结果。本节回到共振，并统一在第六、七节的相互作用绘景中表示输入和输出。</p>
 <section id="l03-unitary-map" class="level3">
 <h3 class="anchored" data-anchor-id="l03-unitary-map">9.1 只知道一个初态的结果，是否已经知道这个操作？</h3>
-<p>先以第七节的共振脉冲为例。令旋转角 <span class="math inline">\(\gamma=\Omega\tau\)</span>，并简记 <span class="math inline">\(c=\cos(\gamma/2)\)</span>、<span class="math inline">\(s=\sin(\gamma/2)\)</span>。已知从 <span class="math inline">\(|0\rangle\)</span> 出发的结果是</p>
+<p>不能。一次从 <span class="math inline">\(|0\rangle\)</span> 到 <span class="math inline">\(|1\rangle\)</span> 的翻转，只检验了操作对这一个输入的作用。考虑两个理想操作：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">输入</th>
+<th style="text-align: left;">操作 <span class="math inline">\(U_A\)</span> 的输出</th>
+<th style="text-align: left;">操作 <span class="math inline">\(U_B\)</span> 的输出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(|0\rangle\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(|1\rangle\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(|1\rangle\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(|1\rangle\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(|0\rangle\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(-|0\rangle\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>两种操作都使输入 <span class="math inline">\(|0\rangle\)</span> 确定翻转为 <span class="math inline">\(|1\rangle\)</span>，甚至在分别输入两个基矢后测量0、1，也得不到区别。但是，把输入换为 <span class="math inline">\(|+\rangle\)</span>，由演化的线性关系可得</p>
+<p><span class="math display">\[
+\begin{aligned}
+U_A|+\rangle&amp;=\frac{|1\rangle+|0\rangle}{\sqrt2}=|+\rangle,\\
+U_B|+\rangle&amp;=\frac{|1\rangle-|0\rangle}{\sqrt2}=-|-\rangle.
+\end{aligned}
+\]</span></p>
+<p>这两个输出不是相差一个整体相位，而是不同的态。随后施加7.4节的同一个分析脉冲，前者确定读出0，后者确定读出1，就能区分两种操作。表中 <span class="math inline">\(U_B|1\rangle\)</span> 的负号对单独输入 <span class="math inline">\(|1\rangle\)</span> 的测量没有影响，但不能在合成叠加态输出时单独删去：它规定了两项之间的相对相位。<strong>态制备只要求将指定初态变成目标态；量子门还须规定对任意输入态的作用。</strong></p>
+<p>怎样把完整的输入—输出关系写下来？回到第七节的共振脉冲。令旋转角 <span class="math inline">\(\gamma=\Omega\tau\)</span>，并简记 <span class="math inline">\(c=\cos(\gamma/2)\)</span>、<span class="math inline">\(s=\sin(\gamma/2)\)</span>。已知从 <span class="math inline">\(|0\rangle\)</span> 出发的结果是</p>
 <p><span class="math display">\[
 |0\rangle\longmapsto c|0\rangle-i e^{-i\phi_{\mathrm d}}s|1\rangle.
 \]</span></p>
@@ -1435,7 +1474,7 @@ z_{\mathrm R}&amp;=\frac{\Delta^2+\Omega^2\cos\eta}{\Omega_{\mathrm R}^2}.
 <p><span class="math display">\[
 |1\rangle\longmapsto-i e^{i\phi_{\mathrm d}}s|0\rangle+c|1\rangle.
 \]</span></p>
-<p>两个基矢的输出都确定后，一般输入也就能确定。原因是薛定谔方程对态矢量是线性的：若两个解分别由两个基矢演化而来，它们按初始系数 <span class="math inline">\(a_{\mathrm{in}},b_{\mathrm{in}}\)</span> 作同样的线性组合，就满足一般叠加态的初始条件和演化方程。因此</p>
+<p>两个基矢的输出概率幅在同一相位约定下都确定后，一般输入也就能确定；只知道各自的测量概率还不够。原因是薛定谔方程对态矢量是线性的：若两个解分别由两个基矢演化而来，它们按初始系数 <span class="math inline">\(a_{\mathrm{in}},b_{\mathrm{in}}\)</span> 作同样的线性组合，就满足一般叠加态的初始条件和演化方程。因此</p>
 <p><span class="math display">\[
 \begin{pmatrix}a_{\mathrm{out}}\\b_{\mathrm{out}}\end{pmatrix}
 =
@@ -1524,7 +1563,7 @@ R_y(\gamma)&amp;=U(\gamma,3\pi/2)
 <p>这些记号把前面已经见过的旋转写成完整操作；接下来可以比较它们对不同输入的作用。</p>
 </section>
 <section id="l03-hadamard" class="level3">
-<h3 class="anchored" data-anchor-id="l03-hadamard">9.3 能制备正号叠加态的脉冲，就是Hadamard门吗？</h3>
+<h3 class="anchored" data-anchor-id="l03-hadamard">9.3 能制备 <span class="math inline">\(|+\rangle\)</span> 的脉冲，就是Hadamard门吗？</h3>
 <p>第七节的 <span class="math inline">\(R_y(\pi/2)\)</span> 能把 <span class="math inline">\(|0\rangle\)</span> 变成 <span class="math inline">\(|+\rangle\)</span>。另一个常用操作——<strong>Hadamard门</strong>——也能做到这一点。我们用 <span class="math inline">\(U_{\mathrm H}\)</span> 表示这个门，避免与哈密顿量 <span class="math inline">\(H\)</span> 混淆。它的完整定义是</p>
 <p><span class="math display">\[
 U_{\mathrm H}|0\rangle=|+\rangle,\qquad

@@ -17,18 +17,28 @@
   const project=v=>[C[0]+R*(-Math.sin(az)*v[0]+Math.cos(az)*v[1]),C[1]-R*(-Math.sin(elev)*Math.cos(az)*v[0]-Math.sin(elev)*Math.sin(az)*v[1]+Math.cos(elev)*v[2])];
   const depth=v=>Math.cos(elev)*(Math.cos(az)*v[0]+Math.sin(az)*v[1])+Math.sin(elev)*v[2];
   const vec=(theta,phi)=>[Math.sin(theta)*Math.cos(phi),Math.sin(theta)*Math.sin(phi),Math.cos(theta)];
-  function spatialCurve(fn,from,to,color,width=2){for(let k=0;k<100;k++){const a=fn(from+(to-from)*k/100),b=fn(from+(to-from)*(k+1)/100);line(svg,project(a),project(b),color,width,depth(a)<0?'3 4':'');}}
+  function spatialCurve(fn,from,to,color,width=2,plane=''){for(let k=0;k<100;k++){const a=fn(from+(to-from)*k/100),b=fn(from+(to-from)*(k+1)/100);const segment=line(svg,project(a),project(b),color,width,depth(a)<0?'3 4':'');if(plane)segment.setAttribute('data-coordinate-plane',plane);}}
+  function cardinalPoints(){
+    for(const [name,v,offset] of [
+      ['+x',[1,0,0],[-16,30]],['-x',[-1,0,0],[8,-26]],
+      ['+y',[0,1,0],[25,30]],['-y',[0,-1,0],[-16,-24]]
+    ]){
+      const p=project(v);
+      el(svg,'circle',{class:'bloch-axis-point','data-axis-point':name,cx:p[0],cy:p[1],r:5,fill:gray,stroke:'white','stroke-width':1.5});
+      label(svg,p[0]+offset[0],p[1]+offset[1],name,65,25).setAttribute('data-axis-label',name);
+    }
+  }
   function point(p,color=blue,r=6){el(svg,'circle',{cx:p[0],cy:p[1],r,fill:color,stroke:'white','stroke-width':2});}
   function sphere(theta,phi){
     svg.replaceChildren();
     el(svg,'circle',{cx:C[0],cy:C[1],r:R,fill:'#fafcfe',stroke:rule,'stroke-width':1.5});
-    spatialCurve(t=>[Math.cos(t),0,Math.sin(t)],0,2*pi,'#e4ecf2',1);
-    spatialCurve(t=>[0,Math.cos(t),Math.sin(t)],0,2*pi,'#e4ecf2',1);
-    spatialCurve(t=>[Math.cos(t),Math.sin(t),0],0,2*pi,'#a7baca',1.7);
+    spatialCurve(t=>[Math.cos(t),0,Math.sin(t)],0,2*pi,'#e4ecf2',1,'xz');
+    spatialCurve(t=>[0,Math.cos(t),Math.sin(t)],0,2*pi,'#e4ecf2',1,'yz');
+    spatialCurve(t=>[Math.cos(t),Math.sin(t),0],0,2*pi,'#a7baca',1.7,'xy');
     for(const [v,name] of [[[1,0,0],'x'],[[0,1,0],'y'],[[0,0,1],'z']]){
       line(svg,project(v.map(x=>-1.05*x)),C,'#bdcbd6',1.2,'5 5');
       arrow(svg,C,project(v.map(x=>1.13*x)),'#91a5b6',1.6);
-      const a=project(v.map(x=>1.24*x));label(svg,a[0],a[1],name,42,24);
+      if(name==='z'){const a=project(v.map(x=>1.24*x));label(svg,a[0],a[1],name,42,24);}
     }
     const north=project([0,0,1]),south=project([0,0,-1]);
     point(north,gray,4);point(south,gray,4);label(svg,north[0]+45,north[1]-4,'|0\\rangle',65,25);label(svg,south[0]+45,south[1]+5,'|1\\rangle',65,25);
@@ -53,7 +63,8 @@
         arrow(svg,a,b,blue,3);
       }
     }
-    arrow(svg,C,p,blue,4);point(p);
+    cardinalPoints();
+    arrow(svg,C,p,blue,4);el(svg,'circle',{class:'bloch-state-point',cx:p[0],cy:p[1],r:6,fill:blue,stroke:'white','stroke-width':2});
     return v;
   }
   function stateTex(theta,phi){
