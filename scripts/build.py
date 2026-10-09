@@ -44,6 +44,9 @@ def copy_tree(source, destination):
     shutil.copytree(source, destination, ignore=ignore, dirs_exist_ok=True)
 
 def sanitize_notes(text):
+    if 4 in PUBLISHED:
+        text = text.replace('第一至三讲已有完整资料，后续资料在授课后发布。',
+                            '第一至三讲已有完整资料，<a href="lecture04.html">第四讲讲义</a>已可阅读，后续资料在授课后发布。')
     text = text.replace('量子调控：如何控制一个量子比特？', '量子调控：如何控制量子态？')
     text = text.replace('量子比特：状态、测量与调控', '量子比特：如何描述状态与预测测量？')
     text = re.sub(r'<link\b[^>]*href="([^\"]*lecture\d+[^\"]*)"[^>]*>',
@@ -236,6 +239,8 @@ def main():
                     if item.get('href', '').startswith('outline.html'):
                         item[key] = item[key].replace('第3讲　怎样控制一个量子比特？', '第3讲　量子调控：如何控制量子态？')
             if isinstance(item.get('text'),str):
+                if 4 in PUBLISHED:
+                    item['text'] = item['text'].replace('第一至三讲已有完整资料，后续资料在授课后发布。', '第一至三讲已有完整资料，第四讲讲义已可阅读，后续资料在授课后发布。')
                 item['text'] = re.sub(r'图件计算与本讲新增算例的核验记录可分别查看.*?讲义计算核验。','',item['text'])
         search.write_text(json.dumps(items,ensure_ascii=False))
     source = (root/'quantum-notes/outline.qmd').read_text()
