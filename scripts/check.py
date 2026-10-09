@@ -6,7 +6,7 @@ from urllib.parse import urlsplit, unquote
 import re
 import sys
 import json
-from release import PUBLISHED, withheld
+from release import PUBLISHED, PUBLISHED_SLIDES, NOTES_ONLY, withheld
 
 DIST=Path(__file__).resolve().parents[1]/'dist'
 errors=[]
@@ -49,7 +49,7 @@ for path in DIST.rglob('*'):
         for ref in p.refs:check_ref(path,ref)
     elif path.suffix=='.css':
         for ref in re.findall(r'url\(\s*[\"\']?([^\)\"\']+)',path.read_text()):check_ref(path,ref)
-for required in ['index.html','notes/index.html','.nojekyll'] + [f'downloads/lecture{n:02d}-slides.pdf' for n in PUBLISHED] + [f'{folder}/lecture{n:02d}.html' for folder in ('notes','slides') for n in PUBLISHED]:
+for required in ['index.html','notes/index.html','.nojekyll'] + [f'downloads/lecture{n:02d}-slides.pdf' for n in PUBLISHED_SLIDES] + [f'notes/lecture{n:02d}.html' for n in PUBLISHED] + [f'slides/lecture{n:02d}.html' for n in PUBLISHED_SLIDES]:
     if not (DIST/required).exists():errors.append('Missing entrypoint: '+required)
 for item in json.loads((DIST/'notes/search.json').read_text()):
     if withheld(item.get('href', '')):
@@ -76,6 +76,10 @@ canonical=None
 for page in sorted((DIST/'notes').glob('*.html')):
     match=re.search(r'<nav\b[^>]*\bid="quarto-sidebar"[^>]*>.*?</nav>', page.read_text(), re.S)
     if not match:
+        if page.name in {f'lecture{n:02d}.html' for n in NOTES_ONLY}:
+            if 'class="course-site-return"' not in page.read_text() or 'id="TOC"' not in page.read_text():
+                errors.append(f'Missing standalone notes navigation: {page.name}')
+            continue
         errors.append(f'Missing notes sidebar: {page.name}'); continue
     sidebar=Sidebar(); sidebar.feed(match[0])
     if canonical is None: canonical=sidebar.links

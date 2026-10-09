@@ -5,7 +5,11 @@ import re
 
 CONFIG = json.loads((Path(__file__).resolve().parents[1] / 'publication.json').read_text())
 PUBLISHED = set(CONFIG['published_lectures'])
+NOTES_ONLY = set(CONFIG.get('notes_only_lectures', []))
+PUBLISHED_SLIDES = PUBLISHED - NOTES_ONLY
 AFTER_CLASS = set(CONFIG['after_class_lectures'])
 
 def withheld(path):
-    return any(int(n) not in PUBLISHED for n in re.findall(r'lecture(\d+)', str(path)))
+    slide_resource = any(part in {'slides', 'quantum-slides', 'downloads'} for part in Path(path).parts)
+    allowed = PUBLISHED_SLIDES if slide_resource else PUBLISHED
+    return any(int(n) not in allowed for n in re.findall(r'lecture(\d+)', str(path)))

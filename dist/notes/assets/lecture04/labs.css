@@ -1,0 +1,10 @@
+:root{font-family:system-ui,'PingFang SC',sans-serif;color:#183855;background:white}*{box-sizing:border-box}body{margin:0;overflow:hidden}#stage{width:1120px;height:630px;transform-origin:top left;padding:24px 32px;display:flex;flex-direction:column;gap:14px;background:#fff}header{display:flex;justify-content:space-between;align-items:center;font-size:23px;font-weight:650}.note{font-size:19px;color:#465f73;margin:0;line-height:1.5}.controls{display:flex;gap:16px;align-items:center;flex-wrap:wrap;min-height:46px;font-size:19px}button,select{font:inherit;border:1px solid #a4bdd3;border-radius:5px;background:#f3f7fc;color:#183855;padding:7px 12px;cursor:pointer}button:hover{background:#dfeefd}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #2876b4}input[type=range]{width:165px;vertical-align:middle}.body{display:flex;gap:26px;flex:1;min-height:0;align-items:center}.panel{flex:1;min-width:0}#result{font-size:23px;line-height:1.6;min-height:50px}table{width:100%;border-collapse:collapse;font-size:21px;text-align:center}td,th{padding:8px;border-bottom:1px solid #d8e4ee}th{color:#214e79;font-weight:600}svg.plot{display:block;width:100%;height:auto}footer{font-size:17px;color:#5b6d7f}#full{font-size:17px}.pair{display:flex}.pair>div{width:50%}.caption{text-align:center;font-size:20px}#stage:fullscreen{transform:none!important;width:100vw;height:100vh;justify-content:center}mjx-container{margin:.15em 0!important}.small{font-size:18px}.comparison{display:grid;grid-template-columns:1fr 1fr;gap:30px;width:100%}.comparison h3{margin:0;font-size:23px;color:#245c9a}.bars-label{font-size:22px}.summary{background:#f0f6fb;padding:8px 14px;border-left:3px solid #4481ac}
+.body svg.plot { max-height:300px; }
+.caption { margin:8px 0; }
+.comparison svg.plot { max-height:220px; }
+.comparison p { margin:6px 0; }
+.comparison h3 { margin:0 0 2px; }
+
+.body > .panel > svg.plot { height:300px; width:100%; }
+
+caption { caption-side:top; text-align:center; padding-bottom:8px; font-size:20px; color:#245c9a; }
