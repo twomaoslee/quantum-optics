@@ -2436,6 +2436,8 @@ main h2 { scroll-margin-top:66px; }
 }
 @media print { .lecture-mobile-toc {display:none;} }
 @media print { .l04-demo-tools {display:none;} }
+
+#sec-l04-intro > h2 { font-size:1.2em; margin-top:1.4em; padding-bottom:0; border-bottom:0; }
 </style>
 <style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style></head>
 
@@ -2449,6 +2451,7 @@ main h2 { scroll-margin-top:66px; }
   <ul class="collapse">
   <li><a href="#sec-lecture04" id="toc-sec-lecture04" class="nav-link active" data-scroll-target="#sec-lecture04">第四讲　量子纠缠：两个系统的状态为何不能分开描述？</a>
   <ul class="collapse">
+  <li><a href="#sec-l04-intro" id="toc-sec-l04-intro" class="nav-link" data-scroll-target="#sec-l04-intro">本讲导读</a></li>
   <li><a href="#sec-l04-gates" id="toc-sec-l04-gates" class="nav-link" data-scroll-target="#sec-l04-gates">一、单比特门：回顾本讲需要的操作</a></li>
   <li><a href="#sec-l04-1" id="toc-sec-l04-1" class="nav-link" data-scroll-target="#sec-l04-1">二、乘积态：两个独立的量子比特怎样描述？</a></li>
   <li><a href="#sec-l04-2" id="toc-sec-l04-2" class="nav-link" data-scroll-target="#sec-l04-2">三、两比特门：怎样让两个比特建立联系？</a></li>
@@ -2467,10 +2470,18 @@ main h2 { scroll-margin-top:66px; }
 
 <section id="sec-lecture04" class="level1">
 <h1>第四讲　量子纠缠：两个系统的状态为何不能分开描述？</h1>
+<section id="sec-l04-intro" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sec-l04-intro">本讲导读</h2>
+<p>上一讲，我们用布洛赫球面上的一个点描述一个量子比特的纯态。现在考虑两个比特：<strong>各画一个点，是否就能描述它们的整体状态？</strong> 我们将从两个独立制备的比特出发，观察门操作怎样改变它们。为此，先回顾单比特门，明确怎样逐步计算状态的变化，以及为什么要保留概率幅和相对相位。</p>
+<p>把两个比特A、B放在一起，0/1测量就有00、01、10、11四种成对结果。对于独立制备的两个纯态，联合态由各自的态相乘得到，称为乘积态；联合概率幅也由两端的概率幅相乘得到。分别对A、B施加单比特门后，整体仍是乘积态。<strong>在这些操作下，两个球面点始终足以描述整体。</strong></p>
+<p>若要让B是否翻转取决于A的输入，就需要共同作用于两个比特的门。我们以这种受控翻转门CNOT为例，从两个0态出发，配合单比特门，制备出由00态与11态等幅、同相叠加而成的Bell纯态。它还能写成两个单比特态的乘积吗？逐项比较会发现，这样的分解无法成立。这便引出了<strong>纠缠：联合纯态无法写成两个单比特态的乘积。</strong> 再改变输入、保持CNOT不变，我们还会看到输出也可以是乘积态，因此判断门的输出是否纠缠，需要同时考察门和输入。</p>
+<p><strong>整体无法拆成两个纯态，每一端单独看又是什么状态？</strong> 我们通过只统计A或B的测量结果来回答。沿不同方向计算概率，再将概率与布洛赫球坐标联系起来，会发现这个Bell态的两端都位于球心：每一端在任意方向上的两种测量结果都各占一半。这种局部状态称为完全混合态。于是，整体为纯态的两个比特，各自却可以处于完全混合态。</p>
+<p>反过来，<strong>两个局部球心能否确定整个联合态？</strong> 我们用公平硬币随机选择，把两个比特都制备成0态或都制备成1态，得到两种乘积态各占一半的随机混合。它与Bell态具有相同的局部球心，连0/1联合测量的统计也相同。为区分两者，我们把两端都改为沿 <span class="math inline">\(x\)</span> 测量，并保留同一对比特的配对记录：Bell态的两端结果总是相同，随机混合则出现四种组合。这个差别说明，局部状态记录了各端单独测量的概率，而整体还包含两端结果之间的关联。最后，我们将把这种比较落实为光子偏振实验中的联合计数，回答本讲的问题：<strong>了解每个部分，还不足以了解整体。</strong></p>
+</section>
 <section id="sec-l04-gates" class="level2">
 <h2 class="anchored" data-anchor-id="sec-l04-gates">一、单比特门：回顾本讲需要的操作</h2>
 <!-- G01 -->
-<p>第三讲用布洛赫球面上的一个点描述一个量子比特的纯态。现在把系统扩大到两个比特：<strong>各画一个点，是否就能描述它们的全部状态？</strong>我们先分别制备两个比特的初态，再对它们施加门，观察联合态怎样改变。追踪这个过程需要用到单比特门及其连续作用规则，因此先回顾这些操作。</p>
+<p>先从一个比特开始，回顾门怎样改变状态，以及怎样把连续两步操作接起来。</p>
 <p><strong>门规定的是状态怎样改变。</strong> 把输入态记为 <span class="math inline">\(|\psi\rangle\)</span>，门记为 <span class="math inline">\(U\)</span>，输出态就写成 <span class="math inline">\(U|\psi\rangle\)</span>。本讲考虑理想、可逆的门操作。第三讲讨论的控制脉冲是实现状态变换的一种手段；门则用输入与输出的关系描述我们希望实现的变换。</p>
 <!-- G02 -->
 <p><strong>翻转门 <span class="math inline">\(X\)</span> 把两个基矢互换</strong>：</p>
