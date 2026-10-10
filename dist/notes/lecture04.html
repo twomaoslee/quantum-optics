@@ -2549,21 +2549,17 @@ U_{\mathrm H}|+\rangle
 =ac|00\rangle+ad|01\rangle+bc|10\rangle+bd|11\rangle.
 \]</span></p>
 <p>例如记录01的概率为 <span class="math inline">\(|ad|^2=|a|^2|d|^2\)</span>，正是独立事件概率的乘积。四项概率的总和为 <span class="math inline">\((|a|^2+|b|^2)(|c|^2+|d|^2)=1\)</span>。<strong>乘积态的四个概率幅来自两组单比特概率幅的两两相乘。</strong> 反过来，检查一个已知联合纯态能否写成乘积，就是检查它的四个概率幅能否满足这种乘积关系。下面先用两个加号态练习这个检查。</p>
-<div id="ai-l04-1" class="callout callout-style-simple callout-tip callout-titled">
+<div id="think-l04-1" class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">提示</span>停下来推一推：四种结果，就一定超出了两个球面点的描述吗？
+<span class="screen-reader-only">提示</span>思考题一：四种结果，就一定超出了两个球面点的描述吗？
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>独立地把 A、B 都准备成 <span class="math inline">\(|+\rangle\)</span>。先不要看下面的展开。请依次写出：四种联合记录、各自的概率幅与概率，以及联合态最初的乘积写法。最后判断：四个联合基矢都出现，是否已经足以说明不能分别描述 A 和 B？理由是什么？</p>
-<p>可把这段要求复制给 AI，进行逐问对话：</p>
-<blockquote class="blockquote">
-<p>请只使用我已经学过的单比特态、线性门操作、张量积展开和 Born 规则指导我。A、B 独立准备为加号态。请先只问我四种联合记录是什么，等我作答再问概率幅；若我把概率与概率幅混淆，用一个提示让我重算。最后让我用原来的乘积写法检查结论。等我完成推导后，再核对完整答案。</p>
-</blockquote>
 </div>
 </div>
 <!-- P07 -->
@@ -2682,21 +2678,17 @@ bc=0,\qquad bd=\frac1{\sqrt2}.
 <!-- P17 -->
 <p>这就引出了<strong>纯态的纠缠判据</strong>：对于由 A、B 组成的系统，如果联合纯态不能写成 <span class="math inline">\(|\psi\rangle_A\otimes|\phi\rangle_B\)</span>，就称 A、B 处于纠缠态。<span class="math inline">\(|\Phi^+\rangle=(|00\rangle+|11\rangle)/\sqrt2\)</span> 满足这个条件。</p>
 <p>这回答了刚才的乘积检查：CNOT 把这个乘积输入变成了纠缠态。接着保持门不变，换一种乘积输入，检验输出是否仍有这种性质。</p>
-<div id="ai-l04-2" class="callout callout-style-simple callout-tip callout-titled">
+<div id="think-l04-2" class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">提示</span>停下来推一推：用了 CNOT，就一定产生纠缠吗？
+<span class="screen-reader-only">提示</span>思考题二：用了 CNOT，就一定产生纠缠吗？
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>把输入改为独立准备的 <span class="math inline">\(|+\rangle_A|+\rangle_B\)</span>，仍然让 A 控制、B 为目标，施加同一个 CNOT。请先预测是否会得到纠缠，再展开四项、逐项查门表，最后尝试把输出重新写成乘积。请根据输出能否写成乘积说明判断依据。</p>
-<p>可复制给 AI：</p>
-<blockquote class="blockquote">
-<p>我已学过乘积态展开、CNOT的四条作用规则，以及联合纯态不能写成乘积时称为纠缠。请引导我计算CNOT作用在两个加号态的乘积上。每次只问一个问题，先让我预测，再让我列出四个输入项和各自的输出，最后让我检验能否因式分解。请使用上述已学规则，在我完成每一步后再核对。</p>
-</blockquote>
 </div>
 </div>
 <!-- P18–P20 -->
@@ -2854,21 +2846,17 @@ P_A(u)=\frac{|c|^2}{2}+\frac{|d|^2}{2}=\frac12.
 <p>在硬币方案中，A 一半时候是 <span class="math inline">\(|0\rangle\)</span>，另一半时候是 <span class="math inline">\(|1\rangle\)</span>，所以沿 <span class="math inline">\(z\)</span> 测量各半。沿 <span class="math inline">\(x\)</span> 或 <span class="math inline">\(y\)</span> 测量时，两个分支本身都各半，平均后仍是各半。B 同理。因此两端也都给出 <span class="math inline">\(\boldsymbol r=(0,0,0)\)</span>，与 Bell 态相同。</p>
 <p>还可以比较任意方向。对前节定义的任意测量结果 <span class="math inline">\(|u\rangle=c|0\rangle+d|1\rangle\)</span>，A 在0态分支得到它的概率是 <span class="math inline">\(|c|^2\)</span>，在1态分支是 <span class="math inline">\(|d|^2\)</span>。将两个分支的概率平均，得到 <span class="math inline">\((|c|^2+|d|^2)/2=1/2\)</span>。只统计某一端，任何方向的概率都无法区分这两种准备。</p>
 <p>单端概率已经全部相同，接下来比较两端的配对记录。先用最熟悉的 <span class="math inline">\(z\)</span> 测量：硬币方案只产生00或11，概率各半，与 Bell 态也相同。于是，单端测量和这一组联合测量都还没有区分它们。<strong>两种准备是否会在其他联合测量中给出不同结果？</strong> 我们可以利用前面已经学过的换基方法来检验。</p>
-<div id="ai-l04-3" class="callout callout-style-simple callout-tip callout-titled">
+<div id="think-l04-3" class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">提示</span>停下来设计检验：还可以改变什么？
+<span class="screen-reader-only">提示</span>思考题三：还可以改变什么？
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>比较对象固定为上面的 Bell 纯态与硬币随机混合。已经知道，两端球心相同，沿 <span class="math inline">\(z\)</span> 的联合记录也相同。你会怎样改变测量来进一步比较？请说明：两端分别测什么，哪些数据需要保留配对，以及什么样的概率差异才算区分了这两个候选。</p>
-<p>可复制给 AI：</p>
-<blockquote class="blockquote">
-<p>我已经知道这两个候选在任何单端测量中各半，在两端z测量中都只有00和11。请让我自己提出下一种联合测量，先不要给出结果。若我只想增加单端测量次数，请问我是否保留了每一对的对应关系；若我选了新的测量基底，请让我先分别写出两种准备的计算方法。每次只提一个问题，等我作答后再核对计算。</p>
-</blockquote>
 </div>
 </div>
 <!-- P31 -->
