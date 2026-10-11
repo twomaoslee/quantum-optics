@@ -13,7 +13,7 @@ import subprocess
 import tarfile
 import tempfile
 from urllib.parse import unquote
-from release import PUBLISHED, PUBLISHED_SLIDES, NOTES_ONLY, AFTER_CLASS, withheld
+from release import PUBLISHED, PUBLISHED_SLIDES, NOTES_ONLY, STANDALONE_NOTES, PUBLISHED_PDFS, AFTER_CLASS, withheld
 
 SITE = Path(__file__).resolve().parents[1]
 ROOT = SITE.parent
@@ -54,7 +54,7 @@ def copy_tree(source, destination):
                 or (name.endswith('.md') and name not in {'SOURCES.md', 'README.md'})
                 or name.endswith(('.py', '.pyc', '.qmd', '.zip', '.map'))
                 or name.endswith('-prompt.txt')
-                or (name.endswith('.json') and ('verification' in name or name == 'slide-manifest.json'))]
+                or (name.endswith('.json') and ('verification' in name or 'reader-states' in name or name == 'slide-manifest.json'))]
     shutil.copytree(source, destination, ignore=ignore, dirs_exist_ok=True)
 
 def sanitize_notes(text):
@@ -97,7 +97,7 @@ def sync_notes_sidebar(directory, source):
         raise RuntimeError(f'Missing canonical sidebar in {source.name}')
     sidebar = re.sub(r'[ \t]+$', '', sanitize_notes(match[0]), flags=re.M)
     # Standalone notes join the shared book navigation without changing old bodies.
-    for n in sorted(NOTES_ONLY):
+    for n in sorted(STANDALONE_NOTES):
         name = f'lecture{n:02d}.html'
         page = directory/name
         title = unescape(re.search(r'<title>(.*?)</title>', page.read_text(), re.S)[1])
@@ -115,22 +115,68 @@ def sync_notes_sidebar(directory, source):
             return tag
         current = re.sub(r'<a\b[^>]*href="([^"]+)"[^>]*>', mark_current, sidebar)
         text, count = re.subn(pattern, lambda _: current, page.read_text(), flags=re.S)
-        if count == 0 and page.name in {f'lecture{n:02d}.html' for n in NOTES_ONLY}:
+        if count == 0 and page.name in {f'lecture{n:02d}.html' for n in STANDALONE_NOTES}:
             continue  # Standalone page has its own chapter TOC and a course-home link.
         if count != 1:
             raise RuntimeError(f'Expected one sidebar in {page.name}, found {count}')
         page.write_text(text)
+
+def update_slides(root, numbers):
+    """Publish packaged slides without changing already published note bodies."""
+    if not set(numbers) <= PUBLISHED_SLIDES:
+        raise SystemExit('Requested slides are not authorized in publication.json.')
+    homepage = DIST/'index.html'
+    text = homepage.read_text()
+    for number in numbers:
+        name = f'lecture{number:02d}'
+        source = root/'quantum-slides'
+        manifest = json.loads((source/'qa'/name/'delivery-manifest.json').read_text())
+        for relative in manifest['files']:
+            path = Path(relative)
+            if path.suffix == '.md':
+                continue  # Classroom usage instructions are not student pages.
+            if path.is_absolute() or '..' in path.parts or withheld(Path('slides')/path):
+                raise SystemExit(f'Unexpected packaged path: {relative}')
+            target = DIST/'slides'/path
+            target.parent.mkdir(parents=True, exist_ok=True)
+            if path.suffix == '.html':
+                content = (source/path).read_text()
+                content = re.sub(r'<aside\b[^>]*class="[^"]*\bnotes\b[^"]*"[^>]*>.*?</aside>', '', content, flags=re.S)
+                target.write_text(content)
+            else:
+                shutil.copy2(source/path, target)
+        pattern = r'<article class="lecture">(?:(?!</article>).)*href="notes/'+name+r'\.html".*?</article>'
+        match = re.search(pattern, text, re.S)
+        if not match:
+            raise SystemExit(f'Missing homepage entry for {name}')
+        card = match[0]
+        if f'href="slides/{name}.html"' not in card:
+            link = f'<a class="action" href="slides/{name}.html" aria-label="打开第{number}讲课件">课堂课件</a>'
+            card = card.replace('</div></article>', link+'</div></article>')
+        card = card.replace('第四讲讲义与互动演示。', '第四讲讲义、课堂课件与互动演示。')
+        changed = datetime.fromtimestamp((source/f'{name}.html').stat().st_mtime).strftime('%Y-%m-%d')
+        card = re.sub(r'资料更新：\d{4}-\d{2}-\d{2}', '资料更新：'+changed, card)
+        text = text[:match.start()] + card + text[match.end():]
+    homepage.write_text(text)
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--update-sharing', action='store_true',
                         help='Only refresh homepage share metadata and cover assets.')
     parser.add_argument('--source-root', type=Path, default=ROOT)
+    parser.add_argument('--update-slides', type=int, nargs='+', choices=[4],
+                        help='Update packaged classroom slides and their homepage links only.')
     parser.add_argument('--update-lectures', type=int, nargs='+',
                         help='Preserve other note pages and search entries from the committed release.')
     parser.add_argument('--update-curriculum', action='store_true',
                         help='Refresh the syllabus and shared titles while preserving published chapter bodies.')
     args = parser.parse_args()
+    if args.update_slides:
+        if args.update_sharing or args.update_lectures or args.update_curriculum:
+            parser.error('--update-slides cannot be combined with other update modes.')
+        update_slides(args.source_root.resolve(), args.update_slides)
+        print('Packaged classroom slides and homepage entries updated.')
+        return
     if args.update_sharing:
         if args.update_lectures or args.update_curriculum:
             parser.error('--update-sharing cannot be combined with course updates.')
@@ -158,13 +204,13 @@ def main():
         refreshed_pages = {'index.html', 'outline.html'} | {f'lecture{n:02d}.html' for n in updated_lectures}
         preserved_search = [item for item in previous_search if item.get('href', '').split('#')[0] not in refreshed_pages]
     notes = root / 'quantum-notes/_book'
-    note_sources = {n: root/'quantum-notes'/f'lecture{n:02d}.html' if n in NOTES_ONLY
+    note_sources = {n: root/'quantum-notes'/f'lecture{n:02d}.html' if n in STANDALONE_NOTES
                     else notes/f'lecture{n:02d}.html' for n in PUBLISHED}
     slides = root / 'quantum-slides'
     pdf = root / '量子光学 · 第一讲：从量子力学到量子信息科学.pdf'
     pdfs = {1: (pdf, 49), 2: (root/'output/pdf/第二讲课件.pdf', 43),
             3: (root/'output/pdf/第三讲课件-主讲页.pdf', 46)}
-    required = [notes/'index.html'] + list(note_sources.values()) + [pdfs[n][0] for n in PUBLISHED_SLIDES] + [slides/f'lecture{n:02d}.html' for n in PUBLISHED_SLIDES]
+    required = [notes/'index.html'] + list(note_sources.values()) + [pdfs[n][0] for n in PUBLISHED_PDFS] + [slides/f'lecture{n:02d}.html' for n in PUBLISHED_SLIDES]
     for path in required:
         if not path.is_file():
             raise SystemExit(f'Missing source: {path.name}; render the course before publishing.')
@@ -184,7 +230,7 @@ def main():
             shutil.copy2(notes/name, DIST/'notes'/name)
     else:
         copy_tree(notes, DIST/'notes')
-    for n in sorted(NOTES_ONLY):
+    for n in sorted(STANDALONE_NOTES):
         shutil.copy2(note_sources[n], DIST/'notes'/note_sources[n].name)
         copy_tree(root/'quantum-notes/assets'/f'lecture{n:02d}', DIST/'notes/assets'/f'lecture{n:02d}')
     missing_poster = DIST/'notes/figures/lecture01/slide10-image18.png'
@@ -206,7 +252,7 @@ def main():
             text = '\n'.join(line for line in text.splitlines() if not re.search(r'qa/|scripts/|提示词|核验记录|未对外发布|原始生成文件', line)) + '\n'
         path.write_text(text)
     for name in [f'lecture{n:02d}{suffix}.html' for n in sorted(PUBLISHED_SLIDES if not notes_only_update else set()) for suffix in ('', '-backup')]:
-        if not withheld(name):
+        if not withheld(name) and (slides/name).is_file():
             text = (slides/name).read_text()
             text = re.sub(r'<aside\b[^>]*class="[^"]*\bnotes\b[^"]*"[^>]*>.*?</aside>', '', text, flags=re.S)
             (DIST/'slides'/name).write_text(text)
@@ -216,7 +262,7 @@ def main():
     if not notes_only_update:
         shutil.copy2(slides/'assets/branding/csu-logo.png', DIST/'assets/csu-logo.png')
     (DIST/'downloads').mkdir(exist_ok=True)
-    for n in sorted(PUBLISHED_SLIDES if not notes_only_update else set()):
+    for n in sorted(PUBLISHED_PDFS if not notes_only_update else set()):
         shutil.copy2(pdfs[n][0], DIST/f'downloads/lecture{n:02d}-slides.pdf')
     shutil.copy2(SITE/'site.css', DIST/'site.css')
     (DIST/'.nojekyll').touch()
@@ -239,7 +285,7 @@ def main():
         items = [item for item in json.loads(search.read_text()) if not withheld(item.get('href', ''))]
         if partial_update:
             items = preserved_search + [item for item in items if item.get('href', '').split('#')[0] in refreshed_pages]
-        for n in sorted(NOTES_ONLY):
+        for n in sorted(STANDALONE_NOTES):
             name = f'lecture{n:02d}.html'
             items = [item for item in items if item.get('href', '').split('#')[0] != name]
             text = (DIST/'notes'/name).read_text()
@@ -276,7 +322,7 @@ def main():
         1: (titles[1], '整数分解 → 量子力学 → 量子信息 → 光与控制'),
         2: (titles[2], '从偏振实验出发，用量子态预测测量，理解筛选、相位调控与不同物理系统中的量子比特。'),
         3: (titles[3], '从量子态的演化出发，学习共振驱动、脉冲时长与相位调控，制备并检验目标态，理解单比特量子门。'),
-        4: (titles[4], '第四讲讲义与互动演示。')
+        4: (titles[4], '第四讲讲义、课堂课件与互动演示。')
     }
     rows=[]
     for number,(title,summary) in summaries.items():
@@ -287,7 +333,9 @@ def main():
         slide_links = ''
         if number in PUBLISHED_SLIDES:
             times.append((slides/f'{name}.html').stat().st_mtime)
-            slide_links = f'<a class="action" href="slides/{name}.html" aria-label="打开第{number}讲课件">课堂课件</a><a class="download" href="downloads/{name}-slides.pdf" download>课件 PDF · {pdfs[number][1]} 页 · {pdfs[number][0].stat().st_size/1_000_000:.1f} MB ↓</a>'
+            slide_links = f'<a class="action" href="slides/{name}.html" aria-label="打开第{number}讲课件">课堂课件</a>'
+            if number in PUBLISHED_PDFS:
+                slide_links += f'<a class="download" href="downloads/{name}-slides.pdf" download>课件 PDF · {pdfs[number][1]} 页 · {pdfs[number][0].stat().st_size/1_000_000:.1f} MB ↓</a>'
         changed=datetime.fromtimestamp(max(times)).strftime('%Y-%m-%d')
         rows.append(f'''<article class="lecture"><div class="lecture-number" aria-hidden="true">{number:02d}</div><div><h3><a href="notes/{name}.html"><span class="sr-only">第 {number} 讲：</span>{title}</a></h3><p>{summary}</p><p class="revision">资料更新：{changed}</p></div><div class="actions"><a class="action primary" href="notes/{name}.html" aria-label="阅读第{number}讲讲义">在线讲义</a>{slide_links}</div></article>''')
     blocks=[]

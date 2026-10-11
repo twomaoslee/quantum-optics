@@ -1,8 +1,8 @@
 # 量子光学课程网站
 
-学生入口为 `dist/index.html`，当前发布第一至三讲在线讲义、课堂课件与课件 PDF，以及第四讲在线讲义，以及14次授课与1次课题汇报的目录、补充阅读与来源。第三讲已获教师明确发布授权。
+学生入口为 `dist/index.html`，当前发布第一至三讲在线讲义、课堂课件与课件 PDF，第四讲在线讲义、课堂课件与互动演示，以及14次授课与1次课题汇报的目录、补充阅读与来源。第三讲已获教师明确发布授权。
 
-`publication.json` 控制允许发布的讲次，不能根据源文件存在与否自动发布。第一至四讲已列入 `published_lectures`；后续讲次须在教师明确要求发布后加入。`notes_only_lectures: [4]` 表示第四讲本次仅发布讲义和所需互动资源，不发布课堂课件或 PDF。
+`publication.json` 控制允许发布的讲次，不能根据源文件存在与否自动发布。第一至四讲已列入 `published_lectures`；后续讲次须在教师明确要求发布后加入。第四讲课堂课件已获授权发布；`published_pdf_lectures: [1, 2, 3]` 单独控制 PDF 范围。`standalone_notes_lectures: [4]` 仅标记第四讲讲义采用独立 HTML，不限制课件发布。
 
 本目录是独立的发布项目；课程写作继续使用相邻的 `quantum-notes/` 和 `quantum-slides/`。网站构建不重新渲染课程，也不修改课程原稿。修订原稿后先用课程已有流程更新 HTML，再运行：
 
@@ -12,6 +12,8 @@ python3 scripts/check.py
 ```
 
 仅发布指定讲次并保留其他已发布讲义及旧链接时，使用 `python3 scripts/build.py --update-lectures 3`。此模式以当前 Git 提交为已有发布版本，仍更新课程首页、目录与所选讲次的搜索条目。
+
+仅上传第四讲最新课件及其打包资源、保留已发布讲义与其他讲次时，使用 `python3 scripts/build.py --update-slides 4`；此模式读取第四讲交付清单，移除讲者备注，并更新首页课件入口。
 
 仅更新课程目录、课次安排和共享标题时，先渲染讲义首页与目录，再运行 `python3 scripts/build.py --update-curriculum`；该模式保留已发布的各章正文，并同步目录搜索条目。
 
