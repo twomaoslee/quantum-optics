@@ -19,6 +19,20 @@ SITE = Path(__file__).resolve().parents[1]
 ROOT = SITE.parent
 DIST = SITE / 'dist'
 
+def sync_share_assets():
+    shutil.copytree(SITE/'assets/share', DIST/'assets/share', dirs_exist_ok=True)
+
+def update_sharing():
+    """Refresh only homepage metadata and its cover, preserving the release."""
+    pattern = r'<!-- Course sharing metadata -->.*?<!-- /Course sharing metadata -->'
+    block = re.search(pattern, (SITE/'index.template.html').read_text(), re.S)[0]
+    page = DIST/'index.html'
+    text = re.sub(pattern + r'\s*', '', page.read_text(), flags=re.S)
+    if text.count('</head>') != 1:
+        raise SystemExit('Expected one homepage head element.')
+    page.write_text(text.replace('</head>', block + '\n</head>', 1))
+    sync_share_assets()
+
 def use_shared_slide_images(directory):
     """Reuse byte-identical published assets instead of inline slide images."""
     assets = {}
@@ -109,12 +123,20 @@ def sync_notes_sidebar(directory, source):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--update-sharing', action='store_true',
+                        help='Only refresh homepage share metadata and cover assets.')
     parser.add_argument('--source-root', type=Path, default=ROOT)
     parser.add_argument('--update-lectures', type=int, nargs='+',
                         help='Preserve other note pages and search entries from the committed release.')
     parser.add_argument('--update-curriculum', action='store_true',
                         help='Refresh the syllabus and shared titles while preserving published chapter bodies.')
     args = parser.parse_args()
+    if args.update_sharing:
+        if args.update_lectures or args.update_curriculum:
+            parser.error('--update-sharing cannot be combined with course updates.')
+        update_sharing()
+        print('Homepage sharing metadata and cover updated.')
+        return
     updated_lectures = args.update_lectures or []
     partial_update = bool(updated_lectures or args.update_curriculum)
     notes_only_update = bool(updated_lectures) and set(updated_lectures) <= NOTES_ONLY
@@ -282,6 +304,7 @@ def main():
     page=(SITE/'index.template.html').read_text().replace('{{LECTURES}}',''.join(rows)).replace('{{CURRICULUM}}',''.join(blocks))
     page=page.replace('{{PUBLISHED_NUMBERS}}', '、'.join(str(n) for n in sorted(PUBLISHED)))
     (DIST/'index.html').write_text(page)
+    sync_share_assets()
     size=sum(p.stat().st_size for p in DIST.rglob('*') if p.is_file())
     print(f'Website ready: {size/1024/1024:.1f} MiB; {len(units)} units, {sum(len(x[1]) for x in units)} lectures.')
 
