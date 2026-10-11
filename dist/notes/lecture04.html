@@ -2410,6 +2410,27 @@ main table { display:block; overflow-x:auto; }
 }
 </style>
 <style type="text/css">:root { --ink: #173b65; --accent: #245c9a; }
+
+@font-face {
+font-family: "Source Han Sans CN";
+src: local("SourceHanSansCN-Regular"), local("Source Han Sans CN Regular");
+font-style: normal;
+font-weight: 400;
+font-display: swap;
+}
+@font-face {
+font-family: "Source Han Sans CN";
+src: local("SourceHanSansCN-Bold"), local("Source Han Sans CN Bold");
+font-style: normal;
+font-weight: 700;
+font-display: swap;
+}
+:root {
+--l04-text-font: "Source Han Sans CN", "Source Han Sans SC", "Source Han Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+body { font-family: var(--l04-text-font); font-weight: 400; font-synthesis-weight: none; }
+h1,h2,h3,h4,h5,h6,.sidebar,.toc-title { font-family: var(--l04-text-font); }
+h1,h2,h3,h4,h5,h6,strong,b { font-weight: 700; }
 body { color: #18212b; background: #fff; }
 h2,h3 { color: #173b65; }
 .callout-tip { background: #f3f7fc; }
@@ -2424,7 +2445,7 @@ table { font-variant-numeric:tabular-nums; }
 #quarto-margin-sidebar { display:none !important; }
 .lecture-mobile-toc { display:block; position:sticky; top:0; z-index:100;
 margin:0 0 1.2rem; background:#fff; border-bottom:1px solid #d3e0ed;
-font:500 16px/1.5 "PingFang SC",sans-serif; color:#173b65; }
+font:400 16px/1.5 var(--l04-text-font); color:#173b65; }
 .lecture-mobile-toc summary { cursor:pointer; padding:12px 4px; min-height:48px; }
 .lecture-mobile-toc nav { max-height:55vh; max-height:55dvh; overflow-y:auto;
 overscroll-behavior:contain; padding:0 4px 10px; }
@@ -2473,10 +2494,10 @@ main h2 { scroll-margin-top:66px; }
 <section id="sec-l04-intro" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="sec-l04-intro">本讲导读</h2>
 <p>上一讲，我们用布洛赫球面上的一个点描述一个量子比特的纯态。现在考虑两个比特：<strong>各画一个点，是否就能描述它们的整体状态？</strong> 我们将从两个独立制备的比特出发，观察门操作怎样改变它们。为此，先回顾单比特门，明确怎样逐步计算状态的变化，以及为什么要保留概率幅和相对相位。</p>
-<p>把两个比特A、B放在一起，0/1测量就有00、01、10、11四种成对结果。对于独立制备的两个纯态，联合态由各自的态相乘得到，称为乘积态；联合概率幅也由两端的概率幅相乘得到。分别对A、B施加单比特门后，整体仍是乘积态。<strong>在这些操作下，两个球面点始终足以描述整体。</strong></p>
+<p>把两个比特A、B放在一起，0/1测量就有00、01、10、11四种成对结果。对于独立制备的两个纯态，联合态由各自的态相乘得到，称为乘积态；联合概率幅也由A、B各自的概率幅相乘得到。分别对A、B施加单比特门后，整体仍是乘积态。<strong>在这些操作下，两个球面点始终足以描述整体。</strong></p>
 <p>若要让B是否翻转取决于A的输入，就需要共同作用于两个比特的门。我们以这种受控翻转门CNOT为例，从两个0态出发，配合单比特门，制备出由00态与11态等幅、同相叠加而成的Bell纯态。它还能写成两个单比特态的乘积吗？逐项比较会发现，这样的分解无法成立。这便引出了<strong>纠缠：联合纯态无法写成两个单比特态的乘积。</strong> 再改变输入、保持CNOT不变，我们还会看到输出也可以是乘积态，因此判断门的输出是否纠缠，需要同时考察门和输入。</p>
-<p><strong>整体无法拆成两个纯态，每一端单独看又是什么状态？</strong> 我们通过只统计A或B的测量结果来回答。沿不同方向计算概率，再将概率与布洛赫球坐标联系起来，会发现这个Bell态的两端都位于球心：每一端在任意方向上的两种测量结果都各占一半。这种局部状态称为完全混合态。于是，整体为纯态的两个比特，各自却可以处于完全混合态。</p>
-<p>反过来，<strong>两个局部球心能否确定整个联合态？</strong> 我们用公平硬币随机选择，把两个比特都制备成0态或都制备成1态，得到两种乘积态各占一半的随机混合。它与Bell态具有相同的局部球心，连0/1联合测量的统计也相同。为区分两者，我们把两端都改为沿 <span class="math inline">\(x\)</span> 测量，并保留同一对比特的配对记录：Bell态的两端结果总是相同，随机混合则出现四种组合。这个差别说明，局部状态记录了各端单独测量的概率，而整体还包含两端结果之间的关联。最后，我们将把这种比较落实为光子偏振实验中的联合计数，回答本讲的问题：<strong>了解每个部分，还不足以了解整体。</strong></p>
+<p><strong>整体无法拆成两个纯态，每个比特单独看又是什么状态？</strong> 我们通过只统计A或B的测量结果来回答。沿不同方向计算概率，再将概率与布洛赫球坐标联系起来，会发现这个Bell态中A、B各自的局部状态都对应布洛赫球的球心：每个比特在任意方向上的两种测量结果都各占一半。这种局部状态称为完全混合态。于是，整体为纯态的两个比特，各自却可以处于完全混合态。</p>
+<p>反过来，<strong>两个局部球心能否确定整个联合态？</strong> 我们用公平硬币随机选择，把两个比特都制备成0态或都制备成1态，得到两种乘积态各占一半的随机混合。它与Bell态具有相同的局部球心，连0/1联合测量的统计也相同。为区分两者，我们对A、B都改为沿 <span class="math inline">\(x\)</span> 测量，并保留同一对比特的配对记录：Bell态中A、B的测量结果总是相同，随机混合则出现四种组合。虽然单独看A或B的结果都各半，但把同一对的结果放在一起比较，就会发现它们是否总是相同。只知道各自的概率，还不能确定这些联合结果的概率。最后，我们将把这种比较落实为光子偏振实验中的联合计数，回答本讲的问题：<strong>了解每个部分，还不足以了解整体。</strong></p>
 </section>
 <section id="sec-l04-gates" class="level2">
 <h2 class="anchored" data-anchor-id="sec-l04-gates">一、单比特门：回顾本讲需要的操作</h2>
@@ -2504,6 +2525,7 @@ U(a|0\rangle+b|1\rangle)=aU|0\rangle+bU|1\rangle.
 U_{\mathrm H}|0\rangle=|+\rangle,\qquad
 U_{\mathrm H}|1\rangle=|-\rangle.
 \]</span></p>
+<p>这个定义确定了输入态与输出态的关系。若要画出操作过程中态在布洛赫球上的连续轨迹，还需要指定实现这个门的控制脉冲；门本身并不唯一规定这条轨迹。</p>
 <p>于是 <span class="math inline">\(U_{\mathrm H}(a|0\rangle+b|1\rangle)=a|+\rangle+b|-\rangle\)</span>。这里，<span class="math inline">\(|+\rangle\)</span> 中 <span class="math inline">\(|0\rangle\)</span> 和 <span class="math inline">\(|1\rangle\)</span> 的概率幅都是 <span class="math inline">\(1/\sqrt2\)</span>；<span class="math inline">\(|-\rangle\)</span> 中两者的概率幅分别是 <span class="math inline">\(1/\sqrt2\)</span> 和 <span class="math inline">\(-1/\sqrt2\)</span>。取模平方时，正负号给出相同的概率；<strong>再次施加门时，却要保留这些符号，按线性规则把概率幅相加。</strong></p>
 <!-- G04 -->
 <p>这些相对符号怎样影响后续操作？用连续两次 Hadamard 门就能看出来。从 <span class="math inline">\(|0\rangle\)</span> 出发，第一次得到 <span class="math inline">\(|+\rangle\)</span>；第二次的输入是这个完整的叠加态。按线性规则，</p>
@@ -2531,9 +2553,9 @@ U_{\mathrm H}|+\rangle
 <section id="sec-l04-1" class="level2">
 <h2 class="anchored" data-anchor-id="sec-l04-1">二、乘积态：两个独立的量子比特怎样描述？</h2>
 <!-- P01–P02 -->
-<p>从两个独立制备的量子比特出发，把它们叫作 A 和 B。让 A 处于 <span class="math inline">\(|+\rangle=(|0\rangle+|1\rangle)/\sqrt2\)</span>，B 处于 <span class="math inline">\(|0\rangle\)</span>。沿用第三讲的坐标约定，A 的球面点在 <span class="math inline">\(+x\)</span> 方向，B 的球面点在 <span class="math inline">\(+z\)</span> 方向。<strong>我们要把这两份状态合成一个联合态，并用它计算同时测量两端的结果。</strong></p>
+<p>从两个独立制备的量子比特出发，把它们叫作 A 和 B。让 A 处于 <span class="math inline">\(|+\rangle=(|0\rangle+|1\rangle)/\sqrt2\)</span>，B 处于 <span class="math inline">\(|0\rangle\)</span>。沿用第三讲的坐标约定，A 的球面点在 <span class="math inline">\(+x\)</span> 方向，B 的球面点在 <span class="math inline">\(+z\)</span> 方向。<strong>我们要把这两份状态合成一个联合态，并用它计算同时测量A、B的结果。</strong></p>
 <!-- P03 -->
-<p>为了让联合态的记号与测量结果一一对应，先规定两端记录的顺序。对 A、B 都做0/1测量，一次联合记录有两个位置，<strong>A 在前，B 在后</strong>。四种可能是00、01、10、11。例如01表示 A 得到0、B 得到1。后文中“沿 <span class="math inline">\(z\)</span> 测量”就是这里的0/1测量。</p>
+<p>为了让联合态的记号与测量结果一一对应，先规定A、B测量记录的顺序。对 A、B 都做0/1测量，一次联合记录有两个位置，<strong>A 在前，B 在后</strong>。四种可能是00、01、10、11。例如01表示 A 得到0、B 得到1。后文中“沿 <span class="math inline">\(z\)</span> 测量”就是这里的0/1测量。</p>
 <!-- P04 -->
 <p>描述状态时也使用同样的顺序。A 处于 <span class="math inline">\(|0\rangle\)</span>、B 处于 <span class="math inline">\(|1\rangle\)</span> 的联合态记为</p>
 <p><span class="math display">\[
@@ -2566,11 +2588,11 @@ U_{\mathrm H}|+\rangle
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">提示</span>思考题一：四种结果，就一定超出了两个球面点的描述吗？
+<span class="screen-reader-only">提示</span>思考题一：两个加号态的联合态与测量概率
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>独立地把 A、B 都制备成 <span class="math inline">\(|+\rangle\)</span>。先不要看下面的展开。请依次写出：四种联合记录、各自的概率幅与概率，以及联合态最初的乘积写法。最后判断：四个联合基矢都出现，是否已经足以说明不能分别描述 A 和 B？理由是什么？</p>
+<p>独立地把 A、B 都制备成 <span class="math inline">\(|+\rangle=(|0\rangle+|1\rangle)/\sqrt2\)</span>，并对两个比特都做0/1测量。请展开联合态 <span class="math inline">\(|+\rangle_A|+\rangle_B\)</span>，写出00、01、10、11各自的概率幅与概率，再说明这个联合态是否仍是乘积态。</p>
 </div>
 </div>
 <!-- P07 -->
@@ -2593,7 +2615,7 @@ U_{\mathrm H}|+\rangle
 =\frac{|00\rangle+|10\rangle}{\sqrt2}.
 \]</span></p>
 <p><strong>分别施加单比特门后，输出仍是乘积纯态，可以用两个球面点描述。</strong></p>
-<p>操作与观察：分别改变两个输入或对两端施加单比特门，查看联合概率幅怎样由两组单比特幅相乘得到。</p>
+<p>操作与观察：分别改变两个输入或分别对A、B施加单比特门，查看联合概率幅怎样由两组单比特概率幅相乘得到。</p>
 <div class="l04-demo">
 <iframe src="assets/lecture04/product.html" title="独立操作与乘积态" loading="lazy" allow="fullscreen" allowfullscreen>
 </iframe>
@@ -2605,7 +2627,7 @@ U_{\mathrm H}|+\rangle
 <section id="sec-l04-2" class="level2">
 <h2 class="anchored" data-anchor-id="sec-l04-2">三、两比特门：怎样让两个比特建立联系？</h2>
 <!-- P09 -->
-<p>上面的操作中，A、B 各按自己的门规则变换。现在考虑一个需要两端配合的任务：<strong>根据 A 的输入决定是否翻转 B。</strong>让 B 从 <span class="math inline">\(|0\rangle\)</span> 开始：A 的输入为 <span class="math inline">\(|0\rangle\)</span> 时，B 保持 <span class="math inline">\(|0\rangle\)</span>；A 的输入为 <span class="math inline">\(|1\rangle\)</span> 时，B 变成 <span class="math inline">\(|1\rangle\)</span>。两种情况下，B 的初态相同，要求的输出却不同，因而只在 B 上施加同一个固定的单比特门无法完成这项任务。这项任务需要把 A、B 的联合态作为输入，一起规定输出。<strong>作用于两个比特联合态的门称为两比特门</strong>；下面具体研究这种受控翻转操作。</p>
+<p>上面的操作中，A、B 各按自己的门规则变换。现在考虑一个涉及A、B共同操作的任务：<strong>根据 A 的输入决定是否翻转 B。</strong>让 B 从 <span class="math inline">\(|0\rangle\)</span> 开始：A 的输入为 <span class="math inline">\(|0\rangle\)</span> 时，B 保持 <span class="math inline">\(|0\rangle\)</span>；A 的输入为 <span class="math inline">\(|1\rangle\)</span> 时，B 变成 <span class="math inline">\(|1\rangle\)</span>。两种情况下，B 的初态相同，要求的输出却不同，因而只在 B 上施加同一个固定的单比特门无法完成这项任务。这项任务需要把 A、B 的联合态作为输入，一起规定输出。<strong>作用于两个比特联合态的门称为两比特门</strong>；下面具体研究这种受控翻转操作。</p>
 <!-- P10 -->
 <p>实现这种受控翻转的门通常写作 CNOT。本讲始终让 <strong>A 作为控制比特、B 作为目标比特</strong>。对四个联合基矢，定义如下：</p>
 <table class="caption-top table">
@@ -2660,7 +2682,7 @@ U_{\mathrm{CNOT}}\frac{|00\rangle+|10\rangle}{\sqrt2}
 <p><span class="math display">\[
 |\Phi^+\rangle\equiv\frac{|00\rangle+|11\rangle}{\sqrt2}.
 \]</span></p>
-<p>这个联合纯态称为一个 Bell 态，上标“+”指两项之间的相对加号。由它的两个概率幅可知，沿 <span class="math inline">\(z\)</span> 测量两端时，00和11的概率各为 <span class="math inline">\(1/2\)</span>。<strong>两端的测量结果总是相同，这种对应关系称为相关。</strong></p>
+<p>这个联合纯态称为一个 Bell 态，上标“+”指两项之间的相对加号。由它的两个概率幅可知，沿 <span class="math inline">\(z\)</span> 测量A、B时，00和11的概率各为 <span class="math inline">\(1/2\)</span>。<strong>A、B的测量结果总是相同，这种对应关系称为相关。</strong></p>
 <p>操作与观察：从00态逐步施加两个门。比较每一步的联合态及其测量概率。</p>
 <div class="l04-demo">
 <iframe src="assets/lecture04/prepare.html" title="从00态开始制备 Bell 态" loading="lazy" allow="fullscreen" allowfullscreen>
@@ -2680,14 +2702,14 @@ U_{\mathrm{CNOT}}\frac{|00\rangle+|10\rangle}{\sqrt2}
 (a|0\rangle+b|1\rangle)_A(c|0\rangle+d|1\rangle)_B
 =\frac{|00\rangle+|11\rangle}{\sqrt2}.
 \]</span></p>
-<p>左边展开后，四个联合基矢的概率幅依次是 <span class="math inline">\(ac,ad,bc,bd\)</span>。右边00和11项的概率幅都是 <span class="math inline">\(1/\sqrt2\)</span>，01和10项的概率幅都是0。因此，等式成立要求</p>
+<p>左边展开后，四个联合基矢的概率幅依次是 <span class="math inline">\(ac,ad,bc,bd\)</span>。右边00和11项的概率幅都是 <span class="math inline">\(1/\sqrt2\)</span>，01和10项的概率幅都是0。同一个态在同一组联合基矢中的展开系数必须逐项相等。因此，乘积形式成立要求</p>
 <p><span class="math display">\[
 ac=\frac1{\sqrt2},\qquad ad=0,\qquad
 bc=0,\qquad bd=\frac1{\sqrt2}.
 \]</span></p>
-<p>第一式要求 <span class="math inline">\(a,c\)</span> 都不为0，最后一式要求 <span class="math inline">\(b,d\)</span> 都不为0。这样一来，<span class="math inline">\(ad\)</span> 与 <span class="math inline">\(bc\)</span> 都不可能等于0，和中间两式矛盾。<strong>因此这样的两个单比特态不存在。</strong></p>
+<p>第一式要求 <span class="math inline">\(a,c\)</span> 都不为0，最后一式要求 <span class="math inline">\(b,d\)</span> 都不为0。这样一来，<span class="math inline">\(ad\)</span> 与 <span class="math inline">\(bc\)</span> 都不可能等于0，和中间两式矛盾。<strong>因此找不到任何一组概率幅把这个联合纯态写成乘积形式。</strong></p>
 <!-- P17 -->
-<p>这就引出了纯态的纠缠判据：对于由 A、B 组成的系统，<strong>如果联合纯态不能写成 <span class="math inline">\(|\psi\rangle_A\otimes|\phi\rangle_B\)</span>，就称 A、B 处于纠缠态。</strong><span class="math inline">\(|\Phi^+\rangle=(|00\rangle+|11\rangle)/\sqrt2\)</span> 满足这个条件。</p>
+<p>这就引出了纯态的纠缠判据：对于由 A、B 组成的系统，<strong>如果联合纯态不能写成 <span class="math inline">\(|\psi\rangle_A\otimes|\phi\rangle_B\)</span>，就称 A、B 处于纠缠态。</strong>刚才的系数矛盾证明 <span class="math inline">\(|\Phi^+\rangle\)</span> 无法写成乘积，所以按照这个定义，它是纠缠态。</p>
 <p>这回答了刚才的乘积检查：CNOT 把这个乘积输入变成了纠缠态。接着保持门不变，换一种乘积输入，检验输出是否仍有这种性质。</p>
 <div id="think-l04-2" class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -2720,13 +2742,14 @@ U_{\mathrm{CNOT}}|+\rangle_A|+\rangle_B
 <div class="l04-demo-tools">
 <a href="assets/lecture04/cnot.html" target="_blank" rel="noopener">放大查看 ↗</a>
 </div>
-<p>现在回到已经证明纠缠的 <span class="math inline">\(|\Phi^+\rangle=(|00\rangle+|11\rangle)/\sqrt2\)</span>。它无法拆成两个单比特纯态的乘积，而实验中仍然可以单独测量其中一端。接下来的问题是：<strong>只统计 A 或 B 的测量结果，会得到怎样的概率？</strong>这些概率又怎样对应布洛赫球上的表示？</p>
+<p>现在回到已经证明纠缠的 <span class="math inline">\(|\Phi^+\rangle=(|00\rangle+|11\rangle)/\sqrt2\)</span>。它无法拆成两个单比特纯态的乘积，而实验中仍然可以单独测量其中一个比特。接下来的问题是：<strong>只统计 A 或 B 的测量结果，会得到怎样的概率？</strong>这些概率又怎样对应布洛赫球上的表示？</p>
 </section>
 <section id="sec-l04-4" class="level2">
 <h2 class="anchored" data-anchor-id="sec-l04-4">五、局部状态：纠缠之后，每个布洛赫球上该画什么？</h2>
 <!-- P21–P22 -->
-<p>要描述 A 的局部状态，我们先计算只统计 A 时的测量概率。每次重新制备联合态 <span class="math inline">\(|\Phi^+\rangle=(|00\rangle+|11\rangle)/\sqrt2\)</span>，测量后汇总 A 的全部记录。先看已经算过的 <span class="math inline">\(z\)</span> 方向：联合记录是00或11，概率各为 <span class="math inline">\(1/2\)</span>；<strong>把 B 那一列盖住，A 的0和1也就各有 <span class="math inline">\(1/2\)</span> 的概率。</strong></p>
-<p>这组概率与 <span class="math inline">\(|+\rangle\)</span>、<span class="math inline">\(|-\rangle\)</span> 的 <span class="math inline">\(z\)</span> 测量概率相同，而这两个纯态分别位于 <span class="math inline">\(+x\)</span>、<span class="math inline">\(-x\)</span> 方向。要分辨它们，就要看其他测量方向。对 Bell 态的一端，我们也按这个思路继续计算。</p>
+<p>要描述 A 的局部状态，我们先计算只统计 A 时的测量概率。每次重新制备联合态 <span class="math inline">\(|\Phi^+\rangle=(|00\rangle+|11\rangle)/\sqrt2\)</span>，对A、B都沿 <span class="math inline">\(z\)</span> 方向测量，再汇总 A 的全部记录。先看已经算过的 <span class="math inline">\(z\)</span> 方向：联合记录是00或11，概率各为 <span class="math inline">\(1/2\)</span>；<strong>把 B 那一列盖住，A 的0和1也就各有 <span class="math inline">\(1/2\)</span> 的概率。</strong></p>
+<p>只统计A，就是把A的结果相同、B的结果不同的联合概率相加：<span class="math inline">\(P_A(0)=P(00)+P(01)=1/2\)</span>，<span class="math inline">\(P_A(1)=P(10)+P(11)=1/2\)</span>。</p>
+<p>这组概率与 <span class="math inline">\(|+\rangle\)</span>、<span class="math inline">\(|-\rangle\)</span> 的 <span class="math inline">\(z\)</span> 测量概率相同，而这两个纯态分别位于 <span class="math inline">\(+x\)</span>、<span class="math inline">\(-x\)</span> 方向。因此，仅知道沿 <span class="math inline">\(z\)</span> 的结果各半，还不能确定局部状态。这里我们已知完整的 Bell 态，可以进一步计算其他方向的概率，用它们判断A在布洛赫球上应处于什么位置。</p>
 <p>为了把测量结果与三维布洛赫球联系起来，我们将考察 <span class="math inline">\(x,y,z\)</span> 三条轴。沿每条轴，<strong>用“正方向结果的概率减去负方向结果的概率”表示对这条轴的偏向</strong>，分别记为 <span class="math inline">\(r_x,r_y,r_z\)</span>。沿 <span class="math inline">\(z\)</span> 的正、负结果是0、1，刚才已经得到 <span class="math inline">\(r_z=1/2-1/2=0\)</span>。下面求出另外两个概率差，再检验这三个数与原来球面坐标的关系。</p>
 <section id="换一个测量方向怎样算概率" class="level3">
 <h3 class="anchored" data-anchor-id="换一个测量方向怎样算概率">换一个测量方向，怎样算概率？</h3>
@@ -2738,7 +2761,7 @@ U_{\mathrm{CNOT}}|+\rangle_A|+\rangle_B
 \]</span></p>
 <p><strong>把待测态改写成这两个基矢的叠加，再对相应系数取模平方</strong>，就得到 <span class="math inline">\(x\)</span> 测量概率。这仍然是 Born 规则，只是用的是另一组测量基矢。实现上，也可以先施加 Hadamard 门，再做0/1读出：因为 <span class="math inline">\(U_{\mathrm H}|+\rangle=|0\rangle\)</span>、<span class="math inline">\(U_{\mathrm H}|-\rangle=|1\rangle\)</span>，读出的0、1就分别对应操作前的 <span class="math inline">\(+\)</span>、<span class="math inline">\(-\)</span>。</p>
 <!-- P24 -->
-<p>现在只把 A 改成 <span class="math inline">\(x\)</span> 测量，B 仍沿 <span class="math inline">\(z\)</span> 测量。分别代入 A 端的两个基矢：</p>
+<p>现在只把对 A 的测量改为沿 <span class="math inline">\(x\)</span>，B 仍沿 <span class="math inline">\(z\)</span> 测量。分别代入 A 的两个基矢：</p>
 <p><span class="math display">\[
 \begin{aligned}
 |\Phi^+\rangle
@@ -2770,7 +2793,7 @@ P_x(-)=P(-0)+P(-1)=\frac12.
 |0\rangle=\frac{|+_y\rangle+|-_y\rangle}{\sqrt2},\qquad
 |1\rangle=-i\frac{|+_y\rangle-|-_y\rangle}{\sqrt2}.
 \]</span></p>
-<p>把它们代入 A 端的0态和1态，得到</p>
+<p>把它们代入 A 的0态和1态，得到</p>
 <p><span class="math display">\[
 |\Phi^+\rangle=
 \frac{|+_y\rangle_A|0\rangle_B-i|+_y\rangle_A|1\rangle_B
@@ -2789,7 +2812,7 @@ r_y&amp;=P_y(+)-P_y(-),\\
 r_z&amp;=P_z(0)-P_z(1).
 \end{aligned}
 \]</span></p>
-<p>把这三个数记为向量 <span class="math inline">\(\boldsymbol r=(r_x,r_y,r_z)\)</span>，Bell 态的 A 端得到的是 <span class="math inline">\((0,0,0)\)</span>。要理解这个零向量的含义，我们先用熟悉的单比特纯态作对照：它们的测量概率差是否恰好等于布洛赫球面坐标？例如 <span class="math inline">\(|0\rangle\)</span> 沿 <span class="math inline">\(z\)</span> 一定得到0，沿 <span class="math inline">\(x,y\)</span> 各半，给出 <span class="math inline">\((0,0,1)\)</span>，正是北极的坐标。下面对任意纯态检验这个关系。</p>
+<p>把这三个数记为向量 <span class="math inline">\(\boldsymbol r=(r_x,r_y,r_z)\)</span>，Bell 态中的比特 A 得到的是 <span class="math inline">\((0,0,0)\)</span>。要理解这个零向量的含义，我们先用熟悉的单比特纯态作对照：它们的测量概率差是否恰好等于布洛赫球面坐标？例如 <span class="math inline">\(|0\rangle\)</span> 沿 <span class="math inline">\(z\)</span> 一定得到0，沿 <span class="math inline">\(x,y\)</span> 各半，给出 <span class="math inline">\((0,0,1)\)</span>，正是北极的坐标。下面对任意纯态检验这个关系。</p>
 <p>这次计算要从任意复概率幅出发，用到的三个记号先在这里说明。星号表示复共轭：若 <span class="math inline">\(z=s+it\)</span>，其中 <span class="math inline">\(s,t\)</span> 是实数，则 <span class="math inline">\(z^*=s-it\)</span>，也就是把虚部的符号反过来。共轭不改变模平方，因为 <span class="math inline">\(|z^*|^2=s^2+t^2=|z|^2\)</span>。<span class="math inline">\(\operatorname{Re}\)</span> 和 <span class="math inline">\(\operatorname{Im}\)</span> 分别取实部和虚部。</p>
 <p>对任意单比特纯态 <span class="math inline">\(a|0\rangle+b|1\rangle\)</span>，代入上面两组反解关系，沿 <span class="math inline">\(x\)</span> 得到的两项系数为 <span class="math inline">\((a+b)/\sqrt2\)</span>、<span class="math inline">\((a-b)/\sqrt2\)</span>；沿 <span class="math inline">\(y\)</span> 则为 <span class="math inline">\((a-ib)/\sqrt2\)</span>、<span class="math inline">\((a+ib)/\sqrt2\)</span>。于是</p>
 <p><span class="math display">\[
@@ -2804,10 +2827,28 @@ r_z&amp;=|a|^2-|b|^2.
 \boldsymbol r=(\sin\theta\cos\phi,\sin\theta\sin\phi,\cos\theta),\qquad
 r_x^2+r_y^2+r_z^2=1.
 \]</span></p>
-<p>这说明三条轴上的概率差确实恢复了熟悉的纯态球面坐标，并给出一个可用来比较的结论：<strong>任何单比特纯态的这个向量，长度都为1。</strong> 现在把 Bell 态单端的测量结果放进同一套坐标中。</p>
+<details>
+<summary>
+推导补充：为什么概率差等于布洛赫球坐标？
+</summary>
+<p>先看 <span class="math inline">\(x\)</span> 方向。把两个模平方展开，</p>
+<p><span class="math display">\[
+\begin{aligned}
+|a+b|^2&amp;=|a|^2+|b|^2+a^*b+ab^*,\\
+|a-b|^2&amp;=|a|^2+|b|^2-a^*b-ab^*.
+\end{aligned}
+\]</span></p>
+<p>两式相减再除以2，得到 <span class="math inline">\(r_x=a^*b+ab^*=2\operatorname{Re}(a^*b)\)</span>。代入纯态的角参数，</p>
+<p><span class="math display">\[
+a^*b=\cos\frac\theta2\sin\frac\theta2 e^{i\phi}
+=\frac12\sin\theta(\cos\phi+i\sin\phi).
+\]</span></p>
+<p>因此 <span class="math inline">\(r_x=\sin\theta\cos\phi\)</span>。同样，<span class="math inline">\(|a-ib|^2=|a|^2+|b|^2+2\operatorname{Im}(a^*b)\)</span>，<span class="math inline">\(|a+ib|^2=|a|^2+|b|^2-2\operatorname{Im}(a^*b)\)</span>，所以 <span class="math inline">\(r_y=\sin\theta\sin\phi\)</span>。最后，<span class="math inline">\(r_z=\cos^2(\theta/2)-\sin^2(\theta/2)=\cos\theta\)</span>。</p>
+</details>
+<p>这说明三条轴上的概率差确实恢复了熟悉的纯态球面坐标，并给出一个可用来比较的结论：<strong>任何单比特纯态的这个向量，长度都为1。</strong> 现在把 Bell 态中单个比特的测量概率差放进同一套坐标中。</p>
 <!-- P27 -->
-<p>对 <span class="math inline">\(|\Phi^+\rangle=(|00\rangle+|11\rangle)/\sqrt2\)</span> 的 A 端，三个方向都是各半，所以 <span class="math inline">\(\boldsymbol r_A=(0,0,0)\)</span>，位于球心。<strong>它的长度为0，与任意单比特纯态的长度1不同，因此 A 的局部状态是非纯态。</strong>这个联合态在交换 A、B 后保持原样，两端的单独测量概率相同，故 B 端也得到 <span class="math inline">\(\boldsymbol r_B=(0,0,0)\)</span>。</p>
-<p>于是，每端的测量概率都有了图上的位置：球心。这个位置来自测量概率的计算，也解释了为什么前面无法给两端分别指定纯态球面点来还原整体。</p>
+<p>对 <span class="math inline">\(|\Phi^+\rangle=(|00\rangle+|11\rangle)/\sqrt2\)</span> 中的比特 A，三个方向都是各半，所以 <span class="math inline">\(\boldsymbol r_A=(0,0,0)\)</span>，位于球心。<strong>它的长度为0，与任意单比特纯态的长度1不同，因此 A 的局部状态是非纯态。</strong>这个联合态在交换 A、B 后保持原样，A、B各自的测量概率相同，故 B 也得到 <span class="math inline">\(\boldsymbol r_B=(0,0,0)\)</span>。</p>
+<p>于是，A、B各自的局部状态在布洛赫球上都对应球心。这个位置来自测量概率的计算，也解释了为什么前面无法给A、B分别指定纯态球面点来还原整体。</p>
 </section>
 <section id="球心对应的局部状态在任意方向上都各半吗" class="level3">
 <h3 class="anchored" data-anchor-id="球心对应的局部状态在任意方向上都各半吗">球心对应的局部状态，在任意方向上都各半吗？</h3>
@@ -2824,7 +2865,7 @@ r_x^2+r_y^2+r_z^2=1.
 |0\rangle=c^*|u\rangle-d|v\rangle,\qquad
 |1\rangle=d^*|u\rangle+c|v\rangle.
 \]</span></p>
-<p>例如第一式右边的0态系数为 <span class="math inline">\(|c|^2+|d|^2=1\)</span>，1态系数为 <span class="math inline">\(c^*d-dc^*=0\)</span>，所以确实等于 <span class="math inline">\(|0\rangle\)</span>。现在只在 A 端做这个替换，B 仍用0/1基底：</p>
+<p>例如第一式右边的0态系数为 <span class="math inline">\(|c|^2+|d|^2=1\)</span>，1态系数为 <span class="math inline">\(c^*d-dc^*=0\)</span>，所以确实等于 <span class="math inline">\(|0\rangle\)</span>。现在只对 A 做这个替换，B 仍用0/1基底：</p>
 <p><span class="math display">\[
 |\Phi^+\rangle=\frac1{\sqrt2}\left[
 |u\rangle_A(c^*|0\rangle_B+d^*|1\rangle_B)
@@ -2835,8 +2876,9 @@ r_x^2+r_y^2+r_z^2=1.
 <p><span class="math display">\[
 P_A(u)=\frac{|c|^2}{2}+\frac{|d|^2}{2}=\frac12.
 \]</span></p>
-<p>另一个结果 <span class="math inline">\(v\)</span> 的概率也就是 <span class="math inline">\(1/2\)</span>。这种对任意测量方向都没有偏向的单比特局部状态，称为<strong>完全混合态</strong>。因此，这个例子中<strong>整体是纯态，每一端的局部状态是完全混合态。</strong></p>
-<p>操作与观察：固定同一个 Bell 态，改变 A 的测量方向，把 B 的两个结果的概率相加。查看三轴概率差怎样确定局部球心。</p>
+<p>另一个结果 <span class="math inline">\(v\)</span> 的概率也就是 <span class="math inline">\(1/2\)</span>。这种对任意测量方向都没有偏向的单比特局部状态，称为<strong>完全混合态</strong>。因此，这个例子中<strong>整体是纯态，每个比特的局部状态是完全混合态。</strong></p>
+<p>操作与观察：每次制备同一个 Bell 态，对B始终沿 <span class="math inline">\(z\)</span> 方向测量，改变A的测量方向。图中 <span class="math inline">\(u,v\)</span> 表示A沿测量轴正、反方向的结果，0、1表示B的结果。观察 <span class="math inline">\(P(u0)+P(u1)\)</span> 和 <span class="math inline">\(P(v0)+P(v1)\)</span>：联合概率可以变化，A的两种局部结果是否仍各占一半？</p>
+<p>测量轴用极角 <span class="math inline">\(\theta\)</span> 和方位角 <span class="math inline">\(\phi\)</span> 指定：<span class="math inline">\(\theta\)</span> 从 <span class="math inline">\(+z\)</span> 轴量起，<span class="math inline">\(\phi\)</span> 在 <span class="math inline">\(xy\)</span> 平面内从 <span class="math inline">\(+x\)</span> 轴朝 <span class="math inline">\(+y\)</span> 轴量起。球是三维图形的平面投影，屏幕上看到的夹角不一定等于实际角度；图中的角弧与数值标明所选方向。</p>
 <div class="l04-demo">
 <iframe src="assets/lecture04/local.html" title="局部测量概率与布洛赫球" loading="lazy" allow="fullscreen" allowfullscreen>
 </iframe>
@@ -2845,37 +2887,37 @@ P_A(u)=\frac{|c|^2}{2}+\frac{|d|^2}{2}=\frac12.
 <a href="assets/lecture04/local.html" target="_blank" rel="noopener">放大查看 ↗</a>
 </div>
 <!-- P28 -->
-<p>我们现在已经从联合态算出了两个局部状态：每端在任意方向上都给出各半的概率，图上都是球心。回到本讲开头“两个点是否足够”的问题，还需要检验反方向：<strong>只知道这两个局部状态，能否确定整个联合态？</strong>下一节将比较另一种制备方法，看看它能否给出相同的两个球心。</p>
+<p>我们现在已经从联合态算出了两个局部状态：每个比特在任意方向上都给出各半的概率，图上都是球心。回到本讲开头“两个点是否足够”的问题，还需要检验反方向：<strong>只知道这两个局部状态，能否确定整个联合态？</strong>下一节将比较另一种制备方法，看看它能否给出相同的两个球心。</p>
 </section>
 </section>
 <section id="sec-l04-5" class="level2">
 <h2 class="anchored" data-anchor-id="sec-l04-5">六、联合测量：两个球心为何仍不足以描述整体？</h2>
 <!-- P29 -->
 <p>前面通过门操作制备了 <span class="math inline">\(|\Phi^+\rangle=(|00\rangle+|11\rangle)/\sqrt2\)</span>。现在考虑另一种方法：用经典随机选择来制备两比特状态。具体地，掷一枚公平硬币，每次正面就把 A、B 分别制备为 <span class="math inline">\(|0\rangle\)</span>，反面就分别制备为 <span class="math inline">\(|1\rangle\)</span>。每次使用新的一对比特，随后只把比特交给测量者，不提供硬币记录。测量者收到的两比特状态，是 <strong><span class="math inline">\(|00\rangle\)</span> 与 <span class="math inline">\(|11\rangle\)</span> 各占一半的随机混合</strong>。</p>
-<p>要判断这两个联合态是否具有相同的局部状态，需要分别计算它们的测量概率。对 Bell 态，两个项属于同一个纯态，<span class="math inline">\(1/\sqrt2\)</span> 是概率幅，按前面的 Born 规则计算。对硬币方案，每次选定一个分支，<span class="math inline">\(1/2\)</span> 是该分支被选中的概率；统计多次测量时，要<strong>对两个分支的测量概率各乘 <span class="math inline">\(1/2\)</span> 再相加</strong>。<strong>这种由乘积态随机混合而成的状态称为可分混合态。</strong>下面先计算它的单端概率，与上一节的 Bell 态结果对照。</p>
+<p>要判断这两个联合态是否具有相同的局部状态，需要分别计算它们的测量概率。对 Bell 态，两个项属于同一个纯态，<span class="math inline">\(1/\sqrt2\)</span> 是概率幅，按前面的 Born 规则计算。对硬币方案，每次选定一个分支，<span class="math inline">\(1/2\)</span> 是该分支被选中的概率；统计多次测量时，要<strong>对两个分支的测量概率各乘 <span class="math inline">\(1/2\)</span> 再相加</strong>。<strong>这种由乘积态随机混合而成的状态称为可分混合态。</strong>下面先计算它的单比特测量概率，与上一节的 Bell 态结果对照。</p>
 <!-- P30 -->
-<p>在硬币方案中，A 一半时候是 <span class="math inline">\(|0\rangle\)</span>，另一半时候是 <span class="math inline">\(|1\rangle\)</span>，所以沿 <span class="math inline">\(z\)</span> 测量各半。沿 <span class="math inline">\(x\)</span> 或 <span class="math inline">\(y\)</span> 测量时，两个分支本身都各半，平均后仍是各半。B 同理。因此两端也都给出 <span class="math inline">\(\boldsymbol r=(0,0,0)\)</span>，与 Bell 态相同。</p>
-<p>还可以比较任意方向。对前节定义的任意测量结果 <span class="math inline">\(|u\rangle=c|0\rangle+d|1\rangle\)</span>，A 在0态分支得到它的概率是 <span class="math inline">\(|c|^2\)</span>，在1态分支是 <span class="math inline">\(|d|^2\)</span>。将两个分支的概率平均，得到 <span class="math inline">\((|c|^2+|d|^2)/2=1/2\)</span>。<strong>只统计某一端，任何方向的概率都无法区分这两个联合态。</strong></p>
-<p>单端概率已经全部相同，接下来比较两端的配对记录。先用最熟悉的 <span class="math inline">\(z\)</span> 测量：硬币方案只产生00或11，概率各半，与 Bell 态也相同。于是，单端测量和这一组联合测量都还没有区分它们。<strong>这两个联合态是否会在其他联合测量中给出不同结果？</strong> 我们可以利用前面已经学过的换基方法来检验。</p>
+<p>在硬币方案中，A 一半时候是 <span class="math inline">\(|0\rangle\)</span>，另一半时候是 <span class="math inline">\(|1\rangle\)</span>，所以沿 <span class="math inline">\(z\)</span> 测量各半。沿 <span class="math inline">\(x\)</span> 或 <span class="math inline">\(y\)</span> 测量时，两个分支本身都各半，平均后仍是各半。B 同理。因此A、B的布洛赫向量也都是 <span class="math inline">\(\boldsymbol r=(0,0,0)\)</span>，与 Bell 态相同。</p>
+<p>还可以比较任意方向。对前节定义的任意测量基矢 <span class="math inline">\(|u\rangle=c|0\rangle+d|1\rangle\)</span>，A 在0态分支得到对应测量结果的概率是 <span class="math inline">\(|c|^2\)</span>，在1态分支是 <span class="math inline">\(|d|^2\)</span>。将两个分支的概率平均，得到 <span class="math inline">\((|c|^2+|d|^2)/2=1/2\)</span>。<strong>只统计单个比特的测量结果，任何方向的概率都无法区分这两个联合态。</strong></p>
+<p>单比特测量概率已经全部相同，接下来比较A、B的配对测量记录。先用最熟悉的 <span class="math inline">\(z\)</span> 测量：硬币方案只产生00或11，概率各半，与 Bell 态也相同。于是，单比特测量和这一组联合测量都还没有区分它们。<strong>这两个联合态是否会在其他联合测量中给出不同结果？</strong> 我们可以利用前面已经学过的换基方法来检验。</p>
 <div id="think-l04-3" class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">提示</span>思考题三：还可以改变什么？
+<span class="screen-reader-only">提示</span>思考题三：怎样区分Bell态与00/11随机混合？
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>比较对象固定为上面的 Bell 纯态与硬币随机混合。已经知道，两端球心相同，沿 <span class="math inline">\(z\)</span> 的联合记录也相同。你会怎样改变测量来进一步比较？请说明：两端分别测什么，哪些数据需要保留配对，以及什么样的概率差异才算区分了这两个候选。</p>
+<p>比较 <span class="math inline">\(|\Phi^+\rangle=(|00\rangle+|11\rangle)/\sqrt2\)</span> 与00、11各占一半的随机混合。两者的局部概率相同，沿 <span class="math inline">\(z\)</span> 的联合概率也相同。现在对A、B都改为沿 <span class="math inline">\(x\)</span> 方向测量，并把同一对比特的两个结果记在同一行。请分别计算 <span class="math inline">\(++,+-,-+,--\)</span> 四种联合结果的概率，再比较哪一种结果能体现两种输入的差别。计算时可用 <span class="math inline">\(|0\rangle=(|+\rangle+|-\rangle)/\sqrt2\)</span>、<span class="math inline">\(|1\rangle=(|+\rangle-|-\rangle)/\sqrt2\)</span>。</p>
 </div>
 </div>
 <!-- P31 -->
-<p>刚才的 <span class="math inline">\(z\)</span> 联合测量没有区分两个候选。现在<strong>将两端都改为 <span class="math inline">\(x\)</span> 测量，并保留同一对比特的两条记录</strong>，分别计算两个联合态下四个联合结果的概率。每次用新的一对比特制备待测量的联合态，用选定的设置测量。将同一对的 A、B 结果记在同一行，就能统计 <span class="math inline">\(++,+-,-+,--\)</span> 四种组合各出现多少次。</p>
+<p>刚才的 <span class="math inline">\(z\)</span> 联合测量没有区分两个候选。现在<strong>对A、B都改为 <span class="math inline">\(x\)</span> 测量，并保留同一对比特的两条记录</strong>，分别计算两个联合态下四个联合结果的概率。每次用新的一对比特制备待测量的联合态，用选定的设置测量。将同一对的 A、B 结果记在同一行，就能统计 <span class="math inline">\(++,+-,-+,--\)</span> 四种组合各出现多少次。</p>
 <section id="随机混合先算每个分支再平均概率" class="level3">
 <h3 class="anchored" data-anchor-id="随机混合先算每个分支再平均概率">随机混合：先算每个分支，再平均概率</h3>
 <!-- P32 -->
-<p>硬币选中 <span class="math inline">\(|00\rangle\)</span> 时，两端独立。每个0态在 <span class="math inline">\(x\)</span> 测量中得到 <span class="math inline">\(+\)</span>、<span class="math inline">\(-\)</span> 的概率各半，所以四种联合记录 <span class="math inline">\(++, +-, -+, --\)</span> 的概率各为 <span class="math inline">\(1/4\)</span>。选中 <span class="math inline">\(|11\rangle\)</span> 时同样如此。因此，不知道硬币结果时，任意一种联合记录的概率都是</p>
+<p>硬币选中 <span class="math inline">\(|00\rangle\)</span> 时，A、B处于乘积态，测量结果相互独立。每个0态在 <span class="math inline">\(x\)</span> 测量中得到 <span class="math inline">\(+\)</span>、<span class="math inline">\(-\)</span> 的概率各半，所以四种联合记录 <span class="math inline">\(++, +-, -+, --\)</span> 的概率各为 <span class="math inline">\(1/4\)</span>。选中 <span class="math inline">\(|11\rangle\)</span> 时同样如此。因此，不知道硬币结果时，任意一种联合记录的概率都是</p>
 <p><span class="math display">\[
 \frac12\times\frac14+\frac12\times\frac14=\frac14.
 \]</span></p>
@@ -2884,21 +2926,21 @@ P_A(u)=\frac{|c|^2}{2}+\frac{|d|^2}{2}=\frac12.
 <section id="bell-纯态先改写整个态再取模平方" class="level3">
 <h3 class="anchored" data-anchor-id="bell-纯态先改写整个态再取模平方">Bell 纯态：先改写整个态，再取模平方</h3>
 <!-- P33 -->
-<p>硬币方案的四种联合结果已经算出，每种概率都是 <span class="math inline">\(1/4\)</span>。接着对同一组 <span class="math inline">\(x\)</span> 测量计算 Bell 态 <span class="math inline">\(|\Phi^+\rangle=(|00\rangle+|11\rangle)/\sqrt2\)</span>。我们要<strong>先把这个态改写到两端的 <span class="math inline">\(x\)</span> 基底中，再对每种结果的概率幅取模平方。</strong></p>
-<p>换基所需的关系是 <span class="math inline">\(|0\rangle=(|+\rangle+|-\rangle)/\sqrt2\)</span>、<span class="math inline">\(|1\rangle=(|+\rangle-|-\rangle)/\sqrt2\)</span>。下面把 <span class="math inline">\(|+\rangle_A|-\rangle_B\)</span> 简写为 <span class="math inline">\(|+-\rangle\)</span>，其余组合也按 A 在前、B 在后的顺序。将换基关系分别用于两端，得到</p>
+<p>硬币方案的四种联合结果已经算出，每种概率都是 <span class="math inline">\(1/4\)</span>。接着对同一组 <span class="math inline">\(x\)</span> 测量计算 Bell 态 <span class="math inline">\(|\Phi^+\rangle=(|00\rangle+|11\rangle)/\sqrt2\)</span>。我们要<strong>先把这个态在A、B各自的 <span class="math inline">\(x\)</span> 基底中展开，再对每种结果的概率幅取模平方。</strong></p>
+<p>换基所需的关系是 <span class="math inline">\(|0\rangle=(|+\rangle+|-\rangle)/\sqrt2\)</span>、<span class="math inline">\(|1\rangle=(|+\rangle-|-\rangle)/\sqrt2\)</span>。下面把 <span class="math inline">\(|+\rangle_A|-\rangle_B\)</span> 简写为 <span class="math inline">\(|+-\rangle\)</span>，其余组合也按 A 在前、B 在后的顺序。将换基关系分别用于A、B，得到</p>
 <p><span class="math display">\[
 \begin{aligned}
 |00\rangle&amp;=\frac{|++\rangle+|+-\rangle+|-+\rangle+|--\rangle}{2},\\
 |11\rangle&amp;=\frac{|++\rangle-|+-\rangle-|-+\rangle+|--\rangle}{2}.
 \end{aligned}
 \]</span></p>
-<p>把这两式代入 Bell 态，交叉正负项相消，相同正负项相加：</p>
+<p>把这两式代入 Bell 态，异号结果 <span class="math inline">\(+-\)</span>、<span class="math inline">\(-+\)</span> 的概率幅相消，同号结果 <span class="math inline">\(++\)</span>、<span class="math inline">\(--\)</span> 的概率幅相加：</p>
 <p><span class="math display">\[
 |\Phi^+\rangle
 =\frac{|00\rangle+|11\rangle}{\sqrt2}
 =\frac{|++\rangle+|--\rangle}{\sqrt2}.
 \]</span></p>
-<p>因此，<strong>两端都沿 <span class="math inline">\(x\)</span> 测量，Bell 态只给出 <span class="math inline">\(++\)</span> 或 <span class="math inline">\(--\)</span>，概率各为 <span class="math inline">\(1/2\)</span></strong>；不会给出 <span class="math inline">\(+-\)</span> 或 <span class="math inline">\(-+\)</span>。</p>
+<p>因此，<strong>A、B都沿 <span class="math inline">\(x\)</span> 测量，Bell 态只给出 <span class="math inline">\(++\)</span> 或 <span class="math inline">\(--\)</span>，概率各为 <span class="math inline">\(1/2\)</span></strong>；不会给出 <span class="math inline">\(+-\)</span> 或 <span class="math inline">\(-+\)</span>。</p>
 <!-- P34 -->
 <p>现在已经看到差别：Bell 态给出两个同号结果，硬币混合给出四种结果。这个差别来自计算中的哪一步？把结果 <span class="math inline">\(+-\)</span> 单独拿出来，就能看清。对 Bell 态，<span class="math inline">\(|00\rangle\)</span> 项贡献概率幅 <span class="math inline">\(1/(2\sqrt2)\)</span>，<span class="math inline">\(|11\rangle\)</span> 项贡献 <span class="math inline">\(-1/(2\sqrt2)\)</span>。相加后取模平方，</p>
 <p><span class="math display">\[
@@ -2922,12 +2964,12 @@ P_{\Phi^+}(+-)=\left|\frac1{2\sqrt2}-\frac1{2\sqrt2}\right|^2=0.
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">两端沿 <span class="math inline">\(z\)</span>：00、01、10、11</td>
+<td style="text-align: left;">A、B沿 <span class="math inline">\(z\)</span>：00、01、10、11</td>
 <td style="text-align: center;"><span class="math inline">\(1/2,\ 0,\ 0,\ 1/2\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(1/2,\ 0,\ 0,\ 1/2\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">两端沿 <span class="math inline">\(x\)</span>：<span class="math inline">\(++, +-, -+, --\)</span></td>
+<td style="text-align: left;">A、B沿 <span class="math inline">\(x\)</span>：<span class="math inline">\(++, +-, -+, --\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(1/2,\ 0,\ 0,\ 1/2\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(1/4,\ 1/4,\ 1/4,\ 1/4\)</span></td>
 </tr>
@@ -2943,11 +2985,11 @@ P_{\Phi^+}(+-)=\left|\frac1{2\sqrt2}-\frac1{2\sqrt2}\right|^2=0.
 </tr>
 </tbody>
 </table>
-<p>两幅局部布洛赫球记录了各端单独测量的概率，却没有记录两端结果如何配对。因而“两个球心相同”不等于“两个整体状态相同”。这里的硬币混合就是反例，也说明<strong>只看到局部球心，不能单独据此证明纠缠</strong>。</p>
+<p>单独统计A或B时，两种输入都给出各半的概率。但是对A、B都沿 <span class="math inline">\(x\)</span> 方向测量，Bell态中同一对的两个结果总是相同；随机混合中，两个结果相同和不同的概率则各为 <span class="math inline">\(1/2\)</span>。因此，各自的测量概率相同，并不意味着联合概率相同，也就不足以确定整体状态。这里的硬币混合就是反例，也说明<strong>只看到局部球心，不能单独据此证明纠缠</strong>。</p>
 </section>
 <section id="联合测量演示从相同到不同" class="level3">
 <h3 class="anchored" data-anchor-id="联合测量演示从相同到不同">联合测量演示：从相同到不同</h3>
-<p>先点击“两端 z”和“两端 x”，核对上表的概率。再拖动共同方向的滑块，观察两个联合态的联合测量概率从何处开始不同。这里的角度是布洛赫球 <span class="math inline">\(xz\)</span> 平面内相对 <span class="math inline">\(+z\)</span> 轴的角度。点击“生成模拟记录”，比较联合计数与理论概率。</p>
+<p>先点击“A、B沿 z”和“A、B沿 x”，核对上表的概率。再拖动共同方向的滑块，观察两个联合态的联合测量概率从何处开始不同。这里的角度是布洛赫球 <span class="math inline">\(xz\)</span> 平面内相对 <span class="math inline">\(+z\)</span> 轴的角度。点击“生成模拟记录”，比较联合计数与理论概率。</p>
 <div class="l04-demo">
 <iframe src="assets/lecture04/compare.html" title="两种状态的联合测量比较" loading="lazy" allow="fullscreen" allowfullscreen>
 </iframe>
@@ -2972,27 +3014,28 @@ P_{\Phi^+}(+-)=\left|\frac1{2\sqrt2}-\frac1{2\sqrt2}\right|^2=0.
 <section id="怎样把这个比较带到实验中" class="level3">
 <h3 class="anchored" data-anchor-id="怎样把这个比较带到实验中">怎样把这个比较带到实验中？</h3>
 <!-- P36 -->
-<p>前面的计算已经给出了具体检验：保持两种制备方法，各自测量两端的 <span class="math inline">\(x\)</span> 配对记录，比较四种结果的频率。要把它变成一个光学实验，可以用光子的偏振来实现两个比特：用水平偏振 <span class="math inline">\(|H\rangle\)</span> 表示 <span class="math inline">\(|0\rangle\)</span>，竖直偏振 <span class="math inline">\(|V\rangle\)</span> 表示 <span class="math inline">\(|1\rangle\)</span>。于是 <span class="math inline">\((|H\rangle+|V\rangle)/\sqrt2\)</span> 与 <span class="math inline">\((|H\rangle-|V\rangle)/\sqrt2\)</span> 对应两种互相垂直的 <span class="math inline">\(45^\circ\)</span> 线偏振。区分 H/V 的分析器实现本讲的 <span class="math inline">\(z\)</span> 测量，区分这两种对角偏振的分析器实现 <span class="math inline">\(x\)</span> 测量。</p>
-<p>实验需要给两端配置相应的偏振分析和探测装置，并识别哪些点击来自同一对光子；<strong>统计同一对两端的记录，才得到联合计数。</strong></p>
+<p>前面的计算已经给出了具体检验：保持两种制备方法，分别记录A、B沿 <span class="math inline">\(x\)</span> 测量的配对结果，比较四种结果的频率。要把它变成一个光学实验，可以用光子的偏振来实现两个比特：用水平偏振 <span class="math inline">\(|H\rangle\)</span> 表示 <span class="math inline">\(|0\rangle\)</span>，竖直偏振 <span class="math inline">\(|V\rangle\)</span> 表示 <span class="math inline">\(|1\rangle\)</span>。于是 <span class="math inline">\((|H\rangle+|V\rangle)/\sqrt2\)</span> 与 <span class="math inline">\((|H\rangle-|V\rangle)/\sqrt2\)</span> 分别对应沿 <span class="math inline">\(+45^\circ\)</span> 与 <span class="math inline">\(-45^\circ\)</span> 的两种线偏振。区分 H/V 的分析器实现本讲的 <span class="math inline">\(z\)</span> 测量，区分这两种对角偏振的分析器实现 <span class="math inline">\(x\)</span> 测量。</p>
+<p>实验需要在两个测量端配置相应的偏振分析和探测装置，并识别哪些点击来自同一对光子；<strong>统计同一对光子的两条探测记录，才得到联合计数。</strong></p>
 <!-- P37 -->
-<p>对同一组测量设置，<strong>把每一种联合计数除以四种联合计数之和，就得到四种结果的频率</strong>，可以与上表的理论概率比较。这样就把前面的概率比较落实为可以采集的联合计数。</p>
-<p>可选实验观察：<a href="https://qutools.com/qued/">qutools 的 quED 装置介绍</a>展示了真实的纠缠光子教学装置与官方视频。观察光源、两端的偏振分析与探测装置，以及联合计数的读出，找出它们与上面测量步骤的对应关系。</p>
+<p>对同一组测量设置，<strong>把每一种联合计数除以四种联合计数之和，就得到四种结果的频率</strong>，可以与上表的理论概率比较。有限次测量的频率会有统计波动；增加测量次数后，频率通常会更接近理论概率。这样就把前面的概率比较落实为可以采集的联合计数。</p>
+<p>可选实验观察：<a href="https://qutools.com/qued/">qutools 的 quED 装置介绍</a>展示了真实的纠缠光子教学装置与官方视频。观察光源、两个测量端的偏振分析与探测装置，以及联合计数的读出，找出它们与上面测量步骤的对应关系。</p>
 </section>
 </section>
 <section id="sec-l04-6" class="level2">
 <h2 class="anchored" data-anchor-id="sec-l04-6">七、整体与局部：这一讲解决了什么，还留下什么？</h2>
 <!-- P38 -->
-<p>回到开头的问题。对于独立制备的乘积纯态，两个球面点确实足够：把各自的态相乘，就能得到联合态。CNOT 可以把特定乘积输入变成 <span class="math inline">\(|\Phi^+\rangle\)</span>；逐项对照证明，这个纯态无法拆成两个单比特态。两端单独测量时却都表现为完全混合，画在球心。最后，硬币混合给出了完全相同的两个球心，却有不同的 <span class="math inline">\(x\)</span> 联合统计。<strong>因此，局部状态不足以确定整体；研究纠缠既要看单个系统，也要保留系统之间的联合信息。</strong> 随机选择乘积态进行制备，也可以产生相关，“有关联”本身还不是纠缠的判据。</p>
+<p>回到开头的问题。对于独立制备的乘积纯态，两个球面点确实足够：把各自的态相乘，就能得到联合态。CNOT 可以把特定乘积输入变成 <span class="math inline">\(|\Phi^+\rangle\)</span>；逐项对照证明，这个纯态无法拆成两个单比特态。A、B各自的局部状态却都是完全混合态，在布洛赫球上对应球心。最后，硬币混合给出了完全相同的两个球心，却有不同的 <span class="math inline">\(x\)</span> 联合统计。<strong>因此，局部状态不足以确定整体；要区分这两个联合态，需要比较同一对比特的测量结果，求出联合概率。</strong> 随机选择乘积态进行制备，也可以产生相关，“有关联”本身还不是纠缠的判据。</p>
 <!-- P39 -->
 <p>硬币方案给出了一个经典相关的例子。下一讲将把比较对象扩展到更一般的经典模型，研究怎样通过多组测量设置的联合记录检验它们，并引入 Bell 不等式。另一方面，本讲已经从整体算出了局部状态；第六讲将用密度矩阵统一表示纯态和混合态，系统说明怎样从整体得到局部状态，并在整体为纯态时用纠缠熵量化纠缠。</p>
 <!-- P40 -->
-<p>离开这一讲前，用自己的话回答三个问题：</p>
+<p>离开这一讲前，用自己的话回答四个问题：</p>
 <ol type="1">
 <li>为什么分别对 A、B 施加单比特门，不能把乘积输入变成纠缠纯态？请写出操作前后的乘积形式。</li>
-<li>为什么两端都在球心，还不能证明纠缠？请给出本讲的反例。</li>
+<li>为什么 <span class="math inline">\(|\Phi^+\rangle\)</span> 是纠缠纯态？请说明乘积假设、系数矛盾与纠缠定义之间的关系。</li>
+<li>为什么两个比特的局部状态都对应球心，还不能证明纠缠？请给出本讲的反例。</li>
 <li>怎样区分本讲的 Bell 态与硬币混合？请说清测量方向、必须保存的数据，以及预期概率。</li>
 </ol>
-<p>核对时，第一题应出现 <span class="math inline">\((U_A|\psi\rangle_A)(U_B|\phi\rangle_B)\)</span>，说明输出仍可分开；第二题应指出00/11随机混合也给出两个球心；第三题应保留两端沿 <span class="math inline">\(x\)</span> 测量的配对记录，比较“只有同号，各半”与“四种组合，各四分之一”。</p>
+<p>核对时，第一题应出现 <span class="math inline">\((U_A|\psi\rangle_A)(U_B|\phi\rangle_B)\)</span>，说明输出仍可分开；第二题应说明：若能写成两个态的乘积，四个系数就必须同时满足 <span class="math inline">\(ac=bd=1/\sqrt2\)</span> 与 <span class="math inline">\(ad=bc=0\)</span>，但这些条件矛盾，因此不能写成乘积，按联合纯态的纠缠定义即为纠缠态；第三题应指出00/11随机混合也给出两个球心；第四题应保留A、B沿 <span class="math inline">\(x\)</span> 测量的配对记录，比较“只有同号，各半”与“四种组合，各四分之一”。</p>
 </section>
 </section>
 

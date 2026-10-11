@@ -159,11 +159,51 @@ def update_slides(root, numbers):
         text = text[:match.start()] + card + text[match.end():]
     homepage.write_text(text)
 
+def update_notes(root, numbers):
+    """Update standalone notes and their dependencies, preserving other releases."""
+    if not set(numbers) <= (PUBLISHED & STANDALONE_NOTES):
+        raise SystemExit('Only authorized standalone notes can use this update mode.')
+    search_path = DIST/'notes/search.json'
+    items = json.loads(search_path.read_text())
+    homepage = DIST/'index.html'
+    home = homepage.read_text()
+    for number in numbers:
+        name = f'lecture{number:02d}'
+        source = root/'quantum-notes'
+        text = sanitize_notes((source/f'{name}.html').read_text())
+        nav_css = '<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style>'
+        text = text.replace('</head>', nav_css+'</head>', 1)
+        text = re.sub(r'(<main\b[^>]*>)', r'\1<a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>', text, count=1)
+        (DIST/'notes'/f'{name}.html').write_text(text)
+        copy_tree(source/'assets'/name, DIST/'notes/assets'/name)
+        # Shared dependencies newly referenced by the synchronized local lab.
+        for relative in ['vendor/katex/fonts/KaTeX_Math-Italic.woff2', 'mathjax/tex-svg-full.js']:
+            target = DIST/'notes/assets'/relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source/'assets'/relative, target)
+        items = [item for item in items if item.get('href', '').split('#')[0] != f'{name}.html']
+        title = unescape(re.search(r'<title>(.*?)</title>', text, re.S)[1])
+        body = re.search(r'<main\b[^>]*>(.*?)</main>', text, re.S)[1]
+        body = re.sub(r'<(?:script|style)\b[^>]*>.*?</(?:script|style)>', '', body, flags=re.S)
+        plain = unescape(re.sub(r'<[^>]+>', ' ', body))
+        items.append(dict(objectID=f'{name}.html', href=f'{name}.html', title=title, section='', text=re.sub(r'\s+', ' ', plain)))
+        pattern = r'<article class="lecture">(?:(?!</article>).)*href="notes/'+name+r'\.html".*?</article>'
+        match = re.search(pattern, home, re.S)
+        if not match:
+            raise SystemExit(f'Missing homepage entry for {name}')
+        date = datetime.fromtimestamp((source/f'{name}.html').stat().st_mtime).strftime('%Y-%m-%d')
+        card = re.sub(r'资料更新：\d{4}-\d{2}-\d{2}', '资料更新：'+date, match[0])
+        home = home[:match.start()] + card + home[match.end():]
+    search_path.write_text(json.dumps(items, ensure_ascii=False))
+    homepage.write_text(home)
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--update-sharing', action='store_true',
                         help='Only refresh homepage share metadata and cover assets.')
     parser.add_argument('--source-root', type=Path, default=ROOT)
+    parser.add_argument('--update-notes', type=int, nargs='+', choices=[4],
+                        help='Update standalone notes and dependencies only.')
     parser.add_argument('--update-slides', type=int, nargs='+', choices=[4],
                         help='Update packaged classroom slides and their homepage links only.')
     parser.add_argument('--update-lectures', type=int, nargs='+',
@@ -171,6 +211,12 @@ def main():
     parser.add_argument('--update-curriculum', action='store_true',
                         help='Refresh the syllabus and shared titles while preserving published chapter bodies.')
     args = parser.parse_args()
+    if args.update_notes:
+        if args.update_sharing or args.update_lectures or args.update_curriculum or args.update_slides:
+            parser.error('--update-notes cannot be combined with other update modes.')
+        update_notes(args.source_root.resolve(), args.update_notes)
+        print('Standalone notes, dependencies and search updated.')
+        return
     if args.update_slides:
         if args.update_sharing or args.update_lectures or args.update_curriculum:
             parser.error('--update-slides cannot be combined with other update modes.')

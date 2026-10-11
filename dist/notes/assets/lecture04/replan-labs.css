@@ -1,0 +1,128 @@
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff;color:#153956;font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif}#stage{position:absolute;width:1200px;height:490px;transform-origin:top left;padding:8px 12px}#toolbar{height:63px;display:flex;align-items:center;gap:13px;border-bottom:1px solid #c9dbe8;padding-bottom:10px}button{font:inherit;font-size:23px;background:white;color:#126cb2;border:1px solid #a6c4db;border-radius:5px;padding:8px 19px;cursor:pointer;min-height:43px}button:hover{background:#edf5fb}button:focus-visible,input:focus-visible{outline:3px solid #126cb2;outline-offset:3px}button.primary,button[aria-pressed="true"]{background:#096db4;color:white;border-color:#096db4}button:disabled{opacity:.46;cursor:default}.step-note{font-size:23px;color:#435f75;margin-left:8px}.spacer{flex:1}.full{font-size:21px;padding:7px 13px}#content{height:409px;padding-top:15px}.columns{display:grid;gap:26px;height:100%;align-items:start}.column{min-width:0}h2,h3,p{margin:0}h3{font-size:25px;color:#126cb2;font-weight:650;margin-bottom:12px}p{font-size:24px;line-height:1.5}.muted{color:#587287}.math{font-size:29px;margin:11px 0}mjx-container[display="true"]{margin:.35em 0!important}mjx-container{max-width:100%}.rule{font-size:25px;line-height:1.65}.sphere{width:100%;height:255px;display:block}.sphere text{font-size:23px;fill:#587287;font-family:Arial,sans-serif}.center-label{text-align:center;font-size:25px;margin-top:3px}.current{font-size:33px;color:#153956;min-height:77px}.quiet{font-size:23px;color:#587287}.prompt{font-size:27px;line-height:1.5;margin-top:27px;color:#126cb2}.chain{display:grid;grid-template-columns:1fr 60px 1fr 60px 1fr;align-items:center;text-align:center;height:104px;margin:0 0 10px}.phase{padding:12px 7px;border-bottom:3px solid #d6e2eb;min-height:100px}.phase.active{border-bottom-color:#0874bd}.phase .caption{font-size:22px;color:#5f7586;margin-bottom:3px}.phase .math{font-size:29px;margin:3px}.phase.future{color:#61798b}.arrow{font-size:26px;color:#5188af}.result-row{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center;height:266px}.state-result{text-align:center}.state-result h3{margin-bottom:20px}table{border-collapse:collapse;width:100%;font-size:24px;text-align:center;font-variant-numeric:tabular-nums}th{font-size:22px;color:#126cb2;font-weight:600;border-bottom:2px solid #b2cde0;padding:7px}td{padding:8px 5px;border-bottom:1px solid #dde8f0}.local-grid{grid-template-columns:340px 395px 1fr;gap:22px}.sliders{display:flex;gap:15px;align-items:center;font-size:23px}.sliders label{display:flex;align-items:center;gap:8px}.sliders input{width:150px;accent-color:#096db4}.sliders output{min-width:54px;font-variant-numeric:tabular-nums}.axis-heading{display:flex;justify-content:center;gap:12px}.local-grid .sphere{height:252px}.local-grid table td{padding:11px 5px}.barrow{display:grid;grid-template-columns:52px 1fr 55px;gap:9px;align-items:center;margin:17px 0;font-size:24px}.bartrack{height:17px;background:#e7eff5;border-radius:2px}.barfill{height:100%;background:#1978b9;border-radius:2px}.local-center{width:200px;height:152px;margin:auto;display:block}.local-footer{text-align:center;font-size:23px;line-height:1.45}.comparison{display:grid;grid-template-columns:1fr 1fr;gap:28px;height:100%}.comparison>section+section{border-left:1px solid #c9dbe8;padding-left:26px}.panel-title{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:7px}.panel-title h3{margin-bottom:0}.panel-title span{font-size:20px;color:#587287}.compare-data{display:grid;grid-template-columns:1fr 162px;gap:18px}.compare-table{font-size:23px}.compare-table th{font-size:20px;padding:6px 3px}.compare-table td{padding:7px 2px}.sample-table{font-size:21px}.sample-table th{font-size:20px;padding:5px 1px}.sample-table td{padding:4px 2px}.pair-caption{font-size:20px;color:#587287;margin-bottom:4px;text-align:center}.marginals{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px}.mini-bars h4{font-size:21px;margin:0 0 3px;font-weight:500}.mini-bars .barrow{font-size:20px;grid-template-columns:24px 1fr 45px;margin:8px 0;gap:6px}.mini-bars .bartrack{height:12px}.sample-foot{font-size:20px;color:#587287;margin-top:9px}.compare-question{font-size:23px;margin-left:8px}
+.compare-state{font-size:23px;height:48px;display:flex;align-items:center;margin-bottom:4px}.comparison .panel-title span{font-size:21px}#fullscreen{font-size:21px;padding:8px 12px}
+
+.classroom #fullscreen{display:none}.state-result .math{font-size:28px}.state-result .quiet{margin-top:14px}
+
+html:not(.classroom) #stage{height:675px;padding-top:60px;padding-bottom:60px}
+html:not(.classroom) #content{height:480px;padding-top:35px}
+html:not(.classroom) .sphere{height:300px}
+html:not(.classroom) .local-grid .sphere{height:300px}
+
+.compare-data{grid-template-columns:1fr 174px;gap:12px}.pair-caption{white-space:nowrap;font-size:19px}
+
+/* Both marginal outcomes remain visible in the embedded classroom frame. */
+.comparison h3{line-height:1.2}
+.comparison .panel-title{margin-bottom:4px}
+.compare-state{height:42px}
+.compare-table{line-height:1.2}
+.compare-table td{padding:4px 2px}
+.marginals{margin-top:8px}
+.mini-bars .barrow{line-height:1.2;margin:6px 0}
+.barrow{grid-template-columns:52px minmax(0,1fr) 68px}
+.mini-bars .barrow{grid-template-columns:24px minmax(0,1fr) 56px}
+
+.local-grid .merge-rule{font-size:20px;line-height:1.25;margin:-8px 0 10px;color:#587287}
+.local-grid .local-center{height:135px}
+
+/* Classroom typography follows the same 30px teaching role as the host slide. */
+#stage :is(button,h3,p,th,td,.math,.quiet,.current,.rule,.center-label,.local-footer,.step-note,.sliders,.barrow,.merge-rule,.compare-state,.phase .caption,.arrow){font-size:30px}
+#toolbar{height:64px;gap:12px}button{padding:6px 13px;min-height:48px}
+#content{padding-top:12px;height:406px}
+.phase .caption{line-height:1.25}.phase{padding:6px 4px}
+.chain{height:112px;margin-bottom:8px;grid-template-columns:1fr 72px 1fr 72px 1fr}
+.result-row{height:270px}.state-result h3{margin-bottom:14px}.state-result .quiet{margin-top:8px}
+#stage table{font-size:30px;line-height:1.2}#stage :is(th,td){padding:8px 4px}
+#stage .local-grid{grid-template-columns:340px 400px minmax(0,1fr);gap:18px}
+#stage .local-grid .sphere{height:235px}.local-grid .local-footer{line-height:1.3}
+#stage .local-grid .merge-rule{margin:-7px 0 14px;line-height:1.25}
+.local-grid .local-center{height:90px}
+.local-grid .barrow{margin:17px 0;grid-template-columns:38px 1fr 80px}
+.sliders input{width:100px}.sliders{gap:15px}.sliders output{min-width:66px}
+.comparison{gap:28px}.comparison>section+section{padding-left:26px}
+.comparison h3{margin:0 0 8px}.compare-state{height:77px;margin:0 0 6px;justify-content:center}
+.compare-table,.sample-table{height:226px}.comparison .compare-foot{margin:12px 0 0;line-height:1.25}
+#stage .comparison :is(th,td){padding:4px}
+
+.chain{height:138px;align-items:stretch}.phase{display:grid;grid-template-rows:38px 1fr;align-items:center;height:138px}.chain>.arrow{align-self:center}.result-row{height:246px}#stage:has(.chain) :is(th,td){padding:5px 4px}
+
+.phase mjx-container[display="true"]{margin:0!important}
+
+/* Quiet grouping without changing the stage scale or teaching font sizes. */
+body[data-lab="local"] .local-grid>section{background:#f2f4f6}
+body[data-lab="compare"] .comparison>section{background:#f2f4f6}
+body[data-lab="compare"] .comparison>section+section{border-left:0;padding-left:0}
+
+/* Insets for the local and joint measurement panels; font roles stay unchanged. */
+body[data-lab="local"] .local-grid>section{padding:14px 16px;height:394px}
+body[data-lab="local"] .local-grid h3{margin-bottom:8px}
+#stage .local-grid .sphere{height:190px}
+.local-grid .local-footer{line-height:1.2}
+#stage .local-grid :is(th,td){padding:6px 4px}
+#stage .local-grid .barrow{margin:8px 0}
+#stage .local-grid .merge-rule{margin:0 0 10px}
+.local-grid .local-location{display:flex;align-items:center;gap:10px;margin-top:10px}
+.local-grid .local-location .local-center{width:96px;height:90px;margin:0;flex-shrink:0}
+.local-grid .local-location .local-footer{text-align:left;margin:0}
+body[data-lab="compare"] .comparison>section{padding:14px 18px;height:394px;display:flex;flex-direction:column;justify-content:space-between}
+body[data-lab="compare"] .comparison>section+section{padding:14px 18px}
+body[data-lab="compare"] .comparison h3{margin:0}
+body[data-lab="compare"] .compare-state{height:60px;flex-shrink:0;margin:0}
+body[data-lab="compare"] :is(.compare-table,.sample-table){height:212px}
+body[data-lab="compare"] .comparison .compare-foot{margin:0;line-height:1.25}
+
+/* Local measurement: one direction panel and two visibly paired probability sums. */
+body[data-lab="local"] #stage{padding:8px 12px}
+body[data-lab="local"] #toolbar{position:absolute;top:10px;right:12px;height:auto;border:0;padding:0}
+.classroom body[data-lab="local"] #toolbar{display:none}
+body[data-lab="local"] #content{height:474px;padding:0}
+html:not(.classroom) body[data-lab="local"] #stage{padding-top:100px}
+.measurement-layout{display:grid;grid-template-columns:460px minmax(0,1fr);gap:24px;height:100%}
+.measurement-layout h3{margin:0;line-height:1.4}
+.axis-panel{background:#f2f4f6;padding:18px 20px;display:grid;grid-template-rows:48px 242px 128px;gap:10px;min-width:0;border-radius:5px}
+.axis-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.axis-presets{display:flex;gap:6px}
+.axis-presets button{width:48px;padding:4px;min-height:44px}
+.axis-view{display:grid;grid-template-columns:260px minmax(0,1fr);gap:16px;align-items:center}
+#stage .axis-view .sphere{width:260px;height:242px}
+#stage .axis-view .axis-key{line-height:1.4;color:#587287}
+.axis-sliders{display:grid;gap:14px;align-content:center}
+.axis-slider{display:grid;grid-template-columns:142px minmax(0,1fr) 74px;gap:10px;align-items:center;font-size:30px;line-height:1.4}
+.axis-slider input{width:100%;min-width:0;accent-color:#0872b8;margin:0;cursor:pointer}
+.axis-slider output{text-align:right;font-variant-numeric:tabular-nums}
+.probability-panel{display:grid;grid-template-rows:70px 42px 176px 132px;row-gap:18px;min-width:0}
+.fixed-state{display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:1px solid #d6e2eb;padding-bottom:12px}
+#stage .fixed-state .math{margin:0}
+.fixed-state p{white-space:nowrap}
+.probability-headings{display:grid;grid-template-columns:minmax(0,1fr) 194px;gap:46px;align-items:center}
+.probability-rows{display:grid;grid-template-rows:1fr 1fr;gap:12px}
+.prob-merge-row{display:grid;grid-template-columns:minmax(0,1fr) 22px minmax(0,1fr) 22px 194px;gap:6px;align-items:stretch}
+.joint-cell,.marginal-cell{padding:10px 14px;background:#f2f4f6;border-radius:4px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.marginal-cell{background:#eaf3fa;border-left:3px solid #0872b8}
+.prob-value{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:30px;line-height:1.2;font-variant-numeric:tabular-nums}
+.prob-merge-row .bartrack{height:8px;background:#dce8f1;border-radius:2px}
+.prob-merge-row .barfill{background:#0872b8;transition:width .1s linear}
+.merge-arrow,.merge-plus{align-self:center;justify-self:center;font-size:30px;color:#7b9db6}
+.marginal-explanation{display:flex;align-items:center;justify-content:center;border-top:1px solid #d6e2eb;padding-top:14px}
+.local-location{display:flex;align-items:center;gap:28px}
+.measurement-layout .local-center{width:112px;height:112px;flex:none;margin:0}
+.local-state-copy{display:grid;gap:8px}
+#stage .local-location p{line-height:1.35}
+
+/* Angular construction: arcs are projected from their actual 3D planes. */
+@font-face{font-family:LectureMath;src:url('../vendor/katex/fonts/KaTeX_Math-Italic.woff2') format('woff2');font-style:italic;font-weight:400}
+.axis-panel{grid-template-rows:48px 262px 108px}
+.axis-view{display:block}
+#stage .axis-view .sphere{width:100%;height:262px}
+.sphere .sphere-grid text{stroke:none}
+.sphere text{font-family:LectureMath,serif;font-style:italic;paint-order:stroke;stroke:#f8fbfe;stroke-width:3px;stroke-linejoin:round}
+.sphere .vector-label{fill:#0872b8}
+.sphere .meridian{fill:none;stroke:#c4d9e8;stroke-width:1;stroke-dasharray:3 4}
+.sphere .projection-guide{stroke:#779db7;stroke-width:1.3;stroke-dasharray:4 3}
+.sphere .angle-polar{fill:none;stroke:#0872b8;stroke-width:2.5}
+.sphere .angle-azimuth{fill:none;stroke:#687d90;stroke-width:2;stroke-dasharray:5 2}
+.sphere .polar-label{fill:#0872b8}
+.sphere .azimuth-label{fill:#526a7e}
+
+.axis-view{position:relative}
+#rotate-view{position:absolute;right:0;bottom:0;background:transparent;border-color:transparent;padding:4px 0;min-height:42px}
+#rotate-view:hover{border-color:#a6c4db;background:#fff}
