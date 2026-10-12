@@ -197,6 +197,36 @@ def update_notes(root, numbers):
     search_path.write_text(json.dumps(items, ensure_ascii=False))
     homepage.write_text(home)
 
+def update_pdfs(root, numbers):
+    """Publish authorized PDF downloads without rebuilding notes or slides."""
+    if not set(numbers) <= PUBLISHED_PDFS:
+        raise SystemExit('Requested PDFs are not authorized in publication.json.')
+    home = DIST/'index.html'
+    text = home.read_text()
+    for number in numbers:
+        if number != 4:
+            raise SystemExit('Targeted PDF update currently supports Lecture 4.')
+        name = f'lecture{number:02d}'
+        files = [('第四讲课件.pdf', 'slides', '课件 PDF · 46 页'),
+                 ('第四讲课件-九宫格打印版.pdf', 'print-9up', '九宫格打印 PDF · A4 横向 · 6 页')]
+        links = ''
+        for filename, suffix, label in files:
+            source = root/'output/pdf'/filename
+            if not source.is_file():
+                raise SystemExit(f'Missing PDF: {filename}')
+            target = DIST/f'downloads/{name}-{suffix}.pdf'
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, target)
+            links += f'<a class="download" href="downloads/{name}-{suffix}.pdf" download>{label} · {source.stat().st_size/1_000_000:.1f} MB ↓</a>'
+        pattern = r'<article class="lecture">(?:(?!</article>).)*href="notes/'+name+r'\.html".*?</article>'
+        match = re.search(pattern, text, re.S)
+        if not match:
+            raise SystemExit(f'Missing homepage entry for {name}')
+        card = re.sub(r'<a[^>]*href="downloads/'+name+r'-[^"]+\.pdf"[^>]*>.*?</a>', '', match[0])
+        card = card.replace('</div></article>', links+'</div></article>')
+        text = text[:match.start()] + card + text[match.end():]
+    home.write_text(text)
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--update-sharing', action='store_true',
@@ -210,7 +240,14 @@ def main():
                         help='Preserve other note pages and search entries from the committed release.')
     parser.add_argument('--update-curriculum', action='store_true',
                         help='Refresh the syllabus and shared titles while preserving published chapter bodies.')
+    parser.add_argument('--update-pdfs', type=int, nargs='+', choices=[4], help='Publish authorized PDF downloads only.')
     args = parser.parse_args()
+    if args.update_pdfs:
+        if args.update_notes or args.update_slides or args.update_sharing or args.update_lectures or args.update_curriculum:
+            parser.error('--update-pdfs cannot be combined with other update modes.')
+        update_pdfs(args.source_root.resolve(), args.update_pdfs)
+        print('PDF downloads and homepage links updated.')
+        return
     if args.update_notes:
         if args.update_sharing or args.update_lectures or args.update_curriculum or args.update_slides:
             parser.error('--update-notes cannot be combined with other update modes.')
@@ -255,7 +292,8 @@ def main():
     slides = root / 'quantum-slides'
     pdf = root / '量子光学 · 第一讲：从量子力学到量子信息科学.pdf'
     pdfs = {1: (pdf, 49), 2: (root/'output/pdf/第二讲课件.pdf', 43),
-            3: (root/'output/pdf/第三讲课件-主讲页.pdf', 46)}
+            3: (root/'output/pdf/第三讲课件-主讲页.pdf', 46),
+            4: (root/'output/pdf/第四讲课件.pdf', 46)}
     required = [notes/'index.html'] + list(note_sources.values()) + [pdfs[n][0] for n in PUBLISHED_PDFS] + [slides/f'lecture{n:02d}.html' for n in PUBLISHED_SLIDES]
     for path in required:
         if not path.is_file():
@@ -398,6 +436,8 @@ def main():
     page=(SITE/'index.template.html').read_text().replace('{{LECTURES}}',''.join(rows)).replace('{{CURRICULUM}}',''.join(blocks))
     page=page.replace('{{PUBLISHED_NUMBERS}}', '、'.join(str(n) for n in sorted(PUBLISHED)))
     (DIST/'index.html').write_text(page)
+    if 4 in PUBLISHED_PDFS:
+        update_pdfs(root, [4])
     sync_share_assets()
     size=sum(p.stat().st_size for p in DIST.rglob('*') if p.is_file())
     print(f'Website ready: {size/1024/1024:.1f} MiB; {len(units)} units, {sum(len(x[1]) for x in units)} lectures.')

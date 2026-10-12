@@ -1,7 +1,19 @@
 {
-  "published_lectures": [1, 2, 3, 4],
+  "published_lectures": [
+    1,
+    2,
+    3,
+    4
+  ],
   "notes_only_lectures": [],
-  "standalone_notes_lectures": [4],
-  "published_pdf_lectures": [1, 2, 3],
+  "standalone_notes_lectures": [
+    4
+  ],
+  "published_pdf_lectures": [
+    1,
+    2,
+    3,
+    4
+  ],
   "after_class_lectures": []
 }
