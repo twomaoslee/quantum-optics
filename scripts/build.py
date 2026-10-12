@@ -207,8 +207,9 @@ def update_pdfs(root, numbers):
         if number != 4:
             raise SystemExit('Targeted PDF update currently supports Lecture 4.')
         name = f'lecture{number:02d}'
-        files = [('第四讲课件.pdf', 'slides', '课件 PDF · 46 页'),
-                 ('第四讲课件-九宫格打印版.pdf', 'print-9up', '九宫格打印 PDF · A4 横向 · 6 页')]
+        files = [('第四讲课件.pdf', 'slides', '课件 PDF · 46 页')]
+        # Handouts are local-only; remove the previously published copy.
+        (DIST/f'downloads/{name}-print-9up.pdf').unlink(missing_ok=True)
         links = ''
         for filename, suffix, label in files:
             source = root/'output/pdf'/filename
