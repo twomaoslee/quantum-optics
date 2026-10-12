@@ -1277,6 +1277,10 @@ margin-bottom:0!important;
 .reveal #l04-h-rule .takeaway{font-weight:650}
 .reveal #l04-h-rule .h-matrix-rule{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;padding:0 18px}
 .reveal #l04-h-rule .h-matrix-rule .equation{margin:0}
+
+.reveal #l04-think3 .think3-question{background:#f2f4f6;border:0;padding:28px;gap:32px}
+.reveal #l04-think3 .think3-question .pair>div{background:transparent;padding:8px 16px}
+.reveal #l04-think3 .think3-question .pair>div+div{border-left:1px solid #d6e3ed;padding-left:32px}
 </style>
   <style type="text/css">.reveal
 div.sourceCode
@@ -2153,7 +2157,7 @@ margin-right: 0; }
 </section>
 <section id="l04-think3" class="slide level2 lecture-slide l04 content-slide">
 <h2>思考题三：怎样区分Bell态与00/11随机混合？</h2>
-<nav class="s-nav"><span class="lecture-label">量子光学 / 04　量子纠缠</span><a href="#/l04-section-gate-rule" class>量子门与乘积态</a><a href="#/l04-section-joint-task" class>两比特门与纠缠</a><a href="#/l04-section-local-z" class>纠缠态中的单比特状态</a><a href="#/l04-section-coin" class="active">联合测量：区分Bell态与随机混合</a></nav><div class="s-body"><p class="lead question-panel">两种状态的局部概率相同，沿z的联合概率也相同。还能怎样区分？</p><div data-fragment-index="0" class="fragment pair "><div><h3>Bell纯态</h3><div class="equation"><span class="math display">\[|\Phi^+\rangle=\frac{|00\rangle+|11\rangle}{\sqrt2}\]</span></div></div><div><h3>随机混合</h3><div class="equation"><span class="math display">\[\tfrac12:\ |00\rangle,\quad\tfrac12:\ |11\rangle\]</span></div></div></div><div data-fragment-index="1" class="fragment context"><h3>可用的换基关系</h3><div class="equation"><span class="math display">\[|0\rangle=\frac{|+\rangle+|-\rangle}{\sqrt2},\quad |1\rangle=\frac{|+\rangle-|-\rangle}{\sqrt2}\]</span></div></div><div data-fragment-index="2" class="fragment discussion-task"><p class>如果A、B都改为沿x测量，两种状态还会给出相同的联合概率吗？</p><p class>请分别计算＋＋、＋−、−＋、−−的概率，再比较两种状态。</p></div></div>
+<nav class="s-nav"><span class="lecture-label">量子光学 / 04　量子纠缠</span><a href="#/l04-section-gate-rule" class>量子门与乘积态</a><a href="#/l04-section-joint-task" class>两比特门与纠缠</a><a href="#/l04-section-local-z" class>纠缠态中的单比特状态</a><a href="#/l04-section-coin" class="active">联合测量：区分Bell态与随机混合</a></nav><div class="s-body"><div class="question-panel think3-question"><p class="lead">两种状态的局部概率相同，沿z的联合概率也相同。还能怎样区分？</p><div class="pair "><div><h3>Bell纯态</h3><div class="equation"><span class="math display">\[|\Phi^+\rangle=\frac{|00\rangle+|11\rangle}{\sqrt2}\]</span></div></div><div><h3>随机混合</h3><div class="equation"><span class="math display">\[\tfrac12:\ |00\rangle,\quad\tfrac12:\ |11\rangle\]</span></div></div></div></div></div>
 
 </section>
 <section id="l04-mix-x" class="slide level2 lecture-slide l04 content-slide">
