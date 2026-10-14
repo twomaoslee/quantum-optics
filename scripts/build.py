@@ -24,8 +24,24 @@ def slide_link(number):
             f'target="_blank" rel="noopener" '
             f'aria-label="在新标签页打开第{number}讲课件">课堂课件</a>')
 
-def update_slide_links():
-    """Refresh classroom link behavior without rebuilding course material."""
+def new_tab_material_links(text):
+    """Keep the course homepage open when entering notes or slides."""
+    def replace(match):
+        tag = re.sub(r'\s+target="[^"]*"', '', match[0])
+        rel = re.search(r'\s+rel="([^"]*)"', tag)
+        if rel:
+            values = list(dict.fromkeys(rel[1].split() + ['noopener']))
+            tag = tag[:rel.start()] + f' rel="{" ".join(values)}"' + tag[rel.end():]
+        else:
+            tag = tag[:-1] + ' rel="noopener">'
+        tag = re.sub(r'aria-label="阅读第(\d+)讲讲义"',
+                     r'aria-label="在新标签页阅读第\1讲讲义"', tag)
+        return tag[:-1] + ' target="_blank">'
+    return re.sub(r'<a\b[^>]*href="(?:notes|slides)/[^"#?]+\.html(?:[#?][^"]*)?"[^>]*>',
+                  replace, text)
+
+def update_material_links():
+    """Refresh homepage link behavior without rebuilding course material."""
     homepage = DIST/'index.html'
     text = homepage.read_text()
     for number in sorted(PUBLISHED_SLIDES):
@@ -33,7 +49,7 @@ def update_slide_links():
         text, count = re.subn(pattern, slide_link(number), text)
         if count != 1:
             raise SystemExit(f'Expected one homepage slide link for lecture {number}, found {count}.')
-    homepage.write_text(text)
+    homepage.write_text(new_tab_material_links(text))
 
 def sync_share_assets():
     shutil.copytree(SITE/'assets/share', DIST/'assets/share', dirs_exist_ok=True)
@@ -174,7 +190,7 @@ def update_slides(root, numbers):
         card = re.sub(r'资料更新：\d{4}-\d{2}-\d{2}', '资料更新：'+changed, card)
         text = text[:match.start()] + card + text[match.end():]
     homepage.write_text(text)
-    update_slide_links()
+    update_material_links()
 
 def update_notes(root, numbers):
     """Update standalone notes and their dependencies, preserving other releases."""
@@ -249,8 +265,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--update-sharing', action='store_true',
                         help='Only refresh homepage share metadata and cover assets.')
-    parser.add_argument('--update-slide-links', action='store_true',
-                        help='Only refresh homepage classroom links to open in new tabs.')
+    parser.add_argument('--update-material-links', '--update-slide-links',
+                        dest='update_material_links', action='store_true',
+                        help='Only refresh homepage notes and slides links to open in new tabs.')
     parser.add_argument('--source-root', type=Path, default=ROOT)
     parser.add_argument('--update-notes', type=int, nargs='+', choices=[4],
                         help='Update standalone notes and dependencies only.')
@@ -262,11 +279,11 @@ def main():
                         help='Refresh the syllabus and shared titles while preserving published chapter bodies.')
     parser.add_argument('--update-pdfs', type=int, nargs='+', choices=[4], help='Publish authorized PDF downloads only.')
     args = parser.parse_args()
-    if args.update_slide_links:
+    if args.update_material_links:
         if args.update_notes or args.update_slides or args.update_sharing or args.update_lectures or args.update_curriculum or args.update_pdfs:
-            parser.error('--update-slide-links cannot be combined with other update modes.')
-        update_slide_links()
-        print('Classroom slide links updated to open in new tabs.')
+            parser.error('--update-material-links cannot be combined with other update modes.')
+        update_material_links()
+        print('Homepage notes and slides links updated to open in new tabs.')
         return
     if args.update_pdfs:
         if args.update_notes or args.update_slides or args.update_sharing or args.update_lectures or args.update_curriculum:
@@ -461,7 +478,7 @@ def main():
         blocks.append(f'<section class="unit" aria-labelledby="unit-{unit_number}"><div class="unit-heading"><h3 id="unit-{unit_number}">{escape(title)}</h3><p class="unit-range">第 {first}—{last} 讲</p></div><ol start="{first}">{"".join(rows2)}</ol></section>')
     page=(SITE/'index.template.html').read_text().replace('{{LECTURES}}',''.join(rows)).replace('{{CURRICULUM}}',''.join(blocks))
     page=page.replace('{{PUBLISHED_NUMBERS}}', '、'.join(str(n) for n in sorted(PUBLISHED)))
-    (DIST/'index.html').write_text(page)
+    (DIST/'index.html').write_text(new_tab_material_links(page))
     if 4 in PUBLISHED_PDFS:
         update_pdfs(root, [4])
     sync_share_assets()
