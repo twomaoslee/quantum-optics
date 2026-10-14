@@ -19,6 +19,22 @@ SITE = Path(__file__).resolve().parents[1]
 ROOT = SITE.parent
 DIST = SITE / 'dist'
 
+def slide_link(number):
+    return (f'<a class="action" href="slides/lecture{number:02d}.html" '
+            f'target="_blank" rel="noopener" '
+            f'aria-label="在新标签页打开第{number}讲课件">课堂课件</a>')
+
+def update_slide_links():
+    """Refresh classroom link behavior without rebuilding course material."""
+    homepage = DIST/'index.html'
+    text = homepage.read_text()
+    for number in sorted(PUBLISHED_SLIDES):
+        pattern = rf'<a\b[^>]*href="slides/lecture{number:02d}\.html"[^>]*>课堂课件</a>'
+        text, count = re.subn(pattern, slide_link(number), text)
+        if count != 1:
+            raise SystemExit(f'Expected one homepage slide link for lecture {number}, found {count}.')
+    homepage.write_text(text)
+
 def sync_share_assets():
     shutil.copytree(SITE/'assets/share', DIST/'assets/share', dirs_exist_ok=True)
 
@@ -151,13 +167,14 @@ def update_slides(root, numbers):
             raise SystemExit(f'Missing homepage entry for {name}')
         card = match[0]
         if f'href="slides/{name}.html"' not in card:
-            link = f'<a class="action" href="slides/{name}.html" aria-label="打开第{number}讲课件">课堂课件</a>'
+            link = slide_link(number)
             card = card.replace('</div></article>', link+'</div></article>')
         card = card.replace('第四讲讲义与互动演示。', '第四讲讲义、课堂课件与互动演示。')
         changed = datetime.fromtimestamp((source/f'{name}.html').stat().st_mtime).strftime('%Y-%m-%d')
         card = re.sub(r'资料更新：\d{4}-\d{2}-\d{2}', '资料更新：'+changed, card)
         text = text[:match.start()] + card + text[match.end():]
     homepage.write_text(text)
+    update_slide_links()
 
 def update_notes(root, numbers):
     """Update standalone notes and their dependencies, preserving other releases."""
@@ -232,6 +249,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--update-sharing', action='store_true',
                         help='Only refresh homepage share metadata and cover assets.')
+    parser.add_argument('--update-slide-links', action='store_true',
+                        help='Only refresh homepage classroom links to open in new tabs.')
     parser.add_argument('--source-root', type=Path, default=ROOT)
     parser.add_argument('--update-notes', type=int, nargs='+', choices=[4],
                         help='Update standalone notes and dependencies only.')
@@ -243,6 +262,12 @@ def main():
                         help='Refresh the syllabus and shared titles while preserving published chapter bodies.')
     parser.add_argument('--update-pdfs', type=int, nargs='+', choices=[4], help='Publish authorized PDF downloads only.')
     args = parser.parse_args()
+    if args.update_slide_links:
+        if args.update_notes or args.update_slides or args.update_sharing or args.update_lectures or args.update_curriculum or args.update_pdfs:
+            parser.error('--update-slide-links cannot be combined with other update modes.')
+        update_slide_links()
+        print('Classroom slide links updated to open in new tabs.')
+        return
     if args.update_pdfs:
         if args.update_notes or args.update_slides or args.update_sharing or args.update_lectures or args.update_curriculum:
             parser.error('--update-pdfs cannot be combined with other update modes.')
@@ -418,7 +443,7 @@ def main():
         slide_links = ''
         if number in PUBLISHED_SLIDES:
             times.append((slides/f'{name}.html').stat().st_mtime)
-            slide_links = f'<a class="action" href="slides/{name}.html" aria-label="打开第{number}讲课件">课堂课件</a>'
+            slide_links = slide_link(number)
             if number in PUBLISHED_PDFS:
                 slide_links += f'<a class="download" href="downloads/{name}-slides.pdf" download>课件 PDF · {pdfs[number][1]} 页 · {pdfs[number][0].stat().st_size/1_000_000:.1f} MB ↓</a>'
         changed=datetime.fromtimestamp(max(times)).strftime('%Y-%m-%d')
