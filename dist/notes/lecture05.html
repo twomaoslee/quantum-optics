@@ -399,8 +399,42 @@ a_1&amp;=b_0, &amp; a_1&amp;\ne b_1.
 <p><span class="math display">\[
 |\Phi^+\rangle=\frac{|HH\rangle+|VV\rangle}{\sqrt2}.
 \]</span></p>
-<p>它就是此前的 Bell 态。实验中 Alice、Bob 可以各自转动偏振分析器，选择所测量的偏振基；两个正交出口分别记录为 <span class="math inline">\(+1\)</span>、<span class="math inline">\(-1\)</span>。沿用游戏的0/1答案：<span class="math inline">\(+1\)</span>出口答0，<span class="math inline">\(-1\)</span>出口答1，因此游戏的“同答／异答”也就是两个出口标签相同／不同。</p>
-<p>问题仍然只决定各自采用哪一种局域设置。经典游戏里，Alice 收到0就读出预先写好的<span class="math inline">\(a_0\)</span>；量子游戏里，她收到0就使用预先选好的分析器方向<span class="math inline">\(\alpha_0\)</span>，再把本轮测量得到的出口标签作为答案。Bob 也按自己的问题选择<span class="math inline">\(\beta_0\)</span>或<span class="math inline">\(\beta_1\)</span>。<strong>双方预先选定的是测量方向；具体答案在每轮测量时产生。</strong></p>
+<p>它就是此前的 Bell 态。每轮仍由主持人分别给 Alice、Bob 发题号0或1，两人只看自己的题、不能通信。小写<span class="math inline">\(x,y\)</span>分别表示两人收到的<strong>题号</strong>，不是测量轴；两人最终提交的<strong>答案</strong>也仍是0或1。</p>
+<div id="strategy-comparison">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 38%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">步骤</th>
+<th style="text-align: left;">经典策略：读取答案卡</th>
+<th style="text-align: left;">量子策略：测量纠缠光子</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">事先约定</td>
+<td style="text-align: left;">Alice 写好两个答案<span class="math inline">\(a_0,a_1\)</span>，Bob 写好<span class="math inline">\(b_0,b_1\)</span></td>
+<td style="text-align: left;">每轮共享一对上述 Bell 态光子；Alice 选好两个分析器方向<span class="math inline">\(\alpha_0,\alpha_1\)</span>，Bob 选好<span class="math inline">\(\beta_0,\beta_1\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">收到自己的题号后</td>
+<td style="text-align: left;">按题号读答案：Alice 读<span class="math inline">\(a_x\)</span>，Bob 读<span class="math inline">\(b_y\)</span></td>
+<td style="text-align: left;">按题号选方向：Alice 用<span class="math inline">\(\alpha_x\)</span>，Bob 用<span class="math inline">\(\beta_y\)</span>，各测自己的光子</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">向主持人交出答案</td>
+<td style="text-align: left;">直接交出读到的0或1</td>
+<td style="text-align: left;">各自从<span class="math inline">\(+1\)</span>出口出来就答0，从<span class="math inline">\(-1\)</span>出口出来就答1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>下标跟着题号走：例如 Alice 收到0，经典策略读<span class="math inline">\(a_0\)</span>，量子策略选<span class="math inline">\(\alpha_0\)</span>；Bob 收到1，则分别读<span class="math inline">\(b_1\)</span>或选<span class="math inline">\(\beta_1\)</span>。<strong>经典策略预写具体答案；量子策略预选测量方向，具体答案由本轮测量产生。</strong> 两者沿用同一计分规则：00、01、10要求同答，11要求异答。</p>
+<p>分析器的两个正交出口标为<span class="math inline">\(+1\)</span>、<span class="math inline">\(-1\)</span>。只有测 H/V 基时，它们才分别对应 H、V；分析器转动后，出口对应的偏振方向也随之转动。<strong>“同答”比较的是双方都答0或都答1，不要求双方出口对应的偏振方向相同。</strong></p>
 <section id="两套偏振分析器的夹角决定什么" class="level3">
 <h3 class="anchored" data-anchor-id="两套偏振分析器的夹角决定什么">4.1 两套偏振分析器的夹角决定什么？</h3>
 <p>先固定 Alice 测 H/V。Bell 态的两项告诉我们：Alice 得到+1（H）时，Bob 在这个分支中为 H；Alice 得到−1（V）时，Bob 为 V。两种结果各占一半。根据已知的 Alice 结果给出的 Bob 状态，称为 Bob 的<strong>条件态</strong>。</p>

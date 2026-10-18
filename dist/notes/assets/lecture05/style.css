@@ -19,6 +19,8 @@ table { width:100%; border-collapse:collapse; font-size:.94rem; margin:1.1rem 0 
 th {background:var(--soft); font-weight:650;}
 th,td {border-bottom:1px solid var(--border); padding:.6rem .65rem; text-align:left;}
 tr:nth-child(even) td {background:#fdfefe;}
+#strategy-comparison table {table-layout:fixed;}
+#strategy-comparison th,#strategy-comparison td {vertical-align:top;}
 figure {max-width:100%; margin:1.7rem auto; text-align:center;}
 figure img {max-width:100%; height:auto; border-radius:8px;}
 figcaption, .caption {font-size:.82rem;color:var(--muted);line-height:1.6; margin:.5rem 0 0;}
