@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 224" role="img"><style>text{font-family:'Noto Sans CJK SC','Noto Sans',Arial,sans-serif; fill:#283443} .muted{fill:#64748b} .ink{stroke:#526274;stroke-width:2;fill:none} .teal{stroke:#0b8577;fill:none;stroke-width:2.6} .amber{stroke:#c07b29;fill:none;stroke-width:2.6} .note{font-size:14px}</style><rect width="760" height="224" fill="#ffffff"/>
+<rect x="18" y="37" width="218" height="151" rx="15" fill="#f0f8f6" stroke="#80b8ae"/>
+<rect x="524" y="37" width="218" height="151" rx="15" fill="#fff7ec" stroke="#dab780"/>
+<text x="127" y="64" text-anchor="middle" font-size="21" font-weight="700">Alice</text>
+<text x="633" y="64" text-anchor="middle" font-size="21" font-weight="700">Bob</text>
+<text x="127" y="98" text-anchor="middle" font-size="16">测量：Z 或 X</text>
+<text x="127" y="124" text-anchor="middle" font-size="15">结果：+1 / −1</text>
+<text x="633" y="98" text-anchor="middle" font-size="16">测量：Z 或 X</text>
+<text x="633" y="124" text-anchor="middle" font-size="15">结果：+1 / −1</text>
+<rect x="326" y="85" width="108" height="57" rx="12" fill="#eff2f6" stroke="#bdc7d2"/>
+<text x="380" y="110" text-anchor="middle" font-weight="700" font-size="16">纠缠光子</text><text x="380" y="130" text-anchor="middle" font-size="16">对</text>
+<path d="M326 113 L238 113" stroke="#0b8577" stroke-width="3" stroke-dasharray="8 5"/><path d="M434 113 L522 113" stroke="#c07b29" stroke-width="3" stroke-dasharray="8 5"/>
+<circle cx="238" cy="113" r="5" fill="#0b8577"/><circle cx="522" cy="113" r="5" fill="#c07b29"/>
+<text x="380" y="47" text-anchor="middle" font-size="15" fill="#5f6b7a">相距很远的两个测量站</text>
+<text x="380" y="207" text-anchor="middle" class="muted" font-size="13">关联需要事后比较双方的测量记录</text>
+</svg>

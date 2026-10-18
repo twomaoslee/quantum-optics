@@ -13,11 +13,58 @@ import subprocess
 import tarfile
 import tempfile
 from urllib.parse import unquote
-from release import PUBLISHED, PUBLISHED_SLIDES, NOTES_ONLY, STANDALONE_NOTES, PUBLISHED_PDFS, AFTER_CLASS, withheld
+from release import CONFIG, PUBLISHED, PUBLISHED_SLIDES, NOTES_ONLY, STANDALONE_NOTES, PUBLISHED_PDFS, AFTER_CLASS, withheld
 
 SITE = Path(__file__).resolve().parents[1]
 ROOT = SITE.parent
 DIST = SITE / 'dist'
+
+def standalone_source(root, number):
+    relative = CONFIG.get('standalone_notes_sources', {}).get(str(number))
+    if relative is None:
+        return root/'quantum-notes'/f'lecture{number:02d}.html'
+    source = (root/relative).resolve()
+    if not source.is_relative_to(root.resolve()):
+        raise SystemExit('Standalone notes source must remain within the course.')
+    return source
+
+def standalone_content(root, number):
+    """Package a standalone draft with only its reader-facing dependencies."""
+    source = standalone_source(root, number)
+    text = sanitize_notes(source.read_text())
+    name = f'lecture{number:02d}'
+    if source.parent == root/'quantum-notes':
+        copy_tree(root/'quantum-notes/assets'/name, DIST/'notes/assets'/name)
+        return text
+    destination = DIST/'notes/assets'/name
+    destination.mkdir(parents=True, exist_ok=True)
+    for folder in ('assets', 'interactions', f'{name}_files'):
+        origin = source.parent/folder
+        # Game sources and diagnostic copies are not publication resources.
+        if folder == 'interactions':
+            (destination/folder).mkdir(exist_ok=True)
+            for filename in ('answers.html', 'quantum.html', 'host.css'):
+                shutil.copy2(origin/filename, destination/folder/filename)
+        elif folder == 'assets':
+            copy_tree(origin, destination)
+        else:
+            copy_tree(origin, destination/folder)
+    shutil.copy2(source.parent/'style.css', destination/'style.css')
+    for prefix, replacement in (
+        ('assets/', f'assets/{name}/'),
+        ('interactions/', f'assets/{name}/interactions/'),
+        (f'{name}_files/', f'assets/{name}/{name}_files/'),
+    ):
+        text = re.sub(r'((?:href|src)=["\'])'+re.escape(prefix),
+                      lambda m: m[1]+replacement, text)
+    text = text.replace('../../assets/', 'assets/')
+    text = text.replace('href="style.css"', f'href="assets/{name}/style.css"')
+    shared = root/'quantum-notes/assets/mathjax'
+    target = DIST/'notes/assets/mathjax'
+    target.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(shared/'tex-chtml-full.js', target/'tex-chtml-full.js')
+    copy_tree(shared/'output/chtml/fonts', target/'output/chtml/fonts')
+    return text
 
 def slide_link(number):
     return (f'<a class="action" href="slides/lecture{number:02d}.html" '
@@ -203,12 +250,11 @@ def update_notes(root, numbers):
     for number in numbers:
         name = f'lecture{number:02d}'
         source = root/'quantum-notes'
-        text = sanitize_notes((source/f'{name}.html').read_text())
+        text = standalone_content(root, number)
         nav_css = '<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style>'
         text = text.replace('</head>', nav_css+'</head>', 1)
         text = re.sub(r'(<main\b[^>]*>)', r'\1<a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>', text, count=1)
         (DIST/'notes'/f'{name}.html').write_text(text)
-        copy_tree(source/'assets'/name, DIST/'notes/assets'/name)
         # Shared dependencies newly referenced by the synchronized local lab.
         for relative in ['vendor/katex/fonts/KaTeX_Math-Italic.woff2', 'mathjax/tex-svg-full.js']:
             target = DIST/'notes/assets'/relative
@@ -223,12 +269,32 @@ def update_notes(root, numbers):
         pattern = r'<article class="lecture">(?:(?!</article>).)*href="notes/'+name+r'\.html".*?</article>'
         match = re.search(pattern, home, re.S)
         if not match:
-            raise SystemExit(f'Missing homepage entry for {name}')
-        date = datetime.fromtimestamp((source/f'{name}.html').stat().st_mtime).strftime('%Y-%m-%d')
-        card = re.sub(r'资料更新：\d{4}-\d{2}-\d{2}', '资料更新：'+date, match[0])
-        home = home[:match.start()] + card + home[match.end():]
+            heading = re.search(r'^### 第'+str(number)+r'讲[　 ]+([^\n]+)',
+                                (source/'outline.qmd').read_text(), re.M)
+            if heading is None:
+                raise SystemExit(f'Missing syllabus title for {name}')
+            label = escape(heading[1])
+            date = datetime.fromtimestamp(standalone_source(root, number).stat().st_mtime).strftime('%Y-%m-%d')
+            card = (f'<article class="lecture"><div class="lecture-number" aria-hidden="true">{number:02d}</div>'
+                    f'<div><h3><a href="notes/{name}.html"><span class="sr-only">第 {number} 讲：</span>{label}</a></h3>'
+                    f'<p>在线讲义与互动演示。</p><p class="revision">资料更新：{date}</p></div>'
+                    f'<div class="actions"><a class="action primary" href="notes/{name}.html" '
+                    f'aria-label="阅读第{number}讲讲义">在线讲义</a></div></article>')
+            home, count = re.subn(r'(</section></div>\s*<section class="curriculum")',
+                                 lambda m: card+m[0], home, count=1)
+            if count != 1:
+                raise SystemExit('Missing homepage materials section.')
+        else:
+            date = datetime.fromtimestamp(standalone_source(root, number).stat().st_mtime).strftime('%Y-%m-%d')
+            card = re.sub(r'资料更新：\d{4}-\d{2}-\d{2}', '资料更新：'+date, match[0])
+            home = home[:match.start()] + card + home[match.end():]
+        home = re.sub(r'(<li><span class="num">'+f'{number:02d}'+r'</span><span class="lecture-title">)(.*?)(</span><span class="status">)(.*?)(</span></li>)',
+                      lambda m: m[1]+(m[2] if '<a ' in m[2] else f'<a href="notes/{name}.html">{m[2]}</a>')+m[3]+'可阅读'+m[5],home)
+    home = re.sub(r'目前可阅读第 [^<]+ 讲',
+                  '目前可阅读第 '+'、'.join(str(n) for n in sorted(PUBLISHED))+' 讲',home)
     search_path.write_text(json.dumps(items, ensure_ascii=False))
-    homepage.write_text(home)
+    homepage.write_text(new_tab_material_links(home))
+    sync_notes_sidebar(DIST/'notes', root/'quantum-notes/_book/index.html')
 
 def update_pdfs(root, numbers):
     """Publish authorized PDF downloads without rebuilding notes or slides."""
@@ -269,7 +335,7 @@ def main():
                         dest='update_material_links', action='store_true',
                         help='Only refresh homepage notes and slides links to open in new tabs.')
     parser.add_argument('--source-root', type=Path, default=ROOT)
-    parser.add_argument('--update-notes', type=int, nargs='+', choices=[4],
+    parser.add_argument('--update-notes', type=int, nargs='+', choices=sorted(STANDALONE_NOTES),
                         help='Update standalone notes and dependencies only.')
     parser.add_argument('--update-slides', type=int, nargs='+', choices=[4],
                         help='Update packaged classroom slides and their homepage links only.')
@@ -330,7 +396,7 @@ def main():
         refreshed_pages = {'index.html', 'outline.html'} | {f'lecture{n:02d}.html' for n in updated_lectures}
         preserved_search = [item for item in previous_search if item.get('href', '').split('#')[0] not in refreshed_pages]
     notes = root / 'quantum-notes/_book'
-    note_sources = {n: root/'quantum-notes'/f'lecture{n:02d}.html' if n in STANDALONE_NOTES
+    note_sources = {n: standalone_source(root, n) if n in STANDALONE_NOTES
                     else notes/f'lecture{n:02d}.html' for n in PUBLISHED}
     slides = root / 'quantum-slides'
     pdf = root / '量子光学 · 第一讲：从量子力学到量子信息科学.pdf'
@@ -358,8 +424,7 @@ def main():
     else:
         copy_tree(notes, DIST/'notes')
     for n in sorted(STANDALONE_NOTES):
-        shutil.copy2(note_sources[n], DIST/'notes'/note_sources[n].name)
-        copy_tree(root/'quantum-notes/assets'/f'lecture{n:02d}', DIST/'notes/assets'/f'lecture{n:02d}')
+        (DIST/'notes'/f'lecture{n:02d}.html').write_text(standalone_content(root, n))
     missing_poster = DIST/'notes/figures/lecture01/slide10-image18.png'
     if not missing_poster.exists():
         shutil.copy2(slides/'assets/from-ppt/slide10-image18.png', missing_poster)
@@ -449,7 +514,8 @@ def main():
         1: (titles[1], '整数分解 → 量子力学 → 量子信息 → 光与控制'),
         2: (titles[2], '从偏振实验出发，用量子态预测测量，理解筛选、相位调控与不同物理系统中的量子比特。'),
         3: (titles[3], '从量子态的演化出发，学习共振驱动、脉冲时长与相位调控，制备并检验目标态，理解单比特量子门。'),
-        4: (titles[4], '第四讲讲义、课堂课件与互动演示。')
+        4: (titles[4], '第四讲讲义、课堂课件与互动演示。'),
+        5: (titles[5], '在线讲义与互动演示。')
     }
     rows=[]
     for number,(title,summary) in summaries.items():

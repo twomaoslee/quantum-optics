@@ -3,12 +3,17 @@
     1,
     2,
     3,
-    4
+    4,
+    5
   ],
-  "notes_only_lectures": [],
+  "notes_only_lectures": [5],
   "standalone_notes_lectures": [
-    4
+    4,
+    5
   ],
+  "standalone_notes_sources": {
+    "5": "quantum-notes/drafts/lecture05-study/lecture05.html"
+  },
   "published_pdf_lectures": [
     1,
     2,

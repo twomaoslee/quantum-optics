@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="符合记录的教学示意"><style>text{font-family:"Source Han Sans SC","PingFang SC","Microsoft YaHei",sans-serif;fill:#20314b;font-size:22px}.title{font-size:25px;font-weight:650}.note{font-size:19px;fill:#526477}.line{stroke:#87a7c1;stroke-width:2;fill:none}.blue{fill:#1e5f96}</style><rect width="960" height="360" fill="white"/><text x="480" y="35" text-anchor="middle" class="title">从两串点击到成对的联合记录</text>
+<text x="35" y="84" class="blue">Alice：时间 / 设置 / 出口</text><text x="365" y="84" class="blue">Bob：时间 / 设置 / 出口</text><text x="710" y="84" class="blue">配对后的记录</text>
+<path class="line" d="M25 99H930M25 163H930M25 227H930M25 291H930"/>
+<text x="45" y="140">10.0 / 0 / +</text><text x="375" y="140">10.2 / 1 / −</text><text x="725" y="140">01组：(+，−)</text>
+<text x="45" y="204">20.0 / 1 / −</text><text x="375" y="204">20.1 / 0 / −</text><text x="725" y="204">10组：(−，−)</text>
+<text x="45" y="268">30.0 / 0 / +</text><text x="375" y="268">30.2 / 0 / +</text><text x="725" y="268">00组：(+，+)</text>
+<path d="M285 132H345M285 196H345M285 260H345M625 132H690M625 196H690M625 260H690" stroke="#1e5f96" stroke-width="2"/>
+<text x="480" y="332" text-anchor="middle" class="note">教学构造：时间已校正，以任意单位表示；预设符合窗覆盖每行的时间差。</text></svg>
