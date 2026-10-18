@@ -470,7 +470,7 @@ Alice 用方向 <span class="math inline">\(\alpha_x\)</span>，Bob 用方向 <s
 Alice 交出读到的答案 <span class="math inline">\(a=a_x\)</span>，Bob 交出 <span class="math inline">\(b=b_y\)</span>，均为0或1。
 </td>
 <td>
-Alice、Bob 的答案分别记作 <span class="math inline">\(a,b\)</span>：各自从 <span class="math inline">\(+1\)</span> 出口出来就答0，从 <span class="math inline">\(-1\)</span> 出口出来就答1。
+Alice、Bob 的答案分别记作 <span class="math inline">\(a,b\)</span>：各自测得 <span class="math inline">\(+1\)</span> 就答0，测得 <span class="math inline">\(-1\)</span> 就答1。
 </td>
 </tr>
 <tr class="shared-rule">
@@ -503,8 +503,8 @@ Alice、Bob 的答案分别记作 <span class="math inline">\(a,b\)</span>：各
 </tbody>
 </table>
 </div>
-<p>例如本轮题号组合为01：Alice 读<span class="math inline">\(a_0\)</span>或选方向<span class="math inline">\(\alpha_0\)</span>，Bob 读<span class="math inline">\(b_1\)</span>或选<span class="math inline">\(\beta_1\)</span>。若量子测量时两人都从各自的<span class="math inline">\(+1\)</span>出口出来，就都答0，按这一组的同答规则获胜。<strong>经典策略预写具体答案；量子策略预选测量方向，具体答案由本轮测量产生。</strong></p>
-<p>分析器的两个正交出口标为<span class="math inline">\(+1\)</span>、<span class="math inline">\(-1\)</span>。只有测 H/V 基时，它们才分别对应 H、V；分析器转动后，出口对应的偏振方向也随之转动。<strong>“同答”比较的是双方都答0或都答1，不要求双方出口对应的偏振方向相同。</strong></p>
+<p>例如本轮题号组合为01：Alice 读<span class="math inline">\(a_0\)</span>或选方向<span class="math inline">\(\alpha_0\)</span>，Bob 读<span class="math inline">\(b_1\)</span>或选<span class="math inline">\(\beta_1\)</span>。若量子测量时两人都测得<span class="math inline">\(+1\)</span>，就都答0，按这一组的同答规则获胜。<strong>经典策略预写具体答案；量子策略预选测量方向，具体答案由本轮测量产生。</strong></p>
+<p>每个分析器用两路探测通道区分一对正交偏振态，两种测量结果分别记为<span class="math inline">\(+1\)</span>、<span class="math inline">\(-1\)</span>。测 H/V 基时，分别对应 H、V；改变测量方向，就检测另一对正交偏振态。Alice 和 Bob 各按自己选定的方向测量，将结果换成0/1答案：两人都答0或都答1称为“同答”，一人答0、另一人答1称为“异答”。</p>
 <section id="两套偏振分析器的夹角决定什么" class="level3">
 <h3 class="anchored" data-anchor-id="两套偏振分析器的夹角决定什么">4.1 计算两人同答与异答的概率</h3>
 <p>要给量子策略计分，先计算选定测量方向后，两人同答或异答的概率。先从 Alice 测 H/V 开始。Bell 态的两项告诉我们：Alice 得到+1（H）时，Bob 在这个分支中为 H；Alice 得到−1（V）时，Bob 为 V。两种结果各占一半。根据已知的 Alice 结果给出的 Bob 状态，称为 Bob 的<strong>条件态</strong>。</p>
