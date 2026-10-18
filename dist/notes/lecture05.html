@@ -395,7 +395,7 @@ a_1&amp;=b_0, &amp; a_1&amp;\ne b_1.
 <section id="量子策略纠缠光子能否做得更好" class="level2">
 <h2 class="anchored" data-anchor-id="量子策略纠缠光子能否做得更好">4. 量子策略：用纠缠光子挑战经典上限</h2>
 <p>经典答案卡的上限已经证明是75%。现在保持相同的出题和计分规则，改用纠缠光子的测量结果作答，检验能否超过这个上限。</p>
-<p>我们已经学过光子偏振及其测量，因此接下来使用偏振量子比特。把水平偏振记为 <span class="math inline">\(|H\rangle\)</span>，竖直偏振记为 <span class="math inline">\(|V\rangle\)</span>，令</p>
+<p>我们已经学过光子偏振及其测量，因此接下来使用偏振量子比特。把水平偏振记为 <span class="math inline">\(|H\rangle\)</span>，竖直偏振记为 <span class="math inline">\(|V\rangle\)</span>，用它们分别实现此前的 <span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span>。令</p>
 <p><span class="math display">\[
 |\Phi^+\rangle=\frac{|HH\rangle+|VV\rangle}{\sqrt2}.
 \]</span></p>
@@ -926,12 +926,12 @@ E_{00}=E_{01}=E_{10}=\frac1{\sqrt2},
 <h2 class="anchored" data-anchor-id="bell实验告诉我们什么">8. Bell实验的结论与适用范围</h2>
 <section id="哪一种解释被排除了" class="level3">
 <h3 class="anchored" data-anchor-id="哪一种解释被排除了">8.1 实验排除局域隐变量解释的前提与范围</h3>
-<p>答案卡片模型背后的要求有两项：一侧的结果只由本地设置和共享信息决定，两侧设置的选择又与这份共享信息独立。更一般的 Bell 局域模型用这些信息给出本地结果的概率。在这些前提以及有效的数据采集条件下，模型必须服从 Bell 不等式。</p>
+<p>答案卡片模型让每人只按自己的设置和共享信息作答。更一般的 Bell 局域模型也允许随机作答：给定全部共享信息后，两人各按自己的本地规则独立产生结果；每侧只使用自己的设置和这份共享信息。两侧设置的选择还须与共享信息独立。在这些前提以及有效的数据采集条件下，模型必须服从 Bell 不等式。</p>
 <p>上一节2015年的例子把时序、设置与未点击记录纳入同一次检验，在评价有限记录的波动后仍观察到违背。于是，这组前提无法解释这些实验关联。<strong>在通常的测量设置独立性等前提下，被排除的是 Bell 局域的隐变量解释。</strong></p>
 </section>
 <section id="为什么bob仍然收不到超光速消息" class="level3">
 <h3 class="anchored" data-anchor-id="为什么bob仍然收不到超光速消息">8.2 检查纠缠关联能否传递超光速消息</h3>
-<p>前面计算关联时，会根据 Alice 的结果分别讨论 Bob 的条件概率。要判断 Bob 自己能看到什么，就必须把 Alice 两种结果都计入，因为她不能选择某一轮一定出现哪个出口。</p>
+<p>前面计算关联时，会根据 Alice 的结果分别讨论 Bob 的条件概率。Alice 可以选择测量方向，每轮的结果按该 Bell 态的概率产生。Bob 先统计自己的记录，其中包含 Alice 两种结果对应的轮次，因此要把这两类概率相加。</p>
 <p>对本讲的偏振 Bell 态，Alice在任意线偏振方向的两个结果各占一半。若她使用方向<span class="math inline">\(\alpha\)</span>，Bob使用<span class="math inline">\(\beta\)</span>，Bob得到<span class="math inline">\(+1\)</span>的总概率为</p>
 <p><span class="math display">\[
 P_B(+1)=\frac12\cos^2(\alpha-\beta)+\frac12\sin^2(\alpha-\beta)=\frac12.
