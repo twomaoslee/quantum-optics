@@ -570,7 +570,7 @@ body:not([data-classroom=true]) .stage{padding-top:16px;padding-bottom:16px}
 .angle-reference{font-size:22px;color:var(--muted)}
 .affected{font-size:22px;color:var(--muted)}#affected-pairs{display:flex;gap:14px;margin-top:6px}#affected-pairs span{color:var(--blue);padding:3px 16px;background:var(--pale);border-bottom:2px solid #9db9d0}
 body[data-classroom=true] .direction-workspace{grid-template-columns:400px minmax(0,1fr);gap:30px;margin-top:16px}
-body[data-classroom=true] .direction-control{grid-template-columns:300px minmax(0,1fr);gap:24px;padding-left:24px;height:300px}
+body[data-classroom=true] .direction-control{grid-template-columns:340px minmax(0,1fr);gap:24px;padding-left:24px;height:100%}
 body[data-classroom=true] .axis-choices button{flex-direction:row;align-items:center;padding:12px}
 body[data-classroom=true] .direction-selection{gap:14px}
 body[data-classroom=true] .direction-control .axis-plot{height:260px}
@@ -578,6 +578,17 @@ body[data-classroom=true] .direction-control .axis-plot{height:260px}
 .direction-control figure{margin:0}.direction-control figcaption{font-size:22px;text-align:center;color:var(--muted);margin-top:2px}
 
 .direction-selection .axis-choices button&gt;span,.direction-selection .axis-choices strong{white-space:nowrap}
+
+/* Use the full editing height for the three aligned working areas. */
+body[data-classroom=true] .direction-workspace{align-items:stretch;margin-bottom:12px}
+body[data-classroom=true] .direction-selection{height:100%;justify-content:space-between}
+body[data-classroom=true] .direction-control figure{height:100%;display:flex;flex-direction:column}
+body[data-classroom=true] .direction-control .axis-plot{height:0;min-height:0;flex:1;width:100%}
+body[data-classroom=true] .direction-control figcaption{flex:none}
+body[data-classroom=true] .control-stack{height:100%;justify-content:space-between}
+
+body[data-classroom=true] .direction-workspace,body[data-classroom=true] .direction-control{grid-template-rows:minmax(0,1fr)}
+body[data-classroom=true] .direction-selection,body[data-classroom=true] .direction-control,body[data-classroom=true] .direction-control figure,body[data-classroom=true] .control-stack{min-height:0}
 &lt;/style&gt;&lt;/head&gt;&lt;body data-demo=&quot;quantum&quot; data-screen=&quot;forecast&quot;&gt;&lt;div class=&quot;viewport&quot;&gt;&lt;main class=&quot;stage&quot; aria-label=&quot;CHSH量子挑战&quot;&gt;
 &lt;nav class=&quot;progress&quot; aria-label=&quot;挑战步骤&quot;&gt;&lt;span data-step=&quot;0&quot;&gt;1 预测&lt;/span&gt;&lt;span data-step=&quot;1&quot;&gt;2 调方向&lt;/span&gt;&lt;span data-step=&quot;2&quot;&gt;3 看理论&lt;/span&gt;&lt;span data-step=&quot;3&quot;&gt;4 比模拟&lt;/span&gt;&lt;button id=&quot;reset&quot; class=&quot;text-button&quot;&gt;重来&lt;/button&gt;&lt;/nav&gt;
 &lt;section class=&quot;screen&quot; id=&quot;screen-forecast&quot; aria-labelledby=&quot;forecast-title&quot;&gt;&lt;header&gt;&lt;h1 id=&quot;forecast-title&quot;&gt;换成纠缠光子，能超过75%吗？&lt;/h1&gt;&lt;p&gt;沿用经典游戏的题号、答案和计分规则。&lt;/p&gt;&lt;/header&gt;&lt;div class=&quot;strategy-bridge&quot;&gt;&lt;div&gt;&lt;h2&gt;经典策略&lt;/h2&gt;&lt;p&gt;事先写好答案&lt;br&gt;收到题号 → 读出答案&lt;/p&gt;&lt;/div&gt;&lt;span class=&quot;bridge-arrow&quot; aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;&lt;div&gt;&lt;h2&gt;量子策略&lt;/h2&gt;&lt;p&gt;事先选好测量方向&lt;br&gt;收到题号 → 测量光子 → 答题&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;forecast-choices&quot; role=&quot;group&quot; aria-label=&quot;预测量子策略能否超过75%&quot;&gt;&lt;button data-prediction=&quot;yes&quot; aria-pressed=&quot;false&quot;&gt;我预测能超过&lt;/button&gt;&lt;button data-prediction=&quot;no&quot; aria-pressed=&quot;false&quot;&gt;我预测不能超过&lt;/button&gt;&lt;/div&gt;&lt;footer&gt;&lt;span id=&quot;classic-record&quot;&gt;经典策略的理论上限：75%&lt;/span&gt;&lt;button id=&quot;start&quot; class=&quot;primary&quot; disabled&gt;记录预测，开始挑战 →&lt;/button&gt;&lt;/footer&gt;&lt;/section&gt;
@@ -602,11 +613,11 @@ function fit(){const classroom=document.body.dataset.classroom===&#x27;true&#x27
 addEventListener(&#x27;resize&#x27;,fit);fit();
 function show(name){screen=name;document.body.dataset.screen=name;document.querySelectorAll(&#x27;.screen&#x27;).forEach(e=&gt;e.hidden=e.id!==&#x27;screen-&#x27;+name);const at={forecast:0,edit:1,theory:2,simulation:3}[name];document.querySelectorAll(&#x27;[data-step]&#x27;).forEach(e=&gt;{e.classList.toggle(&#x27;active&#x27;,Number(e.dataset.step)===at);if(Number(e.dataset.step)===at)e.setAttribute(&#x27;aria-current&#x27;,&#x27;step&#x27;);else e.removeAttribute(&#x27;aria-current&#x27;);});}
 function metrics(){const probs=pairs.map(([x,y],i)=&gt;{const d=(angles[x]-angles[2+y])*Math.PI/180;return i===3?Math.sin(d)**2:Math.cos(d)**2;});return{probs,p:probs.reduce((s,p)=&gt;s+p,0)/4};}
-function point(deg,r=85){const t=deg*Math.PI/180;return[140+r*Math.cos(t),130-r*Math.sin(t)];}
+function point(deg,r=105){const t=deg*Math.PI/180;return[140+r*Math.cos(t),130-r*Math.sin(t)];}
 function draw(){
  const angle=angles[chosen??0], [x,y]=point(angle),[nx,ny]=point(angle+180),[px,py]=point(angle+90),[qx,qy]=point(angle-90);
  const [ax,ay]=point(angle,35),arc=Math.abs(angle)&gt;0?`&lt;path d=&quot;M175 130A35 35 0 0 ${angle&gt;0?0:1} ${ax} ${ay}&quot; fill=&quot;none&quot; stroke=&quot;#1e5f96&quot; stroke-width=&quot;2&quot;/&gt;`:&#x27;&#x27;;
- $(&#x27;direction-plot&#x27;).innerHTML=`&lt;circle cx=&quot;140&quot; cy=&quot;130&quot; r=&quot;85&quot; fill=&quot;#f4f8fb&quot; stroke=&quot;#b9ccdc&quot;/&gt;&lt;path d=&quot;M35 130H246M140 26V236&quot; fill=&quot;none&quot; stroke=&quot;#c3d2df&quot;/&gt;&lt;text x=&quot;253&quot; y=&quot;138&quot;&gt;H&lt;/text&gt;&lt;text x=&quot;149&quot; y=&quot;29&quot;&gt;V&lt;/text&gt;&lt;line x1=&quot;${qx}&quot; y1=&quot;${qy}&quot; x2=&quot;${px}&quot; y2=&quot;${py}&quot; stroke=&quot;#718ba1&quot; stroke-width=&quot;2.5&quot; stroke-dasharray=&quot;6 5&quot;/&gt;&lt;line class=&quot;q-positive&quot; x1=&quot;${nx}&quot; y1=&quot;${ny}&quot; x2=&quot;${x}&quot; y2=&quot;${y}&quot; stroke=&quot;#1e5f96&quot; stroke-width=&quot;4&quot;/&gt;${arc}&lt;circle cx=&quot;${x}&quot; cy=&quot;${y}&quot; r=&quot;9&quot; fill=&quot;white&quot; stroke=&quot;#1e5f96&quot; stroke-width=&quot;3&quot;/&gt;&lt;circle cx=&quot;140&quot; cy=&quot;130&quot; r=&quot;3&quot; fill=&quot;#1e5f96&quot;/&gt;`;
+ $(&#x27;direction-plot&#x27;).innerHTML=`&lt;circle cx=&quot;140&quot; cy=&quot;130&quot; r=&quot;105&quot; fill=&quot;#f4f8fb&quot; stroke=&quot;#b9ccdc&quot;/&gt;&lt;path d=&quot;M20 130H252M140 10V250&quot; fill=&quot;none&quot; stroke=&quot;#c3d2df&quot;/&gt;&lt;text x=&quot;260&quot; y=&quot;138&quot;&gt;H&lt;/text&gt;&lt;text x=&quot;149&quot; y=&quot;18&quot;&gt;V&lt;/text&gt;&lt;line x1=&quot;${qx}&quot; y1=&quot;${qy}&quot; x2=&quot;${px}&quot; y2=&quot;${py}&quot; stroke=&quot;#718ba1&quot; stroke-width=&quot;2.5&quot; stroke-dasharray=&quot;6 5&quot;/&gt;&lt;line class=&quot;q-positive&quot; x1=&quot;${nx}&quot; y1=&quot;${ny}&quot; x2=&quot;${x}&quot; y2=&quot;${y}&quot; stroke=&quot;#1e5f96&quot; stroke-width=&quot;4&quot;/&gt;${arc}&lt;circle cx=&quot;${x}&quot; cy=&quot;${y}&quot; r=&quot;9&quot; fill=&quot;white&quot; stroke=&quot;#1e5f96&quot; stroke-width=&quot;3&quot;/&gt;&lt;circle cx=&quot;140&quot; cy=&quot;130&quot; r=&quot;3&quot; fill=&quot;#1e5f96&quot;/&gt;`;
  $(&#x27;direction-plot&#x27;).setAttribute(&#x27;aria-label&#x27;,`${labels[chosen??0]}：蓝色实线为+1结果对应的偏振方向，角度${angle}度；灰色虚线为正交的−1方向。`);
  angles.forEach((a,i)=&gt;$(&#x27;angle-value-&#x27;+i).textContent=a+&#x27;°&#x27;);
  document.querySelectorAll(&#x27;[data-select]&#x27;).forEach(b=&gt;b.setAttribute(&#x27;aria-pressed&#x27;,String(Number(b.dataset.select)===chosen)));

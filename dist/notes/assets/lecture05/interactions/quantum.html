@@ -26,7 +26,7 @@ body:not([data-classroom=true]) .stage{padding-top:16px;padding-bottom:16px}
 .angle-reference{font-size:22px;color:var(--muted)}
 .affected{font-size:22px;color:var(--muted)}#affected-pairs{display:flex;gap:14px;margin-top:6px}#affected-pairs span{color:var(--blue);padding:3px 16px;background:var(--pale);border-bottom:2px solid #9db9d0}
 body[data-classroom=true] .direction-workspace{grid-template-columns:400px minmax(0,1fr);gap:30px;margin-top:16px}
-body[data-classroom=true] .direction-control{grid-template-columns:300px minmax(0,1fr);gap:24px;padding-left:24px;height:300px}
+body[data-classroom=true] .direction-control{grid-template-columns:340px minmax(0,1fr);gap:24px;padding-left:24px;height:100%}
 body[data-classroom=true] .axis-choices button{flex-direction:row;align-items:center;padding:12px}
 body[data-classroom=true] .direction-selection{gap:14px}
 body[data-classroom=true] .direction-control .axis-plot{height:260px}
@@ -34,6 +34,17 @@ body[data-classroom=true] .direction-control .axis-plot{height:260px}
 .direction-control figure{margin:0}.direction-control figcaption{font-size:22px;text-align:center;color:var(--muted);margin-top:2px}
 
 .direction-selection .axis-choices button>span,.direction-selection .axis-choices strong{white-space:nowrap}
+
+/* Use the full editing height for the three aligned working areas. */
+body[data-classroom=true] .direction-workspace{align-items:stretch;margin-bottom:12px}
+body[data-classroom=true] .direction-selection{height:100%;justify-content:space-between}
+body[data-classroom=true] .direction-control figure{height:100%;display:flex;flex-direction:column}
+body[data-classroom=true] .direction-control .axis-plot{height:0;min-height:0;flex:1;width:100%}
+body[data-classroom=true] .direction-control figcaption{flex:none}
+body[data-classroom=true] .control-stack{height:100%;justify-content:space-between}
+
+body[data-classroom=true] .direction-workspace,body[data-classroom=true] .direction-control{grid-template-rows:minmax(0,1fr)}
+body[data-classroom=true] .direction-selection,body[data-classroom=true] .direction-control,body[data-classroom=true] .direction-control figure,body[data-classroom=true] .control-stack{min-height:0}
 </style></head><body data-demo="quantum" data-screen="forecast"><div class="viewport"><main class="stage" aria-label="CHSH量子挑战">
 <nav class="progress" aria-label="挑战步骤"><span data-step="0">1 预测</span><span data-step="1">2 调方向</span><span data-step="2">3 看理论</span><span data-step="3">4 比模拟</span><button id="reset" class="text-button">重来</button></nav>
 <section class="screen" id="screen-forecast" aria-labelledby="forecast-title"><header><h1 id="forecast-title">换成纠缠光子，能超过75%吗？</h1><p>沿用经典游戏的题号、答案和计分规则。</p></header><div class="strategy-bridge"><div><h2>经典策略</h2><p>事先写好答案<br>收到题号 → 读出答案</p></div><span class="bridge-arrow" aria-hidden="true">→</span><div><h2>量子策略</h2><p>事先选好测量方向<br>收到题号 → 测量光子 → 答题</p></div></div><div class="forecast-choices" role="group" aria-label="预测量子策略能否超过75%"><button data-prediction="yes" aria-pressed="false">我预测能超过</button><button data-prediction="no" aria-pressed="false">我预测不能超过</button></div><footer><span id="classic-record">经典策略的理论上限：75%</span><button id="start" class="primary" disabled>记录预测，开始挑战 →</button></footer></section>
@@ -58,11 +69,11 @@ function fit(){const classroom=document.body.dataset.classroom==='true';document
 addEventListener('resize',fit);fit();
 function show(name){screen=name;document.body.dataset.screen=name;document.querySelectorAll('.screen').forEach(e=>e.hidden=e.id!=='screen-'+name);const at={forecast:0,edit:1,theory:2,simulation:3}[name];document.querySelectorAll('[data-step]').forEach(e=>{e.classList.toggle('active',Number(e.dataset.step)===at);if(Number(e.dataset.step)===at)e.setAttribute('aria-current','step');else e.removeAttribute('aria-current');});}
 function metrics(){const probs=pairs.map(([x,y],i)=>{const d=(angles[x]-angles[2+y])*Math.PI/180;return i===3?Math.sin(d)**2:Math.cos(d)**2;});return{probs,p:probs.reduce((s,p)=>s+p,0)/4};}
-function point(deg,r=85){const t=deg*Math.PI/180;return[140+r*Math.cos(t),130-r*Math.sin(t)];}
+function point(deg,r=105){const t=deg*Math.PI/180;return[140+r*Math.cos(t),130-r*Math.sin(t)];}
 function draw(){
  const angle=angles[chosen??0], [x,y]=point(angle),[nx,ny]=point(angle+180),[px,py]=point(angle+90),[qx,qy]=point(angle-90);
  const [ax,ay]=point(angle,35),arc=Math.abs(angle)>0?`<path d="M175 130A35 35 0 0 ${angle>0?0:1} ${ax} ${ay}" fill="none" stroke="#1e5f96" stroke-width="2"/>`:'';
- $('direction-plot').innerHTML=`<circle cx="140" cy="130" r="85" fill="#f4f8fb" stroke="#b9ccdc"/><path d="M35 130H246M140 26V236" fill="none" stroke="#c3d2df"/><text x="253" y="138">H</text><text x="149" y="29">V</text><line x1="${qx}" y1="${qy}" x2="${px}" y2="${py}" stroke="#718ba1" stroke-width="2.5" stroke-dasharray="6 5"/><line class="q-positive" x1="${nx}" y1="${ny}" x2="${x}" y2="${y}" stroke="#1e5f96" stroke-width="4"/>${arc}<circle cx="${x}" cy="${y}" r="9" fill="white" stroke="#1e5f96" stroke-width="3"/><circle cx="140" cy="130" r="3" fill="#1e5f96"/>`;
+ $('direction-plot').innerHTML=`<circle cx="140" cy="130" r="105" fill="#f4f8fb" stroke="#b9ccdc"/><path d="M20 130H252M140 10V250" fill="none" stroke="#c3d2df"/><text x="260" y="138">H</text><text x="149" y="18">V</text><line x1="${qx}" y1="${qy}" x2="${px}" y2="${py}" stroke="#718ba1" stroke-width="2.5" stroke-dasharray="6 5"/><line class="q-positive" x1="${nx}" y1="${ny}" x2="${x}" y2="${y}" stroke="#1e5f96" stroke-width="4"/>${arc}<circle cx="${x}" cy="${y}" r="9" fill="white" stroke="#1e5f96" stroke-width="3"/><circle cx="140" cy="130" r="3" fill="#1e5f96"/>`;
  $('direction-plot').setAttribute('aria-label',`${labels[chosen??0]}：蓝色实线为+1结果对应的偏振方向，角度${angle}度；灰色虚线为正交的−1方向。`);
  angles.forEach((a,i)=>$('angle-value-'+i).textContent=a+'°');
  document.querySelectorAll('[data-select]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.select)===chosen)));
