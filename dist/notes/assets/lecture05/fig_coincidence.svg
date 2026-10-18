@@ -1,22 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="符合记录的教学示意">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="按时间配对探测记录的教学示意">
 <style>
 text{font-family:"Source Han Sans SC","PingFang SC","Microsoft YaHei",sans-serif;fill:#20314b;font-size:22px;text-anchor:middle;font-variant-numeric:tabular-nums}
 .title{font-size:25px;font-weight:650}.note{font-size:19px;fill:#526477}.rule{stroke:#87a7c1;stroke-width:2;fill:none}.divider{stroke:#d7e1e9;stroke-width:1;fill:none}.blue{fill:#1e5f96}
 </style>
 <rect width="960" height="360" fill="white"/>
-<text x="480" y="35" class="title">从两串点击到成对的联合记录</text>
+<text x="480" y="35" class="title">把两站的探测记录按时间配成一对</text>
 <path class="rule" d="M25 132H935M25 188H935M25 244H935M25 300H935"/>
 <path class="divider" d="M340 60V300M670 60V300"/>
 <text x="175" y="77" class="blue">Alice</text>
 <text x="495" y="77" class="blue">Bob</text>
 <text x="810" y="77" class="blue">配对后的记录</text>
 <text x="85" y="115" class="blue">时间</text>
-<text x="175" y="115" class="blue">设置</text>
-<text x="265" y="115" class="blue">出口</text>
+<text x="175" y="115" class="blue">题号</text>
+<text x="265" y="115" class="blue">结果</text>
 <text x="405" y="115" class="blue">时间</text>
-<text x="495" y="115" class="blue">设置</text>
-<text x="585" y="115" class="blue">出口</text>
-<text x="810" y="115" class="blue">设置组 / 联合结果</text>
+<text x="495" y="115" class="blue">题号</text>
+<text x="585" y="115" class="blue">结果</text>
+<text x="810" y="115" class="blue">题号组合 / 两人结果</text>
 <text x="85" y="167">10.0</text>
 <text x="175" y="167">0</text>
 <text x="265" y="167">+</text>

@@ -107,7 +107,7 @@ window.Quarto = {
 <p>1935 年，Einstein、Podolsky 和 Rosen 从这个问题出发，质疑量子态是否给出了完备的物理描述。他们希望保留一种局域的解释：远处的测量不改变这里的物理实在，关联来自粒子共同携带、但量子态尚未写出的信息。我们先用装有相同数字的盒子和答案卡检验这个想法，看看哪些关联确实可以这样解释。</p>
 <p>Bell 的关键推进，是让这种局域解释给出可检验的关联上限，这类限制称为<strong>贝尔不等式</strong>。本讲采用其中的 <strong>CHSH 形式</strong>，先通过双人游戏推导它：四种问题等概率出现，双方可以事先商量，分开后各自只能看自己的问题、不能通信。出题必须独立于双方事先共享的信息，例如不能根据他们携带的答案卡来挑题。在这些条件下，固定答案及其随机混合都受同一个胜率上限约束。</p>
 <p>接下来保留游戏规则，改让双方共享一对偏振纠缠光子。双方按题号选择各自的偏振测量方向，再将本轮测量结果记为答案。第二讲的偏振投影概率，正好可以用来计算这种新策略的成绩。合适的测量方向可以使理论胜率超过经典上限，给出违背贝尔不等式的量子预测；有限轮模拟的战绩则会波动。</p>
-<p>游戏给出了比较经典与量子预测的标准，但自然界是否真的违背贝尔不等式，需要实验回答。我们把游戏中的胜率上限改写成实验常用的 <strong>CHSH 不等式</strong>，用两地测量结果的关联量表达同一个限制，追踪探测器点击如何成为联合记录，再考察实验为何要改进探测效率、测量方向的选择和时间安排。统计误差说明有限记录会怎样波动；2015年的光子实验把随机选择、空间分离与未点击记录纳入同一次检验，补上从实验条件走到结论的证据。最后回到 EPR 的问题：实验排除了怎样的局域解释，又留下哪些关于量子理论的开放问题？这也是理解2022年诺贝尔物理学奖科学意义的主线。</p>
+<p>游戏给出了比较经典与量子预测的标准，但自然界是否真的违背贝尔不等式，需要实验回答。我们把游戏中的胜率上限改写成实验常用的 <strong>CHSH 不等式</strong>，用两地测量结果的关联量表达同一个限制，追踪两侧的探测信号如何配成一对、用于计算关联，再考察实验为何要改进探测效率、测量方向的选择和时间安排。统计误差说明有限记录会怎样波动；2015年的光子实验把随机选择、空间分离与每轮有无探测信号的记录纳入同一次检验，补上从实验条件走到结论的证据。最后回到 EPR 的问题：实验排除了怎样的局域解释，又留下哪些关于量子理论的开放问题？这也是理解2022年诺贝尔物理学奖科学意义的主线。</p>
 </section>
 <section id="epr佯谬关联的结果早就确定了吗" class="level2">
 <h2 class="anchored" data-anchor-id="epr佯谬关联的结果早就确定了吗">1. EPR佯谬：关联的结果早就确定了吗？</h2>
@@ -138,20 +138,20 @@ window.Quarto = {
 <p>1935 年，Albert Einstein、Boris Podolsky 和 Nathan Rosen 发表论文 <em>Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?</em>，也就是著名的 EPR 论文。他们关心的是：量子态是否已经提供了关于一个物理系统的全部描述？[1]</p>
 <p>在 EPR 的论证中，有一个关键的物理实在性判据：如果我们<strong>能够在不扰动一个系统的情况下，确定地预测某个物理量的测量结果</strong>，那么这个物理量应当对应一个物理实在要素。</p>
 <p>把这个判据用于刚才的纠缠态，可以按以下顺序推理。</p>
-<p>首先，Alice 测量 Z 后，能够确定预测 Bob 的 Z 测量结果。其次，如果 Alice 和 Bob 已经充分远离，Alice 的测量不应改变 Bob 那里的物理实在。按照 EPR 的判据，Bob 的 Z 因此对应某种确定的物理性质。</p>
+<p>首先，Alice 测量 Z 后，能够确定预测 Bob 的 Z 测量结果。其次，如果 Alice 和 Bob 已经充分远离，Alice 的测量不应改变 Bob 那里的物理实在。按照 EPR 的判据，Bob 在测量前就应具有决定 Z 测量结果的确定性质，这就是本例中的“物理实在要素”。</p>
 <p>但 Alice 完全可以选择测量 X，并以同样方式确定预测 Bob 的 X。既然 Bob 的物理实在不应受远处 Alice 的选择影响，那么 EPR 进一步认为，Bob 的 Z 和 X 都应当有相应的物理实在要素。</p>
 <p>量子力学中，让 Z 测量结果确定的量子态只能是<span class="math inline">\(|0\rangle\)</span>或<span class="math inline">\(|1\rangle\)</span>；这两个态沿 X 测量时，正、负结果却各占一半。因此，同一个量子态无法让 Z、X 两种测量同时有确定结果。EPR 希望两者都对应物理实在要素，量子态却无法同时给出这样的确定性，于是提出：<strong>现有的量子态描述可能是不完备的。</strong></p>
 <p>这一论证的关键前提是局域性，即远处的测量操作不改变这里的物理实在。它也是后来 Bell 研究的出发点。</p>
 <blockquote class="blockquote">
-<p><strong>历史注记。</strong> EPR 原始论文讨论位置与动量；本讲使用的两量子比特版本是后来常用的 Bohm 式重述。它保留了“远处的确定预测与局域性之间的张力”，更适合衔接本讲的测量游戏和光子实验。</p>
+<p><strong>历史注记。</strong> EPR 原始论文讨论位置与动量；本讲使用的两量子比特版本是后来常用的 Bohm 式重述。它保留了EPR的推理：从远处的确定预测出发，在局域性前提下追问测量前是否已有确定值，更适合衔接本讲的测量游戏和光子实验。</p>
 </blockquote>
 </section>
 <section id="bohr-为什么不同意" class="level3">
 <h3 class="anchored" data-anchor-id="bohr-为什么不同意">1.3 Bohr的回应：预测依赖所选的测量</h3>
 <p>Niels Bohr 同年回应 EPR。他强调，能够对哪个物理量作出确定预测，与实验中实际选择的测量安排密切相关。[2]</p>
 <p>Alice 选择 Z，能够确定预测 Bob 的 Z；Alice 选择 X，能够确定预测 Bob 的 X。但这两种预测来自不同的实验安排。Bohr 不接受从它们出发、直接认定 Bob 同时具有两个预先确定的测量值的推理。</p>
-<p>由此，争论的焦点逐渐清晰：EPR 希望量子关联可以用更完备、又保持局域性的描述来理解；Bohr 则坚持量子力学对测量情境的处理方式。</p>
-<p>双方讨论的是这些相同的实验关联究竟意味着什么。有没有办法让两种解释给出<strong>不同的、可以实验检验的预测</strong>？这个问题后来成为 Bell 的突破口。</p>
+<p>由此，争论的焦点逐渐清晰：EPR 希望量子关联可以用更完备、又保持局域性的描述来理解；Bohr 则强调，每一种确定预测都对应实际选定的测量，必须把测量安排一起纳入讨论。</p>
+<p>双方对这些相同的实验关联仍有不同解释，需要进一步用实验作出判断。有没有办法让两种解释给出<strong>不同的、可以实验检验的预测</strong>？这个问题后来成为 Bell 的突破口。</p>
 <p><strong>核心知识点：</strong> EPR 的推论来自“确定预测 + 不扰动 + 物理实在判据”。Bell 要进一步检验，能否用局域的隐藏信息解释所有关联。</p>
 </section>
 </section>
@@ -166,7 +166,7 @@ window.Quarto = {
 <section id="如果可以选择两种测量呢" class="level3">
 <h3 class="anchored" data-anchor-id="如果可以选择两种测量呢">2.2 用答案卡同时模仿同测Z、同测X的结果</h3>
 <p>第四讲中，“00、11各占一半”的随机混合能模仿 Bell 态的同测 Z 结果，却在同测 X 时露出差别。那么，能否换一种经典办法，连同测 X 的结果也能模仿？</p>
-<p>这次让两人各拿一张相同的卡，分别预写选择 Z、X 时的答案，检验这种经典答案模型能否同时模仿这两组统计。</p>
+<p>这次用读卡来模拟测量：两人各拿一张相同的卡，卡上两栏分别规定选 Z、选 X 时回答什么。我们比较这种经典规则与 Bell 态的两组统计。</p>
 <p>把 Z 的0、1结果分别记为+1、−1，X 的+、−结果也分别记为+1、−1。卡片上写明：</p>
 <ul>
 <li>选择 Z 测量时，回答什么；</li>
@@ -205,7 +205,7 @@ window.Quarto = {
 </tbody>
 </table>
 <p>这四种卡片能模仿 Bell 态在同测 Z、同测 X 时的完全关联。若一人读 Z 答案、另一人读 X 答案，四种卡片中两种同答、两种异答。</p>
-<p>卡片的全部内容记作<strong>隐变量</strong> <span class="math inline">\(\lambda\)</span>。<strong>局域隐变量模型</strong>允许双方事先共享信息，各自只按自己的测量设置和共享信息作答；分开后不交换设置或结果。</p>
+<p>卡片的全部内容记作<strong>隐变量</strong> <span class="math inline">\(\lambda\)</span>。<strong>局域隐变量模型</strong>允许双方事先共享信息，各自根据所选的测量方向和共享信息作答；分开后不交换测量方向或结果。</p>
 <p><strong>这样的答案卡，能模仿所有测量方向下的关联吗？</strong></p>
 <p><strong>核心知识点：</strong> 同测 Z、同测 X 的完全关联可由经典答案卡模仿；还要改变测量组合继续检验。</p>
 </section>
@@ -386,8 +386,8 @@ a_1&amp;=b_0, &amp; a_1&amp;\ne b_1.
 <h3 class="anchored" data-anchor-id="随机更换策略能突破吗">3.3 检验随机换卡能否提高胜率</h3>
 <p>也许 Alice 和 Bob 不使用固定卡片，而是在每轮开始前随机抽取一张新卡片。每张卡片可以规定不同的四个预设答案。</p>
 <p>但对任何一张固定卡片，胜率都不会超过 75%。随机混合后的整体胜率只是这些卡片胜率的加权平均，因此同样不能超过 75%。这里还要求主持人的提问选择与卡片独立，否则发卡的人就可以针对将要出现的问题预先安排策略。</p>
-<p>至此，我们得到一个可检验的结论：<strong>局域共享信息即使包含任意随机性，也不能让这个游戏的平均胜率超过 75%。</strong></p>
-<p>这个限制就是贝尔不等式的游戏形式，由四个本地答案之间的关系推出。接下来保留相同的出题和计分规则，检验共享 Bell 态、通过测量产生答案的策略能做到什么。</p>
+<p>至此，我们得到一个可检验的结论：<strong>双方事先共享信息、各自按题号作答，即使随机更换答案卡，理论胜率也不超过75%。</strong></p>
+<p>这个限制就是贝尔不等式的游戏形式，由双方预写的四个答案之间的关系推出。接下来保留相同的出题和计分规则，检验共享 Bell 态、通过测量产生答案的策略能做到什么。</p>
 <p><strong>核心知识点：在上述等概率、独立提问和分开后不通信的规则下，经典平均胜率的上限是75%；随机更换答案卡也不能突破。</strong></p>
 </section>
 </div>
@@ -504,23 +504,23 @@ Alice、Bob 的答案分别记作 <span class="math inline">\(a,b\)</span>：各
 </table>
 </div>
 <p>例如本轮题号组合为01：Alice 读<span class="math inline">\(a_0\)</span>或选方向<span class="math inline">\(\alpha_0\)</span>，Bob 读<span class="math inline">\(b_1\)</span>或选<span class="math inline">\(\beta_1\)</span>。若量子测量时两人都测得<span class="math inline">\(+1\)</span>，就都答0，按这一组的同答规则获胜。<strong>经典策略预写具体答案；量子策略预选测量方向，具体答案由本轮测量产生。</strong></p>
-<p>每个分析器用两路探测通道区分一对正交偏振态，两种测量结果分别记为<span class="math inline">\(+1\)</span>、<span class="math inline">\(-1\)</span>。测 H/V 基时，分别对应 H、V；改变测量方向，就检测另一对正交偏振态。Alice 和 Bob 各按自己选定的方向测量，将结果换成0/1答案：两人都答0或都答1称为“同答”，一人答0、另一人答1称为“异答”。</p>
+<p>偏振分析器是用来测量光子偏振的装置。在这里的理想模型中，它把一对正交偏振态分到两路，由两只探测器分别记录，两种测量结果记为<span class="math inline">\(+1\)</span>、<span class="math inline">\(-1\)</span>。测 H/V 基时，分别对应 H、V；改变测量方向，就检测另一对正交偏振态。Alice 和 Bob 各按自己选定的方向测量，将结果换成0/1答案：两人都答0或都答1称为“同答”，一人答0、另一人答1称为“异答”。</p>
 <section id="两套偏振分析器的夹角决定什么" class="level3">
 <h3 class="anchored" data-anchor-id="两套偏振分析器的夹角决定什么">4.1 计算两人同答与异答的概率</h3>
 <p>要给量子策略计分，先计算选定测量方向后，两人同答或异答的概率。先从 Alice 测 H/V 开始。Bell 态的两项告诉我们：Alice 得到+1（H）时，Bob 在这个分支中为 H；Alice 得到−1（V）时，Bob 为 V。两种结果各占一半。根据已知的 Alice 结果给出的 Bob 状态，称为 Bob 的<strong>条件态</strong>。</p>
 <figure class="figure">
-<picture> <source media="(max-width: 600px)" srcset="assets/lecture05/fig_same_branches_mobile.svg"> <img src="assets/lecture05/fig_same_branches.svg" alt="Alice测H/V的两种结果各占一半，Bob对应H或V；要同答，分别比较Bob正出口、负出口，两次投影夹角相同。" class="figure-img"> </picture>
+<picture> <source media="(max-width: 600px)" srcset="assets/lecture05/fig_same_branches_mobile.svg"> <img src="assets/lecture05/fig_same_branches.svg" alt="Alice测H/V的两种结果各占一半，Bob的条件态分别为H或V；同答分别要求Bob测得正、负结果，两次偏振投影的夹角相同。" class="figure-img"> </picture>
 <figcaption>
-固定Alice测H/V：两种结果各占一半，两支中同答所需出口与Bob偏振的夹角相同。
+固定Alice测H/V：两种结果各占一半。蓝线表示Bob要得到同答结果所检测的偏振方向，两次投影的夹角相同。
 </figcaption>
 </figure>
-<p>Bob 的+出口方向与 H 夹角为<span class="math inline">\(\beta\)</span>，−出口与它正交。要同答，上支要求 Bob 走+出口，下支要求 Bob 走−出口；图中两次投影的夹角都是<span class="math inline">\(\beta\)</span>。按第二讲的偏振投影规律，两支各自的同答概率都是<span class="math inline">\(\cos^2\beta\)</span>。计入 Alice 各结果出现的概率，两种同答记录的概率为</p>
+<p>Bob把沿<span class="math inline">\(\beta\)</span>方向的偏振记为+1，把与它正交的偏振记为−1。上支中Alice测得+1，同答要求Bob也测得+1；下支则要求两人都测得−1。Bob的条件态与相应检测偏振方向的夹角，都是<span class="math inline">\(\beta\)</span>。按第二讲的偏振投影规律，两支各自的同答概率都是<span class="math inline">\(\cos^2\beta\)</span>。计入 Alice 各结果出现的概率，两种同答记录的概率为</p>
 <p><span class="math display">\[
 P_{++}=\frac12\cos^2\beta,\qquad
 P_{--}=\frac12\cos^2\beta.
 \]</span></p>
 <p>因此全部轮次中的同答概率为<span class="math inline">\(P_{\mathrm{same}}=P_{++}+P_{--}=\cos^2\beta\)</span>。</p>
-<p>再让 Alice 的分析器也转到<span class="math inline">\(\alpha\)</span>。她的两个出口对应</p>
+<p>再让 Alice 的测量方向也转到<span class="math inline">\(\alpha\)</span>。+1、−1两种结果分别对应以下偏振态：</p>
 <p><span class="math display">\[
 \begin{aligned}
 |\alpha\rangle&amp;=\cos\alpha\,|H\rangle+\sin\alpha\,|V\rangle,\\
@@ -531,12 +531,12 @@ P_{--}=\frac12\cos^2\beta.
 <p><span class="math display">\[
 |\Phi^+\rangle=\frac{|\alpha\rangle_A|\alpha\rangle_B+|\alpha_\perp\rangle_A|\alpha_\perp\rangle_B}{\sqrt2}.
 \]</span></p>
-<p>Alice 的两种结果仍各占一半，Bob 相应为<span class="math inline">\(|\alpha\rangle\)</span>或<span class="math inline">\(|\alpha_\perp\rangle\)</span>。Bob 的出口态<span class="math inline">\(|\beta\rangle\)</span>、<span class="math inline">\(|\beta_\perp\rangle\)</span>按同样方法定义。同答要求分别比较<span class="math inline">\(|\alpha\rangle\)</span>与<span class="math inline">\(|\beta\rangle\)</span>、<span class="math inline">\(|\alpha_\perp\rangle\)</span>与<span class="math inline">\(|\beta_\perp\rangle\)</span>；两组方向的角度差都是<span class="math inline">\(\alpha-\beta\)</span>。把两支的同答概率各乘一半再相加，得到</p>
+<p>将上面两个偏振态代入展开，HV、VH两项相消，就恢复了原来的 Bell 态。Alice 的两种结果仍各占一半，Bob 相应为<span class="math inline">\(|\alpha\rangle\)</span>或<span class="math inline">\(|\alpha_\perp\rangle\)</span>。Bob 测量基中的两个偏振态<span class="math inline">\(|\beta\rangle\)</span>、<span class="math inline">\(|\beta_\perp\rangle\)</span>按同样方法定义。同答要求分别比较<span class="math inline">\(|\alpha\rangle\)</span>与<span class="math inline">\(|\beta\rangle\)</span>、<span class="math inline">\(|\alpha_\perp\rangle\)</span>与<span class="math inline">\(|\beta_\perp\rangle\)</span>；两组方向的角度差都是<span class="math inline">\(\alpha-\beta\)</span>。把两支的同答概率各乘一半再相加，得到</p>
 <p><span class="math display">\[
 \boxed{P_{\mathrm{same}}(\alpha,\beta)=\cos^2(\alpha-\beta)},\qquad
 P_{\mathrm{diff}}(\alpha,\beta)=\sin^2(\alpha-\beta).
 \]</span></p>
-<p>角度均指<strong>实际偏振分析器的角度</strong>：以 H 为0°，朝 V 为正；互动读数采用同一约定。对应 Bloch 球上的转角是实际偏振角度的两倍。</p>
+<p>角度均指<strong>所检测的线偏振方向相对于H的角度</strong>：以 H 为0°，朝 V 为正；互动读数采用同一约定。对应 Bloch 球上的转角是实际偏振角度的两倍。</p>
 </section>
 <section id="把偏振测量用于同一个游戏" class="level3">
 <h3 class="anchored" data-anchor-id="把偏振测量用于同一个游戏">4.2 调整测量方向，挑战经典胜率上限</h3>
@@ -556,7 +556,7 @@ body:not([data-classroom=true]) .stage{padding-top:16px;padding-bottom:16px}
 &lt;section class=&quot;screen&quot; id=&quot;screen-edit&quot; aria-labelledby=&quot;edit-title&quot; hidden&gt;&lt;header&gt;&lt;h1 id=&quot;edit-title&quot;&gt;先选一个要改的方向&lt;/h1&gt;&lt;p id=&quot;edit-instruction&quot;&gt;点下面的方向按钮；先预测，再转动。&lt;/p&gt;&lt;/header&gt;&lt;div class=&quot;stations&quot;&gt;
 &lt;section class=&quot;station&quot;&gt;&lt;h2&gt;Alice &lt;span&gt;按自己的题号选方向&lt;/span&gt;&lt;/h2&gt;&lt;svg id=&quot;plot-A&quot; class=&quot;axis-plot&quot; viewBox=&quot;0 0 360 180&quot; role=&quot;img&quot; aria-label=&quot;Alice的两个偏振测量方向&quot;&gt;&lt;/svg&gt;&lt;div class=&quot;axis-choices&quot;&gt;&lt;button data-select=&quot;0&quot;&gt;&lt;span&gt;题号0 · &lt;span data-tex=&quot;\alpha_0&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;strong id=&quot;angle-value-0&quot;&gt;0°&lt;/strong&gt;&lt;/button&gt;&lt;button data-select=&quot;1&quot;&gt;&lt;span&gt;题号1 · &lt;span data-tex=&quot;\alpha_1&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;strong id=&quot;angle-value-1&quot;&gt;45°&lt;/strong&gt;&lt;/button&gt;&lt;/div&gt;&lt;/section&gt;
 &lt;section class=&quot;station&quot;&gt;&lt;h2&gt;Bob &lt;span&gt;按自己的题号选方向&lt;/span&gt;&lt;/h2&gt;&lt;svg id=&quot;plot-B&quot; class=&quot;axis-plot&quot; viewBox=&quot;0 0 360 180&quot; role=&quot;img&quot; aria-label=&quot;Bob的两个偏振测量方向&quot;&gt;&lt;/svg&gt;&lt;div class=&quot;axis-choices&quot;&gt;&lt;button data-select=&quot;2&quot;&gt;&lt;span&gt;题号0 · &lt;span data-tex=&quot;\beta_0&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;strong id=&quot;angle-value-2&quot;&gt;0°&lt;/strong&gt;&lt;/button&gt;&lt;button data-select=&quot;3&quot;&gt;&lt;span&gt;题号1 · &lt;span data-tex=&quot;\beta_1&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;strong id=&quot;angle-value-3&quot;&gt;45°&lt;/strong&gt;&lt;/button&gt;&lt;/div&gt;&lt;/section&gt;&lt;/div&gt;
-&lt;div class=&quot;adjustment&quot; id=&quot;adjustment&quot; hidden&gt;&lt;span id=&quot;adjust-label&quot;&gt;&lt;/span&gt;&lt;button id=&quot;decrease&quot; aria-label=&quot;角度减小2.5度&quot;&gt;−&lt;/button&gt;&lt;input id=&quot;angle-slider&quot; type=&quot;range&quot; min=&quot;-90&quot; max=&quot;90&quot; step=&quot;2.5&quot; value=&quot;0&quot; aria-label=&quot;所选分析器的实际角度，单位度&quot;&gt;&lt;button id=&quot;increase&quot; aria-label=&quot;角度增加2.5度&quot;&gt;＋&lt;/button&gt;&lt;output id=&quot;angle-output&quot;&gt;0°&lt;/output&gt;&lt;/div&gt;&lt;p class=&quot;axis-key&quot; id=&quot;axis-key&quot;&gt;线条表示各题号所选的偏振方向；H 为0°，朝 V 为正。&lt;/p&gt;&lt;footer&gt;&lt;button id=&quot;restore&quot; class=&quot;text-button&quot;&gt;恢复初始方向&lt;/button&gt;&lt;button id=&quot;check&quot; class=&quot;primary&quot;&gt;核对初始方向 →&lt;/button&gt;&lt;/footer&gt;&lt;/section&gt;
+&lt;div class=&quot;adjustment&quot; id=&quot;adjustment&quot; hidden&gt;&lt;span id=&quot;adjust-label&quot;&gt;&lt;/span&gt;&lt;button id=&quot;decrease&quot; aria-label=&quot;角度减小2.5度&quot;&gt;−&lt;/button&gt;&lt;input id=&quot;angle-slider&quot; type=&quot;range&quot; min=&quot;-90&quot; max=&quot;90&quot; step=&quot;2.5&quot; value=&quot;0&quot; aria-label=&quot;所选偏振测量方向的角度，单位度&quot;&gt;&lt;button id=&quot;increase&quot; aria-label=&quot;角度增加2.5度&quot;&gt;＋&lt;/button&gt;&lt;output id=&quot;angle-output&quot;&gt;0°&lt;/output&gt;&lt;/div&gt;&lt;p class=&quot;axis-key&quot; id=&quot;axis-key&quot;&gt;线条表示+1结果对应的偏振方向；H 为0°，朝 V 为正。&lt;/p&gt;&lt;footer&gt;&lt;button id=&quot;restore&quot; class=&quot;text-button&quot;&gt;恢复初始方向&lt;/button&gt;&lt;button id=&quot;check&quot; class=&quot;primary&quot;&gt;核对初始方向 →&lt;/button&gt;&lt;/footer&gt;&lt;/section&gt;
 &lt;section class=&quot;screen&quot; id=&quot;screen-change&quot; aria-labelledby=&quot;change-title&quot; hidden&gt;&lt;header&gt;&lt;h1 id=&quot;change-title&quot;&gt;改动前，先预测&lt;/h1&gt;&lt;p id=&quot;change-target&quot;&gt;&lt;/p&gt;&lt;/header&gt;&lt;div class=&quot;change-question&quot;&gt;&lt;h2&gt;哪些题会用到这个方向？选两组。&lt;/h2&gt;&lt;p&gt;每组的第一位是 Alice 的题号，第二位是 Bob 的题号。&lt;/p&gt;&lt;/div&gt;&lt;div id=&quot;change-options&quot; class=&quot;change-options&quot; role=&quot;group&quot; aria-label=&quot;预测受影响的两组题&quot;&gt;&lt;/div&gt;&lt;p id=&quot;selection-count&quot; class=&quot;selection-count&quot; aria-live=&quot;polite&quot;&gt;已选0组&lt;/p&gt;&lt;footer&gt;&lt;button id=&quot;cancel-change&quot; class=&quot;text-button&quot;&gt;返回选方向&lt;/button&gt;&lt;button id=&quot;confirm-change&quot; class=&quot;primary&quot; disabled&gt;记录预测，转动方向 →&lt;/button&gt;&lt;/footer&gt;&lt;/section&gt;
 &lt;section class=&quot;screen&quot; id=&quot;screen-theory&quot; aria-labelledby=&quot;theory-title&quot; hidden&gt;&lt;header&gt;&lt;h1 id=&quot;theory-title&quot;&gt;核对这套方向的理论成绩&lt;/h1&gt;&lt;p id=&quot;direction-summary&quot; class=&quot;direction-summary&quot;&gt;&lt;/p&gt;&lt;/header&gt;&lt;div class=&quot;theory-layout&quot;&gt;&lt;section class=&quot;theory-total&quot;&gt;&lt;h2&gt;四组等权平均&lt;/h2&gt;&lt;strong id=&quot;theory-score&quot;&gt;—&lt;/strong&gt;&lt;div class=&quot;theory-gauge&quot;&gt;&lt;i id=&quot;theory-fill&quot;&gt;&lt;/i&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;&lt;p&gt;经典上限 75%&lt;/p&gt;&lt;p id=&quot;theory-verdict&quot; class=&quot;verdict&quot; aria-live=&quot;polite&quot;&gt;&lt;/p&gt;&lt;/section&gt;&lt;section class=&quot;cases&quot;&gt;&lt;h2&gt;每组的获胜概率&lt;/h2&gt;&lt;div id=&quot;case-rows&quot;&gt;&lt;/div&gt;&lt;/section&gt;&lt;/div&gt;&lt;p id=&quot;prediction-feedback&quot; class=&quot;prediction-feedback&quot;&gt;&lt;/p&gt;&lt;footer&gt;&lt;button id=&quot;edit-again&quot;&gt;继续调方向&lt;/button&gt;&lt;button id=&quot;open-simulation&quot; class=&quot;primary&quot;&gt;固定方向，模拟两批 →&lt;/button&gt;&lt;/footer&gt;&lt;/section&gt;
 &lt;section class=&quot;screen&quot; id=&quot;screen-simulation&quot; aria-labelledby=&quot;simulation-title&quot; hidden&gt;&lt;header&gt;&lt;h1 id=&quot;simulation-title&quot;&gt;同一套方向，两批战绩会一样吗？&lt;/h1&gt;&lt;p&gt;每批模拟200轮，四组题各50轮；每轮使用一对新光子。&lt;/p&gt;&lt;/header&gt;&lt;div class=&quot;fixed-theory&quot;&gt;这套方向的理论胜率 &lt;strong id=&quot;fixed-theory&quot;&gt;—&lt;/strong&gt;&lt;span&gt;方向固定，概率保持不变&lt;/span&gt;&lt;/div&gt;&lt;div id=&quot;batch-cards&quot; class=&quot;batch-cards&quot; aria-label=&quot;相同方向下最近两批模拟战绩&quot;&gt;&lt;/div&gt;&lt;p id=&quot;sample-event&quot; class=&quot;sample-event&quot; aria-live=&quot;polite&quot;&gt;先模拟第一批，再保持方向不变模拟第二批。&lt;/p&gt;&lt;p id=&quot;comparison-answer&quot; class=&quot;comparison-answer&quot; hidden&gt;两批战绩来自同一组概率的随机抽样；理论胜率由测量方向决定。&lt;/p&gt;&lt;footer&gt;&lt;button id=&quot;back-theory&quot; class=&quot;text-button&quot;&gt;返回理论成绩&lt;/button&gt;&lt;button id=&quot;simulate&quot; class=&quot;primary&quot;&gt;模拟第一批 →&lt;/button&gt;&lt;button id=&quot;compare&quot; class=&quot;primary&quot; hidden&gt;核对比较 →&lt;/button&gt;&lt;button id=&quot;next&quot; class=&quot;primary&quot; hidden&gt;看角度解法 →&lt;/button&gt;&lt;/footer&gt;&lt;/section&gt;
@@ -655,7 +655,7 @@ reset(false);tellParent(&#x27;ready&#x27;);
 P_{\mathrm{win}}^{\mathrm{quantum}}=\cos^2\frac{\pi}{8}
 =\frac{2+\sqrt2}{4}\approx85.4\%.
 \]</span></p>
-<p>这超过了经典策略的75%。每人仍只根据自己的问题选择本地测量；共享 Bell 态产生的四组联合概率，使这套策略胜过了所有经典答案卡片及其随机混合。</p>
+<p>这超过了经典策略的75%。每人按自己的题号选择测量方向。共享Bell态后，两人的测量结果满足上述概率关系，使这套策略的理论胜率超过所有经典答案卡片及其随机混合。</p>
 <p>互动中的模拟按这些概率抽样，可以帮我们理解概率和记录的关系。然而，自然界是否真的表现出这样的关联，要靠实验中独立获得的探测记录来检验。</p>
 <p><strong>核心知识点：</strong> 用 Bell 态、旋转偏振测量基和 <span class="math inline">\(\cos^2\theta\)</span> 的概率规律，可以给出一个超过所有局域经典策略的获胜方案。</p>
 </section>
@@ -667,7 +667,7 @@ P_{\mathrm{win}}^{\mathrm{quantum}}=\cos^2\frac{\pi}{8}
 <section id="每对光子贡献一个乘积" class="level3">
 <h3 class="anchored" data-anchor-id="每对光子贡献一个乘积">5.1 用两人的结果乘积计算关联</h3>
 <p>为便于统计，沿用上一节的对应关系，把游戏答案0记为<span class="math inline">\(+1\)</span>，答案1记为<span class="math inline">\(-1\)</span>。每一轮只有四种可能：<span class="math inline">\((+,+)\)</span>、<span class="math inline">\((+,-)\)</span>、<span class="math inline">\((-,+)\)</span>、<span class="math inline">\((-,-)\)</span>。</p>
-<p>将本轮 Alice、Bob 的出口标签分别记为<span class="math inline">\(A,B\)</span>，取值都为<span class="math inline">\(+1\)</span>或<span class="math inline">\(-1\)</span>。如果两边结果相同，乘积 <span class="math inline">\(AB=+1\)</span>；如果结果不同，乘积 <span class="math inline">\(AB=-1\)</span>。因此某组固定设置下的平均乘积为</p>
+<p>将本轮 Alice、Bob 的测量结果分别记为<span class="math inline">\(A,B\)</span>，取值都为<span class="math inline">\(+1\)</span>或<span class="math inline">\(-1\)</span>。如果两边结果相同，乘积 <span class="math inline">\(AB=+1\)</span>；如果结果不同，乘积 <span class="math inline">\(AB=-1\)</span>。因此两人各自固定测量方向时，结果乘积的平均值为</p>
 <p><span class="math display">\[
 E=\langle AB\rangle=P_{\mathrm{same}}-P_{\mathrm{diff}}.
 \]</span></p>
@@ -676,11 +676,11 @@ E=\langle AB\rangle=P_{\mathrm{same}}-P_{\mathrm{diff}}.
 P_{\mathrm{same}}=\frac{1+E}{2},\qquad
 P_{\mathrm{diff}}=\frac{1-E}{2}.
 \]</span></p>
-<p>这两行公式让我们知道，只要记录大量联合结果，就可以估计某一组测量方向的关联函数。</p>
+<p>这两行公式让我们知道，只要记录大量成对的测量结果，就可以估计某一组测量方向的关联函数。</p>
 </section>
 <section id="为什么-chsh-有三正一负" class="level3">
 <h3 class="anchored" data-anchor-id="为什么-chsh-有三正一负">5.2 把胜率上限改写成CHSH不等式</h3>
-<p>把四组设置分别记为 00、01、10、11，对应关联函数 <span class="math inline">\(E_{00}\)</span>、<span class="math inline">\(E_{01}\)</span>、<span class="math inline">\(E_{10}\)</span>、<span class="math inline">\(E_{11}\)</span>。</p>
+<p>沿用游戏题号，把两人的测量方向组合记为00、01、10、11。例如01表示Alice用<span class="math inline">\(\alpha_0\)</span>、Bob用<span class="math inline">\(\beta_1\)</span>。四组分别对应关联函数 <span class="math inline">\(E_{00}\)</span>、<span class="math inline">\(E_{01}\)</span>、<span class="math inline">\(E_{10}\)</span>、<span class="math inline">\(E_{11}\)</span>。</p>
 <p>前三组游戏要结果相同，因此获胜概率分别为 <span class="math inline">\((1+E_{ij})/2\)</span>；最后一组要结果不同，因此获胜概率为 <span class="math inline">\((1-E_{11})/2\)</span>。四组等概率出现，平均胜率是</p>
 <p><span class="math display">\[
 P_{\mathrm{win}}=\frac12+
@@ -691,11 +691,11 @@ P_{\mathrm{win}}=\frac12+
 <p><span class="math display">\[
 \boxed{S=E_{00}+E_{01}+E_{10}-E_{11}.}
 \]</span></p>
-<p>于是 <span class="math inline">\(P_{\mathrm{win}}=\tfrac12+\tfrac S8\)</span>。代入经典 75% 的上限，便得到 <span class="math inline">\(S\le2\)</span>。若将 Alice 两种设置的输出标签都互换，四个关联函数以及<span class="math inline">\(S\)</span>都会反号；同一个经典上限于是也给出<span class="math inline">\(-S\le2\)</span>。把两个方向的限制合在一起，就得到常见的标准形式：</p>
+<p>于是 <span class="math inline">\(P_{\mathrm{win}}=\tfrac12+\tfrac S8\)</span>。代入经典 75% 的上限，便得到 <span class="math inline">\(S\le2\)</span>。再构造一套经典策略：Alice 把两个题号下的答案0、1都互换，Bob 保持原答案。这样每个结果乘积都反号，新策略的 CHSH 参数就是<span class="math inline">\(-S\)</span>。新策略也须满足经典上限，因此<span class="math inline">\(-S\le2\)</span>。合并<span class="math inline">\(S\le2\)</span>和<span class="math inline">\(-S\le2\)</span>这两个限制，就得到常见的标准形式：</p>
 <p><span class="math display">\[
 \boxed{|S|\le 2}
 \]</span></p>
-<p>对于这里的偏振 Bell 态，<a href="#两套偏振分析器的夹角决定什么">第4.1节</a>已算出同答概率为<span class="math inline">\(\cos^2(\alpha-\beta)\)</span>，异答概率为<span class="math inline">\(\sin^2(\alpha-\beta)\)</span>。代入第5.1节的相关函数定义，得到</p>
+<p>对于这里的偏振 Bell 态，<a href="#两套偏振分析器的夹角决定什么">第4.1节</a>已算出同答概率为<span class="math inline">\(\cos^2(\alpha-\beta)\)</span>，异答概率为<span class="math inline">\(\sin^2(\alpha-\beta)\)</span>。代入第5.1节的关联函数定义，得到</p>
 <p><span class="math display">\[
 \begin{aligned}
 E(\alpha,\beta)
@@ -720,32 +720,32 @@ E_{00}=E_{01}=E_{10}=\frac1{\sqrt2},
 <section id="从探测器点击到bell检验" class="level2">
 <h2 class="anchored" data-anchor-id="从探测器点击到bell检验">6. 从光子探测记录计算CHSH值</h2>
 <section id="每次探测要记录什么" class="level3">
-<h3 class="anchored" data-anchor-id="每次探测要记录什么">6.1 记录每次探测的时间、方向与出口</h3>
+<h3 class="anchored" data-anchor-id="每次探测要记录什么">6.1 记录探测时间、测量方向与结果</h3>
 <p>前面已经知道怎样从四个关联函数算出<span class="math inline">\(S\)</span>。实验的下一项任务，是把真实探测记录整理成这四个数。</p>
 <p>一对纠缠光子从源发出，分别到达 Alice、Bob 的测量站。每站选择一个分析器方向，偏振分束器将两种正交偏振导向两个探测器，两路探测结果分别记为<span class="math inline">\(+1\)</span>、<span class="math inline">\(-1\)</span>。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="assets/lecture05/fig_experiment.svg" class="img-fluid figure-img" style="width:98.0%"></p>
-<figcaption>理想化的两输出 Bell 检验：纠缠源、两侧可选分析基、四路探测记录及事后数据配对。</figcaption>
+<figcaption>理想的双通道Bell检验：每侧选择测量方向，用两只探测器区分正、负结果，测量后再配对两侧记录。</figcaption>
 </figure>
 </div>
-<p>每次点击记录三项信息：<strong>发生时间、当时的测量方向、响应的探测通道。</strong> 时间用于配对两地事件，方向用于分组，探测结果用于计算关联。</p>
+<p>探测器响应一次，就产生一个电脉冲。记录三项信息：<strong>响应时间、当时的测量方向、哪只探测器响应（结果为+1或−1）。</strong> 时间用于配对两地事件，方向用于分组，探测结果用于计算关联。</p>
 </section>
 <section id="怎样配对两侧的记录" class="level3">
 <h3 class="anchored" data-anchor-id="怎样配对两侧的记录">6.2 按探测时间配对两侧记录</h3>
-<p>在连续发射光子对的实验中，两侧会各自积累一串点击。先校正两条光路和计时系统的固定时延，再按事先确定的符合时间窗识别配对事件。下图用教学构造的时间和记录展示这个整理过程。</p>
+<p>在连续发射光子对的实验中，两站各自记录探测信号。先校正光程和计时系统造成的固定时间差，再把到达时间足够接近的两侧记录配成一对。允许的时间差范围须事先规定，称为<strong>符合时间窗</strong>；落在窗内的配对称为符合事件。下图用教学数据展示配对过程。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="assets/lecture05/fig_coincidence.svg" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>教学记录示意：按校正后的时间识别符合事件，再把每一对的设置和出口写入联合记录。</figcaption>
+<figcaption>教学记录示意：按校正后的时间配对。方向编号0、1对应游戏题号；把两人的方向编号和测量结果合在一条记录中。</figcaption>
 </figure>
 </div>
 <p>图中的“01组”，对应游戏中 Alice 收到题号0、Bob收到题号1：两人分别用方向<span class="math inline">\(\alpha_0\)</span>、<span class="math inline">\(\beta_1\)</span>测量。第一对测得<span class="math inline">\((+1,-1)\)</span>，就在01组的<span class="math inline">\(N_{+-}\)</span>中加1。第二对则是 Alice 用<span class="math inline">\(\alpha_1\)</span>、Bob用<span class="math inline">\(\beta_0\)</span>，归入10组；两人都测得<span class="math inline">\(-1\)</span>，就在该组的<span class="math inline">\(N_{--}\)</span>中加1。</p>
-<p>把配对事件按00、01、10、11四组设置分类，再比较各组的联合统计，就能检验关联是否超过经典上限。实际实验还要评估漏探测和偶然落入时间窗的背景点击对样本的影响。</p>
+<p>把配对记录按00、01、10、11四种方向组合分类，分别统计正、负结果，就能计算关联并检验经典上限。实际实验还要评估漏探测，以及背景光或探测器噪声产生的信号偶然被配成一对的影响。</p>
 </section>
 <section id="从四类计数算出关联" class="level3">
-<h3 class="anchored" data-anchor-id="从四类计数算出关联">6.3 由联合计数计算关联与CHSH值</h3>
-<p>在任意一组固定设置下，记四类联合结果的计数为<span class="math inline">\(N_{++}\)</span>、<span class="math inline">\(N_{+-}\)</span>、<span class="math inline">\(N_{-+}\)</span>、<span class="math inline">\(N_{--}\)</span>。结果相同的次数减去结果不同的次数，再除以总次数，就得到关联函数的估计值：</p>
+<h3 class="anchored" data-anchor-id="从四类计数算出关联">6.3 按成对结果计数，计算关联与CHSH值</h3>
+<p>固定两人的测量方向，统计成对结果<span class="math inline">\((+,+)\)</span>、<span class="math inline">\((+,-)\)</span>、<span class="math inline">\((-,+)\)</span>、<span class="math inline">\((-,-)\)</span>各出现多少次，分别记为<span class="math inline">\(N_{++}\)</span>、<span class="math inline">\(N_{+-}\)</span>、<span class="math inline">\(N_{-+}\)</span>、<span class="math inline">\(N_{--}\)</span>。结果相同的次数减去结果不同的次数，再除以总次数，就得到关联函数的估计值：</p>
 <p><span class="math display">\[
 \widehat E=\frac{N_{++}+N_{--}-N_{+-}-N_{-+}}
 {N_{++}+N_{--}+N_{+-}+N_{-+}}.
@@ -762,7 +762,7 @@ E_{00}=E_{01}=E_{10}=\frac1{\sqrt2},
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: center;">设置</th>
+<th style="text-align: center;">方向组合</th>
 <th style="text-align: right;"><span class="math inline">\(N_{++}\)</span></th>
 <th style="text-align: right;"><span class="math inline">\(N_{+-}\)</span></th>
 <th style="text-align: right;"><span class="math inline">\(N_{-+}\)</span></th>
@@ -810,8 +810,8 @@ E_{00}=E_{01}=E_{10}=\frac1{\sqrt2},
 \widehat S=0.70+0.70+0.70-(-0.70)=2.80.
 \]</span></p>
 <p>这组记录给出的数值高于经典上限2。要判断真实实验的违背是否可信，还需要报告统计不确定性，并检查数据采集是否满足推导不等式所用的条件。就像互动中的两批模拟一样，有限样本给出的估计会波动。</p>
-<p>以上用理想双输出装置演示了从计数到CHSH值的计算。历史实验按各自的装置和探测条件选用相应的Bell不等式；下面沿着实验人员逐步解决的问题，理解实际证据怎样建立。</p>
-<p><strong>核心知识点：</strong> 时间、设置与出口共同组成联合记录；四类联合计数给出关联函数，再由四组关联检验经典界限。</p>
+<p>以上用理想双通道装置演示了从计数到CHSH值的计算。历史实验按各自的装置和探测条件选用相应的Bell不等式；下面沿着实验人员逐步解决的问题，理解实际证据怎样建立。</p>
+<p><strong>核心知识点：</strong> 按时间配对两侧探测记录，再按测量方向分组；每组中四类正负结果的次数给出关联函数，四组关联函数合成CHSH值。</p>
 </section>
 </section>
 <section id="从clauseraspect到zeilinger实验怎样逐步改进" class="level2">
@@ -833,11 +833,11 @@ E_{00}=E_{01}=E_{10}=\frac1{\sqrt2},
 </figcaption>
 </figure>
 <p><strong>这一步的意义：</strong> 不同测量方向下的光子关联，成为可以用实验比较的数字，Bell提出的限制有了实际检验。</p>
-<p><strong>还留下的漏洞：</strong> 一是只探测到发射光子的一部分；若被探测到的光子偏向某些结果，留下的样本就可能失真，这称为<strong>探测漏洞</strong>。二是测量方向在每次运行中固定，一侧的设置消息有时间传到另一侧，这给局域协调留下了机会，称为<strong>局域性漏洞</strong>。[5,8]</p>
+<p><strong>还留下的漏洞：</strong> 一是只探测到发射光子的一部分；若被探测到的光子偏向某些结果，留下的样本就可能失真，这称为<strong>探测漏洞</strong>。二是测量方向在每次运行中固定，一侧所选方向的信息有时间传到另一侧，因而仍可能通过信号影响对方的测量结果，称为<strong>局域性漏洞</strong>。[5,8]</p>
 </section>
 <section id="aspect把测量设置的选择放进时间安排" class="level3">
 <h3 class="anchored" data-anchor-id="aspect把测量设置的选择放进时间安排">7.2 Aspect：在光子飞行中切换测量方向</h3>
-<p><strong>做了什么：</strong> 为限制设置消息的传播时间，1982年Aspect、Jean Dalibard和Gérard Roger在光子飞行期间快速切换光路。每侧的声光开关把光子导向两个固定取向的偏振片之一，相当于快速改变测量方向。[6]</p>
+<p><strong>做了什么：</strong> 为使一侧所选方向的信息来不及传到另一侧，1982年Aspect、Jean Dalibard和Gérard Roger在光子飞行期间快速切换光路。每侧的声光开关把光子导向两个固定取向的偏振片之一，相当于快速改变测量方向。[6]</p>
 <figure class="history-apparatus figure" id="apparatus-aspect">
 <img src="assets/lecture05/fig_aspect1982_apparatus.png" alt="Aspect等1982年原论文图2：中央光子源S，两侧开关CI和CII分别把光子导向两个取向不同的偏振片，四路探测信号进入符合计数。" loading="lazy" class="figure-img">
 <figcaption>
@@ -845,78 +845,78 @@ E_{00}=E_{01}=E_{10}=\frac1{\sqrt2},
 </figcaption>
 </figure>
 <p><strong>推进了什么：</strong> 方向切换的时间短于两站间光速传播所需的时间，实验仍观察到Bell违背。这样压缩了远方在本轮测量完成前响应这次切换的机会。[6]</p>
-<p><strong>还留下的漏洞：</strong> 切换具有周期性，后续设置可以被提前预测；探测到的仍只是部分光子对。下一步需要各站独立、随机地选方向，并继续改善探测效率。[6,7]</p>
+<p><strong>还留下的漏洞：</strong> 切换具有周期性，后续测量方向可以被提前预测；探测到的仍只是部分光子对。下一步需要各站独立、随机地选方向，并继续改善探测效率。[6,7]</p>
 <details class="derivation-details">
 <summary>
-选读：用时序图检查设置消息能否到达
+选读：用时间图检查测量方向的信息能否及时传到另一站
 </summary>
-<p>两侧开关以接近50 MHz、彼此不相同的周期频率运行。[6] 判断局域性条件时，要比较设置改变的时刻、远端结果的记录时刻与两站间的光速传播时间。</p>
+<p>两侧开关以接近50 MHz、彼此不相同的周期频率运行。[6] 判断局域性条件时，要比较改变测量方向的时刻、远端结果的记录时刻与两站间的光速传播时间。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="assets/lecture05/fig_setting_timing.svg" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>教学时序示意：从Alice选择设置到Bob记录结果，所留时间短于两站间的光速传播时间；还需检查反方向的对应条件。</figcaption>
+<figcaption>教学时序示意：从Alice选择测量方向到Bob记录结果，所留时间短于两站间的光速传播时间；还需检查反方向的对应条件。</figcaption>
 </figure>
 </div>
-<p>两站距离为<span class="math inline">\(L\)</span>。若从Alice选择设置到Bob产生探测结果，间隔小于<span class="math inline">\(L/c\)</span>，这次设置的信息就来不及以光速或更慢的速度到达Bob；另一个方向也要满足对应条件。</p>
+<p>两站距离为<span class="math inline">\(L\)</span>。若从Alice选择测量方向到Bob产生探测结果，间隔小于<span class="math inline">\(L/c\)</span>，这次所选方向的信息就来不及以光速或更慢的速度到达Bob；另一个方向也要满足对应条件。</p>
 </details>
 </section>
 <section id="weihs与zeilinger团队快速随机选择独立记录" class="level3">
 <h3 class="anchored" data-anchor-id="weihs与zeilinger团队快速随机选择独立记录">7.3 Weihs与Zeilinger团队：随机选方向，分开记录</h3>
-<p><strong>做了什么：</strong> 1998年，Gregor Weihs与Zeilinger团队把Alice、Bob两个测量站分隔400米。各站用物理随机数发生器选择方向，快速完成测量，并各自记录测量设置（题号）、探测结果和时间；实验结束后再合并记录。[7]</p>
+<p><strong>做了什么：</strong> 1998年，Gregor Weihs与Zeilinger团队把Alice、Bob两个测量站分隔400米。各站用物理随机数发生器选择方向，快速完成测量，并各自记录测量方向的编号（对应游戏题号）、探测结果和时间；实验结束后再合并记录。[7]</p>
 <figure class="history-apparatus figure" id="apparatus-weihs">
 <img src="assets/lecture05/fig_weihs1998_station.png" alt="Weihs等1998年原论文图2中的一个测量站：随机数发生器控制电光调制器，棱镜分出正负结果，两只探测器和时间记录器独立记录事件。" loading="lazy" class="figure-img">
 <figcaption>
-原论文图2，画的是一个测量站，两站各有一套。右下Random Number Generator产生0或1，驱动Electro-Optic Modulator选择测量方向；两只探测器记录正、负结果，Time-Tags保存时间及设置。图源：<a href="https://arxiv.org/pdf/quant-ph/9810080">Weihs等，1998</a>。[7]
+原论文图2，画的是一个测量站，两站各有一套。右下Random Number Generator产生0或1，驱动Electro-Optic Modulator选择测量方向；两只探测器记录正、负结果，Time-Tags保存时间及测量方向编号。图源：<a href="https://arxiv.org/pdf/quant-ph/9810080">Weihs等，1998</a>。[7]
 </figcaption>
 </figure>
-<p><strong>推进与结果：</strong> 从随机选方向到记录结果的整个过程，都在远方设置消息来得及到达之前完成，更严格地处理了局域性漏洞。原论文报告的典型结果为<span class="math inline">\(S=2.73\pm0.02\)</span>，其中0.02为统计误差，支持关联越过经典界限2。[7]</p>
+<p><strong>推进与结果：</strong> 从随机选方向到记录结果的整个过程，都在远方所选测量方向的信息来得及到达之前完成，更严格地处理了局域性漏洞。原论文报告的典型结果为<span class="math inline">\(S=2.73\pm0.02\)</span>，其中0.02为统计误差，支持关联越过经典界限2。[7]</p>
 <p><strong>还留下的漏洞：</strong> 当时仍按探测到的符合事件计算关联，需要假定这些样本能代表全部发射事件，探测漏洞仍然存在。<strong>局域性条件的改善与探测漏洞的关闭，需要在同一次实验中兼顾。</strong></p>
 <details class="derivation-details">
 <summary>
 选读：统计波动与探测样本偏差
 </summary>
-<p>0.02给出有限记录造成的统计波动尺度。测得的2.73比经典界限高0.73，远大于这一尺度，支持关联越过界限。若漏探测偏向某些设置或结果，留下的符合样本仍可能失真。增加轮数可缩小统计波动；控制样本偏差需要检查探测及记录保留规则。</p>
+<p>0.02给出有限记录造成的统计波动尺度。测得的2.73比经典界限高0.73，远大于这一尺度，支持关联越过界限。若漏探测偏向某些测量方向或结果，留下的符合样本仍可能失真。增加轮数可缩小统计波动；控制样本偏差需要检查探测及记录保留规则。</p>
 <p>论文使用的态和CHSH符号安排与本讲的<span class="math inline">\(|\Phi^+\rangle\)</span>例子不同，检验的经典界限同为2。本讲理想方案的<span class="math inline">\(2\sqrt2\)</span>是理论值；<span class="math inline">\(2.73\pm0.02\)</span>来自真实探测记录。[7]</p>
 </details>
 </section>
 <section id="年把实验条件落实在同一次光子检验中" class="level3">
 <h3 class="anchored" data-anchor-id="年把实验条件落实在同一次光子检验中">7.4 Shalm等：在同一次实验中处理两类主要漏洞</h3>
-<p><strong>做了什么：</strong> 2015年，Shalm等把高质量纠缠光子源、高效低噪声探测器、快速随机选方向与空间分离结合起来。各站先按本地同步时钟划定每轮时段，再记录“点击”或“未点击”，将损失事件一起纳入Bell检验。[9]</p>
+<p><strong>做了什么：</strong> 2015年，Shalm等把高质量纠缠光子源、高效低噪声探测器、快速随机选方向与空间分离结合起来。各站先按本地同步时钟划定每轮时段，再记录该时段内探测器“有响应”或“无响应”，把没有探测到光子的轮次也纳入Bell检验。两站用同步时钟给这些时段编号，实验后按相同轮次编号合并记录。[9]</p>
 <figure class="history-apparatus figure" id="apparatus-shalm">
-<img src="assets/lecture05/fig_shalm2015_station.png" alt="Shalm等原论文图2中的接收站：随机数发生器RNG控制PC选基，光子经过偏振片后进入高效探测器，时间记录器保存结果。" loading="lazy" class="figure-img">
+<img src="assets/lecture05/fig_shalm2015_station.png" alt="Shalm等原论文图2中的接收站：随机数发生器RNG控制PC选择测量方向，光子经过偏振片后进入高效探测器，时间记录器保存结果。" loading="lazy" class="figure-img">
 <figcaption>
-原论文图2，一个接收站。光子从左上进入；左下RNG提供选基比特，PC（普克尔盒）按比特选择测量方向；右侧Detector探测光子，Time tagger记录时刻。图源：<a href="https://arxiv.org/pdf/1511.03189">Shalm等，2015，作者公开稿</a>。[9]
+原论文图2，一个接收站。光子从左上进入；左下RNG产生随机数字0或1，PC（普克尔盒）据此选择两个测量方向之一；右侧Detector探测光子，Time tagger记录时刻。图源：<a href="https://arxiv.org/pdf/1511.03189">Shalm等，2015，作者公开稿</a>。[9]
 </figcaption>
 </figure>
-<p><strong>主要漏洞怎样得到处理：</strong> 这套装置将高效探测与包含损失的试次统计结合起来，记录仍显示Bell违背，从而关闭了探测漏洞；两侧各自快速随机选设置，并核查选择、探测与记录的时序，同时关闭局域性漏洞。[9]</p>
-<p>这里的“未点击”包括漏探测、光子未进入所测通道等情况；此前理想双输出模型的<span class="math inline">\(-1\)</span>结果，则来自另一只探测器的点击。实验按每轮的点击、未点击记录，使用适用于这套装置的Bell不等式。</p>
-<p><strong>实验结论与前提：</strong> 将这两类主要漏洞在同一次实验中处理后，统计检验仍支持Bell违背。结论以测量设置与光子携带的信息独立、位置和时序测量可靠等前提为基础；在这些前提下，所检验的局域解释与记录不符。[9]</p>
+<p><strong>主要漏洞怎样得到处理：</strong> 这套装置用高效探测器提高记录光子的比例，并保留每轮有无响应的结果，记录仍显示Bell违背，从而关闭了探测漏洞；两侧各自快速随机选择测量方向，并核查选择、探测与记录的时序，同时关闭局域性漏洞。[9]</p>
+<p>这里的“无响应”指规定时段内没有记录到探测信号，可能来自光子损失、漏探测或光子未通过所测偏振通道。这个实验每侧监测一路通道，以有无响应作为两种结果；前面的理想双通道模型则用两只探测器分别记录+1和−1。两种装置各用与其结果定义相配的Bell不等式。</p>
+<p><strong>实验结论与前提：</strong> 将这两类主要漏洞在同一次实验中处理后，统计检验仍支持Bell违背。结论以测量方向的选择与光子携带的隐藏信息独立、位置和时序测量可靠等前提为基础；在这些前提下，所检验的局域解释与记录不符。[9]</p>
 <details class="derivation-details">
 <summary>
-选读：全部试次怎样计数，结果怎样报告
+选读：全部实验轮次怎样计数，结果怎样报告
 </summary>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Alice / Bob</th>
-<th style="text-align: left;">点击</th>
-<th style="text-align: left;">未点击</th>
+<th style="text-align: left;">有响应</th>
+<th style="text-align: left;">无响应</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">点击</td>
-<td style="text-align: left;">双方点击</td>
-<td style="text-align: left;">仅Alice点击</td>
+<td style="text-align: left;">有响应</td>
+<td style="text-align: left;">双方有响应</td>
+<td style="text-align: left;">仅Alice有响应</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">未点击</td>
-<td style="text-align: left;">仅Bob点击</td>
-<td style="text-align: left;">双方未点击</td>
+<td style="text-align: left;">无响应</td>
+<td style="text-align: left;">仅Bob有响应</td>
+<td style="text-align: left;">双方无响应</td>
 </tr>
 </tbody>
 </table>
-<p>每一轮均按表中四类结果保留。实验还评估了设置可能被提前预测的偏差。计入这一偏差后，论文报告的一项结果是：若所检验的局域模型成立，出现至少这样强违背的概率上限为<span class="math inline">\(2.3\times10^{-7}\)</span>。结合试次与记录规则、设置与时序条件，以及有限记录的统计检验，就能在上述前提下排除所检验的局域解释。[9]</p>
+<p>每一轮均按表中四类结果保留。实验还评估了测量方向选择被提前预测的可能性。计入这一偏差后，论文报告的一项结果是：若所检验的局域模型成立，出现至少这样强违背的概率上限为<span class="math inline">\(2.3\times10^{-7}\)</span>。结合每轮的记录规则、测量方向的选择和两站的时间安排，以及有限记录的统计检验，就能在上述前提下排除所检验的局域解释。[9]</p>
 </details>
 <p>Zeilinger团队还推动了量子隐形传态与纠缠交换实验，使纠缠成为处理量子信息的资源。[8] 这些协议将在后面学习；这里已看到，研究从“检验关联”走向了“使用纠缠”。</p>
 <div class="quarto-figure quarto-figure-center">
@@ -925,15 +925,15 @@ E_{00}=E_{01}=E_{10}=\frac1{\sqrt2},
 <figcaption>从1935年EPR论证到2022年诺奖的关键节点。</figcaption>
 </figure>
 </div>
-<p><strong>核心知识点：</strong> 早期实验观测到Bell违背，随后逐步改善设置选择、时序与探测。2015年的光子检验在同一次实验中处理了局域性和探测这两类主要漏洞，使排除局域解释的证据更完整。</p>
+<p><strong>核心知识点：</strong> 早期实验观测到Bell违背，随后逐步改善随机选方向、两站的时间安排和光子探测。2015年的光子检验在同一次实验中处理了局域性和探测这两类主要漏洞，使排除局域解释的证据更完整。</p>
 </section>
 </section>
 <section id="bell实验告诉我们什么" class="level2">
 <h2 class="anchored" data-anchor-id="bell实验告诉我们什么">8. Bell实验的结论与适用范围</h2>
 <section id="哪一种解释被排除了" class="level3">
 <h3 class="anchored" data-anchor-id="哪一种解释被排除了">8.1 实验排除局域隐变量解释的前提与范围</h3>
-<p>答案卡片模型让每人只按自己的设置和共享信息作答。更一般的 Bell 局域模型也允许随机作答：给定全部共享信息后，两人各按自己的本地规则独立产生结果；每侧只使用自己的设置和这份共享信息。两侧设置的选择还须与共享信息独立。在这些前提以及有效的数据采集条件下，模型必须服从 Bell 不等式。</p>
-<p>上一节2015年的例子把时序、设置与未点击记录纳入同一次检验，在评价有限记录的波动后仍观察到违背。于是，这组前提无法解释这些实验关联。<strong>在通常的测量设置独立性等前提下，被排除的是 Bell 局域的隐变量解释。</strong></p>
+<p>答案卡模型让每人按自己的题号和预写答案作答。更一般的<strong>Bell局域隐变量模型</strong>还允许随机结果：给定双方共享的全部隐藏信息后，每人的结果由自己的测量方向和这份信息决定其概率，两人的剩余随机性彼此独立。测量方向的选择还须与隐藏信息独立。把各自用于随机作答的数也一并固定后，每个题号会答什么便确定了，得到的就是一张答案卡。因此，这类随机模型仍可看成固定答案卡的随机混合，给出的关联必须满足Bell不等式；用实验检验时，还要按事先规定的规则记录数据并处理漏探测。</p>
+<p>上一节2015年的实验同时检查两站的时间安排、随机选择测量方向和每轮有无探测响应；计入有限记录的统计波动后，结果仍违背Bell不等式。<strong>在测量方向的选择与隐藏信息独立等前提下，这些记录排除了上述Bell局域隐变量模型。</strong></p>
 </section>
 <section id="为什么bob仍然收不到超光速消息" class="level3">
 <h3 class="anchored" data-anchor-id="为什么bob仍然收不到超光速消息">8.2 纠缠关联不能用来超光速传信</h3>
@@ -951,14 +951,14 @@ P_B(+1)&amp;=\frac12\cos^2(\alpha-\beta)+\frac12\sin^2(\alpha-\beta)\\
 </section>
 <section id="回到epr实验回答了什么还留下什么" class="level3">
 <h3 class="anchored" data-anchor-id="回到epr实验回答了什么还留下什么">8.3 回到EPR：Bell违背不等于证明量子态完备</h3>
-<p>EPR问量子态描述是否完备；Bell把用局域隐藏信息补充这种描述的设想变成了可检验的约束；实验则发现了违反该约束的关联。这条局域补全的道路因此受到限制。</p>
+<p>EPR问量子态描述是否完备；Bell把用局域隐藏信息补充这种描述的设想变成了可检验的约束；实验则发现了违反该约束的关联。因此，在前述实验条件下，单靠这类局域隐藏信息无法补足量子态的描述。</p>
 <p>这些实验支持量子理论关于关联的预测，并约束了以局域隐藏信息补全量子态的方案。EPR所问的“量子态是否给出全部物理描述”，仍是关于量子理论完备性的问题。</p>
 </section>
 </section>
 <section id="本讲回顾与核心自查" class="level2">
 <h2 class="anchored" data-anchor-id="本讲回顾与核心自查">9. 本讲回顾与核心自查</h2>
 <p>从一开始“能预测远处结果”的疑问出发，我们先确认经典共享信息足以制造完全关联；再用CHSH游戏找到它无法越过的上限。共享偏振Bell态并选择合适方向，给出了更高的理论胜率；把胜率写成关联函数，又让这个差别成为实验可以测量的量。</p>
-<p>记住这组对应关系：经典<span class="math inline">\(75\%\)</span>对应<span class="math inline">\(|S|\le2\)</span>，本讲量子方案的<span class="math inline">\(85.4\%\)</span>对应<span class="math inline">\(S=2\sqrt2\)</span>。实验用独立获得的联合记录检验这种差别，并通过改进设置选择、时序和探测来增强结论的可信度。</p>
+<p>记住这组对应关系：经典<span class="math inline">\(75\%\)</span>对应<span class="math inline">\(|S|\le2\)</span>，本讲量子方案的<span class="math inline">\(85.4\%\)</span>对应<span class="math inline">\(S=2\sqrt2\)</span>。实验把两侧独立获得的测量记录配对，检验这种差别，并通过随机选择测量方向、控制测量时间和提高探测效率来增强结论的可信度。</p>
 <p>下一讲将学习密度矩阵。它能够统一描述纯态、随机混合以及纠缠系统的局部状态，为进一步计算实际光源和噪声中的量子关联提供工具。</p>
 <section id="核心自查" class="level3">
 <h3 class="anchored" data-anchor-id="核心自查">核心自查</h3>
@@ -968,8 +968,8 @@ P_B(+1)&amp;=\frac12\cos^2(\alpha-\beta)+\frac12\sin^2(\alpha-\beta)\\
 <p><strong>问题3.</strong> 填写<span class="math inline">\((a_0,a_1;b_0,b_1)=(0,1;0,0)\)</span>。它在哪一组失败？如果只改<span class="math inline">\(b_0\)</span>，哪些组会改变？为什么还不能四组全胜？</p>
 <p><strong>问题4.</strong> 问题编号1在经典策略和量子策略中分别选择什么？对于<span class="math inline">\(\alpha=0^\circ\)</span>、<span class="math inline">\(\beta=22.5^\circ\)</span>，同答概率是多少，Bloch球上的夹角又是多少？</p>
 <p><strong>问题5.</strong> 固定四个方向不动，两批模拟分别赢164/200和170/200。能否据此说第二批的理论胜率更高？</p>
-<p><strong>问题6.</strong> 同一组设置下，四类计数为350、150、150、350（依次为<span class="math inline">\(++,+-,-+,--\)</span>），关联函数的估计是多少？只知道两侧各自的总点击数，能完成这个计算吗？</p>
-<p><strong>问题7.</strong> 在Bell实验中，快速切换、随机选择、空间分离分别要限制哪一种可能的协调方式？</p>
+<p><strong>问题6.</strong> 同一组测量方向下，四类计数为350、150、150、350（依次为<span class="math inline">\(++,+-,-+,--\)</span>），关联函数的估计是多少？只知道两侧各自的探测总次数，能完成这个计算吗？</p>
+<p><strong>问题7.</strong> 在Bell实验中，快速切换、随机选择和空间分离怎样配合，使一侧所选方向的信息来不及影响另一侧的测量结果？</p>
 <p><strong>问题8.</strong> 既然Alice改变方向会改变与Bob的关联，Bob为什么不能单独用自己的结果判断她选了什么？Bell违背是否证明量子力学绝对完备？</p>
 </div>
 <details class="exercise-answers">
@@ -978,13 +978,13 @@ P_B(+1)&amp;=\frac12\cos^2(\alpha-\beta)+\frac12\sin^2(\alpha-\beta)\\
 </summary>
 <ol type="1">
 <li>EPR的判据要求确定预测且不扰动物理系统；若远处操作可以改变Bob的物理实在，就不能由测量后的确定预测推论测量前已有相应性质。</li>
-<li>预先给双方相同的随机数字即可得到各自随机、彼此相同的结果；还需要比较更有区分力的设置组合。</li>
+<li>预先给双方相同的随机数字即可得到各自随机、彼此相同的结果；还需要比较更多的测量方向组合。</li>
 <li>原策略输在10。只改<span class="math inline">\(b_0\)</span>会改变00、10：修好10的同时使00失败。一般地，四组都赢所需的前三个等式与第四个不等式矛盾。</li>
-<li>经典策略选择读取预写的答案；量子策略选择分析器方向，再由测量出口产生答案。同答概率为<span class="math inline">\(\cos^2 22.5^\circ\approx85.4\%\)</span>，对应Bloch球夹角45°。</li>
+<li>经典策略选择读取预写的答案；量子策略选择分析器方向，再把测量结果换成答案。同答概率为<span class="math inline">\(\cos^2 22.5^\circ\approx85.4\%\)</span>，对应Bloch球夹角45°。</li>
 <li>不能。相同方向对应相同理论概率，两批比例的差异来自有限抽样；理论值应由固定策略的概率计算。</li>
-<li><span class="math inline">\(\widehat E=(350+350-150-150)/1000=0.40\)</span>。单侧总数没有提供配对的联合类别，因此不足以计算。</li>
-<li>快速切换要结合飞行与探测时间，压缩设置消息传播的机会；独立随机选择减少事先预知设置的可能；足够的空间分离使相关事件间的光速传播来不及完成。推导仍以设置选择与共享信息独立为前提。</li>
-<li>Alice两种结果都计入后，Bob的两种出口概率仍各半，不能从单侧记录读取远端选择。Bell实验检验并排除相应的局域解释，没有证明量子力学绝对完备。</li>
+<li><span class="math inline">\(\widehat E=(350+350-150-150)/1000=0.40\)</span>。单侧总数没有给出每对结果中同答、异答各出现多少次，因此不足以计算。</li>
+<li>快速切换要结合飞行与探测时间，使测量方向的信息来不及传到另一站；独立随机选择减少事先预知测量方向的可能；足够的空间分离使相关事件间的光速传播来不及完成。推导仍以测量方向的选择与共享信息独立为前提。</li>
+<li>Alice两种结果都计入后，Bob的两种测量结果的概率仍各半，不能从单侧记录读取远端选择。Bell实验检验并排除相应的局域解释，没有证明量子力学绝对完备。</li>
 </ol>
 </details>
 <hr>
@@ -1002,7 +1002,7 @@ P_B(+1)&amp;=\frac12\cos^2(\alpha-\beta)+\frac12\sin^2(\alpha-\beta)\\
 <li><p><a href="https://doi.org/10.1103/PhysRevLett.49.1804">Aspect, Dalibard &amp; Roger, <em>Experimental Test of Bell’s Inequalities Using Time-Varying Analyzers</em> (1982)</a>。</p></li>
 <li><p><a href="https://doi.org/10.1103/PhysRevLett.81.5039">Weihs et al., <em>Violation of Bell’s Inequality under Strict Einstein Locality Conditions</em> (1998)</a>；<a href="https://arxiv.org/abs/quant-ph/9810080">作者预印本</a>。</p></li>
 <li><p><a href="https://www.nobelprize.org/prizes/physics/2022/popular-information/">2022 年诺贝尔物理学奖官方科普介绍</a>；<a href="https://www.nobelprize.org/uploads/2022/10/Slideshow_Physics_2022_NobelPrizeLessons.pdf">诺奖官方介绍课件（英文）</a>。</p></li>
-<li><p><a href="https://doi.org/10.1103/PhysRevLett.115.250402">Shalm et al., <em>Strong Loophole-Free Test of Local Realism</em> (2015)</a>；<a href="https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=919674">NIST公开原文</a>。试次与结果见正文，计入设置可预测性偏差的数值见表I五脉冲方案。</p></li>
+<li><p><a href="https://doi.org/10.1103/PhysRevLett.115.250402">Shalm et al., <em>Strong Loophole-Free Test of Local Realism</em> (2015)</a>；<a href="https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=919674">NIST公开原文</a>。每轮实验的定义与结果见正文，计入测量方向可预测性偏差的数值见表I五脉冲方案。</p></li>
 <li><p><span id="ref-tsirelson-1980"></span>B. S. Cirel’son (Tsirelson), <a href="https://doi.org/10.1007/BF00417500"><em>Quantum generalizations of Bell’s inequality</em></a>, <em>Letters in Mathematical Physics</em> <strong>4</strong>, 93–100 (1980)；<a href="https://ma.huji.ac.il/~ohadfeld/Tsirelson/download/qbell80.pdf">作者公开原文</a>。</p></li>
 </ol>
 </section>
