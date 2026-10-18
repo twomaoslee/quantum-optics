@@ -363,9 +363,9 @@ $(&#x27;check&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{if([&#x27;edit&#
 $(&#x27;reset&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;reset());$(&#x27;next&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{if(!$(&#x27;next&#x27;).disabled)tellParent(&#x27;continue&#x27;);});
 addEventListener(&#x27;message&#x27;,e=&gt;{if(e.source===parent&amp;&amp;e.data?.channel===&#x27;lecture05-interactive&#x27;&amp;&amp;e.data.type===&#x27;reset&#x27;)reset(false);});reset(false);
 &lt;/script&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
-<p>完成一次挑战后，可以改牌再试，再展开后面的推理核对。直接阅读时，也可自行展开核对部分。</p>
+<p>完成挑战、改牌再试后，下面把四组要求放在一起，证明经典策略的上限。</p>
 </section>
-<div id="after-answers" class="lesson-step" data-reveal="完成挑战后，展开本节经典推理">
+<div id="after-answers" class="lesson-step">
 <section id="四个条件为什么无法同时满足" class="level3">
 <h3 class="anchored" data-anchor-id="四个条件为什么无法同时满足">3.2 四个条件为什么无法同时满足？</h3>
 <p>改牌可以把失败从一组移到另一组。要判断能否修好全部四组，需要把游戏要求同时写下来：</p>
@@ -385,16 +385,16 @@ a_1&amp;=b_0, &amp; a_1&amp;\ne b_1.
 <section id="随机更换策略能突破吗" class="level3">
 <h3 class="anchored" data-anchor-id="随机更换策略能突破吗">3.3 随机更换策略能突破吗？</h3>
 <p>也许 Alice 和 Bob 不使用固定卡片，而是在每轮开始前随机抽取一张新卡片。每张卡片可以规定不同的四个预设答案。</p>
-<p>但对任何一张固定卡片，胜率都不会超过 75%。随机混合后的整体胜率只是这些卡片胜率的加权平均，因此同样不能超过 75%。这里还要求主持人的提问选择与卡片独立，否则粒子源可以针对将要出现的问题预先安排策略。</p>
+<p>但对任何一张固定卡片，胜率都不会超过 75%。随机混合后的整体胜率只是这些卡片胜率的加权平均，因此同样不能超过 75%。这里还要求主持人的提问选择与卡片独立，否则发卡的人就可以针对将要出现的问题预先安排策略。</p>
 <p>至此，我们得到一个可检验的结论：<strong>局域共享信息即使包含任意随机性，也不能让这个游戏的平均胜率超过 75%。</strong></p>
 <p>这个限制就是贝尔不等式的游戏形式，由四个本地答案之间的关系推出。接下来保留相同的出题和计分规则，检验共享 Bell 态、通过测量产生答案的策略能做到什么。</p>
-<p><strong>核心知识点：</strong> CHSH 游戏的经典上限来自四种局域回答要求之间的矛盾，随机混合经典策略也不能提高这个上限。</p>
+<p><strong>核心知识点：在上述等概率、独立提问和分开后不通信的规则下，经典平均胜率的上限是75%；随机更换答案卡也不能突破。</strong></p>
 </section>
 </div>
 </section>
 <section id="量子策略纠缠光子能否做得更好" class="level2">
 <h2 class="anchored" data-anchor-id="量子策略纠缠光子能否做得更好">4. 量子策略：纠缠光子能否做得更好？</h2>
-<p>上节核对给出的经典界限是：四类问题等概率出现、且提问与双方共享信息独立时，固定答案及其随机混合的平均胜率都不超过75%。现在保留游戏规则，改变双方产生答案的方法。</p>
+<p>经典答案卡的上限已经证明是75%。现在保持相同的出题和计分规则，改用纠缠光子的测量结果作答，检验能否超过这个上限。</p>
 <p>我们已经学过光子偏振及其测量，因此接下来使用偏振量子比特。把水平偏振记为 <span class="math inline">\(|H\rangle\)</span>，竖直偏振记为 <span class="math inline">\(|V\rangle\)</span>，令</p>
 <p><span class="math display">\[
 |\Phi^+\rangle=\frac{|HH\rangle+|VV\rangle}{\sqrt2}.
