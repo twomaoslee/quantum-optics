@@ -936,14 +936,18 @@ E_{00}=E_{01}=E_{10}=\frac1{\sqrt2},
 <p>上一节2015年的例子把时序、设置与未点击记录纳入同一次检验，在评价有限记录的波动后仍观察到违背。于是，这组前提无法解释这些实验关联。<strong>在通常的测量设置独立性等前提下，被排除的是 Bell 局域的隐变量解释。</strong></p>
 </section>
 <section id="为什么bob仍然收不到超光速消息" class="level3">
-<h3 class="anchored" data-anchor-id="为什么bob仍然收不到超光速消息">8.2 检查纠缠关联能否传递超光速消息</h3>
-<p>前面计算关联时，会根据 Alice 的结果分别讨论 Bob 的条件概率。Alice 可以选择测量方向，每轮的结果按该 Bell 态的概率产生。Bob 先统计自己的记录，其中包含 Alice 两种结果对应的轮次，因此要把这两类概率相加。</p>
-<p>对本讲的偏振 Bell 态，Alice在任意线偏振方向的两个结果各占一半。若她使用方向<span class="math inline">\(\alpha\)</span>，Bob使用<span class="math inline">\(\beta\)</span>，Bob得到<span class="math inline">\(+1\)</span>的总概率为</p>
+<h3 class="anchored" data-anchor-id="为什么bob仍然收不到超光速消息">8.2 纠缠关联不能用来超光速传信</h3>
+<p>上一节说明，实验中的关联超出了局域隐变量模型的限制。这是否意味着 Alice 能利用纠缠，立即给远处的 Bob 发消息？要传信，Alice 必须能选择发送0或1，Bob 则要能从自己的测量记录中分辨她选了哪一个。</p>
+<p>试一种具体办法：双方事先约定，Alice 想发送0，就沿0°测量；想发送1，就沿45°测量。每轮共享一对新的 Bell 态光子，Bob 固定自己的测量方向，观察收到的结果。即使 Alice 连续多轮发送同一个数字，Bob 能否从结果的比例读出它？</p>
+<p>沿用第4.1节的概率关系。设 Alice 的方向为<span class="math inline">\(\alpha\)</span>，Bob 的方向为<span class="math inline">\(\beta\)</span>：Alice 测得<span class="math inline">\(+1\)</span>、<span class="math inline">\(-1\)</span>的概率各为一半，在这两种情况下，Bob 测得<span class="math inline">\(+1\)</span>的概率分别为<span class="math inline">\(\cos^2(\alpha-\beta)\)</span>和<span class="math inline">\(\sin^2(\alpha-\beta)\)</span>。Bob 手里只有自己的记录，要把这两种情况合在一起统计，因此</p>
 <p><span class="math display">\[
-P_B(+1)=\frac12\cos^2(\alpha-\beta)+\frac12\sin^2(\alpha-\beta)=\frac12.
+\begin{aligned}
+P_B(+1)&amp;=\frac12\cos^2(\alpha-\beta)+\frac12\sin^2(\alpha-\beta)\\
+&amp;=\frac12.
+\end{aligned}
 \]</span></p>
-<p>第一项对应 Alice 得到<span class="math inline">\(+1\)</span>，第二项对应 Alice 得到<span class="math inline">\(-1\)</span>。改变<span class="math inline">\(\alpha\)</span>会改变这些条件概率，却不改变相加后的局域概率；Bob的<span class="math inline">\(-1\)</span>结果也始终占一半。他只看自己的记录，无法读出 Alice 选择了哪个方向。</p>
-<p>双方事后通过普通通信合并记录，统计不同方向下的联合关联。<strong>对本讲的Bell态，联合关联随测量方向变化，Bob的单侧结果仍各占一半。</strong></p>
+<p>所以，Alice 选0°或45°，Bob 得到<span class="math inline">\(+1\)</span>、<span class="math inline">\(-1\)</span>的概率都各为一半。他看到的是同样的随机结果，重复多轮也无法据此辨认消息0或1。上式对任意<span class="math inline">\(\alpha\)</span>都成立，换成其他测量方向也一样。Alice 自己测得的正、负结果同样随机，无法按想发送的数字指定。</p>
+<p>双方要看出纠缠关联，需要 Alice 再通过普通通信把测量方向和结果发给 Bob，才能逐轮配对比较；这些信息的传递受光速限制。<strong>纠缠使两人的结果具有特殊关联，但 Bob 单凭自己的记录读不出 Alice 的选择，因此这里的纠缠测量不能用来超光速传信。</strong></p>
 </section>
 <section id="回到epr实验回答了什么还留下什么" class="level3">
 <h3 class="anchored" data-anchor-id="回到epr实验回答了什么还留下什么">8.3 回到EPR：Bell违背不等于证明量子态完备</h3>
