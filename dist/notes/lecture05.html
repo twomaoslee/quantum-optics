@@ -824,66 +824,77 @@ E_{00}=E_{01}=E_{10}=\frac1{\sqrt2},
 </figcaption>
 </figure>
 <section id="clauser把理论差别变成可测量的实验" class="level3">
-<h3 class="anchored" data-anchor-id="clauser把理论差别变成可测量的实验">7.1 Clauser：用光子偏振实验检验Bell不等式</h3>
-<p>1969年，Clauser、Horne、Shimony和Holt提出CHSH形式；1972年，Stuart Freedman和Clauser利用钙原子级联跃迁发出的光子对，测量不同偏振分析方向下的符合率，结果违背了适用于其装置的 Bell 不等式，并与量子力学预测一致。[4,5]</p>
-<p>这一步把“局域答案能否解释关联”从概念讨论推进到实验判别。但真实装置只能探测到发射光子中的一部分。如果被记录到的样本偏向某些结果，按符合事件算出的关联就未必代表全部光子对。因此，<strong>探测效率和样本选择</strong>成为后续需要处理的问题。</p>
-<p>另一个问题来自设置的选择：若两侧方向长期固定，实验还没有排除这样一种协调方式——在测量完成之前，关于一侧设置的信息有足够时间影响另一侧。怎样让这个设想也受到可检查的限制？</p>
+<h3 class="anchored" data-anchor-id="clauser把理论差别变成可测量的实验">7.1 Freedman与Clauser：在光子实验中观测Bell违背</h3>
+<p><strong>做了什么：</strong> 1972年，Stuart Freedman和John Clauser用受激钙原子发出的级联光子对，改变两侧偏振片的方向，比较符合率（单位时间内的配对事件数）。结果违背了适用于这套装置的Bell不等式，并与量子预测一致。[5]</p>
+<figure class="history-apparatus figure" id="apparatus-freedman">
+<img src="assets/lecture05/fig_freedman1972_apparatus.png" alt="Freedman与Clauser的实验装置原图：中央钙原子光源，两侧偏振片和光电倍增管，下方符合计数电子线路。" loading="lazy" class="figure-img">
+<figcaption>
+1972年装置。中央Ca-OVEN为钙原子源；两侧POLARIZER分析偏振，PM为光电倍增探测器；下方COINC记录符合事件。图源：诺奖<a href="https://www.nobelprize.org/uploads/2023/10/advanced-physicsprize2022-4.pdf">科学背景资料图4</a>，据Freedman与Clauser的原实验转载。[5]
+</figcaption>
+</figure>
+<p><strong>这一步的意义：</strong> 不同测量方向下的光子关联，成为可以用实验比较的数字，Bell提出的限制有了实际检验。</p>
+<p><strong>还留下的漏洞：</strong> 一是只探测到发射光子的一部分；若被探测到的光子偏向某些结果，留下的样本就可能失真，这称为<strong>探测漏洞</strong>。二是测量方向在每次运行中固定，一侧的设置消息有时间传到另一侧，这给局域协调留下了机会，称为<strong>局域性漏洞</strong>。[5,8]</p>
 </section>
 <section id="aspect把测量设置的选择放进时间安排" class="level3">
 <h3 class="anchored" data-anchor-id="aspect把测量设置的选择放进时间安排">7.2 Aspect：在光子飞行中切换测量方向</h3>
-<p>1982年，Aspect与Jean Dalibard、Gérard Roger使用快速声光开关，让光子在飞行中被导向不同的偏振分析器路径。两侧开关以接近50 MHz、彼此不相同的周期频率运行；设置变化的时间尺度短于光子在相关装置间传播的时间，实验仍观察到 Bell 不等式违背。[6]</p>
-<p>这里要比较设置改变的时刻、远端结果的记录时刻和两站间的光速传播时间，判断这次设置的信息能否在远端测量完成前到达。</p>
+<p><strong>做了什么：</strong> 为限制设置消息的传播时间，1982年Aspect、Jean Dalibard和Gérard Roger在光子飞行期间快速切换光路。每侧的声光开关把光子导向两个固定取向的偏振片之一，相当于快速改变测量方向。[6]</p>
+<figure class="history-apparatus figure" id="apparatus-aspect">
+<img src="assets/lecture05/fig_aspect1982_apparatus.png" alt="Aspect等1982年原论文图2：中央光子源S，两侧开关CI和CII分别把光子导向两个取向不同的偏振片，四路探测信号进入符合计数。" loading="lazy" class="figure-img">
+<figcaption>
+原论文图2。S为光子源；两侧C为快速开关，每个开关后接两个取向不同的偏振片；PM为探测器。切换光路就切换了测量方向。图源：<a href="https://www.phys.ens.fr/~dalibard/publications/Bell_test_1980.pdf">Aspect等，1982</a>。[6]
+</figcaption>
+</figure>
+<p><strong>推进了什么：</strong> 方向切换的时间短于两站间光速传播所需的时间，实验仍观察到Bell违背。这样压缩了远方在本轮测量完成前响应这次切换的机会。[6]</p>
+<p><strong>还留下的漏洞：</strong> 切换具有周期性，后续设置可以被提前预测；探测到的仍只是部分光子对。下一步需要各站独立、随机地选方向，并继续改善探测效率。[6,7]</p>
+<details class="derivation-details">
+<summary>
+选读：用时序图检查设置消息能否到达
+</summary>
+<p>两侧开关以接近50 MHz、彼此不相同的周期频率运行。[6] 判断局域性条件时，要比较设置改变的时刻、远端结果的记录时刻与两站间的光速传播时间。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="assets/lecture05/fig_setting_timing.svg" class="img-fluid figure-img" style="width:100.0%"></p>
 <figcaption>教学时序示意：从Alice选择设置到Bob记录结果，所留时间短于两站间的光速传播时间；还需检查反方向的对应条件。</figcaption>
 </figure>
 </div>
-<p>图中把两站距离记为<span class="math inline">\(L\)</span>。若从 Alice 的设置选择到 Bob 的探测结果产生，间隔小于<span class="math inline">\(L/c\)</span>，关于这次选择的信息就来不及以光速或更慢的速度到达 Bob；另一个方向也要满足对应条件。这解释了为什么更严格的实验要同时安排空间距离、选择时间和探测时间。</p>
-<p>Aspect当年的切换仍具有周期性。周期切换可以预先预测，因此快速切换虽是重要进步，还需要进一步考虑设置的独立、随机选择。</p>
+<p>两站距离为<span class="math inline">\(L\)</span>。若从Alice选择设置到Bob产生探测结果，间隔小于<span class="math inline">\(L/c\)</span>，这次设置的信息就来不及以光速或更慢的速度到达Bob；另一个方向也要满足对应条件。</p>
+</details>
 </section>
 <section id="weihs与zeilinger团队快速随机选择独立记录" class="level3">
-<h3 class="anchored" data-anchor-id="weihs与zeilinger团队快速随机选择独立记录">7.3 Weihs与Zeilinger团队：随机选择方向，独立记录结果</h3>
-<p>1998年，Gregor Weihs、Thomas Jennewein、Christoph Simon、Harald Weinfurter和Anton Zeilinger完成更严格的局域性检验：两站充分分离，各自用快速物理随机过程选择分析设置，并独立记录设置、出口和时间，测量结束后再比较数据。[7]</p>
-<p>原论文报告的一个典型结果是<span class="math inline">\(S=2.73\pm0.02\)</span>，其中不确定度为统计误差。论文使用的态和CHSH符号安排与本讲的<span class="math inline">\(|\Phi^+\rangle\)</span>例子有所不同，但检验的经典界限同为2。这个真实测量结果位于经典界限之外。[7]</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 38%">
-<col style="width: 30%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">比较对象</th>
-<th style="text-align: center;">CHSH数值</th>
-<th style="text-align: left;">它说明什么</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">本讲的局域经典界限</td>
-<td style="text-align: center;">2</td>
-<td style="text-align: left;">满足假设的局域模型不能超过这一界限</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Weihs等人的典型实验结果</td>
-<td style="text-align: center;"><span class="math inline">\(2.73\pm0.02\)</span></td>
-<td style="text-align: left;">独立实验记录支持超出经典界限的关联</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">本讲理想量子方案</td>
-<td style="text-align: center;"><span class="math inline">\(2\sqrt2\approx2.828\)</span></td>
-<td style="text-align: left;">理想态和理想测量下可达到的理论值</td>
-</tr>
-</tbody>
-</table>
-<p>判断实验违背的依据，是测得的关联可靠地越过经典界限。该实验重点改善了局域性条件，探测样本方面仍有进一步改进空间。[7]</p>
-<p>报告中的0.02给出有限记录造成的统计波动尺度。测得的2.73比经典界限高0.73，远大于这一尺度，支持实验关联越过经典界限。若漏探测偏向某些设置或结果，留下的符合样本可能失真。增加轮数可缩小统计波动；评估和控制样本偏差，则要检查探测及样本保留规则。</p>
-<p>随机选择与空间分离承担不同作用：前者用于独立选择设置，后者限制测量期间的实时通信。实验通过设计和检查评估设置的可预测性，并以设置选择与隐变量独立作为推导Bell界限的前提。</p>
+<h3 class="anchored" data-anchor-id="weihs与zeilinger团队快速随机选择独立记录">7.3 Weihs与Zeilinger团队：随机选方向，分开记录</h3>
+<p><strong>做了什么：</strong> 1998年，Gregor Weihs与Zeilinger团队把Alice、Bob两个测量站分隔400米。各站用物理随机数发生器选择方向，快速完成测量，并各自记录测量设置（题号）、探测结果和时间；实验结束后再合并记录。[7]</p>
+<figure class="history-apparatus figure" id="apparatus-weihs">
+<img src="assets/lecture05/fig_weihs1998_station.png" alt="Weihs等1998年原论文图2中的一个测量站：随机数发生器控制电光调制器，棱镜分出正负结果，两只探测器和时间记录器独立记录事件。" loading="lazy" class="figure-img">
+<figcaption>
+原论文图2，画的是一个测量站，两站各有一套。右下Random Number Generator产生0或1，驱动Electro-Optic Modulator选择测量方向；两只探测器记录正、负结果，Time-Tags保存时间及设置。图源：<a href="https://arxiv.org/pdf/quant-ph/9810080">Weihs等，1998</a>。[7]
+</figcaption>
+</figure>
+<p><strong>推进与结果：</strong> 从随机选方向到记录结果的整个过程，都在远方设置消息来得及到达之前完成，更严格地处理了局域性漏洞。原论文报告的典型结果为<span class="math inline">\(S=2.73\pm0.02\)</span>，其中0.02为统计误差，支持关联越过经典界限2。[7]</p>
+<p><strong>还留下的漏洞：</strong> 当时仍按探测到的符合事件计算关联，需要假定这些样本能代表全部发射事件，探测漏洞仍然存在。<strong>局域性条件的改善与探测漏洞的关闭，需要在同一次实验中兼顾。</strong></p>
+<details class="derivation-details">
+<summary>
+选读：统计波动与探测样本偏差
+</summary>
+<p>0.02给出有限记录造成的统计波动尺度。测得的2.73比经典界限高0.73，远大于这一尺度，支持关联越过界限。若漏探测偏向某些设置或结果，留下的符合样本仍可能失真。增加轮数可缩小统计波动；控制样本偏差需要检查探测及记录保留规则。</p>
+<p>论文使用的态和CHSH符号安排与本讲的<span class="math inline">\(|\Phi^+\rangle\)</span>例子不同，检验的经典界限同为2。本讲理想方案的<span class="math inline">\(2\sqrt2\)</span>是理论值；<span class="math inline">\(2.73\pm0.02\)</span>来自真实探测记录。[7]</p>
+</details>
 </section>
 <section id="年把实验条件落实在同一次光子检验中" class="level3">
-<h3 class="anchored" data-anchor-id="年把实验条件落实在同一次光子检验中">7.4 2015年：把未点击的轮次也纳入Bell检验</h3>
-<p>2015年，Shalm等人的光子实验给出了一项具体检验。[9] 他们先按本地同步时钟划定每轮检测时段，再在每站记录“点击”或“未点击”。这里的未点击包含漏探测、光子未进入所测通道等情况；前面理想双输出分析器的负结果，则来自相应探测器的点击。</p>
+<h3 class="anchored" data-anchor-id="年把实验条件落实在同一次光子检验中">7.4 Shalm等：在同一次实验中处理两类主要漏洞</h3>
+<p><strong>做了什么：</strong> 2015年，Shalm等把高质量纠缠光子源、高效低噪声探测器、快速随机选方向与空间分离结合起来。各站先按本地同步时钟划定每轮时段，再记录“点击”或“未点击”，将损失事件一起纳入Bell检验。[9]</p>
+<figure class="history-apparatus figure" id="apparatus-shalm">
+<img src="assets/lecture05/fig_shalm2015_station.png" alt="Shalm等原论文图2中的接收站：随机数发生器RNG控制PC选基，光子经过偏振片后进入高效探测器，时间记录器保存结果。" loading="lazy" class="figure-img">
+<figcaption>
+原论文图2，一个接收站。光子从左上进入；左下RNG提供选基比特，PC（普克尔盒）按比特选择测量方向；右侧Detector探测光子，Time tagger记录时刻。图源：<a href="https://arxiv.org/pdf/1511.03189">Shalm等，2015，作者公开稿</a>。[9]
+</figcaption>
+</figure>
+<p><strong>主要漏洞怎样得到处理：</strong> 这套装置将高效探测与包含损失的试次统计结合起来，记录仍显示Bell违背，从而关闭了探测漏洞；两侧各自快速随机选设置，并核查选择、探测与记录的时序，同时关闭局域性漏洞。[9]</p>
+<p>这里的“未点击”包括漏探测、光子未进入所测通道等情况；此前理想双输出模型的<span class="math inline">\(-1\)</span>结果，则来自另一只探测器的点击。实验按每轮的点击、未点击记录，使用适用于这套装置的Bell不等式。</p>
+<p><strong>实验结论与前提：</strong> 将这两类主要漏洞在同一次实验中处理后，统计检验仍支持Bell违背。结论以测量设置与光子携带的信息独立、位置和时序测量可靠等前提为基础；在这些前提下，所检验的局域解释与记录不符。[9]</p>
+<details class="derivation-details">
+<summary>
+选读：全部试次怎样计数，结果怎样报告
+</summary>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -905,21 +916,16 @@ E_{00}=E_{01}=E_{10}=\frac1{\sqrt2},
 </tr>
 </tbody>
 </table>
-<p>每一轮都按表中四类结果保留。实验采用适用于点击、未点击记录的Bell不等式，把损失直接纳入统计，检验同一类局域解释。[9]</p>
-<p>同一次实验还同时落实了前面提出的另外两项要求：两站各自快速随机选设置，并评估设置可能被提前预测的偏差；安排并测量设置选择、探测和记录的时序，使两侧测量都在远方设置消息能够到达之前完成。高效探测使保留损失事件的全部记录仍能显出足够强的量子关联。[9]</p>
-<p>把这些条件放在一起，统计检验仍观察到Bell违背。论文报告的一项结果在计入设置可预测性偏差后给出：<strong>若所检验的局域模型成立，出现至少这样强违背的概率上限为</strong></p>
-<p><span class="math display">\[
-2.3\times10^{-7}.
-\]</span></p>
-<p>这个上限回答的是：在所检验的局域模型下，至少这样强的违背有多大概率出现。[9] 结合预先规定的试次与记录规则、经检查的设置与时序条件，以及对有限记录波动的评价，实验在设置独立等前提下排除了所检验的局域解释。</p>
-<p>Zeilinger团队还推动了量子隐形传态与纠缠交换实验，使纠缠成为处理量子信息的资源。[8] 具体协议留到后面的专题；这里先认识到，研究已经从“检验关联是否超出经典解释”走向“怎样使用这种关联”。</p>
+<p>每一轮均按表中四类结果保留。实验还评估了设置可能被提前预测的偏差。计入这一偏差后，论文报告的一项结果是：若所检验的局域模型成立，出现至少这样强违背的概率上限为<span class="math inline">\(2.3\times10^{-7}\)</span>。结合试次与记录规则、设置与时序条件，以及有限记录的统计检验，就能在上述前提下排除所检验的局域解释。[9]</p>
+</details>
+<p>Zeilinger团队还推动了量子隐形传态与纠缠交换实验，使纠缠成为处理量子信息的资源。[8] 这些协议将在后面学习；这里已看到，研究从“检验关联”走向了“使用纠缠”。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="assets/lecture05/fig_timeline.svg" class="img-fluid figure-img" style="width:98.0%"></p>
 <figcaption>从1935年EPR论证到2022年诺奖的关键节点。</figcaption>
 </figure>
 </div>
-<p><strong>核心知识点：</strong> 历史实验逐步改善设置与探测条件；2015年的具体检验把随机选择、空间与时间安排、未点击记录和统计判断放到一起，支持有条件地排除Bell局域解释。</p>
+<p><strong>核心知识点：</strong> 早期实验观测到Bell违背，随后逐步改善设置选择、时序与探测。2015年的光子检验在同一次实验中处理了局域性和探测这两类主要漏洞，使排除局域解释的证据更完整。</p>
 </section>
 </section>
 <section id="bell实验告诉我们什么" class="level2">
