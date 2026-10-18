@@ -399,41 +399,111 @@ a_1&amp;=b_0, &amp; a_1&amp;\ne b_1.
 <p><span class="math display">\[
 |\Phi^+\rangle=\frac{|HH\rangle+|VV\rangle}{\sqrt2}.
 \]</span></p>
-<p>它就是此前的 Bell 态。每轮仍由主持人分别给 Alice、Bob 发题号0或1，两人只看自己的题、不能通信。小写<span class="math inline">\(x,y\)</span>分别表示两人收到的<strong>题号</strong>，不是测量轴；两人最终提交的<strong>答案</strong>也仍是0或1。</p>
+<p>它就是此前的 Bell 态。下面把两种策略的完整规则放在一起：题号、答案和计分相同，改变的是答案怎样产生。跨两列的条目是两种策略共同遵守的规则。</p>
 <div id="strategy-comparison">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 18%">
-<col style="width: 38%">
-<col style="width: 42%">
-</colgroup>
+<table class="strategy-rules">
 <thead>
-<tr class="header">
-<th style="text-align: left;">步骤</th>
-<th style="text-align: left;">经典策略：读取答案卡</th>
-<th style="text-align: left;">量子策略：测量纠缠光子</th>
+<tr>
+<th scope="col" style="width:18%">
+项目
+</th>
+<th scope="col" style="width:41%">
+经典策略：读取答案卡
+</th>
+<th scope="col" style="width:41%">
+量子策略：测量纠缠光子
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">事先约定</td>
-<td style="text-align: left;">Alice 写好两个答案<span class="math inline">\(a_0,a_1\)</span>，Bob 写好<span class="math inline">\(b_0,b_1\)</span></td>
-<td style="text-align: left;">每轮共享一对上述 Bell 态光子；Alice 选好两个分析器方向<span class="math inline">\(\alpha_0,\alpha_1\)</span>，Bob 选好<span class="math inline">\(\beta_0,\beta_1\)</span></td>
+<tr>
+<th scope="row">
+事先约定
+</th>
+<td>
+Alice 写好两个答案 <span class="math inline">\(a_0,a_1\)</span>，Bob 写好 <span class="math inline">\(b_0,b_1\)</span>；也可约定每轮随机换卡。
+</td>
+<td>
+每轮共享一对处于上述 Bell 态的光子；Alice 选好两个方向 <span class="math inline">\(\alpha_0,\alpha_1\)</span>，Bob 选好 <span class="math inline">\(\beta_0,\beta_1\)</span>。
+</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">收到自己的题号后</td>
-<td style="text-align: left;">按题号读答案：Alice 读<span class="math inline">\(a_x\)</span>，Bob 读<span class="math inline">\(b_y\)</span></td>
-<td style="text-align: left;">按题号选方向：Alice 用<span class="math inline">\(\alpha_x\)</span>，Bob 用<span class="math inline">\(\beta_y\)</span>，各测自己的光子</td>
+<tr class="shared-rule">
+<th scope="row">
+题号 <span class="math inline">\(x,y\)</span>
+</th>
+<td colspan="2">
+Alice 收到题号 <span class="math inline">\(x\)</span>，Bob 收到题号 <span class="math inline">\(y\)</span>，各为0或1。小写 <span class="math inline">\(x,y\)</span> 是题号，不是测量轴。
+</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">向主持人交出答案</td>
-<td style="text-align: left;">直接交出读到的0或1</td>
-<td style="text-align: left;">各自从<span class="math inline">\(+1\)</span>出口出来就答0，从<span class="math inline">\(-1\)</span>出口出来就答1</td>
+<tr class="shared-rule">
+<th scope="row">
+怎样出题
+</th>
+<td colspan="2">
+组合00、01、10、11等概率出现，各占四分之一；第一位是 Alice 的题号，第二位是 Bob 的。提问选择须与双方事先共享的信息独立。
+</td>
+</tr>
+<tr class="shared-rule">
+<th scope="row">
+怎样合作
+</th>
+<td colspan="2">
+两人可在赛前商量策略；拿到题后各自只能看自己的题，到交出答案前不能通信。
+</td>
+</tr>
+<tr>
+<th scope="row">
+按题号操作
+</th>
+<td>
+Alice 读 <span class="math inline">\(a_x\)</span>，Bob 读 <span class="math inline">\(b_y\)</span>：下标0、1分别对应题号0、1。
+</td>
+<td>
+Alice 用方向 <span class="math inline">\(\alpha_x\)</span>，Bob 用方向 <span class="math inline">\(\beta_y\)</span>，各测自己的光子；下标也按自己的题号选择。
+</td>
+</tr>
+<tr>
+<th scope="row">
+答案 <span class="math inline">\(a,b\)</span>
+</th>
+<td>
+Alice 交出读到的答案 <span class="math inline">\(a=a_x\)</span>，Bob 交出 <span class="math inline">\(b=b_y\)</span>，均为0或1。
+</td>
+<td>
+Alice、Bob 的答案分别记作 <span class="math inline">\(a,b\)</span>：各自从 <span class="math inline">\(+1\)</span> 出口出来就答0，从 <span class="math inline">\(-1\)</span> 出口出来就答1。
+</td>
+</tr>
+<tr class="shared-rule">
+<th scope="row">
+怎样判赢
+</th>
+<td colspan="2">
+题号组合00、01、10要求同答，即 <span class="math inline">\(a=b\)</span>；组合11要求异答，即 <span class="math inline">\(a\ne b\)</span>。比较的是答案0/1。
+</td>
+</tr>
+<tr>
+<th scope="row">
+理论胜率
+</th>
+<td>
+固定答案下，每组必胜或必败；获胜组数除以4。上节已证明最高为75%，随机换卡也不能超过。
+</td>
+<td>
+先由四个测量方向计算各组获胜概率，再取四组的平均；接下来就要计算这些概率。
+</td>
+</tr>
+<tr class="shared-rule">
+<th scope="row">
+模拟或实测战绩
+</th>
+<td colspan="2">
+重复很多轮，用本批胜场数除以总轮数。这是本批记录，可能随有限抽样波动；理论胜率由策略的概率计算。
+</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>下标跟着题号走：例如 Alice 收到0，经典策略读<span class="math inline">\(a_0\)</span>，量子策略选<span class="math inline">\(\alpha_0\)</span>；Bob 收到1，则分别读<span class="math inline">\(b_1\)</span>或选<span class="math inline">\(\beta_1\)</span>。<strong>经典策略预写具体答案；量子策略预选测量方向，具体答案由本轮测量产生。</strong> 两者沿用同一计分规则：00、01、10要求同答，11要求异答。</p>
+<p>例如本轮题号组合为01：Alice 读<span class="math inline">\(a_0\)</span>或选方向<span class="math inline">\(\alpha_0\)</span>，Bob 读<span class="math inline">\(b_1\)</span>或选<span class="math inline">\(\beta_1\)</span>。若量子测量时两人都从各自的<span class="math inline">\(+1\)</span>出口出来，就都答0，按这一组的同答规则获胜。<strong>经典策略预写具体答案；量子策略预选测量方向，具体答案由本轮测量产生。</strong></p>
 <p>分析器的两个正交出口标为<span class="math inline">\(+1\)</span>、<span class="math inline">\(-1\)</span>。只有测 H/V 基时，它们才分别对应 H、V；分析器转动后，出口对应的偏振方向也随之转动。<strong>“同答”比较的是双方都答0或都答1，不要求双方出口对应的偏振方向相同。</strong></p>
 <section id="两套偏振分析器的夹角决定什么" class="level3">
 <h3 class="anchored" data-anchor-id="两套偏振分析器的夹角决定什么">4.1 计算两人同答与异答的概率</h3>
