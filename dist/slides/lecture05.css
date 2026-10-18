@@ -1,0 +1,374 @@
+/* Approved course roles: 42px title, 30px teaching text/equations, 19px navigation. */
+.reveal .l05>h2{top:51px;left:36px;right:36px;font-size:42px;line-height:1.25;white-space:nowrap}
+.reveal .l05 .s-nav{left:36px;right:36px;gap:28px;font-size:19px}
+.reveal .l05 .s-nav .lecture-label{margin:0 auto 0 0;white-space:nowrap}
+.reveal .l05 .s-nav a{color:#607487}.reveal .l05 .s-nav a.active{color:#0070c0;font-weight:650}
+.reveal .l05 .s-body{inset:121px 36px auto;height:544px;display:flex;flex-direction:column;gap:20px;font-size:30px;justify-content:normal}
+.reveal .l05 .s-body>*{min-width:0;flex-shrink:0}
+.reveal .l05 p{margin:0;line-height:1.4}.reveal .l05 p+p{margin-top:12px}
+.reveal .l05 :is(.lead,.support,.answer,h3,.equation,.takeaway,table,figcaption){font-size:30px}
+.reveal .l05 h3{color:#0070c0;line-height:1.35;margin:0 0 16px;text-transform:none}
+.reveal .l05 .equation{line-height:1.3;margin:12px 0;text-align:center}
+.reveal .l05 .equation:first-child{margin-top:0}.reveal .l05 .equation:last-child{margin-bottom:0}
+.reveal .l05 mjx-container{font-size:100%!important}.reveal .l05 mjx-container[display=true]{margin:0!important}
+.reveal .l05 .pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.reveal .l05 .pair>div{min-width:0}
+.reveal .l05 .panel{background:#f2f4f6;padding:22px 24px;box-sizing:border-box;line-height:1.4}
+.reveal .l05 .panel>.panel{background:white}
+.reveal .l05 .panel.question-box{background:#e9edf1;border-top:3px solid #8297ab;padding:18px 24px}
+.reveal .l05 .question-label{color:#0070c0;font-weight:650;font-size:30px;line-height:1.2;margin:0 0 8px}
+.reveal .l05 .paired-panels{align-items:stretch}
+.reveal .l05 .paired-panels>div{display:flex;align-items:stretch}
+.reveal .l05 .paired-panels>div>.fragment{display:flex;width:100%}
+.reveal .l05 .paired-panels>div>.panel,.reveal .l05 .paired-panels>div>.fragment>.panel{width:100%}
+.reveal .l05 .takeaway{background:#f0f6fb;border-left:4px solid #0070c0;color:#006db8;padding:14px 20px;line-height:1.4;font-weight:650}
+.reveal .l05 .support{color:#607487}.reveal .l05 .answer{color:#0070c0}
+.reveal #l05-epr-criterion .s-body{gap:14px;justify-content:center}
+.reveal #l05-epr-criterion .epr-step{display:grid;grid-template-columns:190px minmax(0,1fr);gap:22px;padding:16px 24px;align-items:start}
+.reveal #l05-epr-criterion .epr-step h3{margin:0}
+.reveal #l05-epr-criterion .epr-step p+p{margin-top:6px}
+/* EPR comparison: shared label and content columns, stable across reveals. */
+.reveal #l05-epr-two-choices .s-body{gap:22px;justify-content:center}
+.reveal #l05-epr-two-choices p{line-height:1.5}
+.reveal #l05-epr-two-choices .panel{padding:18px 24px}
+.reveal #l05-epr-two-choices .epr-comparison{background:#f2f4f6;padding:0 24px}
+.reveal #l05-epr-two-choices .epr-comparison-row{display:grid;grid-template-columns:300px minmax(0,1fr);gap:24px;align-items:center;padding:18px 0;background:none}
+.reveal #l05-epr-two-choices .epr-comparison-row+.epr-comparison-row{border-top:1px solid #d4dfe7}
+.reveal #l05-epr-two-choices .epr-comparison-row h3{margin:0}
+.reveal #l05-epr-two-choices .epr-state-detail{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;align-items:center}
+.reveal #l05-epr-two-choices .epr-state-options{display:flex;justify-content:center;align-items:center;gap:16px}
+.reveal #l05-epr-two-choices .epr-inference p+p{margin-top:6px}
+.reveal #l05-epr-two-choices .takeaway{padding:16px 20px}
+.reveal #l05-counts :is(td,th){padding-top:8px;padding-bottom:8px}
+.reveal #l05-all-trials .s-body,.reveal #l05-excluded .s-body{gap:14px}
+.reveal #l05-return-epr .panel{padding:14px 24px}
+.reveal #l05-return-epr h3{margin-bottom:12px}
+.reveal .l05 table{margin:0;width:100%;line-height:1.35}.reveal .l05 :is(td,th){padding:10px 14px;vertical-align:middle}
+.reveal .l05 .panel table{margin-top:18px}.reveal .l05 table+p{margin-top:18px}
+.reveal .l05 .science-svg{display:block;width:100%;height:auto;overflow:visible}
+.reveal .l05 .portrait-pair{grid-template-columns:400px minmax(0,1fr);gap:44px}
+.reveal .l05 .portrait img{height:300px;width:100%;object-fit:contain;background:#f2f4f6}
+.reveal .l05 .portrait figcaption{margin-top:18px;line-height:1.4}
+.reveal .l05 .later{margin-top:28px}
+.reveal .l05 .nobel-pair{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:36px}
+.reveal .l05 .nobel-photo img{width:100%;height:260px;object-fit:contain;background:#f2f4f6}
+.reveal .l05 .nobel-photo figcaption{text-align:left;margin-top:20px;line-height:1.45}
+.reveal .l05 .basis-pair{grid-template-columns:480px minmax(0,1fr);gap:30px}
+.reveal .l05 .basis-pair figcaption{margin-top:6px}
+.reveal .l05 .section-index-layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:76px;align-items:center}
+.reveal .l05.section-index>h2{display:none}
+.reveal .l05.section-index .s-body{inset:108px 96px auto;height:548px;display:grid;grid-template-rows:minmax(0,1fr) 120px;gap:36px}
+.reveal .l05 .section-index-title{color:#0070c0;text-align:left}
+.reveal .l05 .section-index-cn{font-size:76px;font-weight:700;letter-spacing:.2em;line-height:1.2;margin-bottom:20px}
+.reveal .l05 .section-index-en{font-size:30px;font-weight:500;letter-spacing:.12em;line-height:1.3}
+.reveal .l05 .section-index-list{display:flex;flex-direction:column;gap:18px}
+.reveal .l05 a.section-entry{display:flex;align-items:center;gap:28px;min-height:72px;padding:12px 28px;border-left:3px solid transparent;border-radius:0 5px 5px 0;color:#607487;font-size:30px;font-weight:500;line-height:1.35;text-decoration:none}
+.reveal .l05 .section-number{font-size:30px;font-weight:400;font-variant-numeric:tabular-nums;min-width:40px}
+.reveal .l05 a.section-entry.is-current{background:#f0f6fb;border-left-color:#0070c0;color:#0070c0;font-weight:700}
+.reveal .l05 a.section-entry:hover{text-decoration:underline;text-underline-offset:7px}
+.reveal .l05 .section-bridge{color:#607487;background:#f2f4f6;padding:14px 24px;min-height:0;box-sizing:border-box;align-self:start}
+.reveal .l05 .section-index-title p{color:inherit}
+.reveal .l05 .source-list{display:grid;gap:20px}
+.reveal .l05 .derivation-link{display:inline-block;color:#607487}
+.reveal .l05 .fragment{transition:opacity .16s ease,visibility .16s ease}
+.reveal #l05-hv-branches .s-body{gap:16px;justify-content:center}
+.reveal #l05-hv-same-probability .s-body{gap:12px;justify-content:center}
+.reveal #l05-hv-same-probability .s-body>p+p{margin-top:0}
+.reveal .l05 .hv-probability-row{display:grid;grid-template-columns:240px minmax(0,1fr);gap:16px;align-items:center;height:166px}
+.reveal .l05 .branch-known{padding-left:20px;border-left:4px solid #c5d4df}
+.reveal .l05 .branch-known h3{margin-bottom:8px}
+.reveal .l05 .branch-known p+p{margin-top:0}
+.reveal .l05 .branch-calculation{display:grid;grid-template-columns:340px minmax(0,1fr);gap:22px;align-items:center;background:#f2f4f6;height:166px;padding-right:20px}
+.reveal .l05 .branch-calculation .science-svg{display:block;width:340px;height:166px;margin:0;align-self:center}
+.reveal .l05 .branch-work p+p{margin-top:0}
+.reveal .l05 .branch-work .equation{margin-top:8px}
+.reveal .l05.lab-slide .s-body{height:544px;display:block}
+.reveal .l05 .lab-frame{width:100%;height:100%;border:0;margin:0;background:white;max-height:none;max-width:none}
+.reveal .l05 .lab-fullscreen{position:absolute;right:0;top:-64px;font-size:21px;color:#0070c0;background:#f0f6fb;border:1px solid #b0c9dc;padding:6px 12px;border-radius:4px;cursor:pointer}
+.reveal .l05 .lab-frame:fullscreen{width:100vw!important;height:100vh!important;background:#fff}
+.reveal.has-logo .slide-number{top:var(--l05-page-center,calc(100% - 30px))!important;bottom:auto!important;right:var(--l05-page-right,160px)!important;transform:translateY(-50%)}
+.reveal .footer{display:none!important}
+.reveal .l05.cover>h2,.reveal .l05.cover .s-nav{display:none}
+.reveal .l05.cover .s-body{inset:0;height:680px;display:block}
+.reveal .l05 .cover-art{position:absolute;inset:0;opacity:.38}
+.reveal .l05 .cover-art img{width:100%;height:100%;object-fit:cover;max-height:none;mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 82%,transparent)}
+.reveal .l05 .cover-stack{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;padding-top:153px;gap:24px;text-align:center}
+.reveal .l05 .cover-stack p{margin:0!important}
+.reveal .l05 .cover-course{font-size:68px;font-weight:700;color:#0070c0;line-height:1.2}
+.reveal .l05 .cover-kicker{font-size:32px;color:#0070c0}
+.reveal .l05 .cover-title{font-size:40px;line-height:1.3;font-weight:650;white-space:nowrap;color:#0070c0}
+.reveal .l05 .cover-author{font-size:29px;line-height:1.45;color:#202122;padding-top:30px}
+.reveal .l05 .cover-web{font-size:22px;color:#607487;padding-top:20px}
+@media print{.reveal .l05 .fragment{opacity:1!important;visibility:visible!important}.reveal .lab-fullscreen{display:none}}
+.reveal #l05-no-signaling .s-body{gap:10px}
+.reveal .l05 .cover-stack p{position:static;left:auto;right:auto;top:auto;bottom:auto;width:auto;margin:0!important}
+.reveal .l05 .lab-frame{display:block}
+.reveal #l05-counts .s-body{gap:12px}
+
+.reveal :is(#l05-classical-boxes,#l05-return-epr) .s-body{gap:14px}
+.reveal #l05-weihs .s-body{gap:10px}
+
+.reveal .l05 .s-credit{left:64px}
+
+/* Visual explanations keep the approved teaching size and stable reveal layout. */
+.reveal #l05-bohr .s-body{gap:24px}
+.reveal #l05-classic-proof .s-body{gap:20px;justify-content:space-between}
+.reveal #l05-classic-proof .proof-layout{height:270px}
+.reveal #l05-classic-proof .proof-rules{height:270px}
+.reveal #l05-classic-proof .proof-rules :is(th,td){padding:6px 12px;white-space:nowrap}
+.reveal .l05 .proof-layout{grid-template-columns:minmax(0,1fr) 530px;align-items:center;gap:30px;height:265px}
+.reveal .l05 .proof-layout .panel{padding:24px 18px}
+.reveal .l05 .constraint-graph{position:relative;width:530px;height:265px}
+.reveal .l05 .constraint-graph .science-svg{position:absolute;width:530px;height:265px}
+.reveal .l05 .constraint-node,.reveal .l05 .constraint-edge{position:absolute;background:white;padding:3px 12px;transform:translate(-50%,-50%);line-height:1.3}
+.reveal .l05 .constraint-node{background:#eef5fb;min-width:65px;text-align:center}
+.reveal .l05 .n-a0{left:120px;top:50px}.reveal .l05 .n-b0{left:410px;top:50px}
+.reveal .l05 .n-b1{left:120px;top:220px}.reveal .l05 .n-a1{left:410px;top:220px}
+.reveal .l05 .e-top{left:265px;top:50px}.reveal .l05 .e-bottom{left:265px;top:220px}
+.reveal .l05 .e-left{left:120px;top:135px}.reveal .l05 .e-right{left:410px;top:135px}
+.reveal #l05-random-cards .s-body{gap:20px;justify-content:space-between}
+.reveal #l05-random-cards .mixture-flow{display:grid;grid-template-columns:minmax(0,1fr) 48px minmax(0,1fr) 48px minmax(0,1fr);gap:16px;align-items:start;background:#f2f4f6;padding:20px 24px;box-sizing:border-box;min-height:198px}
+.reveal #l05-random-cards .mixture-step h3{margin:0 0 12px;white-space:nowrap}
+.reveal #l05-random-cards .mixture-step p{line-height:1.4;white-space:nowrap}
+.reveal #l05-random-cards .mixture-step p+p{margin-top:12px}
+.reveal #l05-random-cards .mixture-emphasis{color:#0070c0}
+.reveal #l05-random-cards .mixture-arrow{width:48px;height:32px;color:#0070c0;align-self:center}
+.reveal #l05-four-answers .s-body{gap:14px}
+.reveal #l05-strategy-change .s-body{gap:10px;justify-content:center}
+.reveal #l05-strategy-change .strategy-table{table-layout:fixed}
+.reveal #l05-strategy-change .strategy-table col:first-child{width:21%!important}
+.reveal #l05-strategy-change .strategy-table col:nth-child(n+2){width:39.5%!important}
+.reveal #l05-strategy-change :is(td,th){padding-top:8px;padding-bottom:8px}
+.reveal #l05-strategy-change :is(td,th):first-child{width:21%}
+.reveal #l05-strategy-change .equation{margin:0}
+.reveal #l05-theory-sample .s-body{gap:18px;justify-content:center}
+.reveal #l05-quantum-correlation .s-body{gap:14px}
+.reveal #l05-quantum-correlation .panel{padding:16px 24px}
+.reveal #l05-quantum-correlation h3{margin-bottom:12px}
+.reveal #l05-chsh-parameter .s-body{gap:16px}
+.reveal #l05-chsh-parameter .panel{padding:18px 24px}
+.reveal #l05-excluded .s-body{gap:18px}
+
+/* Bell history: portrait and contributions use the full teaching region. */
+.reveal #l05-game-history .history-layout{grid-template-columns:360px minmax(0,1fr);gap:36px;align-items:start}
+.reveal #l05-game-history .portrait img{height:360px}
+.reveal #l05-game-history .portrait figcaption{text-align:left}
+.reveal #l05-game-history .history-steps{display:flex;flex-direction:column;gap:20px}
+.reveal #l05-game-history .history-steps{gap:16px}
+.reveal #l05-game-history .history-steps>.panel{padding:16px 24px}
+.reveal #l05-previous-comparison .prior-comparison .panel{display:grid;grid-template-rows:auto 100px auto;gap:16px}
+.reveal #l05-previous-comparison .prior-comparison h3{margin:0}
+.reveal #l05-previous-comparison .comparison-object{display:flex;align-items:center;justify-content:center}
+.reveal #l05-previous-comparison .comparison-object .equation{margin:0}
+.reveal #l05-game-history .bell-logic{display:grid;grid-template-columns:1fr 150px 1fr;gap:12px;align-items:center;height:120px}
+.reveal #l05-game-history .logic-object{display:flex;align-items:center;justify-content:center;background:white;height:120px;white-space:nowrap}
+.reveal #l05-game-history .logic-link{display:flex;flex-direction:column;align-items:center;gap:12px;color:#0070c0;line-height:1.2}
+.reveal #l05-game-history .logic-link svg{display:block;width:140px;height:34px}
+
+/* Whole-deck layout audit: balance complete groups, not individual columns. */
+.reveal .l05.balanced-stack .s-body{justify-content:center}
+.reveal .l05 .mixed-comparison{align-items:stretch}
+.reveal .l05 .mixed-comparison>div{display:flex;flex-direction:column}
+.reveal .l05 .mixed-comparison>div>.panel{flex:1}
+.reveal #l05-polarization-basis .basis-pair{grid-template-columns:440px minmax(0,1fr);gap:32px}
+.reveal #l05-polarization-basis .basis-pair>div:last-child{padding-top:0}
+.reveal #l05-nobel .s-body{gap:18px;justify-content:space-between}
+.reveal #l05-nobel .nobel-laureates{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;width:100%}
+.reveal #l05-nobel .nobel-laureates figure{margin:0;text-align:center}
+.reveal #l05-nobel .nobel-laureates img{display:block;width:100%;height:190px;object-fit:contain;margin:0}
+.reveal #l05-nobel .nobel-laureates figcaption{margin:6px 0 0;text-align:center;line-height:1.35;color:#202122}
+.reveal #l05-nobel .nobel-citation{padding:14px 24px}
+.reveal #l05-nobel .nobel-citation h3{margin-bottom:8px}
+.reveal #l05-nobel .takeaway{padding:10px 20px}
+.reveal #l05-game-rules .keep-together{white-space:nowrap}
+.reveal #l05-game-rules .mixed-comparison>div>table{height:100%}
+
+/* Experimental closure: retain the established type sizes and semantic blocks. */
+.reveal #l05-uncertainty .s-body{gap:24px}
+.reveal #l05-uncertainty .panel{padding:20px 24px}
+.reveal #l05-all-trials .s-body{gap:18px}
+.reveal #l05-all-trials th:first-child{width:28%}
+.reveal .l05 .conditions-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:stretch}
+.reveal .l05 .conditions-grid .panel{padding:20px 22px}
+.reveal #l05-loophole-free .s-body{gap:18px}
+.reveal #l05-loophole-free .panel h3{margin-bottom:12px}
+.reveal #l05-loophole-free .s-body>.fragment>.panel{padding:16px 24px}
+.reveal :is(#l05-sources-1,#l05-sources-2) .source-list{gap:12px}
+.reveal :is(#l05-sources-1,#l05-sources-2) .panel{padding:12px 24px}
+
+/* Four sections, each with two aligned points; keep approved 42px/30px type. */
+.reveal #l05-guide .guide-steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;width:100%}
+.reveal #l05-guide .guide-steps li{margin:0;display:grid;grid-template-columns:48px minmax(0,1fr);gap:22px;align-items:baseline}
+.reveal #l05-guide .guide-number{color:#607487;font-variant-numeric:tabular-nums}
+.reveal #l05-guide .guide-steps h3{margin:0 0 4px}
+.reveal #l05-guide .guide-steps p{margin:0;line-height:1.35}
+
+.reveal #l05-guide .guide-points{display:grid;gap:0}
+.reveal #l05-guide .guide-points p{display:grid;grid-template-columns:14px minmax(0,1fr);column-gap:12px;align-items:baseline}
+.reveal #l05-guide .guide-dot{color:#607487}
+
+.reveal #l05-nobel>.s-credit{visibility:visible}
+
+/* Core formulas stay in their display area; use the same blue as text conclusions. */
+.reveal .l05 .core-result{color:#006db8}
+.reveal .l05 p.core-result{font-weight:650}
+
+/* October 18: allocate space to complete teaching blocks, with shared edges. */
+.reveal #l05-polarization-basis .s-body{justify-content:flex-start;gap:28px}
+.reveal #l05-polarization-basis .basis-pair{grid-template-columns:420px minmax(0,1fr);gap:36px;align-items:stretch;height:440px}
+.reveal #l05-polarization-basis .basis-pair>div{display:flex}
+.reveal #l05-polarization-basis figure{margin:0;width:420px;display:flex;flex-direction:column;justify-content:space-between;padding:4px 0 12px;box-sizing:border-box}
+.reveal #l05-polarization-basis .science-svg{width:420px;height:340px}
+.reveal #l05-polarization-basis figcaption{margin:0;text-align:center;line-height:1.4}
+.reveal #l05-polarization-basis .panel{width:100%;display:grid;grid-template-rows:42px 1fr auto;align-items:center;gap:16px;padding:20px 0 20px 28px;background:transparent;border-left:1px solid #cbd7e0}
+.reveal #l05-polarization-basis .basis-equations{display:flex;flex-direction:column;gap:24px}
+.reveal #l05-polarization-basis .panel .equation{margin:0;padding:24px 12px;background:#f2f4f6}
+.reveal #l05-polarization-basis .panel>p:last-child{border-top:1px solid #cbd7e0;padding-top:20px;line-height:1.5}
+.reveal #l05-polarization-basis .s-body>.fragment{padding-top:16px;border-top:1px solid #cbd7e0}
+
+/* Tables and their explanation share a top and bottom edge. */
+.reveal #l05-answer-cards .s-body{justify-content:flex-start;gap:26px}
+.reveal #l05-answer-cards .mixed-comparison{min-height:320px}
+.reveal #l05-answer-cards table{height:100%}
+.reveal #l05-answer-cards .mixed-comparison .panel{display:flex;flex-direction:column;justify-content:space-between;padding:24px}
+.reveal #l05-answer-cards .mixed-comparison .panel p+p{margin-top:20px}
+.reveal #l05-game-rules .s-body{justify-content:flex-start;padding-top:0;box-sizing:border-box}
+.reveal #l05-game-rules .mixed-comparison{min-height:0;height:346px}
+.reveal #l05-game-rules .panel{padding:20px 24px}
+.reveal #l05-game-rules .panel p+p{margin-top:16px}
+
+/* Probability derivations: premise, working, result remain separate rows. */
+.reveal #l05-conditional-branches .s-body{justify-content:flex-start;gap:26px}
+.reveal #l05-conditional-branches .s-body>.equation{padding:16px 0;margin:0}
+.reveal #l05-conditional-branches .paired-panels .panel{padding:28px 24px}
+.reveal #l05-conditional-branches .derivation-link{padding-top:2px}
+.reveal #l05-same-probability .s-body{justify-content:flex-start;gap:26px}
+.reveal #l05-same-probability .paired-panels .panel{padding:26px 24px}
+.reveal #l05-same-probability .s-body>.fragment>.panel{padding:26px 24px}
+.reveal #l05-quantum-rate .s-body{justify-content:flex-start;gap:28px}
+.reveal #l05-quantum-rate :is(td,th){padding:20px 14px}
+.reveal #l05-quantum-rate .s-body>.fragment>.equation{margin:8px 0}
+.reveal #l05-quantum-s .s-body{justify-content:flex-start;gap:26px}
+.reveal #l05-quantum-s .panel{padding:28px 24px}
+.reveal #l05-quantum-s .panel .equation+.equation{margin-top:24px}
+.reveal #l05-quantum-correlation .s-body{justify-content:flex-start;gap:20px}
+.reveal #l05-quantum-correlation .s-body>.equation{margin:6px 0}
+.reveal #l05-quantum-correlation .panel{padding:22px 24px}
+.reveal #l05-classical-s .s-body{justify-content:flex-start;gap:24px}
+.reveal #l05-classical-s .panel{padding:26px 24px}
+.reveal #l05-classical-s .panel .equation+.equation{margin-top:20px}
+.reveal #l05-rotated-derivation .s-body{justify-content:flex-start;gap:34px}
+.reveal #l05-rotated-derivation .s-body>.equation{padding:36px 24px;background:#f2f4f6;margin:0}
+.reveal #l05-rotated-derivation .s-body>.fragment{padding:24px;border-left:4px solid #0070c0;background:#f0f6fb}
+
+/* Short experimental explanations: increase useful diagram/panel area, not font size. */
+.reveal #l05-aspect .s-body{justify-content:flex-start;gap:32px}
+.reveal #l05-aspect .science-svg{margin:12px 0}
+.reveal #l05-timing-test .s-body{justify-content:flex-start;gap:32px;padding-top:12px;box-sizing:border-box}
+.reveal #l05-timing-test .panel{padding:32px 28px}
+.reveal #l05-timing-test .panel .equation{margin:12px 0 32px}
+.reveal #l05-uncertainty .s-body{justify-content:flex-start;gap:30px;padding-top:12px;box-sizing:border-box}
+.reveal #l05-uncertainty .panel{padding:28px 24px}
+.reveal #l05-uncertainty .panel h3{margin-bottom:24px}
+.reveal #l05-uncertainty .panel p+p{margin-top:20px}
+.reveal #l05-excluded .s-body{gap:24px}
+.reveal #l05-no-signaling .s-body{justify-content:flex-start;gap:22px}
+.reveal #l05-no-signaling .s-body>.equation{padding:8px 0;margin:0}
+.reveal #l05-no-signaling .panel{padding:26px 24px}
+.reveal #l05-no-signaling .panel .equation{margin-top:22px}
+.reveal #l05-return-epr .s-body{gap:18px}
+.reveal #l05-return-epr .panel{padding:20px 24px}
+.reveal #l05-return-epr h3{margin-bottom:16px}
+.reveal #l05-exit .s-body{justify-content:flex-start;gap:26px;padding-top:16px;box-sizing:border-box}
+.reveal #l05-exit .panel{padding:26px 24px}
+.reveal #l05-exit .panel p+p{margin-top:18px}
+.reveal :is(#l05-sources-1,#l05-sources-2) .source-list{gap:20px}
+.reveal :is(#l05-sources-1,#l05-sources-2) .panel{padding:18px 24px}
+
+/* The numerical quantum result is explicit on the static teaching path. */
+.reveal #l05-angle-solution .s-body{gap:12px;justify-content:space-between}
+.reveal #l05-angle-solution .panel{padding:12px 24px}
+.reveal #l05-angle-solution .equation{margin:0}
+.reveal #l05-quantum-rate .s-body{gap:16px;justify-content:space-between}
+.reveal #l05-quantum-rate :is(td,th){padding:16px 14px}
+.reveal #l05-quantum-rate .s-body>.fragment>.equation{margin:0}
+.reveal #l05-theory-sample .s-body{gap:10px;justify-content:space-between}
+.reveal #l05-theory-sample .score-comparison .panel{padding:10px 24px}
+.reveal #l05-theory-sample .score-comparison h3{margin:0 0 6px}
+.reveal #l05-theory-sample .equation{margin:0}
+.reveal #l05-theory-sample .sample-caption{color:#607487}
+.reveal #l05-same-probability .s-body{gap:16px}
+.reveal #l05-same-probability .s-body>.fragment>.panel{padding:16px 24px}
+.reveal #l05-same-probability .optional-activity{margin-top:12px}
+
+/* Keep the equality chain beside its explanation, with room above and below. */
+.reveal #l05-classic-proof .proof-explanation{display:grid;grid-template-columns:380px minmax(0,1fr);gap:28px;align-items:center;min-height:102px;padding:12px 24px;box-sizing:border-box}
+.reveal #l05-classic-proof .proof-explanation .equation{margin:0}
+
+/* Notes synchronization: give each record its own column and keep apparatus explanations adjacent. */
+.reveal #l05-shared-game-rules .s-body{gap:22px;justify-content:space-between}
+.reveal .l05 .shared-rules{table-layout:fixed}
+.reveal .l05 .shared-rules th:first-child,.reveal .l05 .shared-rules td:first-child{width:18%;white-space:nowrap}
+.reveal .l05 .shared-rules :is(th,td){padding:12px 18px;text-align:left}
+.reveal #l05-strategy-change .s-body{gap:10px;justify-content:space-between}
+.reveal #l05-strategy-change .strategy-table :is(th,td){padding:7px 14px}
+.reveal #l05-hv-branches .s-body{gap:8px}
+.reveal #l05-records .s-body{gap:12px;justify-content:space-between}
+.reveal #l05-records .record-fields :is(th,td){text-align:center;padding:7px 14px}
+.reveal #l05-coincidences .s-body{gap:14px;justify-content:space-between}
+.reveal #l05-coincidences .coincidence-grid{table-layout:fixed;font-variant-numeric:tabular-nums}
+.reveal #l05-coincidences .coincidence-grid :is(th,td){text-align:center;padding:8px 4px;white-space:nowrap}
+.reveal #l05-coincidences .coincidence-grid th{font-weight:600}
+.reveal #l05-coincidences .coincidence-grid thead tr+tr th{background:#e8f0f7;color:#006db8}
+.reveal #l05-coincidences .panel{padding:14px 22px}
+.reveal #l05-coincidences .panel p+p{margin-top:8px}
+.reveal #l05-coincidences table+p{margin-top:0}
+.reveal .l05.apparatus-slide .s-body{justify-content:space-between;gap:18px}
+.reveal .l05 .apparatus-layout{grid-template-columns:580px minmax(0,1fr);gap:32px;align-items:center;min-height:354px}
+.reveal .l05 .apparatus-photo{margin:0;display:flex;align-items:center;justify-content:center}
+.reveal .l05 .apparatus-photo img{display:block;max-width:100%;max-height:none;width:100%;height:auto;margin:0;border:0;box-shadow:none}
+.reveal .l05 .apparatus-text h3{margin:0 0 10px}
+.reveal .l05 .apparatus-text p+h3{margin-top:18px}
+.reveal .l05 .apparatus-text p+p{margin-top:10px}
+.reveal .l05.apparatus-slide .panel{padding:16px 24px}
+.reveal .l05.apparatus-slide .panel p+p{margin-top:8px}
+.reveal .l05.station-slide .apparatus-layout{grid-template-columns:460px minmax(0,1fr);gap:36px;min-height:374px}
+.reveal #l05-shalm-apparatus .s-body{gap:20px;justify-content:space-between}
+.reveal #l05-shalm-apparatus .apparatus-photo{height:316px}
+.reveal #l05-shalm-apparatus .apparatus-photo img{height:316px;width:auto}
+.reveal #l05-timing-test .s-body{gap:16px;padding-top:0;justify-content:space-between}
+.reveal #l05-timing-test .panel{padding:12px 24px}
+.reveal #l05-timing-test .panel .equation{margin:0 0 10px}
+.reveal #l05-excluded .s-body{gap:18px;justify-content:space-between}
+.reveal #l05-excluded .panel{padding:18px 24px}
+.reveal #l05-excluded .panel h3{margin-bottom:10px}
+.reveal #l05-no-signaling .s-body{gap:12px;justify-content:space-between}
+.reveal #l05-no-signaling .s-body>.equation{padding:0}
+.reveal #l05-no-signaling .panel{padding:14px 24px}
+.reveal #l05-no-signaling .panel .equation{margin-top:12px}
+
+/* Nobel award citation: the official original and its translation share one reading block. */
+.reveal #l05-nobel .nobel-citation p{line-height:1.35}
+.reveal #l05-nobel .citation-translation{border-top:1px solid #d4dfe7;padding-top:10px;margin-top:10px}
+
+/* Reuse the approved closing animation from Lecture 3. */
+.reveal #l05-closing>h2{display:none!important}
+.reveal #l05-closing .s-body{inset:0;width:1280px;height:720px;display:block;background:#ededed}
+.reveal #l05-closing .triple-stage{display:block;width:100%;height:100%;overflow:visible}
+body:has(#l05-closing.present){background:#ededed}
+body:has(#l05-closing.present) :is(.course-footer-bar,.slide-logo,.slide-number,.controls,.progress,.footer,.slide-menu-button){display:none!important}
+#l05-closing :is(.triple-icon,.triple-cursor){transform-box:view-box}
+#l05-closing .triple-tint{opacity:0}
+#l05-closing .triple-charge{fill:none;stroke:#00a1d6;stroke-width:6;stroke-dasharray:930;stroke-dashoffset:930;transform:rotate(-90deg)}
+#l05-closing .triple-rays{fill:none;stroke:#00a1d6;stroke-width:8;stroke-linecap:round;opacity:0}
+#l05-closing.present .triple-icon{animation:l05-triple-pop 4s ease-in-out infinite}
+#l05-closing.present .triple-tint{animation:l05-triple-tint 4s linear infinite}
+#l05-closing.present .triple-charge{animation:l05-triple-charge 4s linear infinite}
+#l05-closing.present .triple-rays{animation:l05-triple-rays 4s ease-out infinite}
+#l05-closing.present .triple-cursor{animation:l05-triple-cursor 4s ease-in-out infinite}
+@keyframes l05-triple-charge{0%,8%{stroke-dashoffset:930;opacity:1}42%{stroke-dashoffset:0;opacity:1}48%,100%{stroke-dashoffset:0;opacity:0}}
+@keyframes l05-triple-pop{0%,41%{transform:scale(1)}46%{transform:scale(1.1)}53%,100%{transform:scale(1)}}
+@keyframes l05-triple-tint{0%,41%{opacity:0}45%,82%{opacity:1}94%,100%{opacity:0}}
+@keyframes l05-triple-rays{0%,43%{opacity:0;transform:scale(.85)}46%{opacity:1;transform:scale(1)}60%,100%{opacity:0;transform:scale(1.25)}}
+@keyframes l05-triple-cursor{0%,6%{transform:translate(0,0)}11%,41%{transform:translate(-12px,-12px) scale(.94)}47%,100%{transform:translate(0,0)}}
+@media print{#l05-closing *{animation:none!important}#l05-closing .triple-tint{opacity:1!important}}

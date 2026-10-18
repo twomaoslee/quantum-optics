@@ -212,8 +212,12 @@ def update_slides(root, numbers):
         manifest = json.loads((source/'qa'/name/'delivery-manifest.json').read_text())
         for relative in manifest['files']:
             path = Path(relative)
-            if path.suffix == '.md':
-                continue  # Classroom usage instructions are not student pages.
+            # Delivery manifests also track authoring and QA sources. Publish only
+            # the main classroom HTML/CSS and browser assets, never those sources.
+            if path.parts[0] != 'assets' and path.name not in {name+'.html', name+'.css'}:
+                continue
+            if path.suffix.lower() not in {'.html', '.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.woff', '.woff2', '.mp4', '.webm', '.mp3', '.ogg'}:
+                continue
             if path.is_absolute() or '..' in path.parts or withheld(Path('slides')/path):
                 raise SystemExit(f'Unexpected packaged path: {relative}')
             target = DIST/'slides'/path
@@ -233,6 +237,7 @@ def update_slides(root, numbers):
             link = slide_link(number)
             card = card.replace('</div></article>', link+'</div></article>')
         card = card.replace('第四讲讲义与互动演示。', '第四讲讲义、课堂课件与互动演示。')
+        card = card.replace('在线讲义与互动演示。', '在线讲义、课堂课件与互动演示。')
         changed = datetime.fromtimestamp((source/f'{name}.html').stat().st_mtime).strftime('%Y-%m-%d')
         card = re.sub(r'资料更新：\d{4}-\d{2}-\d{2}', '资料更新：'+changed, card)
         text = text[:match.start()] + card + text[match.end():]
@@ -337,7 +342,7 @@ def main():
     parser.add_argument('--source-root', type=Path, default=ROOT)
     parser.add_argument('--update-notes', type=int, nargs='+', choices=sorted(STANDALONE_NOTES),
                         help='Update standalone notes and dependencies only.')
-    parser.add_argument('--update-slides', type=int, nargs='+', choices=[4],
+    parser.add_argument('--update-slides', type=int, nargs='+', choices=sorted(PUBLISHED_SLIDES),
                         help='Update packaged classroom slides and their homepage links only.')
     parser.add_argument('--update-lectures', type=int, nargs='+',
                         help='Preserve other note pages and search entries from the committed release.')
