@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 390" role="img" aria-labelledby="title desc">
+<title id="title">Alice测H/V后的两条同答分支</title>
+<desc id="desc">Alice的正负结果各占一半。正结果对应Bob的H偏振，同答需与Bob正出口比较；负结果对应Bob的V偏振，同答需与Bob负出口比较。Bob两出口正交，两次投影的夹角相同。</desc>
+<style>text{font-family:'Noto Sans CJK SC','PingFang SC','Microsoft YaHei',sans-serif;font-size:21px;fill:#202b38}.label{font-size:19px}.blue{fill:#1e5f96}.math{font-family:'STIX Two Math','Times New Roman',serif;font-style:italic;font-size:24px}.arrow{stroke:#8da5b8;stroke-width:2;fill:none;marker-end:url(#arrow)}</style>
+<defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="none" stroke="#8da5b8" stroke-width="1.3"/></marker></defs>
+<rect width="960" height="390" fill="white"/>
+<text x="102" y="28" text-anchor="middle" class="blue">Alice 的记录</text>
+<text x="402" y="28" text-anchor="middle" class="blue">这一分支中的 Bob</text>
+<text x="772" y="28" text-anchor="middle" class="blue">要同答，Bob 需走哪个出口？</text>
+<rect x="8" y="51" width="944" height="136" rx="4" fill="#f3f6fa"/>
+<text x="102" y="112" class="" text-anchor="middle">＋1（H）</text>
+<text x="102" y="146" class="label" text-anchor="middle">该分支占一半</text>
+<path class="arrow" d="M195 119H282"/>
+<line x1="349.00" y1="119.00" x2="455.00" y2="119.00" stroke="#526274" stroke-width="3" stroke-dasharray="7 5"/>
+<line x1="356.10" y1="145.50" x2="447.90" y2="92.50" stroke="#1e5f96" stroke-width="3" />
+<path d="M427.00 119.00 A25 25 0 0 0 423.65 106.50" fill="none" stroke="#526274" stroke-width="1.5"/>
+<text x="460" y="127" class="label" text-anchor="start">H</text>
+<text x="449" y="80" class="label blue" text-anchor="start">＋出口</text>
+<text x="435" y="110" class="math" text-anchor="start">β</text>
+<path class="arrow" d="M548 119H623"/>
+<text x="772" y="112" class="" text-anchor="middle">Bob 从＋出口出来</text>
+<text x="772" y="146" class="label" text-anchor="middle">联合记录（＋，＋）</text>
+<rect x="8" y="204" width="944" height="136" rx="4" fill="#f3f6fa"/>
+<text x="102" y="265" class="" text-anchor="middle">−1（V）</text>
+<text x="102" y="299" class="label" text-anchor="middle">该分支占一半</text>
+<path class="arrow" d="M195 272H282"/>
+<line x1="402.00" y1="325.00" x2="402.00" y2="219.00" stroke="#526274" stroke-width="3" stroke-dasharray="7 5"/>
+<line x1="428.50" y1="317.90" x2="375.50" y2="226.10" stroke="#1e5f96" stroke-width="3" />
+<path d="M402.00 247.00 A25 25 0 0 0 389.50 250.35" fill="none" stroke="#526274" stroke-width="1.5"/>
+<text x="413" y="223" class="label" text-anchor="start">V</text>
+<text x="317" y="227" class="label blue" text-anchor="start">−出口</text>
+<text x="374" y="237" class="math" text-anchor="start">β</text>
+<path class="arrow" d="M548 272H623"/>
+<text x="772" y="265" class="" text-anchor="middle">Bob 从−出口出来</text>
+<text x="772" y="299" class="label" text-anchor="middle">联合记录（−，−）</text>
+<line x1="23" y1="371" x2="65" y2="371" stroke="#526274" stroke-width="3" stroke-dasharray="7 5"/>
+<text x="76" y="378" class="label" text-anchor="start">Bob 的偏振</text>
+<line x1="349" y1="371" x2="391" y2="371" stroke="#1e5f96" stroke-width="3"/>
+<text x="402" y="378" class="label" text-anchor="start">同答所需的 Bob 出口方向（方向示意）</text>
+</svg>

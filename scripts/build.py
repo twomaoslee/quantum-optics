@@ -55,7 +55,7 @@ def standalone_content(root, number):
         ('interactions/', f'assets/{name}/interactions/'),
         (f'{name}_files/', f'assets/{name}/{name}_files/'),
     ):
-        text = re.sub(r'((?:href|src)=["\'])'+re.escape(prefix),
+        text = re.sub(r'((?:href|src|srcset)=["\'])'+re.escape(prefix),
                       lambda m: m[1]+replacement, text)
     text = text.replace('../../assets/', 'assets/')
     text = text.replace('href="style.css"', f'href="assets/{name}/style.css"')
