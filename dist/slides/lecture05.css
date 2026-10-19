@@ -23,10 +23,15 @@
 .reveal .l05 .paired-panels>div>.panel,.reveal .l05 .paired-panels>div>.fragment>.panel{width:100%}
 .reveal .l05 .takeaway{background:#f0f6fb;border-left:4px solid #0070c0;color:#006db8;padding:14px 20px;line-height:1.4;font-weight:650}
 .reveal .l05 .support{color:#607487}.reveal .l05 .answer{color:#0070c0}
-.reveal #l05-epr-criterion .s-body{gap:14px;justify-content:center}
-.reveal #l05-epr-criterion .epr-step{display:grid;grid-template-columns:190px minmax(0,1fr);gap:22px;padding:16px 24px;align-items:start}
+.reveal #l05-epr-criterion .s-body{gap:12px;justify-content:normal}
+.reveal #l05-epr-criterion .epr-step{display:grid;grid-template-columns:156px minmax(0,1fr);gap:18px;padding:12px 18px;align-items:start}
 .reveal #l05-epr-criterion .epr-step h3{margin:0}
 .reveal #l05-epr-criterion .epr-step p+p{margin-top:6px}
+.reveal #l05-epr-criterion .epr-paper-layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:28px;align-items:start}
+.reveal #l05-epr-criterion .epr-steps{display:flex;flex-direction:column;gap:12px}
+.reveal #l05-epr-criterion .epr-paper{margin:0;min-width:0}
+.reveal #l05-epr-criterion .epr-paper a{display:block}
+.reveal #l05-epr-criterion .epr-paper img{display:block;width:100%;height:auto;max-height:none;max-width:none;margin:0}
 /* EPR comparison: shared label and content columns, stable across reveals. */
 .reveal #l05-epr-two-choices .s-body{gap:22px;justify-content:center}
 .reveal #l05-epr-two-choices p{line-height:1.5}
