@@ -1,8 +1,8 @@
 # 量子光学课程网站
 
-学生入口为 `dist/index.html`，当前发布第一至四讲在线讲义、课堂课件与课件 PDF，第五讲在线讲义、课堂课件与互动演示，以及14次授课与1次课题汇报的目录、补充阅读与来源。第五讲 PDF 尚未发布。
+学生入口为 `dist/index.html`，当前发布第一至五讲在线讲义、课堂课件、课件 PDF 与配套互动演示，以及14次授课与1次课题汇报的目录、补充阅读与来源。第五讲课件 PDF 已获教师授权发布，共56页，包含3张补充页。
 
-`publication.json` 控制允许发布的讲次，不能根据源文件存在与否自动发布。第一至五讲已列入 `published_lectures`；`notes_only_lectures: []`，第五讲课件已获发布授权。`published_pdf_lectures: [1, 2, 3, 4]` 单独控制 PDF 范围。`standalone_notes_lectures: [4, 5]` 标记独立 HTML；`standalone_notes_sources` 为第五讲指定实际源文件。
+`publication.json` 控制允许发布的讲次，不能根据源文件存在与否自动发布。第一至五讲已列入 `published_lectures`；`notes_only_lectures: []`，第五讲课件已获发布授权。`published_pdf_lectures: [1, 2, 3, 4, 5]` 单独控制 PDF 范围。`standalone_notes_lectures: [4, 5]` 标记独立 HTML；`standalone_notes_sources` 为第五讲指定实际源文件。
 
 本目录是独立的发布项目；课程写作继续使用相邻的 `quantum-notes/` 和 `quantum-slides/`。网站构建不重新渲染课程，也不修改课程原稿。修订原稿后先用课程已有流程更新 HTML，再运行：
 
@@ -52,3 +52,5 @@ https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-
 ## 验证范围
 
 `check.py` 检查所有 HTML/CSS 中静态本地引用、入口、子目录可迁移性与单文件大小；不将第三方站点的当前可达性当作已验证。浏览器验收记录保留于内部 qa 目录，不部署。
+
+仅更新第五讲PDF及首页下载入口：`python3 scripts/build.py --update-pdfs 5`。源文件为上一级 `output/pdf/第五讲课件.pdf`；保留其他课件与讲义版本。
