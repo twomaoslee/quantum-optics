@@ -54,6 +54,16 @@ for required in ['index.html','notes/index.html','.nojekyll'] + [f'downloads/lec
 for item in json.loads((DIST/'notes/search.json').read_text()):
     if withheld(item.get('href', '')):
         errors.append('Unreleased lecture in search: '+item['href'])
+homepage = (DIST/'index.html').read_text()
+for number in PUBLISHED_SLIDES:
+    if f'href="slides/lecture{number:02d}.html"' not in homepage:
+        errors.append(f'Missing homepage slide entry: lecture {number}')
+for number in PUBLISHED_SLIDES - PUBLISHED:
+    if f'href="notes/lecture{number:02d}.html"' in homepage:
+        errors.append(f'Unreleased notes entry: lecture {number}')
+    curriculum = re.search(rf'<li><span class="num">{number:02d}</span>.*?</li>', homepage)
+    if not curriculum or '课件已发布' not in curriculum[0]:
+        errors.append(f'Incorrect slides-only curriculum status: lecture {number}')
 # Partial releases preserve chapter bodies, but must share one current sidebar.
 class Sidebar(HTMLParser):
     def __init__(self):

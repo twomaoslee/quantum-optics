@@ -200,6 +200,30 @@ def sync_notes_sidebar(directory, source):
             raise RuntimeError(f'Expected one sidebar in {page.name}, found {count}')
         page.write_text(text)
 
+def slide_delivery_files(source, number):
+    """Bind self-contained slide publication to the accepted source version."""
+    name = f'lecture{number:02d}'
+    manifest = json.loads((source/'qa'/name/'delivery-manifest.json').read_text())
+    files = manifest.get('files')
+    if files is None:
+        # Self-contained decks have a hash-bound review rather than an asset list.
+        review_dir = source/'qa'/name
+        acceptance = json.loads((review_dir/manifest['acceptance']).read_text())
+        digest = hashlib.sha256((source/f'{name}.html').read_bytes()).hexdigest()
+        if digest != manifest['html_sha256'] or digest != acceptance['html_sha256']:
+            raise SystemExit(f'Reviewed HTML changed: {name}')
+        dimensions = acceptance['required_dimensions']
+        if not dimensions or any(value != 'passed' for value in dimensions.values()):
+            raise SystemExit(f'Incomplete slide acceptance: {name}')
+        for relative, expected in acceptance['sources'].items():
+            if hashlib.sha256((source/relative).read_bytes()).hexdigest() != expected:
+                raise SystemExit(f'Reviewed source changed: {relative}')
+        for relative in acceptance['evidence'].values():
+            if not (review_dir/relative).is_file():
+                raise SystemExit(f'Missing acceptance evidence: {relative}')
+        files = [name+'.html']
+    return files
+
 def update_slides(root, numbers):
     """Publish packaged slides without changing already published note bodies."""
     if not set(numbers) <= PUBLISHED_SLIDES:
@@ -209,8 +233,8 @@ def update_slides(root, numbers):
     for number in numbers:
         name = f'lecture{number:02d}'
         source = root/'quantum-slides'
-        manifest = json.loads((source/'qa'/name/'delivery-manifest.json').read_text())
-        for relative in manifest['files']:
+        files = slide_delivery_files(source, number)
+        for relative in files:
             path = Path(relative)
             # Delivery manifests also track authoring and QA sources. Publish only
             # the main classroom HTML/CSS and browser assets, never those sources.
@@ -228,10 +252,27 @@ def update_slides(root, numbers):
                 target.write_text(content)
             else:
                 shutil.copy2(source/path, target)
-        pattern = r'<article class="lecture">(?:(?!</article>).)*href="notes/'+name+r'\.html".*?</article>'
+        pattern = r'<article class="lecture">(?:(?!</article>).)*href="(?:notes|slides)/'+name+r'\.html".*?</article>'
         match = re.search(pattern, text, re.S)
         if not match:
-            raise SystemExit(f'Missing homepage entry for {name}')
+            if number in PUBLISHED:
+                raise SystemExit(f'Missing homepage entry for {name}')
+            title = re.search(r'^### 第'+str(number)+r'讲[　 ]+([^\n{]+)',
+                              (root/'quantum-notes/outline.qmd').read_text(), re.M)[1].strip()
+            card = (f'<article class="lecture"><div class="lecture-number" aria-hidden="true">{number:02d}</div>'
+                    f'<div><h3><a href="slides/{name}.html"><span class="sr-only">第 {number} 讲：</span>{escape(title)}</a></h3>'
+                    '<p>课堂课件与两处互动演示。</p><p class="revision">资料更新：2000-01-01</p></div>'
+                    f'<div class="actions">{slide_link(number)}</div></article>')
+            marker = '</section></div>\n<section class="curriculum"'
+            if text.count(marker) != 1:
+                raise SystemExit('Missing homepage materials insertion point.')
+            text = text.replace(marker, card+marker, 1)
+            match = re.search(pattern, text, re.S)
+            curriculum = rf'(<li><span class="num">{number:02d}</span><span class="lecture-title">).*?(</span><span class="status">).*?(</span></li>)'
+            text, count = re.subn(curriculum, lambda m: m[1]+f'<a href="slides/{name}.html">{escape(title)}</a>'+m[2]+'课件已发布'+m[3], text)
+            if count != 1:
+                raise SystemExit(f'Missing curriculum entry for {name}')
+            match = re.search(pattern, text, re.S)
         card = match[0]
         if f'href="slides/{name}.html"' not in card:
             link = slide_link(number)
@@ -241,6 +282,8 @@ def update_slides(root, numbers):
         changed = datetime.fromtimestamp((source/f'{name}.html').stat().st_mtime).strftime('%Y-%m-%d')
         card = re.sub(r'资料更新：\d{4}-\d{2}-\d{2}', '资料更新：'+changed, card)
         text = text[:match.start()] + card + text[match.end():]
+    text = re.sub(r'目前可阅读第 [^<]+讲 · 后续资料在授课后发布',
+                  '按讲次选择已发布的讲义与课件 · 后续资料在授课后发布', text)
     homepage.write_text(text)
     update_material_links()
 
@@ -414,6 +457,8 @@ def main():
     for path in required:
         if not path.is_file():
             raise SystemExit(f'Missing source: {path.name}; render the course before publishing.')
+    for number in CONFIG.get('slides_only_lectures', []):
+        slide_delivery_files(slides, number)
     # Only replace this script's generated output directory, never course sources.
     if DIST.exists():
         shutil.rmtree(DIST)
@@ -451,7 +496,7 @@ def main():
             text = '\n'.join(line for line in text.splitlines() if not re.search(r'qa/|scripts/|提示词|核验记录|未对外发布|原始生成文件', line)) + '\n'
         path.write_text(text)
     for name in [f'lecture{n:02d}{suffix}.html' for n in sorted(PUBLISHED_SLIDES if not notes_only_update else set()) for suffix in ('', '-backup')]:
-        if not withheld(name) and (slides/name).is_file():
+        if not withheld(Path('slides')/name) and (slides/name).is_file():
             text = (slides/name).read_text()
             text = re.sub(r'<aside\b[^>]*class="[^"]*\bnotes\b[^"]*"[^>]*>.*?</aside>', '', text, flags=re.S)
             (DIST/'slides'/name).write_text(text)
@@ -522,14 +567,15 @@ def main():
         2: (titles[2], '从偏振实验出发，用量子态预测测量，理解筛选、相位调控与不同物理系统中的量子比特。'),
         3: (titles[3], '从量子态的演化出发，学习共振驱动、脉冲时长与相位调控，制备并检验目标态，理解单比特量子门。'),
         4: (titles[4], '第四讲讲义、课堂课件与互动演示。'),
-        5: (titles[5], '在线讲义与互动演示。')
+        5: (titles[5], '在线讲义与互动演示。'),
+        6: (titles[6], '课堂课件与两处互动演示。')
     }
     rows=[]
     for number,(title,summary) in summaries.items():
-        if number not in PUBLISHED:
+        if number not in (PUBLISHED | PUBLISHED_SLIDES):
             continue
         name=f'lecture{number:02d}'
-        times = [note_sources[number].stat().st_mtime]
+        times = [note_sources[number].stat().st_mtime] if number in PUBLISHED else []
         slide_links = ''
         if number in PUBLISHED_SLIDES:
             times.append((slides/f'{name}.html').stat().st_mtime)
@@ -537,7 +583,9 @@ def main():
             if number in PUBLISHED_PDFS:
                 slide_links += f'<a class="download" href="downloads/{name}-slides.pdf" download>课件 PDF · {pdfs[number][1]} 页 · {pdfs[number][0].stat().st_size/1_000_000:.1f} MB ↓</a>'
         changed=datetime.fromtimestamp(max(times)).strftime('%Y-%m-%d')
-        rows.append(f'''<article class="lecture"><div class="lecture-number" aria-hidden="true">{number:02d}</div><div><h3><a href="notes/{name}.html"><span class="sr-only">第 {number} 讲：</span>{title}</a></h3><p>{summary}</p><p class="revision">资料更新：{changed}</p></div><div class="actions"><a class="action primary" href="notes/{name}.html" aria-label="阅读第{number}讲讲义">在线讲义</a>{slide_links}</div></article>''')
+        entry = 'notes' if number in PUBLISHED else 'slides'
+        note_link = f'<a class="action primary" href="notes/{name}.html" aria-label="阅读第{number}讲讲义">在线讲义</a>' if number in PUBLISHED else ''
+        rows.append(f'''<article class="lecture"><div class="lecture-number" aria-hidden="true">{number:02d}</div><div><h3><a href="{entry}/{name}.html"><span class="sr-only">第 {number} 讲：</span>{title}</a></h3><p>{summary}</p><p class="revision">资料更新：{changed}</p></div><div class="actions">{note_link}{slide_links}</div></article>''')
     blocks=[]
     for unit_number, (title,lectures) in enumerate(units, 1):
         rows2=[]
@@ -546,6 +594,9 @@ def main():
             short=summaries[n][0] if n in summaries else name
             content=f'<a href="notes/lecture{n:02d}.html">{escape(short)}</a>' if n in PUBLISHED else escape(short)
             status = '可阅读' if n in PUBLISHED else ('课题汇报' if n == 15 else '授课后发布')
+            if n in PUBLISHED_SLIDES and n not in PUBLISHED:
+                content = f'<a href="slides/lecture{n:02d}.html">{escape(short)}</a>'
+                status = '课件已发布'
             rows2.append(f'<li><span class="num">{n:02d}</span><span class="lecture-title">{content}</span><span class="status">{status}</span></li>')
         first, last = int(lectures[0][0]), int(lectures[-1][0])
         blocks.append(f'<section class="unit" aria-labelledby="unit-{unit_number}"><div class="unit-heading"><h3 id="unit-{unit_number}">{escape(title)}</h3><p class="unit-range">第 {first}—{last} 讲</p></div><ol start="{first}">{"".join(rows2)}</ol></section>')

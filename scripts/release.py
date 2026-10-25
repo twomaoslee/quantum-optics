@@ -6,7 +6,8 @@ import re
 CONFIG = json.loads((Path(__file__).resolve().parents[1] / 'publication.json').read_text())
 PUBLISHED = set(CONFIG['published_lectures'])
 NOTES_ONLY = set(CONFIG.get('notes_only_lectures', []))
-PUBLISHED_SLIDES = PUBLISHED - NOTES_ONLY
+SLIDES_ONLY = set(CONFIG.get('slides_only_lectures', []))
+PUBLISHED_SLIDES = (PUBLISHED | SLIDES_ONLY) - NOTES_ONLY
 STANDALONE_NOTES = set(CONFIG.get('standalone_notes_lectures', NOTES_ONLY))
 PUBLISHED_PDFS = set(CONFIG.get('published_pdf_lectures', PUBLISHED_SLIDES))
 AFTER_CLASS = set(CONFIG['after_class_lectures'])
