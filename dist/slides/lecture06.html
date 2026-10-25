@@ -888,9 +888,9 @@ body:has(#l06-cover.present) .reveal .slide-number{display:none!important}
 .reveal .l06 .l6-controls button:disabled{opacity:.45;cursor:default}
 .reveal .l06 .l6-controls :focus-visible{outline:3px solid #a86927;outline-offset:2px}
 .reveal .l06 .l6-controls select{width:300px}
-.reveal .l06 .l6-phase-plot{position:absolute;left:30px;top:85px;width:445px;height:350px}
+.reveal .l06 .l6-phase-plot{position:absolute;left:30px;top:75px;width:445px;height:350px}
 .reveal .l06 .l6-phase-plot svg{display:block;width:100%;height:100%}
-.reveal .l06 .l6-legend{position:absolute;left:46px;top:418px;font-size:30px;line-height:1.35}
+.reveal .l06 .l6-legend{position:absolute;left:46px;top:394px;font-size:30px;line-height:1.35}
 .reveal .l06 .l6-phase-result{position:absolute;left:540px;top:83px;width:648px}
 .reveal .l06 .l6-line{margin:9px 0}.reveal .l06 .l6-line strong{color:#0070c0;margin-left:8px}
 .reveal .l06 .l6-formula{margin:12px 0}.reveal .l06 .l6-number{color:#0070c0;font-size:30px;font-variant-numeric:tabular-nums}
@@ -917,6 +917,13 @@ body:has(#l06-cover.present) .reveal .slide-number{display:none!important}
 .reveal #l06-joint-x :is(td,th){padding-top:5px;padding-bottom:5px}
 .reveal #l06-entropy-curve .s-body{gap:10px}
 .reveal #l06-entropy-curve :is(td,th){padding-top:6px;padding-bottom:6px}
+
+.reveal #l06-entropy-examples .panel{display:grid;grid-template-rows:48px 72px 72px 44px 46px;gap:10px}
+.reveal #l06-entropy-examples .panel>*{margin:0}
+.reveal #l06-entropy-examples .panel>.equation{display:flex;align-items:center;justify-content:center}
+.reveal #l06-pure-condition .pair .panel{display:grid;grid-template-rows:41px 76px 84px;gap:8px}
+.reveal #l06-pure-condition .pair .panel>*{margin:0}
+.reveal #l06-pure-condition .pair .panel>.equation{display:flex;align-items:center;justify-content:center}
 @media print{.l6-controls{visibility:hidden}.reveal .l06 .s-body{print-color-adjust:exact}}
 </style>
   <style type="text/css">.reveal
@@ -1428,14 +1435,14 @@ margin-right: 0; }
 <nav class="s-nav"><span class="lecture-label">量子光学 / 06　密度矩阵</span><a href="#/l06-nav-density" class>密度矩阵与相干性</a><a href="#/l06-nav-trace" class>偏迹与局部状态</a><a href="#/l06-nav-entropy" class>纯态纠缠与局部熵</a><a href="#/l06-nav-environment" class>环境记录与退相干</a></nav><div class="s-body"><ol class="guide-steps"><li><span class="guide-number">01</span><div><h3>密度矩阵与相干性</h3><p class>比较叠加态与随机混合，用密度矩阵统一计算测量概率。</p><p class>相位分散时，多轮平均的相干项可以减弱。</p></div></li><li><span class="guide-number">02</span><div><h3>偏迹与局部状态</h3><p class>从联合概率求和，得到只描述Bob的约化密度矩阵。</p><p class>整体纯态可以给出混合的局部状态。</p></div></li><li><span class="guide-number">03</span><div><h3>纯态纠缠与局部熵</h3><p class>比较一族联合纯态，用局部本征值计算熵。</p><p class>整体为纯态时，局部熵可以衡量双方纠缠。</p></div></li><li><span class="guide-number">04</span><div><h3>环境记录与退相干</h3><p class>计算环境记录怎样改变系统的相干项。</p><p class>换测量基可以看出局部干涉的减弱。</p></div></li></ol></div>
 
 </section>
-<section id="l06-nav-density" class="slide level2 lecture-slide l06 section-index">
-<h2>目录：密度矩阵与相干性</h2>
-<nav class="s-nav"><span class="lecture-label">量子光学 / 06　密度矩阵</span><a href="#/l06-nav-density" class="active">密度矩阵与相干性</a><a href="#/l06-nav-trace" class>偏迹与局部状态</a><a href="#/l06-nav-entropy" class>纯态纠缠与局部熵</a><a href="#/l06-nav-environment" class>环境记录与退相干</a></nav><div class="s-body"><div class="section-index-layout"><div class="section-index-title"><div class="section-index-cn">目录</div><div class="section-index-en">CONTENTS</div></div><nav class="section-index-list"><a class="section-entry is-current" href="#/l06-nav-density"><span class="section-number">01</span>密度矩阵与相干性</a><a class="section-entry " href="#/l06-nav-trace"><span class="section-number">02</span>偏迹与局部状态</a><a class="section-entry " href="#/l06-nav-entropy"><span class="section-number">03</span>纯态纠缠与局部熵</a><a class="section-entry " href="#/l06-nav-environment"><span class="section-number">04</span>环境记录与退相干</a></nav></div><p class="section-bridge">先比较两种单比特状态：同测Z各半，换测量基后还一样吗？</p></div>
-
-</section>
 <section id="l06-opening" class="slide level2 lecture-slide l06 content-slide">
 <h2>Bell态中，Bob自己的状态怎样写？</h2>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 06　密度矩阵</span><a href="#/l06-nav-density" class="active">密度矩阵与相干性</a><a href="#/l06-nav-trace" class>偏迹与局部状态</a><a href="#/l06-nav-entropy" class>纯态纠缠与局部熵</a><a href="#/l06-nav-environment" class>环境记录与退相干</a></nav><div class="s-body"><div class="equation"><span class="math display">\[|\Phi^+\rangle_{AB}=\frac{|00\rangle+|11\rangle}{\sqrt2}\]</span></div><div class="pair "><div><div class="panel "><h3>合并双方的记录</h3><p class>双方同测Z，只出现00、11，各占一半。</p></div></div><div><div class="panel "><h3>只保留Bob的记录</h3><p class>Bob的0、1结果各占一半。</p></div></div></div><div class="panel question-box"><h3>思考</h3><p class>整体AB是一个纯态。只拿到Bob的量子比特，应当用什么描述它？</p></div></div>
+
+</section>
+<section id="l06-nav-density" class="slide level2 lecture-slide l06 section-index">
+<h2>目录：密度矩阵与相干性</h2>
+<nav class="s-nav"><span class="lecture-label">量子光学 / 06　密度矩阵</span><a href="#/l06-nav-density" class="active">密度矩阵与相干性</a><a href="#/l06-nav-trace" class>偏迹与局部状态</a><a href="#/l06-nav-entropy" class>纯态纠缠与局部熵</a><a href="#/l06-nav-environment" class>环境记录与退相干</a></nav><div class="s-body"><div class="section-index-layout"><div class="section-index-title"><div class="section-index-cn">目录</div><div class="section-index-en">CONTENTS</div></div><nav class="section-index-list"><a class="section-entry is-current" href="#/l06-nav-density"><span class="section-number">01</span>密度矩阵与相干性</a><a class="section-entry " href="#/l06-nav-trace"><span class="section-number">02</span>偏迹与局部状态</a><a class="section-entry " href="#/l06-nav-entropy"><span class="section-number">03</span>纯态纠缠与局部熵</a><a class="section-entry " href="#/l06-nav-environment"><span class="section-number">04</span>环境记录与退相干</a></nav></div><p class="section-bridge">先比较两台单比特制备装置，找一个能统一描述纯态和随机混合的矩阵。</p></div>
 
 </section>
 <section id="l06-compare-question" class="slide level2 lecture-slide l06 content-slide">
@@ -1478,7 +1485,7 @@ margin-right: 0; }
 </section>
 <section id="l06-density-definition" class="slide level2 lecture-slide l06 content-slide">
 <h2>密度矩阵统一描述纯态和概率混合</h2>
-<nav class="s-nav"><span class="lecture-label">量子光学 / 06　密度矩阵</span><a href="#/l06-nav-density" class="active">密度矩阵与相干性</a><a href="#/l06-nav-trace" class>偏迹与局部状态</a><a href="#/l06-nav-entropy" class>纯态纠缠与局部熵</a><a href="#/l06-nav-environment" class>环境记录与退相干</a></nav><div class="s-body"><div class="pair "><div><div class="panel "><h3>每轮都是同一纯态</h3><div class="equation"><span class="math display">\[\rho=|\psi\rangle\langle\psi|\]</span></div><p class>列向量与对应行向量相乘。</p></div></div><div><div class="panel "><h3>按概率选择纯态</h3><div class="equation"><span class="math display">\[\rho=\sum_i p_i|\psi_i\rangle\langle\psi_i|\]</span></div><p class><span class="math inline">\(p_i\ge0,\quad\sum_i p_i=1\)</span>。</p></div></div></div><div class="fragment" data-fragment-index="0"><div class="panel "><p class>例如<span class="math inline">\(|0\rangle=(1,0)^T\)</span>，于是</p><div class="equation"><span class="math display">\[|0\rangle\langle0|=\begin{pmatrix}1\\0\end{pmatrix}\begin{pmatrix}1&amp;0\end{pmatrix}=\begin{pmatrix}1&amp;0\\0&amp;0\end{pmatrix}\]</span></div></div></div><div class="fragment" data-fragment-index="1"><div class="takeaway">当某一个分支的概率为1，混合的表达式就回到纯态。</div></div></div>
+<nav class="s-nav"><span class="lecture-label">量子光学 / 06　密度矩阵</span><a href="#/l06-nav-density" class="active">密度矩阵与相干性</a><a href="#/l06-nav-trace" class>偏迹与局部状态</a><a href="#/l06-nav-entropy" class>纯态纠缠与局部熵</a><a href="#/l06-nav-environment" class>环境记录与退相干</a></nav><div class="s-body"><div class="pair "><div><div class="panel "><h3>每轮都是同一纯态</h3><div class="equation"><span class="math display">\[\rho=|\psi\rangle\langle\psi|\]</span></div><p class>列向量与其共轭转置相乘。</p></div></div><div><div class="panel "><h3>按概率选择纯态</h3><div class="equation"><span class="math display">\[\rho=\sum_i p_i|\psi_i\rangle\langle\psi_i|\]</span></div><p class><span class="math inline">\(p_i\ge0,\quad\sum_i p_i=1\)</span>。</p></div></div></div><div class="fragment" data-fragment-index="0"><div class="panel "><p class>例如<span class="math inline">\(|0\rangle=(1,0)^T\)</span>，于是</p><div class="equation"><span class="math display">\[|0\rangle\langle0|=\begin{pmatrix}1\\0\end{pmatrix}\begin{pmatrix}1&amp;0\end{pmatrix}=\begin{pmatrix}1&amp;0\\0&amp;0\end{pmatrix}\]</span></div></div></div><div class="fragment" data-fragment-index="1"><div class="takeaway">当某一个分支的概率为1，混合的表达式就回到纯态。</div></div></div>
 
 </section>
 <section id="l06-two-matrices" class="slide level2 lecture-slide l06 content-slide">
@@ -1630,57 +1637,67 @@ margin-right: 0; }
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th">联合X结果</th>
+<th data-quarto-table-cell-role="th">Alice结果</th>
+<th data-quarto-table-cell-role="th">Bob结果</th>
 <th data-quarto-table-cell-role="th">概率</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="math inline">\(++\)</span></td>
+<td><span class="math inline">\(+\)</span></td>
+<td><span class="math inline">\(+\)</span></td>
 <td><span class="math inline">\(1/2\)</span></td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(+-\)</span></td>
+<td><span class="math inline">\(+\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td><span class="math inline">\(-+\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
+<td><span class="math inline">\(+\)</span></td>
 <td>0</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(--\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
 <td><span class="math inline">\(1/2\)</span></td>
 </tr>
 </tbody>
 </table>
-</div></div><div><div class="panel "><h3>经典关联混态</h3><p class>每个乘积分支测X，双方各半。</p>
+</div></div><div><div class="panel "><h3>经典关联混态</h3><p class><span>分支内结果独立：<span class="math inline">\(1/2\times1/2=1/4\)</span>。<br>两个分支给出相同概率。</span></p>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th">联合X结果</th>
+<th data-quarto-table-cell-role="th">Alice结果</th>
+<th data-quarto-table-cell-role="th">Bob结果</th>
 <th data-quarto-table-cell-role="th">概率</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="math inline">\(++\)</span></td>
+<td><span class="math inline">\(+\)</span></td>
+<td><span class="math inline">\(+\)</span></td>
 <td><span class="math inline">\(1/4\)</span></td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(+-\)</span></td>
+<td><span class="math inline">\(+\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
 <td><span class="math inline">\(1/4\)</span></td>
 </tr>
 <tr class="odd">
-<td><span class="math inline">\(-+\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
+<td><span class="math inline">\(+\)</span></td>
 <td><span class="math inline">\(1/4\)</span></td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(--\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
 <td><span class="math inline">\(1/4\)</span></td>
 </tr>
 </tbody>
 </table>
-</div></div></div><div class="fragment" data-fragment-index="0"><div class="takeaway">Bob单独的正、负结果仍各半；双方同一轮的关联不同。</div></div></div>
+</div></div></div><div class="fragment" data-fragment-index="0"><div class="takeaway">Bell态中，同一轮两人同正或同负；Bob单独的正、负结果仍各半。</div></div></div>
 
 </section>
 <section id="l06-first-summary" class="slide level2 lecture-slide l06 content-slide">
@@ -1708,7 +1725,7 @@ margin-right: 0; }
 </tr>
 </tbody>
 </table>
-<div class="takeaway">局部混合不直接证明整体纠缠，还要知道整体是否为纯态。</div><p class>第二课时从联合纯态出发，计算局部混合程度怎样随纠缠改变。</p></div>
+<div class="takeaway">Bell态有纠缠，经典关联混态无纠缠；Bob的局部状态却同为<span class="math inline">\(I/2\)</span>。</div><p class>仅凭局部混合程度无法判断纠缠。下一课时限定整体为纯态，再比较。</p></div>
 
 </section>
 <section id="l06-nav-entropy" class="slide level2 lecture-slide l06 section-index">
@@ -1765,7 +1782,7 @@ margin-right: 0; }
 </section>
 <section id="l06-entropy-curve" class="slide level2 lecture-slide l06 curve-slide">
 <h2>本征值各半时，Bob的局部熵最大</h2>
-<nav class="s-nav"><span class="lecture-label">量子光学 / 06　密度矩阵</span><a href="#/l06-nav-density" class>密度矩阵与相干性</a><a href="#/l06-nav-trace" class>偏迹与局部状态</a><a href="#/l06-nav-entropy" class="active">纯态纠缠与局部熵</a><a href="#/l06-nav-environment" class>环境记录与退相干</a></nav><div class="s-body"><p class>仍考察<span class="math inline">\(|\psi_p\rangle=\sqrt p\,|00\rangle+\sqrt{1-p}\,|11\rangle\)</span>。</p><p class>两侧均有<span class="math inline">\(\rho_A=\rho_B=\mathrm{diag}(p,1-p)\)</span>，本征值为<span class="math inline">\(p,1-p\)</span>。</p><div class="equation"><span class="math display">\[S(\rho_B)=-p\log_2p-(1-p)\log_2(1-p)\]</span></div><div class="pair "><div><div class="plot-label"><span class="math inline">\(S(\rho_B)\ (\mathrm{bit})\)</span></div><svg viewbox="0 0 660 330" role="img" aria-label="二元熵理论曲线，p为0和1时为零，一半时为1 bit" class="entropy-plot"><path d="M65 270H620M65 270V30" stroke="#9db4c7" stroke-width="2" fill="none" /><path d="M65.000,270.000 L67.750,260.009 L70.500,252.226 L73.250,245.281 L76.000,238.883 L78.750,232.895 L81.500,227.234 L84.250,221.847 L87.000,216.696 L89.750,211.752 L92.500,206.993 L95.250,202.401 L98.000,197.962 L100.750,193.664 L103.500,189.497 L106.250,185.451 L109.000,181.521 L111.750,177.698 L114.500,173.977 L117.250,170.353 L120.000,166.821 L122.750,163.377 L125.500,160.018 L128.250,156.741 L131.000,153.541 L133.750,150.416 L136.500,147.364 L139.250,144.382 L142.000,141.467 L144.750,138.619 L147.500,135.835 L150.250,133.113 L153.000,130.452 L155.750,127.850 L158.500,125.305 L161.250,122.817 L164.000,120.383 L166.750,118.003 L169.500,115.676 L172.250,113.401 L175.000,111.176 L177.750,109.000 L180.500,106.874 L183.250,104.795 L186.000,102.763 L188.750,100.778 L191.500,98.838 L194.250,96.942 L197.000,95.091 L199.750,93.284 L202.500,91.519 L205.250,89.796 L208.000,88.116 L210.750,86.476 L213.500,84.878 L216.250,83.319 L219.000,81.801 L221.750,80.322 L224.500,78.881 L227.250,77.480 L230.000,76.116 L232.750,74.790 L235.500,73.502 L238.250,72.251 L241.000,71.036 L243.750,69.858 L246.500,68.716 L249.250,67.610 L252.000,66.540 L254.750,65.505 L257.500,64.505 L260.250,63.540 L263.000,62.610 L265.750,61.714 L268.500,60.852 L271.250,60.025 L274.000,59.231 L276.750,58.471 L279.500,57.744 L282.250,57.051 L285.000,56.391 L287.750,55.764 L290.500,55.170 L293.250,54.609 L296.000,54.080 L298.750,53.584 L301.500,53.121 L304.250,52.690 L307.000,52.291 L309.750,51.924 L312.500,51.590 L315.250,51.287 L318.000,51.017 L320.750,50.778 L323.500,50.572 L326.250,50.397 L329.000,50.254 L331.750,50.143 L334.500,50.063 L337.250,50.016 L340.000,50.000 L342.750,50.016 L345.500,50.063 L348.250,50.143 L351.000,50.254 L353.750,50.397 L356.500,50.572 L359.250,50.778 L362.000,51.017 L364.750,51.287 L367.500,51.590 L370.250,51.924 L373.000,52.291 L375.750,52.690 L378.500,53.121 L381.250,53.584 L384.000,54.080 L386.750,54.609 L389.500,55.170 L392.250,55.764 L395.000,56.391 L397.750,57.051 L400.500,57.744 L403.250,58.471 L406.000,59.231 L408.750,60.025 L411.500,60.852 L414.250,61.714 L417.000,62.610 L419.750,63.540 L422.500,64.505 L425.250,65.505 L428.000,66.540 L430.750,67.610 L433.500,68.716 L436.250,69.858 L439.000,71.036 L441.750,72.251 L444.500,73.502 L447.250,74.790 L450.000,76.116 L452.750,77.480 L455.500,78.881 L458.250,80.322 L461.000,81.801 L463.750,83.319 L466.500,84.878 L469.250,86.476 L472.000,88.116 L474.750,89.796 L477.500,91.519 L480.250,93.284 L483.000,95.091 L485.750,96.942 L488.500,98.838 L491.250,100.778 L494.000,102.763 L496.750,104.795 L499.500,106.874 L502.250,109.000 L505.000,111.176 L507.750,113.401 L510.500,115.676 L513.250,118.003 L516.000,120.383 L518.750,122.817 L521.500,125.305 L524.250,127.850 L527.000,130.452 L529.750,133.113 L532.500,135.835 L535.250,138.619 L538.000,141.467 L540.750,144.382 L543.500,147.364 L546.250,150.416 L549.000,153.541 L551.750,156.741 L554.500,160.018 L557.250,163.377 L560.000,166.821 L562.750,170.353 L565.500,173.977 L568.250,177.698 L571.000,181.521 L573.750,185.451 L576.500,189.497 L579.250,193.664 L582.000,197.962 L584.750,202.401 L587.500,206.993 L590.250,211.752 L593.000,216.696 L595.750,221.847 L598.500,227.234 L601.250,232.895 L604.000,238.883 L606.750,245.281 L609.500,252.226 L612.250,260.009 L615.000,270.000 " stroke="#0070c0" stroke-width="4" fill="none" /><circle cx="65" cy="270" r="6" fill="#0070c0"></circle><text x="65" y="310" text-anchor="middle">0</text><circle cx="340.0" cy="50" r="6" fill="#0070c0"></circle><text x="340.0" y="310" text-anchor="middle">1/2</text><circle cx="615" cy="270" r="6" fill="#0070c0"></circle><text x="615" y="310" text-anchor="middle">1</text><text x="35" y="278">0</text><text x="35" y="58">1</text><text x="630" y="280">p</text></svg></div><div><div class="panel ">
+<nav class="s-nav"><span class="lecture-label">量子光学 / 06　密度矩阵</span><a href="#/l06-nav-density" class>密度矩阵与相干性</a><a href="#/l06-nav-trace" class>偏迹与局部状态</a><a href="#/l06-nav-entropy" class="active">纯态纠缠与局部熵</a><a href="#/l06-nav-environment" class>环境记录与退相干</a></nav><div class="s-body"><p class>仍考察<span class="math inline">\(|\psi_p\rangle=\sqrt p\,|00\rangle+\sqrt{1-p}\,|11\rangle\)</span>。</p><p class>两侧偏迹均得<span class="math inline">\(\rho_A=\rho_B=\mathrm{diag}(p,1-p)\)</span>：对角矩阵作用于0、1基矢，分别乘上<span class="math inline">\(p,1-p\)</span>。</p><div class="equation"><span class="math display">\[S(\rho_B)=-p\log_2p-(1-p)\log_2(1-p)\]</span></div><div class="pair "><div><div class="plot-label"><span class="math inline">\(S(\rho_B)\ (\mathrm{bit})\)</span></div><svg viewbox="0 0 660 330" role="img" aria-label="二元熵理论曲线，p为0和1时为零，一半时为1 bit" class="entropy-plot"><path d="M65 270H620M65 270V30" stroke="#9db4c7" stroke-width="2" fill="none" /><path d="M65.000,270.000 L67.750,260.009 L70.500,252.226 L73.250,245.281 L76.000,238.883 L78.750,232.895 L81.500,227.234 L84.250,221.847 L87.000,216.696 L89.750,211.752 L92.500,206.993 L95.250,202.401 L98.000,197.962 L100.750,193.664 L103.500,189.497 L106.250,185.451 L109.000,181.521 L111.750,177.698 L114.500,173.977 L117.250,170.353 L120.000,166.821 L122.750,163.377 L125.500,160.018 L128.250,156.741 L131.000,153.541 L133.750,150.416 L136.500,147.364 L139.250,144.382 L142.000,141.467 L144.750,138.619 L147.500,135.835 L150.250,133.113 L153.000,130.452 L155.750,127.850 L158.500,125.305 L161.250,122.817 L164.000,120.383 L166.750,118.003 L169.500,115.676 L172.250,113.401 L175.000,111.176 L177.750,109.000 L180.500,106.874 L183.250,104.795 L186.000,102.763 L188.750,100.778 L191.500,98.838 L194.250,96.942 L197.000,95.091 L199.750,93.284 L202.500,91.519 L205.250,89.796 L208.000,88.116 L210.750,86.476 L213.500,84.878 L216.250,83.319 L219.000,81.801 L221.750,80.322 L224.500,78.881 L227.250,77.480 L230.000,76.116 L232.750,74.790 L235.500,73.502 L238.250,72.251 L241.000,71.036 L243.750,69.858 L246.500,68.716 L249.250,67.610 L252.000,66.540 L254.750,65.505 L257.500,64.505 L260.250,63.540 L263.000,62.610 L265.750,61.714 L268.500,60.852 L271.250,60.025 L274.000,59.231 L276.750,58.471 L279.500,57.744 L282.250,57.051 L285.000,56.391 L287.750,55.764 L290.500,55.170 L293.250,54.609 L296.000,54.080 L298.750,53.584 L301.500,53.121 L304.250,52.690 L307.000,52.291 L309.750,51.924 L312.500,51.590 L315.250,51.287 L318.000,51.017 L320.750,50.778 L323.500,50.572 L326.250,50.397 L329.000,50.254 L331.750,50.143 L334.500,50.063 L337.250,50.016 L340.000,50.000 L342.750,50.016 L345.500,50.063 L348.250,50.143 L351.000,50.254 L353.750,50.397 L356.500,50.572 L359.250,50.778 L362.000,51.017 L364.750,51.287 L367.500,51.590 L370.250,51.924 L373.000,52.291 L375.750,52.690 L378.500,53.121 L381.250,53.584 L384.000,54.080 L386.750,54.609 L389.500,55.170 L392.250,55.764 L395.000,56.391 L397.750,57.051 L400.500,57.744 L403.250,58.471 L406.000,59.231 L408.750,60.025 L411.500,60.852 L414.250,61.714 L417.000,62.610 L419.750,63.540 L422.500,64.505 L425.250,65.505 L428.000,66.540 L430.750,67.610 L433.500,68.716 L436.250,69.858 L439.000,71.036 L441.750,72.251 L444.500,73.502 L447.250,74.790 L450.000,76.116 L452.750,77.480 L455.500,78.881 L458.250,80.322 L461.000,81.801 L463.750,83.319 L466.500,84.878 L469.250,86.476 L472.000,88.116 L474.750,89.796 L477.500,91.519 L480.250,93.284 L483.000,95.091 L485.750,96.942 L488.500,98.838 L491.250,100.778 L494.000,102.763 L496.750,104.795 L499.500,106.874 L502.250,109.000 L505.000,111.176 L507.750,113.401 L510.500,115.676 L513.250,118.003 L516.000,120.383 L518.750,122.817 L521.500,125.305 L524.250,127.850 L527.000,130.452 L529.750,133.113 L532.500,135.835 L535.250,138.619 L538.000,141.467 L540.750,144.382 L543.500,147.364 L546.250,150.416 L549.000,153.541 L551.750,156.741 L554.500,160.018 L557.250,163.377 L560.000,166.821 L562.750,170.353 L565.500,173.977 L568.250,177.698 L571.000,181.521 L573.750,185.451 L576.500,189.497 L579.250,193.664 L582.000,197.962 L584.750,202.401 L587.500,206.993 L590.250,211.752 L593.000,216.696 L595.750,221.847 L598.500,227.234 L601.250,232.895 L604.000,238.883 L606.750,245.281 L609.500,252.226 L612.250,260.009 L615.000,270.000 " stroke="#0070c0" stroke-width="4" fill="none" /><circle cx="65" cy="270" r="6" fill="#0070c0"></circle><text x="65" y="310" text-anchor="middle">0</text><circle cx="340.0" cy="50" r="6" fill="#0070c0"></circle><text x="340.0" y="310" text-anchor="middle">1/2</text><circle cx="615" cy="270" r="6" fill="#0070c0"></circle><text x="615" y="310" text-anchor="middle">1</text><text x="35" y="278">0</text><text x="35" y="58">1</text><text x="630" y="280">p</text></svg></div><div><div class="panel ">
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -1946,7 +1963,7 @@ margin-right: 0; }
 </section>
 <section id="l06-global-local" class="slide level2 lecture-slide l06 content-slide">
 <h2>整体保持纯态，系统局部仍可变成混态</h2>
-<nav class="s-nav"><span class="lecture-label">量子光学 / 06　密度矩阵</span><a href="#/l06-nav-density" class>密度矩阵与相干性</a><a href="#/l06-nav-trace" class>偏迹与局部状态</a><a href="#/l06-nav-entropy" class>纯态纠缠与局部熵</a><a href="#/l06-nav-environment" class="active">环境记录与退相干</a></nav><div class="s-body"><div class="pair "><div><div class="panel "><h3>整体S与E</h3><div class="equation"><span class="math display">\[|\Psi\rangle_{SE}=\frac{|0\rangle|E_0\rangle+|1\rangle|E_1\rangle}{\sqrt2}\]</span></div><p class>本例相互作用前后，S与E的整体都能用一个归一化态矢量描述。</p></div></div><div><div class="panel "><h3>只观察系统S</h3><div class="equation"><span class="math display">\[\rho_S=\operatorname{Tr}_E|\Psi\rangle\langle\Psi|\]</span></div><p class>环境记录正交时，<span class="math inline">\(\rho_S=I/2\)</span>。</p></div></div></div><div class="fragment" data-fragment-index="0"><div class="takeaway">环境记录可区分时，系统与环境产生纠缠；偏迹给出只测系统的统计。</div></div><div class="fragment" data-fragment-index="1"><p class>Bell态中消去Alice，环境模型中消去环境；记录正交时，都留下<span class="math inline">\(I/2\)</span>。</p></div></div>
+<nav class="s-nav"><span class="lecture-label">量子光学 / 06　密度矩阵</span><a href="#/l06-nav-density" class>密度矩阵与相干性</a><a href="#/l06-nav-trace" class>偏迹与局部状态</a><a href="#/l06-nav-entropy" class>纯态纠缠与局部熵</a><a href="#/l06-nav-environment" class="active">环境记录与退相干</a></nav><div class="s-body"><div class="pair "><div><div class="panel "><h3>整体S与E</h3><div class="equation"><span class="math display">\[|+\rangle_S|E_{\rm in}\rangle\longrightarrow|\Psi\rangle_{SE}\]</span></div><div class="equation"><span class="math display">\[|\Psi\rangle_{SE}=\frac{|0\rangle|E_0\rangle+|1\rangle|E_1\rangle}{\sqrt2}\]</span></div><p class>初态和末态各由一个态矢量描述，整体保持纯态。</p></div></div><div><div class="panel "><h3>只观察系统S</h3><div class="equation"><span class="math display">\[\rho_S=\operatorname{Tr}_E|\Psi\rangle\langle\Psi|\]</span></div><p class>环境记录正交时，<span class="math inline">\(\rho_S=I/2\)</span>。</p></div></div></div><div class="fragment" data-fragment-index="0"><div class="takeaway">环境记录可区分时，系统与环境产生纠缠；偏迹给出只测系统的统计。</div></div><div class="fragment" data-fragment-index="1"><p class>Bell态中消去Alice，环境模型中消去环境；记录正交时，都留下<span class="math inline">\(I/2\)</span>。</p></div></div>
 
 </section>
 <section id="l06-recap" class="slide level2 lecture-slide l06 content-slide">
