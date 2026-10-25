@@ -15,3 +15,5 @@ GitHub Pages 计划使用独立 quantum-optics 仓库，不在此处写 CNAME，
 教师于2026-10-19明确授权导出并发布第五讲课件PDF。标准版一页一张，包含53张主讲页及3张补充页，共56页；两处互动使用核对后的静态结果，合并教学分步。使用 scripts/build.py --update-pdfs 5 发布至下载区；九宫格不在本次发布范围。
 
 教师于2026-10-25明确授权第六讲课件首次发布，含44张主讲页、3张补充页和两处内嵌互动。本次只发布课件，讲义与PDF不在范围内。publication.json 的 slides_only_lectures 单独列出第六讲；published_lectures 仍控制讲义。使用 scripts/build.py --update-slides 6；发布入口验证交付HTML、源稿摘要、逐维度验收状态和证据文件，学生版移除全部讲者备注。首页与课程目录提供课件入口，不新增讲义、PDF或讲义搜索条目。
+
+教师于2026-10-25随后明确授权第六讲讲义首次发布，包含两处内嵌互动、图解和自查。第六讲现列入 published_lectures 与 standalone_notes_lectures，移出 slides_only_lectures；PDF仍不在发布范围。发布源为 quantum-notes/lecture06.html 单文件阅读版，使用 scripts/build.py --update-notes 6；notes_acceptance 绑定已审阅HTML及源稿摘要，并核对理解、物理、视觉、操作与离线验收。同步首页、课程目录、共享讲义导航和搜索，不改变已发布课件及前五讲正文。

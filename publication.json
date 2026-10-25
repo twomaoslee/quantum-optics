@@ -4,14 +4,19 @@
     2,
     3,
     4,
-    5
+    5,
+    6
   ],
   "notes_only_lectures": [],
-  "slides_only_lectures": [6],
+  "slides_only_lectures": [],
   "standalone_notes_lectures": [
     4,
-    5
+    5,
+    6
   ],
+  "notes_acceptance": {
+    "6": "quantum-notes/qa/lecture06/interactions-20261021/acceptance.json"
+  },
   "standalone_notes_sources": {
     "5": "quantum-notes/drafts/lecture05-study/lecture05.html"
   },

@@ -55,6 +55,9 @@ for item in json.loads((DIST/'notes/search.json').read_text()):
     if withheld(item.get('href', '')):
         errors.append('Unreleased lecture in search: '+item['href'])
 homepage = (DIST/'index.html').read_text()
+for number in PUBLISHED:
+    if f'href="notes/lecture{number:02d}.html"' not in homepage:
+        errors.append(f'Missing homepage notes entry: lecture {number}')
 for number in PUBLISHED_SLIDES:
     if f'href="slides/lecture{number:02d}.html"' not in homepage:
         errors.append(f'Missing homepage slide entry: lecture {number}')

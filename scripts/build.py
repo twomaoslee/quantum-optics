@@ -31,10 +31,26 @@ def standalone_source(root, number):
 def standalone_content(root, number):
     """Package a standalone draft with only its reader-facing dependencies."""
     source = standalone_source(root, number)
+    review = CONFIG.get('notes_acceptance', {}).get(str(number))
+    if review:
+        acceptance_path = root/review
+        acceptance = json.loads(acceptance_path.read_text())
+        for dimension in ('understanding', 'physics', 'visuals', 'operation', 'offline_bundle'):
+            if not acceptance['dimensions'].get(dimension, '').startswith('passed'):
+                raise SystemExit(f'Incomplete notes acceptance: {number}, {dimension}')
+        if source.relative_to(root).as_posix() not in acceptance['sha256']:
+            raise SystemExit(f'Notes acceptance does not cover {source.name}')
+        for relative, expected in acceptance['sha256'].items():
+            if hashlib.sha256((root/relative).read_bytes()).hexdigest() != expected:
+                raise SystemExit(f'Reviewed notes source changed: {relative}')
+        if not (acceptance_path.parent/acceptance['evidence']).is_file():
+            raise SystemExit(f'Missing notes review evidence: {number}')
     text = sanitize_notes(source.read_text())
     name = f'lecture{number:02d}'
     if source.parent == root/'quantum-notes':
-        copy_tree(root/'quantum-notes/assets'/name, DIST/'notes/assets'/name)
+        assets = root/'quantum-notes/assets'/name
+        if assets.is_dir():
+            copy_tree(assets, DIST/'notes/assets'/name)
         return text
     destination = DIST/'notes/assets'/name
     destination.mkdir(parents=True, exist_ok=True)
@@ -298,6 +314,10 @@ def update_notes(root, numbers):
     for number in numbers:
         name = f'lecture{number:02d}'
         source = root/'quantum-notes'
+        modified = [standalone_source(root, number).stat().st_mtime]
+        if number in PUBLISHED_SLIDES:
+            modified.append((root/'quantum-slides'/f'{name}.html').stat().st_mtime)
+        date = datetime.fromtimestamp(max(modified)).strftime('%Y-%m-%d')
         text = standalone_content(root, number)
         nav_css = '<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style>'
         text = text.replace('</head>', nav_css+'</head>', 1)
@@ -314,7 +334,7 @@ def update_notes(root, numbers):
         body = re.sub(r'<(?:script|style)\b[^>]*>.*?</(?:script|style)>', '', body, flags=re.S)
         plain = unescape(re.sub(r'<[^>]+>', ' ', body))
         items.append(dict(objectID=f'{name}.html', href=f'{name}.html', title=title, section='', text=re.sub(r'\s+', ' ', plain)))
-        pattern = r'<article class="lecture">(?:(?!</article>).)*href="notes/'+name+r'\.html".*?</article>'
+        pattern = r'<article class="lecture">(?:(?!</article>).)*href="(?:notes|slides)/'+name+r'\.html".*?</article>'
         match = re.search(pattern, home, re.S)
         if not match:
             heading = re.search(r'^### 第'+str(number)+r'讲[　 ]+([^\n]+)',
@@ -322,7 +342,6 @@ def update_notes(root, numbers):
             if heading is None:
                 raise SystemExit(f'Missing syllabus title for {name}')
             label = escape(heading[1])
-            date = datetime.fromtimestamp(standalone_source(root, number).stat().st_mtime).strftime('%Y-%m-%d')
             card = (f'<article class="lecture"><div class="lecture-number" aria-hidden="true">{number:02d}</div>'
                     f'<div><h3><a href="notes/{name}.html"><span class="sr-only">第 {number} 讲：</span>{label}</a></h3>'
                     f'<p>在线讲义与互动演示。</p><p class="revision">资料更新：{date}</p></div>'
@@ -333,11 +352,15 @@ def update_notes(root, numbers):
             if count != 1:
                 raise SystemExit('Missing homepage materials section.')
         else:
-            date = datetime.fromtimestamp(standalone_source(root, number).stat().st_mtime).strftime('%Y-%m-%d')
             card = re.sub(r'资料更新：\d{4}-\d{2}-\d{2}', '资料更新：'+date, match[0])
+            if f'href="notes/{name}.html"' not in card:
+                card = card.replace(f'<h3><a href="slides/{name}.html"', f'<h3><a href="notes/{name}.html"', 1)
+                card = card.replace('<div class="actions">',
+                                    f'<div class="actions"><a class="action primary" href="notes/{name}.html" aria-label="阅读第{number}讲讲义">在线讲义</a>', 1)
+                card = card.replace('课堂课件与两处互动演示。', '在线讲义、课堂课件与互动演示。')
             home = home[:match.start()] + card + home[match.end():]
         home = re.sub(r'(<li><span class="num">'+f'{number:02d}'+r'</span><span class="lecture-title">)(.*?)(</span><span class="status">)(.*?)(</span></li>)',
-                      lambda m: m[1]+(m[2] if '<a ' in m[2] else f'<a href="notes/{name}.html">{m[2]}</a>')+m[3]+'可阅读'+m[5],home)
+                      lambda m: m[1]+(m[2].replace(f'href="slides/{name}.html"', f'href="notes/{name}.html"') if '<a ' in m[2] else f'<a href="notes/{name}.html">{m[2]}</a>')+m[3]+'可阅读'+m[5],home)
     home = re.sub(r'目前可阅读第 [^<]+ 讲',
                   '目前可阅读第 '+'、'.join(str(n) for n in sorted(PUBLISHED))+' 讲',home)
     search_path.write_text(json.dumps(items, ensure_ascii=False))
@@ -457,8 +480,9 @@ def main():
     for path in required:
         if not path.is_file():
             raise SystemExit(f'Missing source: {path.name}; render the course before publishing.')
-    for number in CONFIG.get('slides_only_lectures', []):
-        slide_delivery_files(slides, number)
+    for number in PUBLISHED_SLIDES:
+        if (slides/'qa'/f'lecture{number:02d}'/'delivery-manifest.json').is_file():
+            slide_delivery_files(slides, number)
     # Only replace this script's generated output directory, never course sources.
     if DIST.exists():
         shutil.rmtree(DIST)
@@ -568,7 +592,7 @@ def main():
         3: (titles[3], '从量子态的演化出发，学习共振驱动、脉冲时长与相位调控，制备并检验目标态，理解单比特量子门。'),
         4: (titles[4], '第四讲讲义、课堂课件与互动演示。'),
         5: (titles[5], '在线讲义与互动演示。'),
-        6: (titles[6], '课堂课件与两处互动演示。')
+        6: (titles[6], '在线讲义、课堂课件与互动演示。' if 6 in PUBLISHED else '课堂课件与两处互动演示。')
     }
     rows=[]
     for number,(title,summary) in summaries.items():
