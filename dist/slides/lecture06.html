@@ -1477,7 +1477,7 @@ margin-right: 0; }
 
 </section>
 <section id="l06-density-definition" class="slide level2 lecture-slide l06 content-slide">
-<h2>密度矩阵把纯态和概率混合写在一起</h2>
+<h2>密度矩阵统一描述纯态和概率混合</h2>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 06　密度矩阵</span><a href="#/l06-nav-density" class="active">密度矩阵与相干性</a><a href="#/l06-nav-trace" class>偏迹与局部状态</a><a href="#/l06-nav-entropy" class>纯态纠缠与局部熵</a><a href="#/l06-nav-environment" class>环境记录与退相干</a></nav><div class="s-body"><div class="pair "><div><div class="panel "><h3>每轮都是同一纯态</h3><div class="equation"><span class="math display">\[\rho=|\psi\rangle\langle\psi|\]</span></div><p class>列向量与对应行向量相乘。</p></div></div><div><div class="panel "><h3>按概率选择纯态</h3><div class="equation"><span class="math display">\[\rho=\sum_i p_i|\psi_i\rangle\langle\psi_i|\]</span></div><p class><span class="math inline">\(p_i\ge0,\quad\sum_i p_i=1\)</span>。</p></div></div></div><div class="fragment" data-fragment-index="0"><div class="panel "><p class>例如<span class="math inline">\(|0\rangle=(1,0)^T\)</span>，于是</p><div class="equation"><span class="math display">\[|0\rangle\langle0|=\begin{pmatrix}1\\0\end{pmatrix}\begin{pmatrix}1&amp;0\end{pmatrix}=\begin{pmatrix}1&amp;0\\0&amp;0\end{pmatrix}\]</span></div></div></div><div class="fragment" data-fragment-index="1"><div class="takeaway">当某一个分支的概率为1，混合的表达式就回到纯态。</div></div></div>
 
 </section>
@@ -1722,8 +1722,8 @@ margin-right: 0; }
 
 </section>
 <section id="l06-p-trend" class="slide level2 lecture-slide l06 content-slide">
-<h2>两端是乘积态，中间是Bell态</h2>
-<nav class="s-nav"><span class="lecture-label">量子光学 / 06　密度矩阵</span><a href="#/l06-nav-density" class>密度矩阵与相干性</a><a href="#/l06-nav-trace" class>偏迹与局部状态</a><a href="#/l06-nav-entropy" class="active">纯态纠缠与局部熵</a><a href="#/l06-nav-environment" class>环境记录与退相干</a></nav><div class="s-body"><div class="triple"><div class="panel"><h3><span class="math inline">\(p=0\)</span></h3><div class="equation"><span class="math display">\[|\psi_0\rangle=|11\rangle\]</span></div><div class="equation"><span class="math display">\[\rho_B=|1\rangle\langle1|\]</span></div><p class>Bob为纯态。</p></div><div class="panel"><h3><span class="math inline">\(p=1/2\)</span></h3><div class="equation"><span class="math display">\[|\psi_{1/2}\rangle=|\Phi^+\rangle\]</span></div><div class="equation"><span class="math display">\[\rho_B=I/2\]</span></div><p class>Bob完全混合。</p></div><div class="panel"><h3><span class="math inline">\(p=1\)</span></h3><div class="equation"><span class="math display">\[|\psi_1\rangle=|00\rangle\]</span></div><div class="equation"><span class="math display">\[\rho_B=|0\rangle\langle0|\]</span></div><p class>Bob为纯态。</p></div></div><div class="fragment" data-fragment-index="0"><div class="takeaway">从一半走向1，整体接近乘积态，Bob接近纯态。</div></div><p class>用一个数比较中间状态，需要先选定描述状态不确定性的方法。</p></div>
+<h2>权重取零或一时为乘积态，等权时为Bell态</h2>
+<nav class="s-nav"><span class="lecture-label">量子光学 / 06　密度矩阵</span><a href="#/l06-nav-density" class>密度矩阵与相干性</a><a href="#/l06-nav-trace" class>偏迹与局部状态</a><a href="#/l06-nav-entropy" class="active">纯态纠缠与局部熵</a><a href="#/l06-nav-environment" class>环境记录与退相干</a></nav><div class="s-body"><div class="triple"><div class="panel"><h3><span class="math inline">\(p=0\)</span></h3><div class="equation"><span class="math display">\[|\psi_0\rangle=|11\rangle\]</span></div><div class="equation"><span class="math display">\[\rho_B=|1\rangle\langle1|\]</span></div><p class>Bob为纯态。</p></div><div class="panel"><h3><span class="math inline">\(p=1/2\)</span></h3><div class="equation"><span class="math display">\[|\psi_{1/2}\rangle=|\Phi^+\rangle\]</span></div><div class="equation"><span class="math display">\[\rho_B=I/2\]</span></div><p class>Bob完全混合。</p></div><div class="panel"><h3><span class="math inline">\(p=1\)</span></h3><div class="equation"><span class="math display">\[|\psi_1\rangle=|00\rangle\]</span></div><div class="equation"><span class="math display">\[\rho_B=|0\rangle\langle0|\]</span></div><p class>Bob为纯态。</p></div></div><div class="fragment" data-fragment-index="0"><div class="takeaway">当<span class="math inline">\(p\)</span>从<span class="math inline">\(1/2\)</span>增加到1时，整体接近<span class="math inline">\(|00\rangle\)</span>，Bob接近<span class="math inline">\(|0\rangle\)</span>。</div></div><p class>用一个数比较中间状态，需要先选定描述状态不确定性的方法。</p></div>
 
 </section>
 <section id="l06-measurement-entropy" class="slide level2 lecture-slide l06 content-slide">
@@ -1946,7 +1946,7 @@ margin-right: 0; }
 </section>
 <section id="l06-global-local" class="slide level2 lecture-slide l06 content-slide">
 <h2>整体保持纯态，系统局部仍可变成混态</h2>
-<nav class="s-nav"><span class="lecture-label">量子光学 / 06　密度矩阵</span><a href="#/l06-nav-density" class>密度矩阵与相干性</a><a href="#/l06-nav-trace" class>偏迹与局部状态</a><a href="#/l06-nav-entropy" class>纯态纠缠与局部熵</a><a href="#/l06-nav-environment" class="active">环境记录与退相干</a></nav><div class="s-body"><div class="pair "><div><div class="panel "><h3>整体S与E</h3><div class="equation"><span class="math display">\[|\Psi\rangle_{SE}=\frac{|0\rangle|E_0\rangle+|1\rangle|E_1\rangle}{\sqrt2}\]</span></div><p class>本例相互作用前后，S与E的整体都能用一个归一化态矢量描述。</p></div></div><div><div class="panel "><h3>只观察系统S</h3><div class="equation"><span class="math display">\[\rho_S=\operatorname{Tr}_E|\Psi\rangle\langle\Psi|\]</span></div><p class>环境记录正交时，<span class="math inline">\(\rho_S=I/2\)</span>。</p></div></div></div><div class="fragment" data-fragment-index="0"><div class="takeaway">环境记录可区分时，系统与环境产生纠缠；偏迹给出只测系统的统计。</div></div><div class="fragment" data-fragment-index="1"><p class>这与Bell态中“整体纯、Bob局部混合”具有同样结构。</p></div></div>
+<nav class="s-nav"><span class="lecture-label">量子光学 / 06　密度矩阵</span><a href="#/l06-nav-density" class>密度矩阵与相干性</a><a href="#/l06-nav-trace" class>偏迹与局部状态</a><a href="#/l06-nav-entropy" class>纯态纠缠与局部熵</a><a href="#/l06-nav-environment" class="active">环境记录与退相干</a></nav><div class="s-body"><div class="pair "><div><div class="panel "><h3>整体S与E</h3><div class="equation"><span class="math display">\[|\Psi\rangle_{SE}=\frac{|0\rangle|E_0\rangle+|1\rangle|E_1\rangle}{\sqrt2}\]</span></div><p class>本例相互作用前后，S与E的整体都能用一个归一化态矢量描述。</p></div></div><div><div class="panel "><h3>只观察系统S</h3><div class="equation"><span class="math display">\[\rho_S=\operatorname{Tr}_E|\Psi\rangle\langle\Psi|\]</span></div><p class>环境记录正交时，<span class="math inline">\(\rho_S=I/2\)</span>。</p></div></div></div><div class="fragment" data-fragment-index="0"><div class="takeaway">环境记录可区分时，系统与环境产生纠缠；偏迹给出只测系统的统计。</div></div><div class="fragment" data-fragment-index="1"><p class>Bell态中消去Alice，环境模型中消去环境；记录正交时，都留下<span class="math inline">\(I/2\)</span>。</p></div></div>
 
 </section>
 <section id="l06-recap" class="slide level2 lecture-slide l06 content-slide">
@@ -1978,7 +1978,7 @@ margin-right: 0; }
 </tr>
 </tbody>
 </table>
-<div class="takeaway">整体状态和局部状态提供的信息不同；局部测量由约化密度矩阵预测。</div></div>
+<div class="takeaway">Bell态整体是纯态，Bob的约化态却是<span class="math inline">\(I/2\)</span>；局部测量由这个矩阵预测。</div></div>
 
 </section>
 <section id="l06-exit" class="slide level2 lecture-slide l06 content-slide">
