@@ -32,6 +32,7 @@ def standalone_content(root, number):
     """Package a standalone draft with only its reader-facing dependencies."""
     source = standalone_source(root, number)
     review = CONFIG.get('notes_acceptance', {}).get(str(number))
+    preview = CONFIG.get('notes_preview_acceptance', {}).get(str(number))
     if review:
         acceptance_path = root/review
         acceptance = json.loads(acceptance_path.read_text())
@@ -45,6 +46,36 @@ def standalone_content(root, number):
                 raise SystemExit(f'Reviewed notes source changed: {relative}')
         if not (acceptance_path.parent/acceptance['evidence']).is_file():
             raise SystemExit(f'Missing notes review evidence: {number}')
+    if preview and not review:
+        # The teacher explicitly requested an online preview while browser
+        # visual verification is pending. Preserve that status, never fake pass.
+        acceptance_path = root/preview
+        acceptance = json.loads(acceptance_path.read_text())
+        if acceptance.get('publication_mode') != 'teacher_requested_web_preview' or not acceptance.get('authorization'):
+            raise SystemExit(f'Missing explicit web-preview authorization: {number}')
+        for dimension in ('understanding', 'physics', 'operation', 'offline_bundle'):
+            if not acceptance['dimensions'].get(dimension, '').startswith('passed'):
+                raise SystemExit(f'Incomplete preview checks: {number}, {dimension}')
+        if acceptance['dimensions'].get('visuals') != 'pending_teacher_web_preview':
+            raise SystemExit('Use full notes_acceptance for a visually accepted release.')
+        required = [source] + [source.parent/f for f in CONFIG.get('standalone_notes_files', {}).get(str(number), [])]
+        for required_file in required:
+            if required_file.relative_to(root).as_posix() not in acceptance['sha256']:
+                raise SystemExit(f'Preview review does not cover {required_file.name}')
+        for relative, expected in acceptance['sha256'].items():
+            if hashlib.sha256((root/relative).read_bytes()).hexdigest() != expected:
+                raise SystemExit(f'Reviewed preview source changed: {relative}')
+        for evidence in [acceptance['evidence']] + acceptance.get('evidence_files', []):
+            if not (acceptance_path.parent/evidence).is_file():
+                raise SystemExit(f'Missing preview evidence: {evidence}')
+    # Copy only explicitly listed student-facing companion files.
+    for relative in CONFIG.get('standalone_notes_files', {}).get(str(number), []):
+        origin = (source.parent/relative).resolve()
+        target = (DIST/'notes'/relative).resolve()
+        if not origin.is_relative_to(source.parent.resolve()) or not target.is_relative_to((DIST/'notes').resolve()):
+            raise SystemExit('Companion file must remain within the notes bundle.')
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(origin, target)
     text = sanitize_notes(source.read_text())
     name = f'lecture{number:02d}'
     if source.parent == root/'quantum-notes':
@@ -152,7 +183,13 @@ def copy_tree(source, destination):
                 or (name.endswith('.json') and ('verification' in name or 'reader-states' in name or name == 'slide-manifest.json'))]
     shutil.copytree(source, destination, ignore=ignore, dirs_exist_ok=True)
 
+def sync_note_titles(text):
+    for old, new in CONFIG.get('note_title_aliases', {}).items():
+        text = text.replace(old, new)
+    return text
+
 def sanitize_notes(text):
+    text = sync_note_titles(text)
     if 4 in PUBLISHED:
         text = text.replace('第一至三讲已有完整资料，后续资料在授课后发布。',
                             '第一至三讲已有完整资料，<a href="lecture04.html">第四讲讲义</a>已可阅读，后续资料在授课后发布。')
@@ -214,7 +251,15 @@ def sync_notes_sidebar(directory, source):
             continue  # Standalone page has its own chapter TOC and a course-home link.
         if count != 1:
             raise RuntimeError(f'Expected one sidebar in {page.name}, found {count}')
-        page.write_text(text)
+        page.write_text(sync_note_titles(text))
+    search = directory/'search.json'
+    if search.exists():
+        items = json.loads(search.read_text())
+        for item in items:
+            for key in ('title', 'section', 'text'):
+                if isinstance(item.get(key), str):
+                    item[key] = sync_note_titles(item[key])
+        search.write_text(json.dumps(items, ensure_ascii=False))
 
 def slide_delivery_files(source, number):
     """Bind self-contained slide publication to the accepted source version."""
@@ -364,7 +409,7 @@ def update_notes(root, numbers):
     home = re.sub(r'目前可阅读第 [^<]+ 讲',
                   '目前可阅读第 '+'、'.join(str(n) for n in sorted(PUBLISHED))+' 讲',home)
     search_path.write_text(json.dumps(items, ensure_ascii=False))
-    homepage.write_text(new_tab_material_links(home))
+    homepage.write_text(new_tab_material_links(sync_note_titles(home)))
     sync_notes_sidebar(DIST/'notes', root/'quantum-notes/_book/index.html')
 
 def update_pdfs(root, numbers):
@@ -596,6 +641,8 @@ def main():
         5: (titles[5], '在线讲义与互动演示。'),
         6: (titles[6], '在线讲义、课堂课件与互动演示。' if 6 in PUBLISHED else '课堂课件与两处互动演示。')
     }
+    for number in sorted(PUBLISHED | PUBLISHED_SLIDES):
+        summaries.setdefault(number, (titles[number], '在线讲义与互动演示。'))
     rows=[]
     for number,(title,summary) in summaries.items():
         if number not in (PUBLISHED | PUBLISHED_SLIDES):

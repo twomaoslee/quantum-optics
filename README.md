@@ -54,3 +54,5 @@ https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-
 `check.py` 检查所有 HTML/CSS 中静态本地引用、入口、子目录可迁移性与单文件大小；不将第三方站点的当前可达性当作已验证。浏览器验收记录保留于内部 qa 目录，不部署。
 
 仅更新第五讲PDF及首页下载入口：`python3 scripts/build.py --update-pdfs 5`。源文件为上一级 `output/pdf/第五讲课件.pdf`；保留其他课件与讲义版本。
+
+第七讲讲义与两项互动已获教师授权上传供在线预览，使用 `python3 scripts/build.py --update-notes 7`。`notes_preview_acceptance` 记录本次明确的预览授权及绑定摘要，保留视觉与真实浏览器操作尚待验证的状态；不替代 `notes_acceptance` 的完整放行。配套互动单独页面由 `standalone_notes_files` 精确列出。第七讲课件与 PDF 不在发布范围。

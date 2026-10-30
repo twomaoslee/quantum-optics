@@ -1,0 +1,274 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第七讲 · 真空中的两种测量</title><style>/* A single 16:9 teaching canvas, shared by embedded and standalone views. */
+.l7-lab-shell{box-sizing:border-box;position:relative;width:100%;aspect-ratio:16/9;margin:1.5rem 0 0;overflow:hidden;background:#fff;border:1px solid #d4dfe9;border-radius:10px;box-shadow:0 5px 18px #183d6707}
+.l7-lab{position:absolute;left:0;top:0;width:960px;height:540px;transform-origin:top left;display:flex;flex-direction:column;background:#fff;color:#202b38;font-family:'Noto Sans CJK SC','PingFang SC','Microsoft YaHei',system-ui,sans-serif;font-size:18px;line-height:1.5;text-align:left;--lab-blue:#236aa5;--lab-gray:#717f8e;--lab-soft:#f4f7fa}
+.l7-lab *{box-sizing:border-box}.l7-lab [hidden]{display:none!important}
+.l7-lab .lab-head{height:72px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 30px;border-bottom:1px solid #e5ebf0;margin:0}
+.l7-lab .lab-kicker{font-size:14px;color:#63788d;letter-spacing:.05em}
+.l7-lab h4{font-size:23px;line-height:1.3;font-weight:650;color:#183d67;margin:3px 0 0}
+.l7-lab .lab-steps{display:flex;gap:18px;list-style:none;margin:0;padding:0;font-size:16px;color:#80909e}
+.l7-lab .lab-steps li{margin:0;padding:6px 0;border-bottom:2px solid transparent}
+.l7-lab .lab-steps [aria-current=step]{color:#1e5f96;border-color:#236aa5;font-weight:650}
+.l7-lab .lab-context{height:64px;flex-shrink:0;padding:8px 30px;background:#f5f7f9;font-size:17px;line-height:1.42;display:block}
+.l7-lab .lab-states{display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:19px}
+.l7-lab .lab-states>div{display:flex;align-items:center;gap:14px}
+.l7-lab .lab-key{font-size:16px;font-weight:650;white-space:nowrap}.l7-lab .lab-key-b{color:#236aa5}.l7-lab .lab-key-c{color:#606f7e}
+.l7-lab .lab-predict{height:368px;padding:24px 30px 18px;display:flex;flex-direction:column;gap:15px}
+.l7-lab fieldset{min-width:0;border:0;padding:0;margin:0}.l7-lab legend{float:none;width:auto;font-size:20px;line-height:1.5;font-weight:600;margin:0 0 18px;padding:0;color:#253d53}
+.l7-lab .lab-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.l7-lab .lab-options label{display:flex;align-items:center;gap:12px;background:#f4f5f7;border:1px solid #e3e7eb;border-radius:5px;padding:15px 16px;min-height:60px;cursor:pointer;font-size:18px}
+.l7-lab .lab-options label:has(input:checked){border-color:#236aa5;background:#eef5fb}
+.l7-lab input[type=radio]{width:18px;height:18px;accent-color:#236aa5;flex-shrink:0;margin:0}
+.l7-lab .lab-prompt{font-size:17px;color:#57697b;margin:0}
+.l7-lab .lab-actions{display:flex;align-items:center;gap:18px;margin-top:auto}.l7-lab .lab-actions span{font-size:16px;color:#68798a}
+.l7-lab button{font:inherit;font-size:17px;line-height:1.3;border:1px solid #236aa5;border-radius:5px;padding:9px 15px;background:#236aa5;color:white;cursor:pointer;white-space:nowrap;box-shadow:none;transition:background .15s}
+.l7-lab button:hover:not(:disabled){background:#174e7b}.l7-lab button:disabled{background:#e5eaf0;border-color:#e5eaf0;color:#8794a1;cursor:default}
+.l7-lab button:focus-visible,.l7-lab input:focus-visible{outline:3px solid #91b9db;outline-offset:3px}
+.l7-lab .lab-secondary,.l7-lab .lab-presets button{background:white;color:#236aa5;border-color:#ccd9e5}.l7-lab .lab-secondary:hover:not(:disabled),.l7-lab .lab-presets button:hover{background:#eaf2f9}
+.l7-lab .lab-experiment{height:368px;padding:0 30px;display:flex;flex-direction:column}
+.l7-lab .lab-controls{height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:16px}
+.l7-lab .lab-sample-buttons{display:flex;gap:8px}.l7-lab .lab-controls button{padding:6px 12px;font-size:16px}
+.l7-lab .lab-phase-controls{justify-content:flex-start}.l7-lab .lab-phase-controls label{font-size:17px;flex-shrink:0}
+.l7-lab input[type=range]{flex:1;accent-color:#236aa5;min-width:80px;margin:0;height:24px}
+.l7-lab .lab-phase-controls output{width:48px;text-align:right;font-variant-numeric:tabular-nums;font-weight:650;color:#236aa5}.l7-lab .lab-presets{display:flex;gap:7px;margin-left:8px}
+.l7-lab .lab-charts{height:238px;flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.l7-lab .lab-chart{min-width:0}.l7-lab .lab-chart-head{height:26px;display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:17px}.l7-lab .lab-chart-head strong{color:#263f56;font-weight:650}.l7-lab .lab-chart-head>span{color:#68798a;font-size:14px}
+.l7-lab .lab-chart>svg{display:block;width:100%;height:184px;overflow:visible;font-family:inherit}
+.l7-lab .lab-chart-stat{height:28px;text-align:center;font-size:16px;color:#445d73;font-variant-numeric:tabular-nums;padding-top:3px}
+.l7-lab .lab-observation,.l7-lab .lab-check{height:82px;flex-shrink:0;border-top:1px solid #e2e9f0;padding:10px 0;display:flex;align-items:center;gap:18px;font-size:17px}
+.l7-lab .lab-observation>span{flex:1;color:#485f73}.l7-lab .lab-check{display:block;padding-top:5px}.l7-lab .lab-verdict{font-size:15px;color:#1e5f96;font-weight:650;line-height:1.4}.l7-lab .lab-check-copy{font-size:16px;line-height:1.48;color:#304a61;margin-top:2px}
+.l7-lab .lab-foot{height:36px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;background:#f5f7f9;border-top:1px solid #e5ebf0;padding:0 30px;font-size:13px;color:#63788d;gap:12px}
+.l7-lab button.lab-text-button{padding:3px 0;background:transparent;color:#1e5f96;border:0;font-size:14px}.l7-lab button.lab-text-button:hover{background:transparent;text-decoration:underline}
+.l7-lab mjx-container{font-size:1em!important}.l7-lab .math{white-space:nowrap}
+.l7-lab-caption{display:flex;justify-content:space-between;gap:18px;font-size:.82rem;line-height:1.6;color:#667586;margin:.55rem 0 1.6rem}.l7-lab-caption a{white-space:nowrap}
+body.l7-standalone{margin:0;padding:24px;background:#edf2f6;max-width:none;font-family:'PingFang SC',sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh}
+.l7-standalone main{width:min(100%,1280px,calc(177.7778vh - 142.2222px));margin:0;max-width:none}.l7-standalone .l7-lab-shell{margin:0}.l7-standalone .l7-lab-caption{margin-bottom:0}.l7-standalone [data-lab-open]{display:none}
+@media(max-width:700px){.l7-lab-caption{font-size:.76rem;gap:8px}.l7-standalone{padding:8px!important}}
+@media print{.l7-lab-shell,.l7-lab-caption{display:none}}
+@media(prefers-reduced-motion:reduce){.l7-lab button{transition:none}}
+</style><style id="MJX-SVG-styles">
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+</style></head><body class="l7-standalone"><main><!-- BEGIN LAB vacuum -->
+<div class="l7-lab-shell" id="l07-vacuum-lab">
+<div class="l7-lab" data-lab="vacuum" role="region" aria-label="真空中的两种测量互动">
+  <header class="lab-head"><div><span class="lab-kicker">测量实验 · 理想单模真空</span><h4 class="anchored">零平均场，怎样的测量记录？</h4></div><ol class="lab-steps" aria-label="活动进度"><li aria-current="step">1 预测</li><li>2 操作</li><li>3 核对</li></ol></header>
+  <div class="lab-context">每次重新制备 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="2.64ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 1167 1000" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-163-TEX-N-7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path><path id="MJX-163-TEX-N-30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path><path id="MJX-163-TEX-N-27E9" d="M55 732Q56 739 61 744T75 750Q85 750 92 740Q95 733 186 494T278 250T187 6T92 -240Q85 -250 75 -250Q67 -250 62 -245T55 -232Q55 -227 145 11Q236 248 236 250T145 489Q55 727 55 732Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="7C" xlink:href="#MJX-163-TEX-N-7C"></use></g><g data-mml-node="mn" transform="translate(278,0)"><use data-c="30" xlink:href="#MJX-163-TEX-N-30"></use></g><g data-mml-node="mo" transform="translate(778,0)"><use data-c="27E9" xlink:href="#MJX-163-TEX-N-27E9"></use></g></g></g></svg></mjx-container>。两组独立样本分别测场坐标与总能量。<br>横轴采用无量纲读数：<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="9.113ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 4028.1 1000" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-164-TEX-I-1D44B" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"></path><path id="MJX-164-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-164-TEX-I-1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path><path id="MJX-164-TEX-N-2F" d="M423 750Q432 750 438 744T444 730Q444 725 271 248T92 -240Q85 -250 75 -250Q68 -250 62 -245T56 -231Q56 -221 230 257T407 740Q411 750 423 750Z"></path><path id="MJX-164-TEX-N-30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D44B" xlink:href="#MJX-164-TEX-I-1D44B"></use></g><g data-mml-node="mo" transform="translate(1129.8,0)"><use data-c="3D" xlink:href="#MJX-164-TEX-N-3D"></use></g><g data-mml-node="mi" transform="translate(2185.6,0)"><use data-c="1D45E" xlink:href="#MJX-164-TEX-I-1D45E"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(2645.6,0)"><g data-mml-node="mo"><use data-c="2F" xlink:href="#MJX-164-TEX-N-2F"></use></g></g><g data-mml-node="msub" transform="translate(3145.6,0)"><g data-mml-node="mi"><use data-c="1D45E" xlink:href="#MJX-164-TEX-I-1D45E"></use></g><g data-mml-node="mn" transform="translate(479,-150) scale(0.707)"><use data-c="30" xlink:href="#MJX-164-TEX-N-30"></use></g></g></g></g></svg></mjx-container>，<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="11.37ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 5025.6 1000" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-165-TEX-I-1D700" d="M190 -22Q124 -22 76 11T27 107Q27 174 97 232L107 239L99 248Q76 273 76 304Q76 364 144 408T290 452H302Q360 452 405 421Q428 405 428 392Q428 381 417 369T391 356Q382 356 371 365T338 383T283 392Q217 392 167 368T116 308Q116 289 133 272Q142 263 145 262T157 264Q188 278 238 278H243Q308 278 308 247Q308 206 223 206Q177 206 142 219L132 212Q68 169 68 112Q68 39 201 39Q253 39 286 49T328 72T345 94T362 105Q376 103 376 88Q376 79 365 62T334 26T275 -8T190 -22Z"></path><path id="MJX-165-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-165-TEX-I-1D438" d="M492 213Q472 213 472 226Q472 230 477 250T482 285Q482 316 461 323T364 330H312Q311 328 277 192T243 52Q243 48 254 48T334 46Q428 46 458 48T518 61Q567 77 599 117T670 248Q680 270 683 272Q690 274 698 274Q718 274 718 261Q613 7 608 2Q605 0 322 0H133Q31 0 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H757Q764 676 764 669Q764 664 751 557T737 447Q735 440 717 440H705Q698 445 698 453L701 476Q704 500 704 528Q704 558 697 578T678 609T643 625T596 632T532 634H485Q397 633 392 631Q388 629 386 622Q385 619 355 499T324 377Q347 376 372 376H398Q464 376 489 391T534 472Q538 488 540 490T557 493Q562 493 565 493T570 492T572 491T574 487T577 483L544 351Q511 218 508 216Q505 213 492 213Z"></path><path id="MJX-165-TEX-N-2F" d="M423 750Q432 750 438 744T444 730Q444 725 271 248T92 -240Q85 -250 75 -250Q68 -250 62 -245T56 -231Q56 -221 230 257T407 740Q411 750 423 750Z"></path><path id="MJX-165-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-165-TEX-V-210F" d="M182 599Q182 611 174 615T133 619Q118 619 114 621T109 630Q109 636 114 656T122 681Q125 685 202 688Q272 695 286 695Q304 695 304 684Q304 682 295 644T282 597Q282 592 360 592H399Q430 592 445 587T460 563Q460 552 451 541L442 535H266L251 468Q247 453 243 436T236 409T233 399Q233 395 244 404Q295 441 357 441Q405 441 445 417T485 333Q485 284 449 178T412 58T426 44Q447 44 466 68Q485 87 500 130L509 152H531H543Q562 152 562 144Q562 128 546 93T494 23T415 -13Q385 -13 359 3T322 44Q318 52 318 77Q318 99 352 196T386 337Q386 386 346 386Q318 386 286 370Q267 361 245 338T211 292Q207 287 193 235T162 113T138 21Q128 7 122 4Q105 -12 83 -12Q66 -12 54 -2T42 26L166 530Q166 534 161 534T129 535Q127 535 122 535T112 534Q74 534 74 562Q74 570 77 576T84 585T96 589T109 591T124 592T138 592L182 595V599Z"></path><path id="MJX-165-TEX-I-1D714" d="M495 384Q495 406 514 424T555 443Q574 443 589 425T604 364Q604 334 592 278T555 155T483 38T377 -11Q297 -11 267 66Q266 68 260 61Q201 -11 125 -11Q15 -11 15 139Q15 230 56 325T123 434Q135 441 147 436Q160 429 160 418Q160 406 140 379T94 306T62 208Q61 202 61 187Q61 124 85 100T143 76Q201 76 245 129L253 137V156Q258 297 317 297Q348 297 348 261Q348 243 338 213T318 158L308 135Q309 133 310 129T318 115T334 97T358 83T393 76Q456 76 501 148T546 274Q546 305 533 325T508 357T495 384Z"></path><path id="MJX-165-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D700" xlink:href="#MJX-165-TEX-I-1D700"></use></g><g data-mml-node="mo" transform="translate(743.8,0)"><use data-c="3D" xlink:href="#MJX-165-TEX-N-3D"></use></g><g data-mml-node="mi" transform="translate(1799.6,0)"><use data-c="1D438" xlink:href="#MJX-165-TEX-I-1D438"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(2563.6,0)"><g data-mml-node="mo"><use data-c="2F" xlink:href="#MJX-165-TEX-N-2F"></use></g></g><g data-mml-node="mo" transform="translate(3063.6,0)"><use data-c="28" xlink:href="#MJX-165-TEX-N-28"></use></g><g data-mml-node="mi" transform="translate(3452.6,0)"><use data-c="210F" xlink:href="#MJX-165-TEX-V-210F"></use></g><g data-mml-node="mi" transform="translate(4014.6,0)"><use data-c="1D714" xlink:href="#MJX-165-TEX-I-1D714"></use></g><g data-mml-node="mo" transform="translate(4636.6,0)"><use data-c="29" xlink:href="#MJX-165-TEX-N-29"></use></g></g></g></svg></mjx-container>。</div>
+  <div class="lab-predict" data-panel="predict">
+    <fieldset><legend>你预测：反复测量时，哪一组结果有分散？</legend>
+      <div class="lab-options">
+        <label><input type="radio" name="vacuum-prediction" value="field"><span>场坐标有分散，能量集中在一个值</span></label>
+        <label><input type="radio" name="vacuum-prediction" value="both"><span>场坐标和能量都有分散</span></label>
+        <label><input type="radio" name="vacuum-prediction" value="none"><span>两组结果都集中在各自的一个值</span></label>
+        <label><input type="radio" name="vacuum-prediction" value="energy"><span>场坐标集中在零，能量有分散</span></label>
+      </div>
+    </fieldset>
+    <p class="lab-prompt">先想一想：平均值为零，是否足以确定每一次读数？</p>
+    <div class="lab-actions"><button type="button" data-action="begin" disabled="">记录预测，开始测量 →</button><span>选择后保留你的预测，核对时再比较。</span></div>
+  </div>
+  <div class="lab-experiment" data-panel="experiment" hidden="">
+    <div class="lab-controls"><div class="lab-sample-buttons"><button type="button" data-action="sample" data-count="20">+20 次</button><button type="button" data-action="sample" data-count="200">+200 次</button><button type="button" data-action="sample" data-count="1000">+1000 次</button><button type="button" class="lab-secondary" data-action="clear">清空记录</button></div><span data-output="count" aria-live="polite">每组 0 次</span></div>
+    <div class="lab-charts">
+      <div class="lab-chart"><div class="lab-chart-head"><strong>场坐标</strong><span>频率密度</span></div><svg data-plot="field" viewbox="0 0 430 215" role="img" aria-label="真空场坐标的模拟测量直方图"></svg><div class="lab-chart-stat" data-output="field-stat">点击增加测量，积累独立样本。</div></div>
+      <div class="lab-chart"><div class="lab-chart-head"><strong>总能量</strong><span>相对频率</span></div><svg data-plot="energy" viewbox="0 0 430 215" role="img" aria-label="真空总能量的模拟测量分布"></svg><div class="lab-chart-stat" data-output="energy-stat">另一组样本测量总能量。</div></div>
+    </div>
+    <div class="lab-observation" data-panel="observation"><span>观察均值与分散程度怎样随样本数变化，再解释两组记录的区别。</span><button type="button" data-action="check" disabled="">核对预测 →</button></div>
+    <div class="lab-check" data-panel="check" hidden=""><div class="lab-verdict" data-output="verdict"></div><div class="lab-check-copy">真空中 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="7.836ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 3463.6 1000" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-166-TEX-N-27E8" d="M333 -232Q332 -239 327 -244T313 -250Q303 -250 296 -240Q293 -233 202 6T110 250T201 494T296 740Q299 745 306 749L309 750Q312 750 313 750Q331 750 333 732Q333 727 243 489Q152 252 152 250T243 11Q333 -227 333 -232Z"></path><path id="MJX-166-TEX-I-1D44B" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"></path><path id="MJX-166-TEX-N-27E9" d="M55 732Q56 739 61 744T75 750Q85 750 92 740Q95 733 186 494T278 250T187 6T92 -240Q85 -250 75 -250Q67 -250 62 -245T55 -232Q55 -227 145 11Q236 248 236 250T145 489Q55 727 55 732Z"></path><path id="MJX-166-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-166-TEX-N-30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><use data-c="27E8" xlink:href="#MJX-166-TEX-N-27E8"></use></g><g data-mml-node="mi" transform="translate(389,0)"><use data-c="1D44B" xlink:href="#MJX-166-TEX-I-1D44B"></use></g><g data-mml-node="mo" transform="translate(1241,0)"><use data-c="27E9" xlink:href="#MJX-166-TEX-N-27E9"></use></g><g data-mml-node="mo" transform="translate(1907.8,0)"><use data-c="3D" xlink:href="#MJX-166-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(2963.6,0)"><use data-c="30" xlink:href="#MJX-166-TEX-N-30"></use></g></g></g></svg></mjx-container>、<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="10.708ex" height="2.452ex" role="img" focusable="false" viewBox="0 -833.9 4733.1 1083.9" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-167-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-167-TEX-N-394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path><path id="MJX-167-TEX-I-1D44B" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"></path><path id="MJX-167-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path><path id="MJX-167-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path id="MJX-167-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-167-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><use data-c="28" xlink:href="#MJX-167-TEX-N-28"></use></g><g data-mml-node="mi" transform="translate(389,0)"><use data-c="394" xlink:href="#MJX-167-TEX-N-394"></use></g><g data-mml-node="mi" transform="translate(1222,0)"><use data-c="1D44B" xlink:href="#MJX-167-TEX-I-1D44B"></use></g><g data-mml-node="msup" transform="translate(2074,0)"><g data-mml-node="mo"><use data-c="29" xlink:href="#MJX-167-TEX-N-29"></use></g><g data-mml-node="mn" transform="translate(422,363) scale(0.707)"><use data-c="32" xlink:href="#MJX-167-TEX-N-32"></use></g></g><g data-mml-node="mo" transform="translate(3177.3,0)"><use data-c="3D" xlink:href="#MJX-167-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(4233.1,0)"><use data-c="31" xlink:href="#MJX-167-TEX-N-31"></use></g></g></g></svg></mjx-container>；而 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="7.465ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 3299.6 1000" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-168-TEX-I-1D700" d="M190 -22Q124 -22 76 11T27 107Q27 174 97 232L107 239L99 248Q76 273 76 304Q76 364 144 408T290 452H302Q360 452 405 421Q428 405 428 392Q428 381 417 369T391 356Q382 356 371 365T338 383T283 392Q217 392 167 368T116 308Q116 289 133 272Q142 263 145 262T157 264Q188 278 238 278H243Q308 278 308 247Q308 206 223 206Q177 206 142 219L132 212Q68 169 68 112Q68 39 201 39Q253 39 286 49T328 72T345 94T362 105Q376 103 376 88Q376 79 365 62T334 26T275 -8T190 -22Z"></path><path id="MJX-168-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-168-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path id="MJX-168-TEX-N-2F" d="M423 750Q432 750 438 744T444 730Q444 725 271 248T92 -240Q85 -250 75 -250Q68 -250 62 -245T56 -231Q56 -221 230 257T407 740Q411 750 423 750Z"></path><path id="MJX-168-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D700" xlink:href="#MJX-168-TEX-I-1D700"></use></g><g data-mml-node="mo" transform="translate(743.8,0)"><use data-c="3D" xlink:href="#MJX-168-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(1799.6,0)"><use data-c="31" xlink:href="#MJX-168-TEX-N-31"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(2299.6,0)"><g data-mml-node="mo"><use data-c="2F" xlink:href="#MJX-168-TEX-N-2F"></use></g></g><g data-mml-node="mn" transform="translate(2799.6,0)"><use data-c="32" xlink:href="#MJX-168-TEX-N-32"></use></g></g></g></svg></mjx-container> 每次相同。<br>平均场为零与场有分散可以并存；能量确定来自真空是能量本征态。</div></div>
+  </div>
+  <footer class="lab-foot"><span data-output="footer">预测保存在本页；重新开始可清除。</span><button type="button" class="lab-text-button" data-action="reset">重新开始</button></footer>
+</div>
+</div>
+<div class="l7-lab-caption"><span>模拟测量：两组独立样本分别测量，图中积累的是重复试次的统计。</span></div>
+<noscript><p>启用 JavaScript 后可预测并模拟测量；本节下方保留完整推导与静态结果图。</p></noscript>
+</main><script>/* Dimensionless X=q/q0; the vacuum density is the standard normal. */
+(function(root){
+ 'use strict';
+ const normalDensity=x=>Math.exp(-x*x/2)/Math.sqrt(2*Math.PI);
+ function mixtureDensity(x){const r=(x*x-1)/Math.sqrt(2);return normalDensity(x)*(1+r*r)/2;}
+ function superpositionDensity(x,phi){const r=(x*x-1)/Math.sqrt(2);return Math.max(0,normalDensity(x)*(1+r*r+2*r*Math.cos(phi))/2);}
+ function normalSample(random=Math.random){let u=0;while(u===0)u=random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*random());}
+ function moments(values){if(!values.length)return {n:0,mean:0,variance:0};const mean=values.reduce((a,b)=>a+b,0)/values.length;return {n:values.length,mean,variance:values.reduce((a,b)=>a+(b-mean)**2,0)/values.length};}
+ function histogram(values,min=-4,max=4,width=.25){const bins=Array(Math.round((max-min)/width)).fill(0);let outside=0;for(const x of values){const i=Math.floor((x-min)/width);if(i>=0&&i<bins.length)bins[i]++;else outside++;}return {bins,outside,densities:bins.map(n=>values.length?n/(values.length*width):0),min,max,width};}
+ const api={normalDensity,mixtureDensity,superpositionDensity,normalSample,moments,histogram,variance:phi=>3+Math.sqrt(2)*Math.cos(phi)};
+ if(typeof module==='object'&&module.exports)module.exports=api;else root.Lecture07Physics=api;
+})(typeof window!=='undefined'?window:globalThis);
+
+(function(){
+'use strict';
+const P=window.Lecture07Physics,NS='http://www.w3.org/2000/svg';
+function svgElement(tag,attrs={},text){const el=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,v);if(text!==undefined)el.textContent=text;return el;}
+function add(svg,tag,attrs,text){const el=svgElement(tag,attrs,text);svg.append(el);return el;}
+function frame(svg,{xmin,xmax,ymax,xticks,yticks,xlabel}){
+ svg.replaceChildren();const left=46,right=412,top=13,bottom=173;
+ const x=v=>left+(v-xmin)/(xmax-xmin)*(right-left),y=v=>bottom-v/ymax*(bottom-top);
+ for(const v of yticks){add(svg,'line',{x1:left,x2:right,y1:y(v),y2:y(v),stroke:'#e4ebf1','stroke-width':1});add(svg,'text',{x:left-9,y:y(v)+5,'text-anchor':'end',fill:'#738293','font-size':14},String(v));}
+ add(svg,'line',{x1:left,x2:right,y1:bottom,y2:bottom,stroke:'#9baaba'});
+ for(const v of xticks){add(svg,'line',{x1:x(v),x2:x(v),y1:bottom,y2:bottom+5,stroke:'#9baaba'});add(svg,'text',{x:x(v),y:bottom+22,'text-anchor':'middle',fill:'#65798b','font-size':14},String(v));}
+ add(svg,'text',{x:right,y:212,'text-anchor':'end',fill:'#526b80','font-size':14},xlabel);
+ return {x,y,left,right,top,bottom};
+}
+function curve(svg,f,fn,min,max,color,dash){let d='';for(let i=0;i<=360;i++){const v=min+(max-min)*i/360;d+=(i?' L':'M')+f.x(v).toFixed(2)+','+f.y(fn(v)).toFixed(2);}add(svg,'path',{d,fill:'none',stroke:color,'stroke-width':2.8,...(dash?{'stroke-dasharray':'7 5'}:{})});}
+function legend(svg){add(svg,'line',{x1:268,x2:290,y1:10,y2:10,stroke:'#236aa5','stroke-width':3});add(svg,'text',{x:296,y:15,fill:'#236aa5','font-size':14},'B');add(svg,'line',{x1:335,x2:357,y1:10,y2:10,stroke:'#717f8e','stroke-width':3,'stroke-dasharray':'6 4'});add(svg,'text',{x:363,y:15,fill:'#606f7e','font-size':14},'C');}
+function fixed(v){return (Math.abs(v)<.0005?0:v).toFixed(3);}
+for(const lab of document.querySelectorAll('.l7-lab')){
+ const type=lab.dataset.lab,shell=lab.parentElement,get=selector=>lab.querySelector(selector),output=name=>get('[data-output="'+name+'"]');
+ const state={stage:0,prediction:null,values:[],phi:0,touched:false};
+ const resize=()=>{const width=shell.clientWidth;lab.style.transform='scale('+width/960+')';shell.style.height=(width*9/16+2)+'px';};
+ if(typeof ResizeObserver!=='undefined')new ResizeObserver(resize).observe(shell);window.addEventListener('resize',resize);resize();
+ function stage(value){state.stage=value;get('[data-panel="predict"]').hidden=value!==0;get('[data-panel="experiment"]').hidden=value===0;get('[data-panel="observation"]').hidden=value===2;get('[data-panel="check"]').hidden=value!==2;lab.querySelectorAll('.lab-steps li').forEach((li,i)=>{if(i===value)li.setAttribute('aria-current','step');else li.removeAttribute('aria-current');});}
+ function vacuum(){
+  const m=P.moments(state.values),h=P.histogram(state.values);const svg=get('[data-plot="field"]');
+  const ymax=Math.max(.6,Math.ceil(Math.max(0,...h.densities)*5)/5);
+  const f=frame(svg,{xmin:-4,xmax:4,ymax,xticks:[-4,-2,0,2,4],yticks:[0,ymax/2,ymax],xlabel:'X'});
+  h.densities.forEach((d,i)=>{const a=h.min+i*h.width;add(svg,'rect',{x:f.x(a)+.7,y:f.y(d),width:f.x(a+h.width)-f.x(a)-1.4,height:f.bottom-f.y(d),fill:'#6092ba','fill-opacity':.8});});
+  if(state.stage===2){curve(svg,f,P.normalDensity,-4,4,'#174f7b');add(svg,'text',{x:260,y:20,fill:'#174f7b','font-size':14},'实线：理论密度');}
+  if(m.n)add(svg,'line',{x1:f.x(Math.max(-4,Math.min(4,m.mean))),x2:f.x(Math.max(-4,Math.min(4,m.mean))),y1:f.top,y2:f.bottom,stroke:'#234766','stroke-width':1.8,'stroke-dasharray':'3 4'});
+  const energy=get('[data-plot="energy"]'),e=frame(energy,{xmin:0,xmax:1,ymax:1.05,xticks:[0,.5,1],yticks:[0,.5,1],xlabel:'ε'});
+  if(m.n){add(energy,'line',{x1:e.x(.5),x2:e.x(.5),y1:e.bottom,y2:e.y(1),stroke:'#236aa5','stroke-width':4});add(energy,'circle',{cx:e.x(.5),cy:e.y(1),r:6,fill:'#236aa5'});add(energy,'text',{x:e.x(.5)+13,y:e.y(1)+25,fill:'#236aa5','font-size':16},'全部记录');}
+  output('count').textContent='每组 '+m.n.toLocaleString()+' 次';
+  output('field-stat').textContent=m.n?'样本均值 '+fixed(m.mean)+' · 样本方差 '+fixed(m.variance):'点击增加测量，积累独立样本。';
+  output('energy-stat').textContent=m.n?'样本均值 0.500 · 样本方差 0.000':'另一组样本测量总能量。';
+  output('footer').textContent=m.n?'场图虚线标记样本均值；图外 '+h.outside+' 个场读数仍计入统计。方差按 N 归一。':'两组独立模拟样本；每次测量前重新制备真空。';
+  get('[data-action="check"]').disabled=!m.n;
+  lab.querySelectorAll('[data-action="sample"]').forEach(b=>b.disabled=m.n>=20000);
+ }
+ function phase(){
+  const angle=state.phi*Math.PI/180,svg=get('[data-plot="counts"]'),f=frame(svg,{xmin:-.6,xmax:2.6,ymax:.62,xticks:[0,1,2],yticks:[0,.25,.5],xlabel:'光子数 n'});
+  for(const n of [0,1,2]){const p=n===1?0:.5;add(svg,'rect',{x:f.x(n)-24,y:f.y(p),width:20,height:f.bottom-f.y(p),fill:'#236aa5'});add(svg,'rect',{x:f.x(n)+4,y:f.y(p),width:20,height:f.bottom-f.y(p),fill:'#cbd3db',stroke:'#717f8e','stroke-dasharray':'4 3'});}legend(svg);
+  const qsvg=get('[data-plot="quadrature"]'),qf=frame(qsvg,{xmin:-6,xmax:6,ymax:.65,xticks:[-6,-3,0,3,6],yticks:[0,.3,.6],xlabel:'X'});
+  curve(qsvg,qf,x=>P.superpositionDensity(x,angle),-6,6,'#236aa5');curve(qsvg,qf,P.mixtureDensity,-6,6,'#717f8e',true);legend(qsvg);
+  output('phase').textContent=state.phi+'°';get('input[type="range"]').value=state.phi;
+  output('counts-stat').textContent='B、C：0 和 2 各占一半';
+  output('quadrature-stat').textContent='方差：B '+fixed(P.variance(angle))+' · C 3.000';
+  output('footer').textContent='蓝色实线 B · 灰色虚线 C；固定本振相位。两态平均场均为零。';
+  get('[data-action="check"]').disabled=!state.touched;
+ }
+ const draw=()=>type==='vacuum'?vacuum():phase();
+ lab.querySelectorAll('input[type="radio"]').forEach(el=>el.addEventListener('change',()=>{state.prediction=el.value;get('[data-action="begin"]').disabled=false;}));
+ get('[data-action="begin"]').addEventListener('click',()=>{if(!state.prediction)return;stage(1);draw();});
+ get('[data-action="check"]').addEventListener('click',()=>{if(get('[data-action="check"]').disabled)return;stage(2);const choice=lab.querySelector('input[type="radio"]:checked');output('verdict').textContent=(state.prediction==='field'?'与你的预测一致：':'回看你的预测：')+(choice?choice.nextElementSibling.textContent:'');draw();});
+ get('[data-action="reset"]').addEventListener('click',()=>{state.prediction=null;state.values=[];state.phi=0;state.touched=false;lab.querySelectorAll('input[type="radio"]').forEach(x=>x.checked=false);get('[data-action="begin"]').disabled=true;get('[data-action="check"]').disabled=true;lab.querySelectorAll('[data-action="sample"]').forEach(b=>b.disabled=false);output('verdict').textContent='';output('footer').textContent=type==='vacuum'?'预测保存在本页；重新开始可清除。':'相同模式；C 保持不变；始终测量同一个场坐标。';stage(0);});
+ if(type==='vacuum'){
+  lab.querySelectorAll('[data-action="sample"]').forEach(button=>button.addEventListener('click',()=>{const n=Math.min(Number(button.dataset.count),20000-state.values.length);for(let i=0;i<n;i++)state.values.push(P.normalSample());draw();}));
+  get('[data-action="clear"]').addEventListener('click',()=>{state.values=[];stage(1);draw();});
+ }else{
+  const set=value=>{state.phi=Number(value);if(state.phi===180)state.touched=true;phase();};
+  get('input[type="range"]').addEventListener('input',event=>set(event.target.value));
+  lab.querySelectorAll('[data-phase]').forEach(button=>button.addEventListener('click',()=>set(button.dataset.phase)));
+ }
+ stage(0);
+}
+})();
+</script></body></html>

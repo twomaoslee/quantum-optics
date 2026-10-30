@@ -21,3 +21,5 @@ GitHub Pages 计划使用独立 quantum-optics 仓库，不在此处写 CNAME，
 教师于2026-10-26要求第六讲课件最后一页使用前几讲的一键三连动画。当前课件为45张主讲页（含末页动画）、3张垂直补充；仍按既有持续发布授权同步讲义、课件，PDF范围不变。
 
 教师于2026-10-26随后要求在第六讲封面之后增加会议日程：左侧所给二维码，右侧 https://zimin.li/agenda/ 的实时可滚动网页，并明确授权上传PDF。当前为46张主讲页、3张补充页，完整PDF49页；第2页为日程，第3页为本讲导读，末页为一键三连。PDF日程为带链接的静态画面，保留二维码；使用 --update-pdfs 6 更新标准PDF，九宫格仍不发布。
+
+教师于2026-10-31明确要求将第七讲讲义及新做的两项互动上传网页端，随后在线预览。第七讲列入 published_lectures、notes_only_lectures、standalone_notes_lectures；不发布课件或 PDF。使用 --update-notes 7，配套单独页面按 standalone_notes_files 精确复制。notes_preview_acceptance 绑定源稿、交付文件摘要与独立理解/物理/DOM检查证据，明确保留整页视觉和真实浏览器操作待预览状态，不冒称完整验收通过。此前讲次的正式验收要求不变。

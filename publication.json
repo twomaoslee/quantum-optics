@@ -5,14 +5,18 @@
     3,
     4,
     5,
-    6
+    6,
+    7
   ],
-  "notes_only_lectures": [],
+  "notes_only_lectures": [
+    7
+  ],
   "slides_only_lectures": [],
   "standalone_notes_lectures": [
     4,
     5,
-    6
+    6,
+    7
   ],
   "notes_acceptance": {
     "6": "quantum-notes/qa/lecture06/references-20261026/acceptance.json"
@@ -28,5 +32,17 @@
     5,
     6
   ],
-  "after_class_lectures": []
+  "after_class_lectures": [],
+  "notes_preview_acceptance": {
+    "7": "quantum-notes/qa/lecture07-interactions/publication-preview.json"
+  },
+  "standalone_notes_files": {
+    "7": [
+      "interactives/lecture07-vacuum.html",
+      "interactives/lecture07-phase.html"
+    ]
+  },
+  "note_title_aliases": {
+    "光场量子化：光为什么具有离散的能量？": "光场量子化：从一个振动模式到光子"
+  }
 }
