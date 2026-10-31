@@ -274,7 +274,21 @@ def slide_delivery_files(source, number):
         if digest != manifest['html_sha256'] or digest != acceptance['html_sha256']:
             raise SystemExit(f'Reviewed HTML changed: {name}')
         dimensions = acceptance['required_dimensions']
-        if not dimensions or any(value != 'passed' for value in dimensions.values()):
+        preview = CONFIG.get('slides_preview_acceptance', {}).get(str(number))
+        if preview:
+            expected_review = (ROOT/preview).resolve()
+            if expected_review != (review_dir/manifest['acceptance']).resolve():
+                raise SystemExit(f'Slide preview review mismatch: {name}')
+            if acceptance.get('publication_mode') != 'teacher_requested_web_preview' or not acceptance.get('authorization'):
+                raise SystemExit(f'Missing explicit slide preview authorization: {name}')
+            required = {'understanding': 'passed', 'physics': 'passed',
+                        'expression': 'passed', 'dom_operation': 'passed',
+                        'offline_bundle': 'passed',
+                        'visuals': 'pending_teacher_web_preview',
+                        'browser_operation': 'pending_teacher_web_preview'}
+            if dimensions != required:
+                raise SystemExit(f'Incomplete slide preview checks: {name}')
+        elif not dimensions or any(value != 'passed' for value in dimensions.values()):
             raise SystemExit(f'Incomplete slide acceptance: {name}')
         for relative, expected in acceptance['sources'].items():
             if hashlib.sha256((source/relative).read_bytes()).hexdigest() != expected:

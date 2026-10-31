@@ -8,9 +8,7 @@
     6,
     7
   ],
-  "notes_only_lectures": [
-    7
-  ],
+  "notes_only_lectures": [],
   "slides_only_lectures": [],
   "standalone_notes_lectures": [
     4,
@@ -44,5 +42,8 @@
   },
   "note_title_aliases": {
     "光场量子化：光为什么具有离散的能量？": "光场量子化：从一个振动模式到光子"
+  },
+  "slides_preview_acceptance": {
+    "7": "quantum-slides/qa/lecture07/acceptance.json"
   }
 }
