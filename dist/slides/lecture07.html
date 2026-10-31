@@ -523,6 +523,7 @@ body:has(#l07-cover.present) .reveal .slide-number{display:none!important}
 
 .reveal .flow-compact .s-body{gap:12px}.reveal .flow-medium .s-body{gap:14px}
 .reveal .lab-slide .s-body{display:block;padding-top:0}
+.reveal :is(.cover,.section-index,.closing-slide) .s-body{padding:0}
 @media print{.reveal .fragment{opacity:1!important;visibility:visible!important}}
 .reveal .lecture-slide .section-index-layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:76px;align-items:center}
 .reveal .lecture-slide.section-index>h2{display:none}
@@ -1296,19 +1297,19 @@ margin-right: 0; }
 <p>横截面积为<span class="math inline">\(A\)</span>、腔长为<span class="math inline">\(L\)</span>，对模式体积<span class="math inline">\(V=AL\)</span>积分能量密度：</p>
 <div class="columns pair">
 <div class="column">
-<section id="电场能量" class="block">
-<h3>电场能量</h3>
+<div class="block">
+<h3 id="电场能量">电场能量</h3>
 <div class="equation">
 <p><span class="math display">\[\begin{aligned}U_E&amp;=\frac{\varepsilon_0}{2}\int_VE_y^2\,\mathrm dV\\&amp;=\frac{\varepsilon_0VE_0^2}{4}\cos^2\omega t\end{aligned}\]</span></p>
 </div>
-</section>
+</div>
 </div><div class="column">
-<section id="磁场能量" class="block">
-<h3>磁场能量</h3>
+<div class="block">
+<h3 id="磁场能量">磁场能量</h3>
 <div class="equation">
 <p><span class="math display">\[\begin{aligned}U_B&amp;=\frac1{2\mu_0}\int_VB_z^2\,\mathrm dV\\&amp;=\frac{\varepsilon_0VE_0^2}{4}\sin^2\omega t\end{aligned}\]</span></p>
 </div>
-</section>
+</div>
 </div></div>
 <p>两种空间因子平方在腔内平均都为<span class="math inline">\(1/2\)</span>；使用<span class="math inline">\(1/(\mu_0c^2)=\varepsilon_0\)</span>。</p>
 <div class="result">
@@ -1342,21 +1343,21 @@ margin-right: 0; }
 </div>
 <div class="columns pair">
 <div class="column">
-<section id="由定义核对能量" class="block">
-<h3>由定义核对能量</h3>
+<div class="block">
+<h3 id="由定义核对能量">由定义核对能量</h3>
 <div class="equation">
 <p><span class="math display">\[U_E=\tfrac12\omega^2q^2,\quad U_B=\tfrac12p^2\]</span></p>
 </div>
 <p>两项之和就是场的哈密顿量<span class="math inline">\(H=\tfrac12(p^2+\omega^2q^2)\)</span>。</p>
-</section>
+</div>
 </div><div class="column">
-<section id="求导核对运动" class="block">
-<h3>求导核对运动</h3>
+<div class="block">
+<h3 id="求导核对运动">求导核对运动</h3>
 <div class="equation">
 <p><span class="math display">\[\dot q=p,\quad\dot p=-\omega^2q\]</span></p>
 </div>
 <p>因此<span class="math inline">\(\ddot q+\omega^2q=0\)</span>，与同频谐振子的运动方程一致。</p>
-</section>
+</div>
 </div></div>
 <div class="result">
 <p>质量参数已吸收到变量中；<span class="math inline">\(q,p\)</span>记录场振动，不是光子的位置与机械动量。</p>
@@ -1423,23 +1424,23 @@ margin-right: 0; }
 <div class="s-body">
 <div class="columns pair">
 <div class="column">
-<section id="经典变量" class="block">
-<h3>经典变量</h3>
+<div class="block">
+<h3 id="经典变量">经典变量</h3>
 <div class="equation">
 <p><span class="math display">\[H(q,p)=\tfrac12(p^2+\omega^2q^2)\]</span></p>
 </div>
 <p>实数相乘满足<span class="math inline">\(qp=pq\)</span>。</p>
-</section>
+</div>
 </div><div class="column">
-<section id="量子算符" class="definition">
-<h3>量子算符</h3>
+<div class="definition">
+<h3 id="量子算符">量子算符</h3>
 <div class="equation">
 <p><span class="math display">\[\hat H=\tfrac12(\hat p^2+\omega^2\hat q^2)\]</span></p>
 </div>
 <div class="equation">
 <p><span class="math display">\[[\hat q,\hat p]=i\hbar\]</span></p>
 </div>
-</section>
+</div>
 </div></div>
 <p><span class="math inline">\([\hat A,\hat B]=\hat A\hat B-\hat B\hat A\)</span>，且<span class="math inline">\(\hbar=h/(2\pi)\)</span>。</p>
 <p>上标<span class="math inline">\(\dagger\)</span>表示矩阵的共轭转置；厄米算符满足<span class="math inline">\(\hat q^\dagger=\hat q,\ \hat p^\dagger=\hat p\)</span>。</p>
@@ -1572,19 +1573,19 @@ margin-right: 0; }
 </div>
 <div class="columns pair">
 <div class="column">
-<section id="真空态0rangle" class="definition">
-<h3>真空态<span class="math inline">\(|0\rangle\)</span></h3>
+<div class="definition">
+<h3 id="真空态0rangle">真空态<span class="math inline">\(|0\rangle\)</span></h3>
 <p>归一化的最低能量态。</p>
 <div class="equation">
 <p><span class="math display">\[\langle0|0\rangle=1\]</span></p>
 </div>
-</section>
+</div>
 </div><div class="column">
-<section id="零向量" class="alert">
-<h3>零向量</h3>
+<div class="alert">
+<h3 id="零向量">零向量</h3>
 <p>算符作用可能得到的零结果。</p>
 <p>其范数为零，不能表示归一化量子态。</p>
-</section>
+</div>
 </div></div>
 <div class="result">
 <p>数态<span class="math inline">\(|n\rangle\)</span>是光子数算符的本征态；<span class="math inline">\(|0\rangle\)</span>对应零个光子。</p>
@@ -1640,8 +1641,8 @@ margin-right: 0; }
 <p>阶梯关系确定了目标数态；范数决定作用后向量前面的系数。取归一化数态，约定数态相位，使非零系数为正实数。</p>
 <div class="columns pair">
 <div class="column">
-<section id="下降一级" class="block">
-<h3>下降一级</h3>
+<div class="block">
+<h3 id="下降一级">下降一级</h3>
 <div class="equation">
 <p><span class="math display">\[\hat a|n\rangle=c_n|n-1\rangle\]</span></p>
 </div>
@@ -1653,10 +1654,10 @@ margin-right: 0; }
 <p><span class="math display">\[\hat a|n\rangle=\sqrt n\,|n-1\rangle\]</span></p>
 </div>
 </div>
-</section>
+</div>
 </div><div class="column">
-<section id="上升一级" class="block">
-<h3>上升一级</h3>
+<div class="block">
+<h3 id="上升一级">上升一级</h3>
 <div class="equation">
 <p><span class="math display">\[\hat a^\dagger|n\rangle=d_n|n+1\rangle\]</span></p>
 </div>
@@ -1668,7 +1669,7 @@ margin-right: 0; }
 <p><span class="math display">\[\hat a^\dagger|n\rangle=\sqrt{n+1}\,|n+1\rangle\]</span></p>
 </div>
 </div>
-</section>
+</div>
 </div></div>
 <div class="fragment" data-fragment-index="1">
 <div class="result">
@@ -1836,19 +1837,19 @@ margin-right: 0; }
 </div>
 <div class="columns pair">
 <div class="column">
-<section id="场坐标测量" class="block">
-<h3>场坐标测量</h3>
+<div class="block">
+<h3 id="场坐标测量">场坐标测量</h3>
 <p>真空不是<span class="math inline">\(\hat q\)</span>的本征态。</p>
 <div class="equation">
 <p><span class="math display">\[\hat q|0\rangle=q_0|1\rangle\]</span></p>
 </div>
-</section>
+</div>
 </div><div class="column">
-<section id="总能量测量" class="block">
-<h3>总能量测量</h3>
+<div class="block">
+<h3 id="总能量测量">总能量测量</h3>
 <p>真空是<span class="math inline">\(\hat H\)</span>的本征态。</p>
 <p>每次测得同一个最低能量。</p>
-</section>
+</div>
 </div></div>
 <div class="result">
 <p>“是否有涨落”必须连同可观测量一起说明。</p>
@@ -2002,19 +2003,19 @@ margin-right: 0; }
 <p>B 为<span class="math inline">\(|\psi_B\rangle=\frac{|0\rangle+|2\rangle}{\sqrt2}\)</span>；C 为0与2各半混合。按<span class="math inline">\(|0\rangle,|2\rangle\)</span>排列：</p>
 <div class="columns pair">
 <div class="column">
-<section id="纯叠加b" class="block">
-<h3>纯叠加B</h3>
+<div class="block">
+<h3 id="纯叠加b">纯叠加B</h3>
 <div class="equation">
 <p><span class="math display">\[\rho_B=\frac12\begin{pmatrix}1&amp;1\\1&amp;1\end{pmatrix}\]</span></p>
 </div>
-</section>
+</div>
 </div><div class="column">
-<section id="统计混合c" class="block">
-<h3>统计混合C</h3>
+<div class="block">
+<h3 id="统计混合c">统计混合C</h3>
 <div class="equation">
 <p><span class="math display">\[\rho_C=\frac12\begin{pmatrix}1&amp;0\\0&amp;1\end{pmatrix}\]</span></p>
 </div>
-</section>
+</div>
 </div></div>
 <div class="fragment" data-fragment-index="0">
 <div class="result">
@@ -2036,21 +2037,21 @@ margin-right: 0; }
 </div>
 <div class="columns pair">
 <div class="column">
-<section id="单级升降" class="block">
-<h3>单级升降</h3>
+<div class="block">
+<h3 id="单级升降">单级升降</h3>
 <p><span class="math inline">\(\hat q\)</span>把0、2分量移到相邻数态。</p>
 <div class="equation">
 <p><span class="math display">\[\langle\hat q\rangle_B=\langle\hat q\rangle_C=0\]</span></p>
 </div>
-</section>
+</div>
 </div><div class="column">
-<section id="两级升降" class="block">
-<h3>两级升降</h3>
+<div class="block">
+<h3 id="两级升降">两级升降</h3>
 <div class="equation">
 <p><span class="math display">\[\hat a^2|2\rangle=\sqrt2|0\rangle\]</span></p>
 </div>
 <p>可以连接B的两个分量。</p>
-</section>
+</div>
 </div></div>
 </div>
 </section>
@@ -2286,18 +2287,18 @@ margin-right: 0; }
 <p>已经有了数态、光子数算符及测量概率。</p>
 <div class="columns pair">
 <div class="column">
-<section id="激光热光与单光子" class="block">
-<h3>激光、热光与单光子</h3>
+<div class="block">
+<h3 id="激光热光与单光子">激光、热光与单光子</h3>
 <p>即使平均光子数相同，计数分布也可能不同。</p>
-</section>
+</div>
 </div><div class="column">
-<section id="接下来要算" class="block">
-<h3>接下来要算</h3>
+<div class="block">
+<h3 id="接下来要算">接下来要算</h3>
 <div class="equation">
 <p><span class="math display">\[P(n),\qquad\langle\hat N\rangle,\qquad(\Delta N)^2\]</span></p>
 </div>
 <p>把光源的状态与探测统计连接起来。</p>
-</section>
+</div>
 </div></div>
 </div>
 </section>
