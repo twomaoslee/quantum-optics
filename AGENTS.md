@@ -25,3 +25,5 @@ GitHub Pages 计划使用独立 quantum-optics 仓库，不在此处写 CNAME，
 教师于2026-10-31明确要求将第七讲讲义及新做的两项互动上传网页端，随后在线预览。第七讲列入 published_lectures、notes_only_lectures、standalone_notes_lectures；不发布课件或 PDF。使用 --update-notes 7，配套单独页面按 standalone_notes_files 精确复制。notes_preview_acceptance 绑定源稿、交付文件摘要与独立理解/物理/DOM检查证据，明确保留整页视觉和真实浏览器操作待预览状态，不冒称完整验收通过。此前讲次的正式验收要求不变。
 
 教师随后要求按课程skill将第七讲制作为课件，并将学习模式问答改为选择题；沿用本轮“做完后上传到网页端，后续在网页端预览”的要求，同步第七讲HTML课件预览入口。第七讲移出notes_only_lectures，使用 --update-slides 7；PDF范围保持不变。slides_preview_acceptance精确绑定课件版本与独立内容、物理、DOM检查证据，真实浏览器播放及整页视觉仍标记pending_teacher_web_preview，不作为正式完整验收通过。
+
+教师随后要求修订第七讲的空页、孤立公式与不规整布局，并将题目统一命名“思考题+编号”、补齐当页条件。当前为44张主讲页、3张补充页；按已发布课件持续同步授权更新HTML，仍保留真实视觉与浏览器播放待验状态，PDF范围不变。
