@@ -19,6 +19,32 @@ SITE = Path(__file__).resolve().parents[1]
 ROOT = SITE.parent
 DIST = SITE / 'dist'
 
+def sync_classroom():
+    """Publish only the reviewed static client, never backend or private state."""
+    source = SITE/'classroom'
+    readiness_path = SITE/'classroom-cloudbase/release-readiness.json'
+    if not source.exists():
+        return
+    readiness = json.loads(readiness_path.read_text())
+    if readiness.get('local_browser') != 'passed' or readiness.get('backend_tests') != 'passed':
+        raise SystemExit('Classroom local checks are incomplete.')
+    config = (source/'config.js').read_text()
+    if re.search(r'\b(?:dev|devEndpoint|secretId|secretKey|password|token)\s*:', config, re.I):
+        raise SystemExit('Private or local-only classroom configuration cannot be published.')
+    if readiness.get('cloud_deployment') != 'passed' and not re.search(r"envId\s*:\s*['\"]['\"]",config):
+        raise SystemExit('Cloud classroom configuration needs cloud smoke-test acceptance.')
+    for relative, expected in readiness['sha256'].items():
+        origin = (SITE/relative).resolve()
+        if not origin.is_relative_to(SITE.resolve()) or hashlib.sha256(origin.read_bytes()).hexdigest() != expected:
+            raise SystemExit(f'Classroom review version changed: {relative}')
+    for relative in readiness['public_files']:
+        origin = (source/relative).resolve()
+        if not origin.is_relative_to(source.resolve()) or ('classroom/'+relative) not in readiness['sha256']:
+            raise SystemExit('Unreviewed classroom public file.')
+        target = DIST/'classroom'/relative
+        target.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copy2(origin,target)
+
 def standalone_source(root, number):
     relative = CONFIG.get('standalone_notes_sources', {}).get(str(number))
     if relative is None:
@@ -701,3 +727,4 @@ def main():
 
 if __name__=='__main__':
     main()
+    sync_classroom()

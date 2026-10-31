@@ -1,0 +1,16 @@
+{
+  "name": "quantum-optics-classroom-backend",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "test": "node --test test/*.test.cjs",
+    "dev": "node scripts/dev.cjs",
+    "build:vendor": "node scripts/vendor.cjs"
+  },
+  "devDependencies": {
+    "@cloudbase/js-sdk": "3.10.4",
+    "esbuild": "0.25.12",
+    "jsqr": "1.4.0",
+    "qrcode": "1.5.4"
+  }
+}

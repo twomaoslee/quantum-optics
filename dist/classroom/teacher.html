@@ -1,0 +1,12 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>量子光学 · 课堂控制</title><link rel="stylesheet" href="style.css"><script defer src="config.js"></script><script defer src="api.js"></script><script defer src="vendor/qrcode.js"></script><script defer src="teacher.js"></script></head><body>
+<header><a href="../index.html" target="_blank" rel="noopener">量子光学</a><span>课堂控制</span></header><main>
+<p id="environment" class="notice" hidden></p><p id="message" class="message" role="status" aria-live="polite"></p>
+<section id="login" class="teacher-login"><p class="eyebrow">教师入口</p><h1>课堂答题</h1><p class="muted">登录后创建课堂，二维码在同一堂课内保持不变。</p><form id="login-form"><label>教师口令<input name="password" type="password" autocomplete="current-password" required maxlength="200"></label><button class="primary" type="submit">登录</button></form><button id="dev-login" hidden>本机演示登录</button></section>
+<section id="workspace" hidden><div class="identity"><span>教师已登录</span><button id="logout" class="text-button">退出登录</button></div>
+<div class="room-picker"><select id="rooms" aria-label="选择课堂"><option value="">选择课堂</option></select><button id="create">新建课堂</button></div>
+<div id="classroom" hidden class="teacher-grid"><section><p id="round-label" class="eyebrow">尚未发题</p><h1 id="title" class="teacher-title"></h1><p id="stem" class="answer-text"></p>
+<p id="status" class="status-line"></p><div class="toolbar"><button id="open" class="primary">发题 · 60秒</button><button id="extend" disabled>加30秒</button><button id="close" disabled>结束作答</button><button id="reveal" disabled>公布统计</button></div>
+<div id="stats" hidden><div id="counts" class="counts"></div><p id="stats-note" class="stats-note"></p><p id="explanation" class="answer-text" hidden></p></div>
+<div class="toolbar"><button id="analysis" disabled>显示解析</button><button id="export">导出本课堂记录</button></div><p id="download-status" class="fine" role="status"></p></section>
+<aside><h2>学生扫码进入</h2><canvas id="qr" aria-label="课堂二维码"></canvas><p><a id="student-link" target="_blank" rel="noopener">打开学生页</a></p><button id="copy-link">复制学生链接</button><p class="fine">同一课堂始终使用这个入口；刷新或重新发题不会清空往轮记录。</p></aside></div>
+</section></main></body></html>

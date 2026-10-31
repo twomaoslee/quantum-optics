@@ -492,7 +492,7 @@ margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 .reveal{font-family:"Source Sans Pro","PingFang SC","Microsoft YaHei",sans-serif;color:var(--lecture-ink);font-size:30px}
 .reveal h1,.reveal h2,.reveal h3{font-family:inherit;text-transform:none}
 .reveal .slides section.lecture-slide{height:720px;box-sizing:border-box;padding:0;text-align:left}
-.reveal .lecture-slide>h2{position:absolute;top:51px;left:36px;right:36px;margin:0;font-size:42px;font-weight:650;line-height:1.25;color:var(--lecture-blue);white-space:nowrap}
+.reveal .lecture-slide>:is(h1,h2){position:absolute;top:51px;left:36px;right:36px;margin:0;font-size:42px;font-weight:650;line-height:1.25;color:var(--lecture-blue);white-space:nowrap}
 .reveal .s-nav{position:absolute;top:8px;left:36px;right:36px;height:29px;border-bottom:1px solid #78afc5;display:flex;align-items:flex-start;gap:24px;font-size:19px;color:#899197}
 .reveal .s-nav .lecture-label{margin:0 auto 0 0;color:#68757e;white-space:nowrap}
 .reveal .s-nav a{color:#607487}.reveal .s-nav a.active{color:var(--lecture-blue);font-weight:650}
@@ -526,7 +526,7 @@ body:has(#l07-cover.present) .reveal .slide-number{display:none!important}
 .reveal :is(.cover,.section-index,.closing-slide) .s-body{padding:0}
 @media print{.reveal .fragment{opacity:1!important;visibility:visible!important}}
 .reveal .lecture-slide .section-index-layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:76px;align-items:center}
-.reveal .lecture-slide.section-index>h2{display:none}
+.reveal .lecture-slide.section-index>:is(h1,h2){display:none}
 .reveal .lecture-slide.section-index .s-body{inset:108px 96px auto;height:548px;display:grid;grid-template-rows:minmax(0,1fr) 120px;gap:36px}
 .reveal .lecture-slide .section-index-title{color:#0070c0;text-align:left}
 .reveal .lecture-slide .section-index-cn{font-size:76px;font-weight:700;letter-spacing:.2em;line-height:1.2;margin-bottom:20px}
@@ -537,7 +537,7 @@ body:has(#l07-cover.present) .reveal .slide-number{display:none!important}
 .reveal .lecture-slide a.section-entry.is-current{background:#f0f6fb;border-left-color:#0070c0;color:#0070c0;font-weight:700}
 .reveal .lecture-slide .section-bridge{color:#607487;background:#f2f4f6;padding:14px 24px;align-self:start}
 .reveal .lecture-slide .section-index-title p{color:inherit}
-.reveal .lecture-slide.cover>h2,.reveal .lecture-slide.cover .s-nav{display:none}
+.reveal .lecture-slide.cover>:is(h1,h2),.reveal .lecture-slide.cover .s-nav{display:none}
 .reveal .lecture-slide.cover .s-body{inset:0;height:680px;display:block}
 .reveal .lecture-slide .cover-art{position:absolute;inset:0;opacity:.38}
 .reveal .lecture-slide .cover-art img{width:100%;height:100%;object-fit:cover;max-height:none;mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 82%,transparent);margin:0}
@@ -554,7 +554,7 @@ body:has(#l07-cover.present) .reveal .slide-number{display:none!important}
 .reveal .lecture-slide .guide-number{color:#0070c0;font-size:30px;line-height:1.35}
 .reveal .lecture-slide .guide-steps h3{margin:0 0 8px}.reveal .lecture-slide .guide-steps p{line-height:1.35}.reveal .lecture-slide .guide-steps p+p{margin-top:2px}
 
-.reveal #l07-closing>h2{display:none!important}
+.reveal #l07-closing>:is(h1,h2){display:none!important}
 .reveal #l07-closing .s-body{inset:0;width:1280px;height:720px;display:block;background:#ededed}
 .reveal #l07-closing .triple-stage{display:block;width:100%;height:100%;overflow:visible}
 body:has(#l07-closing.present){background:#ededed}
@@ -1142,8 +1142,8 @@ margin-right: 0; }
     <div class="slides">
 
 
-<section id="l07-cover" class="slide level2 cover lecture-slide l07" data-section="none">
-<h2>光场量子化：从一个振动模式到光子</h2>
+<section id="l07-cover" class="title-slide slide level1 cover lecture-slide l07" data-section="none">
+<h1>光场量子化：从一个振动模式到光子</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="cover-art"><svg class="science-plot" viewbox="0 0 1100 290" role="img" aria-label="两面镜之间第一与第二驻波的空间分布；曲线高度为示意" xmlns="http://www.w3.org/2000/svg"><line x1="65" y1="48" x2="65" y2="242" stroke="#bdcbd8" stroke-width="2"></line><line x1="485" y1="48" x2="485" y2="242" stroke="#bdcbd8" stroke-width="2"></line><line x1="65" y1="145" x2="485" y2="145" stroke="#bdcbd8" stroke-width="2"></line><path d="M65.00,145.00 L67.10,143.87 L69.20,142.74 L71.30,141.61 L73.40,140.48 L75.50,139.35 L77.60,138.22 L79.70,137.10 L81.80,135.98 L83.90,134.86 L86.00,133.74 L88.10,132.62 L90.20,131.51 L92.30,130.40 L94.40,129.29 L96.50,128.19 L98.60,127.09 L100.70,126.00 L102.80,124.91 L104.90,123.83 L107.00,122.75 L109.10,121.68 L111.20,120.61 L113.30,119.55 L115.40,118.50 L117.50,117.45 L119.60,116.41 L121.70,115.37 L123.80,114.34 L125.90,113.32 L128.00,112.31 L130.10,111.31 L132.20,110.31 L134.30,109.33 L136.40,108.35 L138.50,107.38 L140.60,106.42 L142.70,105.47 L144.80,104.53 L146.90,103.60 L149.00,102.68 L151.10,101.77 L153.20,100.87 L155.30,99.98 L157.40,99.11 L159.50,98.24 L161.60,97.39 L163.70,96.54 L165.80,95.71 L167.90,94.89 L170.00,94.09 L172.10,93.29 L174.20,92.51 L176.30,91.75 L178.40,90.99 L180.50,90.25 L182.60,89.52 L184.70,88.81 L186.80,88.11 L188.90,87.42 L191.00,86.75 L193.10,86.09 L195.20,85.45 L197.30,84.82 L199.40,84.21 L201.50,83.61 L203.60,83.03 L205.70,82.46 L207.80,81.91 L209.90,81.37 L212.00,80.85 L214.10,80.34 L216.20,79.85 L218.30,79.38 L220.40,78.92 L222.50,78.48 L224.60,78.06 L226.70,77.65 L228.80,77.26 L230.90,76.88 L233.00,76.52 L235.10,76.18 L237.20,75.86 L239.30,75.55 L241.40,75.26 L243.50,74.99 L245.60,74.73 L247.70,74.50 L249.80,74.28 L251.90,74.07 L254.00,73.89 L256.10,73.72 L258.20,73.57 L260.30,73.43 L262.40,73.32 L264.50,73.22 L266.60,73.14 L268.70,73.08 L270.80,73.04 L272.90,73.01 L275.00,73.00 L277.10,73.01 L279.20,73.04 L281.30,73.08 L283.40,73.14 L285.50,73.22 L287.60,73.32 L289.70,73.43 L291.80,73.57 L293.90,73.72 L296.00,73.89 L298.10,74.07 L300.20,74.28 L302.30,74.50 L304.40,74.73 L306.50,74.99 L308.60,75.26 L310.70,75.55 L312.80,75.86 L314.90,76.18 L317.00,76.52 L319.10,76.88 L321.20,77.26 L323.30,77.65 L325.40,78.06 L327.50,78.48 L329.60,78.92 L331.70,79.38 L333.80,79.85 L335.90,80.34 L338.00,80.85 L340.10,81.37 L342.20,81.91 L344.30,82.46 L346.40,83.03 L348.50,83.61 L350.60,84.21 L352.70,84.82 L354.80,85.45 L356.90,86.09 L359.00,86.75 L361.10,87.42 L363.20,88.11 L365.30,88.81 L367.40,89.52 L369.50,90.25 L371.60,90.99 L373.70,91.75 L375.80,92.51 L377.90,93.29 L380.00,94.09 L382.10,94.89 L384.20,95.71 L386.30,96.54 L388.40,97.39 L390.50,98.24 L392.60,99.11 L394.70,99.98 L396.80,100.87 L398.90,101.77 L401.00,102.68 L403.10,103.60 L405.20,104.53 L407.30,105.47 L409.40,106.42 L411.50,107.38 L413.60,108.35 L415.70,109.33 L417.80,110.31 L419.90,111.31 L422.00,112.31 L424.10,113.32 L426.20,114.34 L428.30,115.37 L430.40,116.41 L432.50,117.45 L434.60,118.50 L436.70,119.55 L438.80,120.61 L440.90,121.68 L443.00,122.75 L445.10,123.83 L447.20,124.91 L449.30,126.00 L451.40,127.09 L453.50,128.19 L455.60,129.29 L457.70,130.40 L459.80,131.51 L461.90,132.62 L464.00,133.74 L466.10,134.86 L468.20,135.98 L470.30,137.10 L472.40,138.22 L474.50,139.35 L476.60,140.48 L478.70,141.61 L480.80,142.74 L482.90,143.87 L485.00,145.00" fill="none" stroke="#0070c0" stroke-width="4" /><text x="275.0" y="30" text-anchor="middle" fill="#526b80">模式 m = 1</text><text x="65" y="278" text-anchor="middle" fill="#526b80">0</text><text x="485" y="278" text-anchor="middle" fill="#526b80">L</text><line x1="615" y1="48" x2="615" y2="242" stroke="#bdcbd8" stroke-width="2"></line><line x1="1035" y1="48" x2="1035" y2="242" stroke="#bdcbd8" stroke-width="2"></line><line x1="615" y1="145" x2="1035" y2="145" stroke="#bdcbd8" stroke-width="2"></line><path d="M615.00,145.00 L617.10,142.74 L619.20,140.48 L621.30,138.22 L623.40,135.98 L625.50,133.74 L627.60,131.51 L629.70,129.29 L631.80,127.09 L633.90,124.91 L636.00,122.75 L638.10,120.61 L640.20,118.50 L642.30,116.41 L644.40,114.34 L646.50,112.31 L648.60,110.31 L650.70,108.35 L652.80,106.42 L654.90,104.53 L657.00,102.68 L659.10,100.87 L661.20,99.11 L663.30,97.39 L665.40,95.71 L667.50,94.09 L669.60,92.51 L671.70,90.99 L673.80,89.52 L675.90,88.11 L678.00,86.75 L680.10,85.45 L682.20,84.21 L684.30,83.03 L686.40,81.91 L688.50,80.85 L690.60,79.85 L692.70,78.92 L694.80,78.06 L696.90,77.26 L699.00,76.52 L701.10,75.86 L703.20,75.26 L705.30,74.73 L707.40,74.28 L709.50,73.89 L711.60,73.57 L713.70,73.32 L715.80,73.14 L717.90,73.04 L720.00,73.00 L722.10,73.04 L724.20,73.14 L726.30,73.32 L728.40,73.57 L730.50,73.89 L732.60,74.28 L734.70,74.73 L736.80,75.26 L738.90,75.86 L741.00,76.52 L743.10,77.26 L745.20,78.06 L747.30,78.92 L749.40,79.85 L751.50,80.85 L753.60,81.91 L755.70,83.03 L757.80,84.21 L759.90,85.45 L762.00,86.75 L764.10,88.11 L766.20,89.52 L768.30,90.99 L770.40,92.51 L772.50,94.09 L774.60,95.71 L776.70,97.39 L778.80,99.11 L780.90,100.87 L783.00,102.68 L785.10,104.53 L787.20,106.42 L789.30,108.35 L791.40,110.31 L793.50,112.31 L795.60,114.34 L797.70,116.41 L799.80,118.50 L801.90,120.61 L804.00,122.75 L806.10,124.91 L808.20,127.09 L810.30,129.29 L812.40,131.51 L814.50,133.74 L816.60,135.98 L818.70,138.22 L820.80,140.48 L822.90,142.74 L825.00,145.00 L827.10,147.26 L829.20,149.52 L831.30,151.78 L833.40,154.02 L835.50,156.26 L837.60,158.49 L839.70,160.71 L841.80,162.91 L843.90,165.09 L846.00,167.25 L848.10,169.39 L850.20,171.50 L852.30,173.59 L854.40,175.66 L856.50,177.69 L858.60,179.69 L860.70,181.65 L862.80,183.58 L864.90,185.47 L867.00,187.32 L869.10,189.13 L871.20,190.89 L873.30,192.61 L875.40,194.29 L877.50,195.91 L879.60,197.49 L881.70,199.01 L883.80,200.48 L885.90,201.89 L888.00,203.25 L890.10,204.55 L892.20,205.79 L894.30,206.97 L896.40,208.09 L898.50,209.15 L900.60,210.15 L902.70,211.08 L904.80,211.94 L906.90,212.74 L909.00,213.48 L911.10,214.14 L913.20,214.74 L915.30,215.27 L917.40,215.72 L919.50,216.11 L921.60,216.43 L923.70,216.68 L925.80,216.86 L927.90,216.96 L930.00,217.00 L932.10,216.96 L934.20,216.86 L936.30,216.68 L938.40,216.43 L940.50,216.11 L942.60,215.72 L944.70,215.27 L946.80,214.74 L948.90,214.14 L951.00,213.48 L953.10,212.74 L955.20,211.94 L957.30,211.08 L959.40,210.15 L961.50,209.15 L963.60,208.09 L965.70,206.97 L967.80,205.79 L969.90,204.55 L972.00,203.25 L974.10,201.89 L976.20,200.48 L978.30,199.01 L980.40,197.49 L982.50,195.91 L984.60,194.29 L986.70,192.61 L988.80,190.89 L990.90,189.13 L993.00,187.32 L995.10,185.47 L997.20,183.58 L999.30,181.65 L1001.40,179.69 L1003.50,177.69 L1005.60,175.66 L1007.70,173.59 L1009.80,171.50 L1011.90,169.39 L1014.00,167.25 L1016.10,165.09 L1018.20,162.91 L1020.30,160.71 L1022.40,158.49 L1024.50,156.26 L1026.60,154.02 L1028.70,151.78 L1030.80,149.52 L1032.90,147.26 L1035.00,145.00" fill="none" stroke="#0070c0" stroke-width="4" /><text x="825.0" y="30" text-anchor="middle" fill="#526b80">模式 m = 2</text><text x="615" y="278" text-anchor="middle" fill="#526b80">0</text><text x="1035" y="278" text-anchor="middle" fill="#526b80">L</text></svg>
@@ -1151,8 +1151,9 @@ margin-right: 0; }
 </div>
 
 </section>
-<section id="l07-guide" class="slide level2 guide-slide lecture-slide l07" data-section="none">
-<h2>本讲导读</h2>
+
+<section id="l07-guide" class="title-slide slide level1 guide-slide lecture-slide l07" data-section="none">
+<h1>本讲导读</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <ol class="guide-steps"><li><span class="guide-number">01</span><div><h3 id="单模场与经典振子">单模场与经典振子</h3>
@@ -1162,8 +1163,9 @@ margin-right: 0; }
 <p>比较数态、纯叠加与统计混合，说明相同的光子计数仍可隐藏不同相干性。</p></div></li></ol>
 </div>
 </section>
-<section id="l07-nav-mode" class="slide level2 section-index lecture-slide l07" data-section="mode">
-<h2>目录：单模场与经典振子</h2>
+
+<section id="l07-nav-mode" class="title-slide slide level1 section-index lecture-slide l07" data-section="mode">
+<h1>目录：单模场与经典振子</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="section-index-layout"><div class="section-index-title"><div class="section-index-cn">目录</div><div class="section-index-en">CONTENTS</div></div><nav class="section-index-list"><a class="section-entry is-current" href="#/l07-nav-mode"><span class="section-number">01</span>单模场与经典振子</a><a class="section-entry " href="#/l07-nav-ladder"><span class="section-number">02</span>阶梯算符与光子数态</a><a class="section-entry " href="#/l07-nav-vacuum"><span class="section-number">03</span>真空与场涨落</a><a class="section-entry " href="#/l07-nav-states"><span class="section-number">04</span>叠加、混合与测量</a></nav></div>
@@ -1172,8 +1174,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-objects" class="slide level2 flow-compact table-roomy lecture-slide l07" data-section="mode">
-<h2>从单光子偏振转向一个模式的场状态</h2>
+
+<section id="l07-objects" class="title-slide slide level1 flow-compact table-roomy lecture-slide l07" data-section="mode">
+<h1>从单光子偏振转向一个模式的场状态</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>前几讲固定一个光子，改变偏振；本讲固定频率、空间分布与偏振，允许光子数改变。</p>
@@ -1213,8 +1216,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-modes" class="slide level2 plot-slide lecture-slide l07" data-section="mode">
-<h2>两个镜面处的电场节点选出驻波模式</h2>
+
+<section id="l07-modes" class="title-slide slide level1 plot-slide lecture-slide l07" data-section="mode">
+<h1>两个镜面处的电场节点选出驻波模式</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>腔轴为<span class="math inline">\(x\)</span>，镜面位于<span class="math inline">\(0,L\)</span>。正弦驻波在两端为零，故波数<span class="math inline">\(k_m\)</span>满足<span class="math inline">\(\sin(k_mL)=0\)</span>：</p>
@@ -1226,8 +1230,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-q1" class="slide level2 mc-slide lecture-slide l07" data-section="mode">
-<h2>思考题1：向同一个模式增加一个光子</h2>
+
+<section id="l07-q1" class="title-slide slide level1 mc-slide lecture-slide l07" data-section="mode">
+<h1>思考题1：向同一个模式增加一个光子</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="question question-box">
@@ -1236,22 +1241,23 @@ margin-right: 0; }
 </div>
 <div class="reference mc-reference">
 <div class="equation"><span class="math display">\[u_m(x)=\sin(m\pi x/L),\qquad\omega_m=m\pi c/L\]</span></div>
-<p><span class="math inline">\(m\)</span>为模式编号，<span class="math inline">\(L\)</span>为腔长，<span class="math inline">\(c\)</span>为光速；激发数表示该模式有多少份量子激发。</p>
+<p><span class="math inline">\(m\)</span>为模式编号，<span class="math inline">\(L\)</span>为腔长，<span class="math inline">\(c\)</span>为光速；激发数表示该模式有多少份量子激发</p>
 </div>
 <div class="mc-options"><button type="button" class="mc-option" data-choice="A" aria-pressed="false"><span class="mc-letter">A</span><span>频率增大，空间形状不变</span></button><button type="button" class="mc-option" data-choice="B" aria-pressed="false"><span class="mc-letter">B</span><span>频率不变，节点数增加</span></button><button type="button" class="mc-option" data-choice="C" aria-pressed="false"><span class="mc-letter">C</span><span>频率与形状不变，激发数增加</span></button><button type="button" class="mc-option" data-choice="D" aria-pressed="false"><span class="mc-letter">D</span><span>频率、形状与激发数都不变</span></button></div>
 </div>
 <div class="fragment" data-fragment-index="0">
 <div class="answer mc-answer" data-correct="C">
 <div class="result">
-<p>答案 C　所选模式保持不变；增加的是这个模式中的量子激发。</p>
+<p>答案 C　所选模式保持不变；增加的是这个模式中的量子激发数。</p>
 </div>
 </div>
 </div>
 </div>
 
 </section>
-<section id="l07-classical-fields" class="slide level2 flow-compact math-compact table-compact lecture-slide l07" data-section="mode">
-<h2>驻波中的电场与磁场共同描述一个模式</h2>
+
+<section id="l07-classical-fields" class="title-slide slide level1 flow-compact math-compact table-compact lecture-slide l07" data-section="mode">
+<h1>驻波中的电场与磁场共同描述一个模式</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>选定同一模式，电场沿<span class="math inline">\(y\)</span>、磁场沿<span class="math inline">\(z\)</span>，且<span class="math inline">\(\omega=ck\)</span>：</p>
@@ -1283,8 +1289,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-field-energy" class="slide level2 flow-compact block-medium lecture-slide l07" data-section="mode">
-<h2>从电磁能量密度得到两项模式能量</h2>
+
+<section id="l07-field-energy" class="title-slide slide level1 flow-compact block-medium lecture-slide l07" data-section="mode">
+<h1>从电磁能量密度得到两项模式能量</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p><span class="math inline">\(\varepsilon_0,\mu_0\)</span>分别为真空介电常数和磁导率。</p>
@@ -1307,8 +1314,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-energy-exchange" class="slide level2 plot-slide lecture-slide l07" data-section="mode">
-<h2>电场能与磁场能交换，总能量守恒</h2>
+
+<section id="l07-energy-exchange" class="title-slide slide level1 plot-slide lecture-slide l07" data-section="mode">
+<h1>电场能与磁场能交换，总能量守恒</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>取模式体积<span class="math inline">\(V\)</span>，<span class="math inline">\(\varepsilon_0\)</span>为真空介电常数；空间平方平均值为<span class="math inline">\(1/2\)</span>。</p>
@@ -1320,9 +1328,10 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section class="l07-supplement-stack">
-<section id="l07-canonical" class="slide level2 flow-compact lecture-slide l07" data-section="mode">
-<h2>把两项场能量写成谐振子的标准形式</h2>
+
+<section>
+<section id="l07-canonical" class="title-slide slide level1 flow-compact lecture-slide l07" data-section="mode">
+<h1>把两项场能量写成谐振子的标准形式</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>机械振子质量为<span class="math inline">\(M\)</span>、相对平衡位置的位移为<span class="math inline">\(x\)</span>、机械动量为<span class="math inline">\(P\)</span>，能量为<span class="math inline">\(P^2/(2M)+M\omega^2x^2/2\)</span>。对光场定义：</p>
@@ -1356,10 +1365,9 @@ margin-right: 0; }
 <p><span class="math inline">\(\mu_0\)</span>为真空磁导率，<span class="math inline">\(1/(\mu_0c^2)=\varepsilon_0\)</span>。</p>
 <div class="equation"><span class="math display">\[E_y(x)=\omega\sqrt{\frac2{\varepsilon_0V}}q\sin(kx),\qquad B_z(x)=\frac1c\sqrt{\frac2{\varepsilon_0V}}p\cos(kx)\]</span></div>
 </div>
-</section>
-</section>
-<section id="l07-q2" class="slide level2 mc-slide lecture-slide l07" data-section="mode">
-<h2>思考题2：频率离散是否足以使能量离散</h2>
+</section></section>
+<section id="l07-q2" class="title-slide slide level1 mc-slide lecture-slide l07" data-section="mode">
+<h1>思考题2：频率离散是否足以使能量离散</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="question question-box">
@@ -1382,8 +1390,9 @@ margin-right: 0; }
 </div>
 
 </section>
-<section id="l07-nav-ladder" class="slide level2 section-index lecture-slide l07" data-section="ladder">
-<h2>目录：阶梯算符与光子数态</h2>
+
+<section id="l07-nav-ladder" class="title-slide slide level1 section-index lecture-slide l07" data-section="ladder">
+<h1>目录：阶梯算符与光子数态</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="section-index-layout"><div class="section-index-title"><div class="section-index-cn">目录</div><div class="section-index-en">CONTENTS</div></div><nav class="section-index-list"><a class="section-entry " href="#/l07-nav-mode"><span class="section-number">01</span>单模场与经典振子</a><a class="section-entry is-current" href="#/l07-nav-ladder"><span class="section-number">02</span>阶梯算符与光子数态</a><a class="section-entry " href="#/l07-nav-vacuum"><span class="section-number">03</span>真空与场涨落</a><a class="section-entry " href="#/l07-nav-states"><span class="section-number">04</span>叠加、混合与测量</a></nav></div>
@@ -1392,8 +1401,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-quantization" class="slide level2 flow-compact lecture-slide l07" data-section="ladder">
-<h2>正则对易关系是额外引入的量子规律</h2>
+
+<section id="l07-quantization" class="title-slide slide level1 flow-compact lecture-slide l07" data-section="ladder">
+<h1>正则对易关系是额外引入的量子规律</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="columns pair">
@@ -1417,8 +1427,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-annihilation" class="slide level2 flow-compact block-compact math-compact lecture-slide l07" data-section="ladder">
-<h2>复振幅说明为什么要组合场坐标与动量</h2>
+
+<section id="l07-annihilation" class="title-slide slide level1 flow-compact block-compact math-compact lecture-slide l07" data-section="ladder">
+<h1>复振幅说明为什么要组合场坐标与动量</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>经典振子有<span class="math inline">\(q=Q\cos\omega t\)</span>、<span class="math inline">\(p=-\omega Q\sin\omega t\)</span>，两实变量可合成一个复振幅：</p>
@@ -1432,8 +1443,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-commutator" class="slide level2 lecture-slide l07" data-section="ladder">
-<h2>算符次序为能量增加一个常数项</h2>
+
+<section id="l07-commutator" class="title-slide slide level1 lecture-slide l07" data-section="ladder">
+<h1>算符次序为能量增加一个常数项</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>代入刚定义的两个算符，并使用<span class="math inline">\([\hat q,\hat p]=i\hbar\)</span>。先比较两个乘积的次序：</p>
@@ -1451,8 +1463,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-number-operator" class="slide level2 flow-compact lecture-slide l07" data-section="ladder">
-<h2>光子数算符把能量组织成相邻阶梯</h2>
+
+<section id="l07-number-operator" class="title-slide slide level1 flow-compact lecture-slide l07" data-section="ladder">
+<h1>光子数算符把能量组织成相邻阶梯</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>定义光子数算符，把求能量转化为求它的本征值：</p>
@@ -1468,8 +1481,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-positive" class="slide level2 flow-medium lecture-slide l07" data-section="ladder">
-<h2>范数非负给出了本征值的下界</h2>
+
+<section id="l07-positive" class="title-slide slide level1 flow-medium lecture-slide l07" data-section="ladder">
+<h1>范数非负给出了本征值的下界</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>矩阵乘积取共轭转置时次序反转，因此</p>
@@ -1488,8 +1502,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-integers" class="slide level2 lecture-slide l07" data-section="ladder">
-<h2>非负性迫使能量阶梯从整数开始</h2>
+
+<section id="l07-integers" class="title-slide slide level1 lecture-slide l07" data-section="ladder">
+<h1>非负性迫使能量阶梯从整数开始</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>假设<span class="math inline">\(\lambda=k+r\)</span>，其中<span class="math inline">\(k=0,1,\ldots\)</span>且<span class="math inline">\(0&lt;r&lt;1\)</span>。</p>
@@ -1509,9 +1524,10 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section class="l07-supplement-stack">
-<section id="l07-vacuum-definition" class="slide level2 lecture-slide l07" data-section="ladder">
-<h2>最低态满足湮灭条件</h2>
+
+<section>
+<section id="l07-vacuum-definition" class="title-slide slide level1 lecture-slide l07" data-section="ladder">
+<h1>最低态满足湮灭条件</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="equation"><span class="math display">\[\hat N|0\rangle=0,\qquad\|\hat a|0\rangle\|^2=0\quad\Rightarrow\quad\hat a|0\rangle=0\]</span></div>
@@ -1546,10 +1562,9 @@ margin-right: 0; }
 <p>这是可归一化的高斯波函数；变量是场坐标，不是光子位置。</p>
 </div>
 </div>
-</section>
-</section>
-<section id="l07-energy-spectrum" class="slide level2 spectrum-slide lecture-slide l07" data-section="ladder">
-<h2>每一级光场激发增加一份光子能量</h2>
+</section></section>
+<section id="l07-energy-spectrum" class="title-slide slide level1 spectrum-slide lecture-slide l07" data-section="ladder">
+<h1>每一级光场激发增加一份光子能量</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="columns pair">
@@ -1568,8 +1583,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-lower-coefficient" class="slide level2 coefficient-slide flow-medium lecture-slide l07" data-section="ladder">
-<h2>用范数同时确定上升与下降系数</h2>
+
+<section id="l07-lower-coefficient" class="title-slide slide level1 coefficient-slide flow-medium lecture-slide l07" data-section="ladder">
+<h1>用范数同时确定上升与下降系数</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>阶梯关系确定了目标数态；范数决定作用后向量前面的系数。取归一化数态，约定数态相位，使非零系数为正实数。</p>
@@ -1600,8 +1616,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-q3" class="slide level2 mc-slide lecture-slide l07" data-section="ladder">
-<h2>思考题3：连续作用两次湮灭算符</h2>
+
+<section id="l07-q3" class="title-slide slide level1 mc-slide lecture-slide l07" data-section="ladder">
+<h1>思考题3：连续作用两次湮灭算符</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="question question-box">
@@ -1624,8 +1641,9 @@ margin-right: 0; }
 </div>
 
 </section>
-<section id="l07-mean-energy" class="slide level2 lecture-slide l07" data-section="ladder">
-<h2>单次能量离散，平均能量仍可连续变化</h2>
+
+<section id="l07-mean-energy" class="title-slide slide level1 lecture-slide l07" data-section="ladder">
+<h1>单次能量离散，平均能量仍可连续变化</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>纯态中可观测量<span class="math inline">\(\hat O\)</span>的期望值<span class="math inline">\(\langle\hat O\rangle=\langle\psi|\hat O|\psi\rangle\)</span>，表示大量独立制备后重复测量的平均结果。</p>
@@ -1660,8 +1678,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-nav-vacuum" class="slide level2 section-index lecture-slide l07" data-section="vacuum">
-<h2>目录：真空与场涨落</h2>
+
+<section id="l07-nav-vacuum" class="title-slide slide level1 section-index lecture-slide l07" data-section="vacuum">
+<h1>目录：真空与场涨落</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="section-index-layout"><div class="section-index-title"><div class="section-index-cn">目录</div><div class="section-index-en">CONTENTS</div></div><nav class="section-index-list"><a class="section-entry " href="#/l07-nav-mode"><span class="section-number">01</span>单模场与经典振子</a><a class="section-entry " href="#/l07-nav-ladder"><span class="section-number">02</span>阶梯算符与光子数态</a><a class="section-entry is-current" href="#/l07-nav-vacuum"><span class="section-number">03</span>真空与场涨落</a><a class="section-entry " href="#/l07-nav-states"><span class="section-number">04</span>叠加、混合与测量</a></nav></div>
@@ -1670,8 +1689,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-mean-field" class="slide level2 lecture-slide l07" data-section="vacuum">
-<h2>真空的平均场坐标为零</h2>
+
+<section id="l07-mean-field" class="title-slide slide level1 lecture-slide l07" data-section="vacuum">
+<h1>真空的平均场坐标为零</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="equation"><span class="math display">\[\hat q=q_0(\hat a+\hat a^\dagger),\qquad q_0=\sqrt{\frac{\hbar}{2\omega}}\]</span></div>
@@ -1682,8 +1702,9 @@ margin-right: 0; }
 <p>要判断每次读数是否确定，还需计算方差：<span class="math inline">\((\Delta q)^2=\langle\hat q^2\rangle-\langle\hat q\rangle^2\)</span>。</p>
 </div>
 </section>
-<section id="l07-q4" class="slide level2 mc-slide lecture-slide l07" data-section="vacuum" data-correct="B">
-<h2>思考题4：真空中的场测量与能量测量</h2>
+
+<section id="l07-q4" class="title-slide slide level1 mc-slide lecture-slide l07" data-section="vacuum" data-correct="B">
+<h1>思考题4：真空中的场测量与能量测量</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="question question-box">
@@ -1699,8 +1720,9 @@ margin-right: 0; }
 </div>
 
 </section>
-<section id="l07-vacuum-lab" class="slide level2 lab-slide lecture-slide l07" data-section="vacuum">
-<h2>操作：模拟真空态的重复测量</h2>
+
+<section id="l07-vacuum-lab" class="title-slide slide level1 lab-slide lecture-slide l07" data-section="vacuum">
+<h1>操作：模拟真空态的重复测量</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 
@@ -1714,8 +1736,9 @@ margin-right: 0; }
 </div>
 
 </section>
-<section id="l07-vacuum-second" class="slide level2 lecture-slide l07" data-section="vacuum">
-<h2>核对思考题4：场坐标有非零方差</h2>
+
+<section id="l07-vacuum-second" class="title-slide slide level1 lecture-slide l07" data-section="vacuum">
+<h1>核对思考题4：场坐标有非零方差</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="equation"><span class="math display">\[\hat q^2=q_0^2[\hat a^2+\hat a\hat a^\dagger+\hat a^\dagger\hat a+(\hat a^\dagger)^2]\]</span></div>
@@ -1731,8 +1754,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-vacuum-energy" class="slide level2 flow-compact lecture-slide l07" data-section="vacuum">
-<h2>思考题4答案B：场有分散，总能量固定</h2>
+
+<section id="l07-vacuum-energy" class="title-slide slide level1 flow-compact lecture-slide l07" data-section="vacuum">
+<h1>思考题4答案B：场有分散，总能量固定</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="equation"><span class="math display">\[\hat H|0\rangle=E_0|0\rangle,\qquad E_0=\frac12\hbar\omega\]</span></div>
@@ -1756,8 +1780,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-electric-fluctuation" class="slide level2 flow-compact lecture-slide l07" data-section="vacuum">
-<h2>场坐标的涨落对应电场振幅的涨落</h2>
+
+<section id="l07-electric-fluctuation" class="title-slide slide level1 flow-compact lecture-slide l07" data-section="vacuum">
+<h1>场坐标的涨落对应电场振幅的涨落</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>将模式变量换回可测电场。固定位置<span class="math inline">\(x\)</span>后，电场算符与<span class="math inline">\(\hat q\)</span>成正比：</p>
@@ -1772,8 +1797,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-ion" class="slide level2 flow-compact lecture-slide l07" data-section="vacuum">
-<h2>同样的代数也描述离子的微小振动</h2>
+
+<section id="l07-ion" class="title-slide slide level1 flow-compact lecture-slide l07" data-section="vacuum">
+<h1>同样的代数也描述离子的微小振动</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="example">
@@ -1794,8 +1820,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-nav-states" class="slide level2 section-index lecture-slide l07" data-section="states">
-<h2>目录：叠加、混合与测量</h2>
+
+<section id="l07-nav-states" class="title-slide slide level1 section-index lecture-slide l07" data-section="states">
+<h1>目录：叠加、混合与测量</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="section-index-layout"><div class="section-index-title"><div class="section-index-cn">目录</div><div class="section-index-en">CONTENTS</div></div><nav class="section-index-list"><a class="section-entry " href="#/l07-nav-mode"><span class="section-number">01</span>单模场与经典振子</a><a class="section-entry " href="#/l07-nav-ladder"><span class="section-number">02</span>阶梯算符与光子数态</a><a class="section-entry " href="#/l07-nav-vacuum"><span class="section-number">03</span>真空与场涨落</a><a class="section-entry is-current" href="#/l07-nav-states"><span class="section-number">04</span>叠加、混合与测量</a></nav></div>
@@ -1804,8 +1831,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-three-states" class="slide level2 states-table flow-compact lecture-slide l07" data-section="states">
-<h2>比较同一模式中的三个状态</h2>
+
+<section id="l07-three-states" class="title-slide slide level1 states-table flow-compact lecture-slide l07" data-section="states">
+<h1>比较同一模式中的三个状态</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
 <table class="caption-top">
@@ -1837,8 +1865,9 @@ margin-right: 0; }
 <p>保持模式频率、空间形状与偏振相同。先比较光子计数。</p>
 </div>
 </section>
-<section id="l07-counting" class="slide level2 lecture-slide l07" data-section="states">
-<h2>相同平均光子数，可以有不同计数分布</h2>
+
+<section id="l07-counting" class="title-slide slide level1 lecture-slide l07" data-section="states">
+<h1>相同平均光子数，可以有不同计数分布</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>纯态用系数的模平方；一般状态用<span class="math inline">\(P(n)=\langle n|\rho|n\rangle\)</span>。</p>
@@ -1886,8 +1915,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-density-comparison" class="slide level2 lecture-slide l07" data-section="states">
-<h2>B与C的差别保存在非对角元中</h2>
+
+<section id="l07-density-comparison" class="title-slide slide level1 lecture-slide l07" data-section="states">
+<h1>B与C的差别保存在非对角元中</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>B 为<span class="math inline">\(|\psi_B\rangle=\frac{|0\rangle+|2\rangle}{\sqrt2}\)</span>；C 为0与2各半混合。按<span class="math inline">\(|0\rangle,|2\rangle\)</span>排列：</p>
@@ -1910,8 +1940,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-two-step" class="slide level2 flow-compact lecture-slide l07" data-section="states">
-<h2>场坐标平方能连接真空与双光子分量</h2>
+
+<section id="l07-two-step" class="title-slide slide level1 flow-compact lecture-slide l07" data-section="states">
+<h1>场坐标平方能连接真空与双光子分量</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>B和C的平均场都为零。要读取两个数态分量间的相干项，比较场坐标的二阶矩：</p>
@@ -1933,8 +1964,9 @@ margin-right: 0; }
 </div></div>
 </div>
 </section>
-<section id="l07-coherent-variance" class="slide level2 flow-compact lecture-slide l07" data-section="states">
-<h2>相同计数分布，可以对应不同的场方差</h2>
+
+<section id="l07-coherent-variance" class="title-slide slide level1 flow-compact lecture-slide l07" data-section="states">
+<h1>相同计数分布，可以对应不同的场方差</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>B 为<span class="math inline">\(|\psi_B\rangle=\frac{|0\rangle+|2\rangle}{\sqrt2}\)</span>；C 为真空与双光子各半混合。</p>
@@ -1972,8 +2004,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-reference" class="slide level2 lecture-slide l07" data-section="states">
-<h2>相位稳定的本振规定场测量参照</h2>
+
+<section id="l07-reference" class="title-slide slide level1 lecture-slide l07" data-section="states">
+<h1>相位稳定的本振规定场测量参照</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="definition">
@@ -1991,8 +2024,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-q5" class="slide level2 mc-slide lecture-slide l07" data-section="states" data-correct="A">
-<h2>思考题5：改变叠加态的相对符号</h2>
+
+<section id="l07-q5" class="title-slide slide level1 mc-slide lecture-slide l07" data-section="states" data-correct="A">
+<h1>思考题5：改变叠加态的相对符号</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="question question-box">
@@ -2016,8 +2050,9 @@ margin-right: 0; }
 </div>
 
 </section>
-<section id="l07-phase-lab" class="slide level2 lab-slide lecture-slide l07" data-section="states">
-<h2>操作：固定参照，改变状态的相对相位</h2>
+
+<section id="l07-phase-lab" class="title-slide slide level1 lab-slide lecture-slide l07" data-section="states">
+<h1>操作：固定参照，改变状态的相对相位</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
 
@@ -2031,9 +2066,10 @@ margin-right: 0; }
 </div>
 
 </section>
-<section class="l07-supplement-stack">
-<section id="l07-phase-answer" class="slide level2 flow-compact block-compact math-compact lecture-slide l07" data-section="states">
-<h2>思考题5答案A：负号改变场统计的交叉项</h2>
+
+<section>
+<section id="l07-phase-answer" class="title-slide slide level1 flow-compact block-compact math-compact lecture-slide l07" data-section="states">
+<h1>思考题5答案A：负号改变场统计的交叉项</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>把B改为<span class="math inline">\(|\psi_-\rangle=(|0\rangle-|2\rangle)/\sqrt2\)</span>，固定同一个本振参照。两个分量的概率仍各半：</p>
@@ -2063,15 +2099,10 @@ margin-right: 0; }
 <p><span class="math inline">\(\phi\)</span>是状态相对相位；<span class="math inline">\(\theta\)</span>指定本振参照，<span class="math inline">\(\theta=0\)</span>回到主线的<span class="math inline">\(\hat q\)</span>。</p>
 <div class="equation"><span class="math display">\[\langle\hat a^2\rangle=e^{i\phi}/\sqrt2,\qquad (\Delta q_\theta)^2=q_0^2[3+\sqrt2\cos(\phi-2\theta)]\]</span></div>
 <p>C的方差始终为<span class="math inline">\(3q_0^2\)</span>。改变参照可以显露在另一参照下看不到的相干性。</p>
-
-<div id="3ade8a4a-fb1d-4a6c-8409-ac45482d5fc9" class="hidden">
-
 </div>
-</div>
-</section>
-</section>
-<section id="l07-summary" class="slide level2 lecture-slide l07" data-section="states">
-<h2>从一个经典模式到光子的量子态</h2>
+</section></section>
+<section id="l07-summary" class="title-slide slide level1 lecture-slide l07" data-section="states">
+<h1>从一个经典模式到光子的量子态</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
 <table class="caption-top">
@@ -2109,8 +2140,9 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-q6" class="slide level2 mc-slide lecture-slide l07" data-section="states">
-<h2>思考题6：用三光子数态检查计算</h2>
+
+<section id="l07-q6" class="title-slide slide level1 mc-slide lecture-slide l07" data-section="states">
+<h1>思考题6：用三光子数态检查计算</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
 <div class="question question-box">
@@ -2134,8 +2166,9 @@ margin-right: 0; }
 </div>
 
 </section>
-<section id="l07-next" class="slide level2 lecture-slide l07" data-section="states">
-<h2>下一讲：比较不同光源的光子统计</h2>
+
+<section id="l07-next" class="title-slide slide level1 lecture-slide l07" data-section="states">
+<h1>下一讲：比较不同光源的光子统计</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>已经有了数态、光子数算符及测量概率。</p>
@@ -2154,16 +2187,18 @@ margin-right: 0; }
 </div></div>
 </div>
 </section>
-<section id="l07-closing" class="slide level2 closing-slide lecture-slide l07" data-section="states">
-<h2>一键三连</h2>
+
+<section id="l07-closing" class="title-slide slide level1 closing-slide lecture-slide l07" data-section="states">
+<h1>一键三连</h1>
 <div class="s-body">
 <svg class="triple-stage" viewbox="0 0 1920 1080" role="img" aria-label="原图一键三连动画：点赞、投币、收藏"><defs><image id="triple-source" width="1920" height="1080" href="data:image/gif;base64,R0lGODdhgAc4BNUAAAAAAAwMDBQUFBsbGyMjIysrKzQ0NDs7O0RERExMTFRUVFxcXGVlZW9vb3Jycnt7e4ODg4uLi5SUlJubm6Ojo6urq7S0tLu7u8PDw8zMzNTU1Nzc3OTk5O3t7fLy8v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAACAALAAAAACABzgEAAb/wI5wSCwaj8ikcslsOp/QqHRKrVqv2Kx2y+16v+CweEwum8/otHrNbrvf8Lh8Tq/b7/i8fs/v+/+AgYKDhIWGh4iJiouMjY6PkJGSk5SVlpeYmZqbnJ2en6ChoqOkpaanqKmqq6ytrq+wsbKztLW2t7i5uru8vb6/wMHCw8TFxsfIycrLzM3Oz9DR0tPU1dbX2Nna29zd3t/g4eLj5OXm5+jp6uvs7e7v8PHy8/T19vf4+fr7/P3+/wADChxIsKDBgwgTKlzIsKHDhxAjSpxIsaLFixgzatzIsaPHjyBDihxJsqTJkyhTqlzJsqXLlzBjypxJs6bNmzhz6tzJs6fP/59AgwodSrSo0aNIkypdyrSp06dQo0qdSrWq1atYs2rdyrWr169gw4odS7as2bNo06pdy7at27dw48qdS7eu3bt48+rdy7ev37+AAwseTLiw4cOIEytezLix48eQI0ueTLmy5cuYM2vezLmz58+gQ4seTbq06dOoU6tezbq169ewY8ueTbu27du4c+vezbu379/AgwsfTry48ePIkytfzry58+fQo0ufTr269evYs2vfzr279+/gw4sfT768+fPo06tfz769+/fw48ufT7++/fv48+vfz7+///8ABijggAQWaOCBCCao4IIMNujggxBGKOGEFFZo4YUYZqjhhhx26P/hhyCGKOKIJJZo4okopqjiiiy26OKLMMYo44w01mjjjTjmqOOOPPbo449ABinkkEQWaeSRSCap5JJMNunkk1BGKeWUVFZp5ZVYZqnlllx26eWXYIYp5phklmnmmWimqeaabLbp5ptwxinnnHTWaeedeOap55589unnn4AGKuighBZq6KGIJqrooow26uijkEYq6aSUVmrppZhmqummnHbq6aeghirqqKSWauqpqKaq6qqsturqq7DGKuustNZq66245qrrrrz26uuvwAYr7LDEFmvsscgmq+yyzDbr7LPQRivttNRWa+212Gar7bbcduvtt+CGK+645JZr7rnopqv/7rrstuvuu/DGK++89NZr77345qvvvvz26++/AAcs8MAEF2zwwQgnrPDCDDfs8MMQRyzxxBRXbPHFGGes8cYcd+zxxyCHLPLIJJds8skop6zyyiy37PLLMMcs88w012zzzTjnrPPOPPfs889ABy300EQXbfTRSCet9NJMN+3001BHLfXUVFdt9dVYZ6311lx37fXXYIct9thkl2322WinrfbabLft9ttwxy333HTXbffdeOet99589+3334AHLvjghBdu+OGIJ6744ow37vjjkEcu+eSUV2755ZhnrvnmnHfu+eeghy766KSXbvrpqKeu+uqst+7667DHLvvstNdu//vtuOeu++689+7778AHL/zwxBdv/PHIJ6/88sw37/zz0Ecv/fTUV2/99dhnr/323Hfv/ffghy/++OSXb/756Kev/vrst+/++/DHL//89Ndv//3456///vz37///AAygAAdIwAIa8IAITKACF8jABjrwgRCMoAQnSMEKWvCCGMygBjfIwQ568IMgDKEIR0jCEprwhChMoQpXyMIWuvCFMIyhDGdIwxra8IY4zKEOd8jDHvrwh0AMohCHSMQiGvGISEyiEpfIxCY68YlQjKIUp0jFKlrxiljMoha3yMUuevGLYAyjGMdIxjKa8YxoTKMa18jGNrrxjXCMoxznSMc62v/xjnjMox73yMc++vGPgAykIAdJyEIa8pCITKQiF8nIRjrykZCMpCQnSclKWvKSmMykJjfJyU568pOgDKUoR0nKUprylKhMpSpXycpWuvKVsIylLGdJy1ra8pa4zKUud8nLXvryl8AMpjCHScxiGvOYyEymMpfJzGY685nQjKY0p0nNalrzmtjMpja3yc1uevOb4AynOMdJznKa85zoTKc618nOdrrznfCMpzznSc962vOe+MynPvfJz376858ADahAB0rQghr0oAhNqEIXytCGOvShEI2oRCdK0Ypa9KIYzahGN8rRjnr0oyANqUhHStKSmvSkKE2pSlfK0pa69KX/MI2pTGdK05ra9KY4zalOweeBnvr0p0ANqlCD+qehDnWnTjCqUpfK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32qQMv5vkY/IKgIiaICSAvWr6kypH8eK1EBmIJVNhathD4vYxP4DIrHCKUXomkcaenWyfKVeSosaC7K21KVMVRIlV6nY0Ip2tKTNRUQca6FG0OURka2iDS1LVGVOQLNJPesQmmq3z5Z2t7ztrW/Z8LVI4ZQzo+TGFV/b19gCtqxKRWthZwPa30p3utStrhWkdYgaZcNCNyruMZHJTtnSFpxUc+5zvaNb66p3vexVLzUaayVFlNKPC62vH2V71LKS17wcgGl7/wvgAO/2a7HCwDUqcNTZlnLBs3VoSwd72/5Cl5ICrrCFL+zWxL3FGkm1EoKPCv9i5jazvBFW62fXiuEUq3jF9HxvpDBg4OF0uLYjhnBn/cviHOt4x9Wc0HtjNVgYGxjGEC6x19LL4yQrecmG7C81mKqBKEeZqbjNbXSZjOUsa9mHTr6xE1C85TCLecy8OzEUTnxlMqt5zWxus5vfDOc414bCcq6zne+M5zzrec987rOf/wzoQAt60IQutKEPjehEK3rRjG60ox8N6UhLetKUrrSlL43pTGt605zutKc/DepQi3rUpC61qU+N6lSretWsbrWrXw3rWMt61rSuta1vjetc63rXvO61r38N7GALe9jELraxj43sZCt72cxutrOfDe1oS3va1K62ta+N7Wz/a3vb3O62t78N7nCLe9zkLre5z43udKt73exut7vfDe94y3ve9K63ve+N73zre9/87re//w3wgAt84AQvuMEPjvCEK3zhDG+4wx8O8YhLfOIUr7jFL47xjGt84xzvuMc/DvKQi3zkJC+5yU+O8pSrfOUsb7nLXw7zmMt85jSvuc1vjvOc63znPO+5z38O9KALfehEL7rRj470pCt96UxvutOfDvWoS33qVK+61a+O9axrfetc77rXvw72sIt97GQvu9nPjva0q33tbG+7298O97jLfe50r7vd7473vOt973zvu9//DvjAC37whC+84Q+P+MQrfvGMb7zjHw/5yEt+//KUr7zlL4/5zGt+85zvvOc/D/rQi370pC+96U+P+tSrfvWsb73rXw/72Mt+9rSvve1vj/vc6373vO+9738P/OALf/jEL77xj4/85Ct/+cxvvvOfD/3oS3/61K++9a+P/exrf/vc7773vw/+8It//OQvv/nPj/70q3/97G+/+98P//jLf/70r7/974///Ot///zvv///D4ABKIADSIAFaIAHiIAJqIALyIAN6IAPCIERKIETSIEVaIEXiIEZqIEbyIEd6IEfCIIhKIIjSIIlaIIniIIpqIIryIIt6IIvCIMxKIMzSIM1aIM3iIM5qIM7yIM96IM/CIRBKIRDSIRFaJ2ER4iESaiES8iETeiETwiFUSiFU0iFVWiFV4iFWaiFW8iFXeiFXwiGYSiGY0iGZWiGZ4iGaaiGa8iGbeiGbwiHcSiHc0iHdWiHd4iHeaiHe8iHfeiHfwiIgSiIg0iIhWiIh4iIiaiIi8iIjeiIjwiJkSiJk0iJlWiJl4iJmaiJm8iJneiJnwiKoSiKo0iKpWiKp4iKqaiKq8iKiRUEADs="></image><clippath id="triple-clip-0"><rect x="235" y="420" width="250" height="225" /></clippath><clippath id="triple-clip-1"><rect x="835" y="415" width="250" height="250" /></clippath><clippath id="triple-clip-2"><rect x="1435" y="415" width="255" height="250" /></clippath><clippath id="triple-clip-3"><rect x="380" y="642" width="205" height="240" /></clippath><filter id="triple-blue" color-interpolation-filters="sRGB"><fecolormatrix type="matrix" values="1.880952381 0.000000000 0.000000000 0.000000000 -0.818767507 0.000000000 0.603174603 0.000000000 0.000000000 0.368814192 0.000000000 0.000000000 0.182539683 0.000000000 0.759757236 0.000000000 0.000000000 0.000000000 1.000000000 0.000000000"></fecolormatrix></filter></defs><g class="triple-icon" style="transform-origin:360px 540px"><g clip-path="url(#triple-clip-0)"><use href="#triple-source" /><use class="triple-tint" href="#triple-source" filter="url(#triple-blue)" /></g></g><g class="triple-icon" style="transform-origin:960px 540px"><g clip-path="url(#triple-clip-1)"><use href="#triple-source" /><use class="triple-tint" href="#triple-source" filter="url(#triple-blue)" /></g></g><g class="triple-icon" style="transform-origin:1560px 540px"><g clip-path="url(#triple-clip-2)"><use href="#triple-source" /><use class="triple-tint" href="#triple-source" filter="url(#triple-blue)" /></g></g><g class="triple-cursor" style="transform-origin:437px 654px"><use href="#triple-source" clip-path="url(#triple-clip-3)" /></g><g transform="translate(360 540)"><circle class="triple-charge" r="148"></circle><g class="triple-rays"><path transform="rotate(0)" d="M0-161v-25" /><path transform="rotate(45)" d="M0-161v-25" /><path transform="rotate(90)" d="M0-161v-25" /><path transform="rotate(135)" d="M0-161v-25" /><path transform="rotate(180)" d="M0-161v-25" /><path transform="rotate(225)" d="M0-161v-25" /><path transform="rotate(270)" d="M0-161v-25" /><path transform="rotate(315)" d="M0-161v-25" /></g></g><g transform="translate(960 540)"><circle class="triple-charge" r="148"></circle><g class="triple-rays"><path transform="rotate(0)" d="M0-161v-25" /><path transform="rotate(45)" d="M0-161v-25" /><path transform="rotate(90)" d="M0-161v-25" /><path transform="rotate(135)" d="M0-161v-25" /><path transform="rotate(180)" d="M0-161v-25" /><path transform="rotate(225)" d="M0-161v-25" /><path transform="rotate(270)" d="M0-161v-25" /><path transform="rotate(315)" d="M0-161v-25" /></g></g><g transform="translate(1560 540)"><circle class="triple-charge" r="148"></circle><g class="triple-rays"><path transform="rotate(0)" d="M0-161v-25" /><path transform="rotate(45)" d="M0-161v-25" /><path transform="rotate(90)" d="M0-161v-25" /><path transform="rotate(135)" d="M0-161v-25" /><path transform="rotate(180)" d="M0-161v-25" /><path transform="rotate(225)" d="M0-161v-25" /><path transform="rotate(270)" d="M0-161v-25" /><path transform="rotate(315)" d="M0-161v-25" /></g></g></svg>
+
+<div id="3ade8a4a-fb1d-4a6c-8409-ac45482d5fc9" class="hidden">
+
+</div>
 </div>
 
 </section>
-
-
-
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img role="img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAABGCAYAAADyxhn6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkJFRUNBNjVGMzJEMjExRUJBQkUxODc3RUVFMzQ0MTUyIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkJFRUNBNjYwMzJEMjExRUJBQkUxODc3RUVFMzQ0MTUyIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QkVFQ0E2NUQzMkQyMTFFQkFCRTE4NzdFRUUzNDQxNTIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QkVFQ0E2NUUzMkQyMTFFQkFCRTE4NzdFRUUzNDQxNTIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7K7+TRAAAvZElEQVR42uyd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" class="slide-logo"></p>
@@ -3554,6 +3589,42 @@ function onReady(){if(!window.Reveal?.isReady())return setTimeout(onReady,40);
  addEventListener('resize',schedule);document.fonts.ready.then(schedule);Reveal.on('resize',schedule);Reveal.on('slidechanged',schedule);document.addEventListener('fullscreenchange',schedule);schedule();
  window.lecture07Ready=true;
 }ready();})();
+
+/* Classroom service is optional: the teaching deck remains usable offline. */
+(function(){
+ 'use strict';
+ const styles=document.createElement('style');
+ styles.textContent=`
+ .qo-classroom-launch{position:fixed;left:64px;bottom:16px;z-index:35;padding:9px 17px;background:#fff;color:#0070c0;border:1px solid #b8cede;border-radius:6px;font:600 18px -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;cursor:pointer}
+ .qo-classroom-dialog{position:fixed;inset:4vh 4vw;width:92vw;height:92vh;max-width:none;max-height:none;padding:0;border:1px solid #b8cede;border-radius:8px;background:#f6f9fc;z-index:1000;box-sizing:border-box}
+ .qo-classroom-dialog::backdrop{background:#16304699}
+ .qo-classroom-dialog header{height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:#fff;border-bottom:1px solid #dbe7ef;font:16px -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:#17334a}
+ .qo-classroom-dialog header button{padding:6px 14px;border:1px solid #b8cede;border-radius:5px;background:#fff;color:#0070c0;font:inherit;cursor:pointer}
+ .qo-classroom-dialog iframe{display:block;width:100%;height:calc(100% - 46px);border:0}
+ @media print{.qo-classroom-launch,.qo-classroom-dialog{display:none!important}}
+ `;document.head.append(styles);
+ const button=document.createElement('button');button.type='button';button.className='qo-classroom-launch';button.textContent='扫码答题';button.hidden=true;button.setAttribute('aria-haspopup','dialog');document.body.append(button);
+ const dialog=document.createElement('dialog');dialog.className='qo-classroom-dialog';dialog.setAttribute('aria-label','第七讲课堂答题控制');
+ const header=document.createElement('header'),title=document.createElement('span'),close=document.createElement('button'),frame=document.createElement('iframe');
+ title.textContent='课堂答题 · 第一题';close.textContent='返回课件';frame.title='教师课堂控制';header.append(title,close);dialog.append(header,frame);document.body.append(dialog);
+ function serviceURL(){
+  if(location.protocol==='file:')return 'https://zimin.li/quantum-optics/classroom/teacher.html';
+  if(location.pathname.includes('/slides/'))return new URL('../classroom/teacher.html',location.href).href;
+  return new URL('/classroom/teacher.html',location.href).href;
+ }
+ function visibility(active){if(frame.getAttribute('src'))frame.contentWindow.postMessage({type:'qo-classroom-visibility',active},new URL(frame.src).origin);}
+ frame.addEventListener('load',()=>visibility(dialog.open));
+ button.addEventListener('click',()=>{if(!frame.getAttribute('src')){const url=new URL(serviceURL());url.searchParams.set('embedded','1');frame.src=url.href;}dialog.showModal();visibility(true);});
+ close.addEventListener('click',()=>dialog.close());
+ dialog.addEventListener('close',()=>{visibility(false);button.focus();});
+ // Arrow keys must keep controlling inputs inside the classroom panel.
+ dialog.addEventListener('keydown',event=>event.stopPropagation());
+ function ready(){
+  if(!window.Reveal?.isReady())return setTimeout(ready,50);
+  const update=()=>{button.hidden=Reveal.getCurrentSlide()?.id!=='l07-q1';if(button.hidden&&dialog.open)dialog.close();};
+  Reveal.on('slidechanged',update);update();window.lecture07ClassroomReady=true;
+ }ready();
+})();
 </script>
     
 

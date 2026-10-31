@@ -6,6 +6,7 @@ from urllib.parse import urlsplit, unquote
 import re
 import sys
 import json
+import hashlib
 from release import PUBLISHED, PUBLISHED_SLIDES, STANDALONE_NOTES, PUBLISHED_PDFS, withheld
 
 DIST=Path(__file__).resolve().parents[1]/'dist'
@@ -54,6 +55,19 @@ for required in ['index.html','notes/index.html','.nojekyll'] + [f'downloads/lec
 for item in json.loads((DIST/'notes/search.json').read_text()):
     if withheld(item.get('href', '')):
         errors.append('Unreleased lecture in search: '+item['href'])
+classroom_manifest = DIST.parent/'classroom-cloudbase/release-readiness.json'
+if classroom_manifest.exists():
+    classroom = json.loads(classroom_manifest.read_text())
+    if classroom.get('local_browser') != 'passed' or classroom.get('backend_tests') != 'passed':
+        errors.append('Classroom local acceptance incomplete')
+    expected = set(classroom['public_files'])
+    for relative in expected:
+        path = DIST/'classroom'/relative
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != classroom['sha256'].get('classroom/'+relative):
+            errors.append('Classroom static asset version mismatch: '+relative)
+    for path in (DIST/'classroom').rglob('*'):
+        if path.is_file() and path.relative_to(DIST/'classroom').as_posix() not in expected:
+            errors.append('Unexpected file in public classroom client: '+path.name)
 homepage = (DIST/'index.html').read_text()
 for number in PUBLISHED:
     if f'href="notes/lecture{number:02d}.html"' not in homepage:

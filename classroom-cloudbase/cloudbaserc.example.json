@@ -1,0 +1,5 @@
+{
+  "envId": "REPLACE_WITH_ENV_ID",
+  "functionRoot": "./functions",
+  "functions": [{"name":"classroom", "handler":"index.main", "runtime":"Nodejs20.19", "timeout":20, "memorySize":256, "installDependency":true}]
+}
