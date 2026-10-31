@@ -4,7 +4,7 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
 const out=path.resolve(__dirname,'../../qa/cloudbase');fs.mkdirSync(out,{recursive:true});
 (async()=>{
  const browser=await chromium.launch({executablePath:'/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',headless:true});
- const errors=[],contexts=[];const context=await browser.newContext({viewport:{width:1280,height:800},acceptDownloads:true});contexts.push(context);
+ const errors=[],contexts=[];const context=await browser.newContext({viewport:{width:1280,height:720},acceptDownloads:true});contexts.push(context);
  const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
  await page.goto('http://localhost:8765/classroom/teacher.html');await page.locator('#dev-login').click();await page.locator('#create').click();
  await page.waitForFunction(()=>!document.getElementById('classroom').hidden);
@@ -32,6 +32,8 @@ const out=path.resolve(__dirname,'../../qa/cloudbase');fs.mkdirSync(out,{recursi
  const frame=page.frameLocator('.qo-classroom-dialog iframe');await frame.locator('#classroom').waitFor({state:'visible'});await frame.locator('#reveal').click();
  await frame.locator('#stats').waitFor({state:'visible'});assert.match(await frame.locator('#counts').innerText(),/1人 50%/);
  await frame.locator('#analysis').click();await frame.locator('#explanation').filter({hasText:'答案 C'}).waitFor();
+ const panel=page.frames().find(f=>f.url().includes('teacher.html'));
+ assert(await panel.evaluate(()=>document.documentElement.scrollHeight<=innerHeight+2),'projector controls should fit without scrolling');
  await page.screenshot({path:path.join(out,'lecture-results.png')});
  await pupils[0].reload();await pupils[0].locator('#result').waitFor({state:'visible'});assert.equal(await pupils[0].locator('#submit').isEnabled(),false);
  // Named export stays behind the teacher token.
@@ -50,6 +52,6 @@ const out=path.resolve(__dirname,'../../qa/cloudbase');fs.mkdirSync(out,{recursi
  const sdkShape=await p.evaluate(()=>{const app=QOCloudbase.init({env:'test-not-connected',region:'ap-shanghai',accessKey:'test-publishable-key'});return [typeof app.auth.getSession,typeof app.auth.signInAnonymously,typeof app.callFunction];});
  assert.deepEqual(sdkShape,['function','function','function']);
  assert.deepEqual(errors,[]);
- fs.writeFileSync(path.join(out,'browser-checks.json'),JSON.stringify({passed:true,browser:'Microsoft Edge (headless)',viewport:'1280×800; student 390×844',checks:['actual lecture first question and original answer fragment','QR decoded to student URL','independent student storage contexts','server-stored answer restore after refresh','live count hidden before reveal','manual reveal and explanation','teacher CSV export across named users','new round with cleared current answer','unauthorized export rejected','student mobile no horizontal overflow'],cloudDeployment:'pending account/environment',pageErrors:errors},null,2));
+ fs.writeFileSync(path.join(out,'browser-checks.json'),JSON.stringify({passed:true,browser:'Microsoft Edge (headless)',viewport:'1280×720; student 390×844',checks:['actual lecture first question and original answer fragment','QR decoded to student URL','independent student storage contexts','server-stored answer restore after refresh','live count hidden before reveal','manual reveal and explanation','projector panel fits without scrolling','teacher CSV export across named users','new round with cleared current answer','unauthorized export rejected','student mobile no horizontal overflow'],cloudDeployment:'pending account/environment',pageErrors:errors},null,2));
  await browser.close();console.log('PASS: real deck, QR, independent students, login restore, manual reveal, export and access controls.');
 })().catch(e=>{console.error(e);process.exit(1);});
