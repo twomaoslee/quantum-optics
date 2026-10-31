@@ -391,6 +391,9 @@ def update_notes(root, numbers):
         title = unescape(re.search(r'<title>(.*?)</title>', text, re.S)[1])
         body = re.search(r'<main\b[^>]*>(.*?)</main>', text, re.S)[1]
         body = re.sub(r'<(?:script|style)\b[^>]*>.*?</(?:script|style)>', '', body, flags=re.S)
+        # Submitted quiz solutions should not appear early in search excerpts.
+        body = re.sub(r'<div\b[^>]*class="[^"]*\bquiz-feedback\b[^"]*"[^>]*>.*?</form>',
+                      '</form>', body, flags=re.S)
         plain = unescape(re.sub(r'<[^>]+>', ' ', body))
         items.append(dict(objectID=f'{name}.html', href=f'{name}.html', title=title, section='', text=re.sub(r'\s+', ' ', plain)))
         pattern = r'<article class="lecture">(?:(?!</article>).)*href="(?:notes|slides)/'+name+r'\.html".*?</article>'
