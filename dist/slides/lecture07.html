@@ -668,6 +668,7 @@ body:has(#l07-closing.present) :is(.course-footer-bar,.slide-logo,.slide-number,
 .reveal .l07.qo-classroom-inline .question{grid-template-rows:auto min-content 1fr}
 .reveal .l07.qo-classroom-inline .question .mc-options{align-self:center}
 
+
 .reveal .qo-classroom-results .question{position:static;background:transparent;border:0;box-shadow:none}
 .reveal .qo-classroom-results .question>:not(.classroom-slot),.reveal .qo-classroom-results .s-body>:not(.question){display:none}
 .reveal .qo-classroom-results .s-body{position:static}
@@ -4833,27 +4834,35 @@ function onReady(){if(!window.Reveal?.isReady())return setTimeout(onReady,40);
  function ready(){
   if(!window.Reveal?.isReady())return setTimeout(ready,50);
   const slides=[...document.querySelectorAll('.mc-slide')].filter(s=>/^l07-q[1-6]$/.test(s.id)&&s.querySelector('.classroom-slot'));
-  const frames=new Map(),selectedRoom=new URLSearchParams(location.search).get('classroom');
+  const frames=new Map(),selectedRoom=new URLSearchParams(location.search).get('classroom');let connectedRoom='';
   slides.forEach(slide=>slide.classList.add('qo-classroom-inline'));
   function create(slide){
    let url;
    if(!/^https?:$/.test(location.protocol))url=new URL('https://zimin.li/quantum-optics/classroom/presenter.html');
    else if(location.pathname.includes('/slides/'))url=new URL('../classroom/presenter.html',location.href);
    else url=new URL('/classroom/presenter.html',location.href);
-   url.searchParams.set('v','20261101-multiround');url.searchParams.set('question',slide.id);
+   url.searchParams.set('v','20261102-preload');url.searchParams.set('question',slide.id);url.searchParams.set('coordinator',slide===slides[0]?'1':'0');
    if(selectedRoom&&/^[A-F0-9]{12}$/.test(selectedRoom))url.searchParams.set('room',selectedRoom);
    const frame=document.createElement('iframe');frame.title='课堂扫码作答';frame.src=url.href;frame.setAttribute('scrolling','no');
    const entry={frame,origin:url.origin};frames.set(slide,entry);slide.querySelector('.classroom-slot').append(frame);
    frame.addEventListener('load',update);return entry;
   }
   function update(){
-   const current=Reveal.getCurrentSlide();if(slides.includes(current)&&!frames.has(current))create(current);
-   for(const [slide,{frame,origin}]of frames)frame.contentWindow?.postMessage({type:'qo-classroom-visibility',active:current===slide},origin);
+   const current=Reveal.getCurrentSlide();
+   for(const [slide,{frame,origin}]of frames){
+    frame.contentWindow?.postMessage({type:'qo-classroom-visibility',active:current===slide},origin);
+    if(connectedRoom)frame.contentWindow?.postMessage({type:'qo-classroom-room',room:connectedRoom},origin);
+   }
   }
   Reveal.on('slidechanged',update);
   window.addEventListener('message',event=>{
+   const known=[...frames].find(([,entry])=>event.source===entry.frame.contentWindow&&event.origin===entry.origin);
+   if(!known)return;
+   if(event.data?.type==='qo-classroom-connected'&&known[0]===slides[0]&&/^[A-F0-9]{12}$/.test(event.data.room)){connectedRoom=event.data.room;update();return;}
+   if(event.data?.type==='qo-classroom-connect'){const first=frames.get(slides[0]);first.frame.contentWindow?.postMessage({type:'qo-classroom-connect'},first.origin);return;}
+   if(event.data?.type==='qo-classroom-connection-required'&&known[0]===slides[0]){connectedRoom='';for(const {frame,origin}of frames.values())frame.contentWindow?.postMessage({type:'qo-classroom-connection-required'},origin);return;}
    const slide=Reveal.getCurrentSlide(),entry=frames.get(slide);
-   if(!entry||event.source!==entry.frame.contentWindow||event.origin!==entry.origin)return;
+   if(known[0]!==slide)return;
    if(event.data?.type==='qo-classroom-results'){slide.classList.toggle('qo-classroom-results',event.data.expanded===true);return;}
    if(!['qo-classroom-return-focus','qo-classroom-started'].includes(event.data?.type))return;
    if(event.data.type==='qo-classroom-started'){
@@ -4868,7 +4877,9 @@ function onReady(){if(!window.Reveal?.isReady())return setTimeout(onReady,40);
    }
   }
   Reveal.on('fragmentshown',dismiss);Reveal.on('fragmenthidden',dismiss);Reveal.on('slidechanged',dismiss);
-  update();window.lecture07ClassroomReady=true;
+  // Preload the static interface on the cover, rather than waiting for a question.
+  // Only the first frame chooses/creates a room, preventing duplicate classrooms.
+  slides.forEach(create);update();window.lecture07ClassroomReady=true;
  }ready();
 })();
 </script>

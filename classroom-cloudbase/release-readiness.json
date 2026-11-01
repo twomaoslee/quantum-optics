@@ -195,9 +195,9 @@
     "classroom-cloudbase/scripts/cloud-smoke.cjs": "78fefd699842a172dc7fcc129b05a1feb65c50ec1e3185ef3267e970bb30942e",
     "classroom-cloudbase/functions/classroom/transport.js": "cf0f2aa392be5e41da498d03374d81581107fdabc59d7e572013648eaa8a8781",
     "classroom-cloudbase/test/transport.test.cjs": "aeb04077c2f6c62a26102b007bf3a5bf8e271aca3551f4b997e162a150fc8832",
-    "classroom/presenter.html": "1f10aea930de8e6265ea5ad7239e7b3e7e061648459528bc5c5061d74e8fbbf2",
-    "classroom/presenter.css": "885e993ad4bf620e3399be6b9239b5d39d534100d659a4f2a2534a258c9dd5ed",
-    "classroom/presenter.js": "001b180ca683e6ff92ac058ba5b073332ffc3c297c67195aa78bc2c096c411f4",
+    "classroom/presenter.html": "0b43b81f2d6997383784bf150c42fb8c4d78dd585812e551ac140996797749e0",
+    "classroom/presenter.css": "dcfa4eaf9fe78657044cd6d3d6c21c48f8b1489149fb3ee4ac048d52dd1a8f8d",
+    "classroom/presenter.js": "6d859148346ccaeca4b81d43a5e42d3bec5b3564175e0a84dcc9893add366deb",
     "classroom-cloudbase/functions/classroom/questions.json": "9953d6db5767b4b5f9f65d22a10b79290781fa01a97096c6353780cb9360c0c7",
     "classroom-cloudbase/scripts/sync-questions.py": "9c69b378ea842c0d1afa386d1cb3af5534112cff5522f1eeffa36f45e16caaf2",
     "classroom-cloudbase/test/multiple.test.cjs": "4c4eaff5f86b3e201e0ce8efd676442296d068ac276158850b44b62704c18e3a",
@@ -297,5 +297,14 @@
       "managed_deepseek": "deepseek-v4.1-flash-1017 enable denied with PackageUnsupported; standard plan required. User chose to keep personal plan and hy3; no plan upgrade."
     },
     "limits": "real phones and full-class load not tested"
+  },
+  "presenter_preload": {
+    "status": "passed",
+    "date": "2026-11-02",
+    "scope": "six static frames preloaded on opening lecture; one coordinator selects classroom; only visible frame polls",
+    "cache": "same-day and classroom-scoped QR image displayed from local cache before backend response; no credentials in cache; teacher controls disabled until verified",
+    "browser": "IAB real-cloud six first visits all QR ready; 328px frames fit 324px content; secondary Q6 login forwarded to coordinator",
+    "slow_backend": "2500ms artificial RPC delay: cached QR visible and complete while live canvas hidden and both controls disabled; cached PNG decoded to expected classroom",
+    "room_creation": "isolated local fixture still exactly two classrooms, no six-frame duplicates; never wrote formal cloud classroom"
   }
 }
