@@ -19,11 +19,23 @@
 
 姓名和学号是低门槛课堂身份登记，不证明持有人身份，不适合高风险考试。相同学号必须匹配已有姓名，姓名误填由教师在后台核对修正。此版本没有公开学生名单接口；教师口令独立于学生身份，只有教师会话可开题、看实时人数和导出记录。公开投影不展示姓名、学号。
 
-## 等账号开通后，由 Codex 完成的步骤
+## 云端部署状态（2026-11-01）
+
+已创建上海环境 `qo-classroom`，启用 pgdoc、私有集合及两个组合索引。用户已付款19.90元，环境当前为个人版，有效期至2026-12-01；自动续费和超额按量付费均关闭。`zimin.li`、`localhost`、`127.0.0.1` 安全域名已添加。
+
+事件函数 `classroom` 已部署并完成真实云端联调：匿名 SDK 登录、教师/学生业务会话、两个虚拟学生提交与修改、截止拒收、手动公布、具名导出、退出撤销、Document 客户端直读/直写拒绝。PG 的 anon/authenticated 角色对 pgdoc_data 均无 USAGE 和 CREATE 权限。实际手机网络尚待教师测试，尚未进行全班规模云端压测。
+
+实际接入使用 **SDK 匿名登录 + 已开启身份认证的 HTTP 网关路径 `/classroom-api`**。直接 `app.callFunction()` 的平台路径在此环境返回 EXCEED_AUTHORITY，不再作为本环境的前端调用入口；不通过放开整个环境来规避。网关将 JSON 放在 `event.body`，函数先解析，再由受信上下文读取调用者身份；业务角色继续由独立会话校验。前端 `gatewayUrl` 只含公共接口地址。
+
+部署时发现本地 file 依赖会被打成无效链接；已用 `.npmrc` 的 `install-links=true`、锁定依赖及本地实文件打包修复。15 项本地测试通过。
+
+## 部署步骤
 
 用户只需完成腾讯云注册、实名认证，创建 CloudBase 环境，并告知环境 ID 和地域。后续使用本机 CLI 的浏览器授权，不在聊天中粘贴腾讯云 SecretId / SecretKey。
 
-1. 确认该环境已启用**文档型数据库**、云函数和身份认证。此实现使用 CloudBase JavaScript SDK 调用事件型云函数，不使用自建 HTTP 网关，不需要迁移课程网站。实际 SDK 访问仍需完成安全域名和鉴权配置。
+2026-11-01 实际开通页核对：新环境当前只展示 PostgreSQL；免费体验为6个月、0元，需要从官网显示的公众号领取兑换码。环境名称最长20字符，使用 `qo-classroom`。此前建议的 `quantum-optics-classroom` 超长，不再使用。若创建 PG 环境，先按下述 pgdoc 路线配置并完成云端实测，不能把本地业务测试当作云端通过。
+
+1. 确认该环境已启用**文档型数据库**、云函数和身份认证。此实现使用 CloudBase JavaScript SDK 建立匿名身份，通过 CloudBase HTTP 网关调用事件型云函数，不需要迁移课程网站。
 2. 在身份认证中允许匿名连接，创建用于 Web SDK 的 **Publishable Key**。它是可公开的客户端标识，不是腾讯云 SecretKey。匿名身份只用于 SDK 连接；业务端教师/学生的权限另行校验。
 3. 安全域名按当前控制台要求添加 `zimin.li`，联调时添加 `localhost` / `127.0.0.1`；不要添加通配来源。仅允许调用 `classroom` 云函数，不开放数据库客户端读写。
 4. 创建文档集合 `qo_classroom`，将 `database.rules.json` 设为该集合的安全规则：客户端读写全部拒绝，仅服务器 SDK 访问。没有完成这一项不得用于真实课堂。
@@ -31,14 +43,28 @@
 6. 运行配置准备脚本，再使用已登录的 CloudBase CLI 部署。秘密文件不进入公开网站。
 
 ```sh
-node scripts/prepare.cjs --env-id ENV_ID --region ap-shanghai --publishable-key PUBLISHABLE_KEY
+node scripts/prepare.cjs --env-id ENV_ID --region ap-shanghai --publishable-key PUBLISHABLE_KEY --gateway-url GATEWAY_URL
 tcb login
-tcb fn deploy classroom
+npm ci --prefix functions/classroom
+tcb fn deploy classroom --install-dependency false
 ```
 
-准备脚本会生成 Git 忽略的 `cloudbaserc.json`，函数环境变量中只放教师口令的 scrypt 哈希；原始教师口令仅保存在权限600的 `.local/teacher-login.json`。已有口令文件会保留。不要启用云函数请求体或响应体全量日志，以免记录学生信息、口令和会话令牌。生产云函数仅部署 `functions/classroom/`，不部署 `.local/` 或本机开发服务。
+准备脚本会生成 Git 忽略的 `cloudbaserc.json`，函数环境变量中只放教师口令的 scrypt 哈希；原始教师口令仅保存在权限600的 `.local/teacher-login.json`。已有口令文件会保留。不要启用云函数请求体或响应体全量日志，以免记录学生信息、口令和会话令牌。函数依赖必须以实目录随包上传，避免压缩包将本地链接变成普通文本文件；部署前在本机安装锁定依赖并加载入口检查。生产云函数仅部署 `functions/classroom/`，不部署 `.local/` 或本机开发服务。
 
-7. 部署后验证：SDK 匿名连接、学生身份保持、教师权限拒绝测试、数据库规则拒绝测试、服务端截止、并发提交、重新发题归档、具名CSV。用至少两部真实手机分别测试微信和系统浏览器，再同步公共配置到课程网站。公共配置未验证前，不宣称云端已接通。
+HTTP 网关需要启用总开关，为 classroom 配置 `/classroom-api`，并开启该路径身份认证和跨域安全域名校验。当前使用环境默认 API 网关地址，供接口调用；答题页面仍放在课程网站，不通过默认测试域名分发页面。
+
+单函数网关策略见 `function-access.rego`。它只声明 classroom 函数，不允许数据库客户端访问；仍需使用真实入口验证，不能把策略保存当作验证通过。`scripts/cloud-smoke.cjs` 使用两名虚拟学生检查云端完整流程，失败时只报告阶段与错误码，成功报告放在 `.local/cloud-smoke.json`，不保存会话令牌。
+
+7. 部署后验证：SDK 匿名连接、学生身份保持、教师权限拒绝测试、数据库规则拒绝测试、服务端截止、并发提交、重新发题归档、具名CSV。完成云端和浏览器联调后再同步公共配置到课程网站。正式上课前，用至少两部真实手机分别测试微信和系统浏览器，并验证教室网络。未完成的手机或容量检查不能标记通过。
+
+### 当前新建 PG 环境的兼容路线
+
+官方 [pgdoc 插件说明](https://docs.cloudbase.net/database/postgresql/pg-doc) 与 [使用指南](https://docs.cloudbase.net/database/postgresql/pg-doc-usage) 支持使用原文档接口和 Node SDK 事务。PG 环境在 Document 编辑器启用 pgdoc 后，可继续验证现有服务端 repository，无需先重写课堂业务。
+
+- 新建空环境先启用 pgdoc，再建 `qo_classroom`，确认插件的 Enabled 状态。不要在有旧数据的环境中直接开启接管或清空。
+- **PG/pgdoc 不支持传统文档安全规则**；上面的 `database.rules.json` 只适用于传统环境。PG 集合应使用基础权限“无权限”，并核对 PostgreSQL 直接访问的 GRANT/RLS 同样不向 anon/authenticated 开放。云函数用管理员服务端身份访问。
+- 明确执行匿名客户端直读、直写拒绝测试，以及服务端事务、重复提交和收题竞态测试。插件可用性、实际 SDK 返回格式及免费环境超时/内存配置均以云端验收结果为准。
+- CLI 设备登录页面要求先有至少一个环境。环境未创建时显示“暂无可用环境”是开通顺序限制，不应改用长期密钥绕过。
 
 ## 本机开发与验证
 

@@ -1,7 +1,8 @@
-/* Public configuration only. Never put a teacher password or SecretKey here. */
+/* Public config: no teacher credential or Tencent SecretKey. */
 window.QO_CLASSROOM_CONFIG = Object.freeze({
-  envId: '',
-  region: 'ap-shanghai',
-  publishableKey: '',
-  functionName: 'classroom'
+  "envId": "qo-classroom-d0g9o35nff4e13339",
+  "region": "ap-shanghai",
+  "publishableKey": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjU2ZGMwNWVkLTJmZDMtNDRmOS05MDI2LWVjYTliMTRmNjU2ZiJ9.eyJpc3MiOiJodHRwczovL3FvLWNsYXNzcm9vbS1kMGc5bzM1bmZmNGUxMzMzOS5hcC1zaGFuZ2hhaS50Y2ItYXBpLnRlbmNlbnRjbG91ZGFwaS5jb20iLCJzdWIiOiJhbm9uIiwiYXVkIjoicW8tY2xhc3Nyb29tLWQwZzlvMzVuZmY0ZTEzMzM5IiwiZXhwIjo0MDk3MTk2NTQ5LCJpYXQiOjE3OTM1MTMzNDksIm5vbmNlIjoiQjNfS0pMMnVTMkdYNVEzbVBRRGdqdyIsImF0X2hhc2giOiJCM19LSkwydVMyR1g1UTNtUFFEZ2p3IiwibmFtZSI6IkFub255bW91cyIsInNjb3BlIjoiYW5vbnltb3VzIiwicHJvamVjdF9pZCI6InFvLWNsYXNzcm9vbS1kMGc5bzM1bmZmNGUxMzMzOSIsIm1ldGEiOnsicGxhdGZvcm0iOiJQdWJsaXNoYWJsZUtleSJ9LCJyb2xlIjoiYW5vbiIsImlzX2Fub255bW91cyI6dHJ1ZSwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiYW5vbnltb3VzIiwicHJvdmlkZXJzIjpbImFub255bW91cyJdfSwidXNlcl9tZXRhZGF0YSI6eyJuYW1lIjoiQW5vbnltb3VzIn0sInVzZXJfdHlwZSI6IiIsImNsaWVudF90eXBlIjoiY2xpZW50X3VzZXIiLCJpc19zeXN0ZW1fYWRtaW4iOmZhbHNlfQ.GmNFSG0Zyi0wiweWDzK-6w5I6Jcq4RwoWEPVsFCBx6rL0NZ627Cg7egpQ9ZFWsIxx3-2LkIoR4SBac20TtXWWXjwYKjPMNGDWCz69smAxRLX1df1NeTwBGAUzETuhRQWmqjeg8YI-hqLY1lkda4Y1LnOjgZYon9Iw6lH-B8-zJw8saJ2wbCZnfZKgE387tG9Qt5yn-EVJfpD7w_g82XksYS8pkPSwzhEqiVRVmr8M4xJtCB2n4tDPvEgEPJ25ZHvtlOA4LUp-vllsGQ01KW6MJ1Y2QK1q703IOfadIICjbF9hslIMNjL3dgSkL3no6Kw5bivnDAj7nOMeWAk86W3fw",
+  "functionName": "classroom",
+  "gatewayUrl": "https://qo-classroom-d0g9o35nff4e13339-1522507752.ap-shanghai.app.tcloudbase.com/classroom-api"
 });
