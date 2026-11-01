@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "scope": "All six Lecture 7 thinking questions: in-slide voting and after-class named records",
+  "scope": "Six in-slide Lecture 7 questions and authenticated personal student history with separate after-class teacher answer release",
   "local_browser": "passed",
   "backend_tests": "passed",
-  "backend_test_count": 19,
+  "backend_test_count": 24,
   "cloud_deployment": "passed",
   "cloud_sdk_smoke": "passed",
   "real_phone_network": "pending_teacher_phone_test",
@@ -84,16 +84,19 @@
     "vendor/qrcode.js",
     "presenter.html",
     "presenter.css",
-    "presenter.js"
+    "presenter.js",
+    "history.html",
+    "history.css",
+    "history.js"
   ],
   "sha256": {
     "classroom/api.js": "d5ced9608f8bbf416f57e1bb8e9451dc23c462051b706fa839df19fde20b1c59",
     "classroom/config.js": "840e90878978ae3397b515c342bac563ad259668371dd1a51fe6bc7c1204e6d8",
-    "classroom/student.html": "313ccb8b5d2d018d7d61ef7d63e64aebc496c7aaa43cd0ec5a4b6e93d3fbacb8",
-    "classroom/student.js": "5061bcd7200b6da9f16c15fb19c65fbbab6af8f098ea555d4a1341bf9dd2f562",
+    "classroom/student.html": "2aca31b804f16b4bdd255926d6c849b663079cb8e503728df1105ed4c74882f3",
+    "classroom/student.js": "0b7273e9df7c36689564e74bbf721010a10674d53cd365386d5b2cd36b573c4c",
     "classroom/style.css": "770ca93c5f44e3862bcab01b40cae08c89bfa6e39a6f95b7b7a3ad650f9b856b",
-    "classroom/teacher.html": "8d92e8fa5630d8a33f939b051d56b9b4e60b81b0125aa6eef006fde59fcc7da9",
-    "classroom/teacher.js": "622ebc69129593d22b93dd469b02d54a8c02f70152f7974fba0b81b6e7da7eb2",
+    "classroom/teacher.html": "4abc4d3eb7d91406684c3afcbea912c205b5a6fcda50799fbdfe70783ece7147",
+    "classroom/teacher.js": "f5ae95060e4f3ed1e910c3a3732f639d92f65ebdb343042c4595ffd9fc701f89",
     "classroom/vendor/cloudbase-LICENSE": "92d7d7d2d4771b84f44e38dc59052faae8e3cd0a234a62de6180a1c6746c979e",
     "classroom/vendor/cloudbase.js": "f2f32140de147768741ceaa0e8e05391d22b76265bbf2def2c7bf86977c1ad0f",
     "classroom/vendor/katex/LICENSE": "766ccc1f306c885aa45542a9846bbd0a505b27a0374f146778171c2254ce18e3",
@@ -167,7 +170,7 @@
     "classroom-cloudbase/functions/classroom/package-lock.json": "1a29e5cd2b8249224f6406955ca641e313772ad36f4485c277b1121b31d25193",
     "classroom-cloudbase/functions/classroom/package.json": "fb8ac2007c356083e20f397075a19627f634f2752bc00a47fe16714ee8f9b74f",
     "classroom-cloudbase/functions/classroom/repository.js": "48a802c5f7901c5fd71f73fa58db261d610139566a3c528caf15f4c64fc36b4e",
-    "classroom-cloudbase/functions/classroom/service.js": "e8123c7f5e12cea668e54b0b41846a0ff53062d4a8a081b0cd206d2daa4fd8e1",
+    "classroom-cloudbase/functions/classroom/service.js": "1e8830a7cbea1c9e0c4817df6f4b9ed534cb38255841b185607f0260c17da4e2",
     "classroom-cloudbase/functions/classroom/vendor/lodash.set/index.js": "f97bc584a99c20a655d8159b648fd0758968c5a6414399874f306ee114d4368a",
     "classroom-cloudbase/functions/classroom/vendor/lodash.set/package.json": "4efed05fe3d824cf36cd45bcc3c4b7111441b20b90e105ec092b6d662d0b99e2",
     "classroom-cloudbase/package-lock.json": "11d7eaa31ddd02296e35454a219b11e5c2a77c70b0297b24835023c054b1278d",
@@ -179,7 +182,7 @@
     "classroom-cloudbase/test/browser.cjs": "f7de984b39ef66772acd2d00e3c621157fedc5d63eba8414a8cfbc9f52b954ea",
     "classroom-cloudbase/test/prepare.test.cjs": "d6fabeb3349a9ecbd91d4ad796d69499baa474db959a04b720b401f2c2109e7f",
     "classroom-cloudbase/test/question.test.cjs": "848b135f3d014277316fc0eb3f4f9c4e0136a4f51ad2b042227431c38d7d5c47",
-    "classroom-cloudbase/test/race.test.cjs": "6f889dfb81565642bbbbdd3e91cdcc42f569715bf3582d1a4c4a81b192f68f6f",
+    "classroom-cloudbase/test/race.test.cjs": "97b60acb7679f56d18224851a1cff7ddd5046bc7c771b9dd0faa82716dad62a6",
     "classroom-cloudbase/test/repository.test.cjs": "50c60b4f9f40729e82ebdd656e742ed4537f2d72dcb35ef23972277f16ee36a5",
     "classroom-cloudbase/test/service.test.cjs": "87937aae4f61040444e250bbc1030acd3998c612428ebb1f67ccac72cd062aa7",
     "scripts/build.py": "25dd766f2a1225033df6be4dac7ba6afa1d5778c1ac7c398357bbae2d08c53e2",
@@ -192,9 +195,13 @@
     "classroom/presenter.html": "d436cc16c1373c59139713bffa8d5da1464216cf2bbad97c5ad8db6907b509ad",
     "classroom/presenter.css": "cac74b1a908753b3e6f4e10d583ee7cb22430d3c8611225ae796cc2620b4ed77",
     "classroom/presenter.js": "a62ef0cdd04afc785afb7c05b040fc6ea19ab8dc3117c05617c8c45e0962a4b7",
-    "classroom-cloudbase/functions/classroom/questions.json": "0f19dcd066f5daf9e80f59e9ed6470a9a700480ee469509201d4fed97a6e4c72",
-    "classroom-cloudbase/scripts/sync-questions.py": "a86055836d90f6119391c768d02ccc9332a1b69bc69d8914611ecd6a61e7aab7",
-    "classroom-cloudbase/test/multiple.test.cjs": "4c4eaff5f86b3e201e0ce8efd676442296d068ac276158850b44b62704c18e3a"
+    "classroom-cloudbase/functions/classroom/questions.json": "9953d6db5767b4b5f9f65d22a10b79290781fa01a97096c6353780cb9360c0c7",
+    "classroom-cloudbase/scripts/sync-questions.py": "9c69b378ea842c0d1afa386d1cb3af5534112cff5522f1eeffa36f45e16caaf2",
+    "classroom-cloudbase/test/multiple.test.cjs": "4c4eaff5f86b3e201e0ce8efd676442296d068ac276158850b44b62704c18e3a",
+    "classroom/history.html": "1c765c0a4d3b292f4fc0b677472b69971176ae9e391f7eec0ddf2b29906856e1",
+    "classroom/history.css": "96cda166c87654967f35d9b433c26ca63066ecc3ef8d2c72620ffb2c1fa1b22e",
+    "classroom/history.js": "af88c0b868b096aade618188de25ae92fc4881fab10cbedb495b46627dd26d8d",
+    "classroom-cloudbase/test/history.test.cjs": "90c483bac3bab1e664fa27007be9309f40ec9f4ad5fd50b5d621df7c69db6170"
   },
   "cloud_browser": "passed",
   "cloud_capacity": "pending_full_class_load",
@@ -227,5 +234,14 @@
     "cloud_integration": "passed six questions, six rounds, twelve named fictional answers in isolated QA room",
     "mobile_rendering": "390px viewport Q6 formulas fit; 46 desktop/mobile KaTeX syntax checks passed",
     "real_phone_network": "not tested"
+  },
+  "student_history": {
+    "access_control": "passed authenticated self-only/classroom-filtered records; no key or isCorrect fields before release",
+    "understanding": "passed independent two-stage reader review of review order, count denominator and Q4/Q5 explanations",
+    "backend": "24 tests passed, including publication/submission and publication/new-question races",
+    "cloud": "passed seven rounds and twelve fictional answers; latest deployed protocol checked; formal classroom remains unreleased",
+    "browser": "passed login-return, pending/confirmed-release/withdrawn states, prior rounds, missed neutral status and logout clearing",
+    "mobile": "390px width, all six details expanded, page width 390px and no KaTeX errors",
+    "scope_limit": "actual phone networks and full-class cloud load not tested"
   }
 }

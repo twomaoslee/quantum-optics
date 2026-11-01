@@ -31,3 +31,14 @@ test('close and publication cannot omit an in-flight accepted answer under snaps
  const submitted=await inflight;assert.equal(submitted.error.code,'CLOSED');
  const published=(await call('room.public',{},null,room)).data;assert.equal(published.round.total,0);assert.equal((await repo.list({kind:'answer'})).length,0);
 });
+
+test('after-class answer release closes expired gates against an in-flight submission',async()=>{
+ let time=1900000000000;const repo=snapshotRepo(),service=createService(repo,{teacherPasswordHash:await passwordHash('test-password'),now:()=>time});
+ const call=(action,data={},token,roomCode)=>service.handle({action,data,token,roomCode},'release-race');
+ const teacher=(await call('teacher.login',{password:'test-password'})).data.token,room=(await call('teacher.create',{},teacher)).data.code;
+ const pupil=(await call('student.login',{name:'发布测试',studentNumber:'release001'},null,room)).data.token;
+ await call('teacher.open',{},teacher,room);const roundId=(await call('teacher.state',{},teacher,room)).data.round.id;
+ const reached=repo.pauseNextAnswerRead(),inflight=call('student.submit',{roundId,choice:'C'},pupil,room);await reached;time+=60001;
+ assert((await call('teacher.releaseAnswers',{released:true},teacher,room)).ok);repo.resume();
+ assert.equal((await inflight).error.code,'CLOSED');const h=(await call('student.history',{},pupil,room)).data;assert.equal(h.questions[0].rounds[0].own,null);
+});

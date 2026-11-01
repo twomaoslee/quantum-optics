@@ -53,8 +53,9 @@
   catch(e){message(e.message);if(e.code==='AUTH')showLogin();}
   finally{polling=false;}
  }
- function showLogin(){$('login').hidden=false;$('workspace').hidden=true;}
+ function showLogin(){$('login').hidden=false;$('workspace').hidden=true;state=null;roundId=null;$('choices').replaceChildren();$('receipt').textContent='';$('result').replaceChildren();}
  async function enter(profile){
+  if(new URLSearchParams(location.search).get('return')==='history'){const url=new URL('history.html',location.href);url.search='';url.searchParams.set('room',room);location.replace(url.href);return;}
   $('profile').textContent=profile.name+' · '+profile.studentNumber;$('login').hidden=true;$('workspace').hidden=false;await refresh();
  }
  $('login-form').addEventListener('submit',async e=>{
@@ -71,6 +72,7 @@
  });
  $('logout').addEventListener('click',async()=>{try{await api.call('logout');api.save(null);showLogin();}catch(error){message(error.message);}});
  if(!room || !/^[A-F0-9]{12}$/.test(room)){message('请扫描老师课件上的课堂二维码进入。');$('login-form').hidden=true;return;}
+ for(const [id,file]of [['live-link','student.html'],['my-answers','history.html']]){const url=new URL(file,location.href);url.search='';url.searchParams.set('room',room);$(id).href=url.href;}
  if(api.stored())try{const me=await api.call('me');if(me.role==='student')await enter(me.profile);else api.save(null);}catch(error){message(error.message);}
  else try{await api.call('room.public',{},room);}catch(error){message(error.message);}
  setInterval(refresh,5000);setInterval(controls,250);

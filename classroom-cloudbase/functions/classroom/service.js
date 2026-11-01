@@ -150,6 +150,29 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
       return {code: room.code, title: room.title, question: questionFor(room.round?.questionId || question.id), round: publicRound(room.round),
         own: own ? {choice: own.choice, updatedAt: own.updatedAt} : null};
     }
+    if (action === 'student.history') {
+      requireThat(session.role === 'student', 'FORBIDDEN', '请使用学生身份。');
+      const room = await getRoom(roomCode);
+      // Both filters are server-controlled. Client-supplied student IDs never
+      // select whose history is returned, and answers are never a public query.
+      // Keep this response within the room version read above. A concurrent
+      // withdrawal followed by a new question must not borrow an older release.
+      const rounds = (await repo.list({kind:'round',roomCode})).filter(r=>r.number<room.nextRound);
+      const rows = await repo.list({kind:'answer',roomCode,userId:session.userId});
+      const ownByRound = new Map(rows.map(row=>[row.roundId,row]));
+      const released = !!room.answersReleasedAt;
+      return {code:room.code,title:room.title,answersReleasedAt:room.answersReleasedAt || null,
+        questions:catalog.map(({question:selected,answer})=>{
+          const attempts = rounds.filter(r=>r.questionId===selected.id).sort((a,b)=>a.number-b.number);
+          return {question:selected,rounds:attempts.map(r=>{
+            const own=ownByRound.get(r.id);
+            return {id:r.id,number:r.number,openedAt:r.openedAt,deadline:r.deadline,
+              status:!r.closedAt && now()<r.deadline?'open':'closed',
+              own:own?{choice:own.choice,submittedAt:own.updatedAt,
+                ...(released?{isCorrect:own.choice===answer.correct}:{})}:null};
+          }),...(released && attempts.length?{answer}:{})};
+        })};
+    }
     if (action === 'student.submit') {
       requireThat(session.role === 'student', 'FORBIDDEN', '请使用学生身份。');
       requireThat(['A','B','C','D'].includes(data.choice) && typeof data.roundId === 'string', 'INPUT', '请选择一个选项。');
@@ -182,13 +205,14 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
       const room = await getRoom(roomCode), selected = questionFor(data.questionId || room.round?.questionId || question.id);
       const round = await selectedRound(room, selected.id);
       const stats = round ? (round.revealed ? {counts:round.counts,total:round.total} : await countsFor(round.id)) : {};
-      return {code:room.code,title:room.title,question:selected,round:round ? {...publicRound(round),...stats,...(round.revealed?questions.get(selected.id).answer:{})} : null};
+      return {code:room.code,title:room.title,answersReleasedAt:room.answersReleasedAt || null,question:selected,round:round ? {...publicRound(round),...stats,...(round.revealed?questions.get(selected.id).answer:{})} : null};
     }
     if (action === 'teacher.open') {
       const seconds = data.seconds === undefined ? 60 : data.seconds;
       requireThat(Number.isInteger(seconds) && seconds >= 15 && seconds <= 300, 'INPUT', '答题时间须为15—300秒。');
       if (data.questionId !== undefined) questionFor(data.questionId);
       return mutateRoom(roomCode, async (room,tx) => {
+        requireThat(!room.answersReleasedAt, 'RELEASED', '本课堂已开放答案，请先在课后管理页收回答案，或新建课堂。');
         const selected = questionFor(data.questionId || room.round?.questionId || question.id);
         room.questionRounds ||= {};
         if (room.round) {
@@ -225,6 +249,22 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
           requireThat(round.deadline-round.openedAt<300000,'INPUT','本轮已达到最长作答时间。');
           round.deadline=Math.min(round.deadline+30000,round.openedAt+300000);
         }
+      });
+    }
+    if (action === 'teacher.releaseAnswers') {
+      requireThat(typeof data.released==='boolean','INPUT','请明确选择开放或收回答案。');
+      return mutateRoom(roomCode,async(room,tx)=>{
+        if(data.released){
+          requireThat(room.round,'ROUND','本课堂尚未发题。');
+          requireThat(room.round.closedAt || now()>=room.round.deadline,'OPEN','还有题目正在作答，请先结束作答，再开放答案。');
+          // An expired round may still have open submission gates. Close them
+          // atomically with release so in-flight writes cannot cross publication.
+          if(!room.round.closedAt){
+            room.round.closedAt=now();await closeGates(room.round,tx);
+            await tx.set('round_'+room.round.id,{kind:'round',roomCode,...room.round});
+          }
+          room.answersReleasedAt=room.answersReleasedAt || now();
+        }else room.answersReleasedAt=null;
       });
     }
     if (action === 'teacher.export') {
