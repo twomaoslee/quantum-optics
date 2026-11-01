@@ -7,6 +7,7 @@ const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const random = () => crypto.randomBytes(32).toString('base64url');
 const catalog = require('./questions.json');
 const reasons = require('./reasons.json');
+const timing = require('./timing.json');
 const {snapshot,validateAnalysis}=require('./comparison');
 const questions = new Map(catalog.map(record => [record.question.id, record]));
 const question = questions.get('l07-q1').question;
@@ -262,7 +263,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
       const room = await getRoom(roomCode), selected = questionFor(data.questionId || room.round?.questionId || question.id);
       const round = await selectedRound(room, selected.id);
       const stats = round ? (round.revealed ? {counts:round.counts,total:round.total} : await countsFor(round.id)) : {};
-      return {code:room.code,title:room.title,answersReleasedAt:room.answersReleasedAt || null,question:selected,round:round ? {...publicRound(round),...stats,...(round.revealed?questions.get(selected.id).answer:{})} : null};
+      return {code:room.code,title:room.title,answersReleasedAt:room.answersReleasedAt || null,question:selected,defaultSeconds:timing[selected.id] || 60,round:round ? {...publicRound(round),...stats,...(round.revealed?questions.get(selected.id).answer:{})} : null};
     }
     if (action === 'teacher.reasonStats') {
       const room=await getRoom(roomCode),selected=questionFor(data.questionId || room.round?.questionId || question.id);
@@ -312,12 +313,12 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
           ...(analysis.status==='ready'?{details:stored.result}:{})}: {})};
     }
     if (action === 'teacher.open') {
-      const seconds = data.seconds === undefined ? 60 : data.seconds;
-      requireThat(Number.isInteger(seconds) && seconds >= 15 && seconds <= 300, 'INPUT', '答题时间须为15—300秒。');
       if (data.questionId !== undefined) questionFor(data.questionId);
       return mutateRoom(roomCode, async (room,tx) => {
         requireThat(!room.answersReleasedAt, 'RELEASED', '本课堂已开放答案，请先在课后管理页收回答案，或新建课堂。');
         const selected = questionFor(data.questionId || room.round?.questionId || question.id);
+        const seconds = data.seconds === undefined ? timing[selected.id] || 60 : data.seconds;
+        requireThat(Number.isInteger(seconds) && seconds >= 15 && seconds <= 300, 'INPUT', '答题时间须为15—300秒。');
         if(Object.hasOwn(data,'roundId')){
           const previous=await selectedRound(room,selected.id,tx);
           requireThat((previous?.id || null)===(data.roundId || null),'ROUND','轮次已变化，请刷新后再次作答。');

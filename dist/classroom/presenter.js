@@ -78,7 +78,7 @@
  $('dev-connect').addEventListener('click',async()=>{try{api.save(await api.call('dev.teacherLogin'));await connect();}catch(error){handleError(error);}});
  $('start').addEventListener('click',async()=>{
   if(busy||!room)return;busy=true;epoch++;expanded=false;comparison=null;analysisBusy=false;layout();controls();message('');
-  try{await api.call('teacher.open',{questionId,seconds:60,roundId:state?.round?.id||null},room);await fetchState();parent.postMessage({type:'qo-classroom-started'},parentOrigin);}
+  try{await api.call('teacher.open',{questionId,roundId:state?.round?.id||null},room);await fetchState();parent.postMessage({type:'qo-classroom-started'},parentOrigin);}
   catch(error){handleError(error);}finally{busy=false;controls();}
  });
  $('show').addEventListener('click',async()=>{

@@ -3,7 +3,7 @@
   "scope": "Six Lecture 7 in-slide manually controlled repeat rounds, program-counted comparison charts, real cached AI summaries and teacher-only details; optional other-reason comments and 25-column export",
   "local_browser": "passed",
   "backend_tests": "passed",
-  "backend_test_count": 37,
+  "backend_test_count": 38,
   "cloud_deployment": "passed",
   "cloud_sdk_smoke": "passed",
   "real_phone_network": "pending_teacher_phone_test",
@@ -98,8 +98,8 @@
     "classroom/student.html": "c32cf07c0a6c55245090cc6969025b568c07e91884c11b27a78806d0fc805907",
     "classroom/student.js": "4b606715d472a38e32d1f75ab92f9f3b8f815cfc2703e9cf9934f16efb42e9aa",
     "classroom/style.css": "69e00592b97dc503165fbe734e8eaf4eb0e1960fdfa0e56346d15d85d76032c1",
-    "classroom/teacher.html": "4ed878061ac8825598675c321df538611ea5618986654d8458d6e3c6aea05a07",
-    "classroom/teacher.js": "21fddee143371102f2b5cd79dd66cbdafa507a5e7d94cc2d6c88c95809e27a37",
+    "classroom/teacher.html": "d137f161afd1c32086cffc2545854ea01b0698beb4b8758b686da60b2bb35adb",
+    "classroom/teacher.js": "bae6aa5fabce90ee68ac0147dae17499bc8d40ea7ab32dc15bece7aaaafaa9db",
     "classroom/vendor/cloudbase-LICENSE": "92d7d7d2d4771b84f44e38dc59052faae8e3cd0a234a62de6180a1c6746c979e",
     "classroom/vendor/cloudbase.js": "f2f32140de147768741ceaa0e8e05391d22b76265bbf2def2c7bf86977c1ad0f",
     "classroom/vendor/katex/LICENSE": "766ccc1f306c885aa45542a9846bbd0a505b27a0374f146778171c2254ce18e3",
@@ -173,7 +173,7 @@
     "classroom-cloudbase/functions/classroom/package-lock.json": "1a29e5cd2b8249224f6406955ca641e313772ad36f4485c277b1121b31d25193",
     "classroom-cloudbase/functions/classroom/package.json": "fb8ac2007c356083e20f397075a19627f634f2752bc00a47fe16714ee8f9b74f",
     "classroom-cloudbase/functions/classroom/repository.js": "48a802c5f7901c5fd71f73fa58db261d610139566a3c528caf15f4c64fc36b4e",
-    "classroom-cloudbase/functions/classroom/service.js": "5f2d5ec880e29a9d01cc8a215df8c32345022225ac68c2f6932b5e90cc75cca9",
+    "classroom-cloudbase/functions/classroom/service.js": "55267f245659fa8e2208d6b4937d0bc28799e4932dc3b7dddbda956ba0011250",
     "classroom-cloudbase/functions/classroom/vendor/lodash.set/index.js": "f97bc584a99c20a655d8159b648fd0758968c5a6414399874f306ee114d4368a",
     "classroom-cloudbase/functions/classroom/vendor/lodash.set/package.json": "4efed05fe3d824cf36cd45bcc3c4b7111441b20b90e105ec092b6d662d0b99e2",
     "classroom-cloudbase/package-lock.json": "11d7eaa31ddd02296e35454a219b11e5c2a77c70b0297b24835023c054b1278d",
@@ -183,7 +183,7 @@
     "classroom-cloudbase/scripts/prepare.cjs": "7dc6a117cb1cffdacef14108a10a1cb2cadae0f3639700d9b8561b37936d87c2",
     "classroom-cloudbase/scripts/vendor.cjs": "8d533d8f6062088037571fcc3b733c197d6411f528b8f363a5df9da7659655c9",
     "classroom-cloudbase/test/browser.cjs": "f7de984b39ef66772acd2d00e3c621157fedc5d63eba8414a8cfbc9f52b954ea",
-    "classroom-cloudbase/test/prepare.test.cjs": "2b2f98a4ec6b147f66038a14c744c43117b5db0c91d1e6359335f466fbe9e2dd",
+    "classroom-cloudbase/test/prepare.test.cjs": "99a65720ffbe6dca549c184d412b774b97443e2919cbc840e6a0bb45bbe9b420",
     "classroom-cloudbase/test/question.test.cjs": "848b135f3d014277316fc0eb3f4f9c4e0136a4f51ad2b042227431c38d7d5c47",
     "classroom-cloudbase/test/race.test.cjs": "0747eacd07b21f8a751c0299516e3ed7272f7304a11444720ad6a7c5bf05ccd9",
     "classroom-cloudbase/test/repository.test.cjs": "50c60b4f9f40729e82ebdd656e742ed4537f2d72dcb35ef23972277f16ee36a5",
@@ -195,9 +195,9 @@
     "classroom-cloudbase/scripts/cloud-smoke.cjs": "78fefd699842a172dc7fcc129b05a1feb65c50ec1e3185ef3267e970bb30942e",
     "classroom-cloudbase/functions/classroom/transport.js": "cf0f2aa392be5e41da498d03374d81581107fdabc59d7e572013648eaa8a8781",
     "classroom-cloudbase/test/transport.test.cjs": "aeb04077c2f6c62a26102b007bf3a5bf8e271aca3551f4b997e162a150fc8832",
-    "classroom/presenter.html": "0b43b81f2d6997383784bf150c42fb8c4d78dd585812e551ac140996797749e0",
+    "classroom/presenter.html": "21abc8083b2da822016f17fc7f5674bd401362879f7347ad853e54ef7104383e",
     "classroom/presenter.css": "dcfa4eaf9fe78657044cd6d3d6c21c48f8b1489149fb3ee4ac048d52dd1a8f8d",
-    "classroom/presenter.js": "6d859148346ccaeca4b81d43a5e42d3bec5b3564175e0a84dcc9893add366deb",
+    "classroom/presenter.js": "c035351f39896ee52344c7fe0e6976317414cc6abc3f575d67e8896b56c5cbf7",
     "classroom-cloudbase/functions/classroom/questions.json": "9953d6db5767b4b5f9f65d22a10b79290781fa01a97096c6353780cb9360c0c7",
     "classroom-cloudbase/scripts/sync-questions.py": "9c69b378ea842c0d1afa386d1cb3af5534112cff5522f1eeffa36f45e16caaf2",
     "classroom-cloudbase/test/multiple.test.cjs": "4c4eaff5f86b3e201e0ce8efd676442296d068ac276158850b44b62704c18e3a",
@@ -215,7 +215,9 @@
     "scripts/update_classroom_deck.py": "a5b4422451f7d4f001db4857206f0613e481ea6341082fe7b44558662d170559",
     "classroom-cloudbase/functions/classroom/ai.js": "14f030e11cc05f28511cfdc9ec43eb12b6aff80717ef24fe5d9bca90f927562d",
     "classroom-cloudbase/functions/classroom/comparison.js": "9d5cdd616050cf6feb0b525ba6a830db4869c388fe4d99a6975e4684afa83a85",
-    "classroom-cloudbase/test/ai.test.cjs": "167c334209c492da18e0b19d924057fbccbdfff8bd7e20fe9d03f7620c4992cb"
+    "classroom-cloudbase/test/ai.test.cjs": "167c334209c492da18e0b19d924057fbccbdfff8bd7e20fe9d03f7620c4992cb",
+    "classroom-cloudbase/functions/classroom/timing.json": "52ab49bfdb452664e6707cdb88a8e44cc32a0d83a1923bd848e05febc75b820a",
+    "classroom-cloudbase/test/timing.test.cjs": "b27eba56f23d452c230634ffd7f1aa1d651b4bbb4413a3c5168608cbe08a7af0"
   },
   "cloud_browser": "passed",
   "cloud_capacity": "pending_full_class_load",
@@ -321,5 +323,20 @@
     "tests": "37 passed; same-environment preparation retains AI configuration and tightens file permission; different environment does not inherit model credentials",
     "billing": "CloudBase personal plan unchanged; direct model usage billed to own DeepSeek account",
     "limits": "one real model sample and interface check; no full-class load or real phone tests"
+  },
+  "question_timing": {
+    "status": "passed",
+    "defaults_seconds": {
+      "l07-q1": 60,
+      "l07-q2": 60,
+      "l07-q3": 60,
+      "l07-q4": 60,
+      "l07-q5": 60,
+      "l07-q6": 120
+    },
+    "scope": "new rounds use per-question server defaults; presenter and admin no longer hard-code 60; explicit duration overrides retained; active existing rounds unchanged",
+    "tests": "38 backend business tests passed including sixth-question submission after 61 seconds, rejection at 120, repeat defaults and extension",
+    "concurrent_source_check": "The separate question-source sync check currently detects Q5 equation line-format changes in the other task; question catalog and lesson sources were not changed for this timing release.",
+    "release": "only timing payloads and admin duration label; unpublished sidebar/chart client changes excluded"
   }
 }

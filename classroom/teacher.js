@@ -9,6 +9,7 @@
  else if(!api.config.envId){$('environment').hidden=false;$('environment').textContent='答题后台待开通。课件可以正常讲授；CloudBase 部署后即可创建课堂。';$('login-form').hidden=true;}
  function controls(){
   const r=state?.round,open=r?.status==='open'&&api.now()<r.deadline;
+  $('open').textContent='发题 · '+(state?.defaultSeconds||60)+'秒';
   $('open').disabled=busy||open||!!state?.answersReleasedAt;$('extend').disabled=busy||!open;$('close').disabled=busy||!open;
   $('reveal').disabled=busy||!r||r.revealed;$('analysis').disabled=busy||!r?.revealed;
   $('status').textContent=!r?'学生进入后等待发题。':open?'剩余 '+Math.max(0,Math.ceil((r.deadline-api.now())/1000))+' 秒 · 已提交 '+r.total+' 人':'作答已结束 · 共 '+r.total+' 人提交';
@@ -103,7 +104,7 @@
  for(const [id,action] of [['open','teacher.open'],['extend','teacher.extend'],['close','teacher.close'],['reveal','teacher.reveal']]){
   $(id).addEventListener('click',async()=>{
    if(busy)return;busy=true;controls();message('');
-   try{await api.call(action,{seconds:60,roundId:state?.round?.id},room);}
+   try{await api.call(action,{roundId:state?.round?.id},room);}
    catch(e){message(e.message);}finally{busy=false;await refresh(false);controls();}
   });
  }
