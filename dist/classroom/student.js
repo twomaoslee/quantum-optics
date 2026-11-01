@@ -10,7 +10,7 @@
   $('choices').disabled=!open||busy;
   $('submit').disabled=!open||busy||!document.querySelector('input[name=choice]:checked');
   $('submit').textContent=busy?'正在提交…':state?.own?'更新答案':'提交答案';
-  $('timer').textContent=open?Math.max(0,Math.ceil((round.deadline-api.now())/1000))+' 秒':'';
+  $('timer').textContent=open?Math.max(0,Math.ceil((round.deadline-api.now())/1000))+' 秒':round?.revealed?'已结束':round?'0 秒':'—';
   $('state').textContent=!round?'等待老师发题':open?'第 '+round.number+' 轮 · 正在作答':round.revealed?'第 '+round.number+' 轮 · 已公布统计':'本轮已结束，等待老师公布';
  }
  function richText(element,text){
@@ -21,7 +21,7 @@
   }
  }
  function draw(next){
-  state=next;$('title').textContent=next.question.title;richText($('stem'),next.question.stem);
+  state=next;$('question-number').textContent=next.question.title.match(/^思考题\s*\d+/)?.[0]||'当前题目';$('title').textContent=next.question.title;richText($('stem'),next.question.stem);
   richText($('reference'),next.question.reference);$('math').replaceChildren();
   for(let math of next.question.mathLines||[next.question.math]){
    if(innerWidth<500)math=String.raw`\begin{gathered}`+math.replace(/,\s*\\(?:qquad|quad)\s*/g,String.raw`\\`)+String.raw`\end{gathered}`;
@@ -53,10 +53,10 @@
   catch(e){message(e.message);if(e.code==='AUTH')showLogin();}
   finally{polling=false;}
  }
- function showLogin(){$('login').hidden=false;$('workspace').hidden=true;state=null;roundId=null;$('choices').replaceChildren();$('receipt').textContent='';$('result').replaceChildren();}
+ function showLogin(){document.body.classList.remove('answering');$('login').hidden=false;$('workspace').hidden=true;state=null;roundId=null;$('choices').replaceChildren();$('receipt').textContent='';$('result').replaceChildren();}
  async function enter(profile){
   if(new URLSearchParams(location.search).get('return')==='history'){const url=new URL('history.html',location.href);url.search='';url.searchParams.set('room',room);location.replace(url.href);return;}
-  $('profile').textContent=profile.name+' · '+profile.studentNumber;$('login').hidden=true;$('workspace').hidden=false;await refresh();
+  document.body.classList.add('answering');$('profile').textContent=profile.name+' · '+profile.studentNumber;$('login').hidden=true;$('workspace').hidden=false;await refresh();
  }
  $('login-form').addEventListener('submit',async e=>{
   e.preventDefault();const button=e.submitter;button.disabled=true;message('');

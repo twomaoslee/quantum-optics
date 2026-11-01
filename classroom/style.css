@@ -4,3 +4,15 @@
 @media(max-height:650px) and (min-width:701px){.embedded main{margin:8px auto}.embedded .notice{padding:5px 10px;margin:4px 0 8px}.embedded .room-picker{margin:4px 0 12px}.embedded .room-picker select{padding:7px}.embedded h1{font-size:25px;margin:8px 0 10px}.embedded #stem{font-size:17px;line-height:1.5;margin:6px 0}.embedded .status-line{font-size:21px;line-height:1.5;margin:10px 0}.embedded .toolbar{margin:10px 0}.embedded .toolbar button{font-size:16px;padding:10px 14px}.embedded .counts{gap:8px;margin-top:12px}.embedded .bar-track{height:24px}.embedded .bar-row strong{font-size:18px}.embedded .stats-note{display:none}.embedded #explanation{font-size:18px;margin:10px 0}}
 
 .math-line{overflow-x:auto}.math-line .katex-display{margin:.5em 0}.student #reference{white-space:pre-line}
+
+/* Keep question context visible while students scroll through a long question. */
+.student-answer-page.answering main{margin-top:0}
+.student-answer-page .question-head{position:sticky;top:0;z-index:20;align-items:center;gap:16px;margin:0 -24px 24px;padding:12px 24px;background:#fff;border-bottom:1px solid #dce6ef;box-shadow:0 3px 8px #17334a0a}
+.student-answer-page .question-context{min-width:0}
+.student-answer-page #question-number{display:block;font-size:18px;line-height:1.4;color:var(--blue)}
+.student-answer-page .question-head .eyebrow{font-size:13px;line-height:1.5;color:var(--muted);letter-spacing:0;margin-top:3px}
+.student-answer-page .time-remaining{flex-shrink:0;text-align:right}
+.student-answer-page .timer-label{display:block;font-size:12px;line-height:1.4;color:var(--muted);margin-bottom:3px}
+.student-answer-page #timer{display:block;min-width:4ch;font-size:26px;line-height:1.15}
+.student-answer-page.answering :is(input,button,a){scroll-margin-top:100px}
+@media(max-width:700px){.student-answer-page .question-head{margin-inline:-20px;padding-inline:20px}}

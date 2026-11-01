@@ -92,9 +92,9 @@
   "sha256": {
     "classroom/api.js": "d5ced9608f8bbf416f57e1bb8e9451dc23c462051b706fa839df19fde20b1c59",
     "classroom/config.js": "840e90878978ae3397b515c342bac563ad259668371dd1a51fe6bc7c1204e6d8",
-    "classroom/student.html": "2aca31b804f16b4bdd255926d6c849b663079cb8e503728df1105ed4c74882f3",
-    "classroom/student.js": "0b7273e9df7c36689564e74bbf721010a10674d53cd365386d5b2cd36b573c4c",
-    "classroom/style.css": "770ca93c5f44e3862bcab01b40cae08c89bfa6e39a6f95b7b7a3ad650f9b856b",
+    "classroom/student.html": "e3bfad0be55ddae64dc279a7cd4b0069f6c12f3e369b7531eeb697bde6296fd7",
+    "classroom/student.js": "f89da66a9f65ac46b755a9f5eea1a03b6e395adbbe22faaffe9f7b9fea258e53",
+    "classroom/style.css": "52fb87303b14e96973259958f424a84629f792ff415f0840ffd0dde419e0206f",
     "classroom/teacher.html": "4abc4d3eb7d91406684c3afcbea912c205b5a6fcda50799fbdfe70783ece7147",
     "classroom/teacher.js": "f5ae95060e4f3ed1e910c3a3732f639d92f65ebdb343042c4595ffd9fc701f89",
     "classroom/vendor/cloudbase-LICENSE": "92d7d7d2d4771b84f44e38dc59052faae8e3cd0a234a62de6180a1c6746c979e",
@@ -243,5 +243,12 @@
     "browser": "passed login-return, pending/confirmed-release/withdrawn states, prior rounds, missed neutral status and logout clearing",
     "mobile": "390px width, all six details expanded, page width 390px and no KaTeX errors",
     "scope_limit": "actual phone networks and full-class cloud load not tested"
+  },
+  "student_sticky_header": {
+    "status": "passed",
+    "scope": "live student page question number, status and countdown; question content and backend unchanged",
+    "browser": "390px countdown/submit/expiry; all six questions scrolled at 320px; 1466px desktop; logout layout",
+    "geometry": "bar top 0, height about 75px; no page overflow or covered submit buttons",
+    "version": "20261101-sticky"
   }
 }
