@@ -7,6 +7,7 @@ const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const random = () => crypto.randomBytes(32).toString('base64url');
 const catalog = require('./questions.json');
 const reasons = require('./reasons.json');
+const {snapshot,validateAnalysis}=require('./comparison');
 const questions = new Map(catalog.map(record => [record.question.id, record]));
 const question = questions.get('l07-q1').question;
 function questionFor(id) {
@@ -43,7 +44,7 @@ async function checkPassword(password, encoded) {
   const key = await scrypt(password, parts[1], 64);
   return crypto.timingSafeEqual(key, Buffer.from(parts[2], 'hex'));
 }
-function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
+function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze = null, analysisNamespace = ''} = {}) {
   async function limited(scope, count, period = 60000) {
     const id = 'limit_' + hash(scope);
     await repo.transaction(async tx => {
@@ -109,6 +110,22 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
     const entries = await Promise.all(['A','B','C','D'].map(async choice => [choice, await repo.count({kind:'answer',roundId,choice})]));
     const counts = Object.fromEntries(entries);
     return {counts,total:Object.values(counts).reduce((sum,n)=>sum+n,0)};
+  }
+  async function comparisonFor(roomCode,data){
+    const room=await getRoom(roomCode),selected=questionFor(data.questionId || room.round?.questionId || question.id);
+    const round=await selectedRound(room,selected.id);
+    requireThat(round&&data.roundId===round.id,'ROUND','轮次已变化，请重新展示结果。');
+    requireThat(round.revealed,'HIDDEN','请先展示结果，再查看各轮对比和AI分析。');
+    const rounds=(await repo.list({kind:'round',roomCode})).filter(r=>(r.questionId || question.id)===selected.id&&r.number<=round.number);
+    requireThat(rounds.every(r=>r.closedAt||now()>=r.deadline),'OPEN','仍有轮次正在作答。');
+    return snapshot(questions.get(selected.id),rounds,await repo.list({kind:'answer',roomCode}),analysisNamespace);
+  }
+  const analysisKey=(roomCode,questionId)=>'analysis_'+roomCode+'_'+questionId;
+  function publicAnalysis(row,fingerprint){
+    if(!row||row.fingerprint!==fingerprint)return {status:'idle'};
+    if(row.status==='pending'&&row.leaseUntil<=now())return {status:'failed',message:'AI分析超时，可再次点击展示结果重试。'};
+    return {status:row.status,...(row.status==='ready'?{summary:row.result.summary,model:row.result.model,generatedAt:row.generatedAt}:{}),
+      ...(row.status==='failed'?{message:'AI小结暂未生成，可再次点击展示结果重试。'}:{})};
   }
   const gateKey = (roundId,bucket) => 'gate_' + roundId + '_' + bucket;
   async function closeGates(round,tx) {
@@ -215,7 +232,10 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
         requireThat(own.choice===data.choice,'CHOICE','答案已改变，请刷新后为当前答案补充原因。');
         const option=reasonOptions(round.questionId || question.id,own.choice).find(r=>r.id===data.reasonId);
         requireThat(data.reasonId===null || option,'INPUT','原因与当前所选答案不匹配。');
-        saved=option?{id:option.id,text:option.text,version:reasons.version,submittedAt:now()}:null;
+        requireThat(data.comment===undefined||typeof data.comment==='string','INPUT','请填写有效的原因补充。');
+        const comment=(data.comment||'').normalize('NFKC').replace(/[\u0000-\u001f\u007f]/g,' ').trim();
+        requireThat([...comment].length<=120 && (!comment||data.reasonId==='other'),'INPUT','补充仅用于“其他原因”，最多120字。');
+        saved=option?{id:option.id,text:option.text,version:reasons.version,submittedAt:now(),...(comment?{comment}:{})}:null;
         // A reason update neither re-submits the answer nor changes its timestamp.
         await tx.set(id,{...own,reason:saved});
         await tx.set(gateId,{...gate,version:gate.version+1});
@@ -223,6 +243,11 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
       return {ok:true,reason:saved};
     }
     await authenticate(token, 'teacher');
+    if(action==='teacher.analysisStatus'){
+      const room=await getRoom(roomCode),round=await selectedRound(room,questionFor(data.questionId).id);
+      requireThat(round?.id===data.roundId&&round.revealed,'ROUND','轮次已变化，请重新展示结果。');
+      return {analysis:publicAnalysis(await repo.get(analysisKey(roomCode,data.questionId)),data.fingerprint)};
+    }
     if (action === 'teacher.create') {
       const code = crypto.randomBytes(6).toString('hex').toUpperCase();
       const title = typeof data.title === 'string' ? data.title.trim().slice(0,60) : '第七讲课堂';
@@ -254,8 +279,37 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
             counts.get(key).count++;
           }
           const submitted=answers.filter(row=>row.reason).length;
-          return {choice,total:answers.length,submitted,missing:answers.length-submitted,reasons:[...counts.values()]};
+          return {choice,total:answers.length,submitted,missing:answers.length-submitted,reasons:[...counts.values()],
+            comments:answers.filter(row=>row.reason?.id==='other'&&row.reason.comment).map(row=>row.reason.comment)};
         })};
+    }
+    if(['teacher.comparison','teacher.analyze','teacher.analysisDetails'].includes(action)){
+      const snap=await comparisonFor(roomCode,data),key=analysisKey(roomCode,snap.public.questionId);
+      if(action==='teacher.analyze'){
+        requireThat(analyze,'AI_CONFIG','AI模型尚未配置，柱状图仍可正常展示。');
+        requireThat(snap.public.rounds.some(r=>r.total>0),'EMPTY','本题暂无已提交答案，暂不生成AI小结。');
+        let claimed=false,leaseId=random();
+        await repo.transaction(async tx=>{
+          const old=await tx.get(key);
+          if(old?.fingerprint===snap.fingerprint&&(old.status==='ready'||old.status==='pending'&&old.leaseUntil>now()))return;
+          await tx.set(key,{kind:'analysis',roomCode,questionId:snap.public.questionId,fingerprint:snap.fingerprint,status:'pending',leaseId,leaseUntil:now()+70000});claimed=true;
+        });
+        if(claimed){
+          try{
+            await limited('ai-analysis:'+roomCode,10,60000);
+            const generated=await analyze(snap.input),validated=validateAnalysis(generated,snap.input);
+            await repo.transaction(async tx=>{const old=await tx.get(key);if(old?.leaseId===leaseId)await tx.set(key,{...old,status:'ready',generatedAt:now(),result:{...validated,model:String(generated.model||'configured-model').slice(0,80)}});});
+          }catch(error){
+            const diagnostic=String(error.code||error.name||'AI_FAILED').replace(/[^A-Za-z0-9_.-]/g,'').slice(0,80);
+            const explanation=String(error.message||'').replace(/Bearer\s+\S+|(?:secret|token|key)\s*[:=]\s*\S+/gi,'[已隐藏]').slice(0,200);
+            await repo.transaction(async tx=>{const old=await tx.get(key);if(old?.leaseId===leaseId)await tx.set(key,{...old,status:'failed',diagnostic,explanation,...(error.candidate?{candidate:error.candidate}:{})});});
+          }
+        }
+      }
+      const stored=await repo.get(key),analysis=publicAnalysis(stored,snap.fingerprint);
+      return {...snap.public,fingerprint:snap.fingerprint,analysis,
+        ...(action==='teacher.analysisDetails'?{reasonRounds:snap.input.reasonRounds,...(analysis.status==='failed'?{diagnostic:stored?.diagnostic,explanation:stored?.explanation,candidate:stored?.candidate}:{}),
+          ...(analysis.status==='ready'?{details:stored.result}:{})}: {})};
     }
     if (action === 'teacher.open') {
       const seconds = data.seconds === undefined ? 60 : data.seconds;
@@ -264,12 +318,16 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
       return mutateRoom(roomCode, async (room,tx) => {
         requireThat(!room.answersReleasedAt, 'RELEASED', '本课堂已开放答案，请先在课后管理页收回答案，或新建课堂。');
         const selected = questionFor(data.questionId || room.round?.questionId || question.id);
+        if(Object.hasOwn(data,'roundId')){
+          const previous=await selectedRound(room,selected.id,tx);
+          requireThat((previous?.id || null)===(data.roundId || null),'ROUND','轮次已变化，请刷新后再次作答。');
+        }
         room.questionRounds ||= {};
         if (room.round) {
           room.questionRounds[room.round.questionId || question.id] = room.round.id;
           const switching = (room.round.questionId || question.id) !== selected.id;
-          requireThat(switching || room.round.closedAt || now() >= room.round.deadline, 'OPEN', '本题仍在作答，请先展示回答。');
-          if (switching && !room.round.closedAt) {
+          requireThat(switching || room.round.closedAt || now() >= room.round.deadline || Object.hasOwn(data,'roundId'), 'OPEN', '本题仍在作答，请先展示回答。');
+          if (!room.round.closedAt) {
             room.round.closedAt = now();
             await closeGates(room.round,tx);
             await tx.set('round_' + room.round.id,{kind:'round',roomCode,...room.round});

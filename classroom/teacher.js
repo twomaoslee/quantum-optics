@@ -2,7 +2,7 @@
  'use strict';const api=QOApi,$=id=>document.getElementById(id);
  const roomKey='qo-last-room-v1:'+(api.config.envId||'local');
  const params=new URLSearchParams(location.search);if(params.get('embedded')==='1')document.body.classList.add('embedded');
- let room=params.get('room')||localStorage.getItem(roomKey)||'',state=null,busy=false,polling=false,showAnalysis=false,active=true,reasonLoading=false;
+ let room=params.get('room')||localStorage.getItem(roomKey)||'',state=null,busy=false,polling=false,showAnalysis=false,active=true,reasonLoading=false,detailLoading=false;
  window.addEventListener('message',event=>{if(event.source===parent&&event.origin===location.origin&&event.data?.type==='qo-classroom-visibility'){active=event.data.active===true;if(active)refresh();}});
  function message(text){$('message').textContent=text||'';}
  if(api.config.dev){$('environment').hidden=false;$('environment').textContent='本机联调 · 共用正式后端业务代码，尚未连接腾讯云。仅使用虚拟学生数据。';$('dev-login').hidden=false;}
@@ -18,9 +18,10 @@
   $('answers-release-status').textContent=released?'已开放。本课堂学生可在“我的答题”查看对错、正确答案和解析。':open?'仍有题目正在作答，结束作答后可开放。':'尚未开放。课堂上的“展示回答”只公布统计，不会开放答案与解析。';
   $('round-label').textContent=r?'第 '+r.number+' 轮'+(r.revealed?' · 统计已公布':' · 统计未公布'):'尚未发题';
   if($('refresh-reasons'))$('refresh-reasons').disabled=!r||reasonLoading;
+  if($('refresh-analysis'))$('refresh-analysis').disabled=!r?.revealed||detailLoading;
  }
  function draw(next){
-  if(state?.round?.id!==next.round?.id){showAnalysis=false;$('release-confirm').hidden=true;if($('reason-report')){$('reason-report').open=false;$('reason-summary').replaceChildren();}}
+  if(state?.round?.id!==next.round?.id){showAnalysis=false;$('release-confirm').hidden=true;if($('reason-report')){$('reason-report').open=false;$('reason-summary').replaceChildren();}if($('analysis-report')){$('analysis-report').open=false;$('analysis-detail').replaceChildren();$('comparison-charts').replaceChildren();}}
   state=next;$('classroom').hidden=false;$('title').textContent=next.question.title;$('stem').textContent=next.question.stem;
   const r=next.round;$('stats').hidden=!r?.revealed;$('counts').replaceChildren();
   if(r?.revealed){for(const [letter,text] of next.question.options){
@@ -46,9 +47,31 @@
     if(!choice.total)continue;
     const list=document.createElement('ul');
     for(const reason of choice.reasons){const li=document.createElement('li');li.textContent=reason.count+' 人 · '+reason.text;list.append(li);}container.append(list);
+    for(const comment of choice.comments||[]){const p=document.createElement('p');p.className='fine';p.textContent='其他原因补充：'+comment;container.append(p);}
    }
   }catch(error){if(room===requested&&state?.round?.id===id)message(error.message);}
   finally{reasonLoading=false;controls();}
+ }
+ async function analysisDetails(generate=false){
+  if(detailLoading||!state?.round?.revealed)return;
+  const requested=room,id=state.round.id,questionId=state.question.id;detailLoading=true;controls();
+  try{
+   if(generate)await api.call('teacher.analyze',{questionId,roundId:id},requested);
+   const data=await api.call('teacher.analysisDetails',{questionId,roundId:id},requested);
+   if(room!==requested||state?.round?.id!==id)return;
+   QOComparison.draw($('comparison-charts'),data);QOComparison.summary($('teacher-ai-brief'),data.analysis);
+   const container=$('analysis-detail');container.replaceChildren();
+   for(const pair of data.transitions){const p=document.createElement('p');p.className='fine';p.textContent='第 '+pair.from+' → '+pair.to+' 轮：两轮均提交 '+pair.paired+' 人，改选 '+pair.changed+' 人；错转对 '+pair.wrongToCorrect+' 人，对转错 '+pair.correctToWrong+' 人。';container.append(p);}
+   if(data.details){
+    for(const observation of data.details.observations){const p=document.createElement('p');p.className='analysis-observation';p.textContent=observation.text;const evidence=document.createElement('small');evidence.textContent='依据轮次：'+observation.evidence.map(r=>r.replace('round-','第 ')+' 轮').join('、');p.append(evidence);container.append(p);}
+    for(const [title,text]of [['建议下一步',data.details.nextStep],['分析边界',data.details.limitations]]){const h=document.createElement('h3'),p=document.createElement('p');h.textContent=title;p.className='analysis-observation';p.textContent=text;container.append(h,p);}
+   }
+   for(const r of data.reasonRounds){
+    const h=document.createElement('h3');h.textContent='第 '+r.ordinal+' 轮原因 · '+r.submitted+'/'+r.total+' 人填写';container.append(h);
+    for(const c of r.choices)for(const reason of c.reasons){const p=document.createElement('p');p.className='fine';p.textContent=c.choice+' · '+reason.count+' 人 · '+reason.text;container.append(p);}
+    for(const c of r.choices)for(const comment of c.comments){const p=document.createElement('p');p.className='fine';p.textContent=c.choice+' · 其他原因补充（'+comment.count+'份）：'+comment.text;container.append(p);}
+   }
+  }catch(error){message(error.message);}finally{detailLoading=false;controls();}
  }
  async function selectRoom(code){
   $('release-confirm').hidden=true;if($('reason-report')){$('reason-report').open=false;$('reason-summary').replaceChildren();}$('download-status').textContent='';room=code;state=null;showAnalysis=false;$('classroom').hidden=!room;localStorage.setItem(roomKey,room);$('rooms').value=room;
@@ -96,6 +119,10 @@
  if($('reason-report')){
   $('reason-report').addEventListener('toggle',()=>{if($('reason-report').open)reasonStats();});
   $('refresh-reasons').addEventListener('click',reasonStats);
+ }
+ if($('analysis-report')){
+  $('analysis-report').addEventListener('toggle',()=>{if($('analysis-report').open)analysisDetails();});
+  $('refresh-analysis').addEventListener('click',()=>analysisDetails(true));
  }
  $('copy-link').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(studentURL());$('copy-link').textContent='已复制';setTimeout(()=>$('copy-link').textContent='复制学生链接',1500);}catch{message('请从“打开学生页”链接复制地址。');}});
  $('export').addEventListener('click',async()=>{

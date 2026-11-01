@@ -3,7 +3,7 @@ test('configuration preparation keeps teacher secrets private and preserves the 
  const temp=fs.mkdtempSync(path.join(os.tmpdir(),'qo-cloud-prepare-')),root=path.join(temp,'backend');
  try{
   for(const folder of ['scripts','functions/classroom'])fs.mkdirSync(path.join(root,folder),{recursive:true});fs.mkdirSync(path.join(temp,'classroom'));
-  for(const file of ['scripts/prepare.cjs','functions/classroom/service.js','functions/classroom/questions.json','functions/classroom/reasons.json','cloudbaserc.example.json'])fs.copyFileSync(path.resolve(__dirname,'..',file),path.join(root,file));
+  for(const file of ['scripts/prepare.cjs','functions/classroom/service.js','functions/classroom/questions.json','functions/classroom/reasons.json','functions/classroom/comparison.js','cloudbaserc.example.json'])fs.copyFileSync(path.resolve(__dirname,'..',file),path.join(root,file));
   const args=[path.join(root,'scripts/prepare.cjs'),'--env-id','test-env-000','--region','ap-shanghai','--publishable-key','public-test-key','--gateway-url','https://test-env-000-123.ap-shanghai.app.tcloudbase.com/classroom-api'];
   execFileSync(process.execPath,args);
   const privateFile=path.join(root,'.local/teacher-login.json'),login=JSON.parse(fs.readFileSync(privateFile,'utf8')),config=JSON.parse(fs.readFileSync(path.join(root,'cloudbaserc.json'),'utf8')),client=fs.readFileSync(path.join(temp,'classroom/config.js'),'utf8');

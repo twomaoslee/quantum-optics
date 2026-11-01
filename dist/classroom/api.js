@@ -26,7 +26,7 @@
     if(!response.ok)throw new Error('网络连接失败，请重试。');result=await response.json();
    }else if(config.gatewayUrl){
     const connection=await cloud(),{accessToken}=await connection.auth.getAccessToken();
-    const response=await fetch(config.gatewayUrl,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+accessToken},body:JSON.stringify(event),signal:AbortSignal.timeout(25000)});
+    const response=await fetch(config.gatewayUrl,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+accessToken},body:JSON.stringify(event),signal:AbortSignal.timeout(action==='teacher.analyze'?65000:25000)});
     if(!response.ok)throw new Error('网络连接失败，请重试。');result=await response.json();
    }else result=(await (await cloud()).callFunction({name:config.functionName || 'classroom',data:event})).result;
   }catch(error){throw Object.assign(new Error(error.code==='CONFIG'?error.message:'连接失败，尚未确认操作结果。请重试或刷新检查。'),{code:error.code||'NETWORK'});}

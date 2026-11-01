@@ -1,88 +1,86 @@
 (async function(){
  'use strict';
- const api=QOApi,$=id=>document.getElementById(id),params=new URLSearchParams(location.search);
- const questionId=params.get('question')||'l07-q1';
- if(!/^l07-q[1-6]$/.test(questionId)){ $('message').textContent='题目链接无效。';return;}
- const roomKey='qo-last-room-v1:'+(api.config.envId||'local');
- let room='',state=null,busy=false,polling=false,connecting=false,active=window===parent,epoch=0,parentOrigin='*';
- const sameDay=(time)=>new Date(time).toLocaleDateString()===new Date().toLocaleDateString();
- function message(text){$('message').textContent=text||'';}
+ const api=QOApi,$=id=>document.getElementById(id),params=new URLSearchParams(location.search),questionId=params.get('question')||'l07-q1';
+ if(!/^l07-q[1-6]$/.test(questionId)){$('message').textContent='题目链接无效。';return;}
+ const roomKey='qo-last-room-v1:'+(api.config.envId||'local'),sameDay=t=>new Date(t).toLocaleDateString()===new Date().toLocaleDateString();
+ let room='',state=null,busy=false,polling=false,connecting=false,active=window===parent,epoch=0,parentOrigin='*',expanded=false,comparison=null,analysisBusy=false;
+ const message=text=>{$('message').textContent=text||'';};
+ function layout(){
+  document.body.classList.toggle('wide-results',expanded);$('join').hidden=expanded;$('results').hidden=!expanded;
+  parent.postMessage({type:'qo-classroom-results',expanded},parentOrigin);
+ }
  function controls(){
-  const r=state?.round,remaining=r?Math.max(0,Math.ceil((r.deadline-api.now())/1000)):0;
-  const open=r?.status==='open'&&remaining>0;
-  $('start').disabled=busy||!room||open;$('show').disabled=busy||!r||r.revealed;
-  $('start').textContent=open?'正在作答':r?'再答一次':'开始作答';
-  $('show').textContent=r?.revealed?'已展示回答':'展示回答';
-  $('timer').textContent=!r?'等待发题':open?String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0'):r.revealed?'已收题':'时间到';
+  const r=state?.round,remaining=r?Math.max(0,Math.ceil((r.deadline-api.now())/1000)):0,open=r?.status==='open'&&remaining>0;
+  $('start').disabled=busy||!room||!!state?.answersReleasedAt;$('show').disabled=busy||!r;
+  $('start').textContent=r?'再次作答':'开始回答';$('show').textContent='展示结果';
+  $('timer').textContent=!r?'等待发题':open?String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0'):r.revealed?'已展示结果':'本轮已结束';
   $('participation').textContent=r?r.total+' 人已答':'';
  }
  function draw(next){
-  state=next;$('classroom').hidden=false;const r=next.round;
-  $('join').hidden=!!r?.revealed;$('results').hidden=!r?.revealed;$('timer').hidden=false;$('participation').hidden=false;
-  $('bars').replaceChildren();
-  if(r?.revealed)for(const [letter] of next.question.options){
-   const row=document.createElement('div'),label=document.createElement('div'),key=document.createElement('strong'),count=document.createElement('span'),track=document.createElement('div'),fill=document.createElement('div');
-   row.className='bar';label.className='bar-label';key.textContent=letter;
-   const percent=r.total?Math.round(100*r.counts[letter]/r.total):0;
-   count.textContent=r.counts[letter]+'人 '+percent+'%';track.className='bar-track';fill.className='bar-fill';fill.style.width=percent+'%';
-   label.append(key,count);track.append(fill);row.append(label,track);$('bars').append(row);
-  }
-  controls();
+  if(state?.round?.id!==next.round?.id){expanded=false;comparison=null;analysisBusy=false;layout();}
+  state=next;$('classroom').hidden=false;controls();
  }
- function showConnection(){
-  room='';state=null;$('classroom').hidden=true;$('connection').hidden=false;
-  $('dev-connect').hidden=!api.config.dev;$('connect').hidden=!!api.config.dev;
- }
+ function showConnection(){room='';state=null;expanded=false;layout();$('classroom').hidden=true;$('connection').hidden=false;$('dev-connect').hidden=!api.config.dev;$('connect').hidden=!!api.config.dev;}
  function handleError(error){
   if(error.code==='AUTH'){showConnection();message('请在课前连接课堂。');}
-  else{$('classroom').hidden=true;$('join').hidden=true;$('results').hidden=true;message(error.message);$('retry').hidden=false;}
+  else{message(error.message);$('retry').hidden=false;}
  }
- async function fetchState(){
-  const version=epoch,requested=room;const next=await api.call('teacher.state',{questionId},requested);
-  if(version===epoch&&requested===room)draw(next);
+ async function fetchState(){const version=epoch,requested=room,next=await api.call('teacher.state',{questionId},requested);if(version===epoch&&requested===room)draw(next);}
+ function drawComparison(){if(!comparison)return;QOComparison.draw($('bars'),comparison);QOComparison.summary($('ai-brief'),comparison.analysis);}
+ async function analyze(){
+  if(analysisBusy||!comparison||comparison.analysis?.status==='ready')return;
+  const version=epoch,requested=room,roundId=state.round.id;analysisBusy=true;comparison.analysis={status:'pending'};drawComparison();
+  try{
+   const next=await api.call('teacher.analyze',{questionId,roundId},requested);
+   if(version===epoch&&requested===room&&state?.round?.id===roundId){comparison=next;drawComparison();}
+  }catch(error){if(version===epoch&&comparison){comparison.analysis={status:'failed',message:error.message};drawComparison();}}
+  finally{if(version===epoch)analysisBusy=false;}
  }
  async function refresh(){
-  if(!room||busy||polling||document.hidden||!active)return;polling=true;
-  try{await fetchState();message('');$('retry').hidden=true;}catch(error){handleError(error);}finally{polling=false;}
+  if(!room||busy||polling||document.hidden||!active)return;polling=true;const version=epoch;
+  try{
+   await fetchState();
+   if(expanded&&comparison?.analysis?.status==='pending'){
+    const next=await api.call('teacher.analysisStatus',{questionId,roundId:state.round.id,fingerprint:comparison.fingerprint},room);
+    if(version===epoch&&comparison){comparison.analysis=next.analysis;QOComparison.summary($('ai-brief'),next.analysis);}
+   }
+  }catch(error){handleError(error);}finally{polling=false;}
  }
  async function enter(){
   if(connecting)return;connecting=true;
   try{
    if(!api.stored()){showConnection();return;}
    const me=await api.call('me');if(me.role!=='teacher'){showConnection();return;}
-   const {rooms}=await api.call('teacher.rooms'),explicit=params.get('room');
-   const today=rooms.filter(r=>r.title==='第七讲课堂'&&sameDay(r.createdAt));
-   const saved=localStorage.getItem(roomKey);
+   const {rooms}=await api.call('teacher.rooms'),explicit=params.get('room'),today=rooms.filter(r=>r.title==='第七讲课堂'&&sameDay(r.createdAt)),saved=localStorage.getItem(roomKey);
    room=(explicit&&rooms.find(r=>r.code===explicit)?.code)||today.find(r=>r.code===saved)?.code||today[0]?.code||'';
    if(!room)room=(await api.call('teacher.create',{title:'第七讲课堂'})).code;
-   localStorage.setItem(roomKey,room);
-   const url=new URL('student.html',location.href);url.search='';url.searchParams.set('room',room);$('student-link').href=url.href;
+   localStorage.setItem(roomKey,room);const url=new URL('student.html',location.href);url.search='';url.searchParams.set('room',room);$('student-link').href=url.href;
    await QOQRCode.toCanvas($('qr'),url.href,{width:160,margin:2,errorCorrectionLevel:'M'});
    await fetchState();$('connection').hidden=true;$('classroom').hidden=false;$('retry').hidden=true;message('');
   }catch(error){handleError(error);}finally{connecting=false;controls();}
  }
- $('connect').addEventListener('submit',async event=>{
-  event.preventDefault();const button=event.submitter;button.disabled=true;
-  const password=new FormData(event.target).get('password');event.target.reset();
-  try{api.save(await api.call('teacher.login',{password}));await enter();}catch(error){handleError(error);}finally{button.disabled=false;}
- });
- $('dev-connect').addEventListener('click',async()=>{
-  try{api.save(await api.call('dev.teacherLogin'));await enter();}catch(error){handleError(error);}
- });
- for(const [id,action]of [['start','teacher.open'],['show','teacher.reveal']])$(id).addEventListener('click',async()=>{
-  if(busy||!room)return;busy=true;epoch++;controls();message('');
-  try{await api.call(action,{questionId,seconds:60,roundId:state?.round?.id},room);await fetchState();
-   parent.postMessage({type:action==='teacher.open'?'qo-classroom-started':'qo-classroom-return-focus'},parentOrigin);
-  }
+ $('connect').addEventListener('submit',async event=>{event.preventDefault();const button=event.submitter;button.disabled=true;const password=new FormData(event.target).get('password');event.target.reset();try{api.save(await api.call('teacher.login',{password}));await enter();}catch(error){handleError(error);}finally{button.disabled=false;}});
+ $('dev-connect').addEventListener('click',async()=>{try{api.save(await api.call('dev.teacherLogin'));await enter();}catch(error){handleError(error);}});
+ $('start').addEventListener('click',async()=>{
+  if(busy||!room)return;busy=true;epoch++;expanded=false;comparison=null;analysisBusy=false;layout();controls();message('');
+  try{await api.call('teacher.open',{questionId,seconds:60,roundId:state?.round?.id||null},room);await fetchState();parent.postMessage({type:'qo-classroom-started'},parentOrigin);}
   catch(error){handleError(error);}finally{busy=false;controls();}
+ });
+ $('show').addEventListener('click',async()=>{
+  if(busy||!room||!state?.round)return;busy=true;epoch++;analysisBusy=false;controls();message('');const version=epoch;
+  try{
+   if(!state.round.revealed)await api.call('teacher.reveal',{questionId,roundId:state.round.id},room);
+   await fetchState();comparison=await api.call('teacher.comparison',{questionId,roundId:state.round.id},room);
+   if(version!==epoch)return;expanded=true;drawComparison();layout();parent.postMessage({type:'qo-classroom-return-focus'},parentOrigin);
+  }catch(error){handleError(error);}finally{busy=false;controls();}
+  if(version===epoch&&expanded)analyze();
  });
  $('retry').addEventListener('click',()=>room?refresh():enter());
  window.addEventListener('message',event=>{
-  if(event.source!==parent||event.data?.type!=='qo-classroom-visibility')return;
-  let trusted=event.origin===location.origin||event.origin==='null';
-  try{trusted ||= /^(localhost|127\.0\.0\.1)$/.test(new URL(event.origin).hostname);}catch{}
-  if(!trusted)return;parentOrigin=event.origin==='null'?'*':event.origin;active=event.data.active===true;if(active)refresh();
+  if(event.source!==parent)return;let trusted=event.origin===location.origin||event.origin==='null';try{trusted||=/^(localhost|127\.0\.0\.1)$/.test(new URL(event.origin).hostname);}catch{}if(!trusted)return;
+  parentOrigin=event.origin==='null'?'*':event.origin;
+  if(event.data?.type==='qo-classroom-results-dismissed'){expanded=false;layout();}
+  if(event.data?.type==='qo-classroom-visibility'){active=event.data.active===true;if(active)refresh();}
  });
- document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
- setInterval(refresh,3000);setInterval(controls,250);await enter();
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});setInterval(refresh,3000);setInterval(controls,250);await enter();
 })();

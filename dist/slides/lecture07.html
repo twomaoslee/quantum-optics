@@ -667,7 +667,12 @@ body:has(#l07-closing.present) :is(.course-footer-bar,.slide-logo,.slide-number,
 
 .reveal .l07.qo-classroom-inline .question{grid-template-rows:auto min-content 1fr}
 .reveal .l07.qo-classroom-inline .question .mc-options{align-self:center}
-</style>
+
+.reveal .qo-classroom-results .question{position:static;background:transparent;border:0;box-shadow:none}
+.reveal .qo-classroom-results .question>:not(.classroom-slot),.reveal .qo-classroom-results .s-body>:not(.question){display:none}
+.reveal .qo-classroom-results .s-body{position:static}
+.reveal .qo-classroom-results .classroom-slot{position:absolute;visibility:visible;z-index:12;left:38px;right:38px;top:115px;bottom:45px;padding:10px 18px;border:0;background:#fff;box-shadow:0 0 0 12px #fff}
+.reveal .qo-classroom-results .classroom-slot iframe{height:100%!important;width:100%}</style>
   <style type="text/css">.reveal
 div.sourceCode
 pre
@@ -1456,7 +1461,7 @@ margin-right: 0; }
 <div class="equation"><span class="math display">\[\omega q+ip=\omega Qe^{-i\omega t}\]</span></div>
 <p>两个实变量合成简单的复指数；按同样结构定义算符：</p>
 <div class="definition">
-<div class="equation"><span class="math display">\[\hat a=\frac{\omega\hat q+i\hat p}{\sqrt{2\hbar\omega}},\qquad \hat a^\dagger=\frac{\omega\hat q-i\hat p}{\sqrt{2\hbar\omega}}.\]</span></div>
+<div class="equation"><span class="math display">\[\begin{aligned}\hat a&amp;=\frac{\omega\hat q+i\hat p}{\sqrt{2\hbar\omega}},\\\hat a^\dagger&amp;=\frac{\omega\hat q-i\hat p}{\sqrt{2\hbar\omega}}.\end{aligned}\]</span></div>
 </div>
 <p><span class="math inline">\(\hat q,\hat p\)</span>为厄米算符，共轭转置后不变；<span class="math inline">\(i\)</span>变号，故两者互为厄米共轭。</p>
 <div class="result">
@@ -4835,7 +4840,7 @@ function onReady(){if(!window.Reveal?.isReady())return setTimeout(onReady,40);
    if(!/^https?:$/.test(location.protocol))url=new URL('https://zimin.li/quantum-optics/classroom/presenter.html');
    else if(location.pathname.includes('/slides/'))url=new URL('../classroom/presenter.html',location.href);
    else url=new URL('/classroom/presenter.html',location.href);
-   url.searchParams.set('v','20261101-all6');url.searchParams.set('question',slide.id);
+   url.searchParams.set('v','20261101-multiround');url.searchParams.set('question',slide.id);
    if(selectedRoom&&/^[A-F0-9]{12}$/.test(selectedRoom))url.searchParams.set('room',selectedRoom);
    const frame=document.createElement('iframe');frame.title='课堂扫码作答';frame.src=url.href;frame.setAttribute('scrolling','no');
    const entry={frame,origin:url.origin};frames.set(slide,entry);slide.querySelector('.classroom-slot').append(frame);
@@ -4848,13 +4853,21 @@ function onReady(){if(!window.Reveal?.isReady())return setTimeout(onReady,40);
   Reveal.on('slidechanged',update);
   window.addEventListener('message',event=>{
    const slide=Reveal.getCurrentSlide(),entry=frames.get(slide);
-   if(!entry||event.source!==entry.frame.contentWindow||event.origin!==entry.origin||!['qo-classroom-return-focus','qo-classroom-started'].includes(event.data?.type))return;
+   if(!entry||event.source!==entry.frame.contentWindow||event.origin!==entry.origin)return;
+   if(event.data?.type==='qo-classroom-results'){slide.classList.toggle('qo-classroom-results',event.data.expanded===true);return;}
+   if(!['qo-classroom-return-focus','qo-classroom-started'].includes(event.data?.type))return;
    if(event.data.type==='qo-classroom-started'){
     Reveal.navigateFragment(-1);
     slide.querySelectorAll('.mc-option').forEach(option=>{option.classList.remove('selected');option.setAttribute('aria-pressed','false');});
    }
    slide.tabIndex=-1;slide.focus({preventScroll:true});
   });
+  function dismiss(){
+   for(const [slide,{frame,origin}]of frames)if(slide.classList.contains('qo-classroom-results')){
+    slide.classList.remove('qo-classroom-results');frame.contentWindow?.postMessage({type:'qo-classroom-results-dismissed'},origin);
+   }
+  }
+  Reveal.on('fragmentshown',dismiss);Reveal.on('fragmenthidden',dismiss);Reveal.on('slidechanged',dismiss);
   update();window.lecture07ClassroomReady=true;
  }ready();
 })();

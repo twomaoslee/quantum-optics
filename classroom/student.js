@@ -18,11 +18,15 @@
    $('save-reason').disabled=!open||busy||!document.querySelector('input[name=reason]:checked');
    $('save-reason').textContent=reasonBusy?'正在保存…':'保存原因';
    $('clear-reason').hidden=!state.own.reason;$('clear-reason').disabled=!open||busy;
+   const other=selectedReasonId()==='other';
+   if($('other-reason-wrap')){$('other-reason-wrap').hidden=!other;$('other-reason-text').disabled=!open||busy||!other;}
    $('reason-hint').textContent=pending?'请先更新答案，再为新答案补充原因。':!open?'本轮已结束，不能再修改原因。已提交的答案保留。':'答案已提交。不填写也算完成；可在本轮截止前补充一条最符合的原因。';
    const selectedReason=document.querySelector('input[name=reason]:checked')?.value;
-   $('reason-receipt').textContent=pending?'':selectedReason&&selectedReason!==state.own.reason?.id?'该原因尚未保存。':state.own.reason?'已保存选择原因。':'';
+   const comment=other&&$('other-reason-text')?$('other-reason-text').value.normalize('NFKC').trim():'';
+   $('reason-receipt').textContent=pending?'':selectedReason&&(selectedReason!==state.own.reason?.id||comment!==(state.own.reason?.comment||''))?'该原因尚未保存。':state.own.reason?'已保存选择原因。':'';
   }
  }
+ function selectedReasonId(){return document.querySelector('input[name=reason]:checked')?.value;}
  function richText(element,text){
   element.replaceChildren();
   for(const part of text.split(/(\$[^$]+\$)/g)){
@@ -34,7 +38,7 @@
   if(!$('reason-panel'))return;
   const own=next.own,options=own?.reasonOptions||[];
   $('reason-panel').hidden=!own||!options.length;
-  if(!own){reasonKey='';reasonRevision='';$('reason-choices').replaceChildren();$('reason-receipt').textContent='';return;}
+  if(!own){reasonKey='';reasonRevision='';$('reason-choices').replaceChildren();$('reason-receipt').textContent='';if($('other-reason-text'))$('other-reason-text').value='';return;}
   $('reason-for').textContent='对应已提交答案 '+own.choice+' · 选一条主要原因';
   const key=next.round.id+':'+own.choice,revision=key+':'+(own.reason?.id||'')+':'+(own.reason?.submittedAt||'');
   if(key!==reasonKey){
@@ -48,6 +52,7 @@
   if(revision!==reasonRevision){
    reasonRevision=revision;
    for(const radio of document.querySelectorAll('input[name=reason]'))radio.checked=radio.value===own.reason?.id;
+   if($('other-reason-text'))$('other-reason-text').value=own.reason?.comment||'';
   }
   $('reason-receipt').textContent=own.reason?'已保存选择原因。':'';
  }
@@ -111,7 +116,8 @@
   if(busy||!state?.own)return;
   busy=true;reasonBusy=true;epoch++;controls();message('');
   try{
-   await api.call('student.reason',{roundId,choice:state.own.choice,reasonId},room);
+   const comment=reasonId==='other'&&$('other-reason-text')?$('other-reason-text').value:'';
+   await api.call('student.reason',{roundId,choice:state.own.choice,reasonId,comment},room);
    draw(await api.call('student.state',{},room));
    if(reasonId===null)$('reason-receipt').textContent='已清除原因，原答案保留。';
   }catch(error){message(error.message);}
@@ -121,6 +127,7 @@
   $('reason-choices').addEventListener('change',controls);
   $('reason-form').addEventListener('submit',event=>{event.preventDefault();const selected=document.querySelector('input[name=reason]:checked');if(selected)saveReason(selected.value);});
   $('clear-reason').addEventListener('click',()=>saveReason(null));
+  if($('other-reason-text'))$('other-reason-text').addEventListener('input',controls);
  }
  $('logout').addEventListener('click',async()=>{try{await api.call('logout');api.save(null);showLogin();}catch(error){message(error.message);}});
  if(!room || !/^[A-F0-9]{12}$/.test(room)){message('请扫描老师课件上的课堂二维码进入。');$('login-form').hidden=true;return;}
