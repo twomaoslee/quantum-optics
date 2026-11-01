@@ -12,7 +12,7 @@
   $('start').textContent=open?'作答中':r?'再答 · 60秒':'开始 · 60秒';
   $('show').textContent=r?.revealed?'已展示':open?'收题展示':'展示回答';
   $('timer').textContent=!r?'等待发题':open?String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0'):r.revealed?'本轮已结束':'时间到';
-  $('participation').textContent=r?'已作答 '+r.total+' 人':'姓名、学号首次登记';
+  $('participation').textContent=r?'已作答 '+r.total+' 人':'首次登记姓名学号';
  }
  function draw(next){
   state=next;const r=next.round;

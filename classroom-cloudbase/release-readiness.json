@@ -190,8 +190,8 @@
     "classroom-cloudbase/functions/classroom/transport.js": "cf0f2aa392be5e41da498d03374d81581107fdabc59d7e572013648eaa8a8781",
     "classroom-cloudbase/test/transport.test.cjs": "aeb04077c2f6c62a26102b007bf3a5bf8e271aca3551f4b997e162a150fc8832",
     "classroom/presenter.html": "191e295a86ec8bab9891abc22dd6f66c9a4791cd665d8d25dd00390c5aca0b19",
-    "classroom/presenter.css": "839a1094152b7c53261e597545bf3198acc9f616af4c1e7a204f6050dcc4c2db",
-    "classroom/presenter.js": "ac52fd8cc1e7430254a89cd80dc1251a57cc8d40debdff2fd677effbfc9862f0"
+    "classroom/presenter.css": "433d2516b07cc86f74417dec5c95b7a86292784fcc40d4ee57080c0c158dafa5",
+    "classroom/presenter.js": "c3520b6fb743bbd3f92eb7cb120bf4b97ddd974c3b62731af216305c1bb715e4"
   },
   "cloud_browser": "passed",
   "cloud_capacity": "pending_full_class_load",
