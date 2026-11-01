@@ -21,7 +21,7 @@
   }
  }
  function draw(next){
-  state=next;$('question-number').textContent=next.question.title.match(/^思考题\s*\d+/)?.[0]||'当前题目';$('title').textContent=next.question.title;richText($('stem'),next.question.stem);
+  state=next;const number=$('question-number');if(number)number.textContent=next.question.title.match(/^思考题\s*\d+/)?.[0]||'当前题目';$('title').textContent=next.question.title;richText($('stem'),next.question.stem);
   richText($('reference'),next.question.reference);$('math').replaceChildren();
   for(let math of next.question.mathLines||[next.question.math]){
    if(innerWidth<500)math=String.raw`\begin{gathered}`+math.replace(/,\s*\\(?:qquad|quad)\s*/g,String.raw`\\`)+String.raw`\end{gathered}`;
