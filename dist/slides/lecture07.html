@@ -675,9 +675,6 @@ body:has(#l07-closing.present) :is(.course-footer-bar,.slide-logo,.slide-number,
 .reveal .qo-classroom-inline .question .reference{gap:0}
 .reveal .qo-classroom-inline .question .reference .equation{margin:0}
 
-body:has(.qo-classroom-inline.present:not(.qo-classroom-results)) .reveal .controls .navigate-right{right:calc(var(--qo-sidebar-edge,244px) + 2px)!important}
-.reveal .qo-classroom-inline .mc-answer{width:calc(100% + 244px);position:relative;z-index:3}
-.reveal .qo-classroom-inline .s-body{z-index:3}
 .reveal #l07-canonical .columns{align-items:stretch}
 .reveal #l07-canonical .columns>.column>.block{flex:1}
 
@@ -689,11 +686,12 @@ body:has(.qo-classroom-inline.present:not(.qo-classroom-results)) .reveal .contr
 .reveal .qo-classroom-inline:not(.qo-classroom-results) > .classroom-slot{display:block;position:absolute;left:auto;right:0;top:0;bottom:0;width:244px;height:720px;box-sizing:border-box;padding:48px 18px 74px;border:0;border-left:1px solid #c7d4df;background:#f4f8fb;z-index:2}
 .reveal .qo-classroom-inline:not(.qo-classroom-results) > .classroom-slot iframe{display:block;border:0;width:100%;max-width:100%;max-height:none;height:100%;margin:0;background:transparent}
 @media print{.reveal .qo-classroom-inline > .classroom-slot{display:none!important}.reveal .qo-classroom-inline .s-body,.reveal .qo-classroom-inline > :is(h1,h2){right:36px}}
-
+body:has(.qo-classroom-inline.present:not(.qo-classroom-results)) .reveal .controls .navigate-right{right:calc(var(--qo-sidebar-edge,244px) + 2px)!important}
+.reveal .qo-classroom-inline .mc-answer{width:calc(100% + 244px);position:relative;z-index:3}
+.reveal .qo-classroom-inline .s-body{z-index:3}
 
 .reveal .qo-classroom-inline .question{height:auto;justify-content:flex-start;gap:22px;padding:22px}
 .reveal .qo-classroom-inline .question .reference{gap:10px}
-
 .reveal :is(#l07-q5,#l07-q6).qo-classroom-inline .question{gap:10px;padding:16px 22px}
 .reveal :is(#l07-q5,#l07-q6).qo-classroom-inline .question .reference{gap:0}
 </style>
@@ -1549,15 +1547,17 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-number-operator" class="title-slide slide level1 flow-compact balanced lecture-slide l07" data-section="ladder">
+<section id="l07-number-operator" class="title-slide slide level1 flow-compact block-compact math-compact balanced lecture-slide l07" data-section="ladder">
 <h1>光子数算符把能量组织成相邻阶梯</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>定义<span class="math inline">\(\hat N\)</span>，把求能量转化为求<span class="math inline">\(\hat N\)</span>的本征值<span class="math inline">\(\lambda\)</span>；下面检验它们怎样排列：</p>
 <div class="equation"><span class="math display">\[\hat N\equiv\hat a^\dagger\hat a,\quad\hat H=\hbar\omega(\hat N+1/2)\]</span></div>
 <div class="block">
-<p>由<span class="math inline">\([\hat a,\hat a^\dagger]=1\)</span>得<span class="math inline">\([\hat N,\hat a]=-\hat a\)</span>、<span class="math inline">\([\hat N,\hat a^\dagger]=\hat a^\dagger\)</span>。将<span class="math inline">\(\hat N|\lambda\rangle=\lambda|\lambda\rangle\)</span>代入：</p>
-<div class="equation"><span class="math display">\[\begin{aligned}\hat N(\hat a|\lambda\rangle)&amp;=(\lambda-1)\hat a|\lambda\rangle,\\\hat N(\hat a^\dagger|\lambda\rangle)&amp;=(\lambda+1)\hat a^\dagger|\lambda\rangle.\end{aligned}\]</span></div>
+<p>由<span class="math inline">\([\hat a,\hat a^\dagger]=1\)</span>得</p>
+<div class="equation"><span class="math display">\[[\hat N,\hat a]=-\hat a,\qquad [\hat N,\hat a^\dagger]=\hat a^\dagger.\]</span></div>
+<p>将本征方程代入：</p>
+<div class="equation"><span class="math display">\[\begin{aligned}\hat N|\lambda\rangle&amp;=\lambda|\lambda\rangle,\\\hat N(\hat a|\lambda\rangle)&amp;=(\lambda-1)\hat a|\lambda\rangle,\\\hat N(\hat a^\dagger|\lambda\rangle)&amp;=(\lambda+1)\hat a^\dagger|\lambda\rangle.\end{aligned}\]</span></div>
 </div>
 <div class="fragment" data-fragment-index="0">
 <div class="result">
