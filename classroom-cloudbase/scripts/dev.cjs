@@ -2,7 +2,7 @@
 const http=require('node:http'),fs=require('node:fs/promises'),path=require('node:path'),crypto=require('node:crypto');
 const {createService,passwordHash}=require('../functions/classroom/service');
 const {memoryRepository}=require('./memory.cjs');
-const site=path.resolve(__dirname,'../..'),state=path.resolve(__dirname,'../.local');
+const site=path.resolve(__dirname,'../..'),state=process.env.QO_DEV_STATE_DIR?path.resolve(process.env.QO_DEV_STATE_DIR):path.resolve(__dirname,'../.local');
 const port=Number(process.env.QO_DEV_PORT || 8765),origin='http://localhost:'+port;
 (async()=>{
  await fs.mkdir(state,{recursive:true,mode:0o700});

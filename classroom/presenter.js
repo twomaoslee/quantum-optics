@@ -1,6 +1,8 @@
 (async function(){
  'use strict';
  const api=QOApi,$=id=>document.getElementById(id),params=new URLSearchParams(location.search);
+ const questionId=params.get('question')||'l07-q1';
+ if(!/^l07-q[1-6]$/.test(questionId)){ $('message').textContent='题目链接无效。';return;}
  const roomKey='qo-last-room-v1:'+(api.config.envId||'local');
  let room='',state=null,busy=false,polling=false,connecting=false,active=window===parent,epoch=0,parentOrigin='*';
  const sameDay=(time)=>new Date(time).toLocaleDateString()===new Date().toLocaleDateString();
@@ -9,14 +11,14 @@
   const r=state?.round,remaining=r?Math.max(0,Math.ceil((r.deadline-api.now())/1000)):0;
   const open=r?.status==='open'&&remaining>0;
   $('start').disabled=busy||!room||open;$('show').disabled=busy||!r||r.revealed;
-  $('start').textContent=open?'作答中':r?'再答 · 60秒':'开始 · 60秒';
-  $('show').textContent=r?.revealed?'已展示':open?'收题展示':'展示回答';
-  $('timer').textContent=!r?'等待发题':open?String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0'):r.revealed?'本轮已结束':'时间到';
-  $('participation').textContent=r?'已作答 '+r.total+' 人':'首次登记姓名学号';
+  $('start').textContent=open?'正在作答':r?'再答一次':'开始作答';
+  $('show').textContent=r?.revealed?'已展示回答':'展示回答';
+  $('timer').textContent=!r?'等待发题':open?String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0'):r.revealed?'已收题':'时间到';
+  $('participation').textContent=r?r.total+' 人已答':'';
  }
  function draw(next){
-  state=next;const r=next.round;
-  $('join').hidden=!!r?.revealed;$('results').hidden=!r?.revealed;$('timer').hidden=!!r?.revealed;$('participation').hidden=!!r?.revealed;
+  state=next;$('classroom').hidden=false;const r=next.round;
+  $('join').hidden=!!r?.revealed;$('results').hidden=!r?.revealed;$('timer').hidden=false;$('participation').hidden=false;
   $('bars').replaceChildren();
   if(r?.revealed)for(const [letter] of next.question.options){
    const row=document.createElement('div'),label=document.createElement('div'),key=document.createElement('strong'),count=document.createElement('span'),track=document.createElement('div'),fill=document.createElement('div');
@@ -33,10 +35,10 @@
  }
  function handleError(error){
   if(error.code==='AUTH'){showConnection();message('请在课前连接课堂。');}
-  else{$('join').hidden=true;$('results').hidden=true;message(error.message);$('retry').hidden=false;}
+  else{$('classroom').hidden=true;$('join').hidden=true;$('results').hidden=true;message(error.message);$('retry').hidden=false;}
  }
  async function fetchState(){
-  const version=epoch,requested=room;const next=await api.call('teacher.state',{},requested);
+  const version=epoch,requested=room;const next=await api.call('teacher.state',{questionId},requested);
   if(version===epoch&&requested===room)draw(next);
  }
  async function refresh(){
@@ -69,7 +71,7 @@
  });
  for(const [id,action]of [['start','teacher.open'],['show','teacher.reveal']])$(id).addEventListener('click',async()=>{
   if(busy||!room)return;busy=true;epoch++;controls();message('');
-  try{await api.call(action,{seconds:60,roundId:state?.round?.id},room);await fetchState();
+  try{await api.call(action,{questionId,seconds:60,roundId:state?.round?.id},room);await fetchState();
    parent.postMessage({type:action==='teacher.open'?'qo-classroom-started':'qo-classroom-return-focus'},parentOrigin);
   }
   catch(error){handleError(error);}finally{busy=false;controls();}

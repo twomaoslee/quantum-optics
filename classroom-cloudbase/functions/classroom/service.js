@@ -5,17 +5,13 @@ const scrypt = promisify(crypto.scrypt);
 const DAY = 86400000;
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const random = () => crypto.randomBytes(32).toString('base64url');
-const question = Object.freeze({
-  id: 'l07-q1', title: '思考题1：向同一个模式增加一个光子',
-  stem: '保持腔的几何条件、偏振及所选驻波模式不变，向该模式增加一个光子。频率、空间形状与激发数各怎样改变？',
-  math: String.raw`u_m(x)=\sin(m\pi x/L),\qquad\omega_m=m\pi c/L`,
-  reference: 'm 为模式编号，L 为腔长，c 为光速；激发数表示该模式有多少份量子激发。',
-  options: [
-    ['A', '频率增大，空间形状不变'], ['B', '频率不变，节点数增加'],
-    ['C', '频率与形状不变，激发数增加'], ['D', '频率、形状与激发数都不变']
-  ]
-});
-const answer = {correct: 'C', explanation: '所选模式保持不变；增加的是这个模式中的量子激发数。'};
+const catalog = require('./questions.json');
+const questions = new Map(catalog.map(record => [record.question.id, record]));
+const question = questions.get('l07-q1').question;
+function questionFor(id) {
+  requireThat(typeof id === 'string' && questions.has(id), 'QUESTION', '没有找到这道思考题。');
+  return questions.get(id).question;
+}
 class AppError extends Error {
   constructor(code, message) { super(message); this.code = code; }
 }
@@ -72,7 +68,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
   function publicRound(round) {
     if (!round) return null;
     const open = !round.closedAt && now() < round.deadline;
-    return {id: round.id, number: round.number, questionId: question.id,
+    return {id: round.id, number: round.number, questionId: round.questionId || question.id,
       openedAt: round.openedAt, deadline: round.deadline,
       status: open ? 'open' : 'closed', revealed: !!round.revealed,
       ...(round.revealed ? {counts: round.counts, total: round.total} : {})};
@@ -83,6 +79,22 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
       await fn(room, tx);
       await tx.set(roomKey(code), room);
       return {ok: true};
+    });
+  }
+  async function selectedRound(room, questionId, source = repo) {
+    questionFor(questionId);
+    if (room.round && (room.round.questionId || question.id) === questionId) return room.round;
+    const id = room.questionRounds?.[questionId];
+    return id ? source.get('round_' + id) : null;
+  }
+  async function mutateRound(code, data, fn) {
+    return mutateRoom(code, async (room, tx) => {
+      const id = data.questionId || room.round?.questionId || question.id;
+      const round = await selectedRound(room, id, tx);
+      requireThat(round && data.roundId === round.id, 'ROUND', '轮次已变化，请刷新后操作。');
+      await fn(round, tx);
+      if (room.round?.id === round.id) room.round = round;
+      await tx.set('round_' + round.id, {kind: 'round', roomCode: code, ...round});
     });
   }
   async function countsFor(roundId) {
@@ -122,7 +134,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
     }
     if (action === 'room.public') {
       const room = await getRoom(roomCode);
-      return {code: room.code, title: room.title, question, round: publicRound(room.round)};
+      return {code: room.code, title: room.title, question: questionFor(room.round?.questionId || question.id), round: publicRound(room.round)};
     }
     const session = await authenticate(token);
     if (action === 'logout') { await repo.remove('session_' + hash(token)); return {ok: true}; }
@@ -135,7 +147,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
       requireThat(session.role === 'student', 'FORBIDDEN', '请使用学生身份。');
       const room = await getRoom(roomCode);
       const own = room.round ? await repo.get('answer_' + room.round.id + '_' + session.userId) : null;
-      return {code: room.code, title: room.title, question, round: publicRound(room.round),
+      return {code: room.code, title: room.title, question: questionFor(room.round?.questionId || question.id), round: publicRound(room.round),
         own: own ? {choice: own.choice, updatedAt: own.updatedAt} : null};
     }
     if (action === 'student.submit') {
@@ -149,7 +161,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
         const gateId=gateKey(round.id,parseInt(hash(session.userId).slice(0,2),16)%16),gate=await tx.get(gateId);
         requireThat(gate && !gate.closed && now()<round.deadline,'CLOSED','本轮已结束，无法再提交。');
         const id = 'answer_' + round.id + '_' + session.userId, old = await tx.get(id);
-        await tx.set(id, {kind:'answer', roomCode, roundId:round.id, questionId:question.id,
+        await tx.set(id, {kind:'answer', roomCode, roundId:round.id, questionId:round.questionId || question.id,
           userId:session.userId, choice:data.choice, updatedAt:now(), firstSubmittedAt:old?.firstSubmittedAt || now()});
         await tx.set(gateId,{...gate,version:gate.version+1});
       });
@@ -159,7 +171,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
     if (action === 'teacher.create') {
       const code = crypto.randomBytes(6).toString('hex').toUpperCase();
       const title = typeof data.title === 'string' ? data.title.trim().slice(0,60) : '第七讲课堂';
-      await repo.set(roomKey(code), {kind:'room', code, title:title || '第七讲课堂', createdAt:now(), nextRound:1, round:null});
+      await repo.set(roomKey(code), {kind:'room', code, title:title || '第七讲课堂', createdAt:now(), nextRound:1, round:null, questionRounds:{}});
       return {code};
     }
     if (action === 'teacher.rooms') {
@@ -167,48 +179,52 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
       return {rooms:rooms.sort((a,b)=>b.createdAt-a.createdAt).map(r=>({code:r.code,title:r.title,createdAt:r.createdAt}))};
     }
     if (action === 'teacher.state') {
-      const room = await getRoom(roomCode);
-      const stats=room.round ? (room.round.revealed ? {counts:room.round.counts,total:room.round.total} : await countsFor(room.round.id)) : {};
-      return {code:room.code,title:room.title,question,round:room.round ? {...publicRound(room.round),...stats,...(room.round.revealed?answer:{})} : null};
+      const room = await getRoom(roomCode), selected = questionFor(data.questionId || room.round?.questionId || question.id);
+      const round = await selectedRound(room, selected.id);
+      const stats = round ? (round.revealed ? {counts:round.counts,total:round.total} : await countsFor(round.id)) : {};
+      return {code:room.code,title:room.title,question:selected,round:round ? {...publicRound(round),...stats,...(round.revealed?questions.get(selected.id).answer:{})} : null};
     }
     if (action === 'teacher.open') {
       const seconds = data.seconds === undefined ? 60 : data.seconds;
       requireThat(Number.isInteger(seconds) && seconds >= 15 && seconds <= 300, 'INPUT', '答题时间须为15—300秒。');
+      if (data.questionId !== undefined) questionFor(data.questionId);
       return mutateRoom(roomCode, async (room,tx) => {
-        requireThat(!room.round || room.round.closedAt || now() >= room.round.deadline, 'OPEN', '请先结束当前轮次。');
-        const round = {id:crypto.randomUUID(),number:room.nextRound++,questionId:question.id,
+        const selected = questionFor(data.questionId || room.round?.questionId || question.id);
+        room.questionRounds ||= {};
+        if (room.round) {
+          room.questionRounds[room.round.questionId || question.id] = room.round.id;
+          const switching = (room.round.questionId || question.id) !== selected.id;
+          requireThat(switching || room.round.closedAt || now() >= room.round.deadline, 'OPEN', '本题仍在作答，请先展示回答。');
+          if (switching && !room.round.closedAt) {
+            room.round.closedAt = now();
+            await closeGates(room.round,tx);
+            await tx.set('round_' + room.round.id,{kind:'round',roomCode,...room.round});
+          }
+        }
+        const round = {id:crypto.randomUUID(),number:room.nextRound++,questionId:selected.id,
           openedAt:now(),deadline:now()+seconds*1000,closedAt:null,revealed:false,counts:{A:0,B:0,C:0,D:0},total:0};
-        room.round = round; await tx.set('round_'+round.id,{kind:'round',roomCode,...round});
+        room.round = round; room.questionRounds[selected.id] = round.id; await tx.set('round_'+round.id,{kind:'round',roomCode,...round});
         for(let bucket=0;bucket<16;bucket++)await tx.set(gateKey(round.id,bucket),{kind:'gate',closed:false,version:0});
       });
     }
     if (action === 'teacher.reveal') {
-      // Close first; publish an immutable aggregate only after answers stop.
-      await mutateRoom(roomCode,async (room,tx)=>{
-        requireThat(room.round && data.roundId===room.round.id,'ROUND','轮次已变化，请刷新后操作。');
-        room.round.closedAt=room.round.closedAt||now();
-        await closeGates(room.round,tx);
-        await tx.set('round_'+room.round.id,{kind:'round',roomCode,...room.round});
+      // Close the selected round before publishing an immutable aggregate.
+      // Old-question review must never replace the currently active question.
+      await mutateRound(roomCode,data,async (round,tx)=>{
+        round.closedAt = round.closedAt || now();
+        await closeGates(round,tx);
       });
-      const stats=await countsFor(data.roundId);
-      return mutateRoom(roomCode,async(room,tx)=>{
-        requireThat(room.round.id===data.roundId,'ROUND','轮次已变化，请刷新后操作。');
-        Object.assign(room.round,stats,{revealed:true});
-        await tx.set('round_'+room.round.id,{kind:'round',roomCode,...room.round});
-      });
+      const stats = await countsFor(data.roundId);
+      return mutateRound(roomCode,data,async round=>{Object.assign(round,stats,{revealed:true});});
     }
     if (['teacher.close','teacher.extend'].includes(action)) {
-      return mutateRoom(roomCode, async (room,tx) => {
-        const round = room.round;
-        requireThat(round, 'ROUND', '请先发题。');
-        requireThat(data.roundId === round.id, 'ROUND', '轮次已变化，请刷新后操作。');
-        if (action === 'teacher.close') {round.closedAt = round.closedAt || now();await closeGates(round,tx);}
+      return mutateRound(roomCode,data,async (round,tx)=>{
+        if (action === 'teacher.close') {round.closedAt=round.closedAt||now();await closeGates(round,tx);}
         if (action === 'teacher.extend') {
-          requireThat(!round.closedAt && now() < round.deadline && !round.revealed, 'CLOSED', '已结束的轮次不能延长，请重新发题。');
-          requireThat(round.deadline - round.openedAt < 300000, 'INPUT', '本轮已达到最长作答时间。');
-          round.deadline = Math.min(round.deadline + 30000, round.openedAt + 300000);
+          requireThat(!round.closedAt && now()<round.deadline && !round.revealed,'CLOSED','已结束的轮次不能延长，请重新发题。');
+          requireThat(round.deadline-round.openedAt<300000,'INPUT','本轮已达到最长作答时间。');
+          round.deadline=Math.min(round.deadline+30000,round.openedAt+300000);
         }
-        await tx.set('round_'+round.id,{kind:'round',roomCode,...round});
       });
     }
     if (action === 'teacher.export') {
@@ -217,7 +233,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
       const rows = await repo.list({kind:'answer',roomCode});
       const students = new Map();
       for (const row of rows) if (!students.has(row.userId)) students.set(row.userId, await repo.get(row.userId));
-      return {question,rounds:rounds.sort((a,b)=>a.number-b.number).map(r=>({id:r.id,number:r.number,openedAt:r.openedAt,deadline:r.deadline,closedAt:r.closedAt,total:rows.filter(row=>row.roundId===r.id).length})),
+      return {question,questions:catalog.map(record=>record.question),rounds:rounds.sort((a,b)=>a.number-b.number).map(r=>({id:r.id,questionId:r.questionId || question.id,number:r.number,openedAt:r.openedAt,deadline:r.deadline,closedAt:r.closedAt,total:rows.filter(row=>row.roundId===r.id).length})),
         rows:rows.map(r=>({roundId:r.roundId,questionId:r.questionId,choice:r.choice,
           submittedAt:r.updatedAt, name:students.get(r.userId)?.name || '', studentNumber:students.get(r.userId)?.studentNumber || ''}))};
     }
@@ -232,4 +248,4 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
     }
   }};
 }
-module.exports = {createService, passwordHash, question};
+module.exports = {createService, passwordHash, question, questions};

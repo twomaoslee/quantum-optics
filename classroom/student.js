@@ -13,17 +13,29 @@
   $('timer').textContent=open?Math.max(0,Math.ceil((round.deadline-api.now())/1000))+' 秒':'';
   $('state').textContent=!round?'等待老师发题':open?'第 '+round.number+' 轮 · 正在作答':round.revealed?'第 '+round.number+' 轮 · 已公布统计':'本轮已结束，等待老师公布';
  }
+ function richText(element,text){
+  element.replaceChildren();
+  for(const part of text.split(/(\$[^$]+\$)/g)){
+   if(part.startsWith('$')&&part.endsWith('$')&&window.katex){const span=document.createElement('span');katex.render(part.slice(1,-1),span,{throwOnError:false,trust:false});element.append(span);}
+   else element.append(document.createTextNode(part));
+  }
+ }
  function draw(next){
-  state=next;$('title').textContent=next.question.title;$('stem').textContent=next.question.stem;
-  $('reference').textContent=next.question.reference;
-  const math=innerWidth<500?String.raw`\begin{gathered}`+next.question.math.replace(String.raw`,\qquad`,String.raw`\\`)+String.raw`\end{gathered}`:next.question.math;
-  if(window.katex)katex.render(math,$('math'),{throwOnError:false,displayMode:true});
+  state=next;$('title').textContent=next.question.title;richText($('stem'),next.question.stem);
+  richText($('reference'),next.question.reference);$('math').replaceChildren();
+  for(let math of next.question.mathLines||[next.question.math]){
+   if(innerWidth<500)math=String.raw`\begin{gathered}`+math.replace(/,\s*\\(?:qquad|quad)\s*/g,String.raw`\\`)+String.raw`\end{gathered}`;
+   const line=document.createElement('div');line.className='math-line';
+   if(window.katex)katex.render(math,line,{throwOnError:false,displayMode:true,trust:false});
+   else line.textContent=math;
+   $('math').append(line);
+  }
   if(roundId!==next.round?.id || !$('choices').children.length){
    roundId=next.round?.id;$('choices').replaceChildren();
    for(const [value,text] of next.question.options){
     const label=document.createElement('label'),radio=document.createElement('input'),span=document.createElement('span');
     radio.type='radio';radio.name='choice';radio.value=value;radio.checked=next.own?.choice===value;
-    span.textContent=value+'　'+text;label.append(radio,span);$('choices').append(label);
+    richText(span,value+'　'+text);label.append(radio,span);$('choices').append(label);
    }
   }
   $('receipt').textContent=next.own?'已收到你的答案 '+next.own.choice+'。'+(next.round?.status==='open'?'截止前可修改。':''):'';
