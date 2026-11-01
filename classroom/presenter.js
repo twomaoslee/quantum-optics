@@ -4,18 +4,20 @@
  if(!/^l07-q[1-6]$/.test(questionId)){$('message').textContent='题目链接无效。';return;}
  const roomKey='qo-last-room-v1:'+(api.config.envId||'local'),sameDay=t=>new Date(t).toLocaleDateString()===new Date().toLocaleDateString();
  const coordinator=params.get('coordinator')!=='0',cacheKey='qo-presenter-qr-v1:'+(api.config.envId||'local')+':'+(params.get('room')||'daily');let desiredRoom=params.get('room')||'',connected=false;
- let room='',state=null,busy=false,polling=false,connecting=false,active=window===parent,epoch=0,parentOrigin='*',expanded=false,comparison=null,analysisBusy=false;
+ let room='',state=null,busy=false,polling=false,connecting=false,active=window===parent,epoch=0,parentOrigin='*',expanded=false,comparison=null,analysisBusy=false,chartMode=null;
  const message=text=>{$('message').textContent=text||'';};
  function layout(){
-  document.body.classList.toggle('wide-results',expanded);$('join').hidden=expanded;$('results').hidden=!expanded;
-  parent.postMessage({type:'qo-classroom-results',expanded},parentOrigin);
+  document.body.classList.toggle('inline-results',expanded);$('join').hidden=expanded;$('results').hidden=!expanded;
+  // Keep the parent slide's fixed sidebar in every state; never opt into its
+  // legacy full-slide results overlay. Results only replace content in this frame.
+  parent.postMessage({type:'qo-classroom-results',expanded:false},parentOrigin);
  }
  function controls(){
   const r=state?.round,remaining=r?Math.max(0,Math.ceil((r.deadline-api.now())/1000)):0,open=r?.status==='open'&&remaining>0;
   $('start').disabled=busy||!room||!connected||!!state?.answersReleasedAt;$('show').disabled=busy||!r||!connected;
   $('start').textContent=r?'再次作答':'开始回答';$('show').textContent='展示结果';
   $('timer').textContent=!connected?'正在连接…':!r?'等待发题':open?String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0'):r.revealed?'已展示结果':'本轮已结束';
-  $('participation').textContent=r?r.total+' 人已答':'';
+  $('participation').textContent=r?(open?'本轮作答中 · ':'')+r.total+' 人已答':'';
  }
  function draw(next){
   if(state?.round?.id!==next.round?.id){expanded=false;comparison=null;analysisBusy=false;layout();}
@@ -37,7 +39,12 @@
   else{message(error.message);$('retry').hidden=false;}
  }
  async function fetchState(){const version=epoch,requested=room,next=await api.call('teacher.state',{questionId},requested);if(version===epoch&&requested===room)draw(next);}
- function drawComparison(){if(!comparison)return;QOComparison.draw($('bars'),comparison);QOComparison.summary($('ai-brief'),comparison.analysis);}
+ function drawComparison(){
+  if(!comparison)return;const mode=chartMode||(comparison.rounds.length>2?'profile':'bars');
+  $('chart-modes').hidden=comparison.rounds.length<3;$('mode-bars').setAttribute('aria-pressed',String(mode==='bars'));$('mode-profile').setAttribute('aria-pressed',String(mode==='profile'));
+  QOComparison.drawCompact($('bars'),comparison,{mode});QOComparison.summary($('ai-brief'),comparison.analysis);
+ }
+ for(const mode of ['bars','profile'])$('mode-'+mode).addEventListener('click',()=>{chartMode=mode;drawComparison();parent.postMessage({type:'qo-classroom-return-focus'},parentOrigin);});
  async function analyze(){
   if(analysisBusy||!comparison||comparison.analysis?.status==='ready')return;
   const version=epoch,requested=room,roundId=state.round.id;analysisBusy=true;comparison.analysis={status:'pending'};drawComparison();

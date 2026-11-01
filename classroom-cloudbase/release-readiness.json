@@ -195,9 +195,9 @@
     "classroom-cloudbase/scripts/cloud-smoke.cjs": "78fefd699842a172dc7fcc129b05a1feb65c50ec1e3185ef3267e970bb30942e",
     "classroom-cloudbase/functions/classroom/transport.js": "cf0f2aa392be5e41da498d03374d81581107fdabc59d7e572013648eaa8a8781",
     "classroom-cloudbase/test/transport.test.cjs": "aeb04077c2f6c62a26102b007bf3a5bf8e271aca3551f4b997e162a150fc8832",
-    "classroom/presenter.html": "21abc8083b2da822016f17fc7f5674bd401362879f7347ad853e54ef7104383e",
-    "classroom/presenter.css": "dcfa4eaf9fe78657044cd6d3d6c21c48f8b1489149fb3ee4ac048d52dd1a8f8d",
-    "classroom/presenter.js": "c035351f39896ee52344c7fe0e6976317414cc6abc3f575d67e8896b56c5cbf7",
+    "classroom/presenter.html": "a4057eba44a8842f8512ad36fdd6fab1396f13684af5b3e505946ca35d6e26e5",
+    "classroom/presenter.css": "e693527403d97d8c932eb240c44e225abc709f773f71c0205b1b69534b235acc",
+    "classroom/presenter.js": "0f3d1445551b89bcf9e0dd1915f9076f587ca62720bd0ce9d43790d2cd01aae9",
     "classroom-cloudbase/functions/classroom/questions.json": "9953d6db5767b4b5f9f65d22a10b79290781fa01a97096c6353780cb9360c0c7",
     "classroom-cloudbase/scripts/sync-questions.py": "9c69b378ea842c0d1afa386d1cb3af5534112cff5522f1eeffa36f45e16caaf2",
     "classroom-cloudbase/test/multiple.test.cjs": "4c4eaff5f86b3e201e0ce8efd676442296d068ac276158850b44b62704c18e3a",
@@ -209,7 +209,7 @@
     "classroom-cloudbase/test/export.test.cjs": "e8276d2ab92966d5d521dcf4c23673b50e8ead40cf8a4fb9de6e10308c372bf5",
     "classroom-cloudbase/functions/classroom/reasons.json": "fa4445d5b5fdbb150212833b6f025d8d24ea029c2e2801fcec53e644389bc607",
     "classroom-cloudbase/test/reasons.test.cjs": "29b8d993aec14c32ffea6df15190b31d44e4dc36242707a3a5372a418797493e",
-    "classroom/comparison-view.js": "1f34033e045a98bc28a41b35b43e2d1c5ce63e3d3260a36442f6227ed5dda461",
+    "classroom/comparison-view.js": "cd13f2ad0667264513caa39edbe570e77f90b29f2c30dae98b542d6820ee143f",
     "classroom-cloudbase/test/comparison.test.cjs": "6fa25c82f43cd8749c7b0a502b4ab7b00da6e3c0811b5d1197b8df013635309f",
     "classroom/comparison.css": "ff70c42ad954e48c1f299dcd3c89e87f4d5801de947f4c1ad61581fdd6b997e3",
     "scripts/update_classroom_deck.py": "a5b4422451f7d4f001db4857206f0613e481ea6341082fe7b44558662d170559",
@@ -338,5 +338,13 @@
     "tests": "38 backend business tests passed including sixth-question submission after 61 seconds, rejection at 120, repeat defaults and extension",
     "concurrent_source_check": "The separate question-source sync check currently detects Q5 equation line-format changes in the other task; question catalog and lesson sources were not changed for this timing release.",
     "release": "only timing payloads and admin duration label; unpublished sidebar/chart client changes excluded"
+  },
+  "contained_sidebar": {
+    "date": "2026-11-02",
+    "status": "passed",
+    "scope": "Presenter client only; never requests parent full-slide result expansion. Existing right-sidebar lesson layout untouched.",
+    "browser": "IAB immutable published lesson: all six question/result states; one/two/six rounds including empty round; 207x598 iframe, question right 1000 < frame left 1055 at 1280x720. Real-cloud four-round cached DeepSeek summary stays in right sidebar.",
+    "charts": "A-D grouped bars per round; 3+ rounds default one profile per round; blank rounds have no line; all overflow scrolls inside iframe.",
+    "release": "Four reviewed static assets only; concurrent lesson source, deck and builder changes excluded."
   }
 }
