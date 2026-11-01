@@ -18,6 +18,7 @@ from release import CONFIG, PUBLISHED, PUBLISHED_SLIDES, NOTES_ONLY, STANDALONE_
 SITE = Path(__file__).resolve().parents[1]
 ROOT = SITE.parent
 DIST = SITE / 'dist'
+MATERIAL_UPDATES = set()
 
 def sync_classroom():
     """Publish only the reviewed static client, never backend or private state."""
@@ -505,7 +506,9 @@ def main():
     parser.add_argument('--update-curriculum', action='store_true',
                         help='Refresh the syllabus and shared titles while preserving published chapter bodies.')
     parser.add_argument('--update-pdfs', type=int, nargs='+', choices=sorted(PUBLISHED_PDFS & {4, 5, 6}), help='Publish authorized PDF downloads only.')
+    global MATERIAL_UPDATES
     args = parser.parse_args()
+    MATERIAL_UPDATES = set(args.update_notes or []) | set(args.update_slides or []) | set(args.update_pdfs or []) | set(args.update_lectures or [])
     if args.update_material_links:
         if args.update_notes or args.update_slides or args.update_sharing or args.update_lectures or args.update_curriculum or args.update_pdfs:
             parser.error('--update-material-links cannot be combined with other update modes.')
@@ -727,4 +730,8 @@ def main():
 
 if __name__=='__main__':
     main()
-    sync_classroom()
+    # A targeted material release must preserve unrelated classroom work.
+    if not MATERIAL_UPDATES:
+        sync_classroom()
+    from material_dates import sync_dates
+    sync_dates(SITE, MATERIAL_UPDATES)

@@ -69,6 +69,12 @@ if classroom_manifest.exists():
         if path.is_file() and path.relative_to(DIST/'classroom').as_posix() not in expected:
             errors.append('Unexpected file in public classroom client: '+path.name)
 homepage = (DIST/'index.html').read_text()
+from material_dates import date_markup
+metadata = json.loads((DIST.parent/'lecture-metadata.json').read_text())
+for card in re.findall(r'<article class="lecture">.*?</article>', homepage, re.S):
+    number = str(int(re.search(r'<div class="lecture-number"[^>]*>(\d+)</div>', card)[1]))
+    if card.count('class="lecture-dates"') != 1 or date_markup(metadata, metadata['lectures'][number]) not in card:
+        errors.append('Class time and material update metadata mismatch: lecture '+number)
 for number in PUBLISHED:
     if f'href="notes/lecture{number:02d}.html"' not in homepage:
         errors.append(f'Missing homepage notes entry: lecture {number}')

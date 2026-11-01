@@ -56,3 +56,9 @@ https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-
 仅更新第五讲PDF及首页下载入口：`python3 scripts/build.py --update-pdfs 5`。源文件为上一级 `output/pdf/第五讲课件.pdf`；保留其他课件与讲义版本。
 
 第七讲讲义与两项互动已获教师授权上传供在线预览，使用 `python3 scripts/build.py --update-notes 7`。`notes_preview_acceptance` 记录本次明确的预览授权及绑定摘要，保留视觉与真实浏览器操作尚待验证的状态；不替代 `notes_acceptance` 的完整放行。配套互动单独页面由 `standalone_notes_files` 精确列出。第七讲课件与 PDF 不在发布范围。
+
+### 上课时间与资料更新时间
+
+`lecture-metadata.json` 独立记录各讲的 `class_start`、`class_end` 和 `materials_updated`。课程固定周一10:00–11:40；第六讲已确认2026-10-26。其他讲次未确认的日期显示“日期待补充”，不从资料时间倒推授课日期。
+
+构建末尾由 `scripts/material_dates.py` 统一更新首页：定向发布的讲次或已发布资料内容发生变化时记录北京时间；只触碰文件修改时间不会更新时间。上课时间仅由教师确认后编辑元数据，构建不覆盖。运行 `python3 scripts/test_material_dates.py` 验证两类日期独立及重复构建的一致性。

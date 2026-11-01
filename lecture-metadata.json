@@ -1,0 +1,52 @@
+{
+  "timezone": "Asia/Shanghai",
+  "weekly_class": {
+    "weekday": 1,
+    "start": "10:00",
+    "end": "11:40"
+  },
+  "lectures": {
+    "1": {
+      "class_start": null,
+      "class_end": null,
+      "materials_updated": "2026-09-28",
+      "published_materials_sha256": "7415779bf226c13bc2e54ea3ba2a1607df16ed748e46b91442e1350b511c40c7"
+    },
+    "2": {
+      "class_start": null,
+      "class_end": null,
+      "materials_updated": "2026-09-28",
+      "published_materials_sha256": "590c5b45dff6da412edeabd2d2834cd596e758cae614865958883ab7cadf2d92"
+    },
+    "3": {
+      "class_start": null,
+      "class_end": null,
+      "materials_updated": "2026-09-28",
+      "published_materials_sha256": "9fd28873574ef28d127bd9fc01233b153d19f98e20c15154d18491dfae5843db"
+    },
+    "4": {
+      "class_start": null,
+      "class_end": null,
+      "materials_updated": "2026-10-12",
+      "published_materials_sha256": "179952e962e364b247875a9c15db94475c583b41e5fff692e9b359fdc4a9e708"
+    },
+    "5": {
+      "class_start": null,
+      "class_end": null,
+      "materials_updated": "2026-10-19",
+      "published_materials_sha256": "37f8c5697c7cadf947a810da5613b86ad26041909a7a6083b53170fd4cd777ac"
+    },
+    "6": {
+      "class_start": "2026-10-26T10:00:00+08:00",
+      "class_end": "2026-10-26T11:40:00+08:00",
+      "materials_updated": "2026-11-01T23:58+08:00",
+      "published_materials_sha256": "22402f6d1a95c6325308883b7324a0b91c87edd105859a32dec465a73257bbe7"
+    },
+    "7": {
+      "class_start": null,
+      "class_end": null,
+      "materials_updated": "2026-11-01T23:58+08:00",
+      "published_materials_sha256": "b2d8ad699416fd10a7d9e4495816e9960817afcc3293834ddec60719a3bfdb1e"
+    }
+  }
+}
