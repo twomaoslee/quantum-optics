@@ -180,10 +180,10 @@
     "classroom-cloudbase/package.json": "5f2e1a7ecfa1f2f63a5e0552d94667321a206bd2cf42123a3bd1e86b017849cb",
     "classroom-cloudbase/scripts/dev.cjs": "91278a4a642c4d1e7bbf668b7cb2f95017c6378573087e76434a13cc8ebff76e",
     "classroom-cloudbase/scripts/memory.cjs": "0eaae3e54597fa22d5fbef96f6f8ec2819ddab9b7b3f73f8d1dc4ac78a875ada",
-    "classroom-cloudbase/scripts/prepare.cjs": "61226137c92de1f3345204cc399d164691877907f24f0a45999efa9303e8be7b",
+    "classroom-cloudbase/scripts/prepare.cjs": "7dc6a117cb1cffdacef14108a10a1cb2cadae0f3639700d9b8561b37936d87c2",
     "classroom-cloudbase/scripts/vendor.cjs": "8d533d8f6062088037571fcc3b733c197d6411f528b8f363a5df9da7659655c9",
     "classroom-cloudbase/test/browser.cjs": "f7de984b39ef66772acd2d00e3c621157fedc5d63eba8414a8cfbc9f52b954ea",
-    "classroom-cloudbase/test/prepare.test.cjs": "bbc311a1debf4b505531876384830a4829c8ebf930f2012772e2a2b0b02298d3",
+    "classroom-cloudbase/test/prepare.test.cjs": "2b2f98a4ec6b147f66038a14c744c43117b5db0c91d1e6359335f466fbe9e2dd",
     "classroom-cloudbase/test/question.test.cjs": "848b135f3d014277316fc0eb3f4f9c4e0136a4f51ad2b042227431c38d7d5c47",
     "classroom-cloudbase/test/race.test.cjs": "0747eacd07b21f8a751c0299516e3ed7272f7304a11444720ad6a7c5bf05ccd9",
     "classroom-cloudbase/test/repository.test.cjs": "50c60b4f9f40729e82ebdd656e742ed4537f2d72dcb35ef23972277f16ee36a5",
@@ -293,7 +293,7 @@
     "export": "actual IAB download parsed: 25 columns; typed and blank other-comment; wrong/correct results",
     "models": {
       "cloudbase": "hy3 real API passed, approximately 5.3 seconds; cache hit verified separately",
-      "deepseek": "official direct API adapter prepared and failure branches tested; no real key configured or direct network/model quality claim",
+      "deepseek": "Official direct API deepseek-flash: real fictional four-round analysis passed locally (~2.4s), deployed cloud gateway analysis/details (~4.7s) and actual online slide display verified. Current production provider.",
       "managed_deepseek": "deepseek-v4.1-flash-1017 enable denied with PackageUnsupported; standard plan required. User chose to keep personal plan and hy3; no plan upgrade."
     },
     "limits": "real phones and full-class load not tested"
@@ -306,5 +306,20 @@
     "browser": "IAB real-cloud six first visits all QR ready; 328px frames fit 324px content; secondary Q6 login forwarded to coordinator",
     "slow_backend": "2500ms artificial RPC delay: cached QR visible and complete while live canvas hidden and both controls disabled; cached PNG decoded to expected classroom",
     "room_creation": "isolated local fixture still exactly two classrooms, no six-frame duplicates; never wrote formal cloud classroom"
+  },
+  "direct_deepseek": {
+    "date": "2026-11-02",
+    "status": "passed",
+    "provider": "deepseek",
+    "model": "deepseek-flash",
+    "transport": "cloud function fetch directly to fixed https://api.deepseek.com/chat/completions; no Tencent model call or fallback",
+    "credential": "authorized local key read without echo; source and ignored deployment config mode 600; deployed as server environment variable",
+    "local_real_api_ms": 2427,
+    "cloud_full_analysis_and_details_ms": 4689,
+    "cloud_scope": "existing fictional QA room D5D4C543E665, four rounds and eleven answers; formal classroom not modified",
+    "online_browser": "IAB actual slide shows all four charts and model deepseek-flash; screenshot saved privately",
+    "tests": "37 passed; same-environment preparation retains AI configuration and tightens file permission; different environment does not inherit model credentials",
+    "billing": "CloudBase personal plan unchanged; direct model usage billed to own DeepSeek account",
+    "limits": "one real model sample and interface check; no full-class load or real phone tests"
   }
 }

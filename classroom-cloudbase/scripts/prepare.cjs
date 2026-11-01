@@ -14,8 +14,13 @@ const {passwordHash}=require('../functions/classroom/service');
  const passwordFile=path.join(privateDir,'teacher-login.json');let login;
  try{login=JSON.parse(await fs.readFile(passwordFile,'utf8'));}catch(error){if(error.code!=='ENOENT')throw error;login={password:crypto.randomBytes(20).toString('base64url')};await fs.writeFile(passwordFile,JSON.stringify(login,null,2)+'\n',{mode:0o600,flag:'wx'});}
  const config=JSON.parse(await fs.readFile(path.join(root,'cloudbaserc.example.json'),'utf8'));config.envId=envId;
- config.functions[0].envVariables={QO_TEACHER_PASSWORD_HASH:await passwordHash(login.password)};
+ // Retain explicitly configured model credentials only for the same environment.
+ // Re-running onboarding must not silently remove the API key or switch providers.
+ let existing={};try{existing=JSON.parse(await fs.readFile(path.join(root,'cloudbaserc.json'),'utf8'));}catch(error){if(error.code!=='ENOENT')throw error;}
+ const previous=existing.envId===envId?existing.functions?.find(f=>f.name==='classroom')?.envVariables||{}:{};
+ config.functions[0].envVariables={...Object.fromEntries(['QO_AI_PROVIDER','QO_AI_MODEL','DEEPSEEK_API_KEY'].filter(k=>typeof previous[k]==='string').map(k=>[k,previous[k]])),QO_TEACHER_PASSWORD_HASH:await passwordHash(login.password)};
  await fs.writeFile(path.join(root,'cloudbaserc.json'),JSON.stringify(config,null,2)+'\n',{mode:0o600});
+ await fs.chmod(path.join(root,'cloudbaserc.json'),0o600);
  await fs.writeFile(path.resolve(root,'../classroom/config.js'),'/* Public config: no teacher credential or Tencent SecretKey. */\nwindow.QO_CLASSROOM_CONFIG = Object.freeze('+JSON.stringify({envId,region,publishableKey,functionName:'classroom',...(gatewayUrl?{gatewayUrl}:{})},null,2)+');\n');
  console.log('Prepared public frontend configuration and private deployment configuration. Teacher login is in .local/teacher-login.json; never publish that folder.');
 })().catch(error=>{console.error(error.message);process.exit(1);});
