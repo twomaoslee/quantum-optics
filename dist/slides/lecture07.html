@@ -644,6 +644,9 @@ body:has(#l07-closing.present) :is(.course-footer-bar,.slide-logo,.slide-number,
 .reveal .l07 .phase-legend-item i{display:block;width:38px;border-top:4px solid #0070c0;}
 .reveal .l07 .phase-legend-item .phase-swatch-c{border-top:4px dashed #717f8e;}
 .reveal .l07 .phase-axis-note{margin-left:auto;white-space:nowrap;}
+.reveal .l07 .phase-state-code{display:flex;align-items:center;gap:10px;}
+.reveal .l07 .phase-state-code i{width:38px;display:block;border-top:4px solid #0070c0;}
+.reveal .l07 .phase-state-code .phase-swatch-c{border-top:4px dashed #717f8e;}
 </style>
   <style type="text/css">
 .reveal .l07 .science-plot{display:block;width:100%;height:290px;overflow:visible}
@@ -714,6 +717,8 @@ body:has(.qo-classroom-inline.present:not(.qo-classroom-results)) .reveal .contr
 .reveal .qo-classroom-inline .question .reference{gap:10px}
 .reveal :is(#l07-q5,#l07-q6).qo-classroom-inline .question{gap:10px;padding:16px 22px}
 .reveal :is(#l07-q5,#l07-q6).qo-classroom-inline .question .reference{gap:0}
+.reveal .l07 .columns:has(>.column:first-child>:is(.block,.definition,.alert)):has(>.column:nth-child(2)>:is(.block,.definition,.alert)){align-items:stretch}
+.reveal .l07 .columns>.column>:is(.block,.definition,.alert){flex:1}
 </style>
   <style type="text/css">.reveal
 div.sourceCode
@@ -1311,7 +1316,7 @@ margin-right: 0; }
 </div>
 <div class="reference mc-reference">
 <div class="equation"><span class="math display">\[u_m(x)=\sin(m\pi x/L),\qquad\omega_m=m\pi c/L\]</span></div>
-<p><span class="math inline">\(m\)</span>为模式编号，<span class="math inline">\(L\)</span>为腔长，<span class="math inline">\(c\)</span>为光速；激发数表示该模式有多少份量子激发</p>
+<p><span class="math inline">\(m\)</span>为模式编号，<span class="math inline">\(L\)</span>为腔长，<span class="math inline">\(c\)</span>为光速；激发数表示该模式有多少份量子激发。</p>
 </div>
 <div class="mc-options"><button type="button" class="mc-option" data-choice="A" aria-pressed="false"><span class="mc-letter">A</span><span>频率增大，空间形状不变</span></button><button type="button" class="mc-option" data-choice="B" aria-pressed="false"><span class="mc-letter">B</span><span>频率不变，节点数增加</span></button><button type="button" class="mc-option" data-choice="C" aria-pressed="false"><span class="mc-letter">C</span><span>频率与形状不变，激发数增加</span></button><button type="button" class="mc-option" data-choice="D" aria-pressed="false"><span class="mc-letter">D</span><span>频率、形状与激发数都不变</span></button></div>
 <div class="classroom-slot">
@@ -1338,6 +1343,9 @@ margin-right: 0; }
 <div class="fragment" data-fragment-index="0">
 <div class="equation"><span class="math display">\[E_y(x,t)=E_0\sin(kx)\cos(\omega t),\qquad B_z(x,t)=-\frac{E_0}{c}\cos(kx)\sin(\omega t).\]</span></div>
 </div>
+<div class="fragment" data-fragment-index="0">
+<p><span class="math inline">\(T=2\pi/\omega\)</span>，<span class="math inline">\(E_0\)</span>为电场最大幅值；此处四分之一周期的错位针对驻波。</p>
+</div>
 <div class="fragment" data-fragment-index="1">
 <table class="caption-top">
 <thead>
@@ -1360,9 +1368,6 @@ margin-right: 0; }
 </tr>
 </tbody>
 </table>
-</div>
-<div class="fragment" data-fragment-index="0">
-<p><span class="math inline">\(T=2\pi/\omega\)</span>，<span class="math inline">\(E_0\)</span>为电场最大幅值；此处四分之一周期的错位针对驻波。</p>
 </div>
 <div class="result fragment" data-fragment-index="2">
 <p>两种场共用同一个频率，但在时间上错开四分之一周期。</p>
@@ -1468,7 +1473,7 @@ margin-right: 0; }
 <div class="equation"><span class="math display">\[U=\varepsilon_0VE_0^2/4\]</span></div>
 <p><span class="math inline">\(E_0\)</span>为电场振幅，<span class="math inline">\(V\)</span>为模式体积，<span class="math inline">\(\varepsilon_0\)</span>为真空介电常数。</p>
 </div>
-<div class="mc-options"><button type="button" class="mc-option" data-choice="A" aria-pressed="false"><span class="mc-letter">A</span><span>只取模式频率的整数倍</span></button><button type="button" class="mc-option" data-choice="B" aria-pressed="false"><span class="mc-letter">B</span><span>随电场振幅连续变化</span></button><button type="button" class="mc-option" data-choice="C" aria-pressed="false"><span class="mc-letter">C</span><span>只能取零与一个非零值</span></button><button type="button" class="mc-option" data-choice="D" aria-pressed="false"><span class="mc-letter">D</span><span>选定模式后，总能量也固定</span></button></div>
+<div class="mc-options"><button type="button" class="mc-option" data-choice="A" aria-pressed="false"><span class="mc-letter">A</span><span>只取某个固定能量单位的整数倍</span></button><button type="button" class="mc-option" data-choice="B" aria-pressed="false"><span class="mc-letter">B</span><span>随电场振幅连续变化</span></button><button type="button" class="mc-option" data-choice="C" aria-pressed="false"><span class="mc-letter">C</span><span>只能取零与一个非零值</span></button><button type="button" class="mc-option" data-choice="D" aria-pressed="false"><span class="mc-letter">D</span><span>选定模式后，总能量也固定</span></button></div>
 <div class="classroom-slot">
 
 </div>
@@ -1573,13 +1578,17 @@ margin-right: 0; }
 <div class="s-body">
 <p>定义<span class="math inline">\(\hat N\)</span>，把求能量转化为求<span class="math inline">\(\hat N\)</span>的本征值<span class="math inline">\(\lambda\)</span>；下面检验它们怎样排列：</p>
 <div class="equation"><span class="math display">\[\hat N\equiv\hat a^\dagger\hat a,\quad\hat H=\hbar\omega(\hat N+1/2)\]</span></div>
+<div class="fragment" data-fragment-index="0">
 <div class="block">
 <p>由<span class="math inline">\([\hat a,\hat a^\dagger]=1\)</span>得</p>
 <div class="equation"><span class="math display">\[[\hat N,\hat a]=-\hat a,\qquad [\hat N,\hat a^\dagger]=\hat a^\dagger.\]</span></div>
+<div class="fragment" data-fragment-index="1">
 <p>将本征方程代入：</p>
 <div class="equation"><span class="math display">\[\begin{aligned}\hat N|\lambda\rangle&amp;=\lambda|\lambda\rangle,\\\hat N(\hat a|\lambda\rangle)&amp;=(\lambda-1)\hat a|\lambda\rangle,\\\hat N(\hat a^\dagger|\lambda\rangle)&amp;=(\lambda+1)\hat a^\dagger|\lambda\rangle.\end{aligned}\]</span></div>
 </div>
-<div class="fragment" data-fragment-index="0">
+</div>
+</div>
+<div class="fragment" data-fragment-index="2">
 <div class="result">
 <p>非零作用结果分别下降、上升一级。</p>
 </div>
@@ -1865,22 +1874,6 @@ margin-right: 0; }
 
 </section>
 
-<section id="l07-vacuum-lab" class="title-slide slide level1 lab-slide lecture-slide l07" data-section="vacuum">
-<h1>操作：模拟真空态的重复测量</h1>
-<nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
-<div class="s-body">
-
-<div class="s-lab" data-lab="vacuum">
-<div class="lab-context">模拟两组独立真空样本，分别测 \(X=q/q_0\) 与 \(\varepsilon=E/(\hbar\omega)\)。</div>
-<div class="lab-controls"><button type="button" data-count="20">+20 次</button><button type="button" data-count="200">+200 次</button><button type="button" data-count="1000">+1000 次</button><button type="button" data-reset>清空</button><output data-output="count">每组 0 次</output></div>
-<div class="lab-charts"><div><div class="lab-chart-title">场坐标：频率密度</div><svg viewbox="0 0 590 290" data-plot="field" role="img" aria-label="真空场坐标独立模拟样本的直方图"></svg><div class="lab-stat" data-output="field-stat">增加样本后显示均值与方差</div></div><div><div class="lab-chart-title">总能量：相对频率</div><svg viewbox="0 0 590 290" data-plot="energy" role="img" aria-label="另一组独立真空样本的总能量分布"></svg><div class="lab-stat" data-output="energy-stat">增加样本后显示均值与方差</div></div></div>
-<div class="lab-foot" data-output="footer">先增加样本；比较平均值与读数的分散程度。</div>
-</div>
-
-</div>
-
-</section>
-
 <section id="l07-vacuum-second" class="title-slide slide level1 table-compact math-compact balanced lecture-slide l07" data-section="vacuum">
 <h1>核对思考题4：场坐标有非零方差</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
@@ -1923,7 +1916,7 @@ margin-right: 0; }
 </div>
 <div class="fragment" data-fragment-index="1">
 <div class="result">
-<p>样本均值接近零，分布仍有宽度；这是独立重复测量的场涨落。</p>
+<p>真空的平均场为零，场读数仍有非零方差；其标准差为<span class="math inline">\(q_0\)</span>。</p>
 </div>
 </div>
 </div>
@@ -1941,15 +1934,17 @@ margin-right: 0; }
 <div class="columns fragment pair" data-fragment-index="1">
 <div class="column">
 <div class="block">
-<h3 id="场坐标算符">场坐标算符</h3>
+<h3 id="场坐标测量">场坐标测量</h3>
+<p>作用后得到与真空正交的态：</p>
 <div class="equation"><span class="math display">\[\hat q|0\rangle=q_0|1\rangle\]</span></div>
-<p>本征态要求作用结果与原态成正比。这里得到正交态，场测量有非零分散。</p>
+<p>真空中场测量有非零分散。</p>
 </div>
 </div><div class="column">
 <div class="block">
 <h3 id="总能量测量">总能量测量</h3>
-<p>真空是<span class="math inline">\(\hat H\)</span>的本征态。</p>
-<p>因此<span class="math inline">\(\langle\hat H\rangle_0=E_0\)</span>、<span class="math inline">\(\langle\hat H^2\rangle_0=E_0^2\)</span>，重复读数的方差为零。</p>
+<p>作用后仍与原态成正比：</p>
+<div class="equation"><span class="math display">\[\hat H|0\rangle=E_0|0\rangle\]</span></div>
+<p>真空中总能量测量值固定。</p>
 </div>
 </div></div>
 <div class="result fragment" data-fragment-index="2">
@@ -4751,14 +4746,14 @@ z
 </div>
 </section>
 
-<section id="l07-photon-waveforms" class="title-slide slide level1 plot-slide plot-medium lecture-slide l07" data-section="vacuum">
-<h1>同频光场的一个例子：振幅与平均光子数</h1>
+<section id="l07-photon-waveforms" class="title-slide slide level1 plot-slide plot-medium flow-tight balanced lecture-slide l07" data-section="vacuum">
+<h1>用经典驻波对照不同激发能量的振幅尺度</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
-<p>图中三束光的平均电场按余弦波振荡，光子计数有分散。用<span class="math inline">\(\bar n=\langle\hat N\rangle\)</span>表示平均光子数，固定同一模式、相位与腹部位置比较。</p>
+<p>把<span class="math inline">\(n=1,4,9\)</span>的激发能量<span class="math inline">\(n\hbar\omega\)</span>，分别赋给同一模式的经典驻波。在同一电场腹部比较波形，固定频率与相位。</p>
 <!--?xml version="1.0" encoding="utf-8" standalone="no"?-->
 
-<svg class="science-plot" role="img" aria-label="同一坐标轴上的三条平均电场曲线：蓝色平均光子数1，橙色4，绿色9；振幅比1、2、3，周期与相位相同" xlink="http://www.w3.org/1999/xlink" width="864pt" height="259.2pt" viewbox="0 0 864 259.2" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg class="science-plot" role="img" aria-label="等激发能量的经典驻波对照：经典能量为单光子能量的1、4、9倍，峰值场之比1、2、3，周期相同" xlink="http://www.w3.org/1999/xlink" width="864pt" height="259.2pt" viewbox="0 0 864 259.2" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:rdf xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:work>
@@ -5198,29 +5193,9 @@ z
      </g>
     </g>
     <g id="text_8">
-     <!-- $\langle\hat{E}_y\rangle/(2\mathcal{E})$ -->
-     <g transform="translate(49.565 176.742) rotate(-90) scale(0.27 -0.27)">
+     <!-- $E_y/(2\mathcal{E})$ -->
+     <g transform="translate(49.565 165.807) rotate(-90) scale(0.27 -0.27)">
       <defs>
-       <path id="STIXGeneral-Regular-69b" d="M 2144 4563 
-L 915 1606 
-L 2138 -1363 
-L 1805 -1363 
-L 493 1542 
-L 493 1670 
-L 1811 4563 
-L 2144 4563 
-z
-" transform="scale(0.015625)" />
-       <path id="STIXGeneral-Regular-200" d="M -480 3245 
-L -698 3245 
-L -1478 3904 
-L -2253 3245 
-L -2470 3245 
-L -1677 4314 
-L -1280 4314 
-L -480 3245 
-z
-" transform="scale(0.015625)" />
        <path id="STIXGeneral-Italic-28" d="M 4058 4179 
 L 3859 3194 
 L 3718 3206 
@@ -5293,16 +5268,6 @@ Q 563 2758 986 2822
 L 1011 2822 
 Q 1082 2822 1277 2227 
 Q 1472 1632 1555 1190 
-z
-" transform="scale(0.015625)" />
-       <path id="STIXGeneral-Regular-69c" d="M 2067 1536 
-L 749 -1363 
-L 416 -1363 
-L 1645 1600 
-L 422 4563 
-L 755 4563 
-L 2067 1664 
-L 2067 1536 
 z
 " transform="scale(0.015625)" />
        <path id="STIXGeneral-Regular-b" d="M 1946 -1030 
@@ -5395,16 +5360,13 @@ Q 845 3706 186 4224
 z
 " transform="scale(0.015625)" />
       </defs>
-      <use href="#STIXGeneral-Regular-69b" transform="translate(0 0.5)" />
-      <use href="#STIXGeneral-Regular-200" transform="translate(100.868706 27.59375)" />
-      <use href="#STIXGeneral-Italic-28" transform="translate(39.999969 0.5)" />
-      <use href="#STIXGeneral-Italic-5c" transform="translate(102.674915 -14.5) scale(0.7)" />
-      <use href="#STIXGeneral-Regular-69c" transform="translate(138.254889 0.5)" />
-      <use href="#STIXGeneral-Regular-12" transform="translate(178.254858 0.5)" />
-      <use href="#STIXGeneral-Regular-b" transform="translate(206.054831 0.5)" />
-      <use href="#STIXGeneral-Regular-15" transform="translate(239.354803 0.5)" />
-      <use href="#STIXNonUnicode-Italic-77" transform="translate(289.354758 0.5)" />
-      <use href="#STIXGeneral-Regular-c" transform="translate(344.6547 0.5)" />
+      <use href="#STIXGeneral-Italic-28" transform="translate(0 0.40625)" />
+      <use href="#STIXGeneral-Italic-5c" transform="translate(61.099945 -14.59375) scale(0.7)" />
+      <use href="#STIXGeneral-Regular-12" transform="translate(96.679919 0.40625)" />
+      <use href="#STIXGeneral-Regular-b" transform="translate(124.479892 0.40625)" />
+      <use href="#STIXGeneral-Regular-15" transform="translate(157.779865 0.40625)" />
+      <use href="#STIXNonUnicode-Italic-77" transform="translate(207.779819 0.40625)" />
+      <use href="#STIXGeneral-Regular-c" transform="translate(263.079761 0.40625)" />
      </g>
     </g>
    </g>
@@ -5420,56 +5382,134 @@ L 842.4 189.216
    </g>
    <g id="legend_1">
     <g id="line2d_12">
-     <path d="M 249.75 36.17784 
-L 274.05 36.17784 
-L 298.35 36.17784 
+     <path d="M 154.575 34.55784 
+L 178.875 34.55784 
+L 203.175 34.55784 
 " style="fill: none; stroke: #0070c0; stroke-width: 2.4; stroke-linecap: square" />
     </g>
     <g id="text_9">
-     <!-- $\bar n=1$ -->
-     <g style="fill: #202b38" transform="translate(310.5 45.62784) scale(0.27 -0.27)">
+     <!-- $U/(\hbar\omega)=1$ -->
+     <g style="fill: #202b38" transform="translate(215.325 44.00784) scale(0.27 -0.27)">
       <defs>
-       <path id="STIXGeneral-Regular-202" d="M -474 3501 
-L -2464 3501 
-L -2464 3846 
-L -474 3846 
-L -474 3501 
+       <path id="STIXGeneral-Italic-38" d="M 4896 4179 
+L 4896 4077 
+Q 4762 4045 4694 4016 
+Q 4627 3987 4563 3945 
+Q 4499 3904 4451 3789 
+Q 4403 3674 4358 3539 
+Q 4314 3405 4230 3123 
+L 3699 1299 
+Q 3482 557 3078 218 
+Q 2694 -115 2067 -115 
+Q 1440 -115 1046 179 
+Q 653 474 653 934 
+Q 653 1286 934 2317 
+L 1267 3526 
+Q 1325 3731 1325 3814 
+Q 1325 3942 1213 4006 
+Q 1101 4070 813 4077 
+L 813 4179 
+L 2554 4179 
+L 2554 4077 
+Q 2227 4045 2102 3936 
+Q 1978 3827 1888 3494 
+L 1485 2048 
+Q 1229 1146 1229 902 
+Q 1229 563 1481 355 
+Q 1734 147 2112 147 
+Q 2650 147 2976 492 
+Q 3302 838 3520 1632 
+L 3930 3123 
+Q 4077 3667 4077 3782 
+Q 4077 3923 3981 3987 
+Q 3885 4051 3629 4077 
+L 3629 4179 
+L 4896 4179 
 z
 " transform="scale(0.015625)" />
-       <path id="STIXGeneral-Italic-51" d="M 2944 749 
-L 3034 666 
-Q 2707 218 2534 80 
-Q 2362 -58 2138 -58 
-Q 2010 -58 1923 28 
-Q 1837 115 1837 288 
-Q 1837 390 1939 768 
-L 2221 1805 
-Q 2310 2150 2310 2310 
-Q 2310 2496 2157 2496 
-Q 1971 2496 1750 2275 
-Q 1530 2054 1210 1587 
-Q 998 1274 899 1024 
-Q 800 774 570 0 
-L 90 0 
-L 704 2240 
-Q 717 2304 717 2349 
-Q 717 2445 630 2480 
-Q 544 2515 301 2522 
-L 301 2624 
-Q 550 2675 857 2729 
-Q 1165 2784 1338 2822 
-L 1363 2810 
-L 934 1414 
-Q 1408 2170 1753 2496 
-Q 2099 2822 2413 2822 
-Q 2611 2822 2720 2716 
-Q 2829 2611 2829 2432 
-Q 2829 2272 2765 2048 
-L 2406 749 
-Q 2317 429 2317 358 
-Q 2317 243 2419 243 
-Q 2541 243 2810 582 
-Q 2854 634 2944 749 
+       <path id="STIXGeneral-Italic-e9" d="M 2976 755 
+L 3059 672 
+Q 2765 256 2566 99 
+Q 2368 -58 2125 -58 
+Q 1997 -58 1920 16 
+Q 1843 90 1843 211 
+Q 1843 320 1971 800 
+L 2323 2125 
+Q 2368 2304 2368 2336 
+Q 2368 2496 2189 2496 
+Q 2016 2496 1744 2240 
+Q 1472 1984 1216 1600 
+Q 1018 1293 902 1001 
+Q 787 710 602 0 
+L 122 0 
+L 966 3200 
+L 563 3200 
+L 659 3546 
+L 1056 3546 
+Q 1139 3866 1139 3942 
+Q 1139 4019 1056 4060 
+Q 973 4102 877 4102 
+L 704 4102 
+L 704 4198 
+Q 1190 4256 1709 4371 
+L 1754 4333 
+L 1542 3546 
+L 2560 3546 
+L 2464 3200 
+L 1446 3200 
+L 979 1472 
+Q 1811 2822 2451 2822 
+Q 2662 2822 2764 2704 
+Q 2867 2586 2867 2394 
+Q 2867 2118 2560 1158 
+Q 2349 512 2349 358 
+Q 2349 243 2451 243 
+Q 2528 243 2621 336 
+Q 2714 429 2976 755 
+z
+" transform="scale(0.015625)" />
+       <path id="STIXGeneral-Italic-218" d="M 3021 2810 
+L 3136 2810 
+Q 3648 2810 3898 2598 
+Q 4186 2355 4186 1824 
+Q 4186 1357 3910 838 
+Q 3667 390 3334 160 
+Q 3002 -70 2669 -70 
+Q 2438 -70 2281 3 
+Q 2125 77 2064 160 
+Q 2003 243 1939 384 
+Q 1741 147 1533 38 
+Q 1325 -70 998 -70 
+Q 659 -70 416 160 
+Q 173 390 173 832 
+Q 173 1101 237 1350 
+Q 403 1965 883 2387 
+Q 1363 2810 2010 2810 
+L 2125 2810 
+L 2125 2707 
+Q 1606 2707 1267 2291 
+Q 1024 1990 867 1526 
+Q 710 1062 710 666 
+Q 710 64 1075 64 
+Q 1286 64 1523 285 
+Q 1760 506 1856 774 
+Q 1837 915 1837 1101 
+Q 1837 1363 1914 1651 
+Q 1984 1920 2125 2105 
+Q 2266 2291 2432 2291 
+Q 2656 2291 2656 1997 
+Q 2656 1530 2387 1062 
+Q 2272 864 2189 736 
+Q 2176 691 2176 602 
+Q 2176 384 2288 224 
+Q 2400 64 2592 64 
+Q 3040 64 3341 627 
+Q 3482 896 3565 1270 
+Q 3648 1645 3648 1971 
+Q 3648 2240 3616 2362 
+Q 3565 2566 3411 2636 
+Q 3258 2707 3021 2707 
+L 3021 2810 
 z
 " transform="scale(0.015625)" />
        <path id="STIXGeneral-Regular-20" d="M 4077 2048 
@@ -5504,21 +5544,25 @@ L 2522 0
 z
 " transform="scale(0.015625)" />
       </defs>
-      <use href="#STIXGeneral-Regular-202" transform="translate(52 2.296875)" />
-      <use href="#STIXGeneral-Italic-51" transform="translate(0 0.40625)" />
-      <use href="#STIXGeneral-Regular-20" transform="translate(69.999954 0.40625)" />
-      <use href="#STIXGeneral-Regular-14" transform="translate(158.499893 0.40625)" />
+      <use href="#STIXGeneral-Italic-38" transform="translate(0 0.703125)" />
+      <use href="#STIXGeneral-Regular-12" transform="translate(72.199936 0.703125)" />
+      <use href="#STIXGeneral-Regular-b" transform="translate(99.999908 0.703125)" />
+      <use href="#STIXGeneral-Italic-e9" transform="translate(133.299881 0.703125)" />
+      <use href="#STIXGeneral-Italic-218" transform="translate(183.299835 0.703125)" />
+      <use href="#STIXGeneral-Regular-c" transform="translate(251.899765 0.703125)" />
+      <use href="#STIXGeneral-Regular-20" transform="translate(305.199738 0.703125)" />
+      <use href="#STIXGeneral-Regular-14" transform="translate(393.699677 0.703125)" />
      </g>
     </g>
     <g id="line2d_13">
-     <path d="M 410.13 36.17784 
-L 434.43 36.17784 
-L 458.73 36.17784 
+     <path d="M 378.405 34.55784 
+L 402.705 34.55784 
+L 427.005 34.55784 
 " style="fill: none; stroke: #bf6f1e; stroke-width: 2.4; stroke-linecap: square" />
     </g>
     <g id="text_10">
-     <!-- $\bar n=4$ -->
-     <g style="fill: #202b38" transform="translate(470.88 45.62784) scale(0.27 -0.27)">
+     <!-- $U/(\hbar\omega)=4$ -->
+     <g style="fill: #202b38" transform="translate(439.155 44.00784) scale(0.27 -0.27)">
       <defs>
        <path id="STIXGeneral-Regular-17" d="M 3027 1069 
 L 2368 1069 
@@ -5540,21 +5584,25 @@ L 1869 1478
 z
 " transform="scale(0.015625)" />
       </defs>
-      <use href="#STIXGeneral-Regular-202" transform="translate(52 2.296875)" />
-      <use href="#STIXGeneral-Italic-51" transform="translate(0 0.40625)" />
-      <use href="#STIXGeneral-Regular-20" transform="translate(69.999954 0.40625)" />
-      <use href="#STIXGeneral-Regular-17" transform="translate(158.499893 0.40625)" />
+      <use href="#STIXGeneral-Italic-38" transform="translate(0 0.703125)" />
+      <use href="#STIXGeneral-Regular-12" transform="translate(72.199936 0.703125)" />
+      <use href="#STIXGeneral-Regular-b" transform="translate(99.999908 0.703125)" />
+      <use href="#STIXGeneral-Italic-e9" transform="translate(133.299881 0.703125)" />
+      <use href="#STIXGeneral-Italic-218" transform="translate(183.299835 0.703125)" />
+      <use href="#STIXGeneral-Regular-c" transform="translate(251.899765 0.703125)" />
+      <use href="#STIXGeneral-Regular-20" transform="translate(305.199738 0.703125)" />
+      <use href="#STIXGeneral-Regular-17" transform="translate(393.699677 0.703125)" />
      </g>
     </g>
     <g id="line2d_14">
-     <path d="M 570.51 36.17784 
-L 594.81 36.17784 
-L 619.11 36.17784 
+     <path d="M 602.235 34.55784 
+L 626.535 34.55784 
+L 650.835 34.55784 
 " style="fill: none; stroke: #2f7f69; stroke-width: 2.4; stroke-linecap: square" />
     </g>
     <g id="text_11">
-     <!-- $\bar n=9$ -->
-     <g style="fill: #202b38" transform="translate(631.26 45.62784) scale(0.27 -0.27)">
+     <!-- $U/(\hbar\omega)=9$ -->
+     <g style="fill: #202b38" transform="translate(662.985 44.00784) scale(0.27 -0.27)">
       <defs>
        <path id="STIXGeneral-Regular-1c" d="M 378 -141 
 L 358 -13 
@@ -5585,10 +5633,14 @@ Q 2317 2042 2317 2272
 z
 " transform="scale(0.015625)" />
       </defs>
-      <use href="#STIXGeneral-Regular-202" transform="translate(52 2.296875)" />
-      <use href="#STIXGeneral-Italic-51" transform="translate(0 0.40625)" />
-      <use href="#STIXGeneral-Regular-20" transform="translate(69.999954 0.40625)" />
-      <use href="#STIXGeneral-Regular-1c" transform="translate(158.499893 0.40625)" />
+      <use href="#STIXGeneral-Italic-38" transform="translate(0 0.703125)" />
+      <use href="#STIXGeneral-Regular-12" transform="translate(72.199936 0.703125)" />
+      <use href="#STIXGeneral-Regular-b" transform="translate(99.999908 0.703125)" />
+      <use href="#STIXGeneral-Italic-e9" transform="translate(133.299881 0.703125)" />
+      <use href="#STIXGeneral-Italic-218" transform="translate(183.299835 0.703125)" />
+      <use href="#STIXGeneral-Regular-c" transform="translate(251.899765 0.703125)" />
+      <use href="#STIXGeneral-Regular-20" transform="translate(305.199738 0.703125)" />
+      <use href="#STIXGeneral-Regular-1c" transform="translate(393.699677 0.703125)" />
      </g>
     </g>
    </g>
@@ -5820,37 +5872,12 @@ L 842.4 106.755582
 </svg>
 
 <div class="fragment" data-fragment-index="0">
-<p>平均场峰值记为<span class="math inline">\(E_{\rm pk}\)</span>；本例中，平均场对应的经典能量等于激发能量：</p>
-</div>
-<div class="fragment" data-fragment-index="0">
-<div class="equation"><span class="math display">\[\tfrac{\varepsilon_0V E_{\rm pk}^2}{4}=\bar n\hbar\omega\quad\Rightarrow\quad E_{\rm pk}=2\mathcal E\sqrt{\bar n},\qquad T=\tfrac{2\pi}{\omega}\]</span></div>
+<p>用前面的经典场能量式换算峰值<span class="math inline">\(E_{\rm pk}\)</span>，其中<span class="math inline">\(\mathcal E=\sqrt{\hbar\omega/(\varepsilon_0V)}\)</span>：</p>
+<div class="equation"><span class="math display">\[U=\frac{\varepsilon_0V E_{\rm pk}^2}{4}=n\hbar\omega
+\quad\Rightarrow\quad E_{\rm pk}=2\mathcal E\sqrt n,\qquad T=\frac{2\pi}{\omega}\]</span></div>
 </div>
 <div class="result fragment" data-fragment-index="1">
-<p>平均光子数为<span class="math inline">\(1,4,9\)</span>时，振幅比为<span class="math inline">\(1:2:3\)</span>，振动周期相同。</p>
-</div>
-</div>
-</section>
-
-<section id="l07-ion" class="title-slide slide level1 flow-tight flow-compact math-compact balanced lecture-slide l07" data-section="vacuum">
-<h1>同样的代数也描述离子的微小振动</h1>
-<nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
-<div class="s-body">
-<div class="example">
-<p>质量<span class="math inline">\(M\)</span>的离子在稳定平衡位置附近沿一方向小幅振动，势能保留位移<span class="math inline">\(x\)</span>的平方项。<span class="math inline">\(P\)</span>是机械动量，<span class="math inline">\(\omega_t\)</span>是振动角频率。</p>
-</div>
-<div class="equation"><span class="math display">\[\hat H_{\rm ion}=\frac{\hat P^2}{2M}+\frac12M\omega_t^2\hat x^2,\qquad[\hat x,\hat P]=i\hbar\]</span></div>
-<div class="fragment" data-fragment-index="0">
-<p>把质量并入变量，写成与单模场相同的形式：</p>
-<div class="equation"><span class="math display">\[\hat q_{\rm ion}=\sqrt M\,\hat x,\quad\hat p_{\rm ion}=\hat P/\sqrt M\quad\Rightarrow\quad\hat H_{\rm ion}=\tfrac12(\hat p_{\rm ion}^2+\omega_t^2\hat q_{\rm ion}^2)\]</span></div>
-</div>
-<div class="fragment" data-fragment-index="1">
-<p>按场模式中相同的组合定义离子运动下降算符：</p>
-<div class="equation"><span class="math display">\[\hat b=\frac{\omega_t\hat q_{\rm ion}+i\hat p_{\rm ion}}{\sqrt{2\hbar\omega_t}},\qquad\hat H_{\rm ion}=\hbar\omega_t(\hat b^\dagger\hat b+1/2)\]</span></div>
-</div>
-<div class="fragment" data-fragment-index="2">
-<div class="result">
-<p>光场激发是光子；离子振动激发是声子。相同代数的观测量含义由物理载体决定。</p>
-</div>
+<p>激发能量比为<span class="math inline">\(1:4:9\)</span>，对应经典场峰值比为<span class="math inline">\(1:2:3\)</span>；模式频率保持不变。</p>
 </div>
 </div>
 </section>
@@ -6054,24 +6081,23 @@ L 842.4 106.755582
 </div>
 </section>
 
-<section id="l07-reference" class="title-slide slide level1 balanced lecture-slide l07" data-section="states">
-<h1>相位稳定的本振规定场测量参照</h1>
+<section id="l07-reference" class="title-slide slide level1 flow-compact block-compact math-compact balanced lecture-slide l07" data-section="states">
+<h1>用参照光的相位选择测量的场分量</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
-<p>怎样在实验中测量刚才的场坐标？让被测光与一束相位稳定的参照光叠加。</p>
+<p>怎样测量刚才的场坐标？让被测光与一束较强、相位稳定的同频参照光叠加，这束参照光称为本振。</p>
 <div class="definition">
-<p>本振是一束较强、相位稳定的辅助光，与被测光同频、同偏振、空间模式匹配。</p>
+<p>选定共同的时间原点，本振电场写为<span class="math inline">\(E_{\rm LO}(t)=E_L\cos(\omega t-\theta)\)</span>。<span class="math inline">\(E_L\)</span>是振幅，<span class="math inline">\(\theta\)</span>是本振相位；调节<span class="math inline">\(\theta\)</span>就移动了参照光的波峰时刻。</p>
 </div>
-<p>两束光进入平衡分束器，两个输出分别到达探测器，记录光电流<span class="math inline">\(I_1,I_2\)</span>并取差。两路中相反符号的干涉项相减后保留下来。</p>
 <div class="fragment" data-fragment-index="0">
-<div class="block">
-<p>本振相位记为<span class="math inline">\(\theta\)</span>。强本振近似下，归一化光电流差测量的场量为</p>
-<div class="equation"><span class="math display">\[\hat X_\theta=\hat a e^{-i\theta}+\hat a^\dagger e^{i\theta},\qquad\hat X_0=\hat q/q_0.\]</span></div>
-<p>固定<span class="math inline">\(\theta=0\)</span>，重复记录电流差，就能比较B、C的场坐标分布。</p>
+<p>两束光的偏振、空间模式匹配，经平衡分束器叠加；两路探测电流之差保留干涉项。强本振近似下，归一化电流差测量</p>
 </div>
+<div class="fragment" data-fragment-index="0">
+<div class="equation"><span class="math display">\[\hat X_\theta=\hat a e^{-i\theta}+\hat a^\dagger e^{i\theta}
+=\frac{\hat q\cos\theta+(\hat p/\omega)\sin\theta}{q_0}.\]</span></div>
 </div>
-<div class="fragment" data-fragment-index="1">
-<p>下面固定本振相位，只改变B中两个数态分量的相对相位。</p>
+<div class="result fragment" data-fragment-index="1">
+<p>参照光的相位决定所测的场分量；固定<span class="math inline">\(\theta=0\)</span>，就是始终测量<span class="math inline">\(\hat q/q_0\)</span>。</p>
 </div>
 </div>
 </section>
@@ -6082,7 +6108,7 @@ L 842.4 106.755582
 <div class="s-body">
 <div class="question question-box">
 <div class="stem mc-stem">
-<p>把同一模式的叠加态B改为负号态。固定本振相位，比较两态的光子计数分布和场方差：</p>
+<p>将同一模式的叠加态B改为下列负号态。始终测量同一个场坐标<span class="math inline">\(\hat q\)</span>，比较两态的光子计数分布和场方差：</p>
 </div>
 <div class="reference mc-reference">
 <div class="equation"><span class="math display">\[|\psi_B\rangle=\frac{|0\rangle+|2\rangle}{\sqrt2},\qquad|\psi_-\rangle=\frac{|0\rangle-|2\rangle}{\sqrt2}\]</span></div>
@@ -6112,10 +6138,10 @@ L 842.4 106.755582
 <div class="s-body">
 
 <div class="s-lab" data-lab="phase">
-<div class="lab-context phase-context"><div><span class="phase-state-label lab-key-b">B <span>纯叠加</span></span>\(\displaystyle\frac{|0\rangle+e^{i\phi}|2\rangle}{\sqrt2}\)</div><div><span class="phase-state-label lab-key-c">C <span>统计混合</span></span>\(\displaystyle\tfrac12|0\rangle\langle0|+\tfrac12|2\rangle\langle2|\)</div></div>
+<div class="lab-context phase-context"><div><span class="phase-state-label lab-key-b"><span class="phase-state-code"><i class="phase-swatch-b"></i>B</span><span>纯叠加</span></span>\(\displaystyle\frac{|0\rangle+e^{i\phi}|2\rangle}{\sqrt2}\)</div><div><span class="phase-state-label lab-key-c"><span class="phase-state-code"><i class="phase-swatch-c"></i>C</span><span>统计混合</span></span>\(\displaystyle\tfrac12|0\rangle\langle0|+\tfrac12|2\rangle\langle2|\)</div></div>
 <div class="lab-controls phase-controls"><label for="l07-phase-slider">B 的相对相位</label><input id="l07-phase-slider" type="range" min="0" max="360" step="1" value="0" aria-label="B的相对相位，单位度"><output data-output="phase" for="l07-phase-slider">0°</output><button type="button" data-phase="0">0</button><button type="button" data-phase="90">\(\pi/2\)</button><button type="button" data-phase="180">\(\pi\)</button></div>
 <div class="lab-charts"><div><div class="lab-chart-title">光子计数：理论概率</div><svg viewbox="0 0 590 250" data-plot="counts" role="img" aria-label="B与C的光子数理论分布"></svg><div class="lab-stat" data-output="count-stat"></div></div><div><div class="lab-chart-title">场坐标：理论密度</div><svg viewbox="0 0 590 250" data-plot="quadrature" role="img" aria-label="固定本振下B与C的场坐标理论概率密度"></svg><div class="lab-stat" data-output="field-stat"></div></div></div>
-<div class="lab-foot phase-legend"><span class="phase-legend-item"><i class="phase-swatch-b"></i>B 纯叠加</span><span class="phase-legend-item"><i class="phase-swatch-c"></i>C 统计混合</span><span class="phase-axis-note">固定本振参照 · \(X=q/q_0\)</span></div>
+<div class="lab-foot phase-legend"><span>依次取 \(0,\pi/2,\pi\)，比较计数与场方差。</span><span class="phase-axis-note">测量 \(X=q/q_0\)</span></div>
 </div>
 
 </div>
@@ -6127,7 +6153,7 @@ L 842.4 106.755582
 <h1>思考题5答案A：负号改变场统计的交叉项</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
-<p>把B改为<span class="math inline">\(|\psi_-\rangle=(|0\rangle-|2\rangle)/\sqrt2\)</span>，固定同一个本振参照。两个分量的概率仍各半：</p>
+<p>把B改为<span class="math inline">\(|\psi_-\rangle=(|0\rangle-|2\rangle)/\sqrt2\)</span>，始终测量同一个场坐标<span class="math inline">\(\hat q\)</span>。两个分量的概率仍各半：</p>
 <div class="equation"><span class="math display">\[P(0)=P(2)=\tfrac12,\qquad\langle\hat N\rangle_-=1\]</span></div>
 <div class="block">
 <p>两级下降连接两个分量，因此它读取到了相对负号：</p>
@@ -6142,7 +6168,7 @@ L 842.4 106.755582
 </div>
 </div>
 <div class="fragment" data-fragment-index="2">
-<p>相位为<span class="math inline">\(\pi/2\)</span>时，当前场分布也与C相同；改变测量参照可再检验。</p>
+<p>相对相位为<span class="math inline">\(\pi/2\)</span>时，当前场方差也与C相同；改变测量参照可进一步检验。</p>
 </div>
 </div>
 </section>
