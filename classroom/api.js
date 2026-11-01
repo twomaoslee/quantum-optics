@@ -1,6 +1,6 @@
 (function(){
  'use strict';
- const config=window.QO_CLASSROOM_CONFIG||{},isTeacher=location.pathname.endsWith('teacher.html');
+ const config=window.QO_CLASSROOM_CONFIG||{},isTeacher=location.pathname.endsWith('teacher.html')||document.currentScript?.dataset.qoRole==='teacher';
  const key='qo-cloud-session-v1:'+ (config.envId||'local') + ':'+(isTeacher?'teacher':'student');
  let app,initializing,offset=0;
  function stored(){try{return JSON.parse(localStorage.getItem(key)||'null');}catch{return null;}}

@@ -642,6 +642,16 @@ body:has(#l07-closing.present) :is(.course-footer-bar,.slide-logo,.slide-number,
 .reveal .l07.table-compact :is(td,th){padding:10px 16px}
 .reveal .l07.table-roomy td{padding:16px}
 .reveal .l07.block-medium .block{padding:20px 22px}
+
+.reveal .classroom-slot{display:none}
+.reveal #l07-q1.qo-classroom-inline .question{display:grid;grid-template-columns:minmax(0,1fr) 222px;gap:10px 22px;align-items:start}
+.reveal #l07-q1.qo-classroom-inline .question .stem{grid-column:1/-1}
+.reveal #l07-q1.qo-classroom-inline .question .reference,.reveal #l07-q1.qo-classroom-inline .question .mc-options{grid-column:1}
+.reveal #l07-q1.qo-classroom-inline .mc-options{column-gap:12px}
+.reveal #l07-q1.qo-classroom-inline button.mc-option{padding-inline:12px}
+.reveal #l07-q1.qo-classroom-inline .classroom-slot{display:block;grid-column:2;grid-row:2/span 2;border-left:1px solid #c7d4df;padding-left:16px;min-width:0}
+.reveal #l07-q1 .classroom-slot iframe{display:block;border:0;width:100%;height:340px;margin:0;background:transparent}
+@media print{.reveal #l07-q1.qo-classroom-inline .question{display:flex}.reveal #l07-q1 .classroom-slot{display:none!important}}
 </style>
   <style type="text/css">.reveal
 div.sourceCode
@@ -1242,6 +1252,9 @@ margin-right: 0; }
 <p><span class="math inline">\(m\)</span>为模式编号，<span class="math inline">\(L\)</span>为腔长，<span class="math inline">\(c\)</span>为光速；激发数表示该模式有多少份量子激发</p>
 </div>
 <div class="mc-options"><button type="button" class="mc-option" data-choice="A" aria-pressed="false"><span class="mc-letter">A</span><span>频率增大，空间形状不变</span></button><button type="button" class="mc-option" data-choice="B" aria-pressed="false"><span class="mc-letter">B</span><span>频率不变，节点数增加</span></button><button type="button" class="mc-option" data-choice="C" aria-pressed="false"><span class="mc-letter">C</span><span>频率与形状不变，激发数增加</span></button><button type="button" class="mc-option" data-choice="D" aria-pressed="false"><span class="mc-letter">D</span><span>频率、形状与激发数都不变</span></button></div>
+<div class="classroom-slot">
+
+</div>
 </div>
 <div class="fragment" data-fragment-index="0">
 <div class="answer mc-answer" data-correct="C">
@@ -4694,39 +4707,33 @@ function onReady(){if(!window.Reveal?.isReady())return setTimeout(onReady,40);
  window.lecture07Ready=true;
 }ready();})();
 
-/* Classroom service is optional: the teaching deck remains usable offline. */
+/* The networked classroom occupies a slot on the question page. */
 (function(){
  'use strict';
- const styles=document.createElement('style');
- styles.textContent=`
- .qo-classroom-launch{position:fixed;left:64px;bottom:16px;z-index:35;padding:9px 17px;background:#fff;color:#0070c0;border:1px solid #b8cede;border-radius:6px;font:600 18px -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;cursor:pointer}
- .qo-classroom-dialog{position:fixed;inset:4vh 4vw;width:92vw;height:92vh;max-width:none;max-height:none;padding:0;border:1px solid #b8cede;border-radius:8px;background:#f6f9fc;z-index:1000;box-sizing:border-box}
- .qo-classroom-dialog::backdrop{background:#16304699}
- .qo-classroom-dialog header{height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:#fff;border-bottom:1px solid #dbe7ef;font:16px -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:#17334a}
- .qo-classroom-dialog header button{padding:6px 14px;border:1px solid #b8cede;border-radius:5px;background:#fff;color:#0070c0;font:inherit;cursor:pointer}
- .qo-classroom-dialog iframe{display:block;width:100%;height:calc(100% - 46px);border:0}
- @media print{.qo-classroom-launch,.qo-classroom-dialog{display:none!important}}
- `;document.head.append(styles);
- const button=document.createElement('button');button.type='button';button.className='qo-classroom-launch';button.textContent='扫码答题';button.hidden=true;button.setAttribute('aria-haspopup','dialog');document.body.append(button);
- const dialog=document.createElement('dialog');dialog.className='qo-classroom-dialog';dialog.setAttribute('aria-label','第七讲课堂答题控制');
- const header=document.createElement('header'),title=document.createElement('span'),close=document.createElement('button'),frame=document.createElement('iframe');
- title.textContent='课堂答题 · 第一题';close.textContent='返回课件';frame.title='教师课堂控制';header.append(title,close);dialog.append(header,frame);document.body.append(dialog);
- function serviceURL(){
-  if(location.protocol==='file:')return 'https://zimin.li/quantum-optics/classroom/teacher.html';
-  if(location.pathname.includes('/slides/'))return new URL('../classroom/teacher.html',location.href).href;
-  return new URL('/classroom/teacher.html',location.href).href;
- }
- function visibility(active){if(frame.getAttribute('src'))frame.contentWindow.postMessage({type:'qo-classroom-visibility',active},new URL(frame.src).origin);}
- frame.addEventListener('load',()=>visibility(dialog.open));
- button.addEventListener('click',()=>{if(!frame.getAttribute('src')){const url=new URL(serviceURL());url.searchParams.set('embedded','1');frame.src=url.href;}dialog.showModal();visibility(true);});
- close.addEventListener('click',()=>dialog.close());
- dialog.addEventListener('close',()=>{visibility(false);button.focus();});
- // Arrow keys must keep controlling inputs inside the classroom panel.
- dialog.addEventListener('keydown',event=>event.stopPropagation());
  function ready(){
   if(!window.Reveal?.isReady())return setTimeout(ready,50);
-  const update=()=>{button.hidden=Reveal.getCurrentSlide()?.id!=='l07-q1';if(button.hidden&&dialog.open)dialog.close();};
-  Reveal.on('slidechanged',update);update();window.lecture07ClassroomReady=true;
+  const slide=document.getElementById('l07-q1'),slot=slide?.querySelector('.classroom-slot');
+  if(!slot)return;
+  let url;
+  if(!/^https?:$/.test(location.protocol))url=new URL('https://zimin.li/quantum-optics/classroom/presenter.html');
+  else if(location.pathname.includes('/slides/'))url=new URL('../classroom/presenter.html',location.href);
+  else url=new URL('/classroom/presenter.html',location.href);
+  const room=new URLSearchParams(location.search).get('classroom');
+  if(room&&/^[A-F0-9]{12}$/.test(room))url.searchParams.set('room',room);
+  const frame=document.createElement('iframe');frame.title='课堂扫码作答';frame.src=url.href;
+  frame.setAttribute('scrolling','no');slot.append(frame);slide.classList.add('qo-classroom-inline');
+  const update=()=>frame.contentWindow?.postMessage({type:'qo-classroom-visibility',active:Reveal.getCurrentSlide()===slide},url.origin);
+  frame.addEventListener('load',update);Reveal.on('slidechanged',update);
+  window.addEventListener('message',event=>{
+   if(event.source===frame.contentWindow&&event.origin===url.origin&&['qo-classroom-return-focus','qo-classroom-started'].includes(event.data?.type)&&Reveal.getCurrentSlide()===slide){
+    if(event.data.type==='qo-classroom-started'){
+     Reveal.navigateFragment(-1);
+     slide.querySelectorAll('.mc-option').forEach(option=>{option.classList.remove('selected');option.setAttribute('aria-pressed','false');});
+    }
+    slide.tabIndex=-1;slide.focus({preventScroll:true});
+   }
+  });
+  window.lecture07ClassroomReady=true;
  }ready();
 })();
 </script>

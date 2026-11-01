@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "scope": "Lecture 7 question 1, optional classroom client and deployable CloudBase function",
+  "scope": "Lecture 7 question 1 inline classroom voting and optional after-class records management",
   "local_browser": "passed",
   "backend_tests": "passed",
   "backend_test_count": 15,
@@ -81,10 +81,13 @@
     "vendor/katex/katex.min.css",
     "vendor/katex/katex.min.js",
     "vendor/qrcode-LICENSE",
-    "vendor/qrcode.js"
+    "vendor/qrcode.js",
+    "presenter.html",
+    "presenter.css",
+    "presenter.js"
   ],
   "sha256": {
-    "classroom/api.js": "88a1f4a540d96523f3ad7b0c0b96735f833b41be8549498f675fee6ea289d9c8",
+    "classroom/api.js": "d5ced9608f8bbf416f57e1bb8e9451dc23c462051b706fa839df19fde20b1c59",
     "classroom/config.js": "840e90878978ae3397b515c342bac563ad259668371dd1a51fe6bc7c1204e6d8",
     "classroom/student.html": "11776bcbb93ea6ebd14e6bbe6b803a95b061274c2d2ea0924e4ea1e03bb3439c",
     "classroom/student.js": "a9d66375b9d701c1466050803deade84feae299e4f7a8397382eaf00dbabd6e4",
@@ -185,7 +188,10 @@
     "classroom-cloudbase/function-access.rego": "15f2a9a23982b9feee20475f0d1e668eba47d375a722773fd013698009a5686d",
     "classroom-cloudbase/scripts/cloud-smoke.cjs": "78fefd699842a172dc7fcc129b05a1feb65c50ec1e3185ef3267e970bb30942e",
     "classroom-cloudbase/functions/classroom/transport.js": "cf0f2aa392be5e41da498d03374d81581107fdabc59d7e572013648eaa8a8781",
-    "classroom-cloudbase/test/transport.test.cjs": "aeb04077c2f6c62a26102b007bf3a5bf8e271aca3551f4b997e162a150fc8832"
+    "classroom-cloudbase/test/transport.test.cjs": "aeb04077c2f6c62a26102b007bf3a5bf8e271aca3551f4b997e162a150fc8832",
+    "classroom/presenter.html": "191e295a86ec8bab9891abc22dd6f66c9a4791cd665d8d25dd00390c5aca0b19",
+    "classroom/presenter.css": "839a1094152b7c53261e597545bf3198acc9f616af4c1e7a204f6050dcc4c2db",
+    "classroom/presenter.js": "ac52fd8cc1e7430254a89cd80dc1251a57cc8d40debdff2fd677effbfc9862f0"
   },
   "cloud_browser": "passed",
   "cloud_capacity": "pending_full_class_load",
@@ -210,5 +216,11 @@
       "overage": false,
       "expires": "2026-12-01"
     }
+  },
+  "inline_presenter": {
+    "understanding": "passed independent two-stage reader",
+    "preservation_and_lifecycle": "passed 126 checks; quantum-slides/qa/lecture07/inline-classroom/checks.json",
+    "actual_browser": "passed; teacher connection, timer, two virtual submissions, manual reveal, answer step and keyboard continuation",
+    "real_phone_network": "not retested"
   }
 }
