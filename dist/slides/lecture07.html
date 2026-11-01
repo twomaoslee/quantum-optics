@@ -654,6 +654,19 @@ body:has(#l07-closing.present) :is(.course-footer-bar,.slide-logo,.slide-number,
 .reveal .qo-classroom-inline .classroom-slot{display:block;grid-column:2;grid-row:2/span 2;border-left:1px solid #c7d4df;padding-left:16px;min-width:0}
 .reveal .qo-classroom-inline .classroom-slot iframe{display:block;border:0;width:100%;max-width:100%;max-height:none;height:360px;margin:0;background:transparent}
 @media print{.reveal .qo-classroom-inline .question{display:flex}.reveal .qo-classroom-inline .classroom-slot{display:none!important}}
+
+.reveal .l07.balanced .s-body{justify-content:space-between;gap:14px;padding-bottom:10px}
+.reveal .l07.balanced .s-body>.equation{margin-block:0}
+.reveal .l07.balanced .s-body>.fragment>.equation:only-child{margin-block:0}
+.reveal :is(#l07-q1,#l07-q2,#l07-q3,#l07-q4).qo-classroom-inline .classroom-slot iframe{height:328px}
+.reveal .l07.balanced.flow-tight .s-body{gap:10px}
+.reveal .l07.balanced.flow-tight .equation{margin-block:4px}
+.reveal #l07-guide .s-body{padding-bottom:10px}
+.reveal #l07-guide .guide-steps{height:100%;align-content:space-between}
+.reveal #l07-summary :is(th,td){padding-block:20px}
+
+.reveal .l07.qo-classroom-inline .question{grid-template-rows:auto min-content 1fr}
+.reveal .l07.qo-classroom-inline .question .mc-options{align-self:center}
 </style>
   <style type="text/css">.reveal
 div.sourceCode
@@ -1185,7 +1198,7 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-objects" class="title-slide slide level1 flow-compact table-compact block-compact lecture-slide l07" data-section="mode">
+<section id="l07-objects" class="title-slide slide level1 flow-compact table-compact block-compact balanced lecture-slide l07" data-section="mode">
 <h1>从单光子偏振转向一个模式的场状态</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1219,7 +1232,7 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-modes" class="title-slide slide level1 plot-slide lecture-slide l07" data-section="mode">
+<section id="l07-modes" class="title-slide slide level1 plot-slide balanced lecture-slide l07" data-section="mode">
 <h1>两个镜面处的电场节点选出驻波模式</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1261,7 +1274,7 @@ margin-right: 0; }
 
 </section>
 
-<section id="l07-classical-fields" class="title-slide slide level1 flow-compact math-compact table-compact lecture-slide l07" data-section="mode">
+<section id="l07-classical-fields" class="title-slide slide level1 flow-compact math-compact table-compact balanced lecture-slide l07" data-section="mode">
 <h1>驻波中的电场与磁场共同描述一个模式</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1296,7 +1309,7 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-field-energy" class="title-slide slide level1 flow-compact block-medium lecture-slide l07" data-section="mode">
+<section id="l07-field-energy" class="title-slide slide level1 flow-compact block-medium balanced lecture-slide l07" data-section="mode">
 <h1>从电磁能量密度得到两项模式能量</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1320,7 +1333,7 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-energy-exchange" class="title-slide slide level1 plot-slide lecture-slide l07" data-section="mode">
+<section id="l07-energy-exchange" class="title-slide slide level1 plot-slide balanced lecture-slide l07" data-section="mode">
 <h1>电场能与磁场能交换，总能量守恒</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1335,7 +1348,7 @@ margin-right: 0; }
 </section>
 
 <section>
-<section id="l07-canonical" class="title-slide slide level1 flow-compact block-compact math-compact lecture-slide l07" data-section="mode">
+<section id="l07-canonical" class="title-slide slide level1 flow-compact block-compact math-compact balanced lecture-slide l07" data-section="mode">
 <h1>把两项场能量写成谐振子的标准形式</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1360,7 +1373,7 @@ margin-right: 0; }
 </div>
 </div>
 </section>
-<section id="l07-mode-normalization" class="slide level2 supplement-slide flow-compact lecture-slide l07" data-section="mode" data-supplement="l07-canonical">
+<section id="l07-mode-normalization" class="slide level2 supplement-slide flow-compact balanced lecture-slide l07" data-section="mode" data-supplement="l07-canonical">
 <h2>补充：从场能量积分确定归一化</h2>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class="active">单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1410,7 +1423,7 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-quantization" class="title-slide slide level1 flow-compact lecture-slide l07" data-section="ladder">
+<section id="l07-quantization" class="title-slide slide level1 flow-compact balanced lecture-slide l07" data-section="ladder">
 <h1>正则对易关系是额外引入的量子规律</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1435,7 +1448,7 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-annihilation" class="title-slide slide level1 flow-compact block-compact math-compact lecture-slide l07" data-section="ladder">
+<section id="l07-annihilation" class="title-slide slide level1 flow-compact block-compact math-compact balanced lecture-slide l07" data-section="ladder">
 <h1>复振幅说明为什么要组合场坐标与动量</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1452,7 +1465,7 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-commutator" class="title-slide slide level1 flow-compact block-compact math-compact lecture-slide l07" data-section="ladder">
+<section id="l07-commutator" class="title-slide slide level1 flow-compact block-compact math-compact balanced lecture-slide l07" data-section="ladder">
 <h1>算符次序为能量增加一个常数项</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1472,7 +1485,7 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-number-operator" class="title-slide slide level1 flow-compact lecture-slide l07" data-section="ladder">
+<section id="l07-number-operator" class="title-slide slide level1 flow-compact balanced lecture-slide l07" data-section="ladder">
 <h1>光子数算符把能量组织成相邻阶梯</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1490,7 +1503,7 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-positive" class="title-slide slide level1 flow-medium lecture-slide l07" data-section="ladder">
+<section id="l07-positive" class="title-slide slide level1 flow-medium balanced lecture-slide l07" data-section="ladder">
 <h1>范数非负给出了本征值的下界</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1511,11 +1524,12 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-integers" class="title-slide slide level1 lecture-slide l07" data-section="ladder">
+<section id="l07-integers" class="title-slide slide level1 balanced lecture-slide l07" data-section="ladder">
 <h1>非负性迫使能量阶梯从整数开始</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
-<p>假设<span class="math inline">\(\lambda=k+r\)</span>，其中<span class="math inline">\(k=0,1,\ldots\)</span>且<span class="math inline">\(0&lt;r&lt;1\)</span>。</p>
+<p>每下降一级，本征值减1；正本征值对应的下降结果始终非零。检验一个带小数部分的本征值能否满足这两条规律。</p>
+<p>假设<span class="math inline">\(\lambda=k+r\)</span>，其中<span class="math inline">\(k=0,1,\ldots\)</span>为整数部分，<span class="math inline">\(0&lt;r&lt;1\)</span>为余数：</p>
 <div class="equation"><span class="math display">\[\lambda\ \longrightarrow\ \lambda-1\ \longrightarrow\ \cdots\ \longrightarrow\ r\]</span></div>
 <div class="fragment" data-fragment-index="0">
 <div class="block">
@@ -1523,6 +1537,7 @@ margin-right: 0; }
 </div>
 </div>
 <div class="fragment" data-fragment-index="1">
+<p>在归一化的<span class="math inline">\(|r\rangle\)</span>上，<span class="math inline">\(\|\hat a|r\rangle\|^2=r&gt;0\)</span>，所以还必须再下降一步：</p>
 <div class="equation"><span class="math display">\[r\ \longrightarrow\ r-1&lt;0\]</span></div>
 </div>
 <div class="fragment" data-fragment-index="2">
@@ -1534,23 +1549,24 @@ margin-right: 0; }
 </section>
 
 <section>
-<section id="l07-vacuum-definition" class="title-slide slide level1 lecture-slide l07" data-section="ladder">
+<section id="l07-vacuum-definition" class="title-slide slide level1 balanced lecture-slide l07" data-section="ladder">
 <h1>最低态满足湮灭条件</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
+<p>整数阶梯在<span class="math inline">\(n=0\)</span>终止：继续作用下降算符得到零向量。把这个归一化的最低态记为<span class="math inline">\(|0\rangle\)</span>，称为真空态。</p>
 <div class="equation"><span class="math display">\[\hat N|0\rangle=0,\qquad\|\hat a|0\rangle\|^2=0\quad\Rightarrow\quad\hat a|0\rangle=0\]</span></div>
 <div class="columns pair">
 <div class="column">
 <div class="definition">
 <h3 id="真空态0rangle">真空态<span class="math inline">\(|0\rangle\)</span></h3>
-<p>归一化的最低能量态。</p>
+<p>一个可制备的光场量子态，光子数为零。</p>
 <div class="equation"><span class="math display">\[\langle0|0\rangle=1\]</span></div>
 </div>
 </div><div class="column">
 <div class="alert">
 <h3 id="零向量">零向量</h3>
-<p>算符作用可能得到的零结果。</p>
-<p>其范数为零。</p>
+<p>继续降阶得到的零向量，记为<span class="math inline">\(\mathbf0\)</span>，其长度为零。</p>
+<div class="equation"><span class="math display">\[\lVert\mathbf0\rVert^2=0\]</span></div>
 </div>
 </div></div>
 <div class="result">
@@ -1559,19 +1575,22 @@ margin-right: 0; }
 </div>
 
 </section>
-<section id="l07-ground-existence" class="slide level2 supplement-slide lecture-slide l07" data-section="ladder" data-supplement="l07-vacuum-definition">
+<section id="l07-ground-existence" class="slide level2 math-compact supplement-slide balanced lecture-slide l07" data-section="ladder" data-supplement="l07-vacuum-definition">
 <h2>补充：最低态存在且可以归一化</h2>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
 <p>在<span class="math inline">\(q\)</span>表象，<span class="math inline">\(\hat q\)</span>为乘法，<span class="math inline">\(\hat p=-i\hbar\,\mathrm d/\mathrm dq\)</span>。</p>
 <div class="equation"><span class="math display">\[\hat a|0\rangle=0\quad\Rightarrow\quad\frac{\mathrm d\psi_0}{\mathrm dq}=-\frac{\omega}{\hbar}q\psi_0\]</span></div>
+<p>积分得<span class="math inline">\(\psi_0(q)=C\exp[-\omega q^2/(2\hbar)]\)</span>，常数<span class="math inline">\(C\)</span>由总概率为1确定：</p>
+<div class="equation"><span class="math display">\[\int_{-\infty}^{\infty}|\psi_0(q)|^2\,\mathrm dq=|C|^2\sqrt{\frac{\pi\hbar}{\omega}}=1.\]</span></div>
+<p>取<span class="math inline">\(C\)</span>为正实数，得到</p>
 <div class="equation"><span class="math display">\[\psi_0(q)=\left(\frac\omega{\pi\hbar}\right)^{1/4}\exp\left(-\frac{\omega q^2}{2\hbar}\right)\]</span></div>
 <div class="result">
 <p>这是可归一化的高斯波函数，自变量<span class="math inline">\(q\)</span>是场模式的广义坐标。</p>
 </div>
 </div>
 </section></section>
-<section id="l07-energy-spectrum" class="title-slide slide level1 spectrum-slide lecture-slide l07" data-section="ladder">
+<section id="l07-energy-spectrum" class="title-slide slide level1 spectrum-slide balanced lecture-slide l07" data-section="ladder">
 <h1>每一级光场激发增加一份光子能量</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1592,7 +1611,7 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-lower-coefficient" class="title-slide slide level1 coefficient-slide flow-medium lecture-slide l07" data-section="ladder">
+<section id="l07-lower-coefficient" class="title-slide slide level1 coefficient-slide flow-medium balanced lecture-slide l07" data-section="ladder">
 <h1>用范数同时确定上升与下降系数</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1602,7 +1621,7 @@ margin-right: 0; }
 <div class="block">
 <h3 id="下降一级">下降一级</h3>
 <div class="equation"><span class="math display">\[\hat a|n\rangle=c_n|n-1\rangle\]</span></div>
-<div class="equation"><span class="math display">\[|c_n|^2=\langle n|\hat N|n\rangle=n\]</span></div>
+<div class="equation"><span class="math display">\[\begin{aligned}|c_n|^2&amp;=\|\hat a|n\rangle\|^2\\&amp;=\langle n|\hat a^\dagger\hat a|n\rangle=n\end{aligned}\]</span></div>
 <div class="fragment" data-fragment-index="0">
 <div class="equation"><span class="math display">\[\hat a|n\rangle=\sqrt n\,|n-1\rangle\]</span></div>
 </div>
@@ -1611,7 +1630,7 @@ margin-right: 0; }
 <div class="block">
 <h3 id="上升一级">上升一级</h3>
 <div class="equation"><span class="math display">\[\hat a^\dagger|n\rangle=d_n|n+1\rangle\]</span></div>
-<div class="equation"><span class="math display">\[|d_n|^2=\langle n|(\hat N+1)|n\rangle\]</span></div>
+<div class="equation"><span class="math display">\[\begin{aligned}|d_n|^2&amp;=\|\hat a^\dagger|n\rangle\|^2\\&amp;=\langle n|\hat a\hat a^\dagger|n\rangle=n+1\end{aligned}\]</span></div>
 <div class="fragment" data-fragment-index="0">
 <div class="equation"><span class="math display">\[\hat a^\dagger|n\rangle=\sqrt{n+1}\,|n+1\rangle\]</span></div>
 </div>
@@ -1653,7 +1672,7 @@ margin-right: 0; }
 
 </section>
 
-<section id="l07-mean-energy" class="title-slide slide level1 flow-compact math-compact table-compact lecture-slide l07" data-section="ladder">
+<section id="l07-mean-energy" class="title-slide slide level1 flow-compact math-compact table-compact balanced lecture-slide l07" data-section="ladder">
 <h1>单次能量离散，平均能量仍可连续变化</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class="active">阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1702,7 +1721,7 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-mean-field" class="title-slide slide level1 flow-compact math-compact block-compact lecture-slide l07" data-section="vacuum">
+<section id="l07-mean-field" class="title-slide slide level1 flow-compact math-compact block-compact balanced lecture-slide l07" data-section="vacuum">
 <h1>真空的平均场坐标为零</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1735,6 +1754,13 @@ margin-right: 0; }
 
 </div>
 </div>
+<div class="fragment" data-fragment-index="0">
+<div class="answer mc-answer" data-correct="B">
+<div class="result">
+<p>答案 B　<span class="math inline">\(\langle\hat q\rangle_0=0\)</span>、<span class="math inline">\(\langle\hat q^2\rangle_0=q_0^2\)</span>，故场方差为<span class="math inline">\(q_0^2&gt;0\)</span>；真空的总能量固定为<span class="math inline">\(\hbar\omega/2\)</span>。</p>
+</div>
+</div>
+</div>
 </div>
 
 </section>
@@ -1755,13 +1781,43 @@ margin-right: 0; }
 
 </section>
 
-<section id="l07-vacuum-second" class="title-slide slide level1 lecture-slide l07" data-section="vacuum">
+<section id="l07-vacuum-second" class="title-slide slide level1 table-compact math-compact balanced lecture-slide l07" data-section="vacuum">
 <h1>核对思考题4：场坐标有非零方差</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
+<p>平均场为零，方差等于二阶矩。逐项计算哪些算符作用能回到真空：</p>
 <div class="equation"><span class="math display">\[\hat q^2=q_0^2[\hat a^2+\hat a\hat a^\dagger+\hat a^\dagger\hat a+(\hat a^\dagger)^2]\]</span></div>
-<p>对真空求期望：两项消去真空，两级上升项与真空正交，只剩</p>
-<div class="equation"><span class="math display">\[\langle0|\hat a\hat a^\dagger|0\rangle=\langle0|(\hat N+1)|0\rangle=1\]</span></div>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>项</th>
+<th>对真空的作用</th>
+<th>真空期望值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\hat a^2,\ \hat a^\dagger\hat a\)</span></td>
+<td>右端的<span class="math inline">\(\hat a\)</span>消去真空</td>
+<td><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((\hat a^\dagger)^2\)</span></td>
+<td>得到<span class="math inline">\(\sqrt2|2\rangle\)</span>，与真空正交</td>
+<td><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat a\hat a^\dagger=\hat N+1\)</span></td>
+<td><span class="math inline">\(|0\rangle\to|1\rangle\to|0\rangle\)</span></td>
+<td><span class="math inline">\(1\)</span></td>
+</tr>
+</tbody>
+</table>
 <div class="fragment" data-fragment-index="0">
 <div class="equation"><span class="math display">\[\boxed{(\Delta q)^2_0=q_0^2&gt;0,\qquad(\Delta X)^2_0=1\quad(X=q/q_0)}\]</span></div>
 </div>
@@ -1773,10 +1829,11 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-vacuum-energy" class="title-slide slide level1 flow-compact lecture-slide l07" data-section="vacuum">
+<section id="l07-vacuum-energy" class="title-slide slide level1 flow-compact block-compact math-compact balanced lecture-slide l07" data-section="vacuum">
 <h1>思考题4答案B：场有分散，总能量固定</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
+<p>场方差已得<span class="math inline">\(q_0^2\)</span>。再由<span class="math inline">\(\hat N|0\rangle=0\)</span>计算总能量，其测量只给出最低本征值：</p>
 <div class="equation"><span class="math display">\[\hat H|0\rangle=E_0|0\rangle,\qquad E_0=\frac12\hbar\omega\]</span></div>
 <div class="equation"><span class="math display">\[(\Delta H)^2_0=\langle\hat H^2\rangle_0-\langle\hat H\rangle_0^2=E_0^2-E_0^2=0\]</span></div>
 <div class="columns pair">
@@ -1790,7 +1847,7 @@ margin-right: 0; }
 <div class="block">
 <h3 id="总能量测量">总能量测量</h3>
 <p>真空是<span class="math inline">\(\hat H\)</span>的本征态。</p>
-<p>每次测得同一个最低能量。</p>
+<p>因此<span class="math inline">\(\langle\hat H\rangle_0=E_0\)</span>、<span class="math inline">\(\langle\hat H^2\rangle_0=E_0^2\)</span>，重复读数的方差为零。</p>
 </div>
 </div></div>
 <div class="result">
@@ -1799,7 +1856,7 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-electric-fluctuation" class="title-slide slide level1 flow-compact lecture-slide l07" data-section="vacuum">
+<section id="l07-electric-fluctuation" class="title-slide slide level1 flow-compact balanced lecture-slide l07" data-section="vacuum">
 <h1>场坐标的涨落对应电场振幅的涨落</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -1812,7 +1869,7 @@ margin-right: 0; }
 </div>
 </section>
 
-<section id="l07-number-amplitude" class="title-slide slide level1 flow-compact lecture-slide l07" data-section="vacuum">
+<section id="l07-number-amplitude" class="title-slide slide level1 flow-compact balanced lecture-slide l07" data-section="vacuum">
 <h1>数态光子数增大，电场涨落的尺度增大</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -2919,7 +2976,7 @@ L 842.4 106.755582
 </div>
 </section>
 
-<section id="l07-ion" class="title-slide slide level1 flow-compact math-compact lecture-slide l07" data-section="vacuum">
+<section id="l07-ion" class="title-slide slide level1 flow-tight flow-compact math-compact balanced lecture-slide l07" data-section="vacuum">
 <h1>同样的代数也描述离子的微小振动</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class="active">真空与场涨落</a><a href="#/l07-nav-states" class>叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -2928,7 +2985,8 @@ L 842.4 106.755582
 </div>
 <div class="equation"><span class="math display">\[\hat H_{\rm ion}=\frac{\hat P^2}{2M}+\frac12M\omega_t^2\hat x^2,\qquad[\hat x,\hat P]=i\hbar\]</span></div>
 <div class="fragment" data-fragment-index="0">
-<div class="equation"><span class="math display">\[\hat q_{\rm ion}=\sqrt M\,\hat x,\qquad\hat p_{\rm ion}=\hat P/\sqrt M\]</span></div>
+<p>把质量并入变量，写成与单模场相同的形式：</p>
+<div class="equation"><span class="math display">\[\hat q_{\rm ion}=\sqrt M\,\hat x,\quad\hat p_{\rm ion}=\hat P/\sqrt M\quad\Rightarrow\quad\hat H_{\rm ion}=\tfrac12(\hat p_{\rm ion}^2+\omega_t^2\hat q_{\rm ion}^2)\]</span></div>
 </div>
 <div class="fragment" data-fragment-index="1">
 <p>按场模式中相同的组合定义离子运动下降算符：</p>
@@ -2953,11 +3011,11 @@ L 842.4 106.755582
 </div>
 </section>
 
-<section id="l07-three-states" class="title-slide slide level1 states-table flow-compact lecture-slide l07" data-section="states">
+<section id="l07-three-states" class="title-slide slide level1 states-table table-compact flow-compact balanced lecture-slide l07" data-section="states">
 <h1>比较同一模式中的三个状态</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
-<p>有了数态基，就能把前几讲的叠加与密度矩阵用于光场。比较三个平均光子数均为1的状态：</p>
+<p>将偏振中学过的叠加与混合推广到数态基，比较以下三个状态：</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -2984,11 +3042,12 @@ L 842.4 106.755582
 </tr>
 </tbody>
 </table>
-<p>保持模式频率、空间形状与偏振相同。先比较光子计数。</p>
+<p>对同一个测量结果，B将两个分量的概率幅相加；C将两分支的测量概率加权。</p>
+<p>保持同一模式，先比较光子计数，再检验场测量能否区分B与C。</p>
 </div>
 </section>
 
-<section id="l07-counting" class="title-slide slide level1 lecture-slide l07" data-section="states">
+<section id="l07-counting" class="title-slide slide level1 balanced lecture-slide l07" data-section="states">
 <h1>相同平均光子数，可以有不同计数分布</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -3038,7 +3097,7 @@ L 842.4 106.755582
 </div>
 </section>
 
-<section id="l07-density-comparison" class="title-slide slide level1 lecture-slide l07" data-section="states">
+<section id="l07-density-comparison" class="title-slide slide level1 block-compact math-compact balanced lecture-slide l07" data-section="states">
 <h1>B与C的差别保存在非对角元中</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -3047,14 +3106,19 @@ L 842.4 106.755582
 <div class="column">
 <div class="block">
 <h3 id="纯叠加b">纯叠加B</h3>
-<div class="equation"><span class="math display">\[\rho_B=\frac12\begin{pmatrix}1&amp;1\\1&amp;1\end{pmatrix}\]</span></div>
+<p>由同一个态构造外积：</p>
+<div class="equation"><span class="math display">\[\rho_B=|\psi_B\rangle\langle\psi_B|=\frac12\begin{pmatrix}1&amp;1\\1&amp;1\end{pmatrix}\]</span></div>
+<p>交叉项<span class="math inline">\(|0\rangle\langle2|\)</span>与<span class="math inline">\(|2\rangle\langle0|\)</span>保留两分量的相位关系。</p>
 </div>
 </div><div class="column">
 <div class="block">
 <h3 id="统计混合c">统计混合C</h3>
+<p>对两个分支的外积各取一半：</p>
 <div class="equation"><span class="math display">\[\rho_C=\frac12\begin{pmatrix}1&amp;0\\0&amp;1\end{pmatrix}\]</span></div>
+<p>对角元给出两种计数的概率；两个非对角元均为零。</p>
 </div>
 </div></div>
+<p>对可观测量<span class="math inline">\(\hat O\)</span>，<span class="math inline">\(\langle\hat O\rangle=\operatorname{Tr}(\rho\hat O)\)</span>。要读出两态不同的交叉项，所选算符须能连接<span class="math inline">\(|0\rangle\)</span>与<span class="math inline">\(|2\rangle\)</span>。</p>
 <div class="fragment" data-fragment-index="0">
 <div class="result">
 <p>光子计数只读取相同的对角元；场测量可能响应不同的相干项。</p>
@@ -3063,7 +3127,7 @@ L 842.4 106.755582
 </div>
 </section>
 
-<section id="l07-two-step" class="title-slide slide level1 flow-compact lecture-slide l07" data-section="states">
+<section id="l07-two-step" class="title-slide slide level1 flow-compact balanced lecture-slide l07" data-section="states">
 <h1>场坐标平方能连接真空与双光子分量</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -3074,20 +3138,20 @@ L 842.4 106.755582
 <div class="column">
 <div class="block">
 <h3 id="单级升降">单级升降</h3>
-<p><span class="math inline">\(\hat q\)</span>把0、2分量移到1、3，均与原来的0、2正交。</p>
 <div class="equation"><span class="math display">\[\langle\hat q\rangle_B=\langle\hat q\rangle_C=0\]</span></div>
+<p><span class="math inline">\(\hat q\)</span>把0、2分量移到1、3，均与原来的0、2正交。</p>
 </div>
 </div><div class="column">
 <div class="block">
 <h3 id="两级升降">两级升降</h3>
 <div class="equation"><span class="math display">\[\hat a^2|2\rangle=\sqrt2|0\rangle\]</span></div>
-<p>可以连接B的两个分量。</p>
+<p>内积<span class="math inline">\(\langle0|\hat a^2|2\rangle=\sqrt2\)</span>，使B的交叉项进入二阶矩。</p>
 </div>
 </div></div>
 </div>
 </section>
 
-<section id="l07-coherent-variance" class="title-slide slide level1 flow-compact table-compact math-compact lecture-slide l07" data-section="states">
+<section id="l07-coherent-variance" class="title-slide slide level1 flow-compact table-compact math-compact balanced lecture-slide l07" data-section="states">
 <h1>相同计数分布，可以对应不同的场方差</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -3129,7 +3193,7 @@ L 842.4 106.755582
 </div>
 </section>
 
-<section id="l07-reference" class="title-slide slide level1 lecture-slide l07" data-section="states">
+<section id="l07-reference" class="title-slide slide level1 balanced lecture-slide l07" data-section="states">
 <h1>相位稳定的本振规定场测量参照</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -3137,11 +3201,12 @@ L 842.4 106.755582
 <div class="definition">
 <p>本振是一束较强、相位稳定的辅助光，与被测光同频、同偏振、空间模式匹配。</p>
 </div>
-<p>两束光在平衡分束器上叠加，用匹配的探测器记录两个输出。</p>
+<p>两束光进入平衡分束器，两个输出分别到达探测器，记录光电流<span class="math inline">\(I_1,I_2\)</span>并取差。两路中相反符号的干涉项相减后保留下来。</p>
 <div class="fragment" data-fragment-index="0">
 <div class="block">
-<p>强本振近似下，两路光电流差正比于选定的场坐标。</p>
-<p>改变本振相位，会改变所测的场坐标组合。</p>
+<p>本振相位记为<span class="math inline">\(\theta\)</span>。强本振近似下，归一化光电流差测量的场量为</p>
+<div class="equation"><span class="math display">\[\hat X_\theta=\hat a e^{-i\theta}+\hat a^\dagger e^{i\theta},\qquad\hat X_0=\hat q/q_0.\]</span></div>
+<p>固定<span class="math inline">\(\theta=0\)</span>，重复记录电流差，就能比较B、C的场坐标分布。</p>
 </div>
 </div>
 <div class="fragment" data-fragment-index="1">
@@ -3196,7 +3261,7 @@ L 842.4 106.755582
 </section>
 
 <section>
-<section id="l07-phase-answer" class="title-slide slide level1 flow-compact block-compact math-compact lecture-slide l07" data-section="states">
+<section id="l07-phase-answer" class="title-slide slide level1 flow-compact block-compact math-compact balanced lecture-slide l07" data-section="states">
 <h1>思考题5答案A：负号改变场统计的交叉项</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -3219,17 +3284,21 @@ L 842.4 106.755582
 </div>
 </div>
 </section>
-<section id="l07-phase-general" class="slide level2 supplement-slide lecture-slide l07" data-section="states" data-supplement="l07-phase-answer">
+<section id="l07-phase-general" class="slide level2 math-compact flow-tight supplement-slide balanced lecture-slide l07" data-section="states" data-supplement="l07-phase-answer">
 <h2>补充：状态相位与测量参照共同决定统计</h2>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
+<p>把状态的相对相位与本振参照同时保留，求它们如何共同决定场方差：</p>
 <div class="equation"><span class="math display">\[|\psi_\phi\rangle=\frac{|0\rangle+e^{i\phi}|2\rangle}{\sqrt2},\qquad\hat q_\theta=q_0(\hat a e^{-i\theta}+\hat a^\dagger e^{i\theta})\]</span></div>
 <p><span class="math inline">\(\phi\)</span>是状态相对相位；<span class="math inline">\(\theta\)</span>指定本振参照，<span class="math inline">\(\theta=0\)</span>回到主线的<span class="math inline">\(\hat q\)</span>。</p>
+<p>此态有<span class="math inline">\(\langle\hat q_\theta\rangle=0\)</span>、<span class="math inline">\(\langle\hat N\rangle=1\)</span>。将带相位的场坐标平方：</p>
+<div class="equation"><span class="math display">\[\frac{\hat q_\theta^2}{q_0^2}=e^{-2i\theta}\hat a^2+e^{2i\theta}(\hat a^\dagger)^2+2\hat N+1.\]</span></div>
+<p>两个共轭项相加给出余弦项，因而</p>
 <div class="equation"><span class="math display">\[\langle\hat a^2\rangle=e^{i\phi}/\sqrt2,\qquad (\Delta q_\theta)^2=q_0^2[3+\sqrt2\cos(\phi-2\theta)]\]</span></div>
 <p>C的方差始终为<span class="math inline">\(3q_0^2\)</span>。改变参照可以显露在另一参照下看不到的相干性。</p>
 </div>
 </section></section>
-<section id="l07-summary" class="title-slide slide level1 lecture-slide l07" data-section="states">
+<section id="l07-summary" class="title-slide slide level1 balanced lecture-slide l07" data-section="states">
 <h1>从一个经典模式到光子的量子态</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
@@ -3298,11 +3367,11 @@ L 842.4 106.755582
 
 </section>
 
-<section id="l07-next" class="title-slide slide level1 lecture-slide l07" data-section="states">
+<section id="l07-next" class="title-slide slide level1 block-compact math-compact balanced lecture-slide l07" data-section="states">
 <h1>下一讲：比较不同光源的光子统计</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
 <div class="s-body">
-<p>已经有了数态、光子数算符及测量概率。</p>
+<p>本讲的A、B、C有相同平均光子数，却给出两种不同的计数分布。将这套比较用于实际光源，就能用计数统计描述光的特征。</p>
 <div class="columns pair">
 <div class="column">
 <div class="block">
@@ -3313,9 +3382,12 @@ L 842.4 106.755582
 <div class="block">
 <h3 id="接下来要算">接下来要算</h3>
 <div class="equation"><span class="math display">\[P(n),\qquad\langle\hat N\rangle,\qquad(\Delta N)^2\]</span></div>
-<p>把光源的状态与探测统计连接起来。</p>
+<p>用平均值描述平均激发量，用方差描述每次计数的分散。</p>
 </div>
 </div></div>
+<p>由概率分布计算这两个量：</p>
+<div class="equation"><span class="math display">\[\langle\hat N\rangle=\sum_n nP(n),\qquad(\Delta N)^2=\sum_n(n-\langle\hat N\rangle)^2P(n).\]</span></div>
+<p>下一讲比较激光、热光和单光子光源，考察这些计数差异怎样出现在实验记录中。</p>
 </div>
 </section>
 
