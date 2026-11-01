@@ -109,3 +109,9 @@ npm run dev
 - [数据库安全规则](https://docs.cloudbase.net/database/security-rules/)
 - [云函数配置](https://docs.cloudbase.net/cli-v1/functions/configs)
 - [CLI 部署](https://docs.cloudbase.net/cli-v1/functions/deploy)
+
+## 可选选择原因
+
+每题先独立提交 A–D，之后只返回本人已提交选项对应的原因。`functions/classroom/reasons.json` 是可选原因文案的编辑源，不嵌入课件，也不打包到静态网站。原因单选，可不填；截止或教师展示回答后停止提交。改选会清除旧原因，同选项再次提交则保留。保存原因不改变原答案提交时间，也不增加答题人数。
+
+教师管理页可按当前轮次单独展开原因统计，未填写人数独立列出；投影片的 presenter 不请求也不显示原因。导出含原因编号、原文快照和独立提交时间，学生可在自己的答题记录查看所存原因。原因是学生自述，不能据此断言其真实思维过程。尚未启用模型调用。

@@ -6,11 +6,19 @@ const DAY = 86400000;
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const random = () => crypto.randomBytes(32).toString('base64url');
 const catalog = require('./questions.json');
+const reasons = require('./reasons.json');
 const questions = new Map(catalog.map(record => [record.question.id, record]));
 const question = questions.get('l07-q1').question;
 function questionFor(id) {
   requireThat(typeof id === 'string' && questions.has(id), 'QUESTION', '没有找到这道思考题。');
   return questions.get(id).question;
+}
+function reasonOptions(questionId,choice) {
+  return reasons.questions[questionId]?.[choice] || [];
+}
+function ownAnswer(row) {
+  return row ? {choice:row.choice,updatedAt:row.updatedAt,reason:row.reason || null,
+    reasonOptions:reasonOptions(row.questionId || question.id,row.choice)} : null;
 }
 class AppError extends Error {
   constructor(code, message) { super(message); this.code = code; }
@@ -148,7 +156,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
       const room = await getRoom(roomCode);
       const own = room.round ? await repo.get('answer_' + room.round.id + '_' + session.userId) : null;
       return {code: room.code, title: room.title, question: questionFor(room.round?.questionId || question.id), round: publicRound(room.round),
-        own: own ? {choice: own.choice, updatedAt: own.updatedAt} : null};
+        own: ownAnswer(own)};
     }
     if (action === 'student.history') {
       requireThat(session.role === 'student', 'FORBIDDEN', '请使用学生身份。');
@@ -168,7 +176,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
             const own=ownByRound.get(r.id);
             return {id:r.id,number:r.number,openedAt:r.openedAt,deadline:r.deadline,
               status:!r.closedAt && now()<r.deadline?'open':'closed',
-              own:own?{choice:own.choice,submittedAt:own.updatedAt,
+              own:own?{choice:own.choice,submittedAt:own.updatedAt,reason:own.reason || null,
                 ...(released?{isCorrect:own.choice===answer.correct}:{})}:null};
           }),...(released && attempts.length?{answer}:{})};
         })};
@@ -185,10 +193,34 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
         requireThat(gate && !gate.closed && now()<round.deadline,'CLOSED','本轮已结束，无法再提交。');
         const id = 'answer_' + round.id + '_' + session.userId, old = await tx.get(id);
         await tx.set(id, {kind:'answer', roomCode, roundId:round.id, questionId:round.questionId || question.id,
-          userId:session.userId, choice:data.choice, updatedAt:now(), firstSubmittedAt:old?.firstSubmittedAt || now()});
+          userId:session.userId, choice:data.choice, updatedAt:now(), firstSubmittedAt:old?.firstSubmittedAt || now(),
+          reason:old?.choice===data.choice ? old.reason || null : null});
         await tx.set(gateId,{...gate,version:gate.version+1});
       });
       return {ok:true, choice:data.choice};
+    }
+    if (action === 'student.reason') {
+      requireThat(session.role==='student','FORBIDDEN','请使用学生身份。');
+      requireThat(typeof data.roundId==='string' && ['A','B','C','D'].includes(data.choice) &&
+        (data.reasonId===null || typeof data.reasonId==='string' && data.reasonId.length<=30),'INPUT','请选择一条原因。');
+      let saved;
+      await repo.transaction(async tx=>{
+        const room=await getRoom(roomCode,tx),round=room.round;
+        requireThat(round && round.id===data.roundId,'ROUND','老师已切换轮次，请刷新后作答。');
+        requireThat(!round.closedAt && now()<round.deadline && !round.revealed,'CLOSED','本轮已结束，原因未保存；已提交的答案保留。');
+        const gateId=gateKey(round.id,parseInt(hash(session.userId).slice(0,2),16)%16),gate=await tx.get(gateId);
+        requireThat(gate && !gate.closed && now()<round.deadline,'CLOSED','本轮已结束，原因未保存；已提交的答案保留。');
+        const id='answer_'+round.id+'_'+session.userId,own=await tx.get(id);
+        requireThat(own,'ANSWER','请先提交答案，再补充选择原因。');
+        requireThat(own.choice===data.choice,'CHOICE','答案已改变，请刷新后为当前答案补充原因。');
+        const option=reasonOptions(round.questionId || question.id,own.choice).find(r=>r.id===data.reasonId);
+        requireThat(data.reasonId===null || option,'INPUT','原因与当前所选答案不匹配。');
+        saved=option?{id:option.id,text:option.text,version:reasons.version,submittedAt:now()}:null;
+        // A reason update neither re-submits the answer nor changes its timestamp.
+        await tx.set(id,{...own,reason:saved});
+        await tx.set(gateId,{...gate,version:gate.version+1});
+      });
+      return {ok:true,reason:saved};
     }
     await authenticate(token, 'teacher');
     if (action === 'teacher.create') {
@@ -206,6 +238,24 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
       const round = await selectedRound(room, selected.id);
       const stats = round ? (round.revealed ? {counts:round.counts,total:round.total} : await countsFor(round.id)) : {};
       return {code:room.code,title:room.title,answersReleasedAt:room.answersReleasedAt || null,question:selected,round:round ? {...publicRound(round),...stats,...(round.revealed?questions.get(selected.id).answer:{})} : null};
+    }
+    if (action === 'teacher.reasonStats') {
+      const room=await getRoom(roomCode),selected=questionFor(data.questionId || room.round?.questionId || question.id);
+      const round=await selectedRound(room,selected.id);
+      requireThat(round && round.id===data.roundId,'ROUND','轮次已变化，请刷新后查看原因统计。');
+      const rows=await repo.list({kind:'answer',roomCode,roundId:round.id});
+      return {questionId:selected.id,roundId:round.id,total:rows.length,
+        choices:selected.options.map(([choice])=>{
+          const answers=rows.filter(row=>row.choice===choice),counts=new Map();
+          for(const r of reasonOptions(selected.id,choice))counts.set(JSON.stringify([r.id,r.text]),{...r,count:0});
+          for(const row of answers)if(row.reason){
+            const key=JSON.stringify([row.reason.id,row.reason.text]);
+            if(!counts.has(key))counts.set(key,{id:row.reason.id,text:row.reason.text,count:0});
+            counts.get(key).count++;
+          }
+          const submitted=answers.filter(row=>row.reason).length;
+          return {choice,total:answers.length,submitted,missing:answers.length-submitted,reasons:[...counts.values()]};
+        })};
     }
     if (action === 'teacher.open') {
       const seconds = data.seconds === undefined ? 60 : data.seconds;
@@ -283,7 +333,8 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
           const questionId=r.questionId || roundQuestions.get(r.roundId) || question.id;
           return {roundId:r.roundId,questionId,choice:r.choice,
             isCorrect:r.choice===questions.get(questionId).answer.correct,
-            submittedAt:r.updatedAt, name:students.get(r.userId)?.name || '', studentNumber:students.get(r.userId)?.studentNumber || ''};
+            submittedAt:r.updatedAt,reason:r.reason || null,
+            name:students.get(r.userId)?.name || '', studentNumber:students.get(r.userId)?.studentNumber || ''};
         })};
     }
     throw new AppError('ACTION','不支持的操作。');

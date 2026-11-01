@@ -2,7 +2,7 @@
  'use strict';const api=QOApi,$=id=>document.getElementById(id);
  const roomKey='qo-last-room-v1:'+(api.config.envId||'local');
  const params=new URLSearchParams(location.search);if(params.get('embedded')==='1')document.body.classList.add('embedded');
- let room=params.get('room')||localStorage.getItem(roomKey)||'',state=null,busy=false,polling=false,showAnalysis=false,active=true;
+ let room=params.get('room')||localStorage.getItem(roomKey)||'',state=null,busy=false,polling=false,showAnalysis=false,active=true,reasonLoading=false;
  window.addEventListener('message',event=>{if(event.source===parent&&event.origin===location.origin&&event.data?.type==='qo-classroom-visibility'){active=event.data.active===true;if(active)refresh();}});
  function message(text){$('message').textContent=text||'';}
  if(api.config.dev){$('environment').hidden=false;$('environment').textContent='本机联调 · 共用正式后端业务代码，尚未连接腾讯云。仅使用虚拟学生数据。';$('dev-login').hidden=false;}
@@ -17,9 +17,10 @@
   $('answers-release').textContent=released?'收回答案与解析':'开放答案与解析';
   $('answers-release-status').textContent=released?'已开放。本课堂学生可在“我的答题”查看对错、正确答案和解析。':open?'仍有题目正在作答，结束作答后可开放。':'尚未开放。课堂上的“展示回答”只公布统计，不会开放答案与解析。';
   $('round-label').textContent=r?'第 '+r.number+' 轮'+(r.revealed?' · 统计已公布':' · 统计未公布'):'尚未发题';
+  if($('refresh-reasons'))$('refresh-reasons').disabled=!r||reasonLoading;
  }
  function draw(next){
-  if(state?.round?.id!==next.round?.id){showAnalysis=false;$('release-confirm').hidden=true;}
+  if(state?.round?.id!==next.round?.id){showAnalysis=false;$('release-confirm').hidden=true;if($('reason-report')){$('reason-report').open=false;$('reason-summary').replaceChildren();}}
   state=next;$('classroom').hidden=false;$('title').textContent=next.question.title;$('stem').textContent=next.question.stem;
   const r=next.round;$('stats').hidden=!r?.revealed;$('counts').replaceChildren();
   if(r?.revealed){for(const [letter,text] of next.question.options){
@@ -32,8 +33,25 @@
   $('analysis').textContent=showAnalysis?'隐藏解析':'显示解析';controls();
  }
  function studentURL(){const url=new URL('student.html',location.href);url.search='';url.searchParams.set('room',room);return url.href;}
+ async function reasonStats(){
+  if(reasonLoading||!state?.round)return;
+  const requested=room,id=state.round.id,questionId=state.question.id;reasonLoading=true;controls();
+  try{
+   const data=await api.call('teacher.reasonStats',{questionId,roundId:id},requested);
+   if(room!==requested||state?.round?.id!==id)return;
+   const container=$('reason-summary');container.replaceChildren();
+   const intro=document.createElement('p');intro.className='fine';intro.textContent='本轮 '+data.total+' 人已答。原因是学生自述；未填写单列，不计为答错。';container.append(intro);
+   for(const choice of data.choices){
+    const heading=document.createElement('h3');heading.textContent=choice.choice+' · '+choice.total+' 人选择，'+choice.submitted+' 人填写原因，'+choice.missing+' 人未填写';container.append(heading);
+    if(!choice.total)continue;
+    const list=document.createElement('ul');
+    for(const reason of choice.reasons){const li=document.createElement('li');li.textContent=reason.count+' 人 · '+reason.text;list.append(li);}container.append(list);
+   }
+  }catch(error){if(room===requested&&state?.round?.id===id)message(error.message);}
+  finally{reasonLoading=false;controls();}
+ }
  async function selectRoom(code){
-  $('release-confirm').hidden=true;room=code;state=null;showAnalysis=false;$('classroom').hidden=!room;localStorage.setItem(roomKey,room);$('rooms').value=room;
+  $('release-confirm').hidden=true;if($('reason-report')){$('reason-report').open=false;$('reason-summary').replaceChildren();}$('download-status').textContent='';room=code;state=null;showAnalysis=false;$('classroom').hidden=!room;localStorage.setItem(roomKey,room);$('rooms').value=room;
   if(!room)return;const url=studentURL();$('student-link').href=url;
   if(api.config.dev)$('student-link').textContent='打开本机学生页';
   await QOQRCode.toCanvas($('qr'),url,{width:210,margin:2,errorCorrectionLevel:'M'});await refresh();
@@ -75,13 +93,17 @@
  $('release-confirm-yes').addEventListener('click',()=>releaseAnswers(true));
  $('release-cancel').addEventListener('click',()=>{$('release-confirm').hidden=true;});
  $('analysis').addEventListener('click',()=>{showAnalysis=!showAnalysis;draw(state);});
+ if($('reason-report')){
+  $('reason-report').addEventListener('toggle',()=>{if($('reason-report').open)reasonStats();});
+  $('refresh-reasons').addEventListener('click',reasonStats);
+ }
  $('copy-link').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(studentURL());$('copy-link').textContent='已复制';setTimeout(()=>$('copy-link').textContent='复制学生链接',1500);}catch{message('请从“打开学生页”链接复制地址。');}});
  $('export').addEventListener('click',async()=>{
   $('export').disabled=true;try{
    const result=await api.call('teacher.export',{},room);
    const blob=new Blob([QOExportCSV.create(result)],{type:'text/csv;charset=utf-8'});
    const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='第七讲课堂-'+room+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
-   $('download-status').textContent='已导出本课堂全部轮次的作答明细，包含题目、选项、正确答案、对错与解析。每人每轮保留最后一次提交。';
+   $('download-status').textContent='已导出本课堂全部轮次的作答明细，包含题目、正确答案、对错、解析与选择原因。每人每轮保留最后一次提交。';
   }catch(e){message(e.message);}finally{$('export').disabled=false;}
  });
  $('logout').addEventListener('click',async()=>{try{await api.call('logout');api.save(null);$('workspace').hidden=true;$('login').hidden=false;state=null;}catch(e){message(e.message);}});

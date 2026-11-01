@@ -40,12 +40,13 @@
    const article=node('article','history-record'),head=node('div','record-head');article.dataset.question=q.id;
    head.append(node('h2','',q.title),node('span','record-badge '+status.kind,status.text));article.append(head);
    const selected=node('p','record-choice');richText(selected,round?'我的选择：'+choiceText(q,round.own?.choice):'本课堂尚未发出这道题。');article.append(selected);
+   if(round?.own){const reason=node('p','fine');richText(reason,'我的选择原因：'+(round.own.reason?.text||'未填写'));article.append(reason);}
    if(round){
     const text='课堂第 '+round.number+' 次发题'+(round.own?' · '+new Date(round.own.submittedAt).toLocaleString():'');article.append(node('p','record-round',text));
     const details=node('details');details.dataset.key=q.id;details.open=expanded.get(q.id)||false;
     details.append(node('summary','',released?'查看题目与解析':'查看题目与作答记录'),questionDetails(q,released?item.answer:null));
     if(item.rounds.length>1){const past=node('section');past.append(node('h3','','本题各轮作答'));const list=node('ul','attempts');
-     for(const attempt of item.rounds){const li=node('li'),status=result(attempt,released),line=node('span');richText(line,'课堂第 '+attempt.number+' 次发题 · '+choiceText(q,attempt.own?.choice)+' · '+status.text);li.append(line);if(attempt.own)li.append(node('span','attempt-meta',new Date(attempt.own.submittedAt).toLocaleString()));list.append(li);}past.append(list);details.append(past);}
+     for(const attempt of item.rounds){const li=node('li'),status=result(attempt,released),line=node('span');richText(line,'课堂第 '+attempt.number+' 次发题 · '+choiceText(q,attempt.own?.choice)+' · '+status.text);li.append(line);if(attempt.own?.reason){const why=node('span','attempt-meta');richText(why,'选择原因：'+attempt.own.reason.text);li.append(why);}if(attempt.own)li.append(node('span','attempt-meta',new Date(attempt.own.submittedAt).toLocaleString()));list.append(li);}past.append(list);details.append(past);}
     article.append(details);
    }
    $('records').append(article);

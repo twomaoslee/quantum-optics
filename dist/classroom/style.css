@@ -16,3 +16,17 @@
 .student-answer-page #timer{display:block;min-width:4ch;font-size:26px;line-height:1.15}
 .student-answer-page.answering :is(input,button,a){scroll-margin-top:100px}
 @media(max-width:700px){.student-answer-page .question-head{margin-inline:-20px;padding-inline:20px}}
+
+/* Optional reasons follow an accepted answer; the slide presenter is unchanged. */
+.reason-panel{border-top:1px solid #d4e0ea;margin-top:28px;padding-top:20px;scroll-margin-top:100px}
+.reason-panel h2{display:flex;align-items:center;gap:12px;margin:0 0 12px}
+.optional-label{font-size:13px;font-weight:500;line-height:1.5;color:var(--muted);border:1px solid #c6d8e6;border-radius:4px;padding:2px 8px}
+.reason-panel .fine{margin:8px 0}.reason-panel fieldset{margin:18px 0}
+.reason-panel fieldset label{align-items:flex-start;font-size:16px;line-height:1.65;padding:14px}
+.reason-panel fieldset input{margin-top:3px}.reason-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.reason-actions .primary{flex:1}.reason-actions button{min-height:46px}
+#reason-receipt{color:var(--blue);font-size:15px;line-height:1.6}
+.reason-report{border-top:1px solid #d4e0ea;margin:26px 0;padding-top:20px}
+.reason-report>summary{cursor:pointer;color:var(--blue);font-weight:650}
+.reason-report h3{font-size:17px;margin:22px 0 8px}.reason-report ul{padding-left:20px}
+.reason-report li{line-height:1.65;margin:10px 0}.reason-report .fine{margin:10px 0}

@@ -5,7 +5,7 @@
  else root.QOExportCSV=factory();
 })(typeof window==='object'?window:this,function(){
  'use strict';
- const headers=['课堂名称','课堂编号','姓名','学号','题目编号','题目标题','题干','公式','补充说明','选项A','选项B','选项C','选项D','轮次','学生答案','学生所选内容','正确答案','正确答案内容','作答结果','解析','最后提交时间（北京时间）'];
+ const headers=['课堂名称','课堂编号','姓名','学号','题目编号','题目标题','题干','公式','补充说明','选项A','选项B','选项C','选项D','轮次','学生答案','学生所选内容','正确答案','正确答案内容','作答结果','解析','最后提交时间（北京时间）','选择原因编号','选择原因','原因提交时间（北京时间）'];
  const timeFormat=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
  function cell(value){
   // Quoting alone does not prevent spreadsheet formula execution.
@@ -22,7 +22,8 @@
    return [result.room?.title,result.room?.code,row.name,row.studentNumber,q.id,q.title,q.stem,
     q.mathLines?.join('\n')||q.math||'',q.reference,...['A','B','C','D'].map(key=>options.get(key)),
     round.number,row.choice,options.get(row.choice),q.correct,options.get(q.correct),row.isCorrect?'答对':'答错',q.explanation,
-    timeFormat.format(new Date(row.submittedAt))];
+    timeFormat.format(new Date(row.submittedAt)),row.reason?.id||'',row.reason?.text||'未填写',
+    row.reason?timeFormat.format(new Date(row.reason.submittedAt)):''];
   })];
   return '\uFEFF'+lines.map(row=>row.map(cell).join(',')).join('\r\n');
  }

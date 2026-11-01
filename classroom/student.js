@@ -1,7 +1,7 @@
 (async function(){
  'use strict';
  const api=QOApi,$=id=>document.getElementById(id),room=new URLSearchParams(location.search).get('room');
- let state=null,roundId=null,polling=false,busy=false;
+ let state=null,roundId=null,polling=false,busy=false,reasonBusy=false,epoch=0,reasonKey='',reasonRevision='';
  function message(text){$('message').textContent=text||'';}
  function environment(){if(api.config.dev){$('environment').hidden=false;$('environment').textContent='本机联调 · 请使用虚拟姓名和学号。云端服务尚未接通。';}}
  environment();
@@ -9,9 +9,19 @@
   const round=state?.round,open=round?.status==='open'&&api.now()<round.deadline;
   $('choices').disabled=!open||busy;
   $('submit').disabled=!open||busy||!document.querySelector('input[name=choice]:checked');
-  $('submit').textContent=busy?'正在提交…':state?.own?'更新答案':'提交答案';
+  $('submit').textContent=busy&&!reasonBusy?'正在提交…':state?.own?'更新答案':'提交答案';
   $('timer').textContent=open?Math.max(0,Math.ceil((round.deadline-api.now())/1000))+' 秒':round?.revealed?'已结束':round?'0 秒':'—';
   $('state').textContent=!round?'等待老师发题':open?'第 '+round.number+' 轮 · 正在作答':round.revealed?'第 '+round.number+' 轮 · 已公布统计':'本轮已结束，等待老师公布';
+  if($('reason-panel')&&state?.own){
+   const pending=document.querySelector('input[name=choice]:checked')?.value!==state.own.choice;
+   $('reason-form').hidden=pending;$('reason-choices').disabled=!open||busy;
+   $('save-reason').disabled=!open||busy||!document.querySelector('input[name=reason]:checked');
+   $('save-reason').textContent=reasonBusy?'正在保存…':'保存原因';
+   $('clear-reason').hidden=!state.own.reason;$('clear-reason').disabled=!open||busy;
+   $('reason-hint').textContent=pending?'请先更新答案，再为新答案补充原因。':!open?'本轮已结束，不能再修改原因。已提交的答案保留。':'答案已提交。不填写也算完成；可在本轮截止前补充一条最符合的原因。';
+   const selectedReason=document.querySelector('input[name=reason]:checked')?.value;
+   $('reason-receipt').textContent=pending?'':selectedReason&&selectedReason!==state.own.reason?.id?'该原因尚未保存。':state.own.reason?'已保存选择原因。':'';
+  }
  }
  function richText(element,text){
   element.replaceChildren();
@@ -19,6 +29,27 @@
    if(part.startsWith('$')&&part.endsWith('$')&&window.katex){const span=document.createElement('span');katex.render(part.slice(1,-1),span,{throwOnError:false,trust:false});element.append(span);}
    else element.append(document.createTextNode(part));
   }
+ }
+ function drawReasons(next){
+  if(!$('reason-panel'))return;
+  const own=next.own,options=own?.reasonOptions||[];
+  $('reason-panel').hidden=!own||!options.length;
+  if(!own){reasonKey='';reasonRevision='';$('reason-choices').replaceChildren();$('reason-receipt').textContent='';return;}
+  $('reason-for').textContent='对应已提交答案 '+own.choice+' · 选一条主要原因';
+  const key=next.round.id+':'+own.choice,revision=key+':'+(own.reason?.id||'')+':'+(own.reason?.submittedAt||'');
+  if(key!==reasonKey){
+   reasonKey=key;$('reason-choices').replaceChildren();
+   const legend=document.createElement('legend');legend.className='sr-only';legend.textContent='选择一条主要原因';$('reason-choices').append(legend);
+   for(const option of options){
+    const label=document.createElement('label'),radio=document.createElement('input'),text=document.createElement('span');
+    radio.type='radio';radio.name='reason';radio.value=option.id;richText(text,option.text);label.append(radio,text);$('reason-choices').append(label);
+   }
+  }
+  if(revision!==reasonRevision){
+   reasonRevision=revision;
+   for(const radio of document.querySelectorAll('input[name=reason]'))radio.checked=radio.value===own.reason?.id;
+  }
+  $('reason-receipt').textContent=own.reason?'已保存选择原因。':'';
  }
  function draw(next){
   state=next;const number=$('question-number');if(number)number.textContent=next.question.title.match(/^思考题\s*\d+/)?.[0]||'当前题目';$('title').textContent=next.question.title;richText($('stem'),next.question.stem);
@@ -39,6 +70,7 @@
    }
   }
   $('receipt').textContent=next.own?'已收到你的答案 '+next.own.choice+'。'+(next.round?.status==='open'?'截止前可修改。':''):'';
+  drawReasons(next);
   const result=$('result');result.hidden=!next.round?.revealed;result.replaceChildren();
   if(next.round?.revealed){
    const heading=document.createElement('h2');heading.textContent='全班作答 · '+next.round.total+' 人';result.append(heading);
@@ -49,11 +81,12 @@
  }
  async function refresh(clearMessage=true){
   if(polling||busy||document.hidden||!api.stored())return;polling=true;
-  try{draw(await api.call('student.state',{},room));if(clearMessage)message('');}
+  const version=epoch;
+  try{const next=await api.call('student.state',{},room);if(version===epoch){draw(next);if(clearMessage)message('');}}
   catch(e){message(e.message);if(e.code==='AUTH')showLogin();}
   finally{polling=false;}
  }
- function showLogin(){document.body.classList.remove('answering');$('login').hidden=false;$('workspace').hidden=true;state=null;roundId=null;$('choices').replaceChildren();$('receipt').textContent='';$('result').replaceChildren();}
+ function showLogin(){epoch++;document.body.classList.remove('answering');$('login').hidden=false;$('workspace').hidden=true;state=null;roundId=null;$('choices').replaceChildren();$('receipt').textContent='';$('result').replaceChildren();drawReasons({own:null});}
  async function enter(profile){
   if(new URLSearchParams(location.search).get('return')==='history'){const url=new URL('history.html',location.href);url.search='';url.searchParams.set('room',room);location.replace(url.href);return;}
   document.body.classList.add('answering');$('profile').textContent=profile.name+' · '+profile.studentNumber;$('login').hidden=true;$('workspace').hidden=false;await refresh();
@@ -66,10 +99,29 @@
  $('choices').addEventListener('change',controls);
  $('answer-form').addEventListener('submit',async e=>{
   e.preventDefault();const choice=document.querySelector('input[name=choice]:checked')?.value;if(!choice||busy)return;
-  busy=true;controls();message('');
-  try{await api.call('student.submit',{choice,roundId},room);state.own={choice};$('receipt').textContent='已收到你的答案 '+choice+'。';}
+  busy=true;epoch++;controls();message('');
+  try{
+   await api.call('student.submit',{choice,roundId},room);
+   draw(await api.call('student.state',{},room));
+   if($('reason-panel')&&!$('reason-panel').hidden){$('reason-heading').focus({preventScroll:true});$('reason-panel').scrollIntoView({block:'start'});}
+  }
   catch(error){message(error.message);}finally{busy=false;controls();await refresh(false);}
  });
+ async function saveReason(reasonId){
+  if(busy||!state?.own)return;
+  busy=true;reasonBusy=true;epoch++;controls();message('');
+  try{
+   await api.call('student.reason',{roundId,choice:state.own.choice,reasonId},room);
+   draw(await api.call('student.state',{},room));
+   if(reasonId===null)$('reason-receipt').textContent='已清除原因，原答案保留。';
+  }catch(error){message(error.message);}
+  finally{busy=false;reasonBusy=false;controls();await refresh(false);}
+ }
+ if($('reason-form')){
+  $('reason-choices').addEventListener('change',controls);
+  $('reason-form').addEventListener('submit',event=>{event.preventDefault();const selected=document.querySelector('input[name=reason]:checked');if(selected)saveReason(selected.value);});
+  $('clear-reason').addEventListener('click',()=>saveReason(null));
+ }
  $('logout').addEventListener('click',async()=>{try{await api.call('logout');api.save(null);showLogin();}catch(error){message(error.message);}});
  if(!room || !/^[A-F0-9]{12}$/.test(room)){message('请扫描老师课件上的课堂二维码进入。');$('login-form').hidden=true;return;}
  for(const [id,file]of [['live-link','student.html'],['my-answers','history.html']]){const url=new URL(file,location.href);url.search='';url.searchParams.set('room',room);$(id).href=url.href;}

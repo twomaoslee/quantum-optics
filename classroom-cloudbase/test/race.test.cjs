@@ -42,3 +42,19 @@ test('after-class answer release closes expired gates against an in-flight submi
  assert((await call('teacher.releaseAnswers',{released:true},teacher,room)).ok);repo.resume();
  assert.equal((await inflight).error.code,'CLOSED');const h=(await call('student.history',{},pupil,room)).data;assert.equal(h.questions[0].rounds[0].own,null);
 });
+
+test('reason writes cannot cross reveal or attach a stale choice reason after a concurrent answer change',async()=>{
+ const repo=snapshotRepo(),service=createService(repo,{teacherPasswordHash:await passwordHash('reason-race-password')});
+ const call=(action,data={},token,roomCode)=>service.handle({action,data,token,roomCode},'reason-race');
+ const teacher=(await call('teacher.login',{password:'reason-race-password'})).data.token,room=(await call('teacher.create',{},teacher)).data.code;
+ const pupil=(await call('student.login',{name:'原因并发测试',studentNumber:'reasonrace001'},null,room)).data.token;
+ for(const mode of ['choice','reveal']){
+  await call('teacher.open',{questionId:'l07-q3'},teacher,room);const roundId=(await call('teacher.state',{},teacher,room)).data.round.id;
+  await call('student.submit',{roundId,choice:'A'},pupil,room);
+  const reached=repo.pauseNextAnswerRead(),inflight=call('student.reason',{roundId,choice:'A',reasonId:'A1'},pupil,room);await reached;
+  if(mode==='choice')await call('student.submit',{roundId,choice:'B'},pupil,room);else await call('teacher.reveal',{roundId},teacher,room);
+  repo.resume();assert.equal((await inflight).error.code,mode==='choice'?'CHOICE':'CLOSED');
+  const own=(await call('student.state',{},pupil,room)).data.own;assert.equal(own.reason,null);assert.equal(own.choice,mode==='choice'?'B':'A');
+  if(mode==='choice')await call('teacher.close',{roundId},teacher,room);
+ }
+});
