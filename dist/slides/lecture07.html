@@ -646,34 +646,35 @@ body:has(#l07-closing.present) :is(.course-footer-bar,.slide-logo,.slide-number,
 
 .reveal .classroom-slot{display:none}
 .reveal .qo-classroom-inline:focus{outline:none}
-.reveal .qo-classroom-inline .question{display:grid;grid-template-columns:minmax(0,1fr) 222px;gap:10px 22px;align-items:start}
-.reveal .qo-classroom-inline .question .stem{grid-column:1/-1}
+.reveal .qo-classroom-inline .question{display:grid;grid-template-columns:920px 222px;grid-template-rows:min-content 1fr min-content;gap:8px 22px;align-items:start;height:470px;padding:16px 22px}
+.reveal .qo-classroom-inline .question .stem{grid-column:1}
 .reveal .qo-classroom-inline .question .reference,.reveal .qo-classroom-inline .question .mc-options{grid-column:1}
 .reveal .qo-classroom-inline .mc-options{column-gap:12px}
-.reveal .qo-classroom-inline button.mc-option{padding-inline:12px}
-.reveal .qo-classroom-inline .classroom-slot{display:block;grid-column:2;grid-row:2/span 2;border-left:1px solid #c7d4df;padding-left:16px;min-width:0}
-.reveal .qo-classroom-inline .classroom-slot iframe{display:block;border:0;width:100%;max-width:100%;max-height:none;height:360px;margin:0;background:transparent}
+.reveal .qo-classroom-inline button.mc-option{padding:7px 12px;min-height:64px}
+.reveal .qo-classroom-inline .classroom-slot{display:block;grid-column:2;grid-row:1/4;height:100%;border-left:1px solid #c7d4df;padding-left:16px;min-width:0}
+.reveal .qo-classroom-inline .classroom-slot iframe{display:block;border:0;width:100%;max-width:100%;max-height:none;height:100%;margin:0;background:transparent}
 @media print{.reveal .qo-classroom-inline .question{display:flex}.reveal .qo-classroom-inline .classroom-slot{display:none!important}}
+.reveal .qo-classroom-results .question{position:static;background:transparent;border:0;box-shadow:none}
+.reveal .qo-classroom-results .question>:not(.classroom-slot),.reveal .qo-classroom-results .s-body>:not(.question){display:none}
+.reveal .qo-classroom-results .s-body{position:static}
+.reveal .qo-classroom-results .classroom-slot{position:absolute;visibility:visible;z-index:12;left:38px;right:38px;top:115px;bottom:45px;padding:10px 18px;border:0;background:#fff;box-shadow:0 0 0 12px #fff}
+.reveal .qo-classroom-results .classroom-slot iframe{height:100%!important;width:100%}
 
 .reveal .l07.balanced .s-body{justify-content:space-between;gap:14px;padding-bottom:10px}
 .reveal .l07.balanced .s-body>.equation{margin-block:0}
 .reveal .l07.balanced .s-body>.fragment>.equation:only-child{margin-block:0}
-.reveal :is(#l07-q1,#l07-q2,#l07-q3,#l07-q4).qo-classroom-inline .classroom-slot iframe{height:328px}
 .reveal .l07.balanced.flow-tight .s-body{gap:10px}
 .reveal .l07.balanced.flow-tight .equation{margin-block:4px}
 .reveal #l07-guide .s-body{padding-bottom:10px}
 .reveal #l07-guide .guide-steps{height:100%;align-content:space-between}
 .reveal #l07-summary :is(th,td){padding-block:20px}
 
-.reveal .l07.qo-classroom-inline .question{grid-template-rows:auto min-content 1fr}
-.reveal .l07.qo-classroom-inline .question .mc-options{align-self:center}
-
-
-.reveal .qo-classroom-results .question{position:static;background:transparent;border:0;box-shadow:none}
-.reveal .qo-classroom-results .question>:not(.classroom-slot),.reveal .qo-classroom-results .s-body>:not(.question){display:none}
-.reveal .qo-classroom-results .s-body{position:static}
-.reveal .qo-classroom-results .classroom-slot{position:absolute;visibility:visible;z-index:12;left:38px;right:38px;top:115px;bottom:45px;padding:10px 18px;border:0;background:#fff;box-shadow:0 0 0 12px #fff}
-.reveal .qo-classroom-results .classroom-slot iframe{height:100%!important;width:100%}</style>
+.reveal .l07.qo-classroom-inline .question .reference{align-self:center}
+.reveal .l07.qo-classroom-inline .question .mc-options{align-self:end}
+.reveal .l07.mc-slide .s-body{bottom:40px}
+.reveal .qo-classroom-inline .question .reference{gap:0}
+.reveal .qo-classroom-inline .question .reference .equation{margin:0}
+</style>
   <style type="text/css">.reveal
 div.sourceCode
 pre
@@ -3230,20 +3231,21 @@ L 842.4 106.755582
 <p>把同一模式的叠加态B改为负号态。固定本振相位，比较两态的光子计数分布和场方差：</p>
 </div>
 <div class="reference mc-reference">
-<div class="columns pair">
-<div class="column">
-<div class="equation"><span class="math display">\[|\psi_B\rangle=\frac{|0\rangle+|2\rangle}{\sqrt2}\]</span></div>
-<div class="equation"><span class="math display">\[|\psi_-\rangle=\frac{|0\rangle-|2\rangle}{\sqrt2}\]</span></div>
-<p>两态平均场均为零。</p>
-</div><div class="column">
-<div class="equation"><span class="math display">\[\hat q^2/q_0^2=\hat a^2+(\hat a^\dagger)^2+2\hat N+1\]</span></div>
-<div class="equation"><span class="math display">\[\begin{aligned}\hat N&amp;=\hat a^\dagger\hat a,\quad\hat a|n\rangle=\sqrt n\,|n-1\rangle\\\hat a|0\rangle&amp;=0\end{aligned}\]</span></div>
-<p><span class="math inline">\(q_0\)</span>为固定正尺度；计数取系数模平方。</p>
-</div></div>
+<div class="equation"><span class="math display">\[|\psi_B\rangle=\frac{|0\rangle+|2\rangle}{\sqrt2},\qquad|\psi_-\rangle=\frac{|0\rangle-|2\rangle}{\sqrt2}\]</span></div>
+<div class="equation"><span class="math display">\[\hat q^2/q_0^2=\hat a^2+(\hat a^\dagger)^2+2\hat N+1,\qquad\hat N=\hat a^\dagger\hat a\]</span></div>
+<div class="equation"><span class="math display">\[\hat a|n\rangle=\sqrt n\,|n-1\rangle,\qquad\hat a|0\rangle=0\]</span></div>
+<p>两态平均场均为零；<span class="math inline">\(q_0\)</span>为固定正尺度；计数取系数模平方。</p>
 </div>
 <div class="mc-options"><button type="button" class="mc-option" data-choice="A" aria-pressed="false"><span class="mc-letter">A</span><span>计数分布不变，场方差减小</span></button><button type="button" class="mc-option" data-choice="B" aria-pressed="false"><span class="mc-letter">B</span><span>计数分布不变，场方差增大</span></button><button type="button" class="mc-option" data-choice="C" aria-pressed="false"><span class="mc-letter">C</span><span>计数分布改变，场方差不变</span></button><button type="button" class="mc-option" data-choice="D" aria-pressed="false"><span class="mc-letter">D</span><span>计数分布和场方差都不变</span></button></div>
 <div class="classroom-slot">
 
+</div>
+</div>
+<div class="fragment" data-fragment-index="0">
+<div class="answer mc-answer" data-correct="A">
+<div class="result">
+<p>答案 A　计数分布不变，场方差减小；相对相位改变了场测量中的干涉项。</p>
+</div>
 </div>
 </div>
 </div>
