@@ -4718,6 +4718,7 @@ function onReady(){if(!window.Reveal?.isReady())return setTimeout(onReady,40);
   if(!/^https?:$/.test(location.protocol))url=new URL('https://zimin.li/quantum-optics/classroom/presenter.html');
   else if(location.pathname.includes('/slides/'))url=new URL('../classroom/presenter.html',location.href);
   else url=new URL('/classroom/presenter.html',location.href);
+  url.searchParams.set('v','20261101-inline2');
   const room=new URLSearchParams(location.search).get('classroom');
   if(room&&/^[A-F0-9]{12}$/.test(room))url.searchParams.set('room',room);
   const frame=document.createElement('iframe');frame.title='课堂扫码作答';frame.src=url.href;

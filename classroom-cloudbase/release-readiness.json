@@ -189,7 +189,7 @@
     "classroom-cloudbase/scripts/cloud-smoke.cjs": "78fefd699842a172dc7fcc129b05a1feb65c50ec1e3185ef3267e970bb30942e",
     "classroom-cloudbase/functions/classroom/transport.js": "cf0f2aa392be5e41da498d03374d81581107fdabc59d7e572013648eaa8a8781",
     "classroom-cloudbase/test/transport.test.cjs": "aeb04077c2f6c62a26102b007bf3a5bf8e271aca3551f4b997e162a150fc8832",
-    "classroom/presenter.html": "191e295a86ec8bab9891abc22dd6f66c9a4791cd665d8d25dd00390c5aca0b19",
+    "classroom/presenter.html": "d6fe084c525155d3fc2bb822921eb614650183fdb2ed1eb210a15b83a940bfd4",
     "classroom/presenter.css": "433d2516b07cc86f74417dec5c95b7a86292784fcc40d4ee57080c0c158dafa5",
     "classroom/presenter.js": "c3520b6fb743bbd3f92eb7cb120bf4b97ddd974c3b62731af216305c1bb715e4"
   },
