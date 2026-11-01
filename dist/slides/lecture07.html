@@ -607,7 +607,7 @@ body:has(#l07-closing.present) :is(.course-footer-bar,.slide-logo,.slide-number,
   <style type="text/css">
 .reveal .l07 .s-lab{width:1208px;height:544px;position:relative;font-size:30px;line-height:1.35}
 .reveal .l07 .lab-context{height:48px;display:flex;align-items:center;gap:16px}
-.reveal .l07 .lab-context.phase-context{height:64px;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.reveal .l07 .lab-context.phase-context{height:104px;display:grid;grid-template-columns:1fr 1fr;gap:28px}
 .reveal .l07 .lab-context.phase-context>div{display:flex;align-items:center;gap:15px;font-size:30px}
 .reveal .l07 .lab-controls{height:56px;display:flex;align-items:center;gap:16px;background:#f2f4f6;padding:8px 16px}
 .reveal .l07 .lab-controls :is(button,input,output,label){font:inherit;font-size:30px}
@@ -624,6 +624,8 @@ body:has(#l07-closing.present) :is(.course-footer-bar,.slide-logo,.slide-number,
 .reveal .l07 .lab-foot{font-size:30px;color:#607487;border-top:1px solid #d4dfe7;padding-top:4px;margin-top:4px;line-height:1}
 .reveal .l07 .lab-key-b{color:#0070c0}.reveal .l07 .lab-key-c{color:#607487}
 .reveal .l07 .lab-legend-b{border-bottom:3px solid #0070c0}.reveal .l07 .lab-legend-c{border-bottom:3px dashed #717f8e}
+
+.reveal .l07 .s-lab[data-lab="phase"] .lab-charts svg{height:250px}
 </style>
   <style type="text/css">
 .reveal .l07 .science-plot{display:block;width:100%;height:290px;overflow:visible}
@@ -6094,7 +6096,7 @@ L 842.4 106.755582
 <div class="s-lab" data-lab="phase">
 <div class="lab-context phase-context"><div><span class="lab-key-b">B</span>\(\displaystyle\frac{|0\rangle+e^{i\phi}|2\rangle}{\sqrt2}\)</div><div><span class="lab-key-c">C</span>\(\displaystyle\tfrac12|0\rangle\langle0|+\tfrac12|2\rangle\langle2|\)</div></div>
 <div class="lab-controls phase-controls"><label for="l07-phase-slider">相位</label><input id="l07-phase-slider" type="range" min="0" max="360" step="1" value="0" aria-label="B的相对相位，单位度"><output data-output="phase" for="l07-phase-slider">0°</output><button type="button" data-phase="0">0</button><button type="button" data-phase="90">\(\pi/2\)</button><button type="button" data-phase="180">\(\pi\)</button></div>
-<div class="lab-charts"><div><div class="lab-chart-title">光子计数：理论概率</div><svg viewbox="0 0 590 290" data-plot="counts" role="img" aria-label="B与C的光子数理论分布"></svg><div class="lab-stat" data-output="count-stat"></div></div><div><div class="lab-chart-title">场坐标：理论密度</div><svg viewbox="0 0 590 290" data-plot="quadrature" role="img" aria-label="固定本振下B与C的场坐标理论概率密度"></svg><div class="lab-stat" data-output="field-stat"></div></div></div>
+<div class="lab-charts"><div><div class="lab-chart-title">光子计数：理论概率</div><svg viewbox="0 0 590 250" data-plot="counts" role="img" aria-label="B与C的光子数理论分布"></svg><div class="lab-stat" data-output="count-stat"></div></div><div><div class="lab-chart-title">场坐标：理论密度</div><svg viewbox="0 0 590 250" data-plot="quadrature" role="img" aria-label="固定本振下B与C的场坐标理论概率密度"></svg><div class="lab-stat" data-output="field-stat"></div></div></div>
 <div class="lab-foot">固定本振参照；<span class="lab-legend-b">蓝色实线 B</span>，<span class="lab-legend-c">灰色虚线 C</span>。横轴为 \(X=q/q_0\)。</div>
 </div>
 
@@ -7636,10 +7638,10 @@ window.QuartoSupport = function () {
 (()=>{'use strict';
 const P=window.Lecture07Physics,NS='http://www.w3.org/2000/svg';
 function add(svg,tag,attrs,text){const el=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v));if(text!==undefined)el.textContent=text;svg.append(el);return el;}
-function frame(svg,o){svg.replaceChildren();const left=78,right=558,top=15,bottom=225,x=v=>left+(v-o.min)/(o.max-o.min)*(right-left),y=v=>bottom-v/o.ymax*(bottom-top);
+function frame(svg,o){svg.replaceChildren();const left=78,right=558,top=15,bottom=o.bottom??225,x=v=>left+(v-o.min)/(o.max-o.min)*(right-left),y=v=>bottom-v/o.ymax*(bottom-top);
  for(const v of o.yticks){add(svg,'line',{x1:left,x2:right,y1:y(v),y2:y(v),stroke:'#dce5ed','stroke-width':1.4});add(svg,'text',{x:left-12,y:y(v)+10,'text-anchor':'end',fill:'#607487'},Number(v.toFixed(2)).toString());}
  for(const v of o.xticks)add(svg,'text',{x:x(v),y:bottom+38,'text-anchor':'middle',fill:'#607487'},v.toString());
- add(svg,'line',{x1:left,x2:right,y1:bottom,y2:bottom,stroke:'#93a8ba','stroke-width':2});add(svg,'text',{x:right,y:288,'text-anchor':'end',fill:'#607487'},o.label);return{x,y,bottom};}
+ add(svg,'line',{x1:left,x2:right,y1:bottom,y2:bottom,stroke:'#93a8ba','stroke-width':2});add(svg,'text',{x:right,y:bottom+63,'text-anchor':'end',fill:'#607487'},o.label);return{x,y,bottom};}
 function curve(svg,f,fn,min,max,col,dash=''){let d='';for(let i=0;i<=300;i++){const v=min+(max-min)*i/300;d+=(i?' L':'M')+f.x(v).toFixed(2)+','+f.y(fn(v)).toFixed(2);}add(svg,'path',{d,fill:'none',stroke:col,'stroke-width':4,'stroke-dasharray':dash});}
 const fmt=x=>(Math.abs(x)<.005?0:x).toFixed(2);
 for(const lab of document.querySelectorAll('.s-lab')){
@@ -7653,9 +7655,9 @@ for(const lab of document.querySelectorAll('.s-lab')){
    out('count').textContent='每组 '+values.length.toLocaleString()+' 次';out('field-stat').textContent=values.length?'均值 '+fmt(m.mean)+' · 方差 '+fmt(m.variance):'增加样本后显示均值与方差';out('energy-stat').textContent=values.length?'均值 0.50 · 方差 0.00':'增加样本后显示均值与方差';out('footer').textContent=values.length?'图外 '+h.outside+' 个场读数仍计入统计；样本方差按 N 归一。':'先增加样本；比较平均值与读数的分散程度。';lab.querySelectorAll('[data-count]').forEach(b=>b.disabled=values.length>=20000);}
   lab.querySelectorAll('[data-count]').forEach(b=>b.addEventListener('click',()=>{const n=Math.min(+b.dataset.count,20000-values.length);for(let i=0;i<n;i++)values.push(P.normalSample());draw();}));q('[data-reset]').addEventListener('click',()=>{values=[];draw();});draw();
  }else{
-  function draw(phi){const angle=phi*Math.PI/180,c=q('[data-plot=counts]'),cf=frame(c,{min:-.6,max:2.6,ymax:.65,yticks:[0,.25,.5],xticks:[0,1,2],label:'n'});
+  function draw(phi){const angle=phi*Math.PI/180,c=q('[data-plot=counts]'),cf=frame(c,{min:-.6,max:2.6,bottom:185,ymax:.65,yticks:[0,.25,.5],xticks:[0,1,2],label:'n'});
    [0,1,2].forEach(n=>{const prob=n===1?0:.5;add(c,'rect',{x:cf.x(n)-28,y:cf.y(prob),width:23,height:cf.bottom-cf.y(prob),fill:'#0070c0'});add(c,'rect',{x:cf.x(n)+5,y:cf.y(prob),width:23,height:cf.bottom-cf.y(prob),fill:'#cbd3db',stroke:'#717f8e','stroke-dasharray':'5 4'});});
-   const s=q('[data-plot=quadrature]'),f=frame(s,{min:-6,max:6,ymax:.65,yticks:[0,.3,.6],xticks:[-6,-3,0,3,6],label:'X'});curve(s,f,x=>P.superpositionDensity(x,angle),-6,6,'#0070c0');curve(s,f,P.mixtureDensity,-6,6,'#717f8e','9 6');q('input').value=phi;out('phase').textContent=phi+'°';out('count-stat').textContent='B、C：0与2各占一半';out('field-stat').textContent='方差：B '+fmt(P.variance(angle))+' · C 3.00';}
+   const s=q('[data-plot=quadrature]'),f=frame(s,{min:-6,max:6,bottom:185,ymax:.65,yticks:[0,.3,.6],xticks:[-6,-3,0,3,6],label:'X'});curve(s,f,x=>P.superpositionDensity(x,angle),-6,6,'#0070c0');curve(s,f,P.mixtureDensity,-6,6,'#717f8e','9 6');q('input').value=phi;out('phase').textContent=phi+'°';out('count-stat').textContent='B、C：0与2各占一半';out('field-stat').textContent='方差：B '+fmt(P.variance(angle))+' · C 3.00';}
   q('input').addEventListener('input',e=>draw(+e.target.value));lab.querySelectorAll('[data-phase]').forEach(b=>b.addEventListener('click',()=>draw(+b.dataset.phase)));draw(0);
  }
 }
