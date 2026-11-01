@@ -3,7 +3,7 @@
   "scope": "Six in-slide Lecture 7 questions and authenticated personal student history with separate after-class teacher answer release",
   "local_browser": "passed",
   "backend_tests": "passed",
-  "backend_test_count": 24,
+  "backend_test_count": 26,
   "cloud_deployment": "passed",
   "cloud_sdk_smoke": "passed",
   "real_phone_network": "pending_teacher_phone_test",
@@ -87,7 +87,8 @@
     "presenter.js",
     "history.html",
     "history.css",
-    "history.js"
+    "history.js",
+    "export-csv.js"
   ],
   "sha256": {
     "classroom/api.js": "d5ced9608f8bbf416f57e1bb8e9451dc23c462051b706fa839df19fde20b1c59",
@@ -95,8 +96,8 @@
     "classroom/student.html": "e3bfad0be55ddae64dc279a7cd4b0069f6c12f3e369b7531eeb697bde6296fd7",
     "classroom/student.js": "be33778bc76b6a07335b56c0d7e04fa23722b978d0b9d10623d6f51847f3dd8d",
     "classroom/style.css": "52fb87303b14e96973259958f424a84629f792ff415f0840ffd0dde419e0206f",
-    "classroom/teacher.html": "4abc4d3eb7d91406684c3afcbea912c205b5a6fcda50799fbdfe70783ece7147",
-    "classroom/teacher.js": "f5ae95060e4f3ed1e910c3a3732f639d92f65ebdb343042c4595ffd9fc701f89",
+    "classroom/teacher.html": "88455bd03ad81549771686fac344c2fb1adb9e3efd00dafbbc29cc2d36409fde",
+    "classroom/teacher.js": "d4c12751e8e3af2e48989ce2d4d213197f007b87ead844e6bba8f812b4e2155a",
     "classroom/vendor/cloudbase-LICENSE": "92d7d7d2d4771b84f44e38dc59052faae8e3cd0a234a62de6180a1c6746c979e",
     "classroom/vendor/cloudbase.js": "f2f32140de147768741ceaa0e8e05391d22b76265bbf2def2c7bf86977c1ad0f",
     "classroom/vendor/katex/LICENSE": "766ccc1f306c885aa45542a9846bbd0a505b27a0374f146778171c2254ce18e3",
@@ -170,7 +171,7 @@
     "classroom-cloudbase/functions/classroom/package-lock.json": "1a29e5cd2b8249224f6406955ca641e313772ad36f4485c277b1121b31d25193",
     "classroom-cloudbase/functions/classroom/package.json": "fb8ac2007c356083e20f397075a19627f634f2752bc00a47fe16714ee8f9b74f",
     "classroom-cloudbase/functions/classroom/repository.js": "48a802c5f7901c5fd71f73fa58db261d610139566a3c528caf15f4c64fc36b4e",
-    "classroom-cloudbase/functions/classroom/service.js": "1e8830a7cbea1c9e0c4817df6f4b9ed534cb38255841b185607f0260c17da4e2",
+    "classroom-cloudbase/functions/classroom/service.js": "49e66475ab1f5098eb3184710ef830eb9e01e2ff9237659b29c78d3d9036c90a",
     "classroom-cloudbase/functions/classroom/vendor/lodash.set/index.js": "f97bc584a99c20a655d8159b648fd0758968c5a6414399874f306ee114d4368a",
     "classroom-cloudbase/functions/classroom/vendor/lodash.set/package.json": "4efed05fe3d824cf36cd45bcc3c4b7111441b20b90e105ec092b6d662d0b99e2",
     "classroom-cloudbase/package-lock.json": "11d7eaa31ddd02296e35454a219b11e5c2a77c70b0297b24835023c054b1278d",
@@ -201,7 +202,9 @@
     "classroom/history.html": "1c765c0a4d3b292f4fc0b677472b69971176ae9e391f7eec0ddf2b29906856e1",
     "classroom/history.css": "96cda166c87654967f35d9b433c26ca63066ecc3ef8d2c72620ffb2c1fa1b22e",
     "classroom/history.js": "af88c0b868b096aade618188de25ae92fc4881fab10cbedb495b46627dd26d8d",
-    "classroom-cloudbase/test/history.test.cjs": "90c483bac3bab1e664fa27007be9309f40ec9f4ad5fd50b5d621df7c69db6170"
+    "classroom-cloudbase/test/history.test.cjs": "90c483bac3bab1e664fa27007be9309f40ec9f4ad5fd50b5d621df7c69db6170",
+    "classroom/export-csv.js": "ebde01bdb5fa0b75b49252c0bc69951c0cbab5e5e258d45952fc42f08e77eeda",
+    "classroom-cloudbase/test/export.test.cjs": "e8276d2ab92966d5d521dcf4c23673b50e8ead40cf8a4fb9de6e10308c372bf5"
   },
   "cloud_browser": "passed",
   "cloud_capacity": "pending_full_class_load",
@@ -250,5 +253,12 @@
     "browser": "390px countdown/submit/expiry; all six questions scrolled at 320px; 1466px desktop; logout layout",
     "geometry": "bar top 0, height about 75px; no page overflow or covered submit buttons",
     "version": "20261101-sticky"
+  },
+  "teacher_export": {
+    "status": "passed",
+    "scope": "Teacher-only full question/options/key/explanation and server-graded final per-round choices; Beijing timestamps; no student release change",
+    "tests": "26 backend/CSV tests passed; six questions, retries, replacement submissions, access isolation, CSV multiline/quote/formula escaping",
+    "browser": "actual Edge export button completed with success status and no console error; download event not exposed by browser bridge",
+    "cloud": "passed existing isolated QA classroom: six questions, seven rounds, twelve graded answers; formal classroom state unchanged"
   }
 }

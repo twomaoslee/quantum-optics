@@ -78,12 +78,10 @@
  $('copy-link').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(studentURL());$('copy-link').textContent='已复制';setTimeout(()=>$('copy-link').textContent='复制学生链接',1500);}catch{message('请从“打开学生页”链接复制地址。');}});
  $('export').addEventListener('click',async()=>{
   $('export').disabled=true;try{
-   const result=await api.call('teacher.export',{},room),numbers=new Map(result.rounds.map(r=>[r.id,r.number]));
-   const cell=value=>'"'+String(value??'').replace(/^[=+@\-\t\r]/,"'$&").replace(/"/g,'""')+'"';
-   const lines=[['姓名','学号','题目','轮次','答案','提交时间'],...result.rows.map(r=>[r.name,r.studentNumber,r.questionId,numbers.get(r.roundId),r.choice,new Date(r.submittedAt).toISOString()])];
-   const blob=new Blob(['\uFEFF'+lines.map(row=>row.map(cell).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'});
+   const result=await api.call('teacher.export',{},room);
+   const blob=new Blob([QOExportCSV.create(result)],{type:'text/csv;charset=utf-8'});
    const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='第七讲课堂-'+room+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
-   $('download-status').textContent='已导出本课堂全部轮次的具名记录。';
+   $('download-status').textContent='已导出本课堂全部轮次的作答明细，包含题目、选项、正确答案、对错与解析。每人每轮保留最后一次提交。';
   }catch(e){message(e.message);}finally{$('export').disabled=false;}
  });
  $('logout').addEventListener('click',async()=>{try{await api.call('logout');api.save(null);$('workspace').hidden=true;$('login').hidden=false;state=null;}catch(e){message(e.message);}});

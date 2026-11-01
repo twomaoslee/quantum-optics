@@ -268,14 +268,23 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now} = {}) {
       });
     }
     if (action === 'teacher.export') {
-      await getRoom(roomCode);
+      const room = await getRoom(roomCode);
       const rounds = await repo.list({kind:'round',roomCode});
       const rows = await repo.list({kind:'answer',roomCode});
       const students = new Map();
       for (const row of rows) if (!students.has(row.userId)) students.set(row.userId, await repo.get(row.userId));
-      return {question,questions:catalog.map(record=>record.question),rounds:rounds.sort((a,b)=>a.number-b.number).map(r=>({id:r.id,questionId:r.questionId || question.id,number:r.number,openedAt:r.openedAt,deadline:r.deadline,closedAt:r.closedAt,total:rows.filter(row=>row.roundId===r.id).length})),
-        rows:rows.map(r=>({roundId:r.roundId,questionId:r.questionId,choice:r.choice,
-          submittedAt:r.updatedAt, name:students.get(r.userId)?.name || '', studentNumber:students.get(r.userId)?.studentNumber || ''}))};
+      // Answer keys and grades belong to this authenticated teacher response only.
+      // Student answer release remains a separate, explicit classroom action.
+      const roundQuestions = new Map(rounds.map(r=>[r.id,r.questionId || question.id]));
+      return {room:{code:room.code,title:room.title},question,
+        questions:catalog.map(record=>({...record.question,...record.answer})),
+        rounds:rounds.sort((a,b)=>a.number-b.number).map(r=>({id:r.id,questionId:r.questionId || question.id,number:r.number,openedAt:r.openedAt,deadline:r.deadline,closedAt:r.closedAt,total:rows.filter(row=>row.roundId===r.id).length})),
+        rows:rows.map(r=>{
+          const questionId=r.questionId || roundQuestions.get(r.roundId) || question.id;
+          return {roundId:r.roundId,questionId,choice:r.choice,
+            isCorrect:r.choice===questions.get(questionId).answer.correct,
+            submittedAt:r.updatedAt, name:students.get(r.userId)?.name || '', studentNumber:students.get(r.userId)?.studentNumber || ''};
+        })};
     }
     throw new AppError('ACTION','不支持的操作。');
   }
