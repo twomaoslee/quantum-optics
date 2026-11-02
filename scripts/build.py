@@ -463,12 +463,13 @@ def update_pdfs(root, numbers):
     home = DIST/'index.html'
     text = home.read_text()
     for number in numbers:
-        if number not in (4, 5, 6):
-            raise SystemExit('Targeted PDF update currently supports Lectures 4, 5 and 6.')
+        if number not in (4, 5, 6, 7):
+            raise SystemExit('Targeted PDF update currently supports Lectures 4 through 7.')
         name = f'lecture{number:02d}'
         files = {4: [('第四讲课件.pdf', 'slides', '课件 PDF · 46 页')],
                  5: [('第五讲课件.pdf', 'slides', '课件 PDF · 56 页')],
-                 6: [('第六讲课件.pdf', 'slides', '课件 PDF · 49 页')]}[number]
+                 6: [('第六讲课件.pdf', 'slides', '课件 PDF · 49 页')],
+                 7: [('第七讲课件.pdf', 'slides', '课件 PDF · 48 页')]}[number]
         # Handouts are local-only; remove the previously published copy.
         (DIST/f'downloads/{name}-print-9up.pdf').unlink(missing_ok=True)
         links = ''
@@ -505,7 +506,7 @@ def main():
                         help='Preserve other note pages and search entries from the committed release.')
     parser.add_argument('--update-curriculum', action='store_true',
                         help='Refresh the syllabus and shared titles while preserving published chapter bodies.')
-    parser.add_argument('--update-pdfs', type=int, nargs='+', choices=sorted(PUBLISHED_PDFS & {4, 5, 6}), help='Publish authorized PDF downloads only.')
+    parser.add_argument('--update-pdfs', type=int, nargs='+', choices=sorted(PUBLISHED_PDFS & {4, 5, 6, 7}), help='Publish authorized PDF downloads only.')
     global MATERIAL_UPDATES
     args = parser.parse_args()
     MATERIAL_UPDATES = set(args.update_notes or []) | set(args.update_slides or []) | set(args.update_pdfs or []) | set(args.update_lectures or [])
@@ -568,7 +569,8 @@ def main():
             3: (root/'output/pdf/第三讲课件-主讲页.pdf', 46),
             4: (root/'output/pdf/第四讲课件.pdf', 46),
             5: (root/'output/pdf/第五讲课件.pdf', 56),
-            6: (root/'output/pdf/第六讲课件.pdf', 49)}
+            6: (root/'output/pdf/第六讲课件.pdf', 49),
+            7: (root/'output/pdf/第七讲课件.pdf', 48)}
     required = [notes/'index.html'] + list(note_sources.values()) + [pdfs[n][0] for n in PUBLISHED_PDFS] + [slides/f'lecture{n:02d}.html' for n in PUBLISHED_SLIDES]
     for path in required:
         if not path.is_file():

@@ -31,7 +31,7 @@ with TemporaryDirectory() as directory:
     sync_dates(root,now=t1)
     html=(root/'dist/index.html').read_text()
     assert html.count('class="lecture-dates"')==1
-    assert '2026-10-26（周一）10:00–11:40' in html
+    assert '上课时间' not in html and 'class-time' not in html
     assert '资料更新时间：' in html
     # Another task may have an uncommitted deck in dist during a targeted release.
     config=json.loads((root/'lecture-metadata.json').read_text())

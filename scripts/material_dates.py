@@ -1,4 +1,4 @@
-"""Keep teacher-confirmed class times independent of material publication dates."""
+"""Display material revision dates while preserving private class metadata."""
 from pathlib import Path
 from datetime import datetime
 from html import escape
@@ -19,21 +19,9 @@ def material_digest(site, number):
 
 
 def date_markup(config, entry):
-    weekly = config['weekly_class']
-    days = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-    if entry.get('class_start'):
-        start = datetime.fromisoformat(entry['class_start'])
-        end = datetime.fromisoformat(entry['class_end'])
-        if start.tzinfo is None or end.tzinfo is None or end <= start:
-            raise ValueError('Class start/end must be ordered timezone-aware timestamps.')
-        label = f'{start:%Y-%m-%d}（{days[start.weekday()]}）{start:%H:%M}–{end:%H:%M}'
-        class_time = f'<time datetime="{escape(entry["class_start"], quote=True)}">{label}</time>'
-    else:
-        class_time = f'{days[weekly["weekday"] - 1]} {escape(weekly["start"])}–{escape(weekly["end"])}（日期待补充）'
     updated = entry['materials_updated']
     display = datetime.fromisoformat(updated).strftime('%Y-%m-%d %H:%M') if 'T' in updated else updated
     return ('<div class="lecture-dates">'
-            f'<p class="class-time">上课时间：{class_time}</p>'
             f'<p class="revision">资料更新时间：<time datetime="{escape(updated, quote=True)}">{escape(display)}</time></p>'
             '</div>')
 
@@ -56,7 +44,7 @@ def sync_dates(site, updated_numbers=(), now=None):
         entry['published_materials_sha256'] = digest
         # Class timestamps are author-maintained; builds never derive them from mtimes.
     homepage = site / 'dist/index.html'
-    text = homepage.read_text()
+    text = re.sub(r'<p class="schedule">.*?</p>', '', homepage.read_text(), flags=re.S)
 
     def card(match):
         content = match[0]
