@@ -19,6 +19,7 @@ SITE = Path(__file__).resolve().parents[1]
 ROOT = SITE.parent
 DIST = SITE / 'dist'
 MATERIAL_UPDATES = set()
+DESCRIPTIONS_ONLY = False
 
 def sync_classroom():
     """Publish only the reviewed static client, never backend or private state."""
@@ -494,6 +495,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--update-sharing', action='store_true',
                         help='Only refresh homepage share metadata and cover assets.')
+    parser.add_argument('--update-descriptions', action='store_true', help='Update homepage lecture introductions only.')
     parser.add_argument('--update-material-links', '--update-slide-links',
                         dest='update_material_links', action='store_true',
                         help='Only refresh homepage notes and slides links to open in new tabs.')
@@ -508,8 +510,14 @@ def main():
                         help='Refresh the syllabus and shared titles while preserving published chapter bodies.')
     parser.add_argument('--update-pdfs', type=int, nargs='+', choices=sorted(PUBLISHED_PDFS & {4, 5, 6, 7}), help='Publish authorized PDF downloads only.')
     parser.add_argument('--update-recaps', type=int, nargs='+', choices=sorted(int(n) for n in CONFIG.get('classroom_recaps', {})), help='Publish authorized anonymous classroom recaps and links only.')
-    global MATERIAL_UPDATES
+    global MATERIAL_UPDATES, DESCRIPTIONS_ONLY
     args = parser.parse_args()
+    if args.update_descriptions:
+        if args.update_notes or args.update_slides or args.update_pdfs or args.update_recaps or args.update_lectures or args.update_sharing or args.update_curriculum or args.update_material_links:
+            parser.error('--update-descriptions cannot be combined with other update modes.')
+        DESCRIPTIONS_ONLY = True
+        print('Homepage lecture introductions updated.')
+        return
     MATERIAL_UPDATES = set(args.update_notes or []) | set(args.update_slides or []) | set(args.update_pdfs or []) | set(args.update_lectures or []) | set(args.update_recaps or [])
     if args.update_recaps:
         if args.update_notes or args.update_slides or args.update_pdfs or args.update_lectures or args.update_sharing or args.update_curriculum or args.update_material_links:
@@ -687,16 +695,9 @@ def main():
                     for number, title in re.findall(r'^### 第(\d+)讲[　 ]+([^\n]+)',unit_text,re.M)]
         units.append((unit_title,lectures))
     titles = {int(number): title for _, lectures in units for number, title in lectures}
-    summaries = {
-        1: (titles[1], '整数分解 → 量子力学 → 量子信息 → 光与控制'),
-        2: (titles[2], '从偏振实验出发，用量子态预测测量，理解筛选、相位调控与不同物理系统中的量子比特。'),
-        3: (titles[3], '从量子态的演化出发，学习共振驱动、脉冲时长与相位调控，制备并检验目标态，理解单比特量子门。'),
-        4: (titles[4], '第四讲讲义、课堂课件与互动演示。'),
-        5: (titles[5], '在线讲义与互动演示。'),
-        6: (titles[6], '在线讲义、课堂课件与互动演示。' if 6 in PUBLISHED else '课堂课件与两处互动演示。')
-    }
-    for number in sorted(PUBLISHED | PUBLISHED_SLIDES):
-        summaries.setdefault(number, (titles[number], '在线讲义与互动演示。'))
+    from lecture_descriptions import load_descriptions
+    descriptions = load_descriptions(SITE)
+    summaries = {number: (titles[number], descriptions[str(number)]) for number in sorted(PUBLISHED | PUBLISHED_SLIDES)}
     rows=[]
     for number,(title,summary) in summaries.items():
         if number not in (PUBLISHED | PUBLISHED_SLIDES):
@@ -738,10 +739,13 @@ def main():
 
 if __name__=='__main__':
     main()
-    # A targeted material release must preserve unrelated classroom work.
-    if not MATERIAL_UPDATES:
-        sync_classroom()
-    from material_dates import sync_dates
-    from recaps import sync_recaps
-    sync_recaps(SITE)
-    sync_dates(SITE, MATERIAL_UPDATES)
+    if not DESCRIPTIONS_ONLY:
+        # A targeted material release must preserve unrelated classroom work.
+        if not MATERIAL_UPDATES:
+            sync_classroom()
+        from material_dates import sync_dates
+        from recaps import sync_recaps
+        sync_recaps(SITE)
+        sync_dates(SITE, MATERIAL_UPDATES)
+    from lecture_descriptions import sync_descriptions
+    sync_descriptions(SITE)
