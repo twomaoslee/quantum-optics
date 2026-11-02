@@ -29,7 +29,7 @@ test('any number of hidden rounds survives, uses per-round denominators and matc
  assert.equal(compare.rounds.length,5);assert.deepEqual(compare.rounds.map(r=>r.total),[2,1,2,1,2]);assert(compare.transitions.every(t=>t.paired===1&&t.changed===1));
  assert(!JSON.stringify(compare).includes('compare001'));assert.equal(compare.reasonRounds,undefined);assert.equal(compare.analysis.status,'idle');
  for(const token of [null,f.a])assert.equal((await f.request('teacher.comparison',{questionId:'l07-q3',roundId:previous},token)).error.code,token?'FORBIDDEN':'AUTH');
- assert.equal((await f.ok('student.history',{},f.a)).questions[2].answer,undefined);
+ assert.equal((await f.ok('student.history',{},f.a)).questions[2].answer.correct,'C');
  const records=await f.repo.list({kind:'round',roomCode:f.room});assert(records.every(r=>r.closedAt));
 });
 test('AI cache is single-flight, private details never enter projection, and a new round invalidates old analysis',async()=>{
@@ -54,9 +54,17 @@ test('other reason text is optional, validated and stored independently; changin
  const data={roundId:r.id,choice:'A',reasonId:'other'};
  await f.ok('student.reason',data,f.a);assert.equal((await f.ok('student.state',{},f.a)).own.reason.comment,undefined);
  f.tick(1000);await f.ok('student.reason',{...data,comment:'  我想把结果归一化  '},f.a);assert.equal((await f.ok('student.state',{},f.a)).own.reason.comment,'我想把结果归一化');
- for(const invalid of [{comment:'字'.repeat(121)},{comment:[]},{comment:'abc',reasonId:'A1'}])assert.equal((await f.request('student.reason',{...data,...invalid},f.a)).error.code,'INPUT');
+ for(const invalid of [{comment:'字'.repeat(301)},{comment:[]},{comment:'abc',reasonId:null}])assert.equal((await f.request('student.reason',{...data,...invalid},f.a)).error.code,'INPUT');
  assert.equal((await f.ok('teacher.export')).rows[0].reason.comment,'我想把结果归一化');
- await f.ok('student.submit',{roundId:r.id,choice:'C'},f.a);assert.equal((await f.ok('student.state',{},f.a)).own.reason,null);
+ await f.ok('student.reason',{...data,reasonId:'A1',comment:'我按这个理由选，但不理解为什么不能再归一化。'},f.a);
+ const own=await f.ok('student.state',{},f.a);assert.equal(own.own.reason.comment,'我按这个理由选，但不理解为什么不能再归一化。'.normalize('NFKC'));
+ assert(own.own.reasonOptionsVersion);assert(own.own.reasonOptions.length>=4);
+ const stats=await f.ok('teacher.reasonStats',{roundId:r.id,questionId:'l07-q3'});assert.equal(stats.choices[0].comments.length,1);
+ await f.ok('teacher.reveal',{roundId:r.id,questionId:'l07-q3'});
+ const detail=await f.ok('teacher.analysisDetails',{roundId:r.id,questionId:'l07-q3'});assert.equal(detail.reasonRounds[0].choices[0].comments.length,1);
+ assert.equal((await f.ok('teacher.export')).rows[0].reason.comment,own.own.reason.comment);
+ await f.ok('teacher.open',{questionId:'l07-q3',roundId:r.id});const next=(await f.ok('teacher.state')).round;
+ await f.ok('student.submit',{roundId:next.id,choice:'C'},f.a);assert.equal((await f.ok('student.state',{},f.a)).own.reason,null);
 });
 test('an analysis finishing after a newer round cannot overwrite the newer analysis cache',async()=>{
  const f=await fixture();await f.ok('teacher.open',{questionId:'l07-q3'});const firstRound=(await f.ok('teacher.state')).round;

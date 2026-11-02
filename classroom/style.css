@@ -30,3 +30,7 @@
 .reason-report>summary{cursor:pointer;color:var(--blue);font-weight:650}
 .reason-report h3{font-size:17px;margin:22px 0 8px}.reason-report ul{padding-left:20px}
 .reason-report li{line-height:1.65;margin:10px 0}.reason-report .fine{margin:10px 0}
+
+.reason-panel .reason-general{margin-top:20px;padding-top:12px;border-top:1px solid #d4e0ea;font-weight:600}.reason-panel textarea{width:100%;box-sizing:border-box}
+
+.student-answer-page #result{scroll-margin-top:100px}.student-answer-page #result h2{color:var(--blue)}

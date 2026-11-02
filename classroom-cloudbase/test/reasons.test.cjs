@@ -24,7 +24,7 @@ test('all 24 branches become available only after own answer; optional reason up
    const before=await f.ok('student.state',{},f.student);assert.equal(before.own.reason,null);
    assert.deepEqual(before.own.reasonOptions,bank.questions[questionId][choice]);
    assert.equal(before.question.correct,undefined);assert.equal(before.own.isCorrect,undefined);assert(!('reasons' in before.question));
-   const options=before.own.reasonOptions;assert(options.length>=3&&options.length<=4);assert.equal(new Set(options.map(o=>o.id)).size,options.length);
+   const options=before.own.reasonOptions;assert(options.length>=4&&options.length<=5);assert.equal(new Set(options.map(o=>o.id)).size,options.length);
    assert(options.every(o=>typeof o.text==='string'&&o.text.length>5));
    f.tick(100);const saved=await f.ok('student.reason',{roundId:r.id,choice,reasonId:options[0].id,text:'injected text'},f.student);
    const after=await f.ok('student.state',{},f.student);assert.deepEqual(after.own.reason,saved.reason);
@@ -70,7 +70,7 @@ test('server deadline and teacher reveal reject late reasons while own history a
  await f.ok('teacher.reveal',{roundId:r.id});
  const stats=await f.ok('teacher.reasonStats',{roundId:r.id}),a=stats.choices.find(c=>c.choice==='A');assert.equal(a.submitted,1);assert.equal(a.reasons.find(reason=>reason.id==='A1').count,1);
  const own=await f.ok('student.history',{},f.student),other=await f.ok('student.history',{},f.two);
- assert.deepEqual(own.questions[2].rounds[0].own.reason,saved);assert.equal(own.questions[2].rounds[0].own.isCorrect,undefined);assert.equal(other.questions[2].rounds[0].own,null);
+ assert.deepEqual(own.questions[2].rounds[0].own.reason,saved);assert.equal(own.questions[2].rounds[0].own.isCorrect,false);assert.equal(other.questions[2].rounds[0].own,null);
  for(const action of ['student.state','room.public']){const data=await f.ok(action,{},f.two);assert(!JSON.stringify(data).includes(saved.text));}
  await f.ok('teacher.open',{questionId:'l07-q4'});r=(await f.ok('teacher.state')).round;
  await f.ok('student.submit',{roundId:r.id,choice:'B'},f.student);await f.ok('teacher.reveal',{roundId:r.id});

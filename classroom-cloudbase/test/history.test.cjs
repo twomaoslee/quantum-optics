@@ -13,15 +13,15 @@ async function fixture(){
  return {repo,request,teacher,room,one,two,ok,tick:n=>time+=n};
 }
 const noKey=history=>{
- for(const item of history.questions){assert.equal(item.answer,undefined);for(const round of item.rounds)if(round.own)assert.equal(round.own.isCorrect,undefined);}
+ for(const item of history.questions)if(!item.feedbackAvailable){assert.equal(item.answer,undefined);for(const round of item.rounds)if(round.own)assert.equal(round.own.isCorrect,undefined);}
 };
-test('history returns only the authenticated student and current classroom; no key or correctness before explicit release',async()=>{
+test('history returns only the authenticated student and current classroom; no key or correctness for questions not yet displayed',async()=>{
  const f=await fixture();await f.ok('teacher.open',{questionId:'l07-q1'});const roundId=(await f.ok('teacher.state')).round.id;
  await f.ok('student.submit',{roundId,choice:'C'},f.one);await f.ok('student.submit',{roundId,choice:'A'},f.two);await f.ok('teacher.reveal',{roundId});
  const own=await f.ok('student.history',{userId:'hist002',studentNumber:'hist002',released:true},f.one);
  assert.equal(own.questions.length,6);assert.equal(own.questions[0].rounds[0].own.choice,'C');noKey(own);assert.equal(own.answersReleasedAt,null);
  assert(!JSON.stringify(own).includes('hist002'));assert(!JSON.stringify(own).includes('记录测试乙'));
- const other=await f.ok('student.history',{},f.two);assert.equal(other.questions[0].rounds[0].own.choice,'A');noKey(other);
+ const other=await f.ok('student.history',{},f.two);assert.equal(other.questions[0].rounds[0].own.choice,'A');assert.equal(other.questions[0].rounds[0].own.isCorrect,false);noKey(other);
  const second=(await f.ok('teacher.create')).code;await f.ok('teacher.open',{questionId:'l07-q2'},f.teacher,second);
  const isolated=await f.ok('student.history',{},f.one,second);assert.equal(isolated.questions[0].rounds.length,0);assert.equal(isolated.questions[1].rounds[0].own,null);
  for(const token of [undefined,f.teacher])assert.equal((await f.request('student.history',{},token)).error.code,token?'FORBIDDEN':'AUTH');
@@ -34,7 +34,7 @@ test('release reveals per-student grades and explanations only for issued questi
  await f.ok('teacher.releaseAnswers',{released:true});const h=await f.ok('student.history',{},f.one),bad=await f.ok('student.history',{},f.two);
  assert(h.answersReleasedAt);assert.equal(h.questions[0].answer.correct,'C');assert(h.questions[0].answer.explanation);assert.equal(h.questions[0].rounds[0].own.isCorrect,true);assert.equal(bad.questions[0].rounds[0].own.isCorrect,false);
  assert.equal(h.questions[1].rounds[0].own,null);assert.equal(h.questions[1].answer.correct,'B');assert.equal(h.questions[2].answer,undefined);
- assert.equal((await f.ok('room.public')).round.correct,undefined);assert.equal((await f.ok('student.state',{},f.one)).round.correct,undefined);
+ assert.equal((await f.ok('room.public')).round.correct,undefined);assert.equal((await f.ok('student.state',{},f.one)).round.correct,'B');
  const same=await f.ok('teacher.state');assert.equal(same.answersReleasedAt,h.answersReleasedAt);
  await f.ok('teacher.releaseAnswers',{released:true});assert.equal((await f.ok('student.history',{},f.one)).answersReleasedAt,h.answersReleasedAt);
  assert.equal((await f.request('teacher.open',{questionId:'l07-q3'},f.teacher)).error.code,'RELEASED');

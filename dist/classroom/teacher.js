@@ -16,7 +16,7 @@
   const released=!!state?.answersReleasedAt;
   $('answers-release').disabled=busy||(!released&&(!r||open));$('release-confirm-yes').disabled=busy||!r||open;
   $('answers-release').textContent=released?'收回答案与解析':'开放答案与解析';
-  $('answers-release-status').textContent=released?'已开放。本课堂学生可在“我的答题”查看对错、正确答案和解析。':open?'仍有题目正在作答，结束作答后可开放。':'尚未开放。课堂上的“展示回答”只公布统计，不会开放答案与解析。';
+  $('answers-release-status').textContent=released?'已开放。本课堂学生可在“我的答题”查看对错、正确答案和解析。':open?'仍有题目正在作答，结束作答后可开放。':'尚未开放。课件点击“展示结果”会同步开放该题的对错和解析；这里可统一开放其余已发题。';
   $('round-label').textContent=r?'第 '+r.number+' 轮'+(r.revealed?' · 统计已公布':' · 统计未公布'):'尚未发题';
   if($('refresh-reasons'))$('refresh-reasons').disabled=!r||reasonLoading;
   if($('refresh-analysis'))$('refresh-analysis').disabled=!r?.revealed||detailLoading;
@@ -48,7 +48,7 @@
     if(!choice.total)continue;
     const list=document.createElement('ul');
     for(const reason of choice.reasons){const li=document.createElement('li');li.textContent=reason.count+' 人 · '+reason.text;list.append(li);}container.append(list);
-    for(const comment of choice.comments||[]){const p=document.createElement('p');p.className='fine';p.textContent='其他原因补充：'+comment;container.append(p);}
+    for(const comment of choice.comments||[]){const p=document.createElement('p');p.className='fine';p.textContent='学生补充：'+comment;container.append(p);}
    }
   }catch(error){if(room===requested&&state?.round?.id===id)message(error.message);}
   finally{reasonLoading=false;controls();}
@@ -70,7 +70,7 @@
    for(const r of data.reasonRounds){
     const h=document.createElement('h3');h.textContent='第 '+r.ordinal+' 轮原因 · '+r.submitted+'/'+r.total+' 人填写';container.append(h);
     for(const c of r.choices)for(const reason of c.reasons){const p=document.createElement('p');p.className='fine';p.textContent=c.choice+' · '+reason.count+' 人 · '+reason.text;container.append(p);}
-    for(const c of r.choices)for(const comment of c.comments){const p=document.createElement('p');p.className='fine';p.textContent=c.choice+' · 其他原因补充（'+comment.count+'份）：'+comment.text;container.append(p);}
+    for(const c of r.choices)for(const comment of c.comments){const p=document.createElement('p');p.className='fine';p.textContent=c.choice+' · 学生补充（'+comment.count+'份）：'+comment.text;container.append(p);}
    }
   }catch(error){message(error.message);}finally{detailLoading=false;controls();}
  }
@@ -110,7 +110,7 @@
  }
  async function releaseAnswers(released){
   if(busy||!room)return;const requested=room;busy=true;controls();message('');
-  try{await api.call('teacher.releaseAnswers',{released},requested);$('release-confirm').hidden=true;if(room===requested)message(released?'已开放本课堂的答案与解析。':'已收回答案与解析；作答记录继续保留。');}
+  try{await api.call('teacher.releaseAnswers',{released},requested);$('release-confirm').hidden=true;if(room===requested)message(released?'已开放本课堂的答案与解析。':'已收回课后统一开放；课堂已展示的题目仍可查看解析。');}
   catch(error){message(error.message);}finally{busy=false;await refresh(false);controls();}
  }
  $('answers-release').addEventListener('click',()=>{if(state?.answersReleasedAt)releaseAnswers(false);else $('release-confirm').hidden=false;});

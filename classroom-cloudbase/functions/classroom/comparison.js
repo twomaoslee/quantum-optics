@@ -25,7 +25,7 @@ function snapshot(record,rounds,rows,analysisNamespace=''){
     const selected=answers.filter(a=>a.choice===choice),groups=new Map(),comments=new Map();
     for(const a of selected)if(a.reason){
      const key=JSON.stringify([a.reason.id,a.reason.text]);if(!groups.has(key))groups.set(key,{id:a.reason.id,text:a.reason.text,count:0});groups.get(key).count++;
-     if(a.reason.id==='other'&&a.reason.comment){const text=redact(a.reason.comment);if(text)comments.set(text,(comments.get(text)||0)+1);}
+     if(a.reason.comment){const text=redact(a.reason.comment);if(text)comments.set(text,(comments.get(text)||0)+1);}
     }
     return {choice,total:selected.length,submitted:selected.filter(a=>a.reason).length,reasons:[...groups.values()],
      comments:[...comments].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).slice(0,8).map(([text,count])=>({text,count})),commentsDistinct:comments.size};

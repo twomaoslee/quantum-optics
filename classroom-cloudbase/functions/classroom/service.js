@@ -20,7 +20,7 @@ function reasonOptions(questionId,choice) {
 }
 function ownAnswer(row) {
   return row ? {choice:row.choice,updatedAt:row.updatedAt,reason:row.reason || null,
-    reasonOptions:reasonOptions(row.questionId || question.id,row.choice)} : null;
+    reasonOptions:reasonOptions(row.questionId || question.id,row.choice),reasonOptionsVersion:reasons.version} : null;
 }
 class AppError extends Error {
   constructor(code, message) { super(message); this.code = code; }
@@ -173,8 +173,10 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
       requireThat(session.role === 'student', 'FORBIDDEN', '请使用学生身份。');
       const room = await getRoom(roomCode);
       const own = room.round ? await repo.get('answer_' + room.round.id + '_' + session.userId) : null;
-      return {code: room.code, title: room.title, question: questionFor(room.round?.questionId || question.id), round: publicRound(room.round),
-        own: ownAnswer(own)};
+      const selected=questions.get(room.round?.questionId || question.id),feedback=!!room.round && (!!room.round.revealed || !!room.answersReleasedAt);
+      return {code: room.code, title: room.title, question:selected.question,
+        round:room.round?{...publicRound(room.round),...(feedback?selected.answer:{})}:null,
+        own:own?{...ownAnswer(own),...(feedback?{isCorrect:own.choice===selected.answer.correct}:{})}:null};
     }
     if (action === 'student.history') {
       requireThat(session.role === 'student', 'FORBIDDEN', '请使用学生身份。');
@@ -190,13 +192,14 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
       return {code:room.code,title:room.title,answersReleasedAt:room.answersReleasedAt || null,
         questions:catalog.map(({question:selected,answer})=>{
           const attempts = rounds.filter(r=>r.questionId===selected.id).sort((a,b)=>a.number-b.number);
-          return {question:selected,rounds:attempts.map(r=>{
+          const feedbackAvailable=attempts.length>0 && (released || attempts.some(r=>r.revealed));
+          return {question:selected,feedbackAvailable,rounds:attempts.map(r=>{
             const own=ownByRound.get(r.id);
             return {id:r.id,number:r.number,openedAt:r.openedAt,deadline:r.deadline,
               status:!r.closedAt && now()<r.deadline?'open':'closed',
               own:own?{choice:own.choice,submittedAt:own.updatedAt,reason:own.reason || null,
-                ...(released?{isCorrect:own.choice===answer.correct}:{})}:null};
-          }),...(released && attempts.length?{answer}:{})};
+                ...(feedbackAvailable?{isCorrect:own.choice===answer.correct}:{})}:null};
+          }),...(feedbackAvailable?{answer}:{})};
         })};
     }
     if (action === 'student.submit') {
@@ -235,7 +238,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
         requireThat(data.reasonId===null || option,'INPUT','原因与当前所选答案不匹配。');
         requireThat(data.comment===undefined||typeof data.comment==='string','INPUT','请填写有效的原因补充。');
         const comment=(data.comment||'').normalize('NFKC').replace(/[\u0000-\u001f\u007f]/g,' ').trim();
-        requireThat([...comment].length<=120 && (!comment||data.reasonId==='other'),'INPUT','补充仅用于“其他原因”，最多120字。');
+        requireThat([...comment].length<=300 && (!comment||option),'INPUT','请先选择原因或使用“其他”，补充最多300字。');
         saved=option?{id:option.id,text:option.text,version:reasons.version,submittedAt:now(),...(comment?{comment}:{})}:null;
         // A reason update neither re-submits the answer nor changes its timestamp.
         await tx.set(id,{...own,reason:saved});
@@ -281,7 +284,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
           }
           const submitted=answers.filter(row=>row.reason).length;
           return {choice,total:answers.length,submitted,missing:answers.length-submitted,reasons:[...counts.values()],
-            comments:answers.filter(row=>row.reason?.id==='other'&&row.reason.comment).map(row=>row.reason.comment)};
+            comments:answers.filter(row=>row.reason?.comment).map(row=>row.reason.comment)};
         })};
     }
     if(['teacher.comparison','teacher.analyze','teacher.analysisDetails'].includes(action)){

@@ -31,12 +31,12 @@
  function draw(data){
   const expanded=new Map([...document.querySelectorAll('details[data-key]')].map(el=>[el.dataset.key,el.open]));
   $('classroom-title').textContent=data.title;
-  const released=!!data.answersReleasedAt;
-  $('release-status').textContent=released?'老师已开放答案与解析，可查看每题的对错和解题说明。':'老师尚未开放答案与解析；先保留你的选择，对错将在开放后显示。';
-  let issued=0,submitted=0,correct=0;$('records').replaceChildren();
+  const anyReleased=data.questions.some(item=>item.answer);
+  $('release-status').textContent=anyReleased?'已展示结果的题目可查看对错和解析；其余题目保留作答记录，等待老师展示。':'先保留你的选择；老师在课件展示结果后，本题的对错和解析会同步开放。';
+  let issued=0,submitted=0,correct=0,graded=0;$('records').replaceChildren();
   for(const item of data.questions){
-   const q=item.question,round=item.rounds.at(-1),status=result(round,released);
-   if(round)issued++;if(round?.own){submitted++;if(round.own.isCorrect===true)correct++;}
+   const q=item.question,round=item.rounds.at(-1),released=!!item.answer,status=result(round,released);
+   if(round)issued++;if(round?.own){submitted++;if(released)graded++;if(round.own.isCorrect===true)correct++;}
    const article=node('article','history-record'),head=node('div','record-head');article.dataset.question=q.id;
    head.append(node('h2','',q.title),node('span','record-badge '+status.kind,status.text));article.append(head);
    const selected=node('p','record-choice');richText(selected,round?'我的选择：'+choiceText(q,round.own?.choice):'本课堂尚未发出这道题。');article.append(selected);
@@ -51,7 +51,7 @@
    }
    $('records').append(article);
   }
-  $('history-summary').textContent='已发题 '+issued+' 题 · 最后一轮已作答 '+submitted+' 题'+(released?' · 最后一轮答对 '+correct+' 题':'');
+  $('history-summary').textContent='已发题 '+issued+' 题 · 最后一轮已作答 '+submitted+' 题'+(graded?' · 已公布的已答题 '+graded+' 题，其中答对 '+correct+' 题':'');
  }
  function showLogin(){authenticated=false;$('history-workspace').hidden=true;$('history-auth').hidden=false;$('records').replaceChildren();$('profile').textContent='';}
  async function refresh(){

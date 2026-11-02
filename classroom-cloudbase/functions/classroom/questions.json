@@ -8,7 +8,7 @@
       "mathLines": [
         "u_m(x)=\\sin(m\\pi x/L),\\qquad\\omega_m=m\\pi c/L"
       ],
-      "reference": "$m$为模式编号，$L$为腔长，$c$为光速；激发数表示该模式有多少份量子激发",
+      "reference": "$m$为模式编号，$L$为腔长，$c$为光速；激发数表示该模式有多少份量子激发。",
       "options": [
         [
           "A",
@@ -46,7 +46,7 @@
       "options": [
         [
           "A",
-          "只取模式频率的整数倍"
+          "只取某个固定能量单位的整数倍"
         ],
         [
           "B",
@@ -139,15 +139,14 @@
     "question": {
       "id": "l07-q5",
       "title": "思考题5：改变叠加态的相对符号",
-      "stem": "把同一模式的叠加态B改为负号态。固定本振相位，比较两态的光子计数分布和场方差：",
-      "math": "|\\psi_B\\rangle=\\frac{|0\\rangle+|2\\rangle}{\\sqrt2}",
+      "stem": "将同一模式的叠加态B改为下列负号态。始终测量同一个场坐标$\\hat q$，比较两态的光子计数分布和场方差：",
+      "math": "|\\psi_B\\rangle=\\frac{|0\\rangle+|2\\rangle}{\\sqrt2},\\qquad|\\psi_-\\rangle=\\frac{|0\\rangle-|2\\rangle}{\\sqrt2}",
       "mathLines": [
-        "|\\psi_B\\rangle=\\frac{|0\\rangle+|2\\rangle}{\\sqrt2}",
-        "|\\psi_-\\rangle=\\frac{|0\\rangle-|2\\rangle}{\\sqrt2}",
-        "\\hat q^2/q_0^2=\\hat a^2+(\\hat a^\\dagger)^2+2\\hat N+1",
-        "\\begin{aligned}\\hat N&=\\hat a^\\dagger\\hat a,\\quad\\hat a|n\\rangle=\\sqrt n\\,|n-1\\rangle\\\\\\hat a|0\\rangle&=0\\end{aligned}"
+        "|\\psi_B\\rangle=\\frac{|0\\rangle+|2\\rangle}{\\sqrt2},\\qquad|\\psi_-\\rangle=\\frac{|0\\rangle-|2\\rangle}{\\sqrt2}",
+        "\\hat q^2/q_0^2=\\hat a^2+(\\hat a^\\dagger)^2+2\\hat N+1,\\qquad\\hat N=\\hat a^\\dagger\\hat a",
+        "\\hat a|n\\rangle=\\sqrt n\\,|n-1\\rangle,\\qquad\\hat a|0\\rangle=0"
       ],
-      "reference": "两态平均场均为零。\n$q_0$为固定正尺度；计数取系数模平方。",
+      "reference": "两态平均场均为零；$q_0$为固定正尺度；计数取系数模平方。",
       "options": [
         [
           "A",
