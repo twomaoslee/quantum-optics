@@ -714,22 +714,24 @@ body:has(.qo-classroom-inline.present:not(.qo-classroom-results)) .reveal .contr
 .reveal :is(#l07-q5,#l07-q6).qo-classroom-inline .question{gap:10px;padding:16px 22px}
 .reveal :is(#l07-q5,#l07-q6).qo-classroom-inline .question .reference{gap:0}
 
+
+
+.reveal .l07 .columns:has(>.column:first-child>:is(.block,.definition,.alert)):has(>.column:nth-child(2)>:is(.block,.definition,.alert)){align-items:stretch}
+.reveal .l07 .columns>.column>:is(.block,.definition,.alert){flex:1}
+
 /* Classroom sidebar: full slide height, independent of the question body. */
 .reveal .qo-classroom-inline > :is(h1,h2),.reveal .qo-classroom-inline .s-body{right:280px}
 .reveal .qo-classroom-inline .s-nav{z-index:3}
 .reveal .qo-classroom-inline .question{display:flex;flex-direction:column;justify-content:space-between;gap:10px;height:470px;padding:16px 22px}
 .reveal .qo-classroom-inline .question .reference{align-self:stretch;width:100%;gap:0}
 .reveal .qo-classroom-inline .question .mc-options{align-self:stretch;width:100%}
-.reveal .qo-classroom-inline:not(.qo-classroom-results) > .classroom-slot{display:block;position:absolute;left:auto;right:0;top:0;bottom:0;width:244px;height:720px;box-sizing:border-box;padding:48px 18px 74px;border:0;border-left:1px solid #c7d4df;background:#f4f8fb;z-index:2}
+.reveal .qo-classroom-inline:not(.qo-classroom-results) > .classroom-slot{display:block;position:absolute;left:auto;right:0;top:121px;bottom:40px;width:244px;height:auto;box-sizing:border-box;padding:10px 18px;border:0;border-left:1px solid #c7d4df;background:#f4f8fb;z-index:2}
 .reveal .qo-classroom-inline:not(.qo-classroom-results) > .classroom-slot iframe{display:block;border:0;width:100%;max-width:100%;max-height:none;height:100%;margin:0;background:transparent}
 @media print{.reveal .qo-classroom-inline > .classroom-slot{display:none!important}.reveal .qo-classroom-inline .s-body,.reveal .qo-classroom-inline > :is(h1,h2){right:36px}}
 body:has(.qo-classroom-inline.present:not(.qo-classroom-results)) .reveal .controls .navigate-right{right:calc(var(--qo-sidebar-edge,244px) + 2px)!important}
 .reveal .qo-classroom-inline .mc-answer{width:calc(100% + 244px);position:relative;z-index:3}
 .reveal .qo-classroom-inline .s-body{z-index:3}
 /* End classroom sidebar. */
-
-.reveal .l07 .columns:has(>.column:first-child>:is(.block,.definition,.alert)):has(>.column:nth-child(2)>:is(.block,.definition,.alert)){align-items:stretch}
-.reveal .l07 .columns>.column>:is(.block,.definition,.alert){flex:1}
 </style>
   <style type="text/css">.reveal
 div.sourceCode
