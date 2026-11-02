@@ -43,5 +43,13 @@
   "note_title_aliases": {
     "光场量子化：光为什么具有离散的能量？": "光场量子化：从一个振动模式到光子"
   },
-  "slides_preview_acceptance": {}
+  "slides_preview_acceptance": {},
+  "classroom_recaps": {
+    "7": {
+      "data": "recaps/lecture07-20261102.json",
+      "editorial": "recaps/lecture07-20261102.editorial.json",
+      "output": "recaps/lecture07-20261102.html",
+      "acceptance": "recaps/lecture07-20261102.release.json"
+    }
+  }
 }

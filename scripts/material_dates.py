@@ -10,7 +10,9 @@ import re
 
 def material_digest(site, number):
     digest = hashlib.sha256()
-    for relative in [f'notes/lecture{number:02d}.html', f'slides/lecture{number:02d}.html', f'downloads/lecture{number:02d}-slides.pdf']:
+    relatives = [f'notes/lecture{number:02d}.html', f'slides/lecture{number:02d}.html', f'downloads/lecture{number:02d}-slides.pdf']
+    relatives += [p.relative_to(site / 'dist').as_posix() for p in sorted((site / 'dist/recaps').glob(f'lecture{number:02d}-*.html'))]
+    for relative in relatives:
         path = site / 'dist' / relative
         if path.is_file():
             digest.update(relative.encode())

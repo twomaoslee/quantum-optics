@@ -1,0 +1,252 @@
+{
+  "lecture": 7,
+  "date": "2026-11-02",
+  "participants": 19,
+  "submissions": 84,
+  "roundCount": 5,
+  "questions": [
+    {
+      "id": "l07-q1",
+      "title": "思考题1：向同一个模式增加一个光子",
+      "stem": "保持腔的几何条件、偏振及所选驻波模式不变，向该模式增加一个光子。频率、空间形状与激发数各怎样改变？",
+      "mathLines": [
+        "u_m(x)=\\sin(m\\pi x/L),\\qquad\\omega_m=m\\pi c/L"
+      ],
+      "reference": "$m$为模式编号，$L$为腔长，$c$为光速；激发数表示该模式有多少份量子激发",
+      "options": [
+        [
+          "A",
+          "频率增大，空间形状不变"
+        ],
+        [
+          "B",
+          "频率不变，节点数增加"
+        ],
+        [
+          "C",
+          "频率与形状不变，激发数增加"
+        ],
+        [
+          "D",
+          "频率、形状与激发数都不变"
+        ]
+      ],
+      "correct": "C",
+      "explanation": "所选模式保持不变；增加的是这个模式中的量子激发数。",
+      "rounds": [
+        {
+          "label": "首次作答",
+          "total": 17,
+          "correct": 15,
+          "choices": {
+            "A": 0,
+            "B": 1,
+            "C": 15,
+            "D": 1
+          },
+          "reasons": {
+            "C1": 10,
+            "missing": 4,
+            "unsure": 3
+          },
+          "correctReasons": {
+            "C1": 10,
+            "missing": 2,
+            "unsure": 3
+          }
+        },
+        {
+          "label": "再次作答",
+          "total": 16,
+          "correct": 15,
+          "choices": {
+            "A": 0,
+            "B": 1,
+            "C": 15,
+            "D": 0
+          },
+          "reasons": {
+            "C1": 10,
+            "missing": 3,
+            "unsure": 3
+          },
+          "correctReasons": {
+            "C1": 10,
+            "missing": 2,
+            "unsure": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "l07-q2",
+      "title": "思考题2：频率离散是否足以使能量离散",
+      "stem": "理想腔内选定一个经典驻波模式，频率和模式体积均固定；电场振幅可以连续调节。仅凭经典场能量式，总能量能取哪些值？",
+      "mathLines": [
+        "U=\\varepsilon_0VE_0^2/4"
+      ],
+      "reference": "$E_0$为电场振幅，$V$为模式体积，$\\varepsilon_0$为真空介电常数。",
+      "options": [
+        [
+          "A",
+          "只取模式频率的整数倍"
+        ],
+        [
+          "B",
+          "随电场振幅连续变化"
+        ],
+        [
+          "C",
+          "只能取零与一个非零值"
+        ],
+        [
+          "D",
+          "选定模式后，总能量也固定"
+        ]
+      ],
+      "correct": "B",
+      "explanation": "固定模式没有固定振幅；能量量子化还需要额外的量子规律。",
+      "rounds": [
+        {
+          "label": "首次作答",
+          "total": 15,
+          "correct": 12,
+          "choices": {
+            "A": 1,
+            "B": 12,
+            "C": 0,
+            "D": 2
+          },
+          "reasons": {
+            "D2": 1,
+            "missing": 5,
+            "A1": 1,
+            "B1": 7,
+            "unsure": 1
+          },
+          "correctReasons": {
+            "missing": 4,
+            "B1": 7,
+            "unsure": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "l07-q3",
+      "title": "思考题3：连续作用两次湮灭算符",
+      "stem": "单模光场处于归一化的双光子数态$|2\\rangle$。连续作用两次湮灭算符，求下式的完整向量结果，保留系数：",
+      "mathLines": [
+        "\\hat a|n\\rangle=\\sqrt n\\,|n-1\\rangle,\\qquad\\hat a^2|2\\rangle\\ =\\ ?"
+      ],
+      "reference": "$|0\\rangle$为归一化真空态；题目求作用后的完整向量，不另做归一化。",
+      "options": [
+        [
+          "A",
+          "$|0\\rangle$"
+        ],
+        [
+          "B",
+          "$2|0\\rangle$"
+        ],
+        [
+          "C",
+          "$\\sqrt2|0\\rangle$"
+        ],
+        [
+          "D",
+          "零向量"
+        ]
+      ],
+      "correct": "C",
+      "explanation": "$\\hat a^2|2\\rangle=\\hat a(\\sqrt2|1\\rangle)=\\sqrt2|0\\rangle$。",
+      "rounds": [
+        {
+          "label": "首次作答",
+          "total": 18,
+          "correct": 17,
+          "choices": {
+            "A": 0,
+            "B": 1,
+            "C": 17,
+            "D": 0
+          },
+          "reasons": {
+            "C1": 12,
+            "missing": 2,
+            "unsure": 4
+          },
+          "correctReasons": {
+            "C1": 12,
+            "missing": 2,
+            "unsure": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "l07-q4",
+      "title": "思考题4：真空中的场测量与能量测量",
+      "stem": "每次重新制备同一归一化单模真空态$|0\\rangle$。两组独立样本分别测场坐标$q$和总能量$H$，比较各组重复读数的方差。哪一组有非零分散？",
+      "mathLines": [
+        "\\hat q=q_0(\\hat a+\\hat a^\\dagger),\\qquad\\hat H=\\hbar\\omega(\\hat a^\\dagger\\hat a+1/2)"
+      ],
+      "reference": "$\\hat a|0\\rangle=0$，$[\\hat a,\\hat a^\\dagger]=1$，$q_0=\\sqrt{\\hbar/(2\\omega)}$；方差为二阶矩减去均值平方。",
+      "options": [
+        [
+          "A",
+          "场坐标与总能量都有分散"
+        ],
+        [
+          "B",
+          "场坐标有分散，总能量固定"
+        ],
+        [
+          "C",
+          "场坐标固定，总能量有分散"
+        ],
+        [
+          "D",
+          "场坐标与总能量都固定"
+        ]
+      ],
+      "correct": "B",
+      "explanation": "真空态满足$\\langle\\hat q\\rangle=0$、$\\langle\\hat q^2\\rangle=q_0^2$，因此场坐标方差为$q_0^2>0$。真空又是总能量的本征态，每次测得同一能量，所以能量方差为零。",
+      "rounds": [
+        {
+          "label": "首次作答",
+          "total": 18,
+          "correct": 14,
+          "choices": {
+            "A": 1,
+            "B": 14,
+            "C": 3,
+            "D": 0
+          },
+          "reasons": {
+            "B1": 7,
+            "missing": 6,
+            "unsure": 4,
+            "C1": 1
+          },
+          "correctReasons": {
+            "B1": 7,
+            "missing": 3,
+            "unsure": 4
+          }
+        }
+      ]
+    }
+  ],
+  "paired": {
+    "total": 15,
+    "transitions": {
+      "right_right": 14,
+      "wrong_right": 1
+    }
+  },
+  "reasons": {
+    "filled": 64,
+    "unsure": 15
+  }
+}

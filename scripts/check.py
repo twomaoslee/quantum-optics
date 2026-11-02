@@ -69,6 +69,18 @@ if classroom_manifest.exists():
         if path.is_file() and path.relative_to(DIST/'classroom').as_posix() not in expected:
             errors.append('Unexpected file in public classroom client: '+path.name)
 homepage = (DIST/'index.html').read_text()
+recap_config = json.loads((DIST.parent/'publication.json').read_text()).get('classroom_recaps', {})
+for number, entry in recap_config.items():
+    release = json.loads((DIST.parent/entry['acceptance']).read_text())
+    output = DIST/entry['output']
+    if not output.is_file() or hashlib.sha256(output.read_bytes()).hexdigest() != release['html_sha256']:
+        errors.append('Classroom recap output version mismatch: '+number)
+    for relative, expected in release['sources'].items():
+        source = DIST.parent/relative
+        if not source.is_file() or hashlib.sha256(source.read_bytes()).hexdigest() != expected:
+            errors.append('Classroom recap source version mismatch: '+relative)
+    if f'href="{entry["output"]}"' not in homepage:
+        errors.append('Missing classroom recap homepage entry: '+number)
 from material_dates import date_markup
 metadata = json.loads((DIST.parent/'lecture-metadata.json').read_text())
 for card in re.findall(r'<article class="lecture">.*?</article>', homepage, re.S):

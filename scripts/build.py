@@ -507,9 +507,15 @@ def main():
     parser.add_argument('--update-curriculum', action='store_true',
                         help='Refresh the syllabus and shared titles while preserving published chapter bodies.')
     parser.add_argument('--update-pdfs', type=int, nargs='+', choices=sorted(PUBLISHED_PDFS & {4, 5, 6, 7}), help='Publish authorized PDF downloads only.')
+    parser.add_argument('--update-recaps', type=int, nargs='+', choices=sorted(int(n) for n in CONFIG.get('classroom_recaps', {})), help='Publish authorized anonymous classroom recaps and links only.')
     global MATERIAL_UPDATES
     args = parser.parse_args()
-    MATERIAL_UPDATES = set(args.update_notes or []) | set(args.update_slides or []) | set(args.update_pdfs or []) | set(args.update_lectures or [])
+    MATERIAL_UPDATES = set(args.update_notes or []) | set(args.update_slides or []) | set(args.update_pdfs or []) | set(args.update_lectures or []) | set(args.update_recaps or [])
+    if args.update_recaps:
+        if args.update_notes or args.update_slides or args.update_pdfs or args.update_lectures or args.update_sharing or args.update_curriculum or args.update_material_links:
+            parser.error('--update-recaps cannot be combined with other update modes.')
+        print('Classroom recaps and related links updated.')
+        return
     if args.update_material_links:
         if args.update_notes or args.update_slides or args.update_sharing or args.update_lectures or args.update_curriculum or args.update_pdfs:
             parser.error('--update-material-links cannot be combined with other update modes.')
@@ -736,4 +742,6 @@ if __name__=='__main__':
     if not MATERIAL_UPDATES:
         sync_classroom()
     from material_dates import sync_dates
+    from recaps import sync_recaps
+    sync_recaps(SITE)
     sync_dates(SITE, MATERIAL_UPDATES)
