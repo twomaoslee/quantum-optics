@@ -21,7 +21,7 @@
    $('clear-reason').hidden=!state.own.reason;$('clear-reason').disabled=!open||busy;
    if($('other-reason-wrap')){$('other-reason-wrap').hidden=false;$('other-reason-text').disabled=!open||busy;}
    $('reason-hint').textContent=pending?'请先更新答案，再为新答案补充原因。':!open?'本轮已结束，原因和补充已锁定。已提交的答案保留。':'选最接近你原本想法的一项，也可以只写自己的理由。不填写也算完成。';
-   $('reason-receipt').textContent=pending?'':legacyReason()?'先前保存的原因：'+state.own.reason.text+'。原因选项已更新，原记录保留；可重新选择后保存。':selectedReason&&(selectedReason!==state.own.reason?.id||comment!==(state.own.reason?.comment||''))?'原因或补充尚未保存。':state.own.reason?'已保存原因与补充。':'';
+   $('reason-receipt').textContent=pending?'':legacyReason()?'先前保存的原因：'+state.own.reason.text+'。原因选项已更新，原记录保留。'+(open?'可重新选择后保存。':''):selectedReason&&(selectedReason!==state.own.reason?.id||comment!==(state.own.reason?.comment||''))?'原因或补充尚未保存。':state.own.reason?'已保存原因与补充。':'';
   }
  }
  function selectedReasonId(){return document.querySelector('input[name=reason]:checked')?.value;}
