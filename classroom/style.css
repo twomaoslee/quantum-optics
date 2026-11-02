@@ -34,3 +34,20 @@
 .reason-panel .reason-general{margin-top:20px;padding-top:12px;border-top:1px solid #d4e0ea;font-weight:600}.reason-panel textarea{width:100%;box-sizing:border-box}
 
 .student-answer-page #result{scroll-margin-top:100px}.student-answer-page #result h2{color:var(--blue)}
+
+/* First-paint skeleton. Shown until draw() fills the workspace and sets .ready,
+   so the gap between "workspace visible" and "data arrived" looks like loading
+   instead of an empty page. No timers, no extra state. */
+@keyframes qo-skeleton-pulse{0%,100%{opacity:1}50%{opacity:.5}}
+#workspace:not(.ready) #title::before,
+#workspace:not(.ready) #stem::before,
+#workspace:not(.ready) #math::before,
+#workspace:not(.ready) #reference::before,
+#workspace:not(.ready) #choices::after{content:"";display:block;background-repeat:no-repeat;border-radius:6px;animation:qo-skeleton-pulse 1.4s ease-in-out infinite}
+/* Line heights below match the real elements, so content lands without a jump. */
+#workspace:not(.ready) #title::before{height:66px;background-image:linear-gradient(#e3edf5,#e3edf5),linear-gradient(#e3edf5,#e3edf5);background-size:82% 26px,54% 26px;background-position:0 0,0 40px}
+#workspace:not(.ready) #stem::before{height:86px;background-image:linear-gradient(#e3edf5,#e3edf5),linear-gradient(#e3edf5,#e3edf5),linear-gradient(#e3edf5,#e3edf5);background-size:100% 20px,100% 20px,62% 20px;background-position:0 4px,0 37px,0 70px}
+#workspace:not(.ready) #math::before{height:88px;margin:10px 0;background-color:#e3edf5}
+#workspace:not(.ready) #reference::before{height:39px;background-image:linear-gradient(#e3edf5,#e3edf5),linear-gradient(#e3edf5,#e3edf5);background-size:70% 13px,48% 13px;background-position:0 3px,0 26px}
+#workspace:not(.ready) #choices::after{height:260px;border-radius:0;background:repeating-linear-gradient(#e3edf5 0 56px,transparent 56px 68px)}
+@media(prefers-reduced-motion:reduce){#workspace:not(.ready) :is(#title,#stem,#math,#reference,#choices)::before,#workspace:not(.ready) #choices::after{animation:none!important}}

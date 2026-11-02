@@ -35,5 +35,8 @@
   if(!result.ok){if(result.error.code==='AUTH' && !action.endsWith('.login'))save(null);throw Object.assign(new Error(result.error.message),{code:result.error.code});}
   return result.data;
  }
- window.QOApi={call,save,stored,config,now:()=>Date.now()+offset};
+ // Warm the SDK and the anonymous session while the student is still typing,
+ // so the first real call does not pay for a 225 KB download plus a login round trip.
+ function warm(){if(config.dev||!config.gatewayUrl||initializing)return;cloud().catch(()=>{});}
+ window.QOApi={call,save,stored,config,warm,now:()=>Date.now()+offset};
 })();
