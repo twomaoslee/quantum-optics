@@ -188,8 +188,8 @@
     "classroom-cloudbase/test/race.test.cjs": "0747eacd07b21f8a751c0299516e3ed7272f7304a11444720ad6a7c5bf05ccd9",
     "classroom-cloudbase/test/repository.test.cjs": "50c60b4f9f40729e82ebdd656e742ed4537f2d72dcb35ef23972277f16ee36a5",
     "classroom-cloudbase/test/service.test.cjs": "87937aae4f61040444e250bbc1030acd3998c612428ebb1f67ccac72cd062aa7",
-    "scripts/build.py": "f0daedd95a3b69739a1e2ef39ac55070d0b3d23f0a7b8fcd40378a4dfddfefe0",
-    "scripts/check.py": "e4a02dbe8ee096e3c16e58ee401f03b85914d51403ac1e775e6f7307a1190c99",
+    "scripts/build.py": "28d971cfda3eb16097a584ffe7f64d1f55812bdf2ef9a6857dd78b9ab6e5dc63",
+    "scripts/check.py": "673a937dadfb735ea3909c3f5746e55dca2ea16cbc3cfccecd965f09181fd91e",
     "classroom-cloudbase/functions/classroom/.npmrc": "0ed44e7d606cd7a9eba915a10f13a13a09ea85e4b2bb4415bb0c481dbdcded51",
     "classroom-cloudbase/function-access.rego": "15f2a9a23982b9feee20475f0d1e668eba47d375a722773fd013698009a5686d",
     "classroom-cloudbase/scripts/cloud-smoke.cjs": "78fefd699842a172dc7fcc129b05a1feb65c50ec1e3185ef3267e970bb30942e",
@@ -385,5 +385,15 @@
     "browser": "local dev server, 14 assertions passed: skeleton visible then removed, zero KaTeX re-render across polls, stem node reference preserved, countdown keeps ticking, submit receipt, reveal statistics, refresh restores answer in 55ms",
     "rollback": "revert the commit; no data migration involved",
     "scope_limit": "real phone networks and cold-cache full-class timing not measured; verification was local only"
+  },
+  "checklist_audit": {
+    "date": "2026-11-02",
+    "issue": "scripts/build.py and scripts/check.py were edited after this checklist last recorded their hashes (530ecf4), so the publish gate rejected a normal build with \"Classroom review version changed\".",
+    "reviewed_change": "sync_classroom() body is byte-identical since 530ecf4; the only difference is that it is now skipped when --update-descriptions runs in descriptions-only mode. Normal full builds still call it exactly as before.",
+    "stamped": [
+      "scripts/build.py",
+      "scripts/check.py"
+    ],
+    "deliberately_not_stamped": "scripts/update_classroom_deck.py still matches its committed version; the local working copy has unreviewed edits and must not be stamped before those are committed or discarded."
   }
 }
