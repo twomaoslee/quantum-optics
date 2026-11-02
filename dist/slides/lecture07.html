@@ -677,11 +677,7 @@ body:has(#l07-closing.present) :is(.course-footer-bar,.slide-logo,.slide-number,
 .reveal .qo-classroom-inline .classroom-slot{display:block;grid-column:2;grid-row:1/4;height:100%;border-left:1px solid #c7d4df;padding-left:16px;min-width:0}
 .reveal .qo-classroom-inline .classroom-slot iframe{display:block;border:0;width:100%;max-width:100%;max-height:none;height:100%;margin:0;background:transparent}
 @media print{.reveal .qo-classroom-inline .question{display:flex}.reveal .qo-classroom-inline .classroom-slot{display:none!important}}
-.reveal .qo-classroom-results .question{position:static;background:transparent;border:0;box-shadow:none}
-.reveal .qo-classroom-results .question>:not(.classroom-slot),.reveal .qo-classroom-results .s-body>:not(.question){display:none}
-.reveal .qo-classroom-results .s-body{position:static}
-.reveal .qo-classroom-results .classroom-slot{position:absolute;visibility:visible;z-index:12;left:38px;right:38px;top:115px;bottom:45px;padding:10px 18px;border:0;background:#fff;box-shadow:0 0 0 12px #fff}
-.reveal .qo-classroom-results .classroom-slot iframe{height:100%!important;width:100%}
+
 
 .reveal .l07.balanced .s-body{justify-content:space-between;gap:14px;padding-bottom:10px}
 .reveal .l07.balanced .s-body>.equation{margin-block:0}
@@ -717,6 +713,21 @@ body:has(.qo-classroom-inline.present:not(.qo-classroom-results)) .reveal .contr
 .reveal .qo-classroom-inline .question .reference{gap:10px}
 .reveal :is(#l07-q5,#l07-q6).qo-classroom-inline .question{gap:10px;padding:16px 22px}
 .reveal :is(#l07-q5,#l07-q6).qo-classroom-inline .question .reference{gap:0}
+
+/* Classroom sidebar: full slide height, independent of the question body. */
+.reveal .qo-classroom-inline > :is(h1,h2),.reveal .qo-classroom-inline .s-body{right:280px}
+.reveal .qo-classroom-inline .s-nav{z-index:3}
+.reveal .qo-classroom-inline .question{display:flex;flex-direction:column;justify-content:space-between;gap:10px;height:470px;padding:16px 22px}
+.reveal .qo-classroom-inline .question .reference{align-self:stretch;width:100%;gap:0}
+.reveal .qo-classroom-inline .question .mc-options{align-self:stretch;width:100%}
+.reveal .qo-classroom-inline:not(.qo-classroom-results) > .classroom-slot{display:block;position:absolute;left:auto;right:0;top:0;bottom:0;width:244px;height:720px;box-sizing:border-box;padding:48px 18px 74px;border:0;border-left:1px solid #c7d4df;background:#f4f8fb;z-index:2}
+.reveal .qo-classroom-inline:not(.qo-classroom-results) > .classroom-slot iframe{display:block;border:0;width:100%;max-width:100%;max-height:none;height:100%;margin:0;background:transparent}
+@media print{.reveal .qo-classroom-inline > .classroom-slot{display:none!important}.reveal .qo-classroom-inline .s-body,.reveal .qo-classroom-inline > :is(h1,h2){right:36px}}
+body:has(.qo-classroom-inline.present:not(.qo-classroom-results)) .reveal .controls .navigate-right{right:calc(var(--qo-sidebar-edge,244px) + 2px)!important}
+.reveal .qo-classroom-inline .mc-answer{width:calc(100% + 244px);position:relative;z-index:3}
+.reveal .qo-classroom-inline .s-body{z-index:3}
+/* End classroom sidebar. */
+
 .reveal .l07 .columns:has(>.column:first-child>:is(.block,.definition,.alert)):has(>.column:nth-child(2)>:is(.block,.definition,.alert)){align-items:stretch}
 .reveal .l07 .columns>.column>:is(.block,.definition,.alert){flex:1}
 </style>
@@ -1873,6 +1884,8 @@ margin-right: 0; }
 </div>
 
 </section>
+
+
 
 <section id="l07-vacuum-second" class="title-slide slide level1 table-compact math-compact balanced lecture-slide l07" data-section="vacuum">
 <h1>核对思考题4：场坐标有非零方差</h1>
@@ -5882,6 +5895,8 @@ L 842.4 106.755582
 </div>
 </section>
 
+
+
 <section id="l07-nav-states" class="title-slide slide level1 section-index lecture-slide l07" data-section="states">
 <h1>目录：叠加、混合与测量</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 07　光场量子化</span><a href="#/l07-nav-mode" class>单模场与经典振子</a><a href="#/l07-nav-ladder" class>阶梯算符与光子数态</a><a href="#/l07-nav-vacuum" class>真空与场涨落</a><a href="#/l07-nav-states" class="active">叠加、混合与测量</a></nav>
@@ -7739,7 +7754,7 @@ function onReady(){if(!window.Reveal?.isReady())return setTimeout(onReady,40);
    if(!/^https?:$/.test(location.protocol))url=new URL('https://zimin.li/quantum-optics/classroom/presenter.html');
    else if(location.pathname.includes('/slides/'))url=new URL('../classroom/presenter.html',location.href);
    else url=new URL('/classroom/presenter.html',location.href);
-   url.searchParams.set('v','20261102-full-height');url.searchParams.set('question',slide.id);url.searchParams.set('coordinator',slide===slides[0]?'1':'0');
+   url.searchParams.set('v','20261102-sidebar');url.searchParams.set('question',slide.id);url.searchParams.set('coordinator',slide===slides[0]?'1':'0');
    if(selectedRoom&&/^[A-F0-9]{12}$/.test(selectedRoom))url.searchParams.set('room',selectedRoom);
    const frame=document.createElement('iframe');frame.title='课堂扫码作答';frame.src=url.href;frame.setAttribute('scrolling','no');
    const entry={frame,origin:url.origin};frames.set(slide,entry);slide.querySelector('.classroom-slot').append(frame);
@@ -7775,7 +7790,8 @@ function onReady(){if(!window.Reveal?.isReady())return setTimeout(onReady,40);
     slide.classList.remove('qo-classroom-results');frame.contentWindow?.postMessage({type:'qo-classroom-results-dismissed'},origin);
    }
   }
-  Reveal.on('fragmentshown',dismiss);Reveal.on('fragmenthidden',dismiss);Reveal.on('slidechanged',dismiss);
+  // In-column results remain beside the question while its original answer is revealed.
+  Reveal.on('slidechanged',dismiss);
   // Preload the static interface on the cover, rather than waiting for a question.
   // Only the first frame chooses/creates a room, preventing duplicate classrooms.
   slides.forEach(create);update();window.lecture07ClassroomReady=true;

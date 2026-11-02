@@ -16,7 +16,9 @@ def update(base_ref):
     bridge=(ROOT/'quantum-slides/assets/classroom/lecture-bridge.js').read_text()
     css=(ROOT/'quantum-slides/lecture07.css').read_text()
     overlay_pattern=r'\.reveal \.qo-classroom-results \.question\{.*?\.reveal \.qo-classroom-results \.classroom-slot iframe\{[^}]*\}'
-    overlay=re.search(overlay_pattern,css,re.S)[0]
+    inline_pattern=r'\.reveal \.qo-classroom-results \.classroom-slot\{overflow:hidden\}'
+    sidebar_pattern=r'/\* Classroom sidebar:.*?/\* End classroom sidebar\. \*/'
+    overlay=re.search(sidebar_pattern,css,re.S)[0]
     marker='/* Question-specific controls share a classroom; only the visible frame polls. */'
     changes={'js':0,'css':0}
     def script(match):
@@ -29,12 +31,14 @@ def update(base_ref):
         if 'qo-classroom-inline' not in body:return match[0]
         changes['css']+=1
         body=re.sub(overlay_pattern,'',body,flags=re.S)
-        return match[1]+body+'\n'+overlay+match[3]
+        body=re.sub(inline_pattern,'',body)
+        body=re.sub(sidebar_pattern,'',body,flags=re.S)
+        return match[1]+body+'\n'+overlay+'\n'+match[3]
     result=re.sub(r'(<script\b[^>]*>)(.*?)(</script>)',script,base,flags=re.S)
     result=re.sub(r'(<style\b[^>]*>)(.*?)(</style>)',style,result,flags=re.S)
     if changes!={'js':1,'css':1}:raise SystemExit(f'Unexpected classroom source count: {changes}')
     target=SITE/'dist/slides/lecture07.html';target.write_text(result)
-    return {'base_ref':base_ref,'base_sha256':hashlib.sha256(base.encode()).hexdigest(),'sha256':hashlib.sha256(result.encode()).hexdigest(),'updated_blocks':changes,'scope':'only inline classroom bridge and scoped result overlay CSS'}
+    return {'base_ref':base_ref,'base_sha256':hashlib.sha256(base.encode()).hexdigest(),'sha256':hashlib.sha256(result.encode()).hexdigest(),'updated_blocks':changes,'scope':'only classroom bridge and scoped full-height sidebar CSS'}
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--base-ref',required=True)
