@@ -93,11 +93,11 @@
     "comparison.css"
   ],
   "sha256": {
-    "classroom/api.js": "2e2b41b94bd9b42b0d3ea550aa2ace3af971328e56f38f97e8f2d390364520c6",
+    "classroom/api.js": "9cbac8d9c451fa860f50ac91169cb5472ff2dd26bb9e1a07f3ca2acae39e277d",
     "classroom/config.js": "840e90878978ae3397b515c342bac563ad259668371dd1a51fe6bc7c1204e6d8",
-    "classroom/student.html": "39e89e1cd689d4127083a817415865b63e51563bfcf472ac7e5250d8cff63d69",
-    "classroom/student.js": "f0fda9148cebe64ae3e0c2bf89e5130583a1fcdf2ec409405a60e620d6d1e1c5",
-    "classroom/style.css": "638827b3d3c86a01f349b16f3f85e2aed66ae928c785dfbf9a93463f57310891",
+    "classroom/student.html": "82b28a6365104a7345a127671f77a41df0434821be9459e5778290b1946b2fef",
+    "classroom/student.js": "0cba1f582f918c35b553b3a5e9ac073d3e95b97f1f4f4f731468bca68093621c",
+    "classroom/style.css": "4ebd2e993f6532c71dd0fa607308d9ae8e119f88f33f333f95ee34f8584c6e0f",
     "classroom/teacher.html": "134dc8d1a92e36ca996ec0a2ffe2312ecdfd1f5eaab141fddeba4bed5f877298",
     "classroom/teacher.js": "1acb745b0cbae5e4380d99ab93e0336b936fd69f8b5cab7b62c336ec1f99ad0a",
     "classroom/vendor/cloudbase-LICENSE": "92d7d7d2d4771b84f44e38dc59052faae8e3cd0a234a62de6180a1c6746c979e",
@@ -359,5 +359,31 @@
     "classroom_scope": "No formal records changed; isolated virtual QA only.",
     "versions": "20261102-feedback",
     "cloud": "All six questions passed in isolated room 9F62FC968406; hidden-before-display, correct/incorrect/missing handling, optional comments, history and export verified; formal classroom rows and rounds hash unchanged."
+  },
+  "first_paint_perf": {
+    "date": "2026-11-02",
+    "status": "passed",
+    "scope": "Student page only: first-paint speed and poll cost. Backend, presenter, teacher, export and stored answers unchanged.",
+    "changes": [
+      "warm the SDK and the anonymous session while the student is still filling in the form",
+      "preconnect and dns-prefetch for the gateway and auth hosts",
+      "CSS-only skeleton gated by a .ready class, line heights matched to the real elements",
+      "rebuild question body, options and result block only when their signature changes",
+      "parallel me and student.state for a returning student",
+      "skip the 250ms controls tick while the page is hidden",
+      "version api.js so a cached copy can never miss QOApi.warm"
+    ],
+    "measured_local": {
+      "poll_seconds": 16,
+      "katex_renders_before": 12,
+      "katex_renders_after": 0,
+      "dom_nodes_before": 234,
+      "dom_nodes_after": 16,
+      "returning_refresh_ms": 55
+    },
+    "tests": "41 backend business tests passed unchanged",
+    "browser": "local dev server, 14 assertions passed: skeleton visible then removed, zero KaTeX re-render across polls, stem node reference preserved, countdown keeps ticking, submit receipt, reveal statistics, refresh restores answer in 55ms",
+    "rollback": "revert the commit; no data migration involved",
+    "scope_limit": "real phone networks and cold-cache full-class timing not measured; verification was local only"
   }
 }
