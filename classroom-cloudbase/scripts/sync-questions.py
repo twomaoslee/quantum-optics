@@ -37,8 +37,23 @@ for section in re.split(r'(?=^## )', text8, flags=re.M):
     match = re.search(r'#(l08-q[1-5])\b', head)
     if not match: continue
     def block(name):
-        m = re.search(r'::: \{\.' + name + r'\}\n(.*?)\n:::', section, re.S)
-        return m[1].strip() if m else ''
+        lines = section.splitlines()
+        start = next((i for i,line in enumerate(lines) if line == '::: {.'+name+'}'), None)
+        if start is None: return ''
+        stack = [3]
+        body = []
+        for line in lines[start+1:]:
+            fence = re.fullmatch(r'(:{3,})(.*)', line)
+            if fence:
+                size, tail = len(fence[1]), fence[2].strip()
+                if tail: stack.append(size)
+                elif size == stack[-1]:
+                    stack.pop()
+                    if not stack: break
+                continue
+            body.append(line.replace('**',''))
+        assert not stack, 'Unclosed question component '+name
+        return '\n'.join(body).strip()
     reference = block('reference')
     maths = re.findall(r'\$\$(.*?)\$\$', reference, re.S)
     choices = block('choices').splitlines()

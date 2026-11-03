@@ -33,3 +33,8 @@ test('lecture eight preserves QMD questions, three-option constraints, timing, r
  await ok('teacher.open',{questionId:'l08-q1'});assert.equal((await ok('student.state',{},student)).own,null);
  assert.equal((await ok('teacher.export')).rows.length,5);
 });
+test('the grouped fourth-question reference retains both distributions and the calculation rule',()=>{
+ const ref=questions.get('l08-q4').question.reference;
+ for(const expected of ['相干态','e^{-1}/n!','单模热态','1/2^{n+1}','P(n\\ge4)','\\sum_{n=0}^{3}','0!=1'])assert(ref.includes(expected),expected);
+ assert(!ref.includes(':::'));assert(!ref.includes('distribution-entry'));
+});

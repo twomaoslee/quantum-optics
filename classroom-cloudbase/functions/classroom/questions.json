@@ -301,7 +301,7 @@
       "stem": "考虑平均光子数都为1的单模相干态和单模热态，下面哪种说法正确？",
       "math": "",
       "mathLines": [],
-      "reference": "$0!=1$，$n!=1\\times2\\times\\cdots\\times n$；$e\\approx2.718$。\n\n相干态 $P(n)=e^{-1}/n!$；热态 $P(n)=1/2^{n+1}$。\n\n四个及以上光子的概率可由 $P(n\\ge4)=1-\\sum_{n=0}^{3}P(n)$ 计算。",
+      "reference": "相干态　$P(n)=e^{-1}/n!$\n单模热态　$P(n)=1/2^{n+1}$\n\n大光子数事件：$P(n\\ge4)=1-\\sum_{n=0}^{3}P(n)$。\n\n计算约定：$0!=1$，$e\\approx2.718$。",
       "options": [
         [
           "A",
