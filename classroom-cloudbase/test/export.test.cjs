@@ -25,7 +25,7 @@ async function fixture(){
 }
 test('teacher export joins six questions and all retry rounds, grades final choices without releasing student answers',async()=>{
  const f=await fixture();const expected=[];
- for(const [questionId,{answer}]of questions){
+ for(const [questionId,{answer}]of [...questions].filter(([id])=>id.startsWith('l07-'))){
   await f.ok('teacher.open',{questionId});const r=(await f.ok('teacher.state')).round;
   const wrong=['A','B','C','D'].find(c=>c!==answer.correct);
   await f.ok('student.submit',{roundId:r.id,choice:wrong},f.student);f.tick();

@@ -130,7 +130,7 @@
   $('export').disabled=true;try{
    const result=await api.call('teacher.export',{},room);
    const blob=new Blob([QOExportCSV.create(result)],{type:'text/csv;charset=utf-8'});
-   const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='第七讲课堂-'+room+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+   const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=(state?.title||'量子光学课堂')+'-'+room+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
    $('download-status').textContent='已导出本课堂全部轮次的作答明细，包含题目、正确答案、对错、解析与选择原因。每人每轮保留最后一次提交。';
   }catch(e){message(e.message);}finally{$('export').disabled=false;}
  });

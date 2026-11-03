@@ -16,7 +16,7 @@ async function fixture(){
 }
 test('all 24 branches become available only after own answer; optional reason updates preserve answer timestamps and counts',async()=>{
  const f=await fixture();let total=0;
- for(const [questionId,{question}]of questions){
+ for(const [questionId,{question}]of [...questions].filter(([id])=>id.startsWith('l07-'))){
   assert.deepEqual(Object.keys(bank.questions[questionId]),['A','B','C','D']);
   await f.ok('teacher.open',{questionId});const r=(await f.ok('student.state',{},f.student)).round;
   for(const choice of ['A','B','C','D']){

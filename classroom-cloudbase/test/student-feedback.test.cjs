@@ -12,7 +12,7 @@ async function fixture(){
 }
 test('all six questions disclose personal results only after teacher display, preserve hidden retries and scope history to displayed questions',async()=>{
  const f=await fixture();
- for(const [questionId,{answer}] of questions){
+ for(const [questionId,{answer}] of [...questions].filter(([id])=>id.startsWith('l07-'))){
   await f.ok('teacher.open',{questionId});let r=(await f.ok('teacher.state',{questionId})).round;
   await f.ok('student.submit',{roundId:r.id,choice:answer.correct},f.student);
   let own=await f.ok('student.state',{},f.student);assert.equal(own.round.correct,undefined);assert.equal(own.own.isCorrect,undefined);

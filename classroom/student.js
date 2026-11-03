@@ -165,7 +165,7 @@ async function enter(profile,firstState=null){
 api.warm?.();
  for(const [id,file]of [['live-link','student.html'],['my-answers','history.html']]){const url=new URL(file,location.href);url.search='';url.searchParams.set('room',room);$(id).href=url.href;}
  if(api.stored())try{const [me,first]=await Promise.all([api.call('me'),api.call('student.state',{},room)]);if(me.role==='student')await enter(me.profile,first);else api.save(null);}catch(error){message(error.message);}
- else try{await api.call('room.public',{},room);}catch(error){message(error.message);}
+ else try{const info=await api.call('room.public',{},room);$('lecture-name').textContent=info.title;}catch(error){message(error.message);}
  setInterval(refresh,5000);setInterval(()=>{if(!document.hidden)controls();},250);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
 })();

@@ -29,5 +29,26 @@ for number in range(1, 7):
         'math': maths[0], 'mathLines': maths, 'reference': reference,
         'options': [[letter, line.removeprefix('- ')] for letter, line in zip('ABCD', choices)]},
         'answer': {'correct': correct, 'explanation': explanation}})
+
+source8 = backend.parent.parent / 'quantum-slides/lectures/lecture08/lecture08.qmd'
+text8 = source8.read_text()
+for section in re.split(r'(?=^## )', text8, flags=re.M):
+    head = section.split('\n')[0]
+    match = re.search(r'#(l08-q[1-5])\b', head)
+    if not match: continue
+    def block(name):
+        m = re.search(r'::: \{\.' + name + r'\}\n(.*?)\n:::', section, re.S)
+        return m[1].strip() if m else ''
+    reference = block('reference')
+    maths = re.findall(r'\$\$(.*?)\$\$', reference, re.S)
+    choices = block('choices').splitlines()
+    correct = re.search(r'correct="([A-D])"', section)[1]
+    explanation = re.sub(r'^答案 [A-D]。', '', block('result'))
+    records.append({'question': {'id':match[1], 'title':head[3:].split(' {')[0],
+        'stem':block('stem'), 'math': maths[0] if maths else '', 'mathLines':maths,
+        'reference':re.sub(r'\$\$.*?\$\$', '', reference, flags=re.S).strip(),
+        'options': [[letter,line.removeprefix('- ')] for letter,line in zip('ABCD', choices)]},
+        'answer':{'correct':correct, 'explanation':explanation}})
+assert len(records) == 11
 (backend / 'functions/classroom/questions.json').write_text(json.dumps(records, ensure_ascii=False, indent=2) + '\n')
-print('Synced all six questions from lecture07.qmd.')
+print('Synced 6 lecture-seven and 5 lecture-eight questions from QMD.')

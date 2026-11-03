@@ -15,6 +15,12 @@ function questionFor(id) {
   requireThat(typeof id === 'string' && questions.has(id), 'QUESTION', '没有找到这道思考题。');
   return questions.get(id).question;
 }
+function roomLecture(room){return room.lectureId || 'l07';}
+function roomQuestion(room,id){
+  const q=questionFor(id || room.round?.questionId || roomLecture(room)+'-q1');
+  requireThat(q.id.startsWith(roomLecture(room)+'-'),'QUESTION','题目与课堂讲次不一致。');
+  return q;
+}
 function reasonOptions(questionId,choice) {
   return reasons.questions[questionId]?.[choice] || [];
 }
@@ -92,14 +98,14 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
     });
   }
   async function selectedRound(room, questionId, source = repo) {
-    questionFor(questionId);
+    roomQuestion(room,questionId);
     if (room.round && (room.round.questionId || question.id) === questionId) return room.round;
     const id = room.questionRounds?.[questionId];
     return id ? source.get('round_' + id) : null;
   }
   async function mutateRound(code, data, fn) {
     return mutateRoom(code, async (room, tx) => {
-      const id = data.questionId || room.round?.questionId || question.id;
+      const id = roomQuestion(room,data.questionId).id;
       const round = await selectedRound(room, id, tx);
       requireThat(round && data.roundId === round.id, 'ROUND', '轮次已变化，请刷新后操作。');
       await fn(round, tx);
@@ -113,7 +119,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
     return {counts,total:Object.values(counts).reduce((sum,n)=>sum+n,0)};
   }
   async function comparisonFor(roomCode,data){
-    const room=await getRoom(roomCode),selected=questionFor(data.questionId || room.round?.questionId || question.id);
+    const room=await getRoom(roomCode),selected=roomQuestion(room,data.questionId);
     const round=await selectedRound(room,selected.id);
     requireThat(round&&data.roundId===round.id,'ROUND','轮次已变化，请重新展示结果。');
     requireThat(round.revealed,'HIDDEN','请先展示结果，再查看各轮对比和AI分析。');
@@ -160,7 +166,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
     }
     if (action === 'room.public') {
       const room = await getRoom(roomCode);
-      return {code: room.code, title: room.title, question: questionFor(room.round?.questionId || question.id), round: publicRound(room.round)};
+      return {code: room.code, title: room.title, question: roomQuestion(room), round: publicRound(room.round)};
     }
     const session = await authenticate(token);
     if (action === 'logout') { await repo.remove('session_' + hash(token)); return {ok: true}; }
@@ -173,7 +179,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
       requireThat(session.role === 'student', 'FORBIDDEN', '请使用学生身份。');
       const room = await getRoom(roomCode);
       const own = room.round ? await repo.get('answer_' + room.round.id + '_' + session.userId) : null;
-      const selected=questions.get(room.round?.questionId || question.id),feedback=!!room.round && (!!room.round.revealed || !!room.answersReleasedAt);
+      const selected=questions.get(roomQuestion(room).id),feedback=!!room.round && (!!room.round.revealed || !!room.answersReleasedAt);
       return {code: room.code, title: room.title, question:selected.question,
         round:room.round?{...publicRound(room.round),...(feedback?selected.answer:{})}:null,
         own:own?{...ownAnswer(own),...(feedback?{isCorrect:own.choice===selected.answer.correct}:{})}:null};
@@ -190,7 +196,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
       const ownByRound = new Map(rows.map(row=>[row.roundId,row]));
       const released = !!room.answersReleasedAt;
       return {code:room.code,title:room.title,answersReleasedAt:room.answersReleasedAt || null,
-        questions:catalog.map(({question:selected,answer})=>{
+        questions:catalog.filter(({question:q})=>q.id.startsWith(roomLecture(room)+'-')).map(({question:selected,answer})=>{
           const attempts = rounds.filter(r=>r.questionId===selected.id).sort((a,b)=>a.number-b.number);
           const feedbackAvailable=attempts.length>0 && (released || attempts.some(r=>r.revealed));
           return {question:selected,feedbackAvailable,rounds:attempts.map(r=>{
@@ -209,6 +215,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
         const room = await getRoom(roomCode,tx);
         const round = room.round;
         requireThat(round && round.id === data.roundId, 'ROUND', '老师已切换轮次，请刷新后作答。');
+        requireThat(questionFor(round.questionId || question.id).options.some(([choice])=>choice===data.choice),'INPUT','请选择本题的选项。');
         requireThat(!round.closedAt && now() < round.deadline && !round.revealed, 'CLOSED', '本轮已结束，无法再提交。');
         const gateId=gateKey(round.id,parseInt(hash(session.userId).slice(0,2),16)%16),gate=await tx.get(gateId);
         requireThat(gate && !gate.closed && now()<round.deadline,'CLOSED','本轮已结束，无法再提交。');
@@ -255,21 +262,21 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
     if (action === 'teacher.create') {
       const code = crypto.randomBytes(6).toString('hex').toUpperCase();
       const title = typeof data.title === 'string' ? data.title.trim().slice(0,60) : '第七讲课堂';
-      await repo.set(roomKey(code), {kind:'room', code, title:title || '第七讲课堂', createdAt:now(), nextRound:1, round:null, questionRounds:{}});
+      await repo.set(roomKey(code), {kind:'room', code, lectureId:data.lectureId==='l08'?'l08':'l07', title:title || '第七讲课堂', createdAt:now(), nextRound:1, round:null, questionRounds:{}});
       return {code};
     }
     if (action === 'teacher.rooms') {
       const rooms = await repo.list({kind:'room'});
-      return {rooms:rooms.sort((a,b)=>b.createdAt-a.createdAt).map(r=>({code:r.code,title:r.title,createdAt:r.createdAt}))};
+      return {rooms:rooms.sort((a,b)=>b.createdAt-a.createdAt).map(r=>({code:r.code,title:r.title,lectureId:roomLecture(r),createdAt:r.createdAt}))};
     }
     if (action === 'teacher.state') {
-      const room = await getRoom(roomCode), selected = questionFor(data.questionId || room.round?.questionId || question.id);
+      const room = await getRoom(roomCode), selected = roomQuestion(room,data.questionId);
       const round = await selectedRound(room, selected.id);
       const stats = round ? (round.revealed ? {counts:round.counts,total:round.total} : await countsFor(round.id)) : {};
       return {code:room.code,title:room.title,answersReleasedAt:room.answersReleasedAt || null,question:selected,defaultSeconds:timing[selected.id] || 60,round:round ? {...publicRound(round),...stats,...(round.revealed?questions.get(selected.id).answer:{})} : null};
     }
     if (action === 'teacher.reasonStats') {
-      const room=await getRoom(roomCode),selected=questionFor(data.questionId || room.round?.questionId || question.id);
+      const room=await getRoom(roomCode),selected=roomQuestion(room,data.questionId);
       const round=await selectedRound(room,selected.id);
       requireThat(round && round.id===data.roundId,'ROUND','轮次已变化，请刷新后查看原因统计。');
       const rows=await repo.list({kind:'answer',roomCode,roundId:round.id});
@@ -319,7 +326,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
       if (data.questionId !== undefined) questionFor(data.questionId);
       return mutateRoom(roomCode, async (room,tx) => {
         requireThat(!room.answersReleasedAt, 'RELEASED', '本课堂已开放答案，请先在课后管理页收回答案，或新建课堂。');
-        const selected = questionFor(data.questionId || room.round?.questionId || question.id);
+        const selected = roomQuestion(room,data.questionId);
         const seconds = data.seconds === undefined ? timing[selected.id] || 60 : data.seconds;
         requireThat(Number.isInteger(seconds) && seconds >= 15 && seconds <= 300, 'INPUT', '答题时间须为15—300秒。');
         if(Object.hasOwn(data,'roundId')){

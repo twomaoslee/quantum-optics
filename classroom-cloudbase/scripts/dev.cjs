@@ -28,7 +28,8 @@ const port=Number(process.env.QO_DEV_PORT || 8765),origin='http://localhost:'+po
     if(process.env.QO_DEV_CLOUD==='1')return res.end(await fs.readFile(path.join(site,'classroom/config.js')));
     return res.end('window.QO_CLASSROOM_CONFIG={dev:true,devEndpoint:"/__classroom_rpc"};');
    }
-   if(url.pathname==='/lecture07.html')target=process.env.QO_DEV_DECK?path.resolve(process.env.QO_DEV_DECK):path.join(site,'../quantum-slides/lecture07.html');
+   if(url.pathname==='/lecture08.html')target=path.join(site,'../quantum-slides/lectures/lecture08/lecture08.html');
+   else if(url.pathname==='/lecture07.html')target=process.env.QO_DEV_DECK?path.resolve(process.env.QO_DEV_DECK):path.join(site,'../quantum-slides/lecture07.html');
    else if(url.pathname.startsWith('/assets/classroom/'))target=path.join(site,'../quantum-slides',url.pathname);
    else if(url.pathname==='/')target=path.join(site,'classroom/teacher.html');
    else if(url.pathname.startsWith('/classroom/')){

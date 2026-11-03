@@ -11,7 +11,7 @@ async function fixture(){
  return {repo,room,student,teacher,request,ok};
 }
 test('all six questions follow one student session and retain independent answer and revealed distributions',async()=>{
- const f=await fixture(),ids=[...questions.keys()],rounds=[];
+ const f=await fixture(),ids=[...questions.keys()].filter(id=>id.startsWith('l07-')),rounds=[];
  for(const [i,questionId]of ids.entries()){
   assert.equal((await f.ok('teacher.state',{questionId})).round,null);
   await f.ok('teacher.open',{questionId});

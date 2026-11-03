@@ -7,7 +7,7 @@
   for(const round of data.rounds){
    const chart=element('section','round-chart');chart.style.setProperty('--round-color',['#0070c0','#5796bd','#235578','#7e9cb1'][(round.ordinal-1)%4]);
    chart.append(element('h3','','第 '+round.ordinal+' 轮'),element('p','round-total',round.total+' 人提交'));
-   for(const letter of 'ABCD'){
+   for(const letter of (data.options||[...'ABCD'])){
     const n=round.counts[letter],percent=round.total?Math.round(100*n/round.total):0,row=element('div','comparison-bar');
     const label=element('div','comparison-label');label.append(element('strong','',letter),element('span','',n+' 人 · '+percent+'%'));
     const track=element('div','comparison-track'),fill=element('div','comparison-fill');fill.style.width=percent+'%';track.append(fill);row.append(label,track);chart.append(row);
@@ -32,14 +32,14 @@
    for(const [i,r]of rounds.entries())legend.append(swatch('第'+r.ordinal+'轮 · '+r.total+'人'+(!r.total?' · 无提交':''),roundColors[i%roundColors.length]));
    container.append(legend);const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
    const add=(tag,attrs,text)=>{const node=document.createElementNS(ns,tag);for(const [k,v]of Object.entries(attrs))node.setAttribute(k,v);if(text!==undefined)node.textContent=text;svg.append(node);return node;};
-   svg.setAttribute('viewBox','0 0 264 188');svg.setAttribute('class','answer-profile');svg.setAttribute('role','img');svg.setAttribute('aria-label','每条曲线代表一轮：横轴A至D选项，纵轴本轮提交人数中的比例；无提交轮次不绘线。');
-   const left=34,right=250,top=15,bottom=150,x=i=>left+(right-left)*i/3,y=p=>bottom-(bottom-top)*p/100;
+   svg.setAttribute('viewBox','0 0 264 188');svg.setAttribute('class','answer-profile');svg.setAttribute('role','img');svg.setAttribute('aria-label','每条曲线代表一轮：横轴为本题选项，纵轴本轮提交人数中的比例；无提交轮次不绘线。');
+   const left=34,right=250,top=15,bottom=150,x=i=>left+(right-left)*i/Math.max(1,(data.options||[...'ABCD']).length-1),y=p=>bottom-(bottom-top)*p/100;
    for(const p of [0,50,100]){add('line',{x1:left,y1:y(p),x2:right,y2:y(p),class:'profile-grid'});add('text',{x:left-5,y:y(p)+4,'text-anchor':'end',class:'profile-tick'},p+'%');}
-   for(const [i,letter]of [...'ABCD'].entries())add('text',{x:x(i),y:170,'text-anchor':'middle',class:'profile-tick'},letter);
+   for(const [i,letter]of (data.options||[...'ABCD']).entries())add('text',{x:x(i),y:170,'text-anchor':'middle',class:'profile-tick'},letter);
    for(const [index,r]of rounds.entries()){
-    if(!r.total)continue;const color=roundColors[index%roundColors.length],points=[...'ABCD'].map((letter,i)=>x(i)+','+y(percent(r,letter)));
+    if(!r.total)continue;const color=roundColors[index%roundColors.length],points=(data.options||[...'ABCD']).map((letter,i)=>x(i)+','+y(percent(r,letter)));
     add('polyline',{points:points.join(' '),fill:'none',stroke:color,'stroke-width':2.2,'data-round':r.ordinal});
-    for(const [i,letter]of [...'ABCD'].entries()){
+    for(const [i,letter]of (data.options||[...'ABCD']).entries()){
      const p=percent(r,letter),dot=add('circle',{cx:x(i),cy:y(p),r:3,fill:color,'data-round':r.ordinal,'data-choice':letter,'data-percent':p});
      const title=document.createElementNS(ns,'title');title.textContent='第'+r.ordinal+'轮 · '+letter+'：'+r.counts[letter]+'人 · '+p+'%';dot.append(title);
     }
@@ -48,7 +48,7 @@
   }else{
    for(const [i,r]of rounds.entries())legend.append(swatch('第'+r.ordinal+'轮 · '+r.total+'人'+(!r.total?' · 无提交':''),roundColors[i%roundColors.length]));
    container.append(legend);const groups=element('div','option-groups');groups.setAttribute('aria-label','按选项分组的各轮柱状图，统一百分比尺度');
-   for(const letter of 'ABCD'){
+   for(const letter of (data.options||[...'ABCD'])){
     const group=element('section','option-group'),rows=element('div','choice-rounds');group.append(element('strong','option-letter',letter),rows);
     for(const [i,r]of rounds.entries()){
      const row=element('div','choice-round'),track=element('div','grouped-track'),fill=element('div','grouped-fill'),p=percent(r,letter);

@@ -1,9 +1,10 @@
 (async function(){
  'use strict';
  const api=QOApi,$=id=>document.getElementById(id),params=new URLSearchParams(location.search),questionId=params.get('question')||'l07-q1';
- if(!/^l07-q[1-6]$/.test(questionId)){$('message').textContent='题目链接无效。';return;}
- const roomKey='qo-last-room-v1:'+(api.config.envId||'local'),sameDay=t=>new Date(t).toLocaleDateString()===new Date().toLocaleDateString();
- const coordinator=params.get('coordinator')!=='0',cacheKey='qo-presenter-qr-v1:'+(api.config.envId||'local')+':'+(params.get('room')||'daily');let desiredRoom=params.get('room')||'',connected=false;
+ if(!/^(l07-q[1-6]|l08-q[1-5])$/.test(questionId)){$('message').textContent='题目链接无效。';return;}
+ const lectureId=questionId.split('-')[0],lectureTitle=lectureId==='l08'?'第八讲课堂':'第七讲课堂';
+ const roomKey='qo-last-room-v1:'+(api.config.envId||'local')+':'+lectureId,sameDay=t=>new Date(t).toLocaleDateString()===new Date().toLocaleDateString();
+ const coordinator=params.get('coordinator')!=='0',cacheKey='qo-presenter-qr-v1:'+(api.config.envId||'local')+':'+lectureId+':'+(params.get('room')||'daily');let desiredRoom=params.get('room')||'',connected=false;
  let room='',state=null,busy=false,polling=false,connecting=false,active=window===parent,epoch=0,parentOrigin='*',expanded=false,comparison=null,analysisBusy=false,chartMode=null;
  const message=text=>{$('message').textContent=text||'';};
  function layout(){
@@ -69,9 +70,10 @@
   try{
    if(!api.stored()){showConnection();if(coordinator)parent.postMessage({type:'qo-classroom-connection-required'},parentOrigin);return;}
    const me=await api.call('me');if(me.role!=='teacher'){showConnection();if(coordinator)parent.postMessage({type:'qo-classroom-connection-required'},parentOrigin);return;}
-   const {rooms}=await api.call('teacher.rooms'),explicit=desiredRoom,today=rooms.filter(r=>r.title==='第七讲课堂'&&sameDay(r.createdAt)),saved=localStorage.getItem(roomKey);
+   const {rooms}=await api.call('teacher.rooms'),explicit=desiredRoom,today=rooms.filter(r=>(r.lectureId||'l07')===lectureId&&r.title===lectureTitle&&sameDay(r.createdAt)),saved=localStorage.getItem(roomKey);
+   if(explicit&&!rooms.some(r=>r.code===explicit&&(r.lectureId||'l07')===lectureId))throw new Error('课堂链接与本讲不一致。');
    room=(explicit&&rooms.find(r=>r.code===explicit)?.code)||today.find(r=>r.code===saved)?.code||today[0]?.code||'';
-   if(!room){if(!coordinator)throw new Error('课堂连接尚未完成，请重试。');room=(await api.call('teacher.create',{title:'第七讲课堂'})).code;}
+   if(!room){if(!coordinator)throw new Error('课堂连接尚未完成，请重试。');room=(await api.call('teacher.create',{title:lectureTitle,lectureId})).code;}
    localStorage.setItem(roomKey,room);const url=new URL('student.html',location.href);url.search='';url.searchParams.set('room',room);$('student-link').href=url.href;
    await QOQRCode.toCanvas($('qr'),url.href,{width:160,margin:2,errorCorrectionLevel:'M'});
    $('cached-qr').hidden=true;$('qr').hidden=false;
