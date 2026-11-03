@@ -213,7 +213,7 @@
       "stem": "把理想激光衰减，使某个选定模式的平均光子数为 $\\bar n=0.1$。判断：“每次测量最多只能得到1个光子，不可能测到2个或更多。”",
       "math": "",
       "mathLines": [],
-      "reference": "",
+      "reference": "$\\bar n$ 是重复测量的平均计数。\n\n光频率保持不变；单个光子的能量为 $h\\nu$。",
       "options": [
         [
           "A",
@@ -238,10 +238,10 @@
     "question": {
       "id": "l08-q2",
       "title": "思考题 2：哪束光的光子数涨落更大？",
-      "stem": "A：$P(0)=0.9,\\ P(1)=0.1$；B：$P(0)=0.95,\\ P(2)=0.05$。其他光子数的概率为零，两者的平均光子数均为 $0.1$。",
+      "stem": "光场 A：$P(0)=0.9,\\ P(1)=0.1$。\n\n光场 B：$P(0)=0.95,\\ P(2)=0.05$。\n\n其他光子数的概率为零；两者的平均光子数均为 $0.1$。",
       "math": "",
       "mathLines": [],
-      "reference": "$(\\Delta n)^2=\\sum_n n^2P(n)-\\bar n^2$。",
+      "reference": "计算关系：$\\langle n^2\\rangle=\\sum_n n^2P(n)$，$(\\Delta n)^2=\\langle n^2\\rangle-\\bar n^2$。",
       "options": [
         [
           "A",
@@ -269,7 +269,7 @@
       "stem": "理想单模相干态的平均光子数为 $\\bar n=1$，哪种说法正确？",
       "math": "",
       "mathLines": [],
-      "reference": "$P(n)=e^{-\\bar n}\\bar n^n/n!$。",
+      "reference": "$P(n)=e^{-\\bar n}\\bar n^n/n!$。\n\n$0!=1$，$n!=1\\times2\\times\\cdots\\times n$；$e\\approx2.718$。",
       "options": [
         [
           "A",
@@ -298,10 +298,10 @@
     "question": {
       "id": "l08-q4",
       "title": "思考题 4：热光为什么涨落更大？",
-      "stem": "考虑平均光子数都为1的相干态和单模热态，下面哪种说法正确？",
+      "stem": "考虑平均光子数都为1的单模相干态和单模热态，下面哪种说法正确？",
       "math": "",
       "mathLines": [],
-      "reference": "",
+      "reference": "$0!=1$，$n!=1\\times2\\times\\cdots\\times n$；$e\\approx2.718$。\n\n相干态 $P(n)=e^{-1}/n!$；热态 $P(n)=1/2^{n+1}$。\n\n四个及以上光子的概率可由 $P(n\\ge4)=1-\\sum_{n=0}^{3}P(n)$ 计算。",
       "options": [
         [
           "A",
@@ -333,7 +333,7 @@
       "stem": "把理想相干态激光不断衰减，使 $\\bar n\\to0$，下列哪项正确？",
       "math": "",
       "mathLines": [],
-      "reference": "",
+      "reference": "相干态满足 $P(n)=e^{-\\bar n}\\bar n^n/n!$，$(\\Delta n)^2=\\bar n$。\n\n$0!=1$，$n!=1\\times2\\times\\cdots\\times n$；$e\\approx2.718$。",
       "options": [
         [
           "A",

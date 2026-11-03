@@ -198,7 +198,7 @@
     "classroom/presenter.html": "a4057eba44a8842f8512ad36fdd6fab1396f13684af5b3e505946ca35d6e26e5",
     "classroom/presenter.css": "e693527403d97d8c932eb240c44e225abc709f773f71c0205b1b69534b235acc",
     "classroom/presenter.js": "8fd2bc67fe93a75053cd6e5e4a36543f4ff995bf2f59b87de766aba629454335",
-    "classroom-cloudbase/functions/classroom/questions.json": "c11122614d168871cdff5a48815ffd0b5865fec35ea28c5a2c07c390b2648864",
+    "classroom-cloudbase/functions/classroom/questions.json": "29f0c3bc511e555af1c268cd01dc27f379ebb05ad4e57e94a4ab7befc8033429",
     "classroom-cloudbase/scripts/sync-questions.py": "107f9f8748fefdd438fb929a43a406e3010e528360493cf1c3cfddc409117e21",
     "classroom-cloudbase/test/multiple.test.cjs": "4dfd7872c350ea6ec8b1811a850e87d92febb918c45b8a8f76ac873a966444c5",
     "classroom/history.html": "d8c1543e9bd005a18d4112d21237a754ca68a8ee60cbdce341eaec17b64f33fc",
@@ -220,7 +220,7 @@
     "classroom-cloudbase/test/timing.test.cjs": "b27eba56f23d452c230634ffd7f1aa1d651b4bbb4413a3c5168608cbe08a7af0",
     "classroom-cloudbase/test/student-feedback.test.cjs": "3461010926ae9e844912ec15e012f7997cf819c1d7f087ad6a66944403e6e7fb",
     "classroom-cloudbase/test/lecture08.test.cjs": "4538a46f06b701d5abf918a6f67b8598096f8b5951c521a373399b92fa0f67ed",
-    "classroom-cloudbase/scripts/cloud-smoke-lecture08.cjs": "c35eb52cb64c87282cedaf3a57cbf8a2e9bf1b676007862c556a050d1acfcd17"
+    "classroom-cloudbase/scripts/cloud-smoke-lecture08.cjs": "f3aceaf4078ffca7a91e8a0bcd11cdb7c1e90ad3c84f3d6382ce05711836a5fc"
   },
   "cloud_browser": "passed",
   "cloud_capacity": "pending_full_class_load",
@@ -407,6 +407,14 @@
     "qa_room": "F83AE8C78E66",
     "existing_history": "no migration or deletion; historical reason versions unchanged",
     "real_phone_network": "not tested",
-    "lecture_material_publication": "not included"
+    "lecture_material_publication": "not included",
+    "self_contained_questions": {
+      "date": "2026-11-03",
+      "status": "passed",
+      "content": "all five projected questions carry required local conditions/relations; independent sequential cold reader solved B B B A B",
+      "cloud": "all five cloud question objects exactly match source-generated current catalog; five submit/reveal flows passed; isolated virtual QA room182FD31D0ED5",
+      "layout": "left prompt and independently revealed solution; full-height right classroom column; compact options arranged per text",
+      "backend_tests": 42
+    }
   }
 }

@@ -33,7 +33,7 @@ let stage='initialization';
  for(let i=1;i<=5;i++){
   const id='l08-q'+i;await ok('teacher.open',{questionId:id});
   let state=await ok('student.state',{},pupil.token),roundId=state.round.id;
-  assert.equal(state.question.id,id);assert.equal(state.round.correct,undefined);
+  assert.equal(state.question.id,id);assert.deepEqual(state.question,require('../functions/classroom/questions.json').find(r=>r.question.id===id).question);assert.equal(state.round.correct,undefined);
   if(i<3)assert.equal((await request('student.submit',{roundId,choice:'D'},pupil.token)).error.code,'INPUT');
   await ok('student.submit',{roundId,choice:'A'},pupil.token);await ok('student.submit',{roundId,choice:i===4?'A':'B'},pupil.token);
   assert.equal((await ok('teacher.state',{questionId:id})).round.total,1);
