@@ -47,6 +47,12 @@
       "class_end": null,
       "materials_updated": "2026-11-02T15:30+08:00",
       "published_materials_sha256": "f7d57c30a86c8c6f6116d743117f3062ed785b43135f1d939f3b9d2ea69b1c94"
+    },
+    "8": {
+      "class_start": null,
+      "class_end": null,
+      "materials_updated": "2026-11-07T23:34+08:00",
+      "published_materials_sha256": "2d1f7189807bbb67d61a1ecc68b3a3e65b0ce89a90681953f2f65b25de204ef2"
     }
   }
 }

@@ -44,6 +44,8 @@ for path in DIST.rglob('*'):
             errors.append(f'Internal record in lecture 3 output: {path.relative_to(DIST)}')
     if path.stat().st_size>=100*1024*1024:errors.append(f'File exceeds GitHub limit: {path.relative_to(DIST)}')
     if path.suffix=='.html':
+        if path.parent == DIST/'slides' and 'course-local-layout-guide' in path.read_text():
+            errors.append(f'Local layout guide in student slides: {path.name}')
         if path.parent == DIST/'slides' and re.search(r'<aside\b[^>]*class="[^"]*\bnotes\b', path.read_text()):
             errors.append(f'Speaker notes in student slides: {path.name}')
         p=Links();p.feed(path.read_text())
@@ -130,7 +132,9 @@ for page in sorted((DIST/'notes').glob('*.html')):
     match=re.search(r'<nav\b[^>]*\bid="quarto-sidebar"[^>]*>.*?</nav>', page.read_text(), re.S)
     if not match:
         if page.name in {f'lecture{n:02d}.html' for n in STANDALONE_NOTES}:
-            if 'class="course-site-return"' not in page.read_text() or 'id="TOC"' not in page.read_text():
+            text = page.read_text()
+            toc = 'id="TOC"' in text or re.search(r'<aside\b[^>]*class="[^"]*\btoc\b', text)
+            if 'class="course-site-return"' not in text or not toc:
                 errors.append(f'Missing standalone notes navigation: {page.name}')
             continue
         errors.append(f'Missing notes sidebar: {page.name}'); continue

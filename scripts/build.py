@@ -289,14 +289,26 @@ def sync_notes_sidebar(directory, source):
                     item[key] = sync_note_titles(item[key])
         search.write_text(json.dumps(items, ensure_ascii=False))
 
-def slide_delivery_files(source, number):
+def slide_source(root, number):
+    relative = CONFIG.get('slide_source_directories', {}).get(str(number), 'quantum-slides')
+    source = (root/relative).resolve()
+    if not source.is_relative_to(root.resolve()):
+        raise SystemExit('Slides source must remain within the course.')
+    return source
+
+
+def slide_delivery_files(source, number, review_dir=None):
     """Bind self-contained slide publication to the accepted source version."""
     name = f'lecture{number:02d}'
-    manifest = json.loads((source/'qa'/name/'delivery-manifest.json').read_text())
+    review_dir = review_dir or source/'qa'/name
+    manifest = json.loads((review_dir/'delivery-manifest.json').read_text())
     files = manifest.get('files')
+    if files is not None and 'html_sha256' in manifest:
+        digest = hashlib.sha256((source/f'{name}.html').read_bytes()).hexdigest()
+        if digest != manifest['html_sha256']:
+            raise SystemExit(f'Packaged slide HTML changed: {name}')
     if files is None:
         # Self-contained decks have a hash-bound review rather than an asset list.
-        review_dir = source/'qa'/name
         acceptance = json.loads((review_dir/manifest['acceptance']).read_text())
         digest = hashlib.sha256((source/f'{name}.html').read_bytes()).hexdigest()
         if digest != manifest['html_sha256'] or digest != acceptance['html_sha256']:
@@ -327,6 +339,11 @@ def slide_delivery_files(source, number):
         files = [name+'.html']
     return files
 
+def sanitize_slides(content):
+    """Remove teacher notes and local authoring aids from student HTML."""
+    content = re.sub(r'<!-- course-local-layout-guide:start -->.*?<!-- course-local-layout-guide:end -->', '', content, flags=re.S)
+    return re.sub(r'<aside\b[^>]*class="[^"]*\bnotes\b[^"]*"[^>]*>.*?</aside>', '', content, flags=re.S)
+
 def update_slides(root, numbers):
     """Publish packaged slides without changing already published note bodies."""
     if not set(numbers) <= PUBLISHED_SLIDES:
@@ -335,8 +352,8 @@ def update_slides(root, numbers):
     text = homepage.read_text()
     for number in numbers:
         name = f'lecture{number:02d}'
-        source = root/'quantum-slides'
-        files = slide_delivery_files(source, number)
+        source = slide_source(root, number)
+        files = slide_delivery_files(source, number, root/'quantum-slides/qa'/name)
         for relative in files:
             path = Path(relative)
             # Delivery manifests also track authoring and QA sources. Publish only
@@ -351,7 +368,7 @@ def update_slides(root, numbers):
             target.parent.mkdir(parents=True, exist_ok=True)
             if path.suffix == '.html':
                 content = (source/path).read_text()
-                content = re.sub(r'<aside\b[^>]*class="[^"]*\bnotes\b[^"]*"[^>]*>.*?</aside>', '', content, flags=re.S)
+                content = sanitize_slides(content)
                 target.write_text(content)
             else:
                 shutil.copy2(source/path, target)
@@ -403,7 +420,7 @@ def update_notes(root, numbers):
         source = root/'quantum-notes'
         modified = [standalone_source(root, number).stat().st_mtime]
         if number in PUBLISHED_SLIDES:
-            modified.append((root/'quantum-slides'/f'{name}.html').stat().st_mtime)
+            modified.append((slide_source(root, number)/f'{name}.html').stat().st_mtime)
         date = datetime.fromtimestamp(max(modified)).strftime('%Y-%m-%d')
         text = standalone_content(root, number)
         nav_css = '<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style>'
@@ -585,13 +602,13 @@ def main():
             5: (root/'output/pdf/第五讲课件.pdf', 56),
             6: (root/'output/pdf/第六讲课件.pdf', 49),
             7: (root/'output/pdf/第七讲课件.pdf', 48)}
-    required = [notes/'index.html'] + list(note_sources.values()) + [pdfs[n][0] for n in PUBLISHED_PDFS] + [slides/f'lecture{n:02d}.html' for n in PUBLISHED_SLIDES]
+    required = [notes/'index.html'] + list(note_sources.values()) + [pdfs[n][0] for n in PUBLISHED_PDFS] + [slide_source(root, n)/f'lecture{n:02d}.html' for n in PUBLISHED_SLIDES]
     for path in required:
         if not path.is_file():
             raise SystemExit(f'Missing source: {path.name}; render the course before publishing.')
     for number in PUBLISHED_SLIDES:
         if (slides/'qa'/f'lecture{number:02d}'/'delivery-manifest.json').is_file():
-            slide_delivery_files(slides, number)
+            slide_delivery_files(slide_source(root, number), number, slides/'qa'/f'lecture{number:02d}')
     # Only replace this script's generated output directory, never course sources.
     if DIST.exists():
         shutil.rmtree(DIST)
@@ -628,11 +645,13 @@ def main():
             text = re.sub(r'^### [^\n]*提示词[^\n]*\n.*?(?=^## |\Z)', '', text, flags=re.M|re.S)
             text = '\n'.join(line for line in text.splitlines() if not re.search(r'qa/|scripts/|提示词|核验记录|未对外发布|原始生成文件', line)) + '\n'
         path.write_text(text)
-    for name in [f'lecture{n:02d}{suffix}.html' for n in sorted(PUBLISHED_SLIDES if not notes_only_update else set()) for suffix in ('', '-backup')]:
-        if not withheld(Path('slides')/name) and (slides/name).is_file():
-            text = (slides/name).read_text()
-            text = re.sub(r'<aside\b[^>]*class="[^"]*\bnotes\b[^"]*"[^>]*>.*?</aside>', '', text, flags=re.S)
-            (DIST/'slides'/name).write_text(text)
+    for number in sorted(PUBLISHED_SLIDES if not notes_only_update else set()):
+        source = slide_source(root, number)
+        for suffix in ('', '-backup'):
+            name = f'lecture{number:02d}{suffix}.html'
+            if not withheld(Path('slides')/name) and (source/name).is_file():
+                text = sanitize_slides((source/name).read_text())
+                (DIST/'slides'/name).write_text(text)
     if not notes_only_update:
         use_shared_slide_images(DIST/'slides')
     (DIST/'assets').mkdir(exist_ok=True)
@@ -706,7 +725,7 @@ def main():
         times = [note_sources[number].stat().st_mtime] if number in PUBLISHED else []
         slide_links = ''
         if number in PUBLISHED_SLIDES:
-            times.append((slides/f'{name}.html').stat().st_mtime)
+            times.append((slide_source(root, number)/f'{name}.html').stat().st_mtime)
             slide_links = slide_link(number)
             if number in PUBLISHED_PDFS:
                 slide_links += f'<a class="download" href="downloads/{name}-slides.pdf" download>课件 PDF · {pdfs[number][1]} 页 · {pdfs[number][0].stat().st_size/1_000_000:.1f} MB ↓</a>'
