@@ -1,67 +1,34 @@
 /* Static recap: no student identity, storage, telemetry or API calls. */
-const recapNavigation = document.querySelector('[data-recap-tabs]');
+const recapNavigation = document.querySelector('.section-nav');
 if (recapNavigation) {
-  const tabs = [...recapNavigation.querySelectorAll('a')];
-  const panels = tabs.map(tab => document.getElementById(tab.hash.slice(1)));
-  recapNavigation.setAttribute('role', 'tablist');
-  tabs.forEach((tab, index) => {
-    const panel = panels[index];
-    tab.setAttribute('role', 'tab');
-    tab.setAttribute('aria-controls', panel.id);
-    panel.setAttribute('role', 'tabpanel');
-    panel.setAttribute('aria-labelledby', tab.id);
-    panel.tabIndex = 0;
-  });
+  const links = [...recapNavigation.querySelectorAll('a')];
+  const sections = links.map(link => document.getElementById(link.hash.slice(1)));
+  let current = links[0];
+  let frame = 0;
 
-  function showPanel(index) {
-    tabs.forEach((tab, i) => {
-      const selected = i === index;
-      tab.setAttribute('aria-selected', String(selected));
-      tab.tabIndex = selected ? 0 : -1;
-      panels[i].hidden = !selected;
-    });
-  }
-
-  function readHash() {
-    const index = tabs.findIndex(tab => tab.hash === location.hash);
-    const focusedInPanel = panels.some(panel => panel.contains(document.activeElement));
-    showPanel(Math.max(index, 0));
-    if (focusedInPanel) tabs[Math.max(index, 0)].focus({preventScroll: true});
-    if (index >= 0) panels[index].scrollIntoView({block: 'start'});
-  }
-
-  recapNavigation.addEventListener('click', event => {
-    const index = tabs.indexOf(event.target.closest('a'));
-    if (index < 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    event.preventDefault();
-    const tab = tabs[index];
-    if (location.hash !== tab.hash) history.pushState(null, '', tab.hash);
-    showPanel(index);
-    tab.focus({preventScroll: true});
-    panels[index].scrollIntoView({block: 'start'});
-  });
-
-  recapNavigation.addEventListener('keydown', event => {
-    const index = tabs.indexOf(event.target);
-    if (index < 0) return;
-    let next;
-    switch (event.key) {
-      case 'ArrowLeft': next = (index + tabs.length - 1) % tabs.length; break;
-      case 'ArrowRight': next = (index + 1) % tabs.length; break;
-      case 'Home': next = 0; break;
-      case 'End': next = tabs.length - 1; break;
-      case ' ':
-        event.preventDefault();
-        event.target.click();
-        return;
-      default: return;
+  function updateCurrentSection() {
+    frame = 0;
+    // Switch when the next section reaches the reading area below the sticky links.
+    const readingLine = recapNavigation.offsetHeight + 24;
+    let index = sections.length - 1;
+    while (index > 0 && sections[index].getBoundingClientRect().top > readingLine) {
+      index--;
     }
-    event.preventDefault();
-    tabs[next].focus();
-  });
+    const next = links[index];
+    if (next === current) return;
+    current.removeAttribute('aria-current');
+    next.setAttribute('aria-current', 'location');
+    current = next;
+  }
 
-  addEventListener('hashchange', readHash);
-  readHash();
+  function scheduleUpdate() {
+    if (!frame) frame = requestAnimationFrame(updateCurrentSection);
+  }
+
+  addEventListener('scroll', scheduleUpdate, {passive: true});
+  addEventListener('hashchange', scheduleUpdate);
+  new ResizeObserver(scheduleUpdate).observe(recapNavigation.closest('main'));
+  scheduleUpdate();
 }
 
 document.querySelectorAll('[data-tex]').forEach(node => {

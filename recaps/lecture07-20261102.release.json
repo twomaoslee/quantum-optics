@@ -9,20 +9,20 @@
     "visuals": "passed",
     "browser_operation": "passed"
   },
-  "scope": "思考题1—4的匿名统计、总览、逐题切换、课后AI辅助复盘及四道自查；复用原逐题内容验收。",
+  "scope": "思考题1—4的匿名统计、总览正确率图和滚动目录；复用原逐题内容、课后AI辅助复盘及四道自查的内容验收。",
   "sources": {
     "recaps/lecture07-20261102.json": "afb16d4208a12d0e9c9fb721955db7a2ab0a3239e091b02df4f470ca150bcbe0",
-    "recaps/lecture07-20261102.editorial.json": "b2cd3c17e51b26e1815498d2d0e3dfcaee9d87358da60bff49b44d89c4d52455",
-    "scripts/recaps.py": "e9032617f7e9036b2fafb8aa69799039027e2c4695a03759a6ce5231203d1ed7",
-    "recaps/review.css": "b16a80a76beee8e76398475525aa76f8a7a3a920c87c79a2df2b6d1e0f4b7326",
-    "recaps/review.js": "a5636a7e5427878c9ba7449fcd6f1ff07b16e8bf2137d1559ac0205a57426fb8"
+    "recaps/lecture07-20261102.editorial.json": "aed8ce7898c5ca129dd79a5767d7abdeb1752ffc59f58df07ea5abc2dd176547",
+    "scripts/recaps.py": "d651b35a1381f599fc691ddaaa826342401c5206cd17cbf3ed7283689217960c",
+    "recaps/review.css": "2569602faf6fe82de4a94d6d335bfbf1d89a4a063418ae36898669d3dfb82582",
+    "recaps/review.js": "c3e0e21af4b24205cd78045c69d109db6583acdfa28b9c3b49d19bd6f7a61739"
   },
-  "html_sha256": "efff1680178dc266e12fd95f8f0eaf4fbcb845511f79e5766d7167d2c9ac74b1",
+  "html_sha256": "4722ebbf3684e65a23d88ad0974a8fb68fef350ddef4e5eef808b3c2b460b75d",
   "evidence_summary": {
-    "understanding": "独立学生读者先读题作答C/C/A/B，再读解答。本次独立试读总览及第4题直达，明确各轮统计口径和复习顺序。原四题内容逐节比较一致。",
+    "understanding": "独立学生读者确认总览中第1题两轮分组、人数与正确率口径可辨，向下滚动自然接到第1题，题面前提自足。原逐题内容逐节比对一致。",
     "physics": "独立数态矩阵检验阶梯算符及真空方差；振幅平方比例代入。",
-    "data": "实际课堂5轮、84份纳入统计的作答，逐轮总数与答案键复核，配对子集独立计数。核对总览各轮分母、首轮正确率排序及所引用选项和理由的计数。",
-    "visuals": "IAB 检查1440及320像素宽视口。总览表和五个标签可见，各题公式渲染正常，页面无横向溢出。",
-    "browser_operation": "原四题作答、重置及轮次切换已验收。本次实测键盘选题、前进后退、总览表选题、四题链接直达及切换后保留轮次和自查状态，从讲义提交后可直达第4题。"
+    "data": "实际课堂5轮、84份纳入统计的作答，逐轮总数与答案键和配对子集已核对。本次逐条独立核对柱长、正确率和答对及提交人数。",
+    "visuals": "IAB 检查1440及320像素宽视口，五根柱使用相同刻度，第1题两轮归组，移动端标签、数值和导航清晰无溢出，跳转标题未被顶栏遮挡。",
+    "browser_operation": "桌面滚动依次高亮四题、反向滚动切回。五根柱点击、键盘跳转、前进后退、手机滚动与点选、讲义提交后直达第4题、轮次和自查保留及重置均实测通过。"
   }
 }
