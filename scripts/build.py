@@ -490,7 +490,7 @@ def update_pdfs(root, numbers):
                  5: [('第五讲课件.pdf', 'slides', '课件 PDF · 56 页')],
                  6: [('第六讲课件.pdf', 'slides', '课件 PDF · 49 页')],
                  7: [('第七讲课件.pdf', 'slides', '课件 PDF · 48 页')],
-                 8: [('第八讲课件.pdf', 'slides', '课件 PDF · 59 页')]}[number]
+                 8: [('第八讲课件.pdf', 'slides', '课件 PDF · 52 页')]}[number]
         # Handouts are local-only; remove the previously published copy.
         (DIST/f'downloads/{name}-print-9up.pdf').unlink(missing_ok=True)
         links = ''
@@ -615,7 +615,7 @@ def main():
             5: (root/'output/pdf/第五讲课件.pdf', 56),
             6: (root/'output/pdf/第六讲课件.pdf', 49),
             7: (root/'output/pdf/第七讲课件.pdf', 48),
-            8: (root/'output/pdf/第八讲课件.pdf', 59)}
+            8: (root/'output/pdf/第八讲课件.pdf', 52)}
     required = [notes/'index.html'] + list(note_sources.values()) + [pdfs[n][0] for n in PUBLISHED_PDFS] + [slide_source(root, n)/f'lecture{n:02d}.html' for n in PUBLISHED_SLIDES]
     for path in required:
         if not path.is_file():
