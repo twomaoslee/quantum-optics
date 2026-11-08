@@ -85,10 +85,43 @@ body { font-size: 17px; line-height: 1.9; }
 .quiz-tag { border-radius: 4px; }
 .quiz label { background: #fff; border: 1px solid #dce4ec; border-radius: 5px; margin: 8px 0; padding: 10px 12px; }
 .quiz label:has(input:checked) { border-color: #1e5f96; background: #edf5fb; }
+.quiz label[data-quiz-result] {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  row-gap: 3px;
+  border-color: var(--quiz-result-border);
+  background: var(--quiz-result-bg);
+}
+.quiz :is([data-quiz-result="correct"], .feedback.correct) {
+  --quiz-result-border: #22815b;
+  --quiz-result-bg: #e9f7ef;
+  --quiz-result-text: #176044;
+}
+.quiz :is([data-quiz-result="incorrect"], .feedback.incorrect) {
+  --quiz-result-border: #b1403b;
+  --quiz-result-bg: #fcefee;
+  --quiz-result-text: #922d29;
+}
+.quiz-choice-status {
+  grid-column: 2;
+  color: var(--quiz-result-text);
+  font-weight: 700;
+}
 .quiz-actions { margin-top: 18px; }
 .primary-btn { background: #1e5f96; border-color: #1e5f96; }
 .primary-btn, .ghost-btn, .seg-btn, .small-btn, .val-chip { border-radius: 5px; }
 .feedback { background: #fff; border-radius: 4px; }
+.quiz .feedback:is(.correct, .incorrect) {
+  border-color: var(--quiz-result-border);
+  background: var(--quiz-result-bg);
+}
+.quiz .feedback-title {
+  display: block;
+  color: var(--quiz-result-text);
+  font-size: 1.15em;
+  font-weight: 750;
+}
+.quiz .feedback p { margin: 4px 0 0; }
 .optional { border-style: solid; border-radius: 6px; }
 .optional > summary { color: #1e5f96; }
 .optional .supplement-body { padding: 0 20px 18px; }
@@ -642,7 +675,63 @@ function renderRelative(){const exp=Number($('relative-exp').value),n=Math.pow(1
  const curves=[{name:'相干态',color:C.coh,f:e=>1/Math.sqrt(10**e)},{name:'单模热态',color:C.th,f:e=>Math.sqrt(1+1/(10**e))}];curves.forEach(cur=>{const pts=Array.from({length:161},(_,i)=>{let e=i/40;return [x(e),y(cur.f(e))]});s+=`<path d="${linePath(pts)}" fill="none" stroke="${cur.color}" stroke-width="3"/>`;s+=`<circle cx="${x(exp)}" cy="${y(cur.f(exp))}" r="6" stroke="var(--panel)" stroke-width="2" fill="${cur.color}"/>`;});s+=`<line x1="${x(exp)}" x2="${x(exp)}" y1="${t}" y2="${t+h}" stroke="${C.axis}" stroke-dasharray="5 5" opacity=".5"/>`;
  s+=`<rect x="${l}" y="8" width="12" height="9" fill="${C.coh}"/><text x="${l+18}" y="17">相干态</text><rect x="${l+112}" y="8" width="12" height="9" fill="${C.th}"/><text x="${l+130}" y="17">单模热态</text>`;$('chart-relative').innerHTML=s;}
 function renderWeak(){const exp=Number($('weak-exp').value),n=10**exp,p0=Math.exp(-n),p1=n*p0,p2=Math.max(0,-Math.expm1(-n)-n*p0);$('weak-mean').textContent=n<.01?fmt(n,4):n<.1?fmt(n,3):fmt(n,2);activePreset('weak-presets',n);bars($('chart-weak'),['0','1','≥2'],[{name:'弱相干光',color:C.coh,values:[p0,p1,p2]}],{compact:true,maxY:1,legend:false});$('weak-p0').textContent=pct(p0,3);$('weak-p1').textContent=pct(p1,3);$('weak-pmulti').textContent=pct(p2,4);}
-function initQuizzes(){document.querySelectorAll('.quiz').forEach(quiz=>{const show=quiz.querySelector('.feedback');quiz.querySelector('[data-quiz-submit]').addEventListener('click',()=>{const v=quiz.querySelector('input[type=radio]:checked');if(!v){show.hidden=false;show.className='feedback';show.textContent='请先选择一个答案。';return;}const ok=v.value===quiz.dataset.correct;show.hidden=false;show.className='feedback '+(ok?'correct':'incorrect');show.textContent=(ok?'回答正确。':'还可以再想一想。正确选项是 '+quiz.dataset.correct+'。')+' '+quiz.dataset.explain;});quiz.querySelector('[data-quiz-reset]').addEventListener('click',()=>{quiz.querySelectorAll('input[type=radio]').forEach(el=>el.checked=false);show.hidden=true;show.textContent='';});});}
+function initQuizzes() {
+  document.querySelectorAll('.quiz').forEach(quiz => {
+    const feedback = quiz.querySelector('.feedback');
+    const inputs = [...quiz.querySelectorAll('input[type="radio"]')];
+
+    function clearFeedback() {
+      for (const label of quiz.querySelectorAll('label[data-quiz-result]')) {
+        delete label.dataset.quizResult;
+        label.querySelector('.quiz-choice-status')?.remove();
+      }
+      feedback.hidden = true;
+      feedback.className = 'feedback';
+      feedback.replaceChildren();
+    }
+
+    function markChoice(input, result, text) {
+      const label = input.closest('label');
+      const badge = document.createElement('span');
+      label.dataset.quizResult = result;
+      badge.className = 'quiz-choice-status';
+      badge.textContent = text;
+      label.append(badge);
+    }
+
+    quiz.querySelector('[data-quiz-submit]').addEventListener('click', () => {
+      clearFeedback();
+      const selected = inputs.find(input => input.checked);
+      if (!selected) {
+        feedback.textContent = '请先选择一个答案。';
+        feedback.hidden = false;
+        return;
+      }
+
+      const answer = inputs.find(input => input.value === quiz.dataset.correct);
+      const correct = selected === answer;
+      markChoice(answer, 'correct', '✓ 正确答案');
+      if (!correct) markChoice(selected, 'incorrect', '✕ 你的选择（错误）');
+
+      const title = document.createElement('strong');
+      title.className = 'feedback-title';
+      title.textContent = correct ? '✓ 回答正确' : '✕ 回答错误';
+      const explanation = document.createElement('p');
+      explanation.textContent = quiz.dataset.explain;
+      feedback.classList.add(correct ? 'correct' : 'incorrect');
+      feedback.append(title, explanation);
+      feedback.hidden = false;
+    });
+
+    quiz.addEventListener('change', event => {
+      if (inputs.includes(event.target)) clearFeedback();
+    });
+    quiz.querySelector('[data-quiz-reset]').addEventListener('click', () => {
+      inputs.forEach(input => { input.checked = false; });
+      clearFeedback();
+    });
+  });
+}
 function initHBT(){let total=0,coinc=0,bothShots=0,bothCoinc=0;const aBox=$('hbt-A'),bBox=$('hbt-B');let timer;
  const simulate=n=>{let a=0;for(let i=0;i<n;i++)if(Math.random()<.5)a++;const b=n-a;total++;if(a>0&&b>0)coinc++;if(n===2){bothShots++;if(a>0&&b>0)bothCoinc++;}return {a,b,co:a>0&&b>0}};
  const show=(r,words)=>{clearTimeout(timer);aBox.classList.toggle('detector-activated',r.a>0);bBox.classList.toggle('detector-activated',r.b>0);$('hbt-A-count').textContent=`本次：${r.a} 个`;$('hbt-B-count').textContent=`本次：${r.b} 个`;$('hbt-result').textContent=`${words} A端 ${r.a} 个，B端 ${r.b} 个；${r.co?'出现双端符合。':'没有双端符合。'}`;$('hbt-total').textContent=total;$('hbt-coinc').textContent=coinc;$('hbt-rate').textContent=bothShots?pct(bothCoinc/bothShots,1)+'（仅双光子试次）':'—';timer=setTimeout(()=>{aBox.classList.remove('detector-activated');bBox.classList.remove('detector-activated')},1100);};
