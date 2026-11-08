@@ -71,13 +71,12 @@ if classroom_manifest.exists():
         if path.is_file() and path.relative_to(DIST/'classroom').as_posix() not in expected:
             errors.append('Unexpected file in public classroom client: '+path.name)
 homepage = (DIST/'index.html').read_text()
-from lecture_descriptions import load_descriptions
-from html import escape
+from lecture_descriptions import load_descriptions, render_description
 descriptions = load_descriptions(DIST.parent)
 for card in re.findall(r'<article class="lecture">.*?</article>', homepage, re.S):
     number = str(int(re.search(r'<div class="lecture-number"[^>]*>(\d+)</div>', card)[1]))
     introduction = re.search(r'</h3>\s*<p>(.*?)</p>', card, re.S)
-    if not introduction or introduction[1] != escape(descriptions[number]):
+    if not introduction or introduction[1] != render_description(descriptions[number]):
         errors.append('Homepage introduction version mismatch: lecture '+number)
 recap_config = json.loads((DIST.parent/'publication.json').read_text()).get('classroom_recaps', {})
 for number, entry in recap_config.items():

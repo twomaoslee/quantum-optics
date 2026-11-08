@@ -16,6 +16,10 @@ def load_descriptions(site):
     return data
 
 
+def render_description(text):
+    return '<br>\n'.join(escape(line) for line in text.split('\n'))
+
+
 def sync_descriptions(site):
     site = Path(site)
     descriptions = load_descriptions(site)
@@ -23,7 +27,8 @@ def sync_descriptions(site):
     def update(match):
         card = match[0]
         number = str(int(re.search(r'<div class="lecture-number"[^>]*>(\d+)</div>', card)[1]))
-        card, count = re.subn(r'(</h3>\s*<p>).*?(</p>)', lambda m: m[1] + escape(descriptions[number]) + m[2], card, count=1, flags=re.S)
+        description = render_description(descriptions[number])
+        card, count = re.subn(r'(</h3>\s*<p>).*?(</p>)', lambda m: m[1] + description + m[2], card, count=1, flags=re.S)
         if count != 1:
             raise ValueError('Missing introduction position for Lecture ' + number)
         return card

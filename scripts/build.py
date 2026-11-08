@@ -726,9 +726,10 @@ def main():
                     for number, title in re.findall(r'^### 第(\d+)讲[　 ]+([^\n]+)',unit_text,re.M)]
         units.append((unit_title,lectures))
     titles = {int(number): title for _, lectures in units for number, title in lectures}
-    from lecture_descriptions import load_descriptions
+    from lecture_descriptions import load_descriptions, render_description
     descriptions = load_descriptions(SITE)
-    summaries = {number: (titles[number], descriptions[str(number)]) for number in sorted(PUBLISHED | PUBLISHED_SLIDES)}
+    summaries = {number: (titles[number], render_description(descriptions[str(number)]))
+                 for number in sorted(PUBLISHED | PUBLISHED_SLIDES)}
     rows=[]
     for number,(title,summary) in summaries.items():
         if number not in (PUBLISHED | PUBLISHED_SLIDES):
