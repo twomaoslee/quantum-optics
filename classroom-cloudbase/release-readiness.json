@@ -216,8 +216,8 @@
     "classroom-cloudbase/functions/classroom/ai.js": "14f030e11cc05f28511cfdc9ec43eb12b6aff80717ef24fe5d9bca90f927562d",
     "classroom-cloudbase/functions/classroom/comparison.js": "271ea53bb21a93630e9ed082e0633fff85421ef52094743f5559adff14563bf0",
     "classroom-cloudbase/test/ai.test.cjs": "167c334209c492da18e0b19d924057fbccbdfff8bd7e20fe9d03f7620c4992cb",
-    "classroom-cloudbase/functions/classroom/timing.json": "eb1187980ba532cdc4ad7fe79fb80dc2410f33b6ab1940cd134b9a77acf951f9",
-    "classroom-cloudbase/test/timing.test.cjs": "b27eba56f23d452c230634ffd7f1aa1d651b4bbb4413a3c5168608cbe08a7af0",
+    "classroom-cloudbase/functions/classroom/timing.json": "79b9c29a1b6a10d072fc7b429265d69ac62d1d0d786cbe0b2c2ee31e080722ea",
+    "classroom-cloudbase/test/timing.test.cjs": "7ec350688d875fd2c4ac7284d9889f0ffce47526e454d3636f3a718f5dd63f1f",
     "classroom-cloudbase/test/student-feedback.test.cjs": "3461010926ae9e844912ec15e012f7997cf819c1d7f087ad6a66944403e6e7fb",
     "classroom-cloudbase/test/lecture08.test.cjs": "105738d6705650af4ce8cd16479020927ef1ecb1eb1433b7ec903c0010b438be",
     "classroom-cloudbase/scripts/cloud-smoke-lecture08.cjs": "f3aceaf4078ffca7a91e8a0bcd11cdb7c1e90ad3c84f3d6382ce05711836a5fc",
@@ -451,5 +451,12 @@
     "browser": "Local headless Chrome with actual published Lecture 7 and Lecture 8 decks and 390px student view. Verified identical QR bytes/link across trial and formal sessions, already-open student view follows without login, both slides share new session, discussion retry and two-round results inside sidebar, immediate self-check and optional reason, delayed AI using a local fixture, archived student history and teacher export.",
     "review": "Independent undergraduate flow cold read. Revised explicit deadline and resubmission wording, identified round scope in results and history, distinguished post-solution reflection, and added a visible student session label.",
     "cloud": "Code-only CloudBase update. Both feedback modes, hidden discussion retry, self-check lock and cutoff, and real deepseek-flash summaries passed using a separate fictional classroom. The formal classroom export retained the same answer and round fingerprint. Fixed QR switching tested against the local service without changing the active production class."
+  },
+  "submission_window": {
+    "date": "2026-11-08",
+    "status": "passed",
+    "scope": "All eleven questions in Lectures 7 and 8 use a 60-second default submission window. The instructor gives students thinking and calculation time before opening each round.",
+    "backend_tests": "47 passed, including a submission at 59 seconds and rejection at the 60-second deadline.",
+    "cloud": "All eleven questions opened with a 60-second server deadline in two isolated rooms. Teacher state and the student entry returned identical deadlines."
   }
 }
