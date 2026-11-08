@@ -351,7 +351,7 @@ body { font-size: 17px; line-height: 1.9; }
     <p>平均光子数就是</p>
     <div class="equation key-eq">\[\bar n=\sum_{n=0}^{\infty}nP(n).\]</div>
     <p>如果在1000次测量中，900次得到0个光子、100次得到1个光子，那么平均值为0.1。但同样的平均值还可以来自另一种分布。</p>
-    <p class="transition">我们刚才看到，“平均0.1个光子”只是一项统计信息。要知道某个光子数究竟有多大概率出现，必须把整组 \(P(0),P(1),P(2),\ldots\) 写出来。下面先不用真实光源，比较两个简单的假想分布。</p>
+    <p class="transition">我们刚才看到，“平均0.1个光子”只是一项统计信息。要描述光子数测量的全部可能结果及各自的概率，可以把整组 \(P(0),P(1),P(2),\ldots\) 写出来。下面比较两个简单的假想分布。</p>
   </section>
   <section id="s3" class="lesson"><h3>3. 两种平均光子数相同的光场</h3>
     <p>考虑下面两种情况。光场A：90%的概率测到真空，10%的概率测到1个光子。光场B：95%的概率测到真空，5%的概率测到2个光子。</p>
@@ -359,7 +359,7 @@ body { font-size: 17px; line-height: 1.9; }
       <div class="panel-sm"><div class="panel-title">光场 A</div><svg class="chart" id="chart-intro-a" viewBox="0 0 360 270" role="img" aria-label="光场A的光子数分布"></svg><div class="graph-note">\(P(0)=0.9,\;P(1)=0.1\)</div></div>
       <div class="panel-sm"><div class="panel-title">光场 B</div><svg class="chart" id="chart-intro-b" viewBox="0 0 360 270" role="img" aria-label="光场B的光子数分布"></svg><div class="graph-note">\(P(0)=0.95,\;P(2)=0.05\)</div></div></div>
       <div class="stat-grid"><div class="stat"><div class="stat-label">两者平均光子数</div><div class="stat-number">0.1</div></div><div class="stat"><div class="stat-label">A：测到两个光子</div><div class="stat-number">0%</div></div><div class="stat"><div class="stat-label">B：测到两个光子</div><div class="stat-number">5%</div></div></div>
-      <div class="figure-caption">两个图的横轴为光子数 \(n\)，纵轴为概率 \(P(n)\)。未标出的其他光子数概率均为零。这是两种示例分布，并不是在声称实际激光服从其中一种。</div></div>
+      <div class="figure-caption">两个图的横轴为光子数 \(n\)，纵轴为概率 \(P(n)\)。未标出的其他光子数概率均为零。</div></div>
     <p>对光场A，\(\bar n_A=0\times0.9+1\times0.1=0.1\)。对光场B，\(\bar n_B=0\times0.95+2\times0.05=0.1\)。</p>
     <p><strong>平均光子数完全相同，但统计行为明显不同。</strong> 尤其是，光场B有5%的概率测到两个光子，而光场A不会发生这种情况。</p>
   </section>
@@ -372,7 +372,7 @@ body { font-size: 17px; line-height: 1.9; }
     <p>计算光场A：\(\langle n^2\rangle_A=0.1\)，因此 \((\Delta n)^2_A=0.1-0.1^2=0.09\)。</p>
     <p>计算光场B：\(\langle n^2\rangle_B=0.05\times2^2=0.2\)，因此 \((\Delta n)^2_B=0.2-0.1^2=0.19\)。</p>
     <p><strong>物理直觉：</strong>光场B虽然更经常测到真空，但偶尔会出现两个光子。相对于平均值0.1，这些较大的结果使统计分布更加分散。</p>
-    <p>所以，平均光子数决定了光场的平均激发能量；方差则反映了光子数测量的涨落。接下来我们要问：激光究竟具有哪一种分布？</p>
+    <p>所以，平均光子数决定了光场的平均激发能量；方差则反映了光子数测量的涨落。接下来我们要问：激光的光子数怎样分布？</p>
     <p class="transition">到这里，我们只比较了人为给定的概率分布。真实激光的 \(P(n)\) 应当从它的量子态推导出来。要找到合适的量子态，我们还需要回到一个熟悉的物理事实：激光的电场可以表现出经典波的振荡。</p>
   </section>
 </section>
@@ -388,7 +388,7 @@ body { font-size: 17px; line-height: 1.9; }
     <div class="equation">\[\hat E(t)=\mathcal E_0\!\left(\hat a e^{-i\omega t}+\hat a^\dagger e^{i\omega t}\right).\]</div>
     <p>对于Fock态，\(\langle n|\hat a|n\rangle=0\)，同样 \(\langle n|\hat a^\dagger|n\rangle=0\)，所以</p>
     <div class="equation key-eq">\[\langle n|\hat E(t)|n\rangle=0.\]</div>
-    <p><strong>光子数确定的状态，其平均电场为零。</strong> 这并不表示没有电场涨落，也不表示没有能量。它只是说正负场的测量结果在平均后相互抵消。</p>
+    <p><strong>光子数确定的状态，其平均电场为零。</strong> 正负场的测量结果在平均后相互抵消。</p>
     <p>那么，能否找到一种量子态，使 \(\langle\hat a\rangle\ne0\)？</p>
   </section>
   <section id="s6" class="lesson"><h3>6. 相干态的定义：让平均电场振荡起来</h3>
@@ -409,7 +409,7 @@ body { font-size: 17px; line-height: 1.9; }
       <label for="alpha-phase">相位 \(\phi\)</label><div class="range-wrap"><input id="alpha-phase" type="range" min="0" max="6.2831853" step="0.1" value="0"><span class="val-chip" id="phase-display">0.00</span></div>
     </div><svg class="chart" id="chart-field" viewBox="0 0 730 250" role="img" aria-label="相干态平均电场随时间的可交互波形"></svg>
       <div class="stat-grid"><div class="stat"><div class="stat-label">平均光子数 \(\bar n\)</div><div class="stat-number" id="alpha-nbar">1.00</div></div><div class="stat"><div class="stat-label">归一化振幅 \(2|\alpha|\)</div><div class="stat-number" id="alpha-peak">2.00</div></div><div class="stat"><div class="stat-label">曲线周期</div><div class="stat-number">\(T=2\pi/\omega\)</div></div></div>
-      <p class="figure-caption">纵轴为 \(\langle E\rangle/\mathcal E_0\)，横轴为 \(t/T\)。这个补充可视化只帮助观察刚得到的经典振荡形式；横轴和振幅刻度均采用归一化单位。</p></div>
+      <p class="figure-caption">纵轴为 \(\langle E\rangle/\mathcal E_0\)，横轴为 \(t/T\)。横轴和振幅刻度均采用归一化单位。调节振幅和相位，观察波形高度和位置的变化。</p></div>
   </section>
   <section id="s7" class="lesson"><h3>7. 相干态究竟由哪些光子数态组成？</h3>
     <p>相干态能够产生经典形式的平均电场，那么它的光子数是否确定？我们把它在Fock基底展开：</p>
@@ -476,7 +476,7 @@ body { font-size: 17px; line-height: 1.9; }
     <div class="equation key-eq">\[P_{\mathrm{th}}(n)=\frac1{1+\bar n}\left(\frac{\bar n}{1+\bar n}\right)^n.\]</div>
     <p>我们现在得到两种很重要的分布：相干态的Poisson分布，与热态的几何分布。</p>
     <p class="transition">公式已经表明两种光场的统计规律不同，但仅看符号还不容易形成直觉。我们把它们调到相同的平均光子数，直接比较每一种测量结果的概率。</p>
-    <details class="optional"><summary>【补充推导｜可选】热态平均数与密度矩阵</summary><div class="supplement-body"><p>从等比级数 \(\sum_{n=0}^{\infty}q^n=1/(1-q)\) 求导得到 \(\sum_{n=0}^{\infty}nq^n=q/(1-q)^2\)，因此 \(\bar n=(1-q)q/(1-q)^2=q/(1-q)\)。单模热态的密度矩阵为</p><div class="equation">\[\rho_{\mathrm{th}}=\sum_{n=0}^{\infty}P_{\mathrm{th}}(n)|n\rangle\langle n|.\]</div><p>它在Fock基底中是对角的，因此 \(\langle\hat a\rangle=0\)，平均电场也为零。这不意味着没有电场能量或涨落。</p></div></details>
+    <details class="optional"><summary>【补充推导｜可选】热态平均数与密度矩阵</summary><div class="supplement-body"><p>从等比级数 \(\sum_{n=0}^{\infty}q^n=1/(1-q)\) 求导得到 \(\sum_{n=0}^{\infty}nq^n=q/(1-q)^2\)，因此 \(\bar n=(1-q)q/(1-q)^2=q/(1-q)\)。单模热态的密度矩阵为</p><div class="equation">\[\rho_{\mathrm{th}}=\sum_{n=0}^{\infty}P_{\mathrm{th}}(n)|n\rangle\langle n|.\]</div><p>它在Fock基底中是对角的，因此 \(\langle\hat a\rangle=0\)，平均电场也为零。</p></div></details>
   </section>
   <section id="s11" class="lesson"><h3>11. 相干光与热光的概率分布比较</h3>
     <p>先让两种光场的平均光子数都等于1：</p>
@@ -501,7 +501,7 @@ body { font-size: 17px; line-height: 1.9; }
     <p>将两种光场放在一起：</p>
     <table class="formula-table"><thead><tr><th>统计性质</th><th>相干态</th><th>单模热态</th></tr></thead><tbody><tr><td>平均光子数</td><td>\(\bar n\)</td><td>\(\bar n\)</td></tr><tr><td>方差</td><td>\(\bar n\)</td><td>\(\bar n+\bar n^2\)</td></tr><tr><td>\(\bar n=1\) 时</td><td>1</td><td>2</td></tr></tbody></table>
     <p>只要 \(\bar n>0\)，热态的光子数方差就大于具有相同平均光子数的相干态。</p>
-    <p class="transition">这验证了图中的判断。但单靠“方差更大”还只是数学结论：热光的统计分布为何会多出这一部分涨落？</p>
+    <p class="transition">计算验证了图中的判断：相同平均光子数下，热态的方差更大。多出的这一部分涨落来自什么物理过程？</p>
     <details class="optional"><summary>【补充推导｜可选】单模热态方差的求和</summary><div class="supplement-body"><p>对几何分布 \(P(n)=(1-q)q^n\)，使用</p><div class="equation">\[\sum_{n=0}^\infty n(n-1)q^n=\frac{2q^2}{(1-q)^3},\]</div><p>得到</p><div class="equation">\[\langle n(n-1)\rangle=(1-q)\frac{2q^2}{(1-q)^3}=\frac{2q^2}{(1-q)^2}=2\bar n^2.\]</div><p>因此 \(\langle n^2\rangle=2\bar n^2+\bar n\)，方差为 \(\bar n^2+\bar n\)。</p></div></details>
   </section>
   <section id="s13" class="lesson"><h3>13. 为什么热光具有更强的涨落？</h3>
@@ -509,7 +509,7 @@ body { font-size: 17px; line-height: 1.9; }
     <div class="equation key-eq">\[(\Delta n)^2_{\mathrm{th}}=\bar n+\bar n^2.\]</div><p>其中第一项 <strong>\(\bar n\)</strong> 对应Poisson型的散粒涨落，第二项 <strong>\(\bar n^2\)</strong> 描述额外的强度涨落。</p>
     <p>可以这样理解：对于理想相干光，光子计数满足Poisson分布；对于单模热光，光场的强度本身还具有随机涨落。</p>
     <p>有些时间窗中的光场较弱，因此更容易测到真空；有些时间窗中的光场较强，因此更容易测到多个光子。统计分布的两端都获得了更多概率，方差因此更大。</p>
-    <p>这种统计性质与下一讲会学习的<strong>光子聚束（photon bunching）</strong>密切相关。不过，本讲先通过光子数概率分布理解它，下讲再研究时间关联测量。</p>
+    <p>这种统计性质与下一讲会学习的<strong>光子聚束（photon bunching）</strong>密切相关。本讲通过光子数概率分布理解这种性质，下一讲将通过时间关联测量继续研究它。</p>
     <div class="quiz" data-correct="A" data-explain="在平均光子数为1时，热光真空概率为50%，相干光为约36.8%；热光P(n≥4)=6.25%，相干光约1.90%。热光同时具有更高的真空概率和更重的大光子数尾部。"><div class="quiz-heading"><span class="quiz-tag">课堂思考题 4</span> 热光为什么涨落更大？</div><fieldset><legend class="quiz-question">考虑平均光子数都为1的相干态和单模热态，下面哪种说法正确？</legend>
       <label><input type="radio" name="q4" value="A">A. 热光更容易测到真空，也更容易测到4个或更多光子。</label><label><input type="radio" name="q4" value="B">B. 热光更不容易测到真空，但更容易测到4个或更多光子。</label><label><input type="radio" name="q4" value="C">C. 热光更容易测到真空，所以一定更不容易测到大的光子数。</label><label><input type="radio" name="q4" value="D">D. 平均光子数相同，因此大光子数事件概率也相同。</label></fieldset><div class="quiz-actions"><button class="primary-btn" type="button" data-quiz-submit>提交答案</button><button class="ghost-btn" type="button" data-quiz-reset>重新作答</button></div><div class="feedback" hidden aria-live="polite"></div></div>
     <details class="optional"><summary>【补充理解｜可选】用随机强度解释额外的 \(\bar n^2\) 项</summary><div class="supplement-body"><p>单模热态可写成随机相干态的混合。设给定强度参数 \(\mu\) 时，光子计数满足Poisson统计，均值和方差都为 \(\mu\)。当 \(\mu\) 具有均值为 \(\bar n\)、方差为 \(\bar n^2\) 的指数分布时，利用全方差公式：</p><div class="equation">\[\operatorname{Var}(n)=\mathbb E[\operatorname{Var}(n\mid\mu)]+\operatorname{Var}(\mathbb E[n\mid\mu])=\bar n+\bar n^2.\]</div><p>这个计算进一步表明，热光中额外的 \(\bar n^2\) 项，可以理解为强度随机变化所带来的统计涨落。</p></div></details>
@@ -526,7 +526,7 @@ body { font-size: 17px; line-height: 1.9; }
     <div class="equation">\[P(n)=\delta_{n,1}.\]</div>
     <p>于是 \(\bar n=1\)，并且</p>
     <div class="equation key-eq">\[(\Delta n)^2_{|1\rangle}=0.\]</div>
-    <p>Fock态的光子数完全确定，没有任何光子数涨落。注意，这并不意味着它的电场没有涨落；第七讲已经解释过两者的区别。</p>
+    <p>Fock态的光子数完全确定，光子数方差为零；它的电场仍有涨落。第七讲已经讨论过光子数涨落与电场涨落的区别。</p>
   </section>
   <section id="s15" class="lesson"><h3>15. Fock态、相干态和热态的统计分布</h3>
     <p>为了公平比较，让三种光场都具有平均光子数 \(\bar n=1\)。</p>
@@ -544,8 +544,8 @@ body { font-size: 17px; line-height: 1.9; }
       <tr><td>亚Poisson</td><td>\((\Delta n)^2&lt;\bar n\)</td><td>非真空Fock态</td></tr>
       <tr><td>Poisson</td><td>\((\Delta n)^2=\bar n\)</td><td>相干态</td></tr>
       <tr><td>超Poisson</td><td>\((\Delta n)^2&gt;\bar n\)</td><td>单模热态</td></tr></tbody></table>
-    <p><strong>亚Poisson统计是重要的非经典光场特征。</strong>热光的超Poisson统计可以由经典随机强度模型解释；不同的光子数统计分类也不能替代对完整量子态的测量。</p>
-    <p>这一分类只依靠光子数方差。前面比较相干态与热态时我们已看到，完整的光子数分布仍不一定能唯一确定量子态；因此Poisson统计本身不足以证明一个光场是纯相干态。</p>
+    <p><strong>亚Poisson统计是重要的非经典光场特征。</strong>热光的超Poisson统计可以由经典随机强度模型解释。</p>
+    <p>这一分类比较光子数方差与平均值的大小，刻画光子数的涨落。前面讨论的纯相干态与完全相位随机化的相干光都服从同一Poisson分布，而两者的相位信息和密度矩阵不同。光子数统计相同的光场，仍可具有不同的量子态。</p>
   </section>
   <section id="s17" class="lesson"><h3>17. 平均光子数越大，相对涨落越小吗？</h3>
     <p>刚才比较的是相同平均光子数下的三种分布。现在把平均光子数逐渐增大，问一个不同的问题：<strong>光越强，它相对于平均值的涨落是否一定越小？</strong></p>
@@ -606,7 +606,7 @@ body { font-size: 17px; line-height: 1.9; }
     <div class="summary-flow"><div class="flow-node"><strong>平均光强能否确定光的量子性质？</strong><small>不能。相同的均值可以对应不同的分布。</small></div><div class="flow-arrow">↓</div><div class="flow-node"><strong>引入 \(P(n)\) 与光子数方差</strong><small>研究大量重复测量的统计规律。</small></div><div class="flow-arrow">↓</div><div class="flow-node"><strong>相干态、热态与Fock态</strong><small>Poisson、几何分布与确定数态。</small></div><div class="flow-arrow">↓</div><div class="flow-node"><strong>比较亚Poisson、Poisson和超Poisson统计</strong><small>相同平均值，不同涨落。</small></div><div class="flow-arrow">↓</div><div class="flow-node"><strong>回到真实光源</strong><small>为什么弱激光不能直接代替单光子源？</small></div></div>
     <table class="formula-table"><thead><tr><th>光场</th><th>光子数分布</th><th>方差</th></tr></thead><tbody><tr><td>非真空Fock态</td><td>确定光子数</td><td>\(0\)</td></tr><tr><td>相干态</td><td>Poisson</td><td>\(\bar n\)</td></tr><tr><td>单模热态</td><td>几何分布</td><td>\(\bar n+\bar n^2\)</td></tr></tbody></table>
     <p>本讲的三个关键结论是：<strong>平均光子数不能决定单次测量；方差揭示不同光源的统计差异；弱相干光和真正的单光子态有重要区别。</strong></p>
-    <p>还有一个呼应第七讲的提醒：即使光子数分布完全相同，也可能对应不同的密度矩阵。理解完整的光场性质，还需要光子数之外的测量。</p>
+    <p>第七讲的叠加态与混合态，以及本讲相位随机化的例子，共同说明：相同的光子数分布可以对应不同的密度矩阵。光子数之外的测量提供进一步区分这些状态的信息。</p>
   </section>
   <section id="s22" class="lesson"><h3>22. 怎样通过两个探测器测量光子统计？ <span class="inline-pill">第九讲预告</span></h3>
     <p>前面一直在讨论 \(P(n)\)。但许多实际单光子探测器只能告诉我们“点击”还是“没有点击”，并不能直接分辨一个脉冲里有一个还是两个光子。</p>
@@ -616,7 +616,7 @@ body { font-size: 17px; line-height: 1.9; }
       <div class="control-row"><button id="hbt-one" class="primary-btn" type="button">发送1个光子</button><button id="hbt-two" class="primary-btn" type="button">发送2个光子</button><button id="hbt-batch" class="ghost-btn" type="button">连续模拟20次双光子</button><button id="hbt-clear" class="ghost-btn" type="button">清空统计</button></div>
       <div class="hbt-result" id="hbt-result" aria-live="polite">点击按钮，观察两个输出端的探测结果。</div>
       <div class="hbt-kpis"><div class="stat"><div class="stat-label">总模拟次数</div><div class="stat-number" id="hbt-total">0</div></div><div class="stat"><div class="stat-label">双端符合次数</div><div class="stat-number" id="hbt-coinc">0</div></div><div class="stat"><div class="stat-label">本次累计符合比例</div><div class="stat-number" id="hbt-rate">—</div></div></div>
-      <p class="figure-caption">这是理想50:50分束器的简化脉冲演示。输入1个光子时不会出现双端同时点击；两个光子从同一输入端进入时，可能分别走向两侧，从而产生符合。模拟不含探测效率、时间波包、暗计数等因素，也不等同于真实HBT实验的归一化 \(g^{(2)}\) 测量。</p>
+      <p class="figure-caption">演示采用理想50:50分束器和理想探测器。输入1个光子时，光子在一个输出端被探测到；两个光子从同一输入端进入时，可能分别到达两侧，产生双端符合。图中两端的数字表示每次模拟中到达各端的光子数；符合比例是双光子试次中出现双端符合的次数占比。</p>
     </div>
     <p>如果每次只有一个光子，那么它最终只能在两个探测器中的一个被探测到。若偶尔出现两个或更多光子，则可能发生两个探测器同时点击的事件。</p>
     <p>下一讲，我们将研究如何定量描述这种符合计数，并正式引入二阶关联函数：</p>
@@ -625,7 +625,7 @@ body { font-size: 17px; line-height: 1.9; }
     <div class="stat-grid"><div class="stat"><div class="stat-label">理想单光子态</div><div class="stat-number">\(g^{(2)}(0)=0\)</div></div><div class="stat"><div class="stat-label">相干态</div><div class="stat-number">\(g^{(2)}(0)=1\)</div></div><div class="stat"><div class="stat-label">单模热态</div><div class="stat-number">\(g^{(2)}(0)=2\)</div></div></div>
     <p>这三个数与光子数方差直接相关，但它们怎样通过探测器的点击得到？为什么小于1的结果有特殊的非经典意义？这是第九讲的核心内容。</p>
   </section>
-  <section class="end"><h3>课后自查</h3><ol><li>为什么平均光子数为0.1，不意味着每次最多只能测到一个光子？</li><li>为什么相干态的平均电场能够像经典电磁波一样振荡？</li><li>怎样从相干态的Fock展开得到Poisson分布？</li><li>为什么单模热态的光子数方差比相干态大？</li><li>为什么衰减激光不会自动得到单光子态？</li></ol><p class="subtle">如果其中某个问题还不能清楚解释，可以返回相应小节，重新操作图表或展开补充推导，并尝试独立完成计算。</p></section>
+  <section class="end"><h3>课后自查</h3><ol><li>为什么平均光子数为0.1，不意味着每次最多只能测到一个光子？</li><li>为什么相干态的平均电场能够像经典电磁波一样振荡？</li><li>怎样从相干态的Fock展开得到Poisson分布？</li><li>为什么单模热态的光子数方差比相干态大？</li><li>为什么衰减激光不会自动得到单光子态？</li></ol><p class="subtle">可以结合相应小节的图表和补充推导，尝试独立解释这些问题并完成计算。</p></section>
 </section>
 <footer class="footer"><p>《量子光学导论》 · 第八讲：光子统计</p><p>课程网站：<a href="https://zimin.li/quantum-optics/">zimin.li/quantum-optics</a>　 ·　 第七讲：<a href="https://zimin.li/quantum-optics/notes/lecture07.html">光场量子化</a>　 ·　 第九讲：光子关联</p><p class="print-note">打印页面中的图表显示打印时的当前状态。要调整参数或提交思考题，请使用网页版本。</p></footer>
 </main>
