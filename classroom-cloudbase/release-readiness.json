@@ -195,8 +195,8 @@
     "classroom-cloudbase/scripts/cloud-smoke.cjs": "78fefd699842a172dc7fcc129b05a1feb65c50ec1e3185ef3267e970bb30942e",
     "classroom-cloudbase/functions/classroom/transport.js": "cf0f2aa392be5e41da498d03374d81581107fdabc59d7e572013648eaa8a8781",
     "classroom-cloudbase/test/transport.test.cjs": "aeb04077c2f6c62a26102b007bf3a5bf8e271aca3551f4b997e162a150fc8832",
-    "classroom/presenter.html": "f1ca78172496fec4160e4e498fa19fe4b265e4d3d95529c4a44cbf28269367b3",
-    "classroom/presenter.css": "aaa9dcaaa7db1b2549e97d586a3913c4da365fe6f5c00743a5139f4a8b0981be",
+    "classroom/presenter.html": "4d13ef5d15a3b875dbc8811a3386936641eb684a1e82f414a5d734ed94161372",
+    "classroom/presenter.css": "12b68689caa4546c9eeb4a37a342210e12895c345357812929439f062ab9051d",
     "classroom/presenter.js": "85f2194487623e4db48f93a7b83b2662bda9d755b423264acb682b1a5291c2b7",
     "classroom-cloudbase/functions/classroom/questions.json": "2d45e5948dd22a52126d25ca0bb9ebda1989ec67622d795036e4283fc91fcb52",
     "classroom-cloudbase/scripts/sync-questions.py": "c45ebfae7dc72aa1f997cfcaec54d357d40dff347170484bb37acef8ac2daa89",
@@ -466,6 +466,11 @@
     "scope": "Lectures 7 and 8 shared classroom panel. Unissued questions default to single-round self-check, with discussion still selectable before issuance. Existing rounds use their stored feedback mode. QR, timer and controls remain in the fixed right column.",
     "browser": "All eleven question panels checked at 1280x720 and 1024x768. Checked QR decoding and stable link, start-new-class confirmation, running timer and closed with no submissions, immediate self-check feedback and answer locking, explicit discussion retry, one- and two-round charts, and control alignment without clipping.",
     "review": "Fresh undergraduate cold read verified the sequence from pre-question thinking to timed submission, immediate personal feedback and post-round whole-class AI. Teacher labels clarify that the clock starts at issue and the first answer locks.",
-    "backend_tests": "47 passed. Static client release uses the existing CloudBase service."
+    "backend_tests": "47 passed. Static client release uses the existing CloudBase service.",
+    "countdown_visual": {
+      "version": "20261109-timer",
+      "status": "passed",
+      "browser": "40px active countdown inspected on Lecture 7 Q6 and Lecture 8 Q4 at 1280x720 and 1024x768. The label, participant count, and bottom buttons fit within the fixed panel."
+    }
   }
 }

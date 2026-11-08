@@ -40,7 +40,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{ou
 }
 .status-caption,.feedback-hint{color:var(--muted);font-size:13px;line-height:1.35}
 .timer{margin-top:2px;color:var(--blue);font-weight:700;font-size:21px;line-height:1.14;font-variant-numeric:tabular-nums;white-space:nowrap}
-.round-open .timer{font-size:28px}
+.round-open .timer{font-size:40px;line-height:32px}
 .participation{align-self:flex-end;color:var(--muted);font-size:14px;line-height:1.25;text-align:right;font-variant-numeric:tabular-nums}
 .question-tools{display:grid;gap:5px}
 .feedback-mode{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:7px;font-size:14px;font-weight:600}
