@@ -84,7 +84,7 @@ body { font-size: 17px; line-height: 1.9; }
 .quiz-heading { flex-wrap: wrap; color: #183d67; }
 .quiz-tag { border-radius: 4px; }
 .quiz label { background: #fff; border: 1px solid #dce4ec; border-radius: 5px; margin: 8px 0; padding: 10px 12px; }
-.quiz label:has(input:checked) { border-color: #1e5f96; background: #edf5fb; }
+.quiz label:has(input:checked):not([data-quiz-result]) { border-color: #1e5f96; background: #edf5fb; }
 .quiz label[data-quiz-result] {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
