@@ -2465,8 +2465,29 @@ details{margin:1.2rem 0;padding:.7rem 1rem;background:#f5f8fb;border-left:3px so
 .l7-quiz .quiz-letter{color:#1d669e;font-weight:700}
 .l7-quiz .quiz-option-text{min-width:0;overflow-wrap:anywhere}
 .l7-quiz .quiz-option.is-selected{border-color:#1378bb;background:#eef6fc}
-.l7-quiz .quiz-option.is-correct{border-color:#208261;box-shadow:inset 3px 0 #208261}
-.l7-quiz .quiz-option.is-incorrect{border-color:#a5603b;box-shadow:inset 3px 0 #a5603b}
+.l7-quiz[data-result="correct"], .l7-quiz .quiz-option.is-correct {
+  --quiz-result-border: #22815b;
+  --quiz-result-bg: #e9f7ef;
+  --quiz-result-text: #176044;
+}
+.l7-quiz[data-result="incorrect"], .l7-quiz .quiz-option.is-incorrect {
+  --quiz-result-border: #b1403b;
+  --quiz-result-bg: #fcefee;
+  --quiz-result-text: #922d29;
+}
+.l7-quiz .quiz-option:is(.is-correct, .is-incorrect) {
+  border-color: var(--quiz-result-border);
+  background-color: var(--quiz-result-bg);
+  row-gap: .2rem;
+}
+.l7-quiz .quiz-choice-status {
+  grid-column: -2 / -1;
+  color: var(--quiz-result-text);
+  font-weight: 700;
+}
+@media (max-width: 380px) {
+  #l7-quiz-6 .quiz-choice-status { grid-column: 1 / -1; }
+}
 .l7-quiz .quiz-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1rem}
 .l7-quiz button{font:inherit;line-height:1.5;padding:.5rem 1rem;border:1px solid #176da7;border-radius:5px;cursor:pointer}
 .l7-quiz .quiz-submit{background:#116ca9;color:#fff}
@@ -2474,6 +2495,14 @@ details{margin:1.2rem 0;padding:.7rem 1rem;background:#f5f8fb;border-left:3px so
 .l7-quiz .quiz-reset{background:#fff;color:#176da7}
 .l7-quiz .quiz-status{font-size:.95em;color:#4e6578;margin:1rem 0 0;line-height:1.7}
 .l7-quiz .quiz-feedback{margin-top:1.1rem;padding:1rem 1.1rem;background:#fff;border-left:3px solid #1378bb}
+.l7-quiz[data-result] .quiz-status {
+  color: var(--quiz-result-text, #183d67);
+  font-weight: 700;
+}
+.l7-quiz:is([data-result="correct"], [data-result="incorrect"]) .quiz-feedback {
+  border-color: var(--quiz-result-border);
+  background-color: var(--quiz-result-bg);
+}
 .l7-quiz .quiz-correct-answer{color:#125e96;margin:0 0 .75rem}
 .l7-quiz .quiz-explanation>:last-child{margin-bottom:0}
 .l7-quiz [hidden]{display:none!important}
@@ -3795,16 +3824,25 @@ for(const lab of document.querySelectorAll('.l7-lab')){
         if (passed) correct++;
         group.querySelectorAll('.quiz-option').forEach(label => {
           const input = label.querySelector('input');
-          label.classList.toggle('is-correct', input.value === group.dataset.correct);
-          label.classList.toggle('is-incorrect', input.checked && !passed);
+          const isAnswer = input.value === group.dataset.correct;
+          const isWrongChoice = input.checked && !passed;
+          label.classList.toggle('is-correct', isAnswer);
+          label.classList.toggle('is-incorrect', isWrongChoice);
+          if (isAnswer || isWrongChoice) {
+            const badge = document.createElement('span');
+            badge.className = 'quiz-choice-status';
+            badge.textContent = isAnswer ? '✓ 正确答案' : '✕ 你的选择（错误）';
+            label.append(badge);
+          }
           input.disabled = true;
         });
       });
       submitted = true;
+      form.dataset.result = correct === groups.length ? 'correct' : correct === 0 ? 'incorrect' : 'partial';
       feedback.hidden = false;
       reset.hidden = false;
       status.textContent = groups.length === 1
-        ? (correct ? '回答正确。下方可核对理由与计算。' : '这次选择与正确答案不同。请核对下方解释。')
+        ? (correct ? '✓ 回答正确。下方可核对理由与计算。' : '✕ 回答错误。请核对下方解释。')
         : `已完成三个小问，答对 ${correct}/${groups.length} 项。下方给出各项答案和计算。`;
       update();
     });
@@ -3812,6 +3850,8 @@ for(const lab of document.querySelectorAll('.l7-lab')){
       form.reset();
       form.querySelectorAll('input').forEach(input => input.disabled = false);
       form.querySelectorAll('.quiz-option').forEach(label => label.classList.remove('is-correct','is-incorrect'));
+      form.querySelectorAll('.quiz-choice-status').forEach(badge => badge.remove());
+      delete form.dataset.result;
       submitted = false;
       feedback.hidden = true;
       reset.hidden = true;
