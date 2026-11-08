@@ -20,10 +20,15 @@ def rich(value):
 
 def choice_distribution(question, maximum):
     rounds = question['rounds']
-    legend = ''.join(
-        f'<span><i aria-hidden="true"></i>{escape(result["label"])} · {result["total"]} 人提交</span>'
-        for result in rounds
-    )
+    correct = question['correct']
+    summary = []
+    for index, result in enumerate(rounds):
+        rate = result['correct'] / result['total']
+        marker = 'distribution-swatch' + (' distribution-repeat' if index else '')
+        summary.append(
+            f'<tr><th scope="row"><i class="{marker}" aria-hidden="true"></i>{escape(result["label"])}</th>'
+            f'<td>{result["correct"]} / {result["total"]} 人</td><td><strong>{rate:.1%}</strong></td></tr>'
+        )
     description = '；'.join(
         f'{result["label"]}，共 {result["total"]} 人提交，' +
         '，'.join(f'{choice} {result["choices"][choice]} 人' for choice, _ in question['options'])
@@ -35,13 +40,25 @@ def choice_distribution(question, maximum):
     groups = []
     for choice, _ in question['options']:
         bars = []
-        for result in rounds:
+        for index, result in enumerate(rounds):
             count = result['choices'][choice]
-            bars.append(f'<div class="distribution-bar" style="--level:{count / maximum:.2%}"><i></i><span>{count}</span></div>')
-        groups.append(f'<div class="distribution-group"><div class="distribution-series">{"".join(bars)}</div><b>{choice}</b></div>')
+            bar = 'distribution-bar' + (' distribution-repeat' if index else '')
+            bars.append(f'<div class="{bar}" style="--level:{count / maximum:.2%}"><i></i><span>{count}</span></div>')
+        group = 'distribution-group'
+        mark = ''
+        if choice == correct:
+            group += ' distribution-correct'
+            mark = '<small>正确选项</small>'
+        groups.append(
+            f'<div class="{group}"><div class="distribution-series">{"".join(bars)}</div>'
+            f'<div class="distribution-option"><b>{choice}</b>{mark}</div></div>'
+        )
     return f'''<figure class="distribution">
-<figcaption><strong>各选项作答人数</strong><div class="distribution-legend">{legend}</div></figcaption>
-<div class="distribution-plot" role="img" aria-label="{escape(description, quote=True)}">
+<figcaption><strong>各选项作答人数</strong></figcaption>
+<table class="distribution-summary">
+<thead><tr><th scope="col">作答轮次</th><th scope="col">答对 / 提交</th><th scope="col">正确率</th></tr></thead>
+<tbody>{''.join(summary)}</tbody></table>
+<div class="distribution-plot" role="img" aria-label="{escape(f'正确选项 {correct}。{description}', quote=True)}">
 <div class="distribution-ticks" aria-hidden="true">{labels}</div>
 <div class="distribution-grid" aria-hidden="true">{grid}</div>
 <div class="distribution-groups" aria-hidden="true">{"".join(groups)}</div>
@@ -98,7 +115,7 @@ def render(data, editorial):
                              for i in range(1, len(data['questions']) + 1))
     return f'''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="第七讲光场量子化课堂答题情况分析：匿名答题统计、AI辅助复盘、关键关系与课后自查。">
-<title>{escape(editorial['title'])} · 量子光学</title><link rel="stylesheet" href="review.css?v=choice-charts"><link rel="stylesheet" href="../classroom/vendor/katex/katex.min.css">
+<title>{escape(editorial['title'])} · 量子光学</title><link rel="stylesheet" href="review.css?v=choice-summary"><link rel="stylesheet" href="../classroom/vendor/katex/katex.min.css">
 <script defer src="../classroom/vendor/katex/katex.min.js"></script><script defer src="review.js?v=choice-charts"></script></head><body>
 <a class="skip-link" href="#main">跳到正文</a><header><div class="topbar"><a class="brand" href="../index.html"><img src="../assets/csu-logo.png" alt="中南大学"><span>量子光学</span></a><nav aria-label="课程资料"><a href="../notes/lecture07.html">讲义</a><a href="../slides/lecture07.html">课件</a><a href="../downloads/lecture07-slides.pdf">PDF</a></nav></div></header>
 <main id="main"><section class="opening"><p class="eyebrow">2026 秋季 · 11 月 2 日</p><h1>{escape(editorial['title'])}</h1><p class="subtitle">{escape(editorial['subtitle'])}</p><p class="intro">{escape(editorial['intro'])}</p>

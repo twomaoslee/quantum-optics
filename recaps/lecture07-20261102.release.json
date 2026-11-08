@@ -9,20 +9,20 @@
     "visuals": "passed",
     "browser_operation": "passed"
   },
-  "scope": "思考题1—4的匿名统计、总览正确率图、滚动目录与逐题选项分布图；复用原题面、关键关系和自查的内容验收。",
+  "scope": "思考题1—4的匿名统计、总览正确率图、滚动目录与逐题选项分布图，逐题图标出正确选项及各轮正确率。",
   "sources": {
     "recaps/lecture07-20261102.json": "afb16d4208a12d0e9c9fb721955db7a2ab0a3239e091b02df4f470ca150bcbe0",
     "recaps/lecture07-20261102.editorial.json": "fdc294abb7bec31ff91222af00d7dccc6595cec7919eefd2c6270603815c106b",
-    "scripts/recaps.py": "d2ee6142545a64bc53834decd0e98475fe510021c45404f51688f97e343dc16d",
-    "recaps/review.css": "54b640a50b28bb701929ded45a4acbabc503d6fa04cdd97b5c3fef51a4e96e31",
+    "scripts/recaps.py": "85d0f170f1e7115a443cdd9892c433f8f3f6db2617147eb9f02acf9417c22b8d",
+    "recaps/review.css": "b82df125e545532d4e711a6a7fbee11d1e1d822c64898f16fc3b6d9dfaa215bb",
     "recaps/review.js": "41f7a3d7a5d6fa626ce778470a2e8f22540f5c8b3a1cea076caf3926c630feb9"
   },
-  "html_sha256": "28196216aa1cbb052f0139ce7ce4e4e868371f19d622ef53d3564282e3a73aec",
+  "html_sha256": "2b59cf1cdeb87c9f941c9f2c6373b5cac68306012fc46deb947e5f76e7e027a5",
   "evidence_summary": {
-    "understanding": "独立学生读者按第1题、第4题冷读，能由图还原选项人数和轮次，将选项分布与填写理由、共同作答者的变化区分开。题面、公式、关键关系和自查逐节比对一致。",
+    "understanding": "复用第1题、第4题独立冷读。逐题图的正确选项和正确率与已审阅的题目及总览对照一致。逐题图之外的页面内容逐段比对一致。",
     "physics": "独立数态矩阵检验阶梯算符及真空方差；振幅平方比例代入。",
-    "data": "实际课堂5轮、84份纳入统计的作答，原统计源未变。逐题独立核对20个柱顶人数和对应柱高，含零人数和第1题两轮各自总人数。",
-    "visuals": "IAB 检查1440与320像素下四张图，题面与图在宽屏并排、窄屏顺排。统一0—20人刻度，第1题轮次图例及两根等高柱的数值可辨。",
-    "browser_operation": "IAB 核对四个题签定位和高亮，总览柱图直达第4题，及导航后保留自查反馈并可重置。原滚动目录逻辑及讲义链接未改。"
+    "data": "实际课堂5轮、84份纳入统计的作答，原统计源未变。20个柱顶人数及柱高保持一致，独立核对4个正确选项和5轮答对人数、提交人数、正确率。",
+    "visuals": "IAB 实测1440与320像素下四张图。正确柱及横轴文字标记可辨，人数和正确率完整显示，第1题实心与斜纹分轮。",
+    "browser_operation": "IAB 核对四个题签定位和高亮，总览柱图直达第4题。目录和自查脚本与上个验收版本一致。"
   }
 }

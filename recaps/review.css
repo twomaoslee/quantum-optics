@@ -124,6 +124,10 @@
 .analysis h3 { margin-bottom: 10px; }
 
 .distribution {
+  --choice-ink: #526b85;
+  --choice-tint: #e1e9f0;
+  --correct-ink: #176345;
+  --correct-tint: #dceee5;
   margin: 0;
   padding: 16px 18px 12px;
   background: var(--wash);
@@ -131,19 +135,34 @@
   color: var(--deep);
   break-inside: avoid;
 }
-.distribution-legend {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 16px;
+.distribution-summary {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 6px;
   font-size: .85rem;
-  margin-top: 3px;
+  font-variant-numeric: tabular-nums;
 }
-.distribution-legend > span { display: inline-flex; align-items: center; gap: 6px; }
-.distribution-legend i {
-  width: 11px;
-  height: 11px;
-  background: var(--blue);
-  border: 1px solid var(--blue);
+.distribution-summary th, .distribution-summary td {
+  padding: 2px 0 2px 8px;
+  text-align: right;
+  white-space: nowrap;
+}
+.distribution-summary th:first-child { text-align: left; padding-left: 0; }
+.distribution-summary th { font-weight: 400; }
+.distribution-summary thead { color: var(--muted); border-bottom: 1px solid var(--line); }
+.distribution-summary strong { color: var(--correct-ink); }
+.distribution-swatch {
+  display: inline-block;
+  vertical-align: .03em;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+}
+.distribution-swatch, .distribution-bar i { background: var(--choice-ink); }
+.distribution-repeat.distribution-swatch, .distribution-repeat i {
+  background: repeating-linear-gradient(135deg, var(--choice-ink) 0 1px, var(--choice-tint) 1px 4px);
+  outline: 1px solid var(--choice-ink);
+  outline-offset: -1px;
 }
 .distribution-plot {
   --plot-height: 150px;
@@ -180,18 +199,27 @@
   grid-template-rows: var(--plot-height) auto;
   text-align: center;
 }
+.distribution-correct {
+  --choice-ink: var(--correct-ink);
+  --choice-tint: var(--correct-tint);
+  color: var(--correct-ink);
+}
+.distribution-option small {
+  display: block;
+  width: max-content;
+  margin: 0 auto;
+  padding: 0 3px;
+  border-radius: 3px;
+  background: var(--correct-tint);
+  font-size: .7rem;
+  font-weight: 650;
+}
 .distribution-series { display: flex; justify-content: center; gap: 4px; }
 .distribution-bar { width: min(22px, 37%); }
 .distribution-bar i {
   position: absolute;
   inset: auto 0 0;
   height: var(--level);
-  background: var(--blue);
-}
-.distribution-legend span:nth-child(2) i, .distribution-bar:nth-child(2) i {
-  background: #b6d0e7;
-  outline: 1px solid var(--blue);
-  outline-offset: -1px;
 }
 .distribution-bar span {
   position: absolute;
