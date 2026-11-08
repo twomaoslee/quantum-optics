@@ -2,11 +2,12 @@
  'use strict';
  const api=QOApi,$=id=>document.getElementById(id),params=new URLSearchParams(location.search),questionId=params.get('question')||'l07-q1';
  if(!/^(l07-q[1-6]|l08-q[1-5])$/.test(questionId)){$('message').textContent='题目链接无效。';return;}
- const lectureId=questionId.split('-')[0],lectureTitle=lectureId==='l08'?'第八讲课堂':'第七讲课堂';
+ const lectureId=questionId.split('-')[0],feedbackMode=$('feedback-mode'),defaultFeedback='self-check';
  const roomKey='qo-last-room-v1:'+(api.config.envId||'local')+':'+lectureId;
  const coordinator=params.get('coordinator')!=='0',cacheKey='qo-presenter-qr-v1:'+(api.config.envId||'local')+':'+lectureId+':'+(params.get('room')||'daily');let desiredRoom=params.get('room')||'',connected=false;
  let room='',anchor='',switchKind='',state=null,busy=false,polling=false,connecting=false,active=window===parent,epoch=0,parentOrigin='*',expanded=false,comparison=null,analysisBusy=false,chartMode=null;
- const message=text=>{$('message').textContent=text||'';};
+ const setText=(id,value)=>{const node=$(id);if(node.textContent!==value)node.textContent=value;};
+ const message=text=>setText('message',text||'');
  function layout(){
   document.body.classList.toggle('inline-results',expanded);$('join').hidden=expanded;$('results').hidden=!expanded;
   // Keep the parent slide's fixed sidebar in every state; never opt into its
@@ -18,18 +19,21 @@
   const selfCheck=r?.feedbackMode==='self-check',locked=busy||!connected||!!state?.archivedAt;
   $('start').disabled=locked||!room||!!state?.answersReleasedAt||selfCheck;
   $('show').disabled=busy||!r||!connected;
-  $('start').textContent=selfCheck?'已发出自查题':r?'再次作答':'开始回答';
-  $('feedback-mode').disabled=locked||!!r;
+  setText('start',selfCheck?'已发出自查题':r?'再次作答':'开始回答');
+  feedbackMode.disabled=locked||!!r;
+  setText('feedback-hint',feedbackMode.value==='self-check'?'提交即看解析，答案锁定':'展示结果后看对错与解析');
   $('new-class').disabled=$('new-trial').disabled=busy||!connected||!state?.activeClass;
   $('confirm-class').disabled=$('cancel-class').disabled=busy;
-  $('session-label').textContent=state?.archivedAt?'已归档':state?.sessionType==='trial'?'试答场次':state?.sessionType==='class'?'正式课堂':state?'当前场次':'';
-  $('timer').textContent=!connected?'正在连接…':!r?'等待发题':open?String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0'):r.revealed?'已展示结果':'本轮已结束';
-  $('participation').textContent=r?(open?'本轮作答中 · ':'')+r.total+' 人已答':'';
+  setText('session-label',state?.archivedAt?'已归档':state?.sessionType==='trial'?'试答场次':state?.sessionType==='class'?'正式课堂':'课堂场次');
+  setText('status-caption',open?'剩余时间':'课堂状态');
+  setText('timer',!connected?'正在连接…':!r?'等待发题':open?String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0'):r.revealed?'已展示结果':'本轮已结束');
+  setText('participation',r?r.total+' 人已答':connected?'发题后 '+(state?.defaultSeconds||60)+' 秒':'');
+  $('classroom').classList.toggle('round-open',open);
  }
  function draw(next){
   if(state?.round?.id!==next.round?.id){expanded=false;comparison=null;analysisBusy=false;layout();}
-  if(next.round)$('feedback-mode').value=next.round.feedbackMode||'discussion';
-  else if(state?.code!==next.code)$('feedback-mode').value='discussion';
+  if(next.round)feedbackMode.value=next.round.feedbackMode||'discussion';
+  else if(state?.code!==next.code)feedbackMode.value=defaultFeedback;
   state=next;$('classroom').hidden=false;controls();
  }
  function showConnection(){epoch++;room='';state=null;$('new-confirm').hidden=true;connected=false;expanded=false;layout();$('classroom').hidden=true;$('connection').hidden=false;$('dev-connect').hidden=!api.config.dev;$('connect').hidden=!!api.config.dev;controls();}
@@ -116,11 +120,12 @@
    if(active)void analyzeClosedSelfCheck();
   }catch(error){handleError(error);}finally{connecting=false;controls();}
  }
+ feedbackMode.addEventListener('change',controls);
  $('connect').addEventListener('submit',async event=>{event.preventDefault();const button=event.submitter;button.disabled=true;const password=new FormData(event.target).get('password');event.target.reset();try{api.save(await api.call('teacher.login',{password}));await connect();}catch(error){handleError(error);}finally{button.disabled=false;}});
  $('dev-connect').addEventListener('click',async()=>{try{api.save(await api.call('dev.teacherLogin'));await connect();}catch(error){handleError(error);}});
  $('start').addEventListener('click',async()=>{
   if($('start').disabled)return;busy=true;epoch++;expanded=false;comparison=null;analysisBusy=false;layout();controls();message('');
-  try{await api.call('teacher.open',{questionId,roundId:state?.round?.id||null,feedbackMode:$('feedback-mode').value},room);await fetchState();parent.postMessage({type:'qo-classroom-started'},parentOrigin);}
+  try{await api.call('teacher.open',{questionId,roundId:state?.round?.id||null,feedbackMode:feedbackMode.value},room);await fetchState();parent.postMessage({type:'qo-classroom-started'},parentOrigin);}
   catch(error){handleError(error);}finally{busy=false;controls();}
  });
  $('show').addEventListener('click',async()=>{
@@ -135,9 +140,11 @@
  for(const [id,kind] of [['new-class','class'],['new-trial','trial']])$(id).addEventListener('click',()=>{
   switchKind=kind;
   $('confirm-note').textContent=(kind==='trial'?'进入独立试答场次。':'进入空白的正式课堂。')+'本场记录保留，二维码不变。';
-  $('new-confirm').hidden=false;
+  $('new-confirm').hidden=false;$('confirm-class').focus({preventScroll:true});
  });
- $('cancel-class').addEventListener('click',()=>{$('new-confirm').hidden=true;});
+ $('cancel-class').addEventListener('click',()=>{
+  $('new-confirm').hidden=true;$(switchKind==='trial'?'new-trial':'new-class').focus({preventScroll:true});
+ });
  $('confirm-class').addEventListener('click',async()=>{
   if(busy||!state?.activeClass)return;
   busy=true;epoch++;controls();
