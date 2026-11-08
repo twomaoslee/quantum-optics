@@ -27,7 +27,10 @@
   setText('session-label',state?.archivedAt?'已归档':state?.sessionType==='trial'?'试答场次':state?.sessionType==='class'?'正式课堂':'课堂场次');
   setText('status-caption',open?'剩余时间':'课堂状态');
   setText('timer',!connected?'正在连接…':!r?'等待发题':open?String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0'):r.revealed?'已展示结果':'本轮已结束');
-  setText('participation',r?r.total+' 人已答':connected?'发题后 '+(state?.defaultSeconds||60)+' 秒':'');
+  $('participation').hidden=!connected;
+  setText('participation-caption',r?'已答人数':'发题后');
+  setText('participation-number',String(r?r.total:state?.defaultSeconds||60));
+  setText('participation-unit',r?'人':'秒');
   $('classroom').classList.toggle('round-open',open);
  }
  function draw(next){

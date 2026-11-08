@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>课堂扫码作答</title><link rel="stylesheet" href="presenter.css?v=20261109-timer"><link rel="stylesheet" href="comparison.css?v=20261107-sessions"><script defer src="config.js"></script><script defer src="api.js?v=20261107-sessions" data-qo-role="teacher"></script><script defer src="vendor/qrcode.js"></script><script defer src="comparison-view.js?v=20261107-sessions"></script><script defer src="presenter.js?v=20261109-panel"></script></head><body>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>课堂扫码作答</title><link rel="stylesheet" href="presenter.css?v=20261109-counter"><link rel="stylesheet" href="comparison.css?v=20261107-sessions"><script defer src="config.js"></script><script defer src="api.js?v=20261107-sessions" data-qo-role="teacher"></script><script defer src="vendor/qrcode.js"></script><script defer src="comparison-view.js?v=20261107-sessions"></script><script defer src="presenter.js?v=20261109-counter"></script></head><body>
 <main>
  <section id="connection" hidden><p class="heading">课前连接课堂</p><form id="connect"><label>教师口令<input type="password" name="password" autocomplete="current-password" required maxlength="200"></label><button type="submit">连接课堂</button></form><button id="dev-connect" hidden>本机演示连接</button></section>
  <section id="classroom" hidden>
@@ -6,7 +6,10 @@
   <section id="results" aria-label="全班答题情况" hidden><div class="result-heading"><p class="heading">各轮选择分布</p><div id="chart-modes" class="chart-modes" role="group" aria-label="分布图样式" hidden><button id="mode-bars" type="button" aria-pressed="true">柱状</button><button id="mode-profile" type="button" aria-pressed="false">轮廓</button></div></div><div id="bars"></div><section id="ai-brief" class="ai-brief" aria-live="polite"></section></section>
   <div class="status-row">
    <div><p id="status-caption" class="status-caption">课堂状态</p><p id="timer" class="timer" aria-live="off">等待发题</p></div>
-   <p id="participation" class="participation"></p>
+   <div id="participation" class="participation" hidden>
+    <p id="participation-caption" class="status-caption">发题后</p>
+    <p class="participation-value"><strong id="participation-number">60</strong><span id="participation-unit">秒</span></p>
+   </div>
   </div>
   <div class="question-tools">
    <label class="feedback-mode">答题方式<select id="feedback-mode" aria-describedby="feedback-hint" disabled><option value="self-check">单轮自查</option><option value="discussion">讨论复答</option></select></label>

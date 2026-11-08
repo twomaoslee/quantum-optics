@@ -35,13 +35,16 @@ button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{ou
 #student-link canvas,#student-link img{display:block;width:100%;height:auto;aspect-ratio:1;background:#fff;image-rendering:pixelated}
 #student-link canvas{width:100%!important;height:auto!important}
 .status-row{
-  display:flex;align-items:flex-end;justify-content:space-between;gap:6px;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:6px;
   padding:5px 0 0;border-top:1px solid var(--line);
 }
 .status-caption,.feedback-hint{color:var(--muted);font-size:13px;line-height:1.35}
-.timer{margin-top:2px;color:var(--blue);font-weight:700;font-size:21px;line-height:1.14;font-variant-numeric:tabular-nums;white-space:nowrap}
-.round-open .timer{font-size:40px;line-height:32px}
-.participation{align-self:flex-end;color:var(--muted);font-size:14px;line-height:1.25;text-align:right;font-variant-numeric:tabular-nums}
+.timer{margin-top:2px;color:var(--blue);font-weight:700;font-size:21px;line-height:32px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.round-open .timer{font-size:clamp(30px,20vw,40px)}
+.participation{min-width:0;text-align:right;font-variant-numeric:tabular-nums}
+.participation-value{display:flex;align-items:baseline;justify-content:flex-end;gap:3px;margin-top:2px;color:var(--muted);font-size:13px;line-height:32px}
+.participation-value strong{color:var(--blue);font-size:clamp(24px,16vw,32px);font-weight:700}
+.participation-value span{line-height:1}
 .question-tools{display:grid;gap:5px}
 .feedback-mode{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:7px;font-size:14px;font-weight:600}
 .feedback-mode select{

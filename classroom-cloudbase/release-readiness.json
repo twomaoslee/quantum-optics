@@ -195,9 +195,9 @@
     "classroom-cloudbase/scripts/cloud-smoke.cjs": "78fefd699842a172dc7fcc129b05a1feb65c50ec1e3185ef3267e970bb30942e",
     "classroom-cloudbase/functions/classroom/transport.js": "cf0f2aa392be5e41da498d03374d81581107fdabc59d7e572013648eaa8a8781",
     "classroom-cloudbase/test/transport.test.cjs": "aeb04077c2f6c62a26102b007bf3a5bf8e271aca3551f4b997e162a150fc8832",
-    "classroom/presenter.html": "4d13ef5d15a3b875dbc8811a3386936641eb684a1e82f414a5d734ed94161372",
-    "classroom/presenter.css": "12b68689caa4546c9eeb4a37a342210e12895c345357812929439f062ab9051d",
-    "classroom/presenter.js": "85f2194487623e4db48f93a7b83b2662bda9d755b423264acb682b1a5291c2b7",
+    "classroom/presenter.html": "7cf575cb272a1772211013e9bdda38b8f8222b8210602f7736d51b8315f370b8",
+    "classroom/presenter.css": "920a77dea01089e6cabfda16b03173cf5c1e4f864f1c5c2eb88f92f1b6f04f28",
+    "classroom/presenter.js": "0cee7f5d02c66e6275683a9f3b4cf4e1a9749431efa60908d0fd15cba7bf3dbe",
     "classroom-cloudbase/functions/classroom/questions.json": "2d45e5948dd22a52126d25ca0bb9ebda1989ec67622d795036e4283fc91fcb52",
     "classroom-cloudbase/scripts/sync-questions.py": "c45ebfae7dc72aa1f997cfcaec54d357d40dff347170484bb37acef8ac2daa89",
     "classroom-cloudbase/test/multiple.test.cjs": "4dfd7872c350ea6ec8b1811a850e87d92febb918c45b8a8f76ac873a966444c5",
@@ -468,9 +468,9 @@
     "review": "Fresh undergraduate cold read verified the sequence from pre-question thinking to timed submission, immediate personal feedback and post-round whole-class AI. Teacher labels clarify that the clock starts at issue and the first answer locks.",
     "backend_tests": "47 passed. Static client release uses the existing CloudBase service.",
     "countdown_visual": {
-      "version": "20261109-timer",
+      "version": "20261109-counter",
       "status": "passed",
-      "browser": "40px active countdown inspected on Lecture 7 Q6 and Lecture 8 Q4 at 1280x720 and 1024x768. The label, participant count, and bottom buttons fit within the fixed panel."
+      "browser": "Lecture 7 Q6 and Lecture 8 Q4 at 1280x720 and 1024x768. Active countdown is 40px. The right-hand 60-second window and submission count use 32px digits. Verified count updates from zero to one, matched caption alignment, and intact bottom buttons."
     }
   }
 }
