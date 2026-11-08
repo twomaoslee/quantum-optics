@@ -1,4 +1,69 @@
 /* Static recap: no student identity, storage, telemetry or API calls. */
+const recapNavigation = document.querySelector('[data-recap-tabs]');
+if (recapNavigation) {
+  const tabs = [...recapNavigation.querySelectorAll('a')];
+  const panels = tabs.map(tab => document.getElementById(tab.hash.slice(1)));
+  recapNavigation.setAttribute('role', 'tablist');
+  tabs.forEach((tab, index) => {
+    const panel = panels[index];
+    tab.setAttribute('role', 'tab');
+    tab.setAttribute('aria-controls', panel.id);
+    panel.setAttribute('role', 'tabpanel');
+    panel.setAttribute('aria-labelledby', tab.id);
+    panel.tabIndex = 0;
+  });
+
+  function showPanel(index) {
+    tabs.forEach((tab, i) => {
+      const selected = i === index;
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      panels[i].hidden = !selected;
+    });
+  }
+
+  function readHash() {
+    const index = tabs.findIndex(tab => tab.hash === location.hash);
+    const focusedInPanel = panels.some(panel => panel.contains(document.activeElement));
+    showPanel(Math.max(index, 0));
+    if (focusedInPanel) tabs[Math.max(index, 0)].focus({preventScroll: true});
+    if (index >= 0) panels[index].scrollIntoView({block: 'start'});
+  }
+
+  recapNavigation.addEventListener('click', event => {
+    const index = tabs.indexOf(event.target.closest('a'));
+    if (index < 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    const tab = tabs[index];
+    if (location.hash !== tab.hash) history.pushState(null, '', tab.hash);
+    showPanel(index);
+    tab.focus({preventScroll: true});
+    panels[index].scrollIntoView({block: 'start'});
+  });
+
+  recapNavigation.addEventListener('keydown', event => {
+    const index = tabs.indexOf(event.target);
+    if (index < 0) return;
+    let next;
+    switch (event.key) {
+      case 'ArrowLeft': next = (index + tabs.length - 1) % tabs.length; break;
+      case 'ArrowRight': next = (index + 1) % tabs.length; break;
+      case 'Home': next = 0; break;
+      case 'End': next = tabs.length - 1; break;
+      case ' ':
+        event.preventDefault();
+        event.target.click();
+        return;
+      default: return;
+    }
+    event.preventDefault();
+    tabs[next].focus();
+  });
+
+  addEventListener('hashchange', readHash);
+  readHash();
+}
+
 document.querySelectorAll('[data-tex]').forEach(node => {
   katex.render(node.dataset.tex, node, {displayMode:node.dataset.display==='true',throwOnError:true});
 });
