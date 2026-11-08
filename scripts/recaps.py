@@ -103,7 +103,11 @@ def sync_recaps(site):
         pattern = rf'<article class="lecture">(?:(?!</article>).)*href="notes/lecture{int(number):02d}\.html".*?</article>'
         def insert_card(match):
             card = re.sub(r'<a\b[^>]*class="action recap-link"[^>]*>.*?</a>', '', match[0])
-            link = f'<a class="action recap-link" href="{entry["output"]}" target="_blank" rel="noopener">课堂回顾</a>'
+            link = (f'<a class="action recap-link" style="grid-column:1/-1" href="{entry["output"]}" '
+                    'target="_blank" rel="noopener">课堂答题情况分析</a>')
+            download = card.find('<a class="download"')
+            if download != -1:
+                return card[:download] + link + card[download:]
             return card.replace('</div></article>', link + '</div></article>')
         text, count = re.subn(pattern, insert_card, text, flags=re.S)
         if count != 1:
