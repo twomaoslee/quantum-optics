@@ -7,3 +7,12 @@
 .lecture-dates{display:grid;gap:3px;margin-top:10px}
 .lecture-dates p{margin:0;font-size:13px;line-height:1.55;color:#607487}
 .lecture-dates time{font-variant-numeric:tabular-nums}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  .intro { animation: intro-enter .5s ease both; }
+
+  @keyframes intro-enter {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+}
