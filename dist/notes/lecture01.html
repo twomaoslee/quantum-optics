@@ -196,6 +196,14 @@ body.course-reading {
   margin: 0 !important;
   padding: 0;
 }
+/* Quarto propagates a wide embed's page grid to its ancestor sections.
+   Keep those inner wrappers in the shared reading column and preserve collapse states. */
+.course-reading main .page-columns {
+  display: block;
+}
+.course-reading main .page-columns.collapse:not(.show) {
+  display: none;
+}
 .course-reading #quarto-content > :is(footer, .page-navigation) {
   grid-area: 2 / 2 !important;
   min-width: 0;
