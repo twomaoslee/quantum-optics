@@ -35,3 +35,13 @@ html,body{height:100%}main{height:100%;display:flex;flex-direction:column;min-he
 .result-heading,.series-legend{margin-bottom:8px}.inline-results .comparison-note{margin-top:8px}.inline-results .ai-brief{margin-top:10px;padding-top:8px}.inline-results .ai-brief p{font-size:14px;line-height:20px}.participation{font-size:13px}
 
 .status-row{flex:0 0 auto;min-height:32px}.timer{flex-shrink:0}.participation{min-width:0;white-space:normal;text-align:right}
+
+.class-tools{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.class-tools p{margin-right:auto;font-size:13px;color:#526b80}.class-tools button,.confirm-actions button{width:auto;height:27px;padding:0 7px;font-size:13px}
+#new-confirm{background:#f3f8fc;padding:6px;color:#284e68;font-size:13px;line-height:1.45}.confirm-actions{display:flex;gap:6px;margin-top:5px}
+.feedback-mode{display:flex;align-items:center;gap:5px;font-size:13px;line-height:1.25}.feedback-mode select{flex:1;min-width:0;border:1px solid #b8cede;border-radius:4px;background:#fff;color:#184664;padding:4px;font:inherit}
+#join{min-height:176px;display:flex;flex-direction:column}#join a{margin:0 auto;min-height:0}#join canvas,#join img{height:auto;width:clamp(100px,32vh,160px)}
+main{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}#classroom{flex:1 0 auto}.inline-results #classroom{flex:1 1 auto}.inline-results #results{min-height:95px}
+
+.inline-results .status-row,.inline-results .feedback-mode{display:none}
+.inline-results .option-groups{gap:10px}.inline-results .comparison-note{margin-top:6px}

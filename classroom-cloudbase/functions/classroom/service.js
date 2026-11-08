@@ -16,6 +16,10 @@ function questionFor(id) {
   return questions.get(id).question;
 }
 function roomLecture(room){return room.lectureId || 'l07';}
+const lectureTitle = id => id === 'l08' ? '第八讲课堂' : '第七讲课堂';
+const entryKey = id => 'classroom_entry_' + id;
+const feedbackMode = round => round?.feedbackMode || 'discussion';
+const isSelfCheck = round => feedbackMode(round) === 'self-check';
 function roomQuestion(room,id){
   const q=questionFor(id || room.round?.questionId || roomLecture(room)+'-q1');
   requireThat(q.id.startsWith(roomLecture(room)+'-'),'QUESTION','题目与课堂讲次不一致。');
@@ -81,12 +85,26 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
     const room = await tx.get(roomKey(code));
     requireThat(room, 'ROOM', '没有找到这间课堂，请核对二维码。'); return room;
   }
+  const isOpen = round => !round.closedAt && now() < round.deadline;
+  const analysisReleased = round => round && (round.revealed || isSelfCheck(round) && !isOpen(round));
+  async function liveRoom(code) {
+    const room = await getRoom(code), lectureId = roomLecture(room);
+    // Existing QR links for this lecture remain valid. Standalone test and
+    // administrative rooms with custom titles retain their independent links.
+    if (room.standalone || room.title !== lectureTitle(lectureId) && !room.entryManaged) return room;
+    const entry = await repo.get(entryKey(lectureId));
+    return entry && entry.active !== code ? getRoom(entry.active) : room;
+  }
+  function newRoom(lectureId, title, extra = {}) {
+    return {kind:'room',code:crypto.randomBytes(6).toString('hex').toUpperCase(),lectureId,
+      title,createdAt:now(),nextRound:1,round:null,questionRounds:{},...extra};
+  }
   function publicRound(round) {
     if (!round) return null;
-    const open = !round.closedAt && now() < round.deadline;
+    const open = isOpen(round);
     return {id: round.id, number: round.number, questionId: round.questionId || question.id,
       openedAt: round.openedAt, deadline: round.deadline,
-      status: open ? 'open' : 'closed', revealed: !!round.revealed,
+      status: open ? 'open' : 'closed', revealed: !!round.revealed, feedbackMode:feedbackMode(round),
       ...(round.revealed ? {counts: round.counts, total: round.total} : {})};
   }
   async function mutateRoom(code, fn) {
@@ -122,7 +140,12 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
     const room=await getRoom(roomCode),selected=roomQuestion(room,data.questionId);
     const round=await selectedRound(room,selected.id);
     requireThat(round&&data.roundId===round.id,'ROUND','轮次已变化，请重新展示结果。');
-    requireThat(round.revealed,'HIDDEN','请先展示结果，再查看各轮对比和AI分析。');
+    requireThat(analysisReleased(round),'HIDDEN','请先结束自查或展示结果，再查看AI分析。');
+    if(isSelfCheck(round)&&!round.closedAt)await mutateRound(roomCode,data,async (current,tx)=>{
+      requireThat(!isOpen(current),'OPEN','本轮仍在作答。');
+      current.closedAt ||= now();
+      await closeGates(current,tx);
+    });
     const rounds=(await repo.list({kind:'round',roomCode})).filter(r=>(r.questionId || question.id)===selected.id&&r.number<=round.number);
     requireThat(rounds.every(r=>r.closedAt||now()>=r.deadline),'OPEN','仍有轮次正在作答。');
     return snapshot(questions.get(selected.id),rounds,await repo.list({kind:'answer',roomCode}),analysisNamespace);
@@ -133,6 +156,39 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
     if(row.status==='pending'&&row.leaseUntil<=now())return {status:'failed',message:'AI分析超时，可再次点击展示结果重试。'};
     return {status:row.status,...(row.status==='ready'?{summary:row.result.summary,model:row.result.model,generatedAt:row.generatedAt}:{}),
       ...(row.status==='failed'?{message:'AI小结暂未生成，可再次点击展示结果重试。'}:{})};
+  }
+  async function roundAnalysis(roomCode,round) {
+    if(!analysisReleased(round))return undefined;
+    const row=await repo.get(analysisKey(roomCode,round.questionId || question.id));
+    if(row?.roundId===round.id)return publicAnalysis(row,row.fingerprint);
+    if(round.revealed ? !round.total : !await repo.count({kind:'answer',roundId:round.id}))return {status:'empty'};
+    return {status:'idle'};
+  }
+  async function generateAnalysis(roomCode,roundId,snap) {
+    requireThat(analyze,'AI_CONFIG','AI模型尚未配置，答题解析仍可查看。');
+    requireThat(snap.public.rounds.some(r=>r.total>0),'EMPTY','本题暂无已提交答案，暂不生成AI小结。');
+    const key=analysisKey(roomCode,snap.public.questionId),leaseId=random();
+    const claimed=await repo.transaction(async tx=>{
+      const old=await tx.get(key);
+      if(old?.fingerprint===snap.fingerprint){
+        if(old.roundId!==roundId)await tx.set(key,{...old,roundId});
+        if(old.status==='ready'||old.status==='pending'&&old.leaseUntil>now())return false;
+      }
+      if(old?.roundNumber>snap.public.rounds.at(-1).number)return false;
+      await tx.set(key,{kind:'analysis',roomCode,questionId:snap.public.questionId,roundId,
+        roundNumber:snap.public.rounds.at(-1).number,fingerprint:snap.fingerprint,status:'pending',leaseId,leaseUntil:now()+70000});
+      return true;
+    });
+    if(!claimed)return;
+    try{
+      await limited('ai-analysis:'+roomCode,10,60000);
+      const generated=await analyze(snap.input),validated=validateAnalysis(generated,snap.input);
+      await repo.transaction(async tx=>{const old=await tx.get(key);if(old?.leaseId===leaseId)await tx.set(key,{...old,status:'ready',generatedAt:now(),result:{...validated,model:String(generated.model||'configured-model').slice(0,80)}});});
+    }catch(error){
+      const diagnostic=String(error.code||error.name||'AI_FAILED').replace(/[^A-Za-z0-9_.-]/g,'').slice(0,80);
+      const explanation=String(error.message||'').replace(/Bearer\s+\S+|(?:secret|token|key)\s*[:=]\s*\S+/gi,'[已隐藏]').slice(0,200);
+      await repo.transaction(async tx=>{const old=await tx.get(key);if(old?.leaseId===leaseId)await tx.set(key,{...old,status:'failed',diagnostic,explanation,...(error.candidate?{candidate:error.candidate}:{})});});
+    }
   }
   const gateKey = (roundId,bucket) => 'gate_' + roundId + '_' + bucket;
   async function closeGates(round,tx) {
@@ -165,7 +221,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
       return {...await issue('student', userId), role: 'student', profile: who, roomCode: room.code};
     }
     if (action === 'room.public') {
-      const room = await getRoom(roomCode);
+      const room = data.live===true ? await liveRoom(roomCode) : await getRoom(roomCode);
       return {code: room.code, title: room.title, question: roomQuestion(room), round: publicRound(room.round)};
     }
     const session = await authenticate(token);
@@ -177,12 +233,34 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
     }
     if (action === 'student.state') {
       requireThat(session.role === 'student', 'FORBIDDEN', '请使用学生身份。');
-      const room = await getRoom(roomCode);
+      const room = data.live===true ? await liveRoom(roomCode) : await getRoom(roomCode);
       const own = room.round ? await repo.get('answer_' + room.round.id + '_' + session.userId) : null;
-      const selected=questions.get(roomQuestion(room).id),feedback=!!room.round && (!!room.round.revealed || !!room.answersReleasedAt);
-      return {code: room.code, title: room.title, question:selected.question,
+      const selected=questions.get(roomQuestion(room).id);
+      const feedback=room.round && (room.round.revealed || room.answersReleasedAt || isSelfCheck(room.round) && own);
+      return {code:room.code,title:room.title,createdAt:room.createdAt,sessionType:room.sessionType||null,question:selected.question,
         round:room.round?{...publicRound(room.round),...(feedback?selected.answer:{})}:null,
-        own:own?{...ownAnswer(own),...(feedback?{isCorrect:own.choice===selected.answer.correct}:{})}:null};
+        own:own?{...ownAnswer(own),...(feedback?{isCorrect:own.choice===selected.answer.correct}:{})}:null,
+        analysis:await roundAnalysis(room.code,room.round)};
+    }
+    if (action === 'student.summary') {
+      requireThat(session.role==='student','FORBIDDEN','请使用学生身份。');
+      const room=await getRoom(roomCode),selected=roomQuestion(room,data.questionId);
+      const round=await selectedRound(room,selected.id);
+      requireThat(round?.id===data.roundId&&analysisReleased(round),'HIDDEN','本题AI小结尚未开放。');
+      const current=await roundAnalysis(roomCode,round);
+      if(current.status!=='idle'||!isSelfCheck(round))return {analysis:current};
+      if(!analyze)return {analysis:{status:'failed'}};
+      const own=await repo.get('answer_'+round.id+'_'+session.userId);
+      if(!own)return {analysis:current};
+      await generateAnalysis(roomCode,round.id,await comparisonFor(roomCode,data));
+      return {analysis:await roundAnalysis(roomCode,round)};
+    }
+    if (action === 'student.rooms') {
+      requireThat(session.role==='student','FORBIDDEN','请使用学生身份。');
+      const rows=await repo.list({kind:'answer',userId:session.userId});
+      const codes=[...new Set([roomCode,...rows.map(row=>row.roomCode)])];
+      const rooms=await Promise.all(codes.map(code=>getRoom(code)));
+      return {rooms:rooms.sort((a,b)=>b.createdAt-a.createdAt).map(({code,title,createdAt,sessionType})=>({code,title,createdAt,sessionType}))};
     }
     if (action === 'student.history') {
       requireThat(session.role === 'student', 'FORBIDDEN', '请使用学生身份。');
@@ -196,17 +274,19 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
       const ownByRound = new Map(rows.map(row=>[row.roundId,row]));
       const released = !!room.answersReleasedAt;
       return {code:room.code,title:room.title,answersReleasedAt:room.answersReleasedAt || null,
-        questions:catalog.filter(({question:q})=>q.id.startsWith(roomLecture(room)+'-')).map(({question:selected,answer})=>{
+        questions:await Promise.all(catalog.filter(({question:q})=>q.id.startsWith(roomLecture(room)+'-')).map(async({question:selected,answer})=>{
           const attempts = rounds.filter(r=>r.questionId===selected.id).sort((a,b)=>a.number-b.number);
-          const feedbackAvailable=attempts.length>0 && (released || attempts.some(r=>r.revealed));
-          return {question:selected,feedbackAvailable,rounds:attempts.map(r=>{
+          const lastShown=attempts.findLast(r=>r.revealed)?.number||0;
+          const feedbackAvailable=attempts.length>0 && (released || lastShown>0 || attempts.some(r=>isSelfCheck(r)&&ownByRound.has(r.id)));
+          const analysis=await roundAnalysis(roomCode,attempts.at(-1));
+          return {question:selected,feedbackAvailable,analysis,rounds:attempts.map(r=>{
             const own=ownByRound.get(r.id);
-            return {id:r.id,number:r.number,openedAt:r.openedAt,deadline:r.deadline,
+            return {id:r.id,number:r.number,openedAt:r.openedAt,deadline:r.deadline,feedbackMode:feedbackMode(r),
               status:!r.closedAt && now()<r.deadline?'open':'closed',
               own:own?{choice:own.choice,submittedAt:own.updatedAt,reason:own.reason || null,
-                ...(feedbackAvailable?{isCorrect:own.choice===answer.correct}:{})}:null};
+                ...(released||r.number<=lastShown||isSelfCheck(r)?{isCorrect:own.choice===answer.correct}:{})}:null};
           }),...(feedbackAvailable?{answer}:{})};
-        })};
+        }))};
     }
     if (action === 'student.submit') {
       requireThat(session.role === 'student', 'FORBIDDEN', '请使用学生身份。');
@@ -220,6 +300,10 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
         const gateId=gateKey(round.id,parseInt(hash(session.userId).slice(0,2),16)%16),gate=await tx.get(gateId);
         requireThat(gate && !gate.closed && now()<round.deadline,'CLOSED','本轮已结束，无法再提交。');
         const id = 'answer_' + round.id + '_' + session.userId, old = await tx.get(id);
+        if(isSelfCheck(round)&&old){
+          requireThat(old.choice===data.choice,'LOCKED','自查题提交后答案锁定，可继续补充原因。');
+          return;
+        }
         await tx.set(id, {kind:'answer', roomCode, roundId:round.id, questionId:round.questionId || question.id,
           userId:session.userId, choice:data.choice, updatedAt:now(), firstSubmittedAt:old?.firstSubmittedAt || now(),
           reason:old?.choice===data.choice ? old.reason || null : null});
@@ -256,24 +340,63 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
     await authenticate(token, 'teacher');
     if(action==='teacher.analysisStatus'){
       const room=await getRoom(roomCode),round=await selectedRound(room,questionFor(data.questionId).id);
-      requireThat(round?.id===data.roundId&&round.revealed,'ROUND','轮次已变化，请重新展示结果。');
+      requireThat(round?.id===data.roundId&&analysisReleased(round),'ROUND','轮次已变化，或AI小结尚未开放。');
       return {analysis:publicAnalysis(await repo.get(analysisKey(roomCode,data.questionId)),data.fingerprint)};
     }
+    if (action === 'teacher.classroom') {
+      const id=data.lectureId;
+      requireThat(id==='l07'||id==='l08','INPUT','课堂讲次无效。');
+      const key=entryKey(id), existing=await repo.get(key);
+      if(existing)return {code:existing.active,anchor:existing.anchor};
+      const title=lectureTitle(id), candidates=(await repo.list({kind:'room',title})).filter(r=>roomLecture(r)===id&&!r.archivedAt&&!r.standalone);
+      const seed=candidates.find(r=>r.code===data.preferred)||candidates.sort((a,b)=>b.createdAt-a.createdAt)[0];
+      return repo.transaction(async tx=>{
+        const current=await tx.get(key);
+        if(current)return {code:current.active,anchor:current.anchor};
+        const first=seed ? await getRoom(seed.code,tx) : newRoom(id,title);
+        if(!seed)await tx.set(roomKey(first.code),first);
+        await tx.set(key,{kind:'classroom-entry',anchor:first.code,active:first.code});
+        return {code:first.code,anchor:first.code};
+      });
+    }
+    if (action === 'teacher.newClass') {
+      const {lectureId:id,kind}=data;
+      requireThat((id==='l07'||id==='l08')&&(kind==='class'||kind==='trial'),'INPUT','请选择正式上课或试答。');
+      return repo.transaction(async tx=>{
+        const key=entryKey(id),entry=await tx.get(key);
+        requireThat(entry&&entry.active===roomCode,'ROOM_CHANGED','当前场次已切换，请重新连接后查看。');
+        const previous=await getRoom(roomCode,tx),time=now();
+        if(previous.round && !previous.round.closedAt){
+          previous.round.closedAt=time;
+          await closeGates(previous.round,tx);
+          await tx.set('round_'+previous.round.id,{kind:'round',roomCode,...previous.round});
+        }
+        previous.archivedAt=time;
+        const next=newRoom(id,lectureTitle(id),{entryManaged:true,sessionType:kind});
+        await tx.set(roomKey(roomCode),previous);
+        await tx.set(roomKey(next.code),next);
+        await tx.set(key,{...entry,active:next.code});
+        return {code:next.code,anchor:entry.anchor};
+      });
+    }
     if (action === 'teacher.create') {
-      const code = crypto.randomBytes(6).toString('hex').toUpperCase();
-      const title = typeof data.title === 'string' ? data.title.trim().slice(0,60) : '第七讲课堂';
-      await repo.set(roomKey(code), {kind:'room', code, lectureId:data.lectureId==='l08'?'l08':'l07', title:title || '第七讲课堂', createdAt:now(), nextRound:1, round:null, questionRounds:{}});
-      return {code};
+      const id=data.lectureId==='l08'?'l08':'l07';
+      const title=typeof data.title==='string' ? data.title.trim().slice(0,60) : '';
+      const room=newRoom(id,title||lectureTitle(id),{standalone:true});
+      await repo.set(roomKey(room.code),room);
+      return {code:room.code};
     }
     if (action === 'teacher.rooms') {
       const rooms = await repo.list({kind:'room'});
-      return {rooms:rooms.sort((a,b)=>b.createdAt-a.createdAt).map(r=>({code:r.code,title:r.title,lectureId:roomLecture(r),createdAt:r.createdAt}))};
+      return {rooms:rooms.sort((a,b)=>b.createdAt-a.createdAt).map(r=>({code:r.code,title:r.title,lectureId:roomLecture(r),createdAt:r.createdAt,archivedAt:r.archivedAt||null,sessionType:r.sessionType||null}))};
     }
     if (action === 'teacher.state') {
       const room = await getRoom(roomCode), selected = roomQuestion(room,data.questionId);
       const round = await selectedRound(room, selected.id);
       const stats = round ? (round.revealed ? {counts:round.counts,total:round.total} : await countsFor(round.id)) : {};
-      return {code:room.code,title:room.title,answersReleasedAt:room.answersReleasedAt || null,question:selected,defaultSeconds:timing[selected.id] || 60,round:round ? {...publicRound(round),...stats,...(round.revealed?questions.get(selected.id).answer:{})} : null};
+      const entry=await repo.get(entryKey(roomLecture(room)));
+      return {code:room.code,title:room.title,sessionType:room.sessionType||null,archivedAt:room.archivedAt||null,activeClass:entry?.active===room.code,standalone:!!room.standalone,
+        anchor:room.standalone ? room.code : entry?.anchor || room.code,analysis:await roundAnalysis(room.code,round),answersReleasedAt:room.answersReleasedAt || null,question:selected,defaultSeconds:timing[selected.id] || 60,round:round ? {...publicRound(round),...stats,...(round.revealed?questions.get(selected.id).answer:{})} : null};
     }
     if (action === 'teacher.reasonStats') {
       const room=await getRoom(roomCode),selected=roomQuestion(room,data.questionId);
@@ -296,27 +419,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
     }
     if(['teacher.comparison','teacher.analyze','teacher.analysisDetails'].includes(action)){
       const snap=await comparisonFor(roomCode,data),key=analysisKey(roomCode,snap.public.questionId);
-      if(action==='teacher.analyze'){
-        requireThat(analyze,'AI_CONFIG','AI模型尚未配置，柱状图仍可正常展示。');
-        requireThat(snap.public.rounds.some(r=>r.total>0),'EMPTY','本题暂无已提交答案，暂不生成AI小结。');
-        let claimed=false,leaseId=random();
-        await repo.transaction(async tx=>{
-          const old=await tx.get(key);
-          if(old?.fingerprint===snap.fingerprint&&(old.status==='ready'||old.status==='pending'&&old.leaseUntil>now()))return;
-          await tx.set(key,{kind:'analysis',roomCode,questionId:snap.public.questionId,fingerprint:snap.fingerprint,status:'pending',leaseId,leaseUntil:now()+70000});claimed=true;
-        });
-        if(claimed){
-          try{
-            await limited('ai-analysis:'+roomCode,10,60000);
-            const generated=await analyze(snap.input),validated=validateAnalysis(generated,snap.input);
-            await repo.transaction(async tx=>{const old=await tx.get(key);if(old?.leaseId===leaseId)await tx.set(key,{...old,status:'ready',generatedAt:now(),result:{...validated,model:String(generated.model||'configured-model').slice(0,80)}});});
-          }catch(error){
-            const diagnostic=String(error.code||error.name||'AI_FAILED').replace(/[^A-Za-z0-9_.-]/g,'').slice(0,80);
-            const explanation=String(error.message||'').replace(/Bearer\s+\S+|(?:secret|token|key)\s*[:=]\s*\S+/gi,'[已隐藏]').slice(0,200);
-            await repo.transaction(async tx=>{const old=await tx.get(key);if(old?.leaseId===leaseId)await tx.set(key,{...old,status:'failed',diagnostic,explanation,...(error.candidate?{candidate:error.candidate}:{})});});
-          }
-        }
-      }
+      if(action==='teacher.analyze')await generateAnalysis(roomCode,data.roundId,snap);
       const stored=await repo.get(key),analysis=publicAnalysis(stored,snap.fingerprint);
       return {...snap.public,fingerprint:snap.fingerprint,analysis,
         ...(action==='teacher.analysisDetails'?{reasonRounds:snap.input.reasonRounds,...(analysis.status==='failed'?{diagnostic:stored?.diagnostic,explanation:stored?.explanation,candidate:stored?.candidate}:{}),
@@ -326,11 +429,15 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
       if (data.questionId !== undefined) questionFor(data.questionId);
       return mutateRoom(roomCode, async (room,tx) => {
         requireThat(!room.answersReleasedAt, 'RELEASED', '本课堂已开放答案，请先在课后管理页收回答案，或新建课堂。');
+        requireThat(!room.archivedAt,'ARCHIVED','此场次已归档，请在当前场次发题。');
         const selected = roomQuestion(room,data.questionId);
+        const previous=await selectedRound(room,selected.id,tx);
+        const mode=data.feedbackMode ?? feedbackMode(previous);
+        requireThat(mode==='discussion'||mode==='self-check','INPUT','反馈方式无效。');
+        requireThat(!previous || mode==='discussion'&&!isSelfCheck(previous),'FEEDBACK','自查只发一轮，已发出的讨论题按讨论方式继续。');
         const seconds = data.seconds === undefined ? timing[selected.id] || 60 : data.seconds;
         requireThat(Number.isInteger(seconds) && seconds >= 15 && seconds <= 300, 'INPUT', '答题时间须为15—300秒。');
         if(Object.hasOwn(data,'roundId')){
-          const previous=await selectedRound(room,selected.id,tx);
           requireThat((previous?.id || null)===(data.roundId || null),'ROUND','轮次已变化，请刷新后再次作答。');
         }
         room.questionRounds ||= {};
@@ -345,7 +452,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
           }
         }
         const round = {id:crypto.randomUUID(),number:room.nextRound++,questionId:selected.id,
-          openedAt:now(),deadline:now()+seconds*1000,closedAt:null,revealed:false,counts:{A:0,B:0,C:0,D:0},total:0};
+          openedAt:now(),deadline:now()+seconds*1000,feedbackMode:mode,closedAt:null,revealed:false,counts:{A:0,B:0,C:0,D:0},total:0};
         room.round = round; room.questionRounds[selected.id] = round.id; await tx.set('round_'+round.id,{kind:'round',roomCode,...round});
         for(let bucket=0;bucket<16;bucket++)await tx.set(gateKey(round.id,bucket),{kind:'gate',closed:false,version:0});
       });

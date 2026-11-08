@@ -2,7 +2,7 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 const {createService,passwordHash,questions}=require('../functions/classroom/service');
 const {memoryRepository}=require('../scripts/memory.cjs');
 test('lecture eight preserves QMD questions, three-option constraints, timing, reveal, retry and history',async()=>{
- const qmd=fs.readFileSync(path.resolve(__dirname,'../../../quantum-slides/lectures/lecture08/lecture08.qmd'),'utf8');
+ const qmd=fs.readFileSync(path.resolve(__dirname,'../../../quantum-slides/lectures/lecture08/lecture08.qmd'),'utf8').replace(/ {2,}\n[ \t]*/g,'');
  const service=createService(memoryRepository(),{teacherPasswordHash:await passwordHash('lecture-eight-test'),now:()=>Date.UTC(2026,10,3,4)});let room,teacher;
  const call=(action,data={},token=teacher)=>service.handle({action,data,token,roomCode:room},'lecture-eight');
  const ok=async(...args)=>{const r=await call(...args);assert(r.ok,JSON.stringify(r.error));return r.data;};

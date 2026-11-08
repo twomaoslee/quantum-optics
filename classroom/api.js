@@ -19,6 +19,7 @@
  function load(src){return new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=new URL(src,document.currentScript?.src || new URL('api.js',location.href)).href;script.onload=resolve;script.onerror=()=>reject(new Error('网络连接失败，请重试。'));document.head.append(script);});}
  async function call(action,data={},roomCode){
   const event={action,data,roomCode,token:stored()?.token};
+  const longAnalysis=['teacher.analyze','student.summary'].includes(action);
   const started=Date.now();let result;
   try{
    if(config.dev){
@@ -26,12 +27,12 @@
     if(!response.ok)throw new Error('网络连接失败，请重试。');result=await response.json();
    }else if(config.gatewayUrl){
     const connection=await cloud(),{accessToken}=await connection.auth.getAccessToken();
-    const response=await fetch(config.gatewayUrl,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+accessToken},body:JSON.stringify(event),signal:AbortSignal.timeout(action==='teacher.analyze'?65000:25000)});
+    const response=await fetch(config.gatewayUrl,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+accessToken},body:JSON.stringify(event),signal:AbortSignal.timeout(longAnalysis?65000:25000)});
     if(!response.ok)throw new Error('网络连接失败，请重试。');result=await response.json();
    }else result=(await (await cloud()).callFunction({name:config.functionName || 'classroom',data:event})).result;
   }catch(error){throw Object.assign(new Error(error.code==='CONFIG'?error.message:'连接失败，尚未确认操作结果。请重试或刷新检查。'),{code:error.code||'NETWORK'});}
   if(!result || typeof result.ok!=='boolean')throw new Error('服务返回异常，请稍后重试。');
-  offset=result.serverTime-(started+Date.now())/2;
+  if(!longAnalysis)offset=result.serverTime-(started+Date.now())/2;
   if(!result.ok){if(result.error.code==='AUTH' && !action.endsWith('.login'))save(null);throw Object.assign(new Error(result.error.message),{code:result.error.code});}
   return result.data;
  }

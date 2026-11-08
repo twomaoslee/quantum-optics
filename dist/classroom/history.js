@@ -1,7 +1,7 @@
 (async function(){
  'use strict';
  const api=QOApi,$=id=>document.getElementById(id),params=new URLSearchParams(location.search);
- const room=params.get('room')||api.stored()?.roomCode;
+ let room=params.get('room')||api.stored()?.roomCode;
  let loading=false,authenticated=false;
  function message(text){$('message').textContent=text||'';}
  function link(file,extra={}){const url=new URL(file,location.href);url.search='';if(room)url.searchParams.set('room',room);for(const [key,value]of Object.entries(extra))url.searchParams.set(key,value);return url.href;}
@@ -32,11 +32,11 @@
   const expanded=new Map([...document.querySelectorAll('details[data-key]')].map(el=>[el.dataset.key,el.open]));
   $('classroom-title').textContent=data.title;
   const anyReleased=data.questions.some(item=>item.answer);
-  $('release-status').textContent=anyReleased?'已展示结果的题目可查看对错和解析；其余题目保留作答记录，等待老师展示。':'先保留你的选择；老师在课件展示结果后，本题的对错和解析会同步开放。';
+  $('release-status').textContent=anyReleased?'可查看已开放的对错与解析。':'讨论题等老师展示结果，自查题提交后可查看对错与解析。';
   let issued=0,submitted=0,correct=0,graded=0;$('records').replaceChildren();
   for(const item of data.questions){
    const q=item.question,round=item.rounds.at(-1),released=!!item.answer,status=result(round,released);
-   if(round)issued++;if(round?.own){submitted++;if(released)graded++;if(round.own.isCorrect===true)correct++;}
+   if(round)issued++;if(round?.own){submitted++;if(typeof round.own.isCorrect==='boolean')graded++;if(round.own.isCorrect===true)correct++;}
    const article=node('article','history-record'),head=node('div','record-head');article.dataset.question=q.id;
    head.append(node('h2','',q.title),node('span','record-badge '+status.kind,status.text));article.append(head);
    const selected=node('p','record-choice');richText(selected,round?'我的选择：'+choiceText(q,round.own?.choice):'本课堂尚未发出这道题。');article.append(selected);
@@ -44,7 +44,14 @@
    if(round){
     const text='课堂第 '+round.number+' 次发题'+(round.own?' · '+new Date(round.own.submittedAt).toLocaleString():'');article.append(node('p','record-round',text));
     const details=node('details');details.dataset.key=q.id;details.open=expanded.get(q.id)||false;
-    details.append(node('summary','',released?'查看题目与解析':'查看题目与作答记录'),questionDetails(q,released?item.answer:null));
+    details.append(node('summary','',item.rounds.length>1?(released?'查看题目、解析与各轮记录':'查看题目与各轮记录'):released?'查看题目与解析':'查看题目与作答记录'),questionDetails(q,released?item.answer:null));
+    if(item.analysis?.status==='ready'){const ai=node('section','review-solution');ai.append(node('h3','','全班 AI 小结'),node('p','',item.analysis.summary));details.append(ai);}
+    else if(item.analysis?.status==='idle'&&round.own&&round.feedbackMode==='self-check'){
+     details.addEventListener('toggle',async()=>{
+      if(!details.open)return;
+      try{const {analysis}=await api.call('student.summary',{questionId:q.id,roundId:round.id},data.code);if(analysis.status==='ready')await refresh();}catch{}
+     });
+    }
     if(item.rounds.length>1){const past=node('section');past.append(node('h3','','本题各轮作答'));const list=node('ul','attempts');
      for(const attempt of item.rounds){const li=node('li'),status=result(attempt,released),line=node('span');richText(line,'课堂第 '+attempt.number+' 次发题 · '+choiceText(q,attempt.own?.choice)+' · '+status.text);li.append(line);if(attempt.own?.reason){const why=node('span','attempt-meta');richText(why,'选择原因：'+attempt.own.reason.text+(attempt.own.reason.comment?' 补充：'+attempt.own.reason.comment:''));li.append(why);}if(attempt.own)li.append(node('span','attempt-meta',new Date(attempt.own.submittedAt).toLocaleString()));list.append(li);}past.append(list);details.append(past);}
     article.append(details);
@@ -60,6 +67,14 @@
   catch(error){message(error.message);if(error.code==='AUTH'||error.code==='FORBIDDEN')showLogin();}
   finally{loading=false;$('refresh').disabled=false;}
  }
+ async function listRooms(){
+  try{
+   const {rooms}=await api.call('student.rooms',{},room),picker=$('history-room');
+   picker.replaceChildren(...rooms.map(item=>new Option(item.title+' · '+new Date(item.createdAt).toLocaleString('zh-CN')+(item.sessionType==='trial'?' · 试答':''),item.code)));
+   picker.value=room;picker.disabled=rooms.length<2;
+  }catch{}
+ }
+ $('history-room').addEventListener('change',event=>{room=event.target.value;location.assign(link('history.html'));});
  $('history-login').href=link('student.html',{return:'history'});$('live-link').href=link('student.html');$('history-link').href=link('history.html');
  $('environment').hidden=!api.config.dev;
  if(!/^[A-F0-9]{12}$/.test(room||'')){message('请从课堂作答页进入“我的答题”，或扫描老师的课堂二维码。');return;}
@@ -67,6 +82,6 @@
  $('logout').addEventListener('click',async()=>{try{await api.call('logout');api.save(null);showLogin();message('');}catch(error){message(error.message);}});
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
  if(!api.stored()){showLogin();return;}
- try{const me=await api.call('me');if(me.role!=='student'){showLogin();return;}$('profile').textContent=me.profile.name+' · '+me.profile.studentNumber;authenticated=true;$('history-auth').hidden=true;$('history-workspace').hidden=false;await refresh();}
+ try{const me=await api.call('me');if(me.role!=='student'){showLogin();return;}$('profile').textContent=me.profile.name+' · '+me.profile.studentNumber;authenticated=true;$('history-auth').hidden=true;$('history-workspace').hidden=false;await Promise.all([refresh(),listRooms()]);}
  catch(error){showLogin();message(error.message);}
 })();

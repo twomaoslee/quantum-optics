@@ -3,9 +3,9 @@
  const api=QOApi,$=id=>document.getElementById(id),params=new URLSearchParams(location.search),questionId=params.get('question')||'l07-q1';
  if(!/^(l07-q[1-6]|l08-q[1-5])$/.test(questionId)){$('message').textContent='题目链接无效。';return;}
  const lectureId=questionId.split('-')[0],lectureTitle=lectureId==='l08'?'第八讲课堂':'第七讲课堂';
- const roomKey='qo-last-room-v1:'+(api.config.envId||'local')+':'+lectureId,sameDay=t=>new Date(t).toLocaleDateString()===new Date().toLocaleDateString();
+ const roomKey='qo-last-room-v1:'+(api.config.envId||'local')+':'+lectureId;
  const coordinator=params.get('coordinator')!=='0',cacheKey='qo-presenter-qr-v1:'+(api.config.envId||'local')+':'+lectureId+':'+(params.get('room')||'daily');let desiredRoom=params.get('room')||'',connected=false;
- let room='',state=null,busy=false,polling=false,connecting=false,active=window===parent,epoch=0,parentOrigin='*',expanded=false,comparison=null,analysisBusy=false,chartMode=null;
+ let room='',anchor='',switchKind='',state=null,busy=false,polling=false,connecting=false,active=window===parent,epoch=0,parentOrigin='*',expanded=false,comparison=null,analysisBusy=false,chartMode=null;
  const message=text=>{$('message').textContent=text||'';};
  function layout(){
   document.body.classList.toggle('inline-results',expanded);$('join').hidden=expanded;$('results').hidden=!expanded;
@@ -15,22 +15,30 @@
  }
  function controls(){
   const r=state?.round,remaining=r?Math.max(0,Math.ceil((r.deadline-api.now())/1000)):0,open=r?.status==='open'&&remaining>0;
-  $('start').disabled=busy||!room||!connected||!!state?.answersReleasedAt;$('show').disabled=busy||!r||!connected;
-  $('start').textContent=r?'再次作答':'开始回答';$('show').textContent='展示结果';
+  const selfCheck=r?.feedbackMode==='self-check',locked=busy||!connected||!!state?.archivedAt;
+  $('start').disabled=locked||!room||!!state?.answersReleasedAt||selfCheck;
+  $('show').disabled=busy||!r||!connected;
+  $('start').textContent=selfCheck?'已发出自查题':r?'再次作答':'开始回答';
+  $('feedback-mode').disabled=locked||!!r;
+  $('new-class').disabled=$('new-trial').disabled=busy||!connected||!state?.activeClass;
+  $('confirm-class').disabled=$('cancel-class').disabled=busy;
+  $('session-label').textContent=state?.archivedAt?'已归档':state?.sessionType==='trial'?'试答场次':state?.sessionType==='class'?'正式课堂':state?'当前场次':'';
   $('timer').textContent=!connected?'正在连接…':!r?'等待发题':open?String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0'):r.revealed?'已展示结果':'本轮已结束';
   $('participation').textContent=r?(open?'本轮作答中 · ':'')+r.total+' 人已答':'';
  }
  function draw(next){
   if(state?.round?.id!==next.round?.id){expanded=false;comparison=null;analysisBusy=false;layout();}
+  if(next.round)$('feedback-mode').value=next.round.feedbackMode||'discussion';
+  else if(state?.code!==next.code)$('feedback-mode').value='discussion';
   state=next;$('classroom').hidden=false;controls();
  }
- function showConnection(){room='';state=null;connected=false;expanded=false;layout();$('classroom').hidden=true;$('connection').hidden=false;$('dev-connect').hidden=!api.config.dev;$('connect').hidden=!!api.config.dev;controls();}
+ function showConnection(){epoch++;room='';state=null;$('new-confirm').hidden=true;connected=false;expanded=false;layout();$('classroom').hidden=true;$('connection').hidden=false;$('dev-connect').hidden=!api.config.dev;$('connect').hidden=!!api.config.dev;controls();}
  function cachedQR(){
   try{
    const cached=JSON.parse(localStorage.getItem(cacheKey)||'null');
-   if(!api.stored()||!cached||!sameDay(cached.createdAt)||!/^[A-F0-9]{12}$/.test(cached.room)||desiredRoom&&desiredRoom!==cached.room||!/^data:image\/png;base64,[A-Za-z0-9+/=]{1,50000}$/.test(cached.image))return;
+   if(!api.stored()||!cached||!/^[A-F0-9]{12}$/.test(cached.room)||!/^data:image\/png;base64,[A-Za-z0-9+/=]{1,50000}$/.test(cached.image))return;
    const url=new URL('student.html',location.href);url.search='';url.searchParams.set('room',cached.room);
-   $('student-link').href=url.href;$('cached-qr').src=cached.image;$('cached-qr').hidden=false;$('qr').hidden=true;
+   anchor=cached.room;$('student-link').href=url.href;$('cached-qr').src=cached.image;$('cached-qr').hidden=false;$('qr').hidden=true;
    $('classroom').hidden=false;$('timer').textContent='正在连接…';
   }catch{}
  }
@@ -39,7 +47,26 @@
   if(error.code==='AUTH'){showConnection();message('请在课前连接课堂。');if(coordinator)parent.postMessage({type:'qo-classroom-connection-required'},parentOrigin);}
   else{message(error.message);$('retry').hidden=false;}
  }
- async function fetchState(){const version=epoch,requested=room,next=await api.call('teacher.state',{questionId},requested);if(version===epoch&&requested===room)draw(next);}
+ async function showQR(code){
+  if(code===anchor)return;
+  const url=new URL('student.html',location.href);url.search='';url.searchParams.set('room',code);
+  await QOQRCode.toCanvas($('qr'),url.href,{width:160,margin:2,errorCorrectionLevel:'M'});
+  anchor=code;$('student-link').href=url.href;$('cached-qr').hidden=true;$('qr').hidden=false;
+  try{localStorage.setItem(cacheKey,JSON.stringify({room:code,image:$('qr').toDataURL('image/png')}));}catch{}
+ }
+ async function fetchState(){
+  const version=epoch,requested=room,next=await api.call('teacher.state',{questionId},requested);
+  if(version!==epoch||requested!==room)return;
+  await showQR(next.anchor||requested);
+  if(version===epoch&&requested===room)draw(next);
+ }
+ let autoAnalyzed='';
+ async function analyzeClosedSelfCheck(){
+  const r=state?.round;
+  if(!r||r.feedbackMode!=='self-check'||r.status!=='closed'||!r.total||state.analysis?.status!=='idle'||autoAnalyzed===r.id)return;
+  autoAnalyzed=r.id;
+  try{await api.call('teacher.analyze',{questionId,roundId:r.id},room);}catch{}
+ }
  function drawComparison(){
   if(!comparison)return;const mode=chartMode||(comparison.rounds.length>2?'profile':'bars');
   $('chart-modes').hidden=comparison.rounds.length<3;$('mode-bars').setAttribute('aria-pressed',String(mode==='bars'));$('mode-profile').setAttribute('aria-pressed',String(mode==='profile'));
@@ -47,7 +74,7 @@
  }
  for(const mode of ['bars','profile'])$('mode-'+mode).addEventListener('click',()=>{chartMode=mode;drawComparison();parent.postMessage({type:'qo-classroom-return-focus'},parentOrigin);});
  async function analyze(){
-  if(analysisBusy||!comparison||comparison.analysis?.status==='ready')return;
+  if(analysisBusy||!comparison||comparison.analysis?.status==='ready'&&state?.analysis?.status==='ready')return;
   const version=epoch,requested=room,roundId=state.round.id;analysisBusy=true;comparison.analysis={status:'pending'};drawComparison();
   try{
    const next=await api.call('teacher.analyze',{questionId,roundId},requested);
@@ -59,6 +86,8 @@
   if(!room||busy||polling||document.hidden||!active)return;polling=true;const version=epoch;
   try{
    await fetchState();
+   if(state?.archivedAt&&active&&!params.has('room')){await connect();return;}
+   void analyzeClosedSelfCheck();
    if(expanded&&comparison?.analysis?.status==='pending'){
     const next=await api.call('teacher.analysisStatus',{questionId,roundId:state.round.id,fingerprint:comparison.fingerprint},room);
     if(version===epoch&&comparison){comparison.analysis=next.analysis;QOComparison.summary($('ai-brief'),next.analysis);}
@@ -70,24 +99,28 @@
   try{
    if(!api.stored()){showConnection();if(coordinator)parent.postMessage({type:'qo-classroom-connection-required'},parentOrigin);return;}
    const me=await api.call('me');if(me.role!=='teacher'){showConnection();if(coordinator)parent.postMessage({type:'qo-classroom-connection-required'},parentOrigin);return;}
-   const {rooms}=await api.call('teacher.rooms'),explicit=desiredRoom,today=rooms.filter(r=>(r.lectureId||'l07')===lectureId&&r.title===lectureTitle&&sameDay(r.createdAt)),saved=localStorage.getItem(roomKey);
-   if(explicit&&!rooms.some(r=>r.code===explicit&&(r.lectureId||'l07')===lectureId))throw new Error('课堂链接与本讲不一致。');
-   room=(explicit&&rooms.find(r=>r.code===explicit)?.code)||today.find(r=>r.code===saved)?.code||today[0]?.code||'';
-   if(!room){if(!coordinator)throw new Error('课堂连接尚未完成，请重试。');room=(await api.call('teacher.create',{title:lectureTitle,lectureId})).code;}
-   localStorage.setItem(roomKey,room);const url=new URL('student.html',location.href);url.search='';url.searchParams.set('room',room);$('student-link').href=url.href;
-   await QOQRCode.toCanvas($('qr'),url.href,{width:160,margin:2,errorCorrectionLevel:'M'});
-   $('cached-qr').hidden=true;$('qr').hidden=false;
-   try{localStorage.setItem(cacheKey,JSON.stringify({room,image:$('qr').toDataURL('image/png'),createdAt:Date.now()}));}catch{}
-   $('connection').hidden=true;$('classroom').hidden=false;
+   if(coordinator){
+    const pinned=desiredRoom&&await api.call('teacher.state',{questionId},desiredRoom);
+    if(!pinned||pinned.archivedAt){
+     const entry=await api.call('teacher.classroom',{lectureId,preferred:localStorage.getItem(roomKey)});
+     room=entry.code;localStorage.setItem(roomKey,entry.anchor);
+    }else if(pinned.activeClass||pinned.standalone){room=pinned.code;}
+    else{
+     const entry=await api.call('teacher.classroom',{lectureId,preferred:pinned.code});
+     room=entry.code;localStorage.setItem(roomKey,entry.anchor);
+    }
+   }else room=desiredRoom;
+   if(!room)return;
+   await fetchState();connected=true;$('connection').hidden=true;$('retry').hidden=true;message('');
    if(coordinator)parent.postMessage({type:'qo-classroom-connected',room},parentOrigin);
-   await fetchState();connected=true;$('retry').hidden=true;message('');
+   if(active)void analyzeClosedSelfCheck();
   }catch(error){handleError(error);}finally{connecting=false;controls();}
  }
  $('connect').addEventListener('submit',async event=>{event.preventDefault();const button=event.submitter;button.disabled=true;const password=new FormData(event.target).get('password');event.target.reset();try{api.save(await api.call('teacher.login',{password}));await connect();}catch(error){handleError(error);}finally{button.disabled=false;}});
  $('dev-connect').addEventListener('click',async()=>{try{api.save(await api.call('dev.teacherLogin'));await connect();}catch(error){handleError(error);}});
  $('start').addEventListener('click',async()=>{
-  if(busy||!room)return;busy=true;epoch++;expanded=false;comparison=null;analysisBusy=false;layout();controls();message('');
-  try{await api.call('teacher.open',{questionId,roundId:state?.round?.id||null},room);await fetchState();parent.postMessage({type:'qo-classroom-started'},parentOrigin);}
+  if($('start').disabled)return;busy=true;epoch++;expanded=false;comparison=null;analysisBusy=false;layout();controls();message('');
+  try{await api.call('teacher.open',{questionId,roundId:state?.round?.id||null,feedbackMode:$('feedback-mode').value},room);await fetchState();parent.postMessage({type:'qo-classroom-started'},parentOrigin);}
   catch(error){handleError(error);}finally{busy=false;controls();}
  });
  $('show').addEventListener('click',async()=>{
@@ -99,13 +132,32 @@
   }catch(error){handleError(error);}finally{busy=false;controls();}
   if(version===epoch&&expanded)analyze();
  });
+ for(const [id,kind] of [['new-class','class'],['new-trial','trial']])$(id).addEventListener('click',()=>{
+  switchKind=kind;
+  $('confirm-note').textContent=(kind==='trial'?'进入独立试答场次。':'进入空白的正式课堂。')+'本场记录保留，二维码不变。';
+  $('new-confirm').hidden=false;
+ });
+ $('cancel-class').addEventListener('click',()=>{$('new-confirm').hidden=true;});
+ $('confirm-class').addEventListener('click',async()=>{
+  if(busy||!state?.activeClass)return;
+  busy=true;epoch++;controls();
+  try{
+   const next=await api.call('teacher.newClass',{lectureId,kind:switchKind},room);
+   desiredRoom=next.code;$('new-confirm').hidden=true;
+   if(coordinator)await enter();else{await enter();await connect();}
+   parent.postMessage({type:'qo-classroom-started'},parentOrigin);
+  }catch(error){
+   $('new-confirm').hidden=true;
+   if(error.code==='ROOM_CHANGED')await connect();else handleError(error);
+  }finally{busy=false;controls();}
+ });
  $('retry').addEventListener('click',()=>room&&connected?refresh():connect());
  window.addEventListener('message',event=>{
   if(event.source!==parent)return;let trusted=event.origin===location.origin||event.origin==='null';try{trusted||=/^(localhost|127\.0\.0\.1)$/.test(new URL(event.origin).hostname);}catch{}if(!trusted)return;
   parentOrigin=event.origin==='null'?'*':event.origin;
   if(event.data?.type==='qo-classroom-connect'&&coordinator)enter();
   if(event.data?.type==='qo-classroom-connection-required'&&!coordinator)showConnection();
-  if(event.data?.type==='qo-classroom-room'&&!coordinator&&/^[A-F0-9]{12}$/.test(event.data.room)&&(desiredRoom!==event.data.room||!connected)){desiredRoom=event.data.room;enter();}
+  if(event.data?.type==='qo-classroom-room'&&!coordinator&&/^[A-F0-9]{12}$/.test(event.data.room)&&(desiredRoom!==event.data.room||!connected)){if(desiredRoom!==event.data.room){epoch++;connected=false;$('new-confirm').hidden=true;}desiredRoom=event.data.room;enter();}
   if(event.data?.type==='qo-classroom-results-dismissed'){expanded=false;layout();}
   if(event.data?.type==='qo-classroom-visibility'){active=event.data.active===true;if(active)refresh();}
  });

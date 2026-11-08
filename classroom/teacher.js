@@ -10,7 +10,7 @@
  function controls(){
   const r=state?.round,open=r?.status==='open'&&api.now()<r.deadline;
   $('open').textContent='发题 · '+(state?.defaultSeconds||60)+'秒';
-  $('open').disabled=busy||open||!!state?.answersReleasedAt;$('extend').disabled=busy||!open;$('close').disabled=busy||!open;
+  $('open').disabled=busy||open||!!state?.answersReleasedAt||!!state?.archivedAt||r?.feedbackMode==='self-check';$('extend').disabled=busy||!open;$('close').disabled=busy||!open;
   $('reveal').disabled=busy||!r||r.revealed;$('analysis').disabled=busy||!r?.revealed;
   $('status').textContent=!r?'学生进入后等待发题。':open?'剩余 '+Math.max(0,Math.ceil((r.deadline-api.now())/1000))+' 秒 · 已提交 '+r.total+' 人':'作答已结束 · 共 '+r.total+' 人提交';
   const released=!!state?.answersReleasedAt;
@@ -54,7 +54,7 @@
   finally{reasonLoading=false;controls();}
  }
  async function analysisDetails(generate=false){
-  if(detailLoading||!state?.round?.revealed)return;
+  if(detailLoading||!state?.round||(!state.round.revealed&&(state.round.feedbackMode!=='self-check'||state.round.status==='open')))return;
   const requested=room,id=state.round.id,questionId=state.question.id;detailLoading=true;controls();
   try{
    if(generate)await api.call('teacher.analyze',{questionId,roundId:id},requested);
@@ -91,7 +91,7 @@
   const me=await api.call('me');if(me.role!=='teacher')throw new Error('请使用教师身份登录。');
   $('login').hidden=true;$('workspace').hidden=false;
   const result=await api.call('teacher.rooms');$('rooms').replaceChildren(new Option('选择课堂',''));
-  result.rooms.forEach(r=>$('rooms').add(new Option(r.title+' · '+new Date(r.createdAt).toLocaleDateString(),r.code)));
+  result.rooms.forEach(r=>$('rooms').add(new Option(r.title+' · '+new Date(r.createdAt).toLocaleString('zh-CN')+(r.sessionType==='trial'?' · 试答':r.sessionType==='class'?' · 正式':'')+(r.archivedAt?' · 已归档':''),r.code)));
   if(!result.rooms.some(r=>r.code===room))room=result.rooms[0]?.code||'';await selectRoom(room);
  }
  async function signIn(action,data={}){try{api.save(await api.call(action,data));await enter();message('');}catch(e){message(e.message);}}

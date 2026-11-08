@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "scope": "Lecture 7 six questions and Lecture 8 five questions; lecture-isolated presenter, source-derived catalog, manual results and existing AI summaries",
+  "scope": "Lectures 7 and 8; fixed QR with separate trial/formal sessions, per-question discussion or self-check feedback, and student AI summaries",
   "local_browser": "passed",
   "backend_tests": "passed",
-  "backend_test_count": 43,
+  "backend_test_count": 47,
   "cloud_deployment": "passed",
   "cloud_sdk_smoke": "passed",
   "real_phone_network": "pending_teacher_phone_test",
@@ -93,13 +93,13 @@
     "comparison.css"
   ],
   "sha256": {
-    "classroom/api.js": "9cbac8d9c451fa860f50ac91169cb5472ff2dd26bb9e1a07f3ca2acae39e277d",
+    "classroom/api.js": "3279e1075088be5e9706e2d8a0fd173160205eadec692742c4cc76d84c5709f8",
     "classroom/config.js": "840e90878978ae3397b515c342bac563ad259668371dd1a51fe6bc7c1204e6d8",
-    "classroom/student.html": "fb288eec4c3e9d380f0f2c828ae2c54d446ee88b7b85349d8204986caf3ab61c",
-    "classroom/student.js": "7258675ad3e7a8cb94224fe76c8690edaae2fbf6a3876d0440181aa6d830ce73",
+    "classroom/student.html": "fdeb8a77de41149281fe17e14c1e096298028414966740276e3a9e93cb4de545",
+    "classroom/student.js": "0d24176b929a64ceeb438c03c543e4c852398751bfa6a54974a4fc1989839020",
     "classroom/style.css": "4ebd2e993f6532c71dd0fa607308d9ae8e119f88f33f333f95ee34f8584c6e0f",
-    "classroom/teacher.html": "134dc8d1a92e36ca996ec0a2ffe2312ecdfd1f5eaab141fddeba4bed5f877298",
-    "classroom/teacher.js": "c5df8de36478287fefbb89cd7caec2c62a7147e62a9f6d5c8ccc601e85898109",
+    "classroom/teacher.html": "c136a1ad4bd4659b6cce25cfb8f831ee7f8e5c990eaa3cec4a03107cc773a859",
+    "classroom/teacher.js": "91fce5540ef6e57067fabd295e16faae7d017f3fa34d9701dde90c1a29ac7d94",
     "classroom/vendor/cloudbase-LICENSE": "92d7d7d2d4771b84f44e38dc59052faae8e3cd0a234a62de6180a1c6746c979e",
     "classroom/vendor/cloudbase.js": "f2f32140de147768741ceaa0e8e05391d22b76265bbf2def2c7bf86977c1ad0f",
     "classroom/vendor/katex/LICENSE": "766ccc1f306c885aa45542a9846bbd0a505b27a0374f146778171c2254ce18e3",
@@ -173,7 +173,7 @@
     "classroom-cloudbase/functions/classroom/package-lock.json": "1a29e5cd2b8249224f6406955ca641e313772ad36f4485c277b1121b31d25193",
     "classroom-cloudbase/functions/classroom/package.json": "fb8ac2007c356083e20f397075a19627f634f2752bc00a47fe16714ee8f9b74f",
     "classroom-cloudbase/functions/classroom/repository.js": "48a802c5f7901c5fd71f73fa58db261d610139566a3c528caf15f4c64fc36b4e",
-    "classroom-cloudbase/functions/classroom/service.js": "6a9ff1fc051680b7580844aaa7602b87edececf3d33c47058c04efe3f802747c",
+    "classroom-cloudbase/functions/classroom/service.js": "0f0b59c188c3b352b0482e251d86f2f3628d70f3fa9ad517e430566982310c6b",
     "classroom-cloudbase/functions/classroom/vendor/lodash.set/index.js": "f97bc584a99c20a655d8159b648fd0758968c5a6414399874f306ee114d4368a",
     "classroom-cloudbase/functions/classroom/vendor/lodash.set/package.json": "4efed05fe3d824cf36cd45bcc3c4b7111441b20b90e105ec092b6d662d0b99e2",
     "classroom-cloudbase/package-lock.json": "11d7eaa31ddd02296e35454a219b11e5c2a77c70b0297b24835023c054b1278d",
@@ -188,22 +188,22 @@
     "classroom-cloudbase/test/race.test.cjs": "0747eacd07b21f8a751c0299516e3ed7272f7304a11444720ad6a7c5bf05ccd9",
     "classroom-cloudbase/test/repository.test.cjs": "50c60b4f9f40729e82ebdd656e742ed4537f2d72dcb35ef23972277f16ee36a5",
     "classroom-cloudbase/test/service.test.cjs": "87937aae4f61040444e250bbc1030acd3998c612428ebb1f67ccac72cd062aa7",
-    "scripts/build.py": "28d971cfda3eb16097a584ffe7f64d1f55812bdf2ef9a6857dd78b9ab6e5dc63",
-    "scripts/check.py": "673a937dadfb735ea3909c3f5746e55dca2ea16cbc3cfccecd965f09181fd91e",
+    "scripts/build.py": "5f4884c827685d1327b2ba0b02cbf55a67f4880d055f639f34a5f732b7ec35ff",
+    "scripts/check.py": "246963373abea28c14a1fa1e4a9b39a55cd16bc48b85fabcf579889cb94c5afd",
     "classroom-cloudbase/functions/classroom/.npmrc": "0ed44e7d606cd7a9eba915a10f13a13a09ea85e4b2bb4415bb0c481dbdcded51",
     "classroom-cloudbase/function-access.rego": "15f2a9a23982b9feee20475f0d1e668eba47d375a722773fd013698009a5686d",
     "classroom-cloudbase/scripts/cloud-smoke.cjs": "78fefd699842a172dc7fcc129b05a1feb65c50ec1e3185ef3267e970bb30942e",
     "classroom-cloudbase/functions/classroom/transport.js": "cf0f2aa392be5e41da498d03374d81581107fdabc59d7e572013648eaa8a8781",
     "classroom-cloudbase/test/transport.test.cjs": "aeb04077c2f6c62a26102b007bf3a5bf8e271aca3551f4b997e162a150fc8832",
-    "classroom/presenter.html": "a4057eba44a8842f8512ad36fdd6fab1396f13684af5b3e505946ca35d6e26e5",
-    "classroom/presenter.css": "e693527403d97d8c932eb240c44e225abc709f773f71c0205b1b69534b235acc",
-    "classroom/presenter.js": "8fd2bc67fe93a75053cd6e5e4a36543f4ff995bf2f59b87de766aba629454335",
+    "classroom/presenter.html": "8c8579d645c158dd203f9133541f83cee76ca9bd0875410802cfee4d13a362c6",
+    "classroom/presenter.css": "9afb10c7ea98c35f7b1748d8627160259217a1c63b0d74b58e1a62fe30943881",
+    "classroom/presenter.js": "625e2a51a8c4ff2c717219507cee81943581afdca5429c0f58a0396865a3f391",
     "classroom-cloudbase/functions/classroom/questions.json": "2d45e5948dd22a52126d25ca0bb9ebda1989ec67622d795036e4283fc91fcb52",
     "classroom-cloudbase/scripts/sync-questions.py": "c45ebfae7dc72aa1f997cfcaec54d357d40dff347170484bb37acef8ac2daa89",
     "classroom-cloudbase/test/multiple.test.cjs": "4dfd7872c350ea6ec8b1811a850e87d92febb918c45b8a8f76ac873a966444c5",
-    "classroom/history.html": "d8c1543e9bd005a18d4112d21237a754ca68a8ee60cbdce341eaec17b64f33fc",
+    "classroom/history.html": "750619bdc6b393c5ea38f7b1c0e58e0e096c713839cceeff4e06a16db07c7923",
     "classroom/history.css": "96cda166c87654967f35d9b433c26ca63066ecc3ef8d2c72620ffb2c1fa1b22e",
-    "classroom/history.js": "ad746b9425950a935e2b6972854cd51b70b5fd37bab769cf5cff0f2900954ded",
+    "classroom/history.js": "22c8ffdd498d21c36d6a52703d11f16a1e23dd28efd1ca0fa4fc7b20414b915a",
     "classroom-cloudbase/test/history.test.cjs": "4681839726a6a70202e3dbd6cc4ba64c93b47833c1c452e839a9005a4e313e37",
     "classroom/export-csv.js": "76e6687efbd2281d16601ef538b3869cca7ff9538a850ab73e475221018e2922",
     "classroom-cloudbase/test/export.test.cjs": "f2acaec10a1b3237d6379ef4c2e49c09c1e6264e0deae357fe203cf88cd89f8a",
@@ -214,13 +214,14 @@
     "classroom/comparison.css": "ff70c42ad954e48c1f299dcd3c89e87f4d5801de947f4c1ad61581fdd6b997e3",
     "scripts/update_classroom_deck.py": "afc68c7a2e361cab2e39195539b71b5072437b155646e47b643820051ff27add",
     "classroom-cloudbase/functions/classroom/ai.js": "14f030e11cc05f28511cfdc9ec43eb12b6aff80717ef24fe5d9bca90f927562d",
-    "classroom-cloudbase/functions/classroom/comparison.js": "51ef8714ce1e0bfe6bfdbd43c3fa36ee434c58139fa72f1097f63d0beab63367",
+    "classroom-cloudbase/functions/classroom/comparison.js": "271ea53bb21a93630e9ed082e0633fff85421ef52094743f5559adff14563bf0",
     "classroom-cloudbase/test/ai.test.cjs": "167c334209c492da18e0b19d924057fbccbdfff8bd7e20fe9d03f7620c4992cb",
     "classroom-cloudbase/functions/classroom/timing.json": "eb1187980ba532cdc4ad7fe79fb80dc2410f33b6ab1940cd134b9a77acf951f9",
     "classroom-cloudbase/test/timing.test.cjs": "b27eba56f23d452c230634ffd7f1aa1d651b4bbb4413a3c5168608cbe08a7af0",
     "classroom-cloudbase/test/student-feedback.test.cjs": "3461010926ae9e844912ec15e012f7997cf819c1d7f087ad6a66944403e6e7fb",
-    "classroom-cloudbase/test/lecture08.test.cjs": "4317f6a01de63b5ffc00739dde686aa536983f2974152d350975941222be4277",
-    "classroom-cloudbase/scripts/cloud-smoke-lecture08.cjs": "f3aceaf4078ffca7a91e8a0bcd11cdb7c1e90ad3c84f3d6382ce05711836a5fc"
+    "classroom-cloudbase/test/lecture08.test.cjs": "105738d6705650af4ce8cd16479020927ef1ecb1eb1433b7ec903c0010b438be",
+    "classroom-cloudbase/scripts/cloud-smoke-lecture08.cjs": "f3aceaf4078ffca7a91e8a0bcd11cdb7c1e90ad3c84f3d6382ce05711836a5fc",
+    "classroom-cloudbase/test/sessions.test.cjs": "dce766e4ffd567fbca9cbf50c54e2b0dd1fd7b4a3ec4c88a08afc002f00df57d"
   },
   "cloud_browser": "passed",
   "cloud_capacity": "pending_full_class_load",
@@ -398,6 +399,25 @@
     ],
     "deliberately_not_stamped": "scripts/update_classroom_deck.py still matches its committed version; the local working copy has unreviewed edits and must not be stamped before those are committed or discarded."
   },
+  "student_return_entry": {
+    "date": "2026-11-05",
+    "status": "passed",
+    "scope": "Student page only: the page itself becomes a bookmarkable entry point. Backend, presenter, teacher pages, history page, style and stored answers unchanged.",
+    "changes": [
+      "remember the last room code in localStorage qo-classroom-last-room:v1 once a login succeeds",
+      "student.html opened without a room parameter redirects to the remembered room instead of showing the scan prompt",
+      "a 换一间 control clears the memory and returns to the bare URL; it also appears when room.public fails, so a stale link is never a dead end",
+      "a WeChat-only hint points at the ··· 浮窗 menu so the page survives leaving WeChat"
+    ],
+    "why": "The room code exists only in the QR link, so once the page is gone the student had no route back except scanning again. That is the reported every-question-rescan behaviour; login state was never the problem.",
+    "browser": "16 assertions passed in system Chrome headless driven by playwright-core (no bundled browser download): no-parameter with and without a stored room, scanned entry, automatic completion, switch-room exit, WeChat and non-WeChat user agents, and 390x844 layout with scrollWidth 390 and a full-width submit button",
+    "limits": [
+      "the memory only exists after one successful login",
+      "private mode or cleared storage still needs a scan",
+      "real phone and WeChat in-app behaviour not yet measured"
+    ],
+    "version": "20261105-returning"
+  },
   "lecture08": {
     "date": "2026-11-03",
     "source": "quantum-slides/lectures/lecture08/lecture08.qmd",
@@ -422,5 +442,14 @@
       "cloud": "full current catalog matches deployed question objects; five flows passed in virtual QA room35F73FE7D569",
       "source_parser": "balanced nested fences preserve both distributions, tail rule and constants"
     }
+  },
+  "classroom_sessions_and_feedback": {
+    "date": "2026-11-08",
+    "status": "passed",
+    "version": "20261107-sessions",
+    "business_tests": "47 passed, including existing behavior, cross-lecture isolation, fixed legacy QR, atomic session switch and stale-write rejection, role checks, single self-check submission, both release gates and single-flight AI generation.",
+    "browser": "Local headless Chrome with actual published Lecture 7 and Lecture 8 decks and 390px student view. Verified identical QR bytes/link across trial and formal sessions, already-open student view follows without login, both slides share new session, discussion retry and two-round results inside sidebar, immediate self-check and optional reason, delayed AI using a local fixture, archived student history and teacher export.",
+    "review": "Independent undergraduate flow cold read. Revised explicit deadline and resubmission wording, identified round scope in results and history, distinguished post-solution reflection, and added a visible student session label.",
+    "cloud": "Code-only CloudBase update. Both feedback modes, hidden discussion retry, self-check lock and cutoff, and real deepseek-flash summaries passed using a separate fictional classroom. The formal classroom export retained the same answer and round fingerprint. Fixed QR switching tested against the local service without changing the active production class."
   }
 }
