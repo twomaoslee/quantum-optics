@@ -58,7 +58,7 @@ def render(data, editorial):
 <div class="check-feedback" hidden><p><strong>答案 {check['correct']}</strong></p><p>{rich(check['answer'])}</p></div></form>
 </section>''')
     return f'''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="第七讲光场量子化课堂回顾：匿名答题统计、AI辅助复盘、关键关系与课后自查。">
+<meta name="description" content="第七讲光场量子化课堂答题情况分析：匿名答题统计、AI辅助复盘、关键关系与课后自查。">
 <title>{escape(editorial['title'])} · 量子光学</title><link rel="stylesheet" href="review.css"><link rel="stylesheet" href="../classroom/vendor/katex/katex.min.css">
 <script defer src="../classroom/vendor/katex/katex.min.js"></script><script defer src="review.js"></script></head><body>
 <a class="skip-link" href="#main">跳到正文</a><header><div class="topbar"><a class="brand" href="../index.html"><img src="../assets/csu-logo.png" alt="中南大学"><span>量子光学</span></a><nav aria-label="课程资料"><a href="../notes/lecture07.html">讲义</a><a href="../slides/lecture07.html">课件</a><a href="../downloads/lecture07-slides.pdf">PDF</a></nav></div></header>
@@ -100,11 +100,12 @@ def sync_recaps(site):
             shutil.copy2(site / 'recaps' / name, output.parent / name)
         home = site / 'dist/index.html'
         text = home.read_text()
+        label = escape(editorial['title'])
         pattern = rf'<article class="lecture">(?:(?!</article>).)*href="notes/lecture{int(number):02d}\.html".*?</article>'
         def insert_card(match):
             card = re.sub(r'<a\b[^>]*class="action recap-link"[^>]*>.*?</a>', '', match[0])
             link = (f'<a class="action recap-link" style="grid-column:1/-1" href="{entry["output"]}" '
-                    'target="_blank" rel="noopener">课堂答题情况分析</a>')
+                    f'target="_blank" rel="noopener">{label}</a>')
             download = card.find('<a class="download"')
             if download != -1:
                 return card[:download] + link + card[download:]
@@ -120,7 +121,7 @@ def sync_recaps(site):
             pattern = rf'<form\b[^>]*id="l7-quiz-{i}".*?</form>'
             def insert_quiz(match):
                 form = re.sub(r'<p class="classroom-recap-link">.*?</p>', '', match[0])
-                link = f'<p class="classroom-recap-link"><a style="display:inline-block" href="../{entry["output"]}#q{i}">查看本次课堂回顾：答题分布与复习建议</a></p>'
+                link = f'<p class="classroom-recap-link"><a style="display:inline-block" href="../{entry["output"]}#q{i}">{label}</a></p>'
                 form, inserted = re.subn(r'(<div\b[^>]*class="quiz-feedback"[^>]*>)', lambda m: m[1] + link, form, count=1)
                 if inserted != 1:
                     raise ValueError(f'Recap feedback container not found: {i}')
