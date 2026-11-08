@@ -15,8 +15,8 @@
     "2": {
       "class_start": null,
       "class_end": null,
-      "materials_updated": "2026-11-08T22:25+08:00",
-      "published_materials_sha256": "84c483500949bbb6694303d9fde103b903969d95a208434bf62acd277eebef97"
+      "materials_updated": "2026-11-08T22:53+08:00",
+      "published_materials_sha256": "aea1073e438f35ce1d05751c0bb80c11911bca90cdd135dfd0406efc4b37989c"
     },
     "3": {
       "class_start": null,
@@ -33,8 +33,8 @@
     "5": {
       "class_start": null,
       "class_end": null,
-      "materials_updated": "2026-11-08T22:25+08:00",
-      "published_materials_sha256": "4aa571070a89a340ba2310f2cce60352e2a2559fa90ec1a675bc47e93cf6c9e3"
+      "materials_updated": "2026-11-08T22:53+08:00",
+      "published_materials_sha256": "2c8194aeafd0196529049c3874a8aef184bacec19e8b087a7c5f1bb10ab5f5b0"
     },
     "6": {
       "class_start": "2026-10-26T10:00:00+08:00",
@@ -45,8 +45,8 @@
     "7": {
       "class_start": null,
       "class_end": null,
-      "materials_updated": "2026-11-08T22:25+08:00",
-      "published_materials_sha256": "898b52698bf2883b7769dc8c7e6dc446d16986b07d813f9810c500c6482e01c6"
+      "materials_updated": "2026-11-08T22:53+08:00",
+      "published_materials_sha256": "785ca081866e0180ca5345691b3b67691fef726230b0dea3e1b34b29ba932482"
     },
     "8": {
       "class_start": null,

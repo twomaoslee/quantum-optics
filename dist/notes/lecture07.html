@@ -2717,6 +2717,14 @@ body.course-reading {
   margin: 0 !important;
   padding: 0;
 }
+/* Quarto propagates a wide embed's page grid to its ancestor sections.
+   Keep those inner wrappers in the shared reading column and preserve collapse states. */
+.course-reading main .page-columns {
+  display: block;
+}
+.course-reading main .page-columns.collapse:not(.show) {
+  display: none;
+}
 .course-reading #quarto-content > :is(footer, .page-navigation) {
   grid-area: 2 / 2 !important;
   min-width: 0;
@@ -2870,6 +2878,25 @@ body.course-reading {
   .course-reading main section.level2 > h2 { font-size: 23px; }
   .course-reading main section.level3 > h3 { font-size: 18px; }
   .course-reading main table { display: block; max-width: 100%; overflow-x: auto; }
+}
+@media (max-width: 380px) {
+  /* Keep long inline formulas in expanded answers inside their text column. */
+  .course-reading main :is(.callout-body, .exercise-answers) .math.inline {
+    display: inline-block;
+    max-width: 100%;
+    overflow-x: auto;
+    vertical-align: middle;
+  }
+  /* Give the final self-check's long formulas the full option width. */
+  .course-reading #l7-quiz-6 .quiz-option {
+    grid-template-columns: 1.15rem minmax(0, 1fr);
+    gap: .25rem .5rem;
+    padding-inline: .55rem;
+  }
+  .course-reading #l7-quiz-6 .quiz-option-text {
+    grid-column: 1 / -1;
+    overflow-x: auto;
+  }
 }
 @media print {
   body.course-reading { color: #111; font-size: 11pt; line-height: 1.65; }
