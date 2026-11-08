@@ -3,7 +3,7 @@
   "scope": "Lectures 7 and 8; fixed QR with separate trial/formal sessions, per-question discussion or self-check feedback, and student AI summaries",
   "local_browser": "passed",
   "backend_tests": "passed",
-  "backend_test_count": 47,
+  "backend_test_count": 48,
   "cloud_deployment": "passed",
   "cloud_sdk_smoke": "passed",
   "real_phone_network": "pending_teacher_phone_test",
@@ -173,7 +173,7 @@
     "classroom-cloudbase/functions/classroom/package-lock.json": "1a29e5cd2b8249224f6406955ca641e313772ad36f4485c277b1121b31d25193",
     "classroom-cloudbase/functions/classroom/package.json": "fb8ac2007c356083e20f397075a19627f634f2752bc00a47fe16714ee8f9b74f",
     "classroom-cloudbase/functions/classroom/repository.js": "48a802c5f7901c5fd71f73fa58db261d610139566a3c528caf15f4c64fc36b4e",
-    "classroom-cloudbase/functions/classroom/service.js": "0f0b59c188c3b352b0482e251d86f2f3628d70f3fa9ad517e430566982310c6b",
+    "classroom-cloudbase/functions/classroom/service.js": "d3047f33942d8f531972bdeef3160c2f3d4f9fa6bd201de51ed30ffbb5492526",
     "classroom-cloudbase/functions/classroom/vendor/lodash.set/index.js": "f97bc584a99c20a655d8159b648fd0758968c5a6414399874f306ee114d4368a",
     "classroom-cloudbase/functions/classroom/vendor/lodash.set/package.json": "4efed05fe3d824cf36cd45bcc3c4b7111441b20b90e105ec092b6d662d0b99e2",
     "classroom-cloudbase/package-lock.json": "11d7eaa31ddd02296e35454a219b11e5c2a77c70b0297b24835023c054b1278d",
@@ -207,14 +207,14 @@
     "classroom-cloudbase/test/history.test.cjs": "4681839726a6a70202e3dbd6cc4ba64c93b47833c1c452e839a9005a4e313e37",
     "classroom/export-csv.js": "76e6687efbd2281d16601ef538b3869cca7ff9538a850ab73e475221018e2922",
     "classroom-cloudbase/test/export.test.cjs": "f2acaec10a1b3237d6379ef4c2e49c09c1e6264e0deae357fe203cf88cd89f8a",
-    "classroom-cloudbase/functions/classroom/reasons.json": "abb40ac1c52b4b70cdee4c8d99057f7575570061cd2385502ab0d73627d633cf",
-    "classroom-cloudbase/test/reasons.test.cjs": "c3497e4fba2994c75e22dfdb44398ab145fbd3dd81f9945821a2d5bf1e8d7e85",
+    "classroom-cloudbase/functions/classroom/reasons.json": "3416ad6858b481627eebd0b4250cdc110fbd367880267e5e0d9d0cef5e24b177",
+    "classroom-cloudbase/test/reasons.test.cjs": "5167101167e96b1937978a4c5568725061a531d7499a338102e352999e33b78b",
     "classroom/comparison-view.js": "79053ced84942c4840db6b6df8fe860af855cbd09a766ca5078d31d0c8f30f76",
     "classroom-cloudbase/test/comparison.test.cjs": "1ddf98ece278d175299ea561c91e13f3dfdf5c7bc60f3ea9f8d57f34551b2d9f",
     "classroom/comparison.css": "ff70c42ad954e48c1f299dcd3c89e87f4d5801de947f4c1ad61581fdd6b997e3",
     "scripts/update_classroom_deck.py": "afc68c7a2e361cab2e39195539b71b5072437b155646e47b643820051ff27add",
     "classroom-cloudbase/functions/classroom/ai.js": "14f030e11cc05f28511cfdc9ec43eb12b6aff80717ef24fe5d9bca90f927562d",
-    "classroom-cloudbase/functions/classroom/comparison.js": "271ea53bb21a93630e9ed082e0633fff85421ef52094743f5559adff14563bf0",
+    "classroom-cloudbase/functions/classroom/comparison.js": "fbe4a141b532d9a63e25fca1ece83f8e83b5417530d0f601a7893338f3b4d201",
     "classroom-cloudbase/test/ai.test.cjs": "167c334209c492da18e0b19d924057fbccbdfff8bd7e20fe9d03f7620c4992cb",
     "classroom-cloudbase/functions/classroom/timing.json": "79b9c29a1b6a10d072fc7b429265d69ac62d1d0d786cbe0b2c2ee31e080722ea",
     "classroom-cloudbase/test/timing.test.cjs": "7ec350688d875fd2c4ac7284d9889f0ffce47526e454d3636f3a718f5dd63f1f",
@@ -472,5 +472,14 @@
       "status": "passed",
       "browser": "Lecture 7 Q6 and Lecture 8 Q4 at 1280x720 and 1024x768. Active countdown is 40px. The right-hand 60-second window and submission count use 32px digits. Verified count updates from zero to one, matched caption alignment, and intact bottom buttons."
     }
+  },
+  "lecture08_choice_reasons": {
+    "date": "2026-11-09",
+    "version": "l08-reasons-20261109-v1",
+    "status": "passed",
+    "scope": "Five Lecture 8 questions, 18 answer branches and 37 answer-specific reasons. Each branch retains unsure/other and optional free text. Lecture 7 bank and version are unchanged.",
+    "review": "Two independent staged undergraduate readings checked distinguishability, comparisons and plain language. Independently evaluated the variances, Poisson probabilities, geometric tail and weak-light limits.",
+    "browser": "All five actual Lecture 8 question pages played with default single-round self-check and a 320px student viewport. Verified each menu and saving preset-plus-text or text alone.",
+    "cloud": "All 18 deployed student menus matched the checked source in an isolated fictional classroom. Free text on all five questions was present in the authenticated teacher export. All 48 backend tests passed, including stored legacy reason snapshots."
   }
 }

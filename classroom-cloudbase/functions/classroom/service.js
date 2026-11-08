@@ -8,7 +8,7 @@ const random = () => crypto.randomBytes(32).toString('base64url');
 const catalog = require('./questions.json');
 const reasons = require('./reasons.json');
 const timing = require('./timing.json');
-const {snapshot,validateAnalysis}=require('./comparison');
+const {snapshot,validateAnalysis,reasonVersion}=require('./comparison');
 const questions = new Map(catalog.map(record => [record.question.id, record]));
 const question = questions.get('l07-q1').question;
 function questionFor(id) {
@@ -29,8 +29,10 @@ function reasonOptions(questionId,choice) {
   return reasons.questions[questionId]?.[choice] || [];
 }
 function ownAnswer(row) {
-  return row ? {choice:row.choice,updatedAt:row.updatedAt,reason:row.reason || null,
-    reasonOptions:reasonOptions(row.questionId || question.id,row.choice),reasonOptionsVersion:reasons.version} : null;
+  if(!row)return null;
+  const questionId=row.questionId || question.id;
+  return {choice:row.choice,updatedAt:row.updatedAt,reason:row.reason || null,
+    reasonOptions:reasonOptions(questionId,row.choice),reasonOptionsVersion:reasonVersion(questionId)};
 }
 class AppError extends Error {
   constructor(code, message) { super(message); this.code = code; }
@@ -325,12 +327,13 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
         const id='answer_'+round.id+'_'+session.userId,own=await tx.get(id);
         requireThat(own,'ANSWER','请先提交答案，再补充选择原因。');
         requireThat(own.choice===data.choice,'CHOICE','答案已改变，请刷新后为当前答案补充原因。');
-        const option=reasonOptions(round.questionId || question.id,own.choice).find(r=>r.id===data.reasonId);
+        const questionId=round.questionId || question.id;
+        const option=reasonOptions(questionId,own.choice).find(r=>r.id===data.reasonId);
         requireThat(data.reasonId===null || option,'INPUT','原因与当前所选答案不匹配。');
         requireThat(data.comment===undefined||typeof data.comment==='string','INPUT','请填写有效的原因补充。');
         const comment=(data.comment||'').normalize('NFKC').replace(/[\u0000-\u001f\u007f]/g,' ').trim();
         requireThat([...comment].length<=300 && (!comment||option),'INPUT','请先选择原因或使用“其他”，补充最多300字。');
-        saved=option?{id:option.id,text:option.text,version:reasons.version,submittedAt:now(),...(comment?{comment}:{})}:null;
+        saved=option?{id:option.id,text:option.text,version:reasonVersion(questionId),submittedAt:now(),...(comment?{comment}:{})}:null;
         // A reason update neither re-submits the answer nor changes its timestamp.
         await tx.set(id,{...own,reason:saved});
         await tx.set(gateId,{...gate,version:gate.version+1});
