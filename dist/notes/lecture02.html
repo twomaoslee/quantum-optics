@@ -107,9 +107,245 @@ window.Quarto = {
 
 <link rel="stylesheet" href="styles.css?v=2120fb756dc2">
 <link rel="stylesheet" href="lecture02-notes.css">
-<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style></head>
+<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style>
+<!-- course-reading:head -->
+<style>
+/* Course reading layout, based on Lecture 8. Scope rules to the notes shell. */
+body.course-reading {
+  --notes-ink: #202b38;
+  --notes-heading: #183d67;
+  --notes-link: #1e5f96;
+  --notes-muted: #536679;
+  --notes-border: #dce4ec;
+  --notes-gray: #f3f6f9;
+  --notes-blue: #edf5fb;
+  --notes-font: "Source Han Sans SC", "Noto Sans CJK SC", "PingFang SC",
+    "Microsoft YaHei", system-ui, sans-serif;
+  --notes-top: 64px;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0 !important;
+  background: #fff;
+  color: var(--notes-ink);
+  font: 17px/1.9 var(--notes-font);
+}
+.course-reading :is(#quarto-header, #quarto-sidebar, #quarto-sidebar-glass,
+  #quarto-margin-sidebar, #mobile-toc, .lecture-mobile-toc, .course-site-return) {
+  display: none !important;
+}
+.course-reading-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #fff;
+  border-bottom: 1px solid var(--notes-border);
+}
+.course-reading-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2px 16px;
+  max-width: 1190px;
+  min-height: 63px;
+  margin-inline: auto;
+  padding: 8px 30px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.course-reading-bar a { color: var(--notes-heading); text-decoration: none; }
+.course-reading-bar a:hover { text-decoration: underline; }
+.course-reading-brand { font-weight: 700; }
+.course-reading #quarto-content {
+  display: grid !important;
+  grid-template-columns: 230px minmax(0, 820px);
+  align-items: start;
+  gap: 40px;
+  width: auto;
+  max-width: 1190px;
+  min-height: 0;
+  margin: 0 auto !important;
+  padding: 28px 30px 80px !important;
+}
+.course-reading #quarto-content > main.content {
+  display: block;
+  grid-area: 1 / 2 !important;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin: 0 !important;
+  padding: 0;
+}
+.course-reading #quarto-content > :is(footer, .page-navigation) {
+  grid-area: 2 / 2 !important;
+  min-width: 0;
+}
+.course-reading #quarto-content > .course-reading-toc {
+  grid-area: 1 / 1 !important;
+  position: sticky;
+  z-index: 1;
+  top: calc(var(--notes-top) + 16px);
+  max-height: calc(100dvh - var(--notes-top) - 32px);
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  padding-right: 12px;
+}
+.course-reading-toc-title {
+  color: var(--notes-muted);
+  font-size: 13px;
+  font-weight: 650;
+  margin: 8px 0 14px;
+}
+.course-reading-nav a {
+  display: block;
+  padding: 5px 9px;
+  border-left: 2px solid transparent;
+  border-radius: 0 5px 5px 0;
+  color: var(--notes-muted);
+  font: 13px/1.55 var(--notes-font);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.course-reading-nav a[data-level="3"] { padding-left: 20px; }
+.course-reading-nav a[data-level="4"] { padding-left: 32px; }
+.course-reading-nav a:hover { background: var(--notes-gray); color: var(--notes-heading); }
+.course-reading-nav a[aria-current="location"] {
+  background: var(--notes-blue);
+  border-left-color: var(--notes-link);
+  color: var(--notes-heading);
+  font-weight: 700;
+}
+.course-reading :is(.course-reading-nav a, .course-reading-bar a, .course-reading-menu summary):focus-visible {
+  outline: 2px solid var(--notes-link);
+  outline-offset: -2px;
+}
+.course-reading-menu { display: none; }
+.course-reading main :is(section[id], h2, h3, h4) {
+  scroll-margin-top: calc(var(--notes-top) + 16px);
+}
+.course-reading main :is(h1, h2, h3, h4) {
+  font-family: var(--notes-font);
+  color: var(--notes-heading);
+  line-height: 1.45;
+}
+.course-reading main h1 { font-size: clamp(28px, 3vw, 36px); font-weight: 750; }
+.course-reading #title-block-header {
+  margin: 0 0 24px;
+  padding: 0;
+  border: 0;
+}
+.course-reading main > .level1 > h1 { margin: 0 0 24px; }
+.course-reading-kicker {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--notes-heading);
+  font: 650 13px/1.6 var(--notes-font);
+  letter-spacing: .08em;
+}
+.course-reading .quarto-title .subtitle {
+  padding-left: 14px;
+  border-left: 3px solid var(--notes-link);
+  color: var(--notes-muted);
+  font-size: 17px;
+  font-weight: 400;
+}
+.course-reading main :is(section.level2 > h2, .course-reading-guide) {
+  margin: 56px 0 20px;
+  padding: 16px 0 0;
+  border: 0;
+  border-top: 1px solid var(--notes-border);
+  font-size: 26px;
+}
+.course-reading main :is(.level2.unnumbered:first-of-type > h2, .course-reading-guide) {
+  margin-top: 25px;
+  padding-top: 0;
+  border: 0;
+  font-size: 21px;
+}
+.course-reading main section.level3 > h3 { margin: 38px 0 13px; font-size: 20px; }
+.course-reading main section.level4 > h4 { font-size: 17px; }
+.course-reading main :is(.level1, .level2, .level3, .level4) { min-width: 0; }
+.course-reading main .header-section-number { color: inherit; }
+.course-reading main p { margin-block: .65rem 1rem; }
+.course-reading main strong { color: var(--notes-heading); }
+.course-reading main a { color: var(--notes-link); text-underline-offset: .15em; }
+.course-reading main figcaption { color: var(--notes-muted); font-size: .86em; line-height: 1.65; }
+.course-reading main :is(.callout, .story-step, .l02-core, .factor-challenge, .course-lab-launcher, blockquote) {
+  border-radius: 0 5px 5px 0;
+  background-color: var(--notes-gray);
+  border-left-color: #8eabc2;
+  box-shadow: none;
+}
+.course-reading main .callout .callout-header { background-color: var(--notes-blue); }
+.course-reading main :is(.math.display, mjx-container[display="true"]) {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.course-reading main mjx-assistive-mml { max-width: 100%; }
+.course-reading main img { max-width: 100%; }
+@media (min-width: 851px) and (max-width: 1100px) {
+  .course-reading #quarto-content {
+    grid-template-columns: 190px minmax(0, 820px);
+    gap: 28px;
+    padding-inline: 22px !important;
+  }
+}
+@media (max-width: 850px) {
+  .course-reading #quarto-content {
+    display: block !important;
+    max-width: 864px;
+    padding: 16px 22px 64px !important;
+  }
+  .course-reading-toc { display: none; }
+  .course-reading-menu {
+    display: block;
+    margin: 0 0 22px;
+    padding: 0;
+    border: 1px solid var(--notes-border);
+    border-radius: 6px;
+    background: #fff;
+  }
+  .course-reading-menu summary {
+    cursor: pointer;
+    padding: 9px 12px;
+    margin: 0 !important;
+    color: var(--notes-heading);
+    font-weight: 650;
+  }
+  .course-reading-menu nav {
+    max-height: 50dvh;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    padding: 0 8px 8px;
+  }
+  .course-reading-menu nav a { padding-block: 8px; }
+}
+@media (max-width: 560px) {
+  body.course-reading { font-size: 15.5px; line-height: 1.84; }
+  .course-reading-bar-inner { padding-inline: 16px; font-size: 13px; }
+  .course-reading #quarto-content { padding-inline: 16px !important; }
+  .course-reading main section.level2 > h2 { font-size: 23px; }
+  .course-reading main section.level3 > h3 { font-size: 18px; }
+  .course-reading main table { display: block; max-width: 100%; overflow-x: auto; }
+}
+@media print {
+  body.course-reading { color: #111; font-size: 11pt; line-height: 1.65; }
+  .course-reading :is(.course-reading-bar, .course-reading-toc, .course-reading-menu) { display: none !important; }
+  .course-reading #quarto-content { display: block !important; padding: 0 !important; }
+  .course-reading main :is(h1, h2, h3, h4) { break-after: avoid; }
+}
+</style>
+<!-- /course-reading -->
+</head>
 
-<body class="nav-sidebar docked quarto-light">
+<body class="course-reading nav-sidebar docked quarto-light">
+<!-- course-reading:bar -->
+<header class="course-reading-bar"><div class="course-reading-bar-inner"><a class="course-reading-brand" href="../index.html">量子光学 · 课程首页</a><a href="index.html">全课程目录与搜索</a></div></header>
+<!-- /course-reading -->
+
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -216,11 +452,79 @@ window.Quarto = {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>
+
+<!-- course-reading:toc -->
+<aside class="course-reading-toc"><div class="course-reading-toc-title">本讲目录</div><nav class="course-reading-nav" aria-label="本讲目录">
+<a href="#course-reading-intro" data-level="2">本讲导读</a>
+<a href="#sec-l02-start" data-level="2">1. 从一个光子的偏振开始</a>
+<a href="#%E5%92%8C1%E5%AF%B9%E5%BA%94%E4%BB%80%E4%B9%88%E7%89%A9%E7%90%86%E5%AF%B9%E8%B1%A1" data-level="3">1.1 0和1对应什么物理对象？</a>
+<a href="#%E4%BB%8E%E4%B8%A4%E8%B7%AF%E5%85%89%E5%BC%BA%E5%88%B0%E9%80%90%E6%AC%A1%E8%AE%A1%E6%95%B0" data-level="3">1.2 45度偏振的光子，会读出0还是1？</a>
+<a href="#sec-l02-preparations" data-level="2">2. 同样是各半，偏振状态是否相同？</a>
+<a href="#%E7%94%A8%E5%90%8C%E6%A0%B7%E7%9A%84%E6%96%B9%E6%B3%95%E5%87%86%E5%A4%87%E5%85%89%E5%AD%90%E6%8D%A2%E4%B8%80%E7%A7%8D%E6%B5%8B%E9%87%8F" data-level="3">2.1 把分析器转到45度，两种输入还一样吗？</a>
+<a href="#l02-why-state" data-level="3">2.2 怎样在数学上区分这两种输入？</a>
+<a href="#sec-l02-state" data-level="2">3. 怎样用量子态计算读出概率？</a>
+<a href="#l02-state-coordinates" data-level="3">3.1 怎样把偏振状态写成数学表达式？</a>
+<a href="#l02-born-rule" data-level="3">3.2 怎样从量子态算出某个出口的概率？</a>
+<a href="#l02-coherence-mixture" data-level="3">3.3 用这套规则解释45度偏振与随机H/V的差别</a>
+<a href="#l02-basis-versus-operation" data-level="3">3.4 换一种写法，等于改变光子的状态吗？</a>
+<a href="#sec-l02-calculation" data-level="2">4. 光子经过元件后，下一步该用哪个状态？</a>
+<a href="#l02-three-polarizers" data-level="3">4.1 从马吕斯定律回顾三块偏振片实验</a>
+<a href="#l02-polarizer-output" data-level="3">4.2 透过后的偏振状态怎样决定下一步结果？</a>
+<a href="#l02-state-update" data-level="3">4.3 怎样把“选出结果，再更新状态”写成一般规则？</a>
+<a href="#sec-l02-phase" data-level="2">5. 不靠筛选，怎样改变光子的偏振态？</a>
+<a href="#l02-phase-device" data-level="3">5.1 从两个态的表达式，怎样找到调控方法？</a>
+<a href="#l02-phase-readout" data-level="3">5.2 怎样用测量检验偏振态的转换？</a>
+<a href="#sec-l02-qubit" data-level="2">6. 从光子偏振中，我们认出了怎样的量子比特？</a>
+<a href="#sec-l02-platforms" data-level="2">7. 同一个量子比特，不同的物理载体</a>
+<a href="#l02-spin-encoding" data-level="3">7.1 除了偏振，粒子的自旋怎样提供两个编码态？</a>
+<a href="#l02-spin-basis" data-level="3">7.2 沿z方向结果确定，改沿x方向测量会怎样？</a>
+<a href="#l02-spin-sequence" data-level="3">7.3 中途选出x正支，再测z方向会怎样？</a>
+<a href="#l02-atomic-qubit" data-level="3">7.4 原子有许多能级，怎样选出一个量子比特？</a>
+<a href="#l02-circuit-qubit" data-level="3">7.5 电路也能提供两个可单独操控的能级吗？</a>
+<a href="#sec-l02-outlook" data-level="2">8. 回到开场：怎样使用一个量子比特？</a>
+<a href="#sec-l02-exercises" data-level="2">9. 核心自查与练习</a>
+<a href="#%E6%9D%A5%E6%BA%90%E4%B8%8E%E8%BF%9B%E4%B8%80%E6%AD%A5%E9%98%85%E8%AF%BB" data-level="2">来源与进一步阅读</a>
+</nav></aside>
+<!-- /course-reading -->
+<main class="content" id="quarto-document-content">
+<!-- course-reading:menu -->
+<details class="course-reading-menu"><summary>本讲目录</summary><nav class="course-reading-nav" aria-label="本讲目录">
+<a href="#course-reading-intro" data-level="2">本讲导读</a>
+<a href="#sec-l02-start" data-level="2">1. 从一个光子的偏振开始</a>
+<a href="#%E5%92%8C1%E5%AF%B9%E5%BA%94%E4%BB%80%E4%B9%88%E7%89%A9%E7%90%86%E5%AF%B9%E8%B1%A1" data-level="3">1.1 0和1对应什么物理对象？</a>
+<a href="#%E4%BB%8E%E4%B8%A4%E8%B7%AF%E5%85%89%E5%BC%BA%E5%88%B0%E9%80%90%E6%AC%A1%E8%AE%A1%E6%95%B0" data-level="3">1.2 45度偏振的光子，会读出0还是1？</a>
+<a href="#sec-l02-preparations" data-level="2">2. 同样是各半，偏振状态是否相同？</a>
+<a href="#%E7%94%A8%E5%90%8C%E6%A0%B7%E7%9A%84%E6%96%B9%E6%B3%95%E5%87%86%E5%A4%87%E5%85%89%E5%AD%90%E6%8D%A2%E4%B8%80%E7%A7%8D%E6%B5%8B%E9%87%8F" data-level="3">2.1 把分析器转到45度，两种输入还一样吗？</a>
+<a href="#l02-why-state" data-level="3">2.2 怎样在数学上区分这两种输入？</a>
+<a href="#sec-l02-state" data-level="2">3. 怎样用量子态计算读出概率？</a>
+<a href="#l02-state-coordinates" data-level="3">3.1 怎样把偏振状态写成数学表达式？</a>
+<a href="#l02-born-rule" data-level="3">3.2 怎样从量子态算出某个出口的概率？</a>
+<a href="#l02-coherence-mixture" data-level="3">3.3 用这套规则解释45度偏振与随机H/V的差别</a>
+<a href="#l02-basis-versus-operation" data-level="3">3.4 换一种写法，等于改变光子的状态吗？</a>
+<a href="#sec-l02-calculation" data-level="2">4. 光子经过元件后，下一步该用哪个状态？</a>
+<a href="#l02-three-polarizers" data-level="3">4.1 从马吕斯定律回顾三块偏振片实验</a>
+<a href="#l02-polarizer-output" data-level="3">4.2 透过后的偏振状态怎样决定下一步结果？</a>
+<a href="#l02-state-update" data-level="3">4.3 怎样把“选出结果，再更新状态”写成一般规则？</a>
+<a href="#sec-l02-phase" data-level="2">5. 不靠筛选，怎样改变光子的偏振态？</a>
+<a href="#l02-phase-device" data-level="3">5.1 从两个态的表达式，怎样找到调控方法？</a>
+<a href="#l02-phase-readout" data-level="3">5.2 怎样用测量检验偏振态的转换？</a>
+<a href="#sec-l02-qubit" data-level="2">6. 从光子偏振中，我们认出了怎样的量子比特？</a>
+<a href="#sec-l02-platforms" data-level="2">7. 同一个量子比特，不同的物理载体</a>
+<a href="#l02-spin-encoding" data-level="3">7.1 除了偏振，粒子的自旋怎样提供两个编码态？</a>
+<a href="#l02-spin-basis" data-level="3">7.2 沿z方向结果确定，改沿x方向测量会怎样？</a>
+<a href="#l02-spin-sequence" data-level="3">7.3 中途选出x正支，再测z方向会怎样？</a>
+<a href="#l02-atomic-qubit" data-level="3">7.4 原子有许多能级，怎样选出一个量子比特？</a>
+<a href="#l02-circuit-qubit" data-level="3">7.5 电路也能提供两个可单独操控的能级吗？</a>
+<a href="#sec-l02-outlook" data-level="2">8. 回到开场：怎样使用一个量子比特？</a>
+<a href="#sec-l02-exercises" data-level="2">9. 核心自查与练习</a>
+<a href="#%E6%9D%A5%E6%BA%90%E4%B8%8E%E8%BF%9B%E4%B8%80%E6%AD%A5%E9%98%85%E8%AF%BB" data-level="2">来源与进一步阅读</a>
+</nav></details>
+<!-- /course-reading -->
+<a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-lecture02" class="quarto-section-identifier"><span class="chapter-title">第二讲　量子比特：如何描述状态与预测测量？</span></span></h1>
+<h1 class="title"><span id="sec-lecture02" class="quarto-section-identifier"><span class="chapter-title"><span class="course-reading-kicker">第二讲</span> 量子比特：如何描述状态与预测测量？</span></span></h1>
 </div>
 
 
@@ -235,6 +539,7 @@ window.Quarto = {
 
 
 </header>
+<h2 id="course-reading-intro" class="course-reading-guide unnumbered">本讲导读</h2>
 
 
 <p>量子力学怎样改变我们处理信息的方式？一个著名例子是<a href="https://arxiv.org/abs/quant-ph/9508027">Shor算法</a>，它给出了在量子计算机上高效地将整数分解为素因数的方法。算法的具体步骤将在后面的算法专题中展开；本讲先追问它的物理基础：<strong>量子计算用什么承载信息，又怎样操作和读取这些信息？</strong></p>
@@ -250,9 +555,9 @@ window.Quarto = {
 </ol>
 </div>
 <section id="sec-l02-start" class="level2">
-<h2 class="anchored" data-anchor-id="sec-l02-start">从一个光子的偏振开始</h2>
+<h2 class="anchored" data-anchor-id="sec-l02-start"><span class="header-section-number">1.</span> 从一个光子的偏振开始</h2>
 <section id="和1对应什么物理对象" class="level3">
-<h3 class="anchored" data-anchor-id="和1对应什么物理对象">0和1对应什么物理对象？</h3>
+<h3 class="anchored" data-anchor-id="和1对应什么物理对象"><span class="header-section-number">1.1</span> 0和1对应什么物理对象？</h3>
 <p>先为0和1这两个标签找到具体的物理含义：选择光子的两种能够可靠区分的偏振状态。</p>
 <p>让光沿固定方向传播。在垂直于传播方向的平面内，若电场沿一条固定直线振动，就称为线偏振光。把两条互相垂直的参考方向称为水平与竖直，分别标记为H、V。实验中，把光子准备到所需偏振状态的过程称为<strong>制备</strong>。我们可以分别制备H偏振或V偏振的单光子，并约定H代表0、V代表1。<strong>两种情况下都有一个光子，0不表示没有光子。</strong></p>
 <p>怎样区分H、V这两种偏振？先回顾经典光学中的偏振片：用它产生指定方向的线偏振光时，称为<strong>起偏器</strong>；用它选择一个偏振方向、通过透过光强分析入射偏振时，称为<strong>检偏器</strong>。这两个名称说明的是元件在实验中的用途。对于常见的吸收式偏振片，沿透光轴的电场分量透过，与透光轴垂直的分量被吸收。</p>
@@ -276,7 +581,7 @@ window.Quarto = {
 <p>下面考察45度线偏振：在H轴向右、V轴向上的横截面图中，电场沿“／”方向来回振动，与H、V两个方向的夹角都是45度。</p>
 </section>
 <section id="从两路光强到逐次计数" class="level3">
-<h3 class="anchored" data-anchor-id="从两路光强到逐次计数">45度偏振的光子，会读出0还是1？</h3>
+<h3 class="anchored" data-anchor-id="从两路光强到逐次计数"><span class="header-section-number">1.2</span> 45度偏振的光子，会读出0还是1？</h3>
 <p>为了理解45度偏振的读出，先用熟悉的光束实验求两路强度，再考察逐个输入光子时怎样记录。</p>
 <p>这里让已知方向的线偏振光通过检偏器，用马吕斯定律计算透过光强。设入射光的电场幅度为 <span class="math inline">\(E_0\)</span>、光强为 <span class="math inline">\(I_{\rm in}\)</span>，理想偏振片的透光轴与入射偏振方向之间的夹角为 <span class="math inline">\(\theta\)</span>。偏振片透过沿其透光轴的电场分量，幅度为 <span class="math inline">\(E_t=E_0\cos\theta\)</span>。由于光强与电场幅度的模平方成正比，透过光强 <span class="math inline">\(I_t\)</span> 满足</p>
 <p><span id="eq-l02-malus"><span class="math display">\[
@@ -329,9 +634,9 @@ E_V&amp;=E_0\sin45^\circ=\frac{E_0}{\sqrt2}.
 </section>
 </section>
 <section id="sec-l02-preparations" class="level2">
-<h2 class="anchored" data-anchor-id="sec-l02-preparations">同样是各半，偏振状态是否相同？</h2>
+<h2 class="anchored" data-anchor-id="sec-l02-preparations"><span class="header-section-number">2.</span> 同样是各半，偏振状态是否相同？</h2>
 <section id="用同样的方法准备光子换一种测量" class="level3">
-<h3 class="anchored" data-anchor-id="用同样的方法准备光子换一种测量">把分析器转到45度，两种输入还一样吗？</h3>
+<h3 class="anchored" data-anchor-id="用同样的方法准备光子换一种测量"><span class="header-section-number">2.1</span> 把分析器转到45度，两种输入还一样吗？</h3>
 <p>如果A与B真是同一种状态，它们在换一种测量后也应给出相同的统计。我们仍按A、B各自的方法准备新的一批光子，保持准备入射偏振的元件设置不变，只改变后面测量装置所区分的两个偏振方向。在这里的装置模型中，将偏振分束器绕入射光的传播方向转动45度，并让探测器对准相应出口，就是“把分析器转到45度”。</p>
 <p>这与两块偏振片实验中固定起偏器、转动检偏器的思路相同：保持输入偏振不变，改变测量方向。这里使用偏振分束器，同时记录两个出口的结果。</p>
 <p>让新准备的光子进入这套装置，两个出口分别接收45度偏振和与它垂直的偏振，称为<strong>45度出口</strong>和<strong>垂直出口</strong>；“垂直”在这里指与45度方向垂直，对应图中的“＼”方向。</p>
@@ -352,7 +657,7 @@ E_V&amp;=E_0\sin45^\circ=\frac{E_0}{\sqrt2}.
 </div>
 </section>
 <section id="l02-why-state" class="level3">
-<h3 class="anchored" data-anchor-id="l02-why-state">怎样在数学上区分这两种输入？</h3>
+<h3 class="anchored" data-anchor-id="l02-why-state"><span class="header-section-number">2.2</span> 怎样在数学上区分这两种输入？</h3>
 <p>换到45度方向测量，A的光子全部从45度出口出来，B的光子只有一半从这个出口出来。因此，每次输入45度偏振，与每次随机输入H或V，是两种不同的情况。</p>
 <p>如果只用“H、V两个结果的概率各为一半”来描述输入，A、B就会被写成完全相同的一组数字。可是，同样改用45度方向测量，A、B需要给出不同的预测。<strong>这组数字遗漏了区分两种输入所需的信息。</strong></p>
 <p>我们需要把这种区别保留在状态的数学描述中，使它既能算出H/V测量中的各半，也能算出45度测量中的差别。<strong>量子态就是用来预测系统各种测量结果及其概率的状态描述。</strong> 下面从熟悉的偏振分解出发，建立这样的数学表示，再用它计算A、B的测量结果。</p>
@@ -362,10 +667,10 @@ E_V&amp;=E_0\sin45^\circ=\frac{E_0}{\sqrt2}.
 </section>
 </section>
 <section id="sec-l02-state" class="level2">
-<h2 class="anchored" data-anchor-id="sec-l02-state">怎样用量子态计算读出概率？</h2>
+<h2 class="anchored" data-anchor-id="sec-l02-state"><span class="header-section-number">3.</span> 怎样用量子态计算读出概率？</h2>
 <p>先给H、V和45度偏振写出数学表示，再说明怎样针对一个测量方向计算概率。最后用这套规则算回A、B的差别，检查它是否解释了前面的比较。</p>
 <section id="l02-state-coordinates" class="level3">
-<h3 class="anchored" data-anchor-id="l02-state-coordinates">怎样把偏振状态写成数学表达式？</h3>
+<h3 class="anchored" data-anchor-id="l02-state-coordinates"><span class="header-section-number">3.1</span> 怎样把偏振状态写成数学表达式？</h3>
 <p>回顾45度偏振的电场分解：H、V两个分量同号，幅度都是总幅度的 <span class="math inline">\(1/\sqrt2\)</span>。与45度方向垂直的偏振则有大小相等、符号相反的两个分量。两者的分量平方相同，分量之间的相对关系却不同。数学描述需要保留这种关系。</p>
 <p>选H、V偏振态作为两个基本向量，记为 <span class="math inline">\(|H\rangle\)</span>、<span class="math inline">\(|V\rangle\)</span>，称为一组<strong>基底</strong>，其中每个向量称为<strong>基矢</strong>。我们约定用第一、第二个坐标分别表示H、V分量，于是</p>
 <p><span class="math display">\[
@@ -418,7 +723,7 @@ P(V)&amp;=|a_V|^2=\left|-\frac{1}{\sqrt2}\right|^2=\frac12.
 </div>
 </section>
 <section id="l02-born-rule" class="level3">
-<h3 class="anchored" data-anchor-id="l02-born-rule">怎样从量子态算出某个出口的概率？</h3>
+<h3 class="anchored" data-anchor-id="l02-born-rule"><span class="header-section-number">3.2</span> 怎样从量子态算出某个出口的概率？</h3>
 <p>前面选用的是<strong>H、V基底</strong> <span class="math inline">\(\{|H\rangle,|V\rangle\}\)</span>。同一个输入态在这组基底中写为</p>
 <p><span class="math display">\[
 |\psi\rangle=\alpha|H\rangle+\beta|V\rangle.
@@ -479,7 +784,7 @@ P(a_\perp|\psi)=|\langle a_\perp|\psi\rangle|^2.
 </div>
 </section>
 <section id="l02-coherence-mixture" class="level3">
-<h3 class="anchored" data-anchor-id="l02-coherence-mixture">用这套规则解释45度偏振与随机H/V的差别</h3>
+<h3 class="anchored" data-anchor-id="l02-coherence-mixture"><span class="header-section-number">3.3</span> 用这套规则解释45度偏振与随机H/V的差别</h3>
 <p>现在用刚建立的计算规则，重新比较前面的两种输入：</p>
 <ul>
 <li><strong>A：每次送入的光子都处于45度偏振态</strong> <span class="math inline">\(|+\rangle\)</span>。</li>
@@ -528,7 +833,7 @@ P_B(-)&amp;=\frac12P(-|H)+\frac12P(-|V)=\frac12.
 </div>
 </section>
 <section id="l02-basis-versus-operation" class="level3">
-<h3 class="anchored" data-anchor-id="l02-basis-versus-operation">换一种写法，等于改变光子的状态吗？</h3>
+<h3 class="anchored" data-anchor-id="l02-basis-versus-operation"><span class="header-section-number">3.4</span> 换一种写法，等于改变光子的状态吗？</h3>
 <p>刚才用H/V基和45度及其垂直方向组成的基计算。同一个H态也可以写成</p>
 <p><span class="math display">\[
 |H\rangle=\frac{|+\rangle+|-\rangle}{\sqrt2}.
@@ -559,10 +864,10 @@ c_-=\frac{\alpha-\beta}{\sqrt2}.
 </section>
 </section>
 <section id="sec-l02-calculation" class="level2">
-<h2 class="anchored" data-anchor-id="sec-l02-calculation">光子经过元件后，下一步该用哪个状态？</h2>
+<h2 class="anchored" data-anchor-id="sec-l02-calculation"><span class="header-section-number">4.</span> 光子经过元件后，下一步该用哪个状态？</h2>
 <p>前面每次都给定一个输入态，预测一次偏振测量的结果。现在考虑光依次经过多个元件的情况。先回顾经典光学中的三块偏振片实验，再把熟悉的光强计算改写为单光子的通过概率计算，看看每一步应该使用哪个偏振态。</p>
 <section id="l02-three-polarizers" class="level3">
-<h3 class="anchored" data-anchor-id="l02-three-polarizers">从马吕斯定律回顾三块偏振片实验</h3>
+<h3 class="anchored" data-anchor-id="l02-three-polarizers"><span class="header-section-number">4.1</span> 从马吕斯定律回顾三块偏振片实验</h3>
 <p>让光依次通过水平、竖直两块理想偏振片。记第一块水平片之后的光强为 <span class="math inline">\(I_H\)</span>，此时光是H偏振，与第二块的透光轴垂直。由马吕斯定律，末端光强为 <span class="math inline">\(I_H\cos^2 90^\circ=0\)</span>。</p>
 <p>在两者之间插入一块45度偏振片。通过中间片后，光强降为 <span class="math inline">\(I_H\cos^2 45^\circ=I_H/2\)</span>，偏振方向也变为45度。它与最后一块竖直片的透光轴夹角为45度，因此末端光强为</p>
 <p><span class="math display">\[
@@ -589,7 +894,7 @@ I_{\mathrm{out}}=I_H\cos^2 45^\circ\cos^2 45^\circ=\frac{I_H}{4}.
 </div>
 </section>
 <section id="l02-polarizer-output" class="level3">
-<h3 class="anchored" data-anchor-id="l02-polarizer-output">透过后的偏振状态怎样决定下一步结果？</h3>
+<h3 class="anchored" data-anchor-id="l02-polarizer-output"><span class="header-section-number">4.2</span> 透过后的偏振状态怎样决定下一步结果？</h3>
 <p>在理想偏振片的单光子描述中，通过概率由输入态在透光轴所对应偏振态上的投影计算；若光子通过，透过后的偏振态就是这条轴所对应的态。对于H偏振光子和45度偏振片，前面的玻恩规则给出 <span class="math inline">\(P(+|H)=|\langle+|H\rangle|^2=1/2\)</span>；若它通过，后续状态就是 <span class="math inline">\(|+\rangle\)</span>。</p>
 <p>再让留下来的光子通过竖直偏振片，应该计算 <span class="math inline">\(P(V|+)=1/2\)</span>。最初的H态已经不能描述此时的输入。以第一块水平片<strong>之后</strong>的光子数为起点，两步总透过概率为</p>
 <p><span class="math display">\[
@@ -626,7 +931,7 @@ P(\text{依次透过}|H)&amp;=P(\theta|H)P(V|\theta)\\
 </div>
 </section>
 <section id="l02-state-update" class="level3">
-<h3 class="anchored" data-anchor-id="l02-state-update">怎样把“选出结果，再更新状态”写成一般规则？</h3>
+<h3 class="anchored" data-anchor-id="l02-state-update"><span class="header-section-number">4.3</span> 怎样把“选出结果，再更新状态”写成一般规则？</h3>
 <p>三块偏振片已经展示：知道“通过的概率”还不够，还必须知道“通过后的状态”。把这一点推广到能将正交态分到不同路径的理想分析器，就得到本讲采用的状态更新规则。</p>
 <p>设输入为 <span class="math inline">\(|\psi\rangle\)</span>，分析器的某个结果对应归一化态 <span class="math inline">\(|a\rangle\)</span>。Born规则给出该结果的概率</p>
 <p><span class="math display">\[
@@ -668,11 +973,11 @@ p_a=P(a|\psi)=|\langle a|\psi\rangle|^2.
 </section>
 </section>
 <section id="sec-l02-phase" class="level2">
-<h2 class="anchored" data-anchor-id="sec-l02-phase">不靠筛选，怎样改变光子的偏振态？</h2>
+<h2 class="anchored" data-anchor-id="sec-l02-phase"><span class="header-section-number">5.</span> 不靠筛选，怎样改变光子的偏振态？</h2>
 <p>偏振片的筛选已经是一种量子态调控：留下的光子具有所需的偏振态，但一部分光子被吸收或丢弃。<strong>能否保留光子，同时把给定的输入态变成所需的输出态？</strong> 下面考虑用理想无损光学元件来完成这样的调控。</p>
 <p>先选一个已经认识的例子：把45度偏振的 <span class="math inline">\(|+\rangle\)</span> 态变成 <span class="math inline">\(|-\rangle\)</span> 态。我们先比较这两个态的表达式，找出元件需要改变什么，再用测量检验转换是否实现。</p>
 <section id="l02-phase-device" class="level3">
-<h3 class="anchored" data-anchor-id="l02-phase-device">从两个态的表达式，怎样找到调控方法？</h3>
+<h3 class="anchored" data-anchor-id="l02-phase-device"><span class="header-section-number">5.1</span> 从两个态的表达式，怎样找到调控方法？</h3>
 <p>输入态为 <span class="math inline">\(|+\rangle=(|H\rangle+|V\rangle)/\sqrt2\)</span>，目标态为 <span class="math inline">\(|-\rangle=(|H\rangle-|V\rangle)/\sqrt2\)</span>。比较可见，两分量的大小相同，区别在于相对符号：只需让V分量相对于H分量变号，就能完成这个转换。在线偏振电场中，这对应把一个分量的振动相对另一个延迟半个周期。</p>
 <div id="fig-l02-relative-phase-waveforms" class="quarto-float quarto-figure quarto-figure-center anchored" alt="左右对照的电场时间波形：左侧H和V分量同时达到波峰，合成45度线偏振，对应加态；右侧H达到波峰时V达到波谷，振幅不变，合成与原方向垂直的线偏振，对应减态。">
 <figure class="quarto-float quarto-float-fig figure">
@@ -722,7 +1027,7 @@ p_a=P(a|\psi)=|\langle a|\psi\rangle|^2.
 </div>
 </section>
 <section id="l02-phase-readout" class="level3">
-<h3 class="anchored" data-anchor-id="l02-phase-readout">怎样用测量检验偏振态的转换？</h3>
+<h3 class="anchored" data-anchor-id="l02-phase-readout"><span class="header-section-number">5.2</span> 怎样用测量检验偏振态的转换？</h3>
 <p>前面已经知道，在 <span class="math inline">\(\{|+\rangle,|-\rangle\}\)</span> 测量基下，<span class="math inline">\(|+\rangle\)</span> 态必定给出 <span class="math inline">\(+\)</span> 结果，<span class="math inline">\(|-\rangle\)</span> 态必定给出 <span class="math inline">\(-\)</span> 结果。因此，把输出光子送入这组测量装置，就能检验转换是否实现。对一般相位 <span class="math inline">\(\phi\)</span>，仍用已经建立的内积规则：</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -763,7 +1068,7 @@ P(-|\psi_\phi)=\frac{1-\cos\phi}{2}.
 </section>
 </section>
 <section id="sec-l02-qubit" class="level2">
-<h2 class="anchored" data-anchor-id="sec-l02-qubit">从光子偏振中，我们认出了怎样的量子比特？</h2>
+<h2 class="anchored" data-anchor-id="sec-l02-qubit"><span class="header-section-number">6.</span> 从光子偏振中，我们认出了怎样的量子比特？</h2>
 <p>回到开头的0和1。我们已经看到，单光子偏振可以用H、V两个可区分的态编码，也可以处于它们的相干叠加态；测量结果还取决于概率幅的相对相位。把H、V重新标记为 <span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span>，任意偏振纯态就写为</p>
 <p><span class="math display">\[
 |\psi\rangle=\alpha|0\rangle+\beta|1\rangle,\qquad
@@ -808,10 +1113,10 @@ P(-|\psi_\phi)=\frac{1-\cos\phi}{2}.
 </div>
 </section>
 <section id="sec-l02-platforms" class="level2">
-<h2 class="anchored" data-anchor-id="sec-l02-platforms">同一个量子比特，不同的物理载体</h2>
+<h2 class="anchored" data-anchor-id="sec-l02-platforms"><span class="header-section-number">7.</span> 同一个量子比特，不同的物理载体</h2>
 <p>光子偏振已经提供了两种可区分的编码态，以及它们的叠加、操作和读出。<strong>如果另一个物理系统也能提供这样的两态空间，能否沿用刚才的描述与计算？</strong> 我们先看自旋，再看从原子和电路的多个能级中选出两个态的做法。</p>
 <section id="l02-spin-encoding" class="level3">
-<h3 class="anchored" data-anchor-id="l02-spin-encoding">除了偏振，粒子的自旋怎样提供两个编码态？</h3>
+<h3 class="anchored" data-anchor-id="l02-spin-encoding"><span class="header-section-number">7.1</span> 除了偏振，粒子的自旋怎样提供两个编码态？</h3>
 <p>我们熟悉的轨道角动量来自空间运动，自旋则是粒子的内禀角动量，不能直接解释成小球的机械自转。以电子的自旋自由度为例，沿选定 <span class="math inline">\(z\)</span> 方向测量分量，结果为 <span class="math inline">\(+\hbar/2\)</span> 或 <span class="math inline">\(-\hbar/2\)</span>，其中 <span class="math inline">\(\hbar=h/(2\pi)\)</span>。使这次测量确定得到正、负结果的两个态，分别记为 <span class="math inline">\(|z+\rangle\)</span>、<span class="math inline">\(|z-\rangle\)</span>。它们提供另一组两态编码。</p>
 <p>内部性质怎样被读出？Stern–Gerlach原子束装置利用非均匀磁场，使不同磁矩分量产生不同偏转，把内部性质关联到输出路径。对银原子，现代解释中主要磁矩来自未配对电子的自旋；忽略核自旋及相关耦合等细节后，可以采用理想自旋二分之一模型。<a href="https://www.feynmanlectures.caltech.edu/III_06.html">自旋二分之一的实验与理论背景</a></p>
 <div id="fig-l02-sg-apparatus" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -874,7 +1179,7 @@ P(-|\psi_\phi)=\frac{1-\cos\phi}{2}.
 </div>
 </section>
 <section id="l02-spin-basis" class="level3">
-<h3 class="anchored" data-anchor-id="l02-spin-basis">沿z方向结果确定，改沿x方向测量会怎样？</h3>
+<h3 class="anchored" data-anchor-id="l02-spin-basis"><span class="header-section-number">7.2</span> 沿z方向结果确定，改沿x方向测量会怎样？</h3>
 <p>若粒子处于 <span class="math inline">\(|z+\rangle\)</span>，沿z方向测量必然得到正结果。改沿x方向测量时，两种结果的概率是多少？偏振的经验提示我们先找到x方向测量的两个结果态，再计算它们与输入态的内积。现在缺少的正是这两个态在z基底中的表达式。</p>
 <p>自旋分量这样的可测物理量称为<strong>可观测量</strong>。量子力学用<strong>算符</strong>表示可观测量；选定基底后，这里可以把算符写成作用于态矢量的矩阵。矩阵与测量的联系由本征值方程给出：</p>
 <p><span class="math display">\[
@@ -920,7 +1225,7 @@ P(x-|z+)=\frac12.
 </div>
 </section>
 <section id="l02-spin-sequence" class="level3">
-<h3 class="anchored" data-anchor-id="l02-spin-sequence">中途选出x正支，再测z方向会怎样？</h3>
+<h3 class="anchored" data-anchor-id="l02-spin-sequence"><span class="header-section-number">7.3</span> 中途选出x正支，再测z方向会怎样？</h3>
 <p>已经知道 <span class="math inline">\(|z+\rangle\)</span> 在x测量中两路各半。如果中途只留下x正支，再沿z方向测量，它还会保持原来的确定结果吗？</p>
 <p>与偏振片的连续选择一样，我们采用理想分析器把两个结果送往不同路径，挡住一支、保留另一支，最后才探测。假定传输中没有额外自旋演化；可取束流沿y方向传播，x、z为横向分析轴。先沿z分析、选出正支，便制备了 <span class="math inline">\(|z+\rangle\)</span>。</p>
 <p>直接再沿z分析，正结果概率为1。若先沿x分析并只保留正支，当前态就变为 <span class="math inline">\(|x+\rangle\)</span>；用它预测最后的z分析，两种结果各半。因此指定序列的概率为</p>
@@ -945,7 +1250,7 @@ P(x+,z+|z+)=P(x+|z+)P(z+|x+)=\frac14.
 </div>
 </section>
 <section id="l02-atomic-qubit" class="level3">
-<h3 class="anchored" data-anchor-id="l02-atomic-qubit">原子有许多能级，怎样选出一个量子比特？</h3>
+<h3 class="anchored" data-anchor-id="l02-atomic-qubit"><span class="header-section-number">7.4</span> 原子有许多能级，怎样选出一个量子比特？</h3>
 <p>偏振与自旋二分之一提供了天然的两态例子。原子或离子一般有许多内部能级，能否也用来承载一个量子比特？</p>
 <p>做法是选取两个适合准备、控制和区分的正交内部态，例如由电子与核的角动量耦合产生的两个超精细态，标为 <span class="math inline">\(|0\rangle\)</span>、<span class="math inline">\(|1\rangle\)</span>。这两个态及其线性组合构成整个状态空间中的一个<strong>二维子空间</strong>，其中纯态仍写作 <span class="math inline">\(\alpha|0\rangle+\beta|1\rangle\)</span>。<a href="https://www.nist.gov/publications/experimental-primer-trapped-ion-quantum-computer">NIST：离子量子比特的内部态编码</a></p>
 <p>其余能级仍然存在。在应保持编码的操作中进入其他状态，称为<strong>泄漏</strong>。因此，有效两能级描述的适用条件包括：在所关心的操作与精度范围内，其他态的影响能够受到控制。</p>
@@ -955,7 +1260,7 @@ P(x+,z+|z+)=P(x+|z+)P(z+|x+)=\frac14.
 </div>
 </section>
 <section id="l02-circuit-qubit" class="level3">
-<h3 class="anchored" data-anchor-id="l02-circuit-qubit">电路也能提供两个可单独操控的能级吗？</h3>
+<h3 class="anchored" data-anchor-id="l02-circuit-qubit"><span class="header-section-number">7.5</span> 电路也能提供两个可单独操控的能级吗？</h3>
 <p>既然可以从多个能级中选择两个态，载体就不必局限于天然原子。我们也可以设计一个具有离散量子能级的超导电路，让它成为“人工原子”。</p>
 <p>电路中的量子能级已有实验依据。<strong>2025年诺贝尔物理学奖</strong>授予约翰·克拉克（John Clarke）、米歇尔·德沃雷（Michel H. Devoret）和约翰·马丁尼斯（John M. Martinis），表彰他们发现了电路中的宏观量子隧穿和能量量子化。这些实验表明，电路的集体自由度也能表现出量子行为，为后来利用超导电路构造量子比特奠定了基础。<a href="https://www.nobelprize.org/prizes/physics/2025/press-release/">诺贝尔奖官方介绍</a></p>
 <p>怎样把电路的量子能级用于编码和控制？下面以<strong>transmon</strong>为例，看看电路结构怎样帮助我们选出并操控两个能级。</p>
@@ -979,7 +1284,7 @@ P(x+,z+|z+)=P(x+|z+)P(z+|x+)=\frac14.
 </section>
 </section>
 <section id="sec-l02-outlook" class="level2">
-<h2 class="anchored" data-anchor-id="sec-l02-outlook">回到开场：怎样使用一个量子比特？</h2>
+<h2 class="anchored" data-anchor-id="sec-l02-outlook"><span class="header-section-number">8.</span> 回到开场：怎样使用一个量子比特？</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1016,7 +1321,7 @@ P(x+,z+|z+)=P(x+|z+)P(z+|x+)=\frac14.
 <p>紧接着要解决的是控制问题。筛选可以制备状态，但会舍弃部分样本。下一讲将研究：能否施加可控作用，让状态在两个基矢之间发生所需的相干演化？这将把量子态的描述推进到二能级系统的控制。</p>
 </section>
 <section id="sec-l02-exercises" class="level2">
-<h2 class="anchored" data-anchor-id="sec-l02-exercises">核心自查与练习</h2>
+<h2 class="anchored" data-anchor-id="sec-l02-exercises"><span class="header-section-number">9.</span> 核心自查与练习</h2>
 <div class="l02-core">
 <p><strong>核心知识点：用预测、条件概率和测量设计检查理解，而不只识别公式。</strong></p>
 </div>
@@ -1518,4 +1823,103 @@ P(x+,z+|z+)=P(x+|z+)P(z+|x+)=\frac14.
 
 
 <script src="site_libs/quarto-html/zenscroll-min.js"></script>
+
+<!-- course-reading:script -->
+<script>
+/* Keep the current chapter entry visible without moving the article or focus. */
+(() => {
+  const toc = document.querySelector('.course-reading-toc');
+  const menu = document.querySelector('.course-reading-menu');
+  const bar = document.querySelector('.course-reading-bar');
+  const article = document.querySelector('#quarto-document-content');
+  const links = [...toc.querySelectorAll('a')];
+  const mobileLinks = [...menu.querySelectorAll('a')];
+  const sections = links.map(link => document.getElementById(decodeURIComponent(link.hash.slice(1))));
+  let active = -1;
+  let frame = 0;
+  let recenter = false;
+
+  function mark(list, index) {
+    list.forEach((link, i) => {
+      if (i === index) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
+  function reveal(scroller, link) {
+    if (!scroller.clientHeight) return;
+    const box = scroller.getBoundingClientRect();
+    const item = link.getBoundingClientRect();
+    const inset = Math.min(26, scroller.clientHeight / 4);
+    if (item.top < box.top + inset || item.bottom > box.bottom - inset) {
+      scroller.scrollTop += (item.top + item.bottom - box.top - box.bottom) / 2;
+    }
+  }
+
+  function update() {
+    frame = 0;
+    const line = Math.max(0, bar.getBoundingClientRect().bottom) + 42;
+    let index = 0;
+    for (let i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top > line) break;
+      index = i;
+    }
+    const page = document.scrollingElement;
+    if (page.scrollHeight > window.innerHeight &&
+        page.scrollTop + window.innerHeight >= page.scrollHeight - 2) {
+      index = links.length - 1;
+    }
+    if (index === active && !recenter) return;
+    active = index;
+    recenter = false;
+    mark(links, index);
+    mark(mobileLinks, index);
+    reveal(toc, links[index]);
+    if (menu.open) reveal(menu.querySelector('nav'), mobileLinks[index]);
+  }
+
+  function schedule() {
+    if (!frame) frame = requestAnimationFrame(update);
+  }
+
+  function refresh() {
+    document.body.style.setProperty('--notes-top', bar.offsetHeight + 'px');
+    recenter = true;
+    schedule();
+  }
+
+  function jump(event) {
+    const link = event.target.closest('a');
+    if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const list = menu.contains(link) ? mobileLinks : links;
+    const section = sections[list.indexOf(link)];
+    const heading = section.matches('h2,h3,h4') ? section : section.firstElementChild;
+    event.preventDefault();
+    menu.open = false;
+    if (location.hash !== link.hash) history.pushState(null, '', link.hash);
+    heading.setAttribute('tabindex', '-1');
+    heading.focus({preventScroll: true});
+    heading.scrollIntoView({block: 'start', behavior: 'instant'});
+    refresh();
+  }
+  toc.addEventListener('click', jump);
+  menu.addEventListener('click', jump);
+  menu.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menu.open) {
+      menu.open = false;
+      menu.querySelector('summary').focus();
+    }
+  });
+  window.addEventListener('scroll', schedule, {passive: true});
+  ['resize', 'hashchange', 'pageshow', 'load'].forEach(type => window.addEventListener(type, refresh));
+  document.addEventListener('toggle', refresh, true);
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(refresh);
+    observer.observe(article);
+    observer.observe(bar);
+  }
+  refresh();
+})();
+</script>
+<!-- /course-reading -->
 </body></html>

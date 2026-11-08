@@ -71,19 +71,335 @@ window.Quarto = {
 
 <link rel="stylesheet" href="assets/lecture05/style.css">
 <link rel="stylesheet" href="assets/lecture05/interactions/host.css">
-<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style></head>
+<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style>
+<!-- course-reading:head -->
+<style>
+/* Course reading layout, based on Lecture 8. Scope rules to the notes shell. */
+body.course-reading {
+  --notes-ink: #202b38;
+  --notes-heading: #183d67;
+  --notes-link: #1e5f96;
+  --notes-muted: #536679;
+  --notes-border: #dce4ec;
+  --notes-gray: #f3f6f9;
+  --notes-blue: #edf5fb;
+  --notes-font: "Source Han Sans SC", "Noto Sans CJK SC", "PingFang SC",
+    "Microsoft YaHei", system-ui, sans-serif;
+  --notes-top: 64px;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0 !important;
+  background: #fff;
+  color: var(--notes-ink);
+  font: 17px/1.9 var(--notes-font);
+}
+.course-reading :is(#quarto-header, #quarto-sidebar, #quarto-sidebar-glass,
+  #quarto-margin-sidebar, #mobile-toc, .lecture-mobile-toc, .course-site-return) {
+  display: none !important;
+}
+.course-reading-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #fff;
+  border-bottom: 1px solid var(--notes-border);
+}
+.course-reading-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2px 16px;
+  max-width: 1190px;
+  min-height: 63px;
+  margin-inline: auto;
+  padding: 8px 30px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.course-reading-bar a { color: var(--notes-heading); text-decoration: none; }
+.course-reading-bar a:hover { text-decoration: underline; }
+.course-reading-brand { font-weight: 700; }
+.course-reading #quarto-content {
+  display: grid !important;
+  grid-template-columns: 230px minmax(0, 820px);
+  align-items: start;
+  gap: 40px;
+  width: auto;
+  max-width: 1190px;
+  min-height: 0;
+  margin: 0 auto !important;
+  padding: 28px 30px 80px !important;
+}
+.course-reading #quarto-content > main.content {
+  display: block;
+  grid-area: 1 / 2 !important;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin: 0 !important;
+  padding: 0;
+}
+.course-reading #quarto-content > :is(footer, .page-navigation) {
+  grid-area: 2 / 2 !important;
+  min-width: 0;
+}
+.course-reading #quarto-content > .course-reading-toc {
+  grid-area: 1 / 1 !important;
+  position: sticky;
+  z-index: 1;
+  top: calc(var(--notes-top) + 16px);
+  max-height: calc(100dvh - var(--notes-top) - 32px);
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  padding-right: 12px;
+}
+.course-reading-toc-title {
+  color: var(--notes-muted);
+  font-size: 13px;
+  font-weight: 650;
+  margin: 8px 0 14px;
+}
+.course-reading-nav a {
+  display: block;
+  padding: 5px 9px;
+  border-left: 2px solid transparent;
+  border-radius: 0 5px 5px 0;
+  color: var(--notes-muted);
+  font: 13px/1.55 var(--notes-font);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.course-reading-nav a[data-level="3"] { padding-left: 20px; }
+.course-reading-nav a[data-level="4"] { padding-left: 32px; }
+.course-reading-nav a:hover { background: var(--notes-gray); color: var(--notes-heading); }
+.course-reading-nav a[aria-current="location"] {
+  background: var(--notes-blue);
+  border-left-color: var(--notes-link);
+  color: var(--notes-heading);
+  font-weight: 700;
+}
+.course-reading :is(.course-reading-nav a, .course-reading-bar a, .course-reading-menu summary):focus-visible {
+  outline: 2px solid var(--notes-link);
+  outline-offset: -2px;
+}
+.course-reading-menu { display: none; }
+.course-reading main :is(section[id], h2, h3, h4) {
+  scroll-margin-top: calc(var(--notes-top) + 16px);
+}
+.course-reading main :is(h1, h2, h3, h4) {
+  font-family: var(--notes-font);
+  color: var(--notes-heading);
+  line-height: 1.45;
+}
+.course-reading main h1 { font-size: clamp(28px, 3vw, 36px); font-weight: 750; }
+.course-reading #title-block-header {
+  margin: 0 0 24px;
+  padding: 0;
+  border: 0;
+}
+.course-reading main > .level1 > h1 { margin: 0 0 24px; }
+.course-reading-kicker {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--notes-heading);
+  font: 650 13px/1.6 var(--notes-font);
+  letter-spacing: .08em;
+}
+.course-reading .quarto-title .subtitle {
+  padding-left: 14px;
+  border-left: 3px solid var(--notes-link);
+  color: var(--notes-muted);
+  font-size: 17px;
+  font-weight: 400;
+}
+.course-reading main :is(section.level2 > h2, .course-reading-guide) {
+  margin: 56px 0 20px;
+  padding: 16px 0 0;
+  border: 0;
+  border-top: 1px solid var(--notes-border);
+  font-size: 26px;
+}
+.course-reading main :is(.level2.unnumbered:first-of-type > h2, .course-reading-guide) {
+  margin-top: 25px;
+  padding-top: 0;
+  border: 0;
+  font-size: 21px;
+}
+.course-reading main section.level3 > h3 { margin: 38px 0 13px; font-size: 20px; }
+.course-reading main section.level4 > h4 { font-size: 17px; }
+.course-reading main :is(.level1, .level2, .level3, .level4) { min-width: 0; }
+.course-reading main .header-section-number { color: inherit; }
+.course-reading main p { margin-block: .65rem 1rem; }
+.course-reading main strong { color: var(--notes-heading); }
+.course-reading main a { color: var(--notes-link); text-underline-offset: .15em; }
+.course-reading main figcaption { color: var(--notes-muted); font-size: .86em; line-height: 1.65; }
+.course-reading main :is(.callout, .story-step, .l02-core, .factor-challenge, .course-lab-launcher, blockquote) {
+  border-radius: 0 5px 5px 0;
+  background-color: var(--notes-gray);
+  border-left-color: #8eabc2;
+  box-shadow: none;
+}
+.course-reading main .callout .callout-header { background-color: var(--notes-blue); }
+.course-reading main :is(.math.display, mjx-container[display="true"]) {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.course-reading main mjx-assistive-mml { max-width: 100%; }
+.course-reading main img { max-width: 100%; }
+@media (min-width: 851px) and (max-width: 1100px) {
+  .course-reading #quarto-content {
+    grid-template-columns: 190px minmax(0, 820px);
+    gap: 28px;
+    padding-inline: 22px !important;
+  }
+}
+@media (max-width: 850px) {
+  .course-reading #quarto-content {
+    display: block !important;
+    max-width: 864px;
+    padding: 16px 22px 64px !important;
+  }
+  .course-reading-toc { display: none; }
+  .course-reading-menu {
+    display: block;
+    margin: 0 0 22px;
+    padding: 0;
+    border: 1px solid var(--notes-border);
+    border-radius: 6px;
+    background: #fff;
+  }
+  .course-reading-menu summary {
+    cursor: pointer;
+    padding: 9px 12px;
+    margin: 0 !important;
+    color: var(--notes-heading);
+    font-weight: 650;
+  }
+  .course-reading-menu nav {
+    max-height: 50dvh;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    padding: 0 8px 8px;
+  }
+  .course-reading-menu nav a { padding-block: 8px; }
+}
+@media (max-width: 560px) {
+  body.course-reading { font-size: 15.5px; line-height: 1.84; }
+  .course-reading-bar-inner { padding-inline: 16px; font-size: 13px; }
+  .course-reading #quarto-content { padding-inline: 16px !important; }
+  .course-reading main section.level2 > h2 { font-size: 23px; }
+  .course-reading main section.level3 > h3 { font-size: 18px; }
+  .course-reading main table { display: block; max-width: 100%; overflow-x: auto; }
+}
+@media print {
+  body.course-reading { color: #111; font-size: 11pt; line-height: 1.65; }
+  .course-reading :is(.course-reading-bar, .course-reading-toc, .course-reading-menu) { display: none !important; }
+  .course-reading #quarto-content { display: block !important; padding: 0 !important; }
+  .course-reading main :is(h1, h2, h3, h4) { break-after: avoid; }
+}
+</style>
+<!-- /course-reading -->
+</head>
 
-<body class="quarto-light">
+<body class="course-reading quarto-light">
+<!-- course-reading:bar -->
+<header class="course-reading-bar"><div class="course-reading-bar-inner"><a class="course-reading-brand" href="../index.html">量子光学 · 课程首页</a><a href="index.html">全课程目录与搜索</a></div></header>
+<!-- /course-reading -->
+
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
   <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">目录</h2><ul><li><a id="toc-lecture-guide" class="nav-link" href="#lecture-guide" data-scroll-target="#lecture-guide">本讲导读</a></li><li><a id="toc-epr佯谬关联的结果早就确定了吗" class="nav-link" href="#epr佯谬关联的结果早就确定了吗" data-scroll-target="#epr佯谬关联的结果早就确定了吗">1. EPR佯谬：关联的结果早就确定了吗？</a></li><li><a id="toc-经典关联一张答案卡片能做到什么" class="nav-link" href="#经典关联一张答案卡片能做到什么" data-scroll-target="#经典关联一张答案卡片能做到什么">2. 经典关联：用盒子和答案卡模拟测量结果</a></li><li><a id="toc-chsh游戏经典策略能赢几组" class="nav-link" href="#chsh游戏经典策略能赢几组" data-scroll-target="#chsh游戏经典策略能赢几组">3. CHSH游戏：检验经典答案的胜率上限</a></li><li><a id="toc-量子策略纠缠光子能否做得更好" class="nav-link" href="#量子策略纠缠光子能否做得更好" data-scroll-target="#量子策略纠缠光子能否做得更好">4. 量子策略：用纠缠光子挑战经典上限</a></li><li><a id="toc-把游戏变成标准bell不等式" class="nav-link" href="#把游戏变成标准bell不等式" data-scroll-target="#把游戏变成标准bell不等式">5. 从游戏胜率推导CHSH不等式</a></li><li><a id="toc-从探测器点击到bell检验" class="nav-link" href="#从探测器点击到bell检验" data-scroll-target="#从探测器点击到bell检验">6. 从光子探测记录计算CHSH值</a></li><li><a id="toc-从clauseraspect到zeilinger实验怎样逐步改进" class="nav-link" href="#从clauseraspect到zeilinger实验怎样逐步改进" data-scroll-target="#从clauseraspect到zeilinger实验怎样逐步改进">7. Bell实验：逐步改进探测与测量方向的选择</a></li><li><a id="toc-bell实验告诉我们什么" class="nav-link" href="#bell实验告诉我们什么" data-scroll-target="#bell实验告诉我们什么">8. Bell实验的结论与适用范围</a></li><li><a id="toc-本讲回顾与核心自查" class="nav-link" href="#本讲回顾与核心自查" data-scroll-target="#本讲回顾与核心自查">9. 本讲回顾与核心自查</a></li><li><a id="toc-来源与进一步阅读" class="nav-link" href="#来源与进一步阅读" data-scroll-target="#来源与进一步阅读">来源与进一步阅读</a></li></ul></nav>
 </div>
-<main class="content" id="quarto-document-content"><a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>
+
+<!-- course-reading:toc -->
+<aside class="course-reading-toc"><div class="course-reading-toc-title">本讲目录</div><nav class="course-reading-nav" aria-label="本讲目录">
+<a href="#lecture-guide" data-level="2">本讲导读</a>
+<a href="#epr%E4%BD%AF%E8%B0%AC%E5%85%B3%E8%81%94%E7%9A%84%E7%BB%93%E6%9E%9C%E6%97%A9%E5%B0%B1%E7%A1%AE%E5%AE%9A%E4%BA%86%E5%90%97" data-level="2">1. EPR佯谬：关联的结果早就确定了吗？</a>
+<a href="#%E4%BB%8E%E4%B8%8A%E4%B8%80%E8%AE%B2%E7%9A%84-bell-%E6%80%81%E5%87%BA%E5%8F%91" data-level="3">1.1 回顾Bell态的完全关联</a>
+<a href="#epr-%E5%AF%B9%E7%89%A9%E7%90%86%E5%AE%9E%E5%9C%A8%E7%9A%84%E8%A6%81%E6%B1%82" data-level="3">1.2 EPR用确定预测质疑量子态是否完备</a>
+<a href="#bohr-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%E6%84%8F" data-level="3">1.3 Bohr的回应：预测依赖所选的测量</a>
+<a href="#%E7%BB%8F%E5%85%B8%E5%85%B3%E8%81%94%E4%B8%80%E5%BC%A0%E7%AD%94%E6%A1%88%E5%8D%A1%E7%89%87%E8%83%BD%E5%81%9A%E5%88%B0%E4%BB%80%E4%B9%88" data-level="2">2. 经典关联：用盒子和答案卡模拟测量结果</a>
+<a href="#%E4%B8%A4%E4%B8%AA%E7%9B%92%E5%AD%90%E9%87%8C%E7%9A%84%E7%9B%B8%E5%90%8C%E6%95%B0%E5%AD%97" data-level="3">2.1 用相同数字产生经典关联</a>
+<a href="#%E5%A6%82%E6%9E%9C%E5%8F%AF%E4%BB%A5%E9%80%89%E6%8B%A9%E4%B8%A4%E7%A7%8D%E6%B5%8B%E9%87%8F%E5%91%A2" data-level="3">2.2 用答案卡同时模仿同测Z、同测X的结果</a>
+<a href="#chsh%E6%B8%B8%E6%88%8F%E7%BB%8F%E5%85%B8%E7%AD%96%E7%95%A5%E8%83%BD%E8%B5%A2%E5%87%A0%E7%BB%84" data-level="2">3. CHSH游戏：检验经典答案的胜率上限</a>
+<a href="#%E6%B8%B8%E6%88%8F%E8%A7%84%E5%88%99" data-level="3">3.1 CHSH游戏的提问与计分规则</a>
+<a href="#%E5%9B%9B%E4%B8%AA%E6%9D%A1%E4%BB%B6%E4%B8%BA%E4%BB%80%E4%B9%88%E6%97%A0%E6%B3%95%E5%90%8C%E6%97%B6%E6%BB%A1%E8%B6%B3" data-level="3">3.2 证明固定答案的最高胜率</a>
+<a href="#%E9%9A%8F%E6%9C%BA%E6%9B%B4%E6%8D%A2%E7%AD%96%E7%95%A5%E8%83%BD%E7%AA%81%E7%A0%B4%E5%90%97" data-level="3">3.3 随机更换答案卡，平均胜率仍不超过75%</a>
+<a href="#%E9%87%8F%E5%AD%90%E7%AD%96%E7%95%A5%E7%BA%A0%E7%BC%A0%E5%85%89%E5%AD%90%E8%83%BD%E5%90%A6%E5%81%9A%E5%BE%97%E6%9B%B4%E5%A5%BD" data-level="2">4. 量子策略：用纠缠光子挑战经典上限</a>
+<a href="#%E4%B8%A4%E5%A5%97%E5%81%8F%E6%8C%AF%E5%88%86%E6%9E%90%E5%99%A8%E7%9A%84%E5%A4%B9%E8%A7%92%E5%86%B3%E5%AE%9A%E4%BB%80%E4%B9%88" data-level="3">4.1 计算两人同答与异答的概率</a>
+<a href="#%E6%8A%8A%E5%81%8F%E6%8C%AF%E6%B5%8B%E9%87%8F%E7%94%A8%E4%BA%8E%E5%90%8C%E4%B8%80%E4%B8%AA%E6%B8%B8%E6%88%8F" data-level="3">4.2 调整测量方向，挑战经典胜率上限</a>
+<a href="#%E6%A0%B8%E5%AF%B9%E5%9B%9B%E4%B8%AA%E6%96%B9%E5%90%91%E6%80%8E%E6%A0%B7%E9%85%8D%E5%90%88" data-level="3">4.3 一套胜率约85.4%的量子策略，超过经典上限75%</a>
+<a href="#%E6%8A%8A%E6%B8%B8%E6%88%8F%E5%8F%98%E6%88%90%E6%A0%87%E5%87%86bell%E4%B8%8D%E7%AD%89%E5%BC%8F" data-level="2">5. 从游戏胜率推导CHSH不等式</a>
+<a href="#%E6%AF%8F%E5%AF%B9%E5%85%89%E5%AD%90%E8%B4%A1%E7%8C%AE%E4%B8%80%E4%B8%AA%E4%B9%98%E7%A7%AF" data-level="3">5.1 用两人的结果乘积计算关联</a>
+<a href="#%E4%B8%BA%E4%BB%80%E4%B9%88-chsh-%E6%9C%89%E4%B8%89%E6%AD%A3%E4%B8%80%E8%B4%9F" data-level="3">5.2 把胜率上限改写成CHSH不等式</a>
+<a href="#%E4%BB%8E%E6%8E%A2%E6%B5%8B%E5%99%A8%E7%82%B9%E5%87%BB%E5%88%B0bell%E6%A3%80%E9%AA%8C" data-level="2">6. 从光子探测记录计算CHSH值</a>
+<a href="#%E6%AF%8F%E6%AC%A1%E6%8E%A2%E6%B5%8B%E8%A6%81%E8%AE%B0%E5%BD%95%E4%BB%80%E4%B9%88" data-level="3">6.1 记录探测时间、测量方向与结果</a>
+<a href="#%E6%80%8E%E6%A0%B7%E9%85%8D%E5%AF%B9%E4%B8%A4%E4%BE%A7%E7%9A%84%E8%AE%B0%E5%BD%95" data-level="3">6.2 按探测时间配对两侧记录</a>
+<a href="#%E4%BB%8E%E5%9B%9B%E7%B1%BB%E8%AE%A1%E6%95%B0%E7%AE%97%E5%87%BA%E5%85%B3%E8%81%94" data-level="3">6.3 按成对结果计数，计算关联与CHSH值</a>
+<a href="#%E4%BB%8Eclauseraspect%E5%88%B0zeilinger%E5%AE%9E%E9%AA%8C%E6%80%8E%E6%A0%B7%E9%80%90%E6%AD%A5%E6%94%B9%E8%BF%9B" data-level="2">7. Bell实验：逐步改进探测与测量方向的选择</a>
+<a href="#clauser%E6%8A%8A%E7%90%86%E8%AE%BA%E5%B7%AE%E5%88%AB%E5%8F%98%E6%88%90%E5%8F%AF%E6%B5%8B%E9%87%8F%E7%9A%84%E5%AE%9E%E9%AA%8C" data-level="3">7.1 Freedman与Clauser：在光子实验中观测Bell违背</a>
+<a href="#aspect%E6%8A%8A%E6%B5%8B%E9%87%8F%E8%AE%BE%E7%BD%AE%E7%9A%84%E9%80%89%E6%8B%A9%E6%94%BE%E8%BF%9B%E6%97%B6%E9%97%B4%E5%AE%89%E6%8E%92" data-level="3">7.2 Aspect：在光子飞行中切换测量方向</a>
+<a href="#weihs%E4%B8%8Ezeilinger%E5%9B%A2%E9%98%9F%E5%BF%AB%E9%80%9F%E9%9A%8F%E6%9C%BA%E9%80%89%E6%8B%A9%E7%8B%AC%E7%AB%8B%E8%AE%B0%E5%BD%95" data-level="3">7.3 Weihs与Zeilinger团队：随机选方向，分开记录</a>
+<a href="#%E5%B9%B4%E6%8A%8A%E5%AE%9E%E9%AA%8C%E6%9D%A1%E4%BB%B6%E8%90%BD%E5%AE%9E%E5%9C%A8%E5%90%8C%E4%B8%80%E6%AC%A1%E5%85%89%E5%AD%90%E6%A3%80%E9%AA%8C%E4%B8%AD" data-level="3">7.4 Shalm等：在同一次实验中处理两类主要漏洞</a>
+<a href="#bell%E5%AE%9E%E9%AA%8C%E5%91%8A%E8%AF%89%E6%88%91%E4%BB%AC%E4%BB%80%E4%B9%88" data-level="2">8. Bell实验的结论与适用范围</a>
+<a href="#%E5%93%AA%E4%B8%80%E7%A7%8D%E8%A7%A3%E9%87%8A%E8%A2%AB%E6%8E%92%E9%99%A4%E4%BA%86" data-level="3">8.1 实验排除局域隐变量解释的前提与范围</a>
+<a href="#%E4%B8%BA%E4%BB%80%E4%B9%88bob%E4%BB%8D%E7%84%B6%E6%94%B6%E4%B8%8D%E5%88%B0%E8%B6%85%E5%85%89%E9%80%9F%E6%B6%88%E6%81%AF" data-level="3">8.2 纠缠关联不能用来超光速传信</a>
+<a href="#%E5%9B%9E%E5%88%B0epr%E5%AE%9E%E9%AA%8C%E5%9B%9E%E7%AD%94%E4%BA%86%E4%BB%80%E4%B9%88%E8%BF%98%E7%95%99%E4%B8%8B%E4%BB%80%E4%B9%88" data-level="3">8.3 回到EPR：Bell违背不等于证明量子态完备</a>
+<a href="#%E6%9C%AC%E8%AE%B2%E5%9B%9E%E9%A1%BE%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%87%AA%E6%9F%A5" data-level="2">9. 本讲回顾与核心自查</a>
+<a href="#%E6%A0%B8%E5%BF%83%E8%87%AA%E6%9F%A5" data-level="3">核心自查</a>
+<a href="#%E6%9D%A5%E6%BA%90%E4%B8%8E%E8%BF%9B%E4%B8%80%E6%AD%A5%E9%98%85%E8%AF%BB" data-level="2">来源与进一步阅读</a>
+</nav></aside>
+<!-- /course-reading -->
+<main class="content" id="quarto-document-content">
+<!-- course-reading:menu -->
+<details class="course-reading-menu"><summary>本讲目录</summary><nav class="course-reading-nav" aria-label="本讲目录">
+<a href="#lecture-guide" data-level="2">本讲导读</a>
+<a href="#epr%E4%BD%AF%E8%B0%AC%E5%85%B3%E8%81%94%E7%9A%84%E7%BB%93%E6%9E%9C%E6%97%A9%E5%B0%B1%E7%A1%AE%E5%AE%9A%E4%BA%86%E5%90%97" data-level="2">1. EPR佯谬：关联的结果早就确定了吗？</a>
+<a href="#%E4%BB%8E%E4%B8%8A%E4%B8%80%E8%AE%B2%E7%9A%84-bell-%E6%80%81%E5%87%BA%E5%8F%91" data-level="3">1.1 回顾Bell态的完全关联</a>
+<a href="#epr-%E5%AF%B9%E7%89%A9%E7%90%86%E5%AE%9E%E5%9C%A8%E7%9A%84%E8%A6%81%E6%B1%82" data-level="3">1.2 EPR用确定预测质疑量子态是否完备</a>
+<a href="#bohr-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%E6%84%8F" data-level="3">1.3 Bohr的回应：预测依赖所选的测量</a>
+<a href="#%E7%BB%8F%E5%85%B8%E5%85%B3%E8%81%94%E4%B8%80%E5%BC%A0%E7%AD%94%E6%A1%88%E5%8D%A1%E7%89%87%E8%83%BD%E5%81%9A%E5%88%B0%E4%BB%80%E4%B9%88" data-level="2">2. 经典关联：用盒子和答案卡模拟测量结果</a>
+<a href="#%E4%B8%A4%E4%B8%AA%E7%9B%92%E5%AD%90%E9%87%8C%E7%9A%84%E7%9B%B8%E5%90%8C%E6%95%B0%E5%AD%97" data-level="3">2.1 用相同数字产生经典关联</a>
+<a href="#%E5%A6%82%E6%9E%9C%E5%8F%AF%E4%BB%A5%E9%80%89%E6%8B%A9%E4%B8%A4%E7%A7%8D%E6%B5%8B%E9%87%8F%E5%91%A2" data-level="3">2.2 用答案卡同时模仿同测Z、同测X的结果</a>
+<a href="#chsh%E6%B8%B8%E6%88%8F%E7%BB%8F%E5%85%B8%E7%AD%96%E7%95%A5%E8%83%BD%E8%B5%A2%E5%87%A0%E7%BB%84" data-level="2">3. CHSH游戏：检验经典答案的胜率上限</a>
+<a href="#%E6%B8%B8%E6%88%8F%E8%A7%84%E5%88%99" data-level="3">3.1 CHSH游戏的提问与计分规则</a>
+<a href="#%E5%9B%9B%E4%B8%AA%E6%9D%A1%E4%BB%B6%E4%B8%BA%E4%BB%80%E4%B9%88%E6%97%A0%E6%B3%95%E5%90%8C%E6%97%B6%E6%BB%A1%E8%B6%B3" data-level="3">3.2 证明固定答案的最高胜率</a>
+<a href="#%E9%9A%8F%E6%9C%BA%E6%9B%B4%E6%8D%A2%E7%AD%96%E7%95%A5%E8%83%BD%E7%AA%81%E7%A0%B4%E5%90%97" data-level="3">3.3 随机更换答案卡，平均胜率仍不超过75%</a>
+<a href="#%E9%87%8F%E5%AD%90%E7%AD%96%E7%95%A5%E7%BA%A0%E7%BC%A0%E5%85%89%E5%AD%90%E8%83%BD%E5%90%A6%E5%81%9A%E5%BE%97%E6%9B%B4%E5%A5%BD" data-level="2">4. 量子策略：用纠缠光子挑战经典上限</a>
+<a href="#%E4%B8%A4%E5%A5%97%E5%81%8F%E6%8C%AF%E5%88%86%E6%9E%90%E5%99%A8%E7%9A%84%E5%A4%B9%E8%A7%92%E5%86%B3%E5%AE%9A%E4%BB%80%E4%B9%88" data-level="3">4.1 计算两人同答与异答的概率</a>
+<a href="#%E6%8A%8A%E5%81%8F%E6%8C%AF%E6%B5%8B%E9%87%8F%E7%94%A8%E4%BA%8E%E5%90%8C%E4%B8%80%E4%B8%AA%E6%B8%B8%E6%88%8F" data-level="3">4.2 调整测量方向，挑战经典胜率上限</a>
+<a href="#%E6%A0%B8%E5%AF%B9%E5%9B%9B%E4%B8%AA%E6%96%B9%E5%90%91%E6%80%8E%E6%A0%B7%E9%85%8D%E5%90%88" data-level="3">4.3 一套胜率约85.4%的量子策略，超过经典上限75%</a>
+<a href="#%E6%8A%8A%E6%B8%B8%E6%88%8F%E5%8F%98%E6%88%90%E6%A0%87%E5%87%86bell%E4%B8%8D%E7%AD%89%E5%BC%8F" data-level="2">5. 从游戏胜率推导CHSH不等式</a>
+<a href="#%E6%AF%8F%E5%AF%B9%E5%85%89%E5%AD%90%E8%B4%A1%E7%8C%AE%E4%B8%80%E4%B8%AA%E4%B9%98%E7%A7%AF" data-level="3">5.1 用两人的结果乘积计算关联</a>
+<a href="#%E4%B8%BA%E4%BB%80%E4%B9%88-chsh-%E6%9C%89%E4%B8%89%E6%AD%A3%E4%B8%80%E8%B4%9F" data-level="3">5.2 把胜率上限改写成CHSH不等式</a>
+<a href="#%E4%BB%8E%E6%8E%A2%E6%B5%8B%E5%99%A8%E7%82%B9%E5%87%BB%E5%88%B0bell%E6%A3%80%E9%AA%8C" data-level="2">6. 从光子探测记录计算CHSH值</a>
+<a href="#%E6%AF%8F%E6%AC%A1%E6%8E%A2%E6%B5%8B%E8%A6%81%E8%AE%B0%E5%BD%95%E4%BB%80%E4%B9%88" data-level="3">6.1 记录探测时间、测量方向与结果</a>
+<a href="#%E6%80%8E%E6%A0%B7%E9%85%8D%E5%AF%B9%E4%B8%A4%E4%BE%A7%E7%9A%84%E8%AE%B0%E5%BD%95" data-level="3">6.2 按探测时间配对两侧记录</a>
+<a href="#%E4%BB%8E%E5%9B%9B%E7%B1%BB%E8%AE%A1%E6%95%B0%E7%AE%97%E5%87%BA%E5%85%B3%E8%81%94" data-level="3">6.3 按成对结果计数，计算关联与CHSH值</a>
+<a href="#%E4%BB%8Eclauseraspect%E5%88%B0zeilinger%E5%AE%9E%E9%AA%8C%E6%80%8E%E6%A0%B7%E9%80%90%E6%AD%A5%E6%94%B9%E8%BF%9B" data-level="2">7. Bell实验：逐步改进探测与测量方向的选择</a>
+<a href="#clauser%E6%8A%8A%E7%90%86%E8%AE%BA%E5%B7%AE%E5%88%AB%E5%8F%98%E6%88%90%E5%8F%AF%E6%B5%8B%E9%87%8F%E7%9A%84%E5%AE%9E%E9%AA%8C" data-level="3">7.1 Freedman与Clauser：在光子实验中观测Bell违背</a>
+<a href="#aspect%E6%8A%8A%E6%B5%8B%E9%87%8F%E8%AE%BE%E7%BD%AE%E7%9A%84%E9%80%89%E6%8B%A9%E6%94%BE%E8%BF%9B%E6%97%B6%E9%97%B4%E5%AE%89%E6%8E%92" data-level="3">7.2 Aspect：在光子飞行中切换测量方向</a>
+<a href="#weihs%E4%B8%8Ezeilinger%E5%9B%A2%E9%98%9F%E5%BF%AB%E9%80%9F%E9%9A%8F%E6%9C%BA%E9%80%89%E6%8B%A9%E7%8B%AC%E7%AB%8B%E8%AE%B0%E5%BD%95" data-level="3">7.3 Weihs与Zeilinger团队：随机选方向，分开记录</a>
+<a href="#%E5%B9%B4%E6%8A%8A%E5%AE%9E%E9%AA%8C%E6%9D%A1%E4%BB%B6%E8%90%BD%E5%AE%9E%E5%9C%A8%E5%90%8C%E4%B8%80%E6%AC%A1%E5%85%89%E5%AD%90%E6%A3%80%E9%AA%8C%E4%B8%AD" data-level="3">7.4 Shalm等：在同一次实验中处理两类主要漏洞</a>
+<a href="#bell%E5%AE%9E%E9%AA%8C%E5%91%8A%E8%AF%89%E6%88%91%E4%BB%AC%E4%BB%80%E4%B9%88" data-level="2">8. Bell实验的结论与适用范围</a>
+<a href="#%E5%93%AA%E4%B8%80%E7%A7%8D%E8%A7%A3%E9%87%8A%E8%A2%AB%E6%8E%92%E9%99%A4%E4%BA%86" data-level="3">8.1 实验排除局域隐变量解释的前提与范围</a>
+<a href="#%E4%B8%BA%E4%BB%80%E4%B9%88bob%E4%BB%8D%E7%84%B6%E6%94%B6%E4%B8%8D%E5%88%B0%E8%B6%85%E5%85%89%E9%80%9F%E6%B6%88%E6%81%AF" data-level="3">8.2 纠缠关联不能用来超光速传信</a>
+<a href="#%E5%9B%9E%E5%88%B0epr%E5%AE%9E%E9%AA%8C%E5%9B%9E%E7%AD%94%E4%BA%86%E4%BB%80%E4%B9%88%E8%BF%98%E7%95%99%E4%B8%8B%E4%BB%80%E4%B9%88" data-level="3">8.3 回到EPR：Bell违背不等于证明量子态完备</a>
+<a href="#%E6%9C%AC%E8%AE%B2%E5%9B%9E%E9%A1%BE%E4%B8%8E%E6%A0%B8%E5%BF%83%E8%87%AA%E6%9F%A5" data-level="2">9. 本讲回顾与核心自查</a>
+<a href="#%E6%A0%B8%E5%BF%83%E8%87%AA%E6%9F%A5" data-level="3">核心自查</a>
+<a href="#%E6%9D%A5%E6%BA%90%E4%B8%8E%E8%BF%9B%E4%B8%80%E6%AD%A5%E9%98%85%E8%AF%BB" data-level="2">来源与进一步阅读</a>
+</nav></details>
+<!-- /course-reading -->
+<a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">第五讲　Bell不等式：量子关联超出了怎样的经典解释？</h1>
+<h1 class="title"><span class="course-reading-kicker">第五讲</span> Bell不等式：量子关联超出了怎样的经典解释？</h1>
 <p class="subtitle lead">从EPR佯谬、CHSH游戏到2022年诺贝尔物理学奖</p>
 </div>
 
@@ -1510,4 +1826,103 @@ window.addEventListener('message',async e=>{
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const target=document.getElementById(decodeURIComponent(a.hash.slice(1)));let node=target;while(node){if(node.tagName==='DETAILS')node.open=true;node=node.parentElement;}const mobile=a.closest('#mobile-toc');if(mobile){mobile.open=false;if(target){e.preventDefault();history.pushState(null,'',a.hash);requestAnimationFrame(()=>target.scrollIntoView({block:'start',behavior:'instant'}));}}}));
 })();
 </script>
+
+<!-- course-reading:script -->
+<script>
+/* Keep the current chapter entry visible without moving the article or focus. */
+(() => {
+  const toc = document.querySelector('.course-reading-toc');
+  const menu = document.querySelector('.course-reading-menu');
+  const bar = document.querySelector('.course-reading-bar');
+  const article = document.querySelector('#quarto-document-content');
+  const links = [...toc.querySelectorAll('a')];
+  const mobileLinks = [...menu.querySelectorAll('a')];
+  const sections = links.map(link => document.getElementById(decodeURIComponent(link.hash.slice(1))));
+  let active = -1;
+  let frame = 0;
+  let recenter = false;
+
+  function mark(list, index) {
+    list.forEach((link, i) => {
+      if (i === index) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
+  function reveal(scroller, link) {
+    if (!scroller.clientHeight) return;
+    const box = scroller.getBoundingClientRect();
+    const item = link.getBoundingClientRect();
+    const inset = Math.min(26, scroller.clientHeight / 4);
+    if (item.top < box.top + inset || item.bottom > box.bottom - inset) {
+      scroller.scrollTop += (item.top + item.bottom - box.top - box.bottom) / 2;
+    }
+  }
+
+  function update() {
+    frame = 0;
+    const line = Math.max(0, bar.getBoundingClientRect().bottom) + 42;
+    let index = 0;
+    for (let i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top > line) break;
+      index = i;
+    }
+    const page = document.scrollingElement;
+    if (page.scrollHeight > window.innerHeight &&
+        page.scrollTop + window.innerHeight >= page.scrollHeight - 2) {
+      index = links.length - 1;
+    }
+    if (index === active && !recenter) return;
+    active = index;
+    recenter = false;
+    mark(links, index);
+    mark(mobileLinks, index);
+    reveal(toc, links[index]);
+    if (menu.open) reveal(menu.querySelector('nav'), mobileLinks[index]);
+  }
+
+  function schedule() {
+    if (!frame) frame = requestAnimationFrame(update);
+  }
+
+  function refresh() {
+    document.body.style.setProperty('--notes-top', bar.offsetHeight + 'px');
+    recenter = true;
+    schedule();
+  }
+
+  function jump(event) {
+    const link = event.target.closest('a');
+    if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const list = menu.contains(link) ? mobileLinks : links;
+    const section = sections[list.indexOf(link)];
+    const heading = section.matches('h2,h3,h4') ? section : section.firstElementChild;
+    event.preventDefault();
+    menu.open = false;
+    if (location.hash !== link.hash) history.pushState(null, '', link.hash);
+    heading.setAttribute('tabindex', '-1');
+    heading.focus({preventScroll: true});
+    heading.scrollIntoView({block: 'start', behavior: 'instant'});
+    refresh();
+  }
+  toc.addEventListener('click', jump);
+  menu.addEventListener('click', jump);
+  menu.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menu.open) {
+      menu.open = false;
+      menu.querySelector('summary').focus();
+    }
+  });
+  window.addEventListener('scroll', schedule, {passive: true});
+  ['resize', 'hashchange', 'pageshow', 'load'].forEach(type => window.addEventListener(type, refresh));
+  document.addEventListener('toggle', refresh, true);
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(refresh);
+    observer.observe(article);
+    observer.observe(bar);
+  }
+  refresh();
+})();
+</script>
+<!-- /course-reading -->
 </body></html>

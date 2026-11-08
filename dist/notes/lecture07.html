@@ -2647,9 +2647,245 @@ body.l7-standalone{margin:0;padding:24px;background:#edf2f6;max-width:none;font-
 @media(max-width:700px){.l7-lab-caption{font-size:.76rem;gap:8px}.l7-standalone{padding:8px!important}}
 @media print{.l7-lab-shell,.l7-lab-caption{display:none}}
 @media(prefers-reduced-motion:reduce){.l7-lab button{transition:none}}
-</style><style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style></head>
+</style><style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style>
+<!-- course-reading:head -->
+<style>
+/* Course reading layout, based on Lecture 8. Scope rules to the notes shell. */
+body.course-reading {
+  --notes-ink: #202b38;
+  --notes-heading: #183d67;
+  --notes-link: #1e5f96;
+  --notes-muted: #536679;
+  --notes-border: #dce4ec;
+  --notes-gray: #f3f6f9;
+  --notes-blue: #edf5fb;
+  --notes-font: "Source Han Sans SC", "Noto Sans CJK SC", "PingFang SC",
+    "Microsoft YaHei", system-ui, sans-serif;
+  --notes-top: 64px;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0 !important;
+  background: #fff;
+  color: var(--notes-ink);
+  font: 17px/1.9 var(--notes-font);
+}
+.course-reading :is(#quarto-header, #quarto-sidebar, #quarto-sidebar-glass,
+  #quarto-margin-sidebar, #mobile-toc, .lecture-mobile-toc, .course-site-return) {
+  display: none !important;
+}
+.course-reading-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #fff;
+  border-bottom: 1px solid var(--notes-border);
+}
+.course-reading-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2px 16px;
+  max-width: 1190px;
+  min-height: 63px;
+  margin-inline: auto;
+  padding: 8px 30px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.course-reading-bar a { color: var(--notes-heading); text-decoration: none; }
+.course-reading-bar a:hover { text-decoration: underline; }
+.course-reading-brand { font-weight: 700; }
+.course-reading #quarto-content {
+  display: grid !important;
+  grid-template-columns: 230px minmax(0, 820px);
+  align-items: start;
+  gap: 40px;
+  width: auto;
+  max-width: 1190px;
+  min-height: 0;
+  margin: 0 auto !important;
+  padding: 28px 30px 80px !important;
+}
+.course-reading #quarto-content > main.content {
+  display: block;
+  grid-area: 1 / 2 !important;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin: 0 !important;
+  padding: 0;
+}
+.course-reading #quarto-content > :is(footer, .page-navigation) {
+  grid-area: 2 / 2 !important;
+  min-width: 0;
+}
+.course-reading #quarto-content > .course-reading-toc {
+  grid-area: 1 / 1 !important;
+  position: sticky;
+  z-index: 1;
+  top: calc(var(--notes-top) + 16px);
+  max-height: calc(100dvh - var(--notes-top) - 32px);
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  padding-right: 12px;
+}
+.course-reading-toc-title {
+  color: var(--notes-muted);
+  font-size: 13px;
+  font-weight: 650;
+  margin: 8px 0 14px;
+}
+.course-reading-nav a {
+  display: block;
+  padding: 5px 9px;
+  border-left: 2px solid transparent;
+  border-radius: 0 5px 5px 0;
+  color: var(--notes-muted);
+  font: 13px/1.55 var(--notes-font);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.course-reading-nav a[data-level="3"] { padding-left: 20px; }
+.course-reading-nav a[data-level="4"] { padding-left: 32px; }
+.course-reading-nav a:hover { background: var(--notes-gray); color: var(--notes-heading); }
+.course-reading-nav a[aria-current="location"] {
+  background: var(--notes-blue);
+  border-left-color: var(--notes-link);
+  color: var(--notes-heading);
+  font-weight: 700;
+}
+.course-reading :is(.course-reading-nav a, .course-reading-bar a, .course-reading-menu summary):focus-visible {
+  outline: 2px solid var(--notes-link);
+  outline-offset: -2px;
+}
+.course-reading-menu { display: none; }
+.course-reading main :is(section[id], h2, h3, h4) {
+  scroll-margin-top: calc(var(--notes-top) + 16px);
+}
+.course-reading main :is(h1, h2, h3, h4) {
+  font-family: var(--notes-font);
+  color: var(--notes-heading);
+  line-height: 1.45;
+}
+.course-reading main h1 { font-size: clamp(28px, 3vw, 36px); font-weight: 750; }
+.course-reading #title-block-header {
+  margin: 0 0 24px;
+  padding: 0;
+  border: 0;
+}
+.course-reading main > .level1 > h1 { margin: 0 0 24px; }
+.course-reading-kicker {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--notes-heading);
+  font: 650 13px/1.6 var(--notes-font);
+  letter-spacing: .08em;
+}
+.course-reading .quarto-title .subtitle {
+  padding-left: 14px;
+  border-left: 3px solid var(--notes-link);
+  color: var(--notes-muted);
+  font-size: 17px;
+  font-weight: 400;
+}
+.course-reading main :is(section.level2 > h2, .course-reading-guide) {
+  margin: 56px 0 20px;
+  padding: 16px 0 0;
+  border: 0;
+  border-top: 1px solid var(--notes-border);
+  font-size: 26px;
+}
+.course-reading main :is(.level2.unnumbered:first-of-type > h2, .course-reading-guide) {
+  margin-top: 25px;
+  padding-top: 0;
+  border: 0;
+  font-size: 21px;
+}
+.course-reading main section.level3 > h3 { margin: 38px 0 13px; font-size: 20px; }
+.course-reading main section.level4 > h4 { font-size: 17px; }
+.course-reading main :is(.level1, .level2, .level3, .level4) { min-width: 0; }
+.course-reading main .header-section-number { color: inherit; }
+.course-reading main p { margin-block: .65rem 1rem; }
+.course-reading main strong { color: var(--notes-heading); }
+.course-reading main a { color: var(--notes-link); text-underline-offset: .15em; }
+.course-reading main figcaption { color: var(--notes-muted); font-size: .86em; line-height: 1.65; }
+.course-reading main :is(.callout, .story-step, .l02-core, .factor-challenge, .course-lab-launcher, blockquote) {
+  border-radius: 0 5px 5px 0;
+  background-color: var(--notes-gray);
+  border-left-color: #8eabc2;
+  box-shadow: none;
+}
+.course-reading main .callout .callout-header { background-color: var(--notes-blue); }
+.course-reading main :is(.math.display, mjx-container[display="true"]) {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.course-reading main mjx-assistive-mml { max-width: 100%; }
+.course-reading main img { max-width: 100%; }
+@media (min-width: 851px) and (max-width: 1100px) {
+  .course-reading #quarto-content {
+    grid-template-columns: 190px minmax(0, 820px);
+    gap: 28px;
+    padding-inline: 22px !important;
+  }
+}
+@media (max-width: 850px) {
+  .course-reading #quarto-content {
+    display: block !important;
+    max-width: 864px;
+    padding: 16px 22px 64px !important;
+  }
+  .course-reading-toc { display: none; }
+  .course-reading-menu {
+    display: block;
+    margin: 0 0 22px;
+    padding: 0;
+    border: 1px solid var(--notes-border);
+    border-radius: 6px;
+    background: #fff;
+  }
+  .course-reading-menu summary {
+    cursor: pointer;
+    padding: 9px 12px;
+    margin: 0 !important;
+    color: var(--notes-heading);
+    font-weight: 650;
+  }
+  .course-reading-menu nav {
+    max-height: 50dvh;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    padding: 0 8px 8px;
+  }
+  .course-reading-menu nav a { padding-block: 8px; }
+}
+@media (max-width: 560px) {
+  body.course-reading { font-size: 15.5px; line-height: 1.84; }
+  .course-reading-bar-inner { padding-inline: 16px; font-size: 13px; }
+  .course-reading #quarto-content { padding-inline: 16px !important; }
+  .course-reading main section.level2 > h2 { font-size: 23px; }
+  .course-reading main section.level3 > h3 { font-size: 18px; }
+  .course-reading main table { display: block; max-width: 100%; overflow-x: auto; }
+}
+@media print {
+  body.course-reading { color: #111; font-size: 11pt; line-height: 1.65; }
+  .course-reading :is(.course-reading-bar, .course-reading-toc, .course-reading-menu) { display: none !important; }
+  .course-reading #quarto-content { display: block !important; padding: 0 !important; }
+  .course-reading main :is(h1, h2, h3, h4) { break-after: avoid; }
+}
+</style>
+<!-- /course-reading -->
+</head>
 
-<body class="quarto-light">
+<body class="course-reading quarto-light">
+<!-- course-reading:bar -->
+<header class="course-reading-bar"><div class="course-reading-bar-inner"><a class="course-reading-brand" href="../index.html">量子光学 · 课程首页</a><a href="index.html">全课程目录与搜索</a></div></header>
+<!-- /course-reading -->
+
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -2697,11 +2933,71 @@ body.l7-standalone{margin:0;padding:24px;background:#edf2f6;max-width:none;font-
   </ul>
 </nav>
 </div>
-<main class="content" id="quarto-document-content"><a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>
+
+<!-- course-reading:toc -->
+<aside class="course-reading-toc"><div class="course-reading-toc-title">本讲目录</div><nav class="course-reading-nav" aria-label="本讲目录">
+<a href="#l07-guide" data-level="2">本讲导读</a>
+<a href="#l07-mode" data-level="2">1. 从单光子偏振到光场模式</a>
+<a href="#%E5%9B%BA%E5%AE%9A%E4%B8%80%E7%A7%8D%E6%A8%A1%E5%BC%8F%E7%A0%94%E7%A9%B6%E5%AE%83%E7%9A%84%E6%BF%80%E5%8F%91" data-level="3">1.1 固定一种模式，研究它的激发</a>
+<a href="#l07-classical" data-level="2">2. 单模场的经典谐振子描述</a>
+<a href="#%E9%A9%BB%E6%B3%A2%E4%B8%AD%E7%9A%84%E7%94%B5%E5%9C%BA%E4%B8%8E%E7%A3%81%E5%9C%BA%E8%83%BD%E9%87%8F" data-level="3">2.1 驻波中的电场与磁场能量</a>
+<a href="#%E4%B8%BA%E5%9C%BA%E9%80%89%E5%8F%96%E4%B8%A4%E4%B8%AA%E8%B0%90%E6%8C%AF%E5%AD%90%E5%8F%98%E9%87%8F" data-level="3">2.2 为场选取两个谐振子变量</a>
+<a href="#l07-quantization" data-level="2">3. 正则量子化与阶梯算符</a>
+<a href="#%E5%AF%B9%E6%98%93%E5%85%B3%E7%B3%BB%E6%98%AF%E6%96%B0%E5%A2%9E%E7%9A%84%E9%87%8F%E5%AD%90%E8%A7%84%E5%BE%8B" data-level="3">3.1 对易关系是新增的量子规律</a>
+<a href="#%E4%BB%8E%E5%A4%8D%E6%8C%AF%E5%B9%85%E5%88%B0%E4%B8%A4%E4%B8%AA%E6%96%B0%E7%AE%97%E7%AC%A6" data-level="3">3.2 从复振幅到两个新算符</a>
+<a href="#l07-number" data-level="2">4. 数态与离散能谱</a>
+<a href="#%E6%96%B0%E7%AE%97%E7%AC%A6%E4%BD%BF%E6%9C%AC%E5%BE%81%E5%80%BC%E5%8D%87%E9%99%8D%E4%B8%80%E7%BA%A7" data-level="3">4.1 新算符使本征值升降一级</a>
+<a href="#%E9%98%B6%E6%A2%AF%E4%B8%BA%E4%BD%95%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E8%80%8C%E4%B8%94%E5%8F%AA%E8%83%BD%E5%8F%96%E6%95%B4%E6%95%B0" data-level="3">4.2 阶梯为何从零开始，而且只能取整数？</a>
+<a href="#%E6%AF%8F%E4%B8%80%E7%BA%A7%E8%83%BD%E9%87%8F%E5%AF%B9%E5%BA%94%E5%A4%9A%E5%B0%91%E4%B8%AA%E5%85%89%E5%AD%90" data-level="3">4.3 每一级能量对应多少个光子？</a>
+<a href="#%E5%B9%B3%E6%96%B9%E6%A0%B9%E7%B3%BB%E6%95%B0%E6%9D%A5%E8%87%AA%E5%BD%92%E4%B8%80%E5%8C%96" data-level="3">4.4 平方根系数来自归一化</a>
+<a href="#%E7%A6%BB%E6%95%A3%E7%9A%84%E8%83%BD%E9%87%8F%E6%B5%8B%E9%87%8F%E5%80%BC%E4%B8%8E%E8%BF%9E%E7%BB%AD%E7%9A%84%E5%B9%B3%E5%9D%87%E8%83%BD%E9%87%8F" data-level="3">4.5 离散的能量测量值与连续的平均能量</a>
+<a href="#l07-vacuum" data-level="2">5. 真空与场涨落</a>
+<a href="#%E9%9B%B6%E5%85%89%E5%AD%90%E6%80%81%E4%B8%AD%E7%9A%84%E5%9C%BA%E6%B5%8B%E9%87%8F" data-level="3">5.1 零光子态中的场测量</a>
+<a href="#%E7%9C%9F%E7%A9%BA%E7%9A%84%E5%9D%87%E6%96%B9%E5%9C%BA%E4%B8%8D%E4%B8%BA%E9%9B%B6" data-level="3">5.2 真空的均方场不为零</a>
+<a href="#%E5%9C%BA%E6%9C%89%E6%B6%A8%E8%90%BD%E6%80%BB%E8%83%BD%E9%87%8F%E4%BB%8D%E5%8F%AF%E7%A1%AE%E5%AE%9A" data-level="3">5.3 场有涨落，总能量仍可确定</a>
+<a href="#l07-photon-amplitude" data-level="3">5.4 光子数增加时，电磁波的什么发生改变？</a>
+<a href="#l07-ion" data-level="2">6. 光子与离子振动</a>
+<a href="#l07-states" data-level="2">7. 数态、叠加与统计混合</a>
+<a href="#%E7%9B%B8%E5%90%8C%E5%B9%B3%E5%9D%87%E6%95%B0%E6%9C%AA%E5%BF%85%E6%9C%89%E7%9B%B8%E5%90%8C%E8%AE%A1%E6%95%B0%E5%88%86%E5%B8%83" data-level="3">7.1 相同平均数，未必有相同计数分布</a>
+<a href="#%E7%9B%B8%E5%90%8C%E8%AE%A1%E6%95%B0%E5%88%86%E5%B8%83%E6%9C%AA%E5%BF%85%E6%98%AF%E5%90%8C%E4%B8%80%E4%B8%AA%E9%87%8F%E5%AD%90%E6%80%81" data-level="3">7.2 相同计数分布，未必是同一个量子态</a>
+<a href="#l07-summary" data-level="2">8. 本讲回顾与自查</a>
+</nav></aside>
+<!-- /course-reading -->
+<main class="content" id="quarto-document-content">
+<!-- course-reading:menu -->
+<details class="course-reading-menu"><summary>本讲目录</summary><nav class="course-reading-nav" aria-label="本讲目录">
+<a href="#l07-guide" data-level="2">本讲导读</a>
+<a href="#l07-mode" data-level="2">1. 从单光子偏振到光场模式</a>
+<a href="#%E5%9B%BA%E5%AE%9A%E4%B8%80%E7%A7%8D%E6%A8%A1%E5%BC%8F%E7%A0%94%E7%A9%B6%E5%AE%83%E7%9A%84%E6%BF%80%E5%8F%91" data-level="3">1.1 固定一种模式，研究它的激发</a>
+<a href="#l07-classical" data-level="2">2. 单模场的经典谐振子描述</a>
+<a href="#%E9%A9%BB%E6%B3%A2%E4%B8%AD%E7%9A%84%E7%94%B5%E5%9C%BA%E4%B8%8E%E7%A3%81%E5%9C%BA%E8%83%BD%E9%87%8F" data-level="3">2.1 驻波中的电场与磁场能量</a>
+<a href="#%E4%B8%BA%E5%9C%BA%E9%80%89%E5%8F%96%E4%B8%A4%E4%B8%AA%E8%B0%90%E6%8C%AF%E5%AD%90%E5%8F%98%E9%87%8F" data-level="3">2.2 为场选取两个谐振子变量</a>
+<a href="#l07-quantization" data-level="2">3. 正则量子化与阶梯算符</a>
+<a href="#%E5%AF%B9%E6%98%93%E5%85%B3%E7%B3%BB%E6%98%AF%E6%96%B0%E5%A2%9E%E7%9A%84%E9%87%8F%E5%AD%90%E8%A7%84%E5%BE%8B" data-level="3">3.1 对易关系是新增的量子规律</a>
+<a href="#%E4%BB%8E%E5%A4%8D%E6%8C%AF%E5%B9%85%E5%88%B0%E4%B8%A4%E4%B8%AA%E6%96%B0%E7%AE%97%E7%AC%A6" data-level="3">3.2 从复振幅到两个新算符</a>
+<a href="#l07-number" data-level="2">4. 数态与离散能谱</a>
+<a href="#%E6%96%B0%E7%AE%97%E7%AC%A6%E4%BD%BF%E6%9C%AC%E5%BE%81%E5%80%BC%E5%8D%87%E9%99%8D%E4%B8%80%E7%BA%A7" data-level="3">4.1 新算符使本征值升降一级</a>
+<a href="#%E9%98%B6%E6%A2%AF%E4%B8%BA%E4%BD%95%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E8%80%8C%E4%B8%94%E5%8F%AA%E8%83%BD%E5%8F%96%E6%95%B4%E6%95%B0" data-level="3">4.2 阶梯为何从零开始，而且只能取整数？</a>
+<a href="#%E6%AF%8F%E4%B8%80%E7%BA%A7%E8%83%BD%E9%87%8F%E5%AF%B9%E5%BA%94%E5%A4%9A%E5%B0%91%E4%B8%AA%E5%85%89%E5%AD%90" data-level="3">4.3 每一级能量对应多少个光子？</a>
+<a href="#%E5%B9%B3%E6%96%B9%E6%A0%B9%E7%B3%BB%E6%95%B0%E6%9D%A5%E8%87%AA%E5%BD%92%E4%B8%80%E5%8C%96" data-level="3">4.4 平方根系数来自归一化</a>
+<a href="#%E7%A6%BB%E6%95%A3%E7%9A%84%E8%83%BD%E9%87%8F%E6%B5%8B%E9%87%8F%E5%80%BC%E4%B8%8E%E8%BF%9E%E7%BB%AD%E7%9A%84%E5%B9%B3%E5%9D%87%E8%83%BD%E9%87%8F" data-level="3">4.5 离散的能量测量值与连续的平均能量</a>
+<a href="#l07-vacuum" data-level="2">5. 真空与场涨落</a>
+<a href="#%E9%9B%B6%E5%85%89%E5%AD%90%E6%80%81%E4%B8%AD%E7%9A%84%E5%9C%BA%E6%B5%8B%E9%87%8F" data-level="3">5.1 零光子态中的场测量</a>
+<a href="#%E7%9C%9F%E7%A9%BA%E7%9A%84%E5%9D%87%E6%96%B9%E5%9C%BA%E4%B8%8D%E4%B8%BA%E9%9B%B6" data-level="3">5.2 真空的均方场不为零</a>
+<a href="#%E5%9C%BA%E6%9C%89%E6%B6%A8%E8%90%BD%E6%80%BB%E8%83%BD%E9%87%8F%E4%BB%8D%E5%8F%AF%E7%A1%AE%E5%AE%9A" data-level="3">5.3 场有涨落，总能量仍可确定</a>
+<a href="#l07-photon-amplitude" data-level="3">5.4 光子数增加时，电磁波的什么发生改变？</a>
+<a href="#l07-ion" data-level="2">6. 光子与离子振动</a>
+<a href="#l07-states" data-level="2">7. 数态、叠加与统计混合</a>
+<a href="#%E7%9B%B8%E5%90%8C%E5%B9%B3%E5%9D%87%E6%95%B0%E6%9C%AA%E5%BF%85%E6%9C%89%E7%9B%B8%E5%90%8C%E8%AE%A1%E6%95%B0%E5%88%86%E5%B8%83" data-level="3">7.1 相同平均数，未必有相同计数分布</a>
+<a href="#%E7%9B%B8%E5%90%8C%E8%AE%A1%E6%95%B0%E5%88%86%E5%B8%83%E6%9C%AA%E5%BF%85%E6%98%AF%E5%90%8C%E4%B8%80%E4%B8%AA%E9%87%8F%E5%AD%90%E6%80%81" data-level="3">7.2 相同计数分布，未必是同一个量子态</a>
+<a href="#l07-summary" data-level="2">8. 本讲回顾与自查</a>
+</nav></details>
+<!-- /course-reading -->
+<a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">第七讲　光场量子化：从一个振动模式到光子</h1>
+<h1 class="title"><span class="course-reading-kicker">第七讲</span> 光场量子化：从一个振动模式到光子</h1>
 <p class="subtitle lead">单模场 · 量子谐振子 · 光子数态 · 真空涨落</p>
 </div>
 
@@ -3499,4 +3795,103 @@ for(const lab of document.querySelectorAll('.l7-lab')){
     update();
   });
 })();
-</script></body></html>
+</script>
+<!-- course-reading:script -->
+<script>
+/* Keep the current chapter entry visible without moving the article or focus. */
+(() => {
+  const toc = document.querySelector('.course-reading-toc');
+  const menu = document.querySelector('.course-reading-menu');
+  const bar = document.querySelector('.course-reading-bar');
+  const article = document.querySelector('#quarto-document-content');
+  const links = [...toc.querySelectorAll('a')];
+  const mobileLinks = [...menu.querySelectorAll('a')];
+  const sections = links.map(link => document.getElementById(decodeURIComponent(link.hash.slice(1))));
+  let active = -1;
+  let frame = 0;
+  let recenter = false;
+
+  function mark(list, index) {
+    list.forEach((link, i) => {
+      if (i === index) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
+  function reveal(scroller, link) {
+    if (!scroller.clientHeight) return;
+    const box = scroller.getBoundingClientRect();
+    const item = link.getBoundingClientRect();
+    const inset = Math.min(26, scroller.clientHeight / 4);
+    if (item.top < box.top + inset || item.bottom > box.bottom - inset) {
+      scroller.scrollTop += (item.top + item.bottom - box.top - box.bottom) / 2;
+    }
+  }
+
+  function update() {
+    frame = 0;
+    const line = Math.max(0, bar.getBoundingClientRect().bottom) + 42;
+    let index = 0;
+    for (let i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top > line) break;
+      index = i;
+    }
+    const page = document.scrollingElement;
+    if (page.scrollHeight > window.innerHeight &&
+        page.scrollTop + window.innerHeight >= page.scrollHeight - 2) {
+      index = links.length - 1;
+    }
+    if (index === active && !recenter) return;
+    active = index;
+    recenter = false;
+    mark(links, index);
+    mark(mobileLinks, index);
+    reveal(toc, links[index]);
+    if (menu.open) reveal(menu.querySelector('nav'), mobileLinks[index]);
+  }
+
+  function schedule() {
+    if (!frame) frame = requestAnimationFrame(update);
+  }
+
+  function refresh() {
+    document.body.style.setProperty('--notes-top', bar.offsetHeight + 'px');
+    recenter = true;
+    schedule();
+  }
+
+  function jump(event) {
+    const link = event.target.closest('a');
+    if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const list = menu.contains(link) ? mobileLinks : links;
+    const section = sections[list.indexOf(link)];
+    const heading = section.matches('h2,h3,h4') ? section : section.firstElementChild;
+    event.preventDefault();
+    menu.open = false;
+    if (location.hash !== link.hash) history.pushState(null, '', link.hash);
+    heading.setAttribute('tabindex', '-1');
+    heading.focus({preventScroll: true});
+    heading.scrollIntoView({block: 'start', behavior: 'instant'});
+    refresh();
+  }
+  toc.addEventListener('click', jump);
+  menu.addEventListener('click', jump);
+  menu.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menu.open) {
+      menu.open = false;
+      menu.querySelector('summary').focus();
+    }
+  });
+  window.addEventListener('scroll', schedule, {passive: true});
+  ['resize', 'hashchange', 'pageshow', 'load'].forEach(type => window.addEventListener(type, refresh));
+  document.addEventListener('toggle', refresh, true);
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(refresh);
+    observer.observe(article);
+    observer.observe(bar);
+  }
+  refresh();
+})();
+</script>
+<!-- /course-reading -->
+</body></html>

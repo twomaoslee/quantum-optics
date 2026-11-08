@@ -126,9 +126,245 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles.css?v=2120fb756dc2">
-<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style></head>
+<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style>
+<!-- course-reading:head -->
+<style>
+/* Course reading layout, based on Lecture 8. Scope rules to the notes shell. */
+body.course-reading {
+  --notes-ink: #202b38;
+  --notes-heading: #183d67;
+  --notes-link: #1e5f96;
+  --notes-muted: #536679;
+  --notes-border: #dce4ec;
+  --notes-gray: #f3f6f9;
+  --notes-blue: #edf5fb;
+  --notes-font: "Source Han Sans SC", "Noto Sans CJK SC", "PingFang SC",
+    "Microsoft YaHei", system-ui, sans-serif;
+  --notes-top: 64px;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0 !important;
+  background: #fff;
+  color: var(--notes-ink);
+  font: 17px/1.9 var(--notes-font);
+}
+.course-reading :is(#quarto-header, #quarto-sidebar, #quarto-sidebar-glass,
+  #quarto-margin-sidebar, #mobile-toc, .lecture-mobile-toc, .course-site-return) {
+  display: none !important;
+}
+.course-reading-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #fff;
+  border-bottom: 1px solid var(--notes-border);
+}
+.course-reading-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2px 16px;
+  max-width: 1190px;
+  min-height: 63px;
+  margin-inline: auto;
+  padding: 8px 30px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.course-reading-bar a { color: var(--notes-heading); text-decoration: none; }
+.course-reading-bar a:hover { text-decoration: underline; }
+.course-reading-brand { font-weight: 700; }
+.course-reading #quarto-content {
+  display: grid !important;
+  grid-template-columns: 230px minmax(0, 820px);
+  align-items: start;
+  gap: 40px;
+  width: auto;
+  max-width: 1190px;
+  min-height: 0;
+  margin: 0 auto !important;
+  padding: 28px 30px 80px !important;
+}
+.course-reading #quarto-content > main.content {
+  display: block;
+  grid-area: 1 / 2 !important;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin: 0 !important;
+  padding: 0;
+}
+.course-reading #quarto-content > :is(footer, .page-navigation) {
+  grid-area: 2 / 2 !important;
+  min-width: 0;
+}
+.course-reading #quarto-content > .course-reading-toc {
+  grid-area: 1 / 1 !important;
+  position: sticky;
+  z-index: 1;
+  top: calc(var(--notes-top) + 16px);
+  max-height: calc(100dvh - var(--notes-top) - 32px);
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  padding-right: 12px;
+}
+.course-reading-toc-title {
+  color: var(--notes-muted);
+  font-size: 13px;
+  font-weight: 650;
+  margin: 8px 0 14px;
+}
+.course-reading-nav a {
+  display: block;
+  padding: 5px 9px;
+  border-left: 2px solid transparent;
+  border-radius: 0 5px 5px 0;
+  color: var(--notes-muted);
+  font: 13px/1.55 var(--notes-font);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.course-reading-nav a[data-level="3"] { padding-left: 20px; }
+.course-reading-nav a[data-level="4"] { padding-left: 32px; }
+.course-reading-nav a:hover { background: var(--notes-gray); color: var(--notes-heading); }
+.course-reading-nav a[aria-current="location"] {
+  background: var(--notes-blue);
+  border-left-color: var(--notes-link);
+  color: var(--notes-heading);
+  font-weight: 700;
+}
+.course-reading :is(.course-reading-nav a, .course-reading-bar a, .course-reading-menu summary):focus-visible {
+  outline: 2px solid var(--notes-link);
+  outline-offset: -2px;
+}
+.course-reading-menu { display: none; }
+.course-reading main :is(section[id], h2, h3, h4) {
+  scroll-margin-top: calc(var(--notes-top) + 16px);
+}
+.course-reading main :is(h1, h2, h3, h4) {
+  font-family: var(--notes-font);
+  color: var(--notes-heading);
+  line-height: 1.45;
+}
+.course-reading main h1 { font-size: clamp(28px, 3vw, 36px); font-weight: 750; }
+.course-reading #title-block-header {
+  margin: 0 0 24px;
+  padding: 0;
+  border: 0;
+}
+.course-reading main > .level1 > h1 { margin: 0 0 24px; }
+.course-reading-kicker {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--notes-heading);
+  font: 650 13px/1.6 var(--notes-font);
+  letter-spacing: .08em;
+}
+.course-reading .quarto-title .subtitle {
+  padding-left: 14px;
+  border-left: 3px solid var(--notes-link);
+  color: var(--notes-muted);
+  font-size: 17px;
+  font-weight: 400;
+}
+.course-reading main :is(section.level2 > h2, .course-reading-guide) {
+  margin: 56px 0 20px;
+  padding: 16px 0 0;
+  border: 0;
+  border-top: 1px solid var(--notes-border);
+  font-size: 26px;
+}
+.course-reading main :is(.level2.unnumbered:first-of-type > h2, .course-reading-guide) {
+  margin-top: 25px;
+  padding-top: 0;
+  border: 0;
+  font-size: 21px;
+}
+.course-reading main section.level3 > h3 { margin: 38px 0 13px; font-size: 20px; }
+.course-reading main section.level4 > h4 { font-size: 17px; }
+.course-reading main :is(.level1, .level2, .level3, .level4) { min-width: 0; }
+.course-reading main .header-section-number { color: inherit; }
+.course-reading main p { margin-block: .65rem 1rem; }
+.course-reading main strong { color: var(--notes-heading); }
+.course-reading main a { color: var(--notes-link); text-underline-offset: .15em; }
+.course-reading main figcaption { color: var(--notes-muted); font-size: .86em; line-height: 1.65; }
+.course-reading main :is(.callout, .story-step, .l02-core, .factor-challenge, .course-lab-launcher, blockquote) {
+  border-radius: 0 5px 5px 0;
+  background-color: var(--notes-gray);
+  border-left-color: #8eabc2;
+  box-shadow: none;
+}
+.course-reading main .callout .callout-header { background-color: var(--notes-blue); }
+.course-reading main :is(.math.display, mjx-container[display="true"]) {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.course-reading main mjx-assistive-mml { max-width: 100%; }
+.course-reading main img { max-width: 100%; }
+@media (min-width: 851px) and (max-width: 1100px) {
+  .course-reading #quarto-content {
+    grid-template-columns: 190px minmax(0, 820px);
+    gap: 28px;
+    padding-inline: 22px !important;
+  }
+}
+@media (max-width: 850px) {
+  .course-reading #quarto-content {
+    display: block !important;
+    max-width: 864px;
+    padding: 16px 22px 64px !important;
+  }
+  .course-reading-toc { display: none; }
+  .course-reading-menu {
+    display: block;
+    margin: 0 0 22px;
+    padding: 0;
+    border: 1px solid var(--notes-border);
+    border-radius: 6px;
+    background: #fff;
+  }
+  .course-reading-menu summary {
+    cursor: pointer;
+    padding: 9px 12px;
+    margin: 0 !important;
+    color: var(--notes-heading);
+    font-weight: 650;
+  }
+  .course-reading-menu nav {
+    max-height: 50dvh;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    padding: 0 8px 8px;
+  }
+  .course-reading-menu nav a { padding-block: 8px; }
+}
+@media (max-width: 560px) {
+  body.course-reading { font-size: 15.5px; line-height: 1.84; }
+  .course-reading-bar-inner { padding-inline: 16px; font-size: 13px; }
+  .course-reading #quarto-content { padding-inline: 16px !important; }
+  .course-reading main section.level2 > h2 { font-size: 23px; }
+  .course-reading main section.level3 > h3 { font-size: 18px; }
+  .course-reading main table { display: block; max-width: 100%; overflow-x: auto; }
+}
+@media print {
+  body.course-reading { color: #111; font-size: 11pt; line-height: 1.65; }
+  .course-reading :is(.course-reading-bar, .course-reading-toc, .course-reading-menu) { display: none !important; }
+  .course-reading #quarto-content { display: block !important; padding: 0 !important; }
+  .course-reading main :is(h1, h2, h3, h4) { break-after: avoid; }
+}
+</style>
+<!-- /course-reading -->
+</head>
 
-<body class="nav-sidebar docked quarto-light">
+<body class="course-reading nav-sidebar docked quarto-light">
+<!-- course-reading:bar -->
+<header class="course-reading-bar"><div class="course-reading-bar-inner"><a class="course-reading-brand" href="../index.html">量子光学 · 课程首页</a><a href="index.html">全课程目录与搜索</a></div></header>
+<!-- /course-reading -->
+
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -266,11 +502,185 @@ window.Quarto = {
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content"><a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>
+
+<!-- course-reading:toc -->
+<aside class="course-reading-toc"><div class="course-reading-toc-title">本讲目录</div><nav class="course-reading-nav" aria-label="本讲目录">
+<a href="#course-reading-intro" data-level="2">本讲导读</a>
+<a href="#sec-l01-start" data-level="2">1. 整数分解：从21开始</a>
+<a href="#sec-l01-rsa" data-level="3">1.1 RSA：为什么整数分解关系到信息安全？</a>
+<a href="#%E8%BE%93%E5%85%A5%E8%A7%84%E6%A8%A1%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%85%B3%E5%BF%83%E5%A2%9E%E9%95%BF%E8%A7%84%E5%BE%8B" data-level="3">1.2 输入规模：为什么要关心增长规律？</a>
+<a href="#%E6%9B%B4%E8%81%AA%E6%98%8E%E7%9A%84%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B8%8Eshor%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%94%B9%E5%8F%98" data-level="3">1.3 整数分解算法：从经典方法到Shor算法</a>
+<a href="#%E6%89%BE%E5%88%B0%E7%AD%94%E6%A1%88%E4%B8%8E%E6%A3%80%E6%9F%A5%E7%AD%94%E6%A1%88" data-level="4">1.3.2 整数分解与乘法验证：找到答案和检查答案</a>
+<a href="#rsa%E5%88%A9%E7%94%A8%E4%BA%86%E4%BB%80%E4%B9%88%E7%BB%93%E6%9E%84" data-level="4">1.3.3 RSA的数论结构：素数、模幂与密钥</a>
+<a href="#sec-l01-origins" data-level="2">2. 量子力学：从实验困难到叠加与纠缠</a>
+<a href="#%E5%8A%A0%E7%83%AD%E7%9A%84%E7%89%A9%E4%BD%93%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%91%E5%87%BA%E8%BF%99%E6%A0%B7%E7%9A%84%E5%85%89" data-level="3">2.1 黑体辐射：加热的物体，为什么发出这样的光？</a>
+<a href="#%E5%85%89%E7%9A%84%E9%A2%9C%E8%89%B2%E6%80%8E%E6%A0%B7%E5%86%B3%E5%AE%9A%E7%94%B5%E5%AD%90%E7%9A%84%E8%83%BD%E9%87%8F" data-level="3">2.2 光电效应：光的颜色，怎样决定电子的能量？</a>
+<a href="#%E7%A8%B3%E5%AE%9A%E7%9A%84%E5%8E%9F%E5%AD%90%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AA%E5%8F%91%E5%87%BA%E6%9F%90%E4%BA%9B%E9%A2%9C%E8%89%B2" data-level="3">2.3 原子能级与线状光谱：原子为什么只发出某些颜色？</a>
+<a href="#sec-l01-matter" data-level="3">2.4 物质波：让电子也参与干涉</a>
+<a href="#%E5%AE%9E%E9%AA%8C%E8%AF%81%E6%8D%AE%E5%85%88%E6%9C%89%E7%94%B5%E5%AD%90%E8%A1%8D%E5%B0%84%E5%86%8D%E7%9C%8B%E5%8D%95%E7%94%B5%E5%AD%90%E7%B4%AF%E7%A7%AF" data-level="3">2.5 实验证据：先有电子衍射，再看单电子累积</a>
+<a href="#sec-l01-interference" data-level="3">2.6 单电子干涉：一个个电子怎样形成条纹？</a>
+<a href="#%E5%85%88%E7%9C%8B%E7%9C%8B%E7%94%B5%E5%AD%90%E7%BB%8F%E8%BF%87%E4%BA%86%E4%BB%80%E4%B9%88" data-level="4">2.6.1 电子双棱镜：电子经过怎样的干涉装置？</a>
+<a href="#%E6%8A%8A%E7%94%B5%E5%AD%90%E6%9D%9F%E5%87%8F%E5%BC%B1%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88" data-level="4">2.6.2 逐点累积实验：一次一个电子，还会有条纹吗？</a>
+<a href="#%E5%8A%A8%E7%94%BB%E5%9B%9E%E9%A1%BE%E5%8F%8C%E7%BC%9D%E4%B8%AD%E7%9A%84%E5%8D%95%E6%AC%A1%E4%BA%8B%E4%BB%B6%E4%B8%8E%E6%95%B4%E4%BD%93%E5%88%86%E5%B8%83" data-level="4">2.6.3 动画回顾：双缝中的单次事件与整体分布</a>
+<a href="#sec-l01-framework" data-level="3">2.7 量子力学的基本描述：状态、演化与测量</a>
+<a href="#%E8%96%9B%E5%AE%9A%E8%B0%94%E6%96%B9%E7%A8%8B%E7%8A%B6%E6%80%81%E6%80%8E%E6%A0%B7%E9%9A%8F%E6%97%B6%E9%97%B4%E5%8F%98%E5%8C%96" data-level="4">2.7.1 薛定谔方程：状态怎样随时间变化？</a>
+<a href="#%E7%8E%BB%E6%81%A9%E8%A7%84%E5%88%99%E6%B3%A2%E5%87%BD%E6%95%B0%E6%80%8E%E6%A0%B7%E8%81%94%E7%B3%BB%E6%8E%A2%E6%B5%8B%E7%BB%93%E6%9E%9C" data-level="4">2.7.2 玻恩规则：波函数怎样联系探测结果？</a>
+<a href="#%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E5%85%B3%E7%B3%BB%E5%90%8C%E4%B8%80%E9%87%8F%E5%AD%90%E6%80%81%E5%85%81%E8%AE%B8%E6%80%8E%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83" data-level="4">2.7.3 不确定性关系：同一量子态允许怎样的分布？</a>
+<a href="#%E5%9B%9E%E6%94%B6%E5%8E%86%E5%8F%B2%E4%BB%8E%E9%87%8F%E5%AD%90%E5%81%87%E8%AE%BE%E5%88%B0%E7%BB%9F%E4%B8%80%E7%90%86%E8%AE%BA" data-level="4">2.7.4 回收历史：从量子假设到统一理论</a>
+<a href="#sec-l01-history-reading" data-level="4">2.7.5 历史背景：更多量子力学的故事</a>
+<a href="#sec-l01-superposition" data-level="3">2.8 叠加态：相干的两路贡献怎样改变结果？</a>
+<a href="#%E4%BB%8E%E8%AE%B0%E5%BD%95%E6%AC%A1%E6%95%B0%E5%88%B0%E6%8E%A2%E6%B5%8B%E6%A6%82%E7%8E%87" data-level="4">2.8.1 探测概率：从电子计数读出统计规律</a>
+<a href="#%E4%B8%80%E4%B8%AA%E5%B8%A6%E6%9C%89%E6%96%B9%E5%90%91%E7%9A%84%E6%95%B0" data-level="4">2.8.2 概率幅：从光强分布到电子的探测概率</a>
+<a href="#%E4%BA%B2%E6%89%8B%E7%AE%97%E5%87%BA%E7%9B%B8%E9%95%BF%E4%B8%8E%E7%9B%B8%E6%B6%88" data-level="4">2.8.3 相长与相消干涉：相位差怎样改变概率？</a>
+<a href="#%E4%BA%AE%E5%A4%84%E5%A2%9E%E5%8A%A0%E7%9A%84%E6%A6%82%E7%8E%87%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5" data-level="4">2.8.4 概率归一化：亮处增加的概率从哪里来？</a>
+<a href="#%E7%9B%B8%E5%B9%B2%E5%8F%A0%E5%8A%A0%E4%B8%8E%E6%A6%82%E7%8E%87%E6%B7%B7%E5%90%88%E4%BC%9A%E7%BB%99%E5%87%BA%E6%80%8E%E6%A0%B7%E4%B8%8D%E5%90%8C%E7%9A%84%E8%AE%B0%E5%BD%95" data-level="4">2.8.5 相干叠加与概率混合：两种制备的记录有何不同？</a>
+<a href="#sec-l01-measurement" data-level="3">2.9 量子测量：从微观叠加到宏观记录</a>
+<a href="#%E5%9B%9E%E5%88%B0%E7%9C%9F%E5%AE%9E%E7%9A%84%E6%8E%A2%E6%B5%8B%E5%99%A8" data-level="4">2.9.1 探测与退相干：路径记录怎样影响干涉？</a>
+<a href="#sec-l01-entanglement" data-level="3">2.10 量子纠缠：两个系统共同拥有的状态</a>
+<a href="#%E4%B8%A4%E4%B8%AA%E5%85%89%E5%AD%90%E7%9A%84%E7%9B%B8%E5%B9%B2%E8%81%94%E5%90%88%E6%80%81" data-level="4">2.10.1 两个光子的相干联合态</a>
+<a href="#%E4%BB%8E%E4%B8%80%E5%8F%8C%E6%89%8B%E5%A5%97%E8%AE%A4%E8%AF%86%E6%99%AE%E9%80%9A%E5%85%B3%E8%81%94" data-level="4">2.10.2 经典关联：一双手套的左右配对</a>
+<a href="#sec-l01-entanglement-observation" data-level="4">2.10.3 纠缠与普通配对：怎样用测量区分？</a>
+<a href="#%E5%9B%9B%E4%B8%AA%E8%81%94%E5%90%88%E6%A0%87%E7%AD%BE" data-level="4">2.10.4 联合态与纠缠态：两个量子比特怎样描述？</a>
+<a href="#%E6%95%B4%E4%BD%93%E7%9A%84%E7%9B%B8%E4%BD%8D%E6%80%8E%E6%A0%B7%E5%87%BA%E7%8E%B0%E5%9C%A8%E8%AE%B0%E5%BD%95%E9%87%8C" data-level="4">2.10.5 纠缠与概率混合：换一组测量基，关联有何不同？</a>
+<a href="#sec-l01-bell" data-level="3">2.11 Bell不等式：局域关联的界限与量子违背</a>
+<a href="#epr%E6%8F%90%E5%87%BA%E7%9A%84%E9%97%AE%E9%A2%98" data-level="4">2.11.1 EPR论证：量子力学的描述完整吗？</a>
+<a href="#%E5%AE%9E%E9%AA%8C%E6%80%8E%E6%A0%B7%E8%AE%B0%E5%BD%95%E5%85%B3%E8%81%94" data-level="4">2.11.2 关联函数：怎样统计两端的测量结果？</a>
+<a href="#%E5%B1%80%E5%9F%9F%E7%95%8C%E9%99%90%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5" data-level="4">2.11.3 CHSH不等式：局域模型的界限从哪里来？</a>
+<a href="#%E9%87%8F%E5%AD%90%E7%90%86%E8%AE%BA%E7%BB%99%E5%87%BA%E4%BB%80%E4%B9%88%E7%BB%93%E6%9E%9C" data-level="4">2.11.4 CHSH的量子违背：纠缠态预言怎样的关联？</a>
+<a href="#%E4%BB%8E%E7%BA%B8%E4%B8%8A%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%88%B0%E5%AE%9E%E9%AA%8C%E5%AE%A4" data-level="4">2.11.6 Bell检验：实验怎样检验局域界限？</a>
+<a href="#%E6%AF%8F%E4%B8%80%E7%AB%AF%E5%8D%95%E7%8B%AC%E7%9C%8B%E4%BC%9A%E7%9C%8B%E8%A7%81%E4%BB%80%E4%B9%88" data-level="4">2.11.7 本地统计与无信号性：每一端单独看见什么？</a>
+<a href="#sec-l01-quantum-information" data-level="2">3. 量子信息：从联合态到计算任务</a>
+<a href="#sec-l01-qubit" data-level="3">3.1 量子比特：两个状态与它们之间的相位</a>
+<a href="#%E4%B8%A4%E4%B8%AA%E6%A6%82%E7%8E%87%E8%BF%98%E6%B2%A1%E6%9C%89%E7%94%A8%E5%AE%8C%E6%80%81%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF" data-level="4">3.1.1 量子比特的相对相位：相同概率背后有何不同？</a>
+<a href="#%E6%8D%A2%E4%B8%80%E7%BB%84%E5%9F%BA%E4%BA%B2%E6%89%8B%E6%A3%80%E6%9F%A5%E7%9B%B8%E4%BD%8D%E7%9A%84%E5%90%8E%E6%9E%9C" data-level="4">3.1.2 测量基的变换：怎样读出相对相位？</a>
+<a href="#sec-l01-multi-qubit" data-level="3">3.2 多个量子比特：叠加的是联合状态</a>
+<a href="#sec-l01-operations" data-level="3">3.3 量子操作：制备、控制，再读出</a>
+<a href="#sec-l01-advantage" data-level="3">3.4 经典波也能干涉，量子优势在哪里？</a>
+<a href="#sec-l01-information" data-level="3">3.5 量子信息：量子规律怎样改变信息处理？</a>
+<a href="#sec-shor" data-level="3">3.6 Shor算法：从周期6找回21的因子</a>
+<a href="#%E5%85%88%E8%A1%A5%E9%BD%90%E6%A8%A1%E8%BF%90%E7%AE%97" data-level="4">3.6.1 模运算与阶：余数序列为什么会重复？</a>
+<a href="#%E5%91%A8%E6%9C%9F%E6%80%8E%E6%A0%B7%E5%8F%98%E6%88%90%E5%9B%A0%E5%AD%90" data-level="4">3.6.2 从阶到因子：用最大公因数完成分解</a>
+<a href="#%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97%E5%9C%A8%E4%BB%80%E4%B9%88%E5%9C%B0%E6%96%B9%E8%BF%9B%E5%85%A5" data-level="4">3.6.3 量子求阶：Shor算法中量子计算负责哪一步？</a>
+<a href="#%E5%85%88%E8%AE%A9%E5%91%A8%E6%9C%9F%E8%BF%9B%E5%85%A5%E8%81%94%E5%90%88%E6%80%81" data-level="4">3.6.4 模幂运算：把周期写入两个寄存器的联合态</a>
+<a href="#%E5%86%8D%E6%8A%8A%E5%91%A8%E6%9C%9F%E8%BD%AC%E6%88%90%E6%A6%82%E7%8E%87%E5%B3%B0" data-level="4">3.6.5 量子傅里叶变换：把周期转成测量概率峰</a>
+<a href="#shor%E7%AE%97%E6%B3%95%E7%9A%84%E6%84%8F%E4%B9%89" data-level="4">3.6.6 Shor算法的意义</a>
+<a href="#sec-l01-outlook" data-level="2">4. 光与控制：把量子算法落实到实验</a>
+<a href="#%E4%B8%80%E5%8F%B0%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97%E7%B3%BB%E7%BB%9F%E5%8C%85%E5%90%AB%E4%BB%80%E4%B9%88" data-level="3">4.1 一台量子计算系统包含什么？</a>
+<a href="#%E4%B8%8D%E5%90%8C%E7%A1%AC%E4%BB%B6%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%A0%B7%E7%9A%84%E6%93%8D%E4%BD%9C%E4%BB%BB%E5%8A%A1" data-level="3">4.2 不同硬件，实现同样的操作任务</a>
+<a href="#%E7%94%A8%E5%85%89%E4%B8%8E%E5%8E%9F%E5%AD%90%E8%BF%9E%E6%8E%A5%E5%90%8E%E7%BB%AD%E8%AF%BE%E7%A8%8B" data-level="3">4.3 用光与原子连接后续课程</a>
+<a href="#sec-l01-exercises" data-level="2">5. 课后自查：概念与计算</a>
+<a href="#%E6%A0%B8%E5%BF%83%E8%87%AA%E6%9F%A5" data-level="3">5.1 核心自查</a>
+<a href="#%E6%96%B9%E7%A8%8B%E6%A6%82%E7%8E%87%E4%B8%8E%E5%AE%9E%E9%AA%8C%E5%90%84%E5%9B%9E%E7%AD%94%E4%BB%80%E4%B9%88" data-level="4">1．方程、概率与实验各回答什么？</a>
+<a href="#%E5%8F%A0%E5%8A%A0%E6%80%81%E4%B8%8E%E9%9A%8F%E6%9C%BA%E6%B7%B7%E5%90%88%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C" data-level="4">2．叠加态与随机混合为什么不同？</a>
+<a href="#%E5%85%AB%E4%B8%AA%E5%9F%BA%E7%9F%A2%E6%98%AF%E5%90%A6%E5%B0%B1%E6%98%AF%E5%85%AB%E4%B8%AA%E5%9F%BA%E6%80%81" data-level="4">3．八个基矢，是否就是八个基态？</a>
+<a href="#%E7%BB%93%E6%9E%9C%E6%80%BB%E6%98%AF%E7%9B%B8%E5%90%8C%E8%83%BD%E8%AF%81%E6%98%8E%E7%BA%A0%E7%BC%A0%E5%90%97" data-level="4">4．结果总是相同，能证明纠缠吗？</a>
+<a href="#%E7%BB%8F%E5%85%B8%E6%B3%A2%E4%B9%9F%E4%BC%9A%E5%B9%B2%E6%B6%89%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97%E4%B8%BA%E4%BD%95%E5%8F%AF%E8%83%BD%E6%9C%89%E4%BC%98%E5%8A%BF" data-level="4">5．经典波也会干涉，量子计算为何可能有优势？</a>
+<a href="#%E4%BB%8E%E5%91%A8%E6%9C%9F%E5%88%B0%E5%9B%A0%E5%AD%90%E5%93%AA%E4%B8%80%E6%AD%A5%E4%BD%93%E7%8E%B0%E9%87%8F%E5%AD%90%E7%AE%97%E6%B3%95%E7%9A%84%E4%BB%BB%E5%8A%A1" data-level="4">6．从周期到因子，哪一步体现量子算法的任务？</a>
+<a href="#%E8%AE%A1%E7%AE%97%E9%80%89%E5%81%9A" data-level="3">5.2 计算选做</a>
+<a href="#%E9%80%89%E5%81%9A1%E9%BB%91%E4%BD%93%E5%9B%BE%E7%9A%84%E7%9F%AD%E6%B3%A2%E7%AB%AF" data-level="4">选做1．黑体图的短波端</a>
+<a href="#%E5%85%89%E7%94%B5%E6%95%88%E5%BA%94%E7%9A%84%E4%B8%80%E4%B8%AA%E6%96%B0%E6%95%B0%E5%80%BC" data-level="4">选做2．光电效应：计算光子能量与电子动能</a>
+<a href="#%E9%80%89%E5%81%9A3%E4%BB%8E%E8%83%BD%E7%BA%A7%E5%B7%AE%E9%A2%84%E6%B5%8B%E8%B0%B1%E7%BA%BF" data-level="4">选做3．从能级差预测谱线</a>
+<a href="#%E6%8A%8A%E7%9B%B8%E4%BD%8D%E8%BD%AC%E5%88%B0%E4%B8%89%E5%88%86%E4%B9%8B%E4%B8%80%E5%8D%8A%E5%9C%88" data-level="4">选做4．两路干涉：相位差为60度时的概率</a>
+<a href="#%E5%90%8C%E6%A0%B7%E7%9A%84%E9%9B%B6%E4%B8%80%E6%A6%82%E7%8E%87%E4%B8%8D%E5%90%8C%E7%9A%84%E7%9B%B8%E4%BD%8D" data-level="4">选做5．量子比特：相同测量概率与不同相对相位</a>
+<a href="#%E6%9D%A1%E4%BB%B6%E7%BB%93%E6%9E%9C%E4%B8%8E%E6%9C%AC%E5%9C%B0%E7%BB%93%E6%9E%9C" data-level="4">选做6．纠缠态测量：条件概率与本地概率</a>
+<a href="#%E9%80%89%E5%81%9A7%E6%9C%89%E7%BA%A0%E7%BC%A0%E4%BB%BB%E6%84%8F%E8%A7%92%E5%BA%A6%E9%83%BD%E7%BB%99bell%E8%BF%9D%E8%83%8C%E5%90%97" data-level="4">选做7．有纠缠，任意角度都给Bell违背吗？</a>
+<a href="#%E6%9B%B4%E6%8D%A2%E5%BA%95%E6%95%B0%E4%BB%8D%E7%84%B6%E5%88%86%E8%A7%A321" data-level="4">选做8．求阶与分解：更换底数，分解21</a>
+<a href="#%E8%AF%BB%E4%B8%80%E6%AC%A1%E5%82%85%E9%87%8C%E5%8F%B6%E6%A6%82%E7%8E%87%E5%9B%BE" data-level="4">选做9．量子傅里叶变换：从概率峰读取周期信息</a>
+<a href="#sec-l01-reading" data-level="2">图像与进一步阅读</a>
+</nav></aside>
+<!-- /course-reading -->
+<main class="content page-columns page-full" id="quarto-document-content">
+<!-- course-reading:menu -->
+<details class="course-reading-menu"><summary>本讲目录</summary><nav class="course-reading-nav" aria-label="本讲目录">
+<a href="#course-reading-intro" data-level="2">本讲导读</a>
+<a href="#sec-l01-start" data-level="2">1. 整数分解：从21开始</a>
+<a href="#sec-l01-rsa" data-level="3">1.1 RSA：为什么整数分解关系到信息安全？</a>
+<a href="#%E8%BE%93%E5%85%A5%E8%A7%84%E6%A8%A1%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%85%B3%E5%BF%83%E5%A2%9E%E9%95%BF%E8%A7%84%E5%BE%8B" data-level="3">1.2 输入规模：为什么要关心增长规律？</a>
+<a href="#%E6%9B%B4%E8%81%AA%E6%98%8E%E7%9A%84%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B8%8Eshor%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%94%B9%E5%8F%98" data-level="3">1.3 整数分解算法：从经典方法到Shor算法</a>
+<a href="#%E6%89%BE%E5%88%B0%E7%AD%94%E6%A1%88%E4%B8%8E%E6%A3%80%E6%9F%A5%E7%AD%94%E6%A1%88" data-level="4">1.3.2 整数分解与乘法验证：找到答案和检查答案</a>
+<a href="#rsa%E5%88%A9%E7%94%A8%E4%BA%86%E4%BB%80%E4%B9%88%E7%BB%93%E6%9E%84" data-level="4">1.3.3 RSA的数论结构：素数、模幂与密钥</a>
+<a href="#sec-l01-origins" data-level="2">2. 量子力学：从实验困难到叠加与纠缠</a>
+<a href="#%E5%8A%A0%E7%83%AD%E7%9A%84%E7%89%A9%E4%BD%93%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%91%E5%87%BA%E8%BF%99%E6%A0%B7%E7%9A%84%E5%85%89" data-level="3">2.1 黑体辐射：加热的物体，为什么发出这样的光？</a>
+<a href="#%E5%85%89%E7%9A%84%E9%A2%9C%E8%89%B2%E6%80%8E%E6%A0%B7%E5%86%B3%E5%AE%9A%E7%94%B5%E5%AD%90%E7%9A%84%E8%83%BD%E9%87%8F" data-level="3">2.2 光电效应：光的颜色，怎样决定电子的能量？</a>
+<a href="#%E7%A8%B3%E5%AE%9A%E7%9A%84%E5%8E%9F%E5%AD%90%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AA%E5%8F%91%E5%87%BA%E6%9F%90%E4%BA%9B%E9%A2%9C%E8%89%B2" data-level="3">2.3 原子能级与线状光谱：原子为什么只发出某些颜色？</a>
+<a href="#sec-l01-matter" data-level="3">2.4 物质波：让电子也参与干涉</a>
+<a href="#%E5%AE%9E%E9%AA%8C%E8%AF%81%E6%8D%AE%E5%85%88%E6%9C%89%E7%94%B5%E5%AD%90%E8%A1%8D%E5%B0%84%E5%86%8D%E7%9C%8B%E5%8D%95%E7%94%B5%E5%AD%90%E7%B4%AF%E7%A7%AF" data-level="3">2.5 实验证据：先有电子衍射，再看单电子累积</a>
+<a href="#sec-l01-interference" data-level="3">2.6 单电子干涉：一个个电子怎样形成条纹？</a>
+<a href="#%E5%85%88%E7%9C%8B%E7%9C%8B%E7%94%B5%E5%AD%90%E7%BB%8F%E8%BF%87%E4%BA%86%E4%BB%80%E4%B9%88" data-level="4">2.6.1 电子双棱镜：电子经过怎样的干涉装置？</a>
+<a href="#%E6%8A%8A%E7%94%B5%E5%AD%90%E6%9D%9F%E5%87%8F%E5%BC%B1%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88" data-level="4">2.6.2 逐点累积实验：一次一个电子，还会有条纹吗？</a>
+<a href="#%E5%8A%A8%E7%94%BB%E5%9B%9E%E9%A1%BE%E5%8F%8C%E7%BC%9D%E4%B8%AD%E7%9A%84%E5%8D%95%E6%AC%A1%E4%BA%8B%E4%BB%B6%E4%B8%8E%E6%95%B4%E4%BD%93%E5%88%86%E5%B8%83" data-level="4">2.6.3 动画回顾：双缝中的单次事件与整体分布</a>
+<a href="#sec-l01-framework" data-level="3">2.7 量子力学的基本描述：状态、演化与测量</a>
+<a href="#%E8%96%9B%E5%AE%9A%E8%B0%94%E6%96%B9%E7%A8%8B%E7%8A%B6%E6%80%81%E6%80%8E%E6%A0%B7%E9%9A%8F%E6%97%B6%E9%97%B4%E5%8F%98%E5%8C%96" data-level="4">2.7.1 薛定谔方程：状态怎样随时间变化？</a>
+<a href="#%E7%8E%BB%E6%81%A9%E8%A7%84%E5%88%99%E6%B3%A2%E5%87%BD%E6%95%B0%E6%80%8E%E6%A0%B7%E8%81%94%E7%B3%BB%E6%8E%A2%E6%B5%8B%E7%BB%93%E6%9E%9C" data-level="4">2.7.2 玻恩规则：波函数怎样联系探测结果？</a>
+<a href="#%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E5%85%B3%E7%B3%BB%E5%90%8C%E4%B8%80%E9%87%8F%E5%AD%90%E6%80%81%E5%85%81%E8%AE%B8%E6%80%8E%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83" data-level="4">2.7.3 不确定性关系：同一量子态允许怎样的分布？</a>
+<a href="#%E5%9B%9E%E6%94%B6%E5%8E%86%E5%8F%B2%E4%BB%8E%E9%87%8F%E5%AD%90%E5%81%87%E8%AE%BE%E5%88%B0%E7%BB%9F%E4%B8%80%E7%90%86%E8%AE%BA" data-level="4">2.7.4 回收历史：从量子假设到统一理论</a>
+<a href="#sec-l01-history-reading" data-level="4">2.7.5 历史背景：更多量子力学的故事</a>
+<a href="#sec-l01-superposition" data-level="3">2.8 叠加态：相干的两路贡献怎样改变结果？</a>
+<a href="#%E4%BB%8E%E8%AE%B0%E5%BD%95%E6%AC%A1%E6%95%B0%E5%88%B0%E6%8E%A2%E6%B5%8B%E6%A6%82%E7%8E%87" data-level="4">2.8.1 探测概率：从电子计数读出统计规律</a>
+<a href="#%E4%B8%80%E4%B8%AA%E5%B8%A6%E6%9C%89%E6%96%B9%E5%90%91%E7%9A%84%E6%95%B0" data-level="4">2.8.2 概率幅：从光强分布到电子的探测概率</a>
+<a href="#%E4%BA%B2%E6%89%8B%E7%AE%97%E5%87%BA%E7%9B%B8%E9%95%BF%E4%B8%8E%E7%9B%B8%E6%B6%88" data-level="4">2.8.3 相长与相消干涉：相位差怎样改变概率？</a>
+<a href="#%E4%BA%AE%E5%A4%84%E5%A2%9E%E5%8A%A0%E7%9A%84%E6%A6%82%E7%8E%87%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5" data-level="4">2.8.4 概率归一化：亮处增加的概率从哪里来？</a>
+<a href="#%E7%9B%B8%E5%B9%B2%E5%8F%A0%E5%8A%A0%E4%B8%8E%E6%A6%82%E7%8E%87%E6%B7%B7%E5%90%88%E4%BC%9A%E7%BB%99%E5%87%BA%E6%80%8E%E6%A0%B7%E4%B8%8D%E5%90%8C%E7%9A%84%E8%AE%B0%E5%BD%95" data-level="4">2.8.5 相干叠加与概率混合：两种制备的记录有何不同？</a>
+<a href="#sec-l01-measurement" data-level="3">2.9 量子测量：从微观叠加到宏观记录</a>
+<a href="#%E5%9B%9E%E5%88%B0%E7%9C%9F%E5%AE%9E%E7%9A%84%E6%8E%A2%E6%B5%8B%E5%99%A8" data-level="4">2.9.1 探测与退相干：路径记录怎样影响干涉？</a>
+<a href="#sec-l01-entanglement" data-level="3">2.10 量子纠缠：两个系统共同拥有的状态</a>
+<a href="#%E4%B8%A4%E4%B8%AA%E5%85%89%E5%AD%90%E7%9A%84%E7%9B%B8%E5%B9%B2%E8%81%94%E5%90%88%E6%80%81" data-level="4">2.10.1 两个光子的相干联合态</a>
+<a href="#%E4%BB%8E%E4%B8%80%E5%8F%8C%E6%89%8B%E5%A5%97%E8%AE%A4%E8%AF%86%E6%99%AE%E9%80%9A%E5%85%B3%E8%81%94" data-level="4">2.10.2 经典关联：一双手套的左右配对</a>
+<a href="#sec-l01-entanglement-observation" data-level="4">2.10.3 纠缠与普通配对：怎样用测量区分？</a>
+<a href="#%E5%9B%9B%E4%B8%AA%E8%81%94%E5%90%88%E6%A0%87%E7%AD%BE" data-level="4">2.10.4 联合态与纠缠态：两个量子比特怎样描述？</a>
+<a href="#%E6%95%B4%E4%BD%93%E7%9A%84%E7%9B%B8%E4%BD%8D%E6%80%8E%E6%A0%B7%E5%87%BA%E7%8E%B0%E5%9C%A8%E8%AE%B0%E5%BD%95%E9%87%8C" data-level="4">2.10.5 纠缠与概率混合：换一组测量基，关联有何不同？</a>
+<a href="#sec-l01-bell" data-level="3">2.11 Bell不等式：局域关联的界限与量子违背</a>
+<a href="#epr%E6%8F%90%E5%87%BA%E7%9A%84%E9%97%AE%E9%A2%98" data-level="4">2.11.1 EPR论证：量子力学的描述完整吗？</a>
+<a href="#%E5%AE%9E%E9%AA%8C%E6%80%8E%E6%A0%B7%E8%AE%B0%E5%BD%95%E5%85%B3%E8%81%94" data-level="4">2.11.2 关联函数：怎样统计两端的测量结果？</a>
+<a href="#%E5%B1%80%E5%9F%9F%E7%95%8C%E9%99%90%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5" data-level="4">2.11.3 CHSH不等式：局域模型的界限从哪里来？</a>
+<a href="#%E9%87%8F%E5%AD%90%E7%90%86%E8%AE%BA%E7%BB%99%E5%87%BA%E4%BB%80%E4%B9%88%E7%BB%93%E6%9E%9C" data-level="4">2.11.4 CHSH的量子违背：纠缠态预言怎样的关联？</a>
+<a href="#%E4%BB%8E%E7%BA%B8%E4%B8%8A%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%88%B0%E5%AE%9E%E9%AA%8C%E5%AE%A4" data-level="4">2.11.6 Bell检验：实验怎样检验局域界限？</a>
+<a href="#%E6%AF%8F%E4%B8%80%E7%AB%AF%E5%8D%95%E7%8B%AC%E7%9C%8B%E4%BC%9A%E7%9C%8B%E8%A7%81%E4%BB%80%E4%B9%88" data-level="4">2.11.7 本地统计与无信号性：每一端单独看见什么？</a>
+<a href="#sec-l01-quantum-information" data-level="2">3. 量子信息：从联合态到计算任务</a>
+<a href="#sec-l01-qubit" data-level="3">3.1 量子比特：两个状态与它们之间的相位</a>
+<a href="#%E4%B8%A4%E4%B8%AA%E6%A6%82%E7%8E%87%E8%BF%98%E6%B2%A1%E6%9C%89%E7%94%A8%E5%AE%8C%E6%80%81%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF" data-level="4">3.1.1 量子比特的相对相位：相同概率背后有何不同？</a>
+<a href="#%E6%8D%A2%E4%B8%80%E7%BB%84%E5%9F%BA%E4%BA%B2%E6%89%8B%E6%A3%80%E6%9F%A5%E7%9B%B8%E4%BD%8D%E7%9A%84%E5%90%8E%E6%9E%9C" data-level="4">3.1.2 测量基的变换：怎样读出相对相位？</a>
+<a href="#sec-l01-multi-qubit" data-level="3">3.2 多个量子比特：叠加的是联合状态</a>
+<a href="#sec-l01-operations" data-level="3">3.3 量子操作：制备、控制，再读出</a>
+<a href="#sec-l01-advantage" data-level="3">3.4 经典波也能干涉，量子优势在哪里？</a>
+<a href="#sec-l01-information" data-level="3">3.5 量子信息：量子规律怎样改变信息处理？</a>
+<a href="#sec-shor" data-level="3">3.6 Shor算法：从周期6找回21的因子</a>
+<a href="#%E5%85%88%E8%A1%A5%E9%BD%90%E6%A8%A1%E8%BF%90%E7%AE%97" data-level="4">3.6.1 模运算与阶：余数序列为什么会重复？</a>
+<a href="#%E5%91%A8%E6%9C%9F%E6%80%8E%E6%A0%B7%E5%8F%98%E6%88%90%E5%9B%A0%E5%AD%90" data-level="4">3.6.2 从阶到因子：用最大公因数完成分解</a>
+<a href="#%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97%E5%9C%A8%E4%BB%80%E4%B9%88%E5%9C%B0%E6%96%B9%E8%BF%9B%E5%85%A5" data-level="4">3.6.3 量子求阶：Shor算法中量子计算负责哪一步？</a>
+<a href="#%E5%85%88%E8%AE%A9%E5%91%A8%E6%9C%9F%E8%BF%9B%E5%85%A5%E8%81%94%E5%90%88%E6%80%81" data-level="4">3.6.4 模幂运算：把周期写入两个寄存器的联合态</a>
+<a href="#%E5%86%8D%E6%8A%8A%E5%91%A8%E6%9C%9F%E8%BD%AC%E6%88%90%E6%A6%82%E7%8E%87%E5%B3%B0" data-level="4">3.6.5 量子傅里叶变换：把周期转成测量概率峰</a>
+<a href="#shor%E7%AE%97%E6%B3%95%E7%9A%84%E6%84%8F%E4%B9%89" data-level="4">3.6.6 Shor算法的意义</a>
+<a href="#sec-l01-outlook" data-level="2">4. 光与控制：把量子算法落实到实验</a>
+<a href="#%E4%B8%80%E5%8F%B0%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97%E7%B3%BB%E7%BB%9F%E5%8C%85%E5%90%AB%E4%BB%80%E4%B9%88" data-level="3">4.1 一台量子计算系统包含什么？</a>
+<a href="#%E4%B8%8D%E5%90%8C%E7%A1%AC%E4%BB%B6%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%A0%B7%E7%9A%84%E6%93%8D%E4%BD%9C%E4%BB%BB%E5%8A%A1" data-level="3">4.2 不同硬件，实现同样的操作任务</a>
+<a href="#%E7%94%A8%E5%85%89%E4%B8%8E%E5%8E%9F%E5%AD%90%E8%BF%9E%E6%8E%A5%E5%90%8E%E7%BB%AD%E8%AF%BE%E7%A8%8B" data-level="3">4.3 用光与原子连接后续课程</a>
+<a href="#sec-l01-exercises" data-level="2">5. 课后自查：概念与计算</a>
+<a href="#%E6%A0%B8%E5%BF%83%E8%87%AA%E6%9F%A5" data-level="3">5.1 核心自查</a>
+<a href="#%E6%96%B9%E7%A8%8B%E6%A6%82%E7%8E%87%E4%B8%8E%E5%AE%9E%E9%AA%8C%E5%90%84%E5%9B%9E%E7%AD%94%E4%BB%80%E4%B9%88" data-level="4">1．方程、概率与实验各回答什么？</a>
+<a href="#%E5%8F%A0%E5%8A%A0%E6%80%81%E4%B8%8E%E9%9A%8F%E6%9C%BA%E6%B7%B7%E5%90%88%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C" data-level="4">2．叠加态与随机混合为什么不同？</a>
+<a href="#%E5%85%AB%E4%B8%AA%E5%9F%BA%E7%9F%A2%E6%98%AF%E5%90%A6%E5%B0%B1%E6%98%AF%E5%85%AB%E4%B8%AA%E5%9F%BA%E6%80%81" data-level="4">3．八个基矢，是否就是八个基态？</a>
+<a href="#%E7%BB%93%E6%9E%9C%E6%80%BB%E6%98%AF%E7%9B%B8%E5%90%8C%E8%83%BD%E8%AF%81%E6%98%8E%E7%BA%A0%E7%BC%A0%E5%90%97" data-level="4">4．结果总是相同，能证明纠缠吗？</a>
+<a href="#%E7%BB%8F%E5%85%B8%E6%B3%A2%E4%B9%9F%E4%BC%9A%E5%B9%B2%E6%B6%89%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97%E4%B8%BA%E4%BD%95%E5%8F%AF%E8%83%BD%E6%9C%89%E4%BC%98%E5%8A%BF" data-level="4">5．经典波也会干涉，量子计算为何可能有优势？</a>
+<a href="#%E4%BB%8E%E5%91%A8%E6%9C%9F%E5%88%B0%E5%9B%A0%E5%AD%90%E5%93%AA%E4%B8%80%E6%AD%A5%E4%BD%93%E7%8E%B0%E9%87%8F%E5%AD%90%E7%AE%97%E6%B3%95%E7%9A%84%E4%BB%BB%E5%8A%A1" data-level="4">6．从周期到因子，哪一步体现量子算法的任务？</a>
+<a href="#%E8%AE%A1%E7%AE%97%E9%80%89%E5%81%9A" data-level="3">5.2 计算选做</a>
+<a href="#%E9%80%89%E5%81%9A1%E9%BB%91%E4%BD%93%E5%9B%BE%E7%9A%84%E7%9F%AD%E6%B3%A2%E7%AB%AF" data-level="4">选做1．黑体图的短波端</a>
+<a href="#%E5%85%89%E7%94%B5%E6%95%88%E5%BA%94%E7%9A%84%E4%B8%80%E4%B8%AA%E6%96%B0%E6%95%B0%E5%80%BC" data-level="4">选做2．光电效应：计算光子能量与电子动能</a>
+<a href="#%E9%80%89%E5%81%9A3%E4%BB%8E%E8%83%BD%E7%BA%A7%E5%B7%AE%E9%A2%84%E6%B5%8B%E8%B0%B1%E7%BA%BF" data-level="4">选做3．从能级差预测谱线</a>
+<a href="#%E6%8A%8A%E7%9B%B8%E4%BD%8D%E8%BD%AC%E5%88%B0%E4%B8%89%E5%88%86%E4%B9%8B%E4%B8%80%E5%8D%8A%E5%9C%88" data-level="4">选做4．两路干涉：相位差为60度时的概率</a>
+<a href="#%E5%90%8C%E6%A0%B7%E7%9A%84%E9%9B%B6%E4%B8%80%E6%A6%82%E7%8E%87%E4%B8%8D%E5%90%8C%E7%9A%84%E7%9B%B8%E4%BD%8D" data-level="4">选做5．量子比特：相同测量概率与不同相对相位</a>
+<a href="#%E6%9D%A1%E4%BB%B6%E7%BB%93%E6%9E%9C%E4%B8%8E%E6%9C%AC%E5%9C%B0%E7%BB%93%E6%9E%9C" data-level="4">选做6．纠缠态测量：条件概率与本地概率</a>
+<a href="#%E9%80%89%E5%81%9A7%E6%9C%89%E7%BA%A0%E7%BC%A0%E4%BB%BB%E6%84%8F%E8%A7%92%E5%BA%A6%E9%83%BD%E7%BB%99bell%E8%BF%9D%E8%83%8C%E5%90%97" data-level="4">选做7．有纠缠，任意角度都给Bell违背吗？</a>
+<a href="#%E6%9B%B4%E6%8D%A2%E5%BA%95%E6%95%B0%E4%BB%8D%E7%84%B6%E5%88%86%E8%A7%A321" data-level="4">选做8．求阶与分解：更换底数，分解21</a>
+<a href="#%E8%AF%BB%E4%B8%80%E6%AC%A1%E5%82%85%E9%87%8C%E5%8F%B6%E6%A6%82%E7%8E%87%E5%9B%BE" data-level="4">选做9．量子傅里叶变换：从概率峰读取周期信息</a>
+<a href="#sec-l01-reading" data-level="2">图像与进一步阅读</a>
+</nav></details>
+<!-- /course-reading -->
+<a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-lecture01" class="quarto-section-identifier"><span class="chapter-title">第一讲　绪论：从量子力学到量子信息科学</span></span></h1>
+<h1 class="title"><span id="sec-lecture01" class="quarto-section-identifier"><span class="chapter-title"><span class="course-reading-kicker">第一讲</span> 绪论：从量子力学到量子信息科学</span></span></h1>
 </div>
 
 
@@ -285,6 +695,7 @@ window.Quarto = {
 
 
 </header>
+<h2 id="course-reading-intro" class="course-reading-guide unnumbered">本讲导读</h2>
 
 
 <p><strong>计算机能多快解出一道题，为什么会取决于量子物理？</strong> 从21与RSA提出问题，回到光和原子催生量子力学的实验，再从叠加、测量与纠缠走向可控的多比特联合态，最后用Shor算法回应整数分解的悬念。</p>
@@ -3423,4 +3834,103 @@ P_0=P_{32}=\frac{11}{64}.\]</span></p>
 
 
 <script src="site_libs/quarto-html/zenscroll-min.js"></script>
+
+<!-- course-reading:script -->
+<script>
+/* Keep the current chapter entry visible without moving the article or focus. */
+(() => {
+  const toc = document.querySelector('.course-reading-toc');
+  const menu = document.querySelector('.course-reading-menu');
+  const bar = document.querySelector('.course-reading-bar');
+  const article = document.querySelector('#quarto-document-content');
+  const links = [...toc.querySelectorAll('a')];
+  const mobileLinks = [...menu.querySelectorAll('a')];
+  const sections = links.map(link => document.getElementById(decodeURIComponent(link.hash.slice(1))));
+  let active = -1;
+  let frame = 0;
+  let recenter = false;
+
+  function mark(list, index) {
+    list.forEach((link, i) => {
+      if (i === index) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
+  function reveal(scroller, link) {
+    if (!scroller.clientHeight) return;
+    const box = scroller.getBoundingClientRect();
+    const item = link.getBoundingClientRect();
+    const inset = Math.min(26, scroller.clientHeight / 4);
+    if (item.top < box.top + inset || item.bottom > box.bottom - inset) {
+      scroller.scrollTop += (item.top + item.bottom - box.top - box.bottom) / 2;
+    }
+  }
+
+  function update() {
+    frame = 0;
+    const line = Math.max(0, bar.getBoundingClientRect().bottom) + 42;
+    let index = 0;
+    for (let i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top > line) break;
+      index = i;
+    }
+    const page = document.scrollingElement;
+    if (page.scrollHeight > window.innerHeight &&
+        page.scrollTop + window.innerHeight >= page.scrollHeight - 2) {
+      index = links.length - 1;
+    }
+    if (index === active && !recenter) return;
+    active = index;
+    recenter = false;
+    mark(links, index);
+    mark(mobileLinks, index);
+    reveal(toc, links[index]);
+    if (menu.open) reveal(menu.querySelector('nav'), mobileLinks[index]);
+  }
+
+  function schedule() {
+    if (!frame) frame = requestAnimationFrame(update);
+  }
+
+  function refresh() {
+    document.body.style.setProperty('--notes-top', bar.offsetHeight + 'px');
+    recenter = true;
+    schedule();
+  }
+
+  function jump(event) {
+    const link = event.target.closest('a');
+    if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const list = menu.contains(link) ? mobileLinks : links;
+    const section = sections[list.indexOf(link)];
+    const heading = section.matches('h2,h3,h4') ? section : section.firstElementChild;
+    event.preventDefault();
+    menu.open = false;
+    if (location.hash !== link.hash) history.pushState(null, '', link.hash);
+    heading.setAttribute('tabindex', '-1');
+    heading.focus({preventScroll: true});
+    heading.scrollIntoView({block: 'start', behavior: 'instant'});
+    refresh();
+  }
+  toc.addEventListener('click', jump);
+  menu.addEventListener('click', jump);
+  menu.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menu.open) {
+      menu.open = false;
+      menu.querySelector('summary').focus();
+    }
+  });
+  window.addEventListener('scroll', schedule, {passive: true});
+  ['resize', 'hashchange', 'pageshow', 'load'].forEach(type => window.addEventListener(type, refresh));
+  document.addEventListener('toggle', refresh, true);
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(refresh);
+    observer.observe(article);
+    observer.observe(bar);
+  }
+  refresh();
+})();
+</script>
+<!-- /course-reading -->
 </body></html>

@@ -107,9 +107,245 @@ window.Quarto = {
 
 <link rel="stylesheet" href="styles.css?v=2120fb756dc2">
 <link rel="stylesheet" href="lecture03-notes.css">
-<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style></head>
+<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style>
+<!-- course-reading:head -->
+<style>
+/* Course reading layout, based on Lecture 8. Scope rules to the notes shell. */
+body.course-reading {
+  --notes-ink: #202b38;
+  --notes-heading: #183d67;
+  --notes-link: #1e5f96;
+  --notes-muted: #536679;
+  --notes-border: #dce4ec;
+  --notes-gray: #f3f6f9;
+  --notes-blue: #edf5fb;
+  --notes-font: "Source Han Sans SC", "Noto Sans CJK SC", "PingFang SC",
+    "Microsoft YaHei", system-ui, sans-serif;
+  --notes-top: 64px;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0 !important;
+  background: #fff;
+  color: var(--notes-ink);
+  font: 17px/1.9 var(--notes-font);
+}
+.course-reading :is(#quarto-header, #quarto-sidebar, #quarto-sidebar-glass,
+  #quarto-margin-sidebar, #mobile-toc, .lecture-mobile-toc, .course-site-return) {
+  display: none !important;
+}
+.course-reading-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #fff;
+  border-bottom: 1px solid var(--notes-border);
+}
+.course-reading-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2px 16px;
+  max-width: 1190px;
+  min-height: 63px;
+  margin-inline: auto;
+  padding: 8px 30px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.course-reading-bar a { color: var(--notes-heading); text-decoration: none; }
+.course-reading-bar a:hover { text-decoration: underline; }
+.course-reading-brand { font-weight: 700; }
+.course-reading #quarto-content {
+  display: grid !important;
+  grid-template-columns: 230px minmax(0, 820px);
+  align-items: start;
+  gap: 40px;
+  width: auto;
+  max-width: 1190px;
+  min-height: 0;
+  margin: 0 auto !important;
+  padding: 28px 30px 80px !important;
+}
+.course-reading #quarto-content > main.content {
+  display: block;
+  grid-area: 1 / 2 !important;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin: 0 !important;
+  padding: 0;
+}
+.course-reading #quarto-content > :is(footer, .page-navigation) {
+  grid-area: 2 / 2 !important;
+  min-width: 0;
+}
+.course-reading #quarto-content > .course-reading-toc {
+  grid-area: 1 / 1 !important;
+  position: sticky;
+  z-index: 1;
+  top: calc(var(--notes-top) + 16px);
+  max-height: calc(100dvh - var(--notes-top) - 32px);
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  padding-right: 12px;
+}
+.course-reading-toc-title {
+  color: var(--notes-muted);
+  font-size: 13px;
+  font-weight: 650;
+  margin: 8px 0 14px;
+}
+.course-reading-nav a {
+  display: block;
+  padding: 5px 9px;
+  border-left: 2px solid transparent;
+  border-radius: 0 5px 5px 0;
+  color: var(--notes-muted);
+  font: 13px/1.55 var(--notes-font);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.course-reading-nav a[data-level="3"] { padding-left: 20px; }
+.course-reading-nav a[data-level="4"] { padding-left: 32px; }
+.course-reading-nav a:hover { background: var(--notes-gray); color: var(--notes-heading); }
+.course-reading-nav a[aria-current="location"] {
+  background: var(--notes-blue);
+  border-left-color: var(--notes-link);
+  color: var(--notes-heading);
+  font-weight: 700;
+}
+.course-reading :is(.course-reading-nav a, .course-reading-bar a, .course-reading-menu summary):focus-visible {
+  outline: 2px solid var(--notes-link);
+  outline-offset: -2px;
+}
+.course-reading-menu { display: none; }
+.course-reading main :is(section[id], h2, h3, h4) {
+  scroll-margin-top: calc(var(--notes-top) + 16px);
+}
+.course-reading main :is(h1, h2, h3, h4) {
+  font-family: var(--notes-font);
+  color: var(--notes-heading);
+  line-height: 1.45;
+}
+.course-reading main h1 { font-size: clamp(28px, 3vw, 36px); font-weight: 750; }
+.course-reading #title-block-header {
+  margin: 0 0 24px;
+  padding: 0;
+  border: 0;
+}
+.course-reading main > .level1 > h1 { margin: 0 0 24px; }
+.course-reading-kicker {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--notes-heading);
+  font: 650 13px/1.6 var(--notes-font);
+  letter-spacing: .08em;
+}
+.course-reading .quarto-title .subtitle {
+  padding-left: 14px;
+  border-left: 3px solid var(--notes-link);
+  color: var(--notes-muted);
+  font-size: 17px;
+  font-weight: 400;
+}
+.course-reading main :is(section.level2 > h2, .course-reading-guide) {
+  margin: 56px 0 20px;
+  padding: 16px 0 0;
+  border: 0;
+  border-top: 1px solid var(--notes-border);
+  font-size: 26px;
+}
+.course-reading main :is(.level2.unnumbered:first-of-type > h2, .course-reading-guide) {
+  margin-top: 25px;
+  padding-top: 0;
+  border: 0;
+  font-size: 21px;
+}
+.course-reading main section.level3 > h3 { margin: 38px 0 13px; font-size: 20px; }
+.course-reading main section.level4 > h4 { font-size: 17px; }
+.course-reading main :is(.level1, .level2, .level3, .level4) { min-width: 0; }
+.course-reading main .header-section-number { color: inherit; }
+.course-reading main p { margin-block: .65rem 1rem; }
+.course-reading main strong { color: var(--notes-heading); }
+.course-reading main a { color: var(--notes-link); text-underline-offset: .15em; }
+.course-reading main figcaption { color: var(--notes-muted); font-size: .86em; line-height: 1.65; }
+.course-reading main :is(.callout, .story-step, .l02-core, .factor-challenge, .course-lab-launcher, blockquote) {
+  border-radius: 0 5px 5px 0;
+  background-color: var(--notes-gray);
+  border-left-color: #8eabc2;
+  box-shadow: none;
+}
+.course-reading main .callout .callout-header { background-color: var(--notes-blue); }
+.course-reading main :is(.math.display, mjx-container[display="true"]) {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.course-reading main mjx-assistive-mml { max-width: 100%; }
+.course-reading main img { max-width: 100%; }
+@media (min-width: 851px) and (max-width: 1100px) {
+  .course-reading #quarto-content {
+    grid-template-columns: 190px minmax(0, 820px);
+    gap: 28px;
+    padding-inline: 22px !important;
+  }
+}
+@media (max-width: 850px) {
+  .course-reading #quarto-content {
+    display: block !important;
+    max-width: 864px;
+    padding: 16px 22px 64px !important;
+  }
+  .course-reading-toc { display: none; }
+  .course-reading-menu {
+    display: block;
+    margin: 0 0 22px;
+    padding: 0;
+    border: 1px solid var(--notes-border);
+    border-radius: 6px;
+    background: #fff;
+  }
+  .course-reading-menu summary {
+    cursor: pointer;
+    padding: 9px 12px;
+    margin: 0 !important;
+    color: var(--notes-heading);
+    font-weight: 650;
+  }
+  .course-reading-menu nav {
+    max-height: 50dvh;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    padding: 0 8px 8px;
+  }
+  .course-reading-menu nav a { padding-block: 8px; }
+}
+@media (max-width: 560px) {
+  body.course-reading { font-size: 15.5px; line-height: 1.84; }
+  .course-reading-bar-inner { padding-inline: 16px; font-size: 13px; }
+  .course-reading #quarto-content { padding-inline: 16px !important; }
+  .course-reading main section.level2 > h2 { font-size: 23px; }
+  .course-reading main section.level3 > h3 { font-size: 18px; }
+  .course-reading main table { display: block; max-width: 100%; overflow-x: auto; }
+}
+@media print {
+  body.course-reading { color: #111; font-size: 11pt; line-height: 1.65; }
+  .course-reading :is(.course-reading-bar, .course-reading-toc, .course-reading-menu) { display: none !important; }
+  .course-reading #quarto-content { display: block !important; padding: 0 !important; }
+  .course-reading main :is(h1, h2, h3, h4) { break-after: avoid; }
+}
+</style>
+<!-- /course-reading -->
+</head>
 
-<body class="nav-sidebar docked quarto-light">
+<body class="course-reading nav-sidebar docked quarto-light">
+<!-- course-reading:bar -->
+<header class="course-reading-bar"><div class="course-reading-bar-inner"><a class="course-reading-brand" href="../index.html">量子光学 · 课程首页</a><a href="index.html">全课程目录与搜索</a></div></header>
+<!-- /course-reading -->
+
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -267,11 +503,107 @@ window.Quarto = {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>
+
+<!-- course-reading:toc -->
+<aside class="course-reading-toc"><div class="course-reading-toc-title">本讲目录</div><nav class="course-reading-nav" aria-label="本讲目录">
+<a href="#sec-l03-control-task" data-level="2">1. 从已知状态到目标状态</a>
+<a href="#l03-known-controls" data-level="3">1.1 筛选与相位调控：已经能做什么？</a>
+<a href="#l03-phase-limit" data-level="3">1.2 相位调控的范围：哪些转换还做不到？</a>
+<a href="#l03-target-and-operation" data-level="3">1.3 控制任务：怎样选择操作并检验结果？</a>
+<a href="#sec-l03-atomic-qubit" data-level="2">2. 原子与离子：怎样选出一个量子比特？</a>
+<a href="#l03-atomic-encoding" data-level="3">2.1 从原子能级到两个编码态</a>
+<a href="#l03-ion-trap" data-level="3">2.2 离子阱：把原子留住，再操控内部态</a>
+<a href="#l03-optical-drive" data-level="3">2.3 对选定的两个态，怎样施加控制？</a>
+<a href="#sec-l03-transmon" data-level="2">3. transmon：怎样用电路构造一个量子比特？</a>
+<a href="#l03-lc-levels" data-level="3">3.1 从熟悉的振荡电路到量子能级</a>
+<a href="#l03-junction-anharmonicity" data-level="3">3.2 从等间隔能级到非简谐电路</a>
+<a href="#l03-transmon-control" data-level="3">3.3 选择两个编码态，用微波实施控制</a>
+<a href="#sec-l03-dynamics" data-level="2">4. 量子态怎样随时间变化？</a>
+<a href="#l03-energy-operator" data-level="3">4.1 从两个能级到能量算符</a>
+<a href="#l03-schrodinger" data-level="3">4.2 从能量描述到时间演化规律</a>
+<a href="#l03-free-evolution" data-level="3">4.3 不施加驱动：概率不变，状态就不变吗？</a>
+<a href="#l03-bloch-sphere" data-level="2">5. 布洛赫球：怎样把量子态及其变化画出来？</a>
+<a href="#l03-bloch-coordinates" data-level="3">5.1 一个量子态，需要哪些信息才能确定？</a>
+<a href="#l03-bloch-reading" data-level="3">5.2 怎样从布洛赫球上读出概率和相位？</a>
+<a href="#l03-bloch-evolution" data-level="3">5.3 自由演化在布洛赫球上是什么轨迹？</a>
+<a href="#l03-resonant-drive" data-level="2">6. 共振驱动：怎样用脉冲控制状态转换？</a>
+<a href="#l03-rabi-observation" data-level="3">6.1 改变脉冲时长，会看到什么？</a>
+<a href="#l03-oscillating-drive" data-level="3">6.2 怎样把驱动写入演化方程？</a>
+<a href="#l03-resonance-rwa" data-level="3">6.3 为什么驱动频率要接近跃迁频率？</a>
+<a href="#l03-rabi-solution" data-level="3">6.4 共振时，两个概率幅怎样变化？</a>
+<a href="#l03-pulse-duration" data-level="3">6.5 什么时候关闭脉冲？</a>
+<a href="#l03-drive-phase" data-level="2">7. 驱动相位：怎样制备指定的叠加态？</a>
+<a href="#l03-phase-target" data-level="3">7.1 概率各半，为什么还没有完全确定状态？</a>
+<a href="#l03-phase-coupling" data-level="3">7.2 驱动场的相位怎样进入量子态？</a>
+<a href="#l03-phase-preparation" data-level="3">7.3 怎样同时选定概率和相对相位？</a>
+<a href="#l03-phase-readout" data-level="3">7.4 怎样确认相位真的被控制了？</a>
+<a href="#l03-detuning" data-level="2">8. 偏离共振：为什么延长脉冲也不一定能翻转？</a>
+<a href="#l03-detuning-observation" data-level="3">8.1 原来的翻转脉冲，还能使用吗？</a>
+<a href="#l03-detuning-frame" data-level="3">8.2 频率差怎样进入演化方程？</a>
+<a href="#l03-detuned-rabi" data-level="3">8.3 为什么振荡更快，却翻转得不完整？</a>
+<a href="#l03-detuning-calibration" data-level="3">8.4 哪些问题可以靠调整时长解决？</a>
+<a href="#l03-single-qubit-gates" data-level="2">9. 从控制脉冲到单比特操作</a>
+<a href="#l03-unitary-map" data-level="3">9.1 只知道一个初态的结果，是否已经知道这个操作？</a>
+<a href="#l03-x-z-gates" data-level="3">9.2 翻转与相位改变，怎样写成量子门？</a>
+<a href="#l03-hadamard" data-level="3">9.3 能制备 \(|+\rangle\) 的脉冲，就是Hadamard门吗？</a>
+<a href="#l03-gate-order" data-level="3">9.4 两个操作的先后顺序，为什么重要？</a>
+<a href="#l03-gate-implementation" data-level="3">9.5 怎样把这些门落实为组合脉冲？</a>
+<a href="#l03-control-summary" data-level="3">9.6 回到本讲：怎样完成一次可检验的控制？</a>
+</nav></aside>
+<!-- /course-reading -->
+<main class="content" id="quarto-document-content">
+<!-- course-reading:menu -->
+<details class="course-reading-menu"><summary>本讲目录</summary><nav class="course-reading-nav" aria-label="本讲目录">
+<a href="#sec-l03-control-task" data-level="2">1. 从已知状态到目标状态</a>
+<a href="#l03-known-controls" data-level="3">1.1 筛选与相位调控：已经能做什么？</a>
+<a href="#l03-phase-limit" data-level="3">1.2 相位调控的范围：哪些转换还做不到？</a>
+<a href="#l03-target-and-operation" data-level="3">1.3 控制任务：怎样选择操作并检验结果？</a>
+<a href="#sec-l03-atomic-qubit" data-level="2">2. 原子与离子：怎样选出一个量子比特？</a>
+<a href="#l03-atomic-encoding" data-level="3">2.1 从原子能级到两个编码态</a>
+<a href="#l03-ion-trap" data-level="3">2.2 离子阱：把原子留住，再操控内部态</a>
+<a href="#l03-optical-drive" data-level="3">2.3 对选定的两个态，怎样施加控制？</a>
+<a href="#sec-l03-transmon" data-level="2">3. transmon：怎样用电路构造一个量子比特？</a>
+<a href="#l03-lc-levels" data-level="3">3.1 从熟悉的振荡电路到量子能级</a>
+<a href="#l03-junction-anharmonicity" data-level="3">3.2 从等间隔能级到非简谐电路</a>
+<a href="#l03-transmon-control" data-level="3">3.3 选择两个编码态，用微波实施控制</a>
+<a href="#sec-l03-dynamics" data-level="2">4. 量子态怎样随时间变化？</a>
+<a href="#l03-energy-operator" data-level="3">4.1 从两个能级到能量算符</a>
+<a href="#l03-schrodinger" data-level="3">4.2 从能量描述到时间演化规律</a>
+<a href="#l03-free-evolution" data-level="3">4.3 不施加驱动：概率不变，状态就不变吗？</a>
+<a href="#l03-bloch-sphere" data-level="2">5. 布洛赫球：怎样把量子态及其变化画出来？</a>
+<a href="#l03-bloch-coordinates" data-level="3">5.1 一个量子态，需要哪些信息才能确定？</a>
+<a href="#l03-bloch-reading" data-level="3">5.2 怎样从布洛赫球上读出概率和相位？</a>
+<a href="#l03-bloch-evolution" data-level="3">5.3 自由演化在布洛赫球上是什么轨迹？</a>
+<a href="#l03-resonant-drive" data-level="2">6. 共振驱动：怎样用脉冲控制状态转换？</a>
+<a href="#l03-rabi-observation" data-level="3">6.1 改变脉冲时长，会看到什么？</a>
+<a href="#l03-oscillating-drive" data-level="3">6.2 怎样把驱动写入演化方程？</a>
+<a href="#l03-resonance-rwa" data-level="3">6.3 为什么驱动频率要接近跃迁频率？</a>
+<a href="#l03-rabi-solution" data-level="3">6.4 共振时，两个概率幅怎样变化？</a>
+<a href="#l03-pulse-duration" data-level="3">6.5 什么时候关闭脉冲？</a>
+<a href="#l03-drive-phase" data-level="2">7. 驱动相位：怎样制备指定的叠加态？</a>
+<a href="#l03-phase-target" data-level="3">7.1 概率各半，为什么还没有完全确定状态？</a>
+<a href="#l03-phase-coupling" data-level="3">7.2 驱动场的相位怎样进入量子态？</a>
+<a href="#l03-phase-preparation" data-level="3">7.3 怎样同时选定概率和相对相位？</a>
+<a href="#l03-phase-readout" data-level="3">7.4 怎样确认相位真的被控制了？</a>
+<a href="#l03-detuning" data-level="2">8. 偏离共振：为什么延长脉冲也不一定能翻转？</a>
+<a href="#l03-detuning-observation" data-level="3">8.1 原来的翻转脉冲，还能使用吗？</a>
+<a href="#l03-detuning-frame" data-level="3">8.2 频率差怎样进入演化方程？</a>
+<a href="#l03-detuned-rabi" data-level="3">8.3 为什么振荡更快，却翻转得不完整？</a>
+<a href="#l03-detuning-calibration" data-level="3">8.4 哪些问题可以靠调整时长解决？</a>
+<a href="#l03-single-qubit-gates" data-level="2">9. 从控制脉冲到单比特操作</a>
+<a href="#l03-unitary-map" data-level="3">9.1 只知道一个初态的结果，是否已经知道这个操作？</a>
+<a href="#l03-x-z-gates" data-level="3">9.2 翻转与相位改变，怎样写成量子门？</a>
+<a href="#l03-hadamard" data-level="3">9.3 能制备 \(|+\rangle\) 的脉冲，就是Hadamard门吗？</a>
+<a href="#l03-gate-order" data-level="3">9.4 两个操作的先后顺序，为什么重要？</a>
+<a href="#l03-gate-implementation" data-level="3">9.5 怎样把这些门落实为组合脉冲？</a>
+<a href="#l03-control-summary" data-level="3">9.6 回到本讲：怎样完成一次可检验的控制？</a>
+</nav></details>
+<!-- /course-reading -->
+<a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-lecture03" class="quarto-section-identifier"><span class="chapter-title">第三讲　量子调控：如何控制量子态？</span></span></h1>
+<h1 class="title"><span id="sec-lecture03" class="quarto-section-identifier"><span class="chapter-title"><span class="course-reading-kicker">第三讲</span> 量子调控：如何控制量子态？</span></span></h1>
 </div>
 
 
@@ -2174,4 +2506,103 @@ R_y(\pi/2)Z
 
 
 <script src="site_libs/quarto-html/zenscroll-min.js"></script>
+
+<!-- course-reading:script -->
+<script>
+/* Keep the current chapter entry visible without moving the article or focus. */
+(() => {
+  const toc = document.querySelector('.course-reading-toc');
+  const menu = document.querySelector('.course-reading-menu');
+  const bar = document.querySelector('.course-reading-bar');
+  const article = document.querySelector('#quarto-document-content');
+  const links = [...toc.querySelectorAll('a')];
+  const mobileLinks = [...menu.querySelectorAll('a')];
+  const sections = links.map(link => document.getElementById(decodeURIComponent(link.hash.slice(1))));
+  let active = -1;
+  let frame = 0;
+  let recenter = false;
+
+  function mark(list, index) {
+    list.forEach((link, i) => {
+      if (i === index) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
+  function reveal(scroller, link) {
+    if (!scroller.clientHeight) return;
+    const box = scroller.getBoundingClientRect();
+    const item = link.getBoundingClientRect();
+    const inset = Math.min(26, scroller.clientHeight / 4);
+    if (item.top < box.top + inset || item.bottom > box.bottom - inset) {
+      scroller.scrollTop += (item.top + item.bottom - box.top - box.bottom) / 2;
+    }
+  }
+
+  function update() {
+    frame = 0;
+    const line = Math.max(0, bar.getBoundingClientRect().bottom) + 42;
+    let index = 0;
+    for (let i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top > line) break;
+      index = i;
+    }
+    const page = document.scrollingElement;
+    if (page.scrollHeight > window.innerHeight &&
+        page.scrollTop + window.innerHeight >= page.scrollHeight - 2) {
+      index = links.length - 1;
+    }
+    if (index === active && !recenter) return;
+    active = index;
+    recenter = false;
+    mark(links, index);
+    mark(mobileLinks, index);
+    reveal(toc, links[index]);
+    if (menu.open) reveal(menu.querySelector('nav'), mobileLinks[index]);
+  }
+
+  function schedule() {
+    if (!frame) frame = requestAnimationFrame(update);
+  }
+
+  function refresh() {
+    document.body.style.setProperty('--notes-top', bar.offsetHeight + 'px');
+    recenter = true;
+    schedule();
+  }
+
+  function jump(event) {
+    const link = event.target.closest('a');
+    if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const list = menu.contains(link) ? mobileLinks : links;
+    const section = sections[list.indexOf(link)];
+    const heading = section.matches('h2,h3,h4') ? section : section.firstElementChild;
+    event.preventDefault();
+    menu.open = false;
+    if (location.hash !== link.hash) history.pushState(null, '', link.hash);
+    heading.setAttribute('tabindex', '-1');
+    heading.focus({preventScroll: true});
+    heading.scrollIntoView({block: 'start', behavior: 'instant'});
+    refresh();
+  }
+  toc.addEventListener('click', jump);
+  menu.addEventListener('click', jump);
+  menu.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menu.open) {
+      menu.open = false;
+      menu.querySelector('summary').focus();
+    }
+  });
+  window.addEventListener('scroll', schedule, {passive: true});
+  ['resize', 'hashchange', 'pageshow', 'load'].forEach(type => window.addEventListener(type, refresh));
+  document.addEventListener('toggle', refresh, true);
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(refresh);
+    observer.observe(article);
+    observer.observe(bar);
+  }
+  refresh();
+})();
+</script>
+<!-- /course-reading -->
 </body></html>

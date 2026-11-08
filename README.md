@@ -62,3 +62,5 @@ https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-
 `lecture-metadata.json` 独立记录各讲的 `class_start`、`class_end` 和 `materials_updated`。课程固定周一10:00–11:40；第六讲已确认2026-10-26。其他讲次未确认的日期显示“日期待补充”，不从资料时间倒推授课日期。
 
 构建末尾由 `scripts/material_dates.py` 统一更新首页：定向发布的讲次或已发布资料内容发生变化时记录北京时间；只触碰文件修改时间不会更新时间。上课时间仅由教师确认后编辑元数据，构建不覆盖。运行 `python3 scripts/test_material_dates.py` 验证两类日期独立及重复构建的一致性。
+
+已发布的第 1—7 讲共用 `assets/notes/reading.css` 和 `assets/notes/reading.js`。只更新版式时运行 `python3 scripts/build.py --update-notes-style 1 2 3 4 5 6 7`。此入口基于现有网站讲义生成页面，后续常规讲义构建也会应用同一版式。第 2、4 讲的显示编号由版式步骤统一，并同步到搜索条目。

@@ -13,6 +13,7 @@ import subprocess
 import tarfile
 import tempfile
 from urllib.parse import unquote
+from notes_style import READING_LECTURES, sync_reading_style
 from release import CONFIG, PUBLISHED, PUBLISHED_SLIDES, NOTES_ONLY, STANDALONE_NOTES, PUBLISHED_PDFS, AFTER_CLASS, withheld
 
 SITE = Path(__file__).resolve().parents[1]
@@ -20,6 +21,7 @@ ROOT = SITE.parent
 DIST = SITE / 'dist'
 MATERIAL_UPDATES = set()
 DESCRIPTIONS_ONLY = False
+READING_STYLE_UPDATES = set()
 
 def sync_classroom():
     """Publish only the reviewed static client, never backend or private state."""
@@ -519,6 +521,8 @@ def main():
     parser.add_argument('--source-root', type=Path, default=ROOT)
     parser.add_argument('--update-notes', type=int, nargs='+', choices=sorted(STANDALONE_NOTES),
                         help='Update standalone notes and dependencies only.')
+    parser.add_argument('--update-notes-style', type=int, nargs='+', choices=sorted(PUBLISHED & READING_LECTURES),
+                        help='Refresh the reading layout of already published Quarto chapters.')
     parser.add_argument('--update-slides', type=int, nargs='+', choices=sorted(PUBLISHED_SLIDES),
                         help='Update packaged classroom slides and their homepage links only.')
     parser.add_argument('--update-lectures', type=int, nargs='+',
@@ -527,8 +531,15 @@ def main():
                         help='Refresh the syllabus and shared titles while preserving published chapter bodies.')
     parser.add_argument('--update-pdfs', type=int, nargs='+', choices=sorted(PUBLISHED_PDFS & {4, 5, 6, 7}), help='Publish authorized PDF downloads only.')
     parser.add_argument('--update-recaps', type=int, nargs='+', choices=sorted(int(n) for n in CONFIG.get('classroom_recaps', {})), help='Publish authorized anonymous classroom recaps and links only.')
-    global MATERIAL_UPDATES, DESCRIPTIONS_ONLY
+    global MATERIAL_UPDATES, DESCRIPTIONS_ONLY, READING_STYLE_UPDATES
     args = parser.parse_args()
+    if args.update_notes_style:
+        if any(value for key, value in vars(args).items()
+               if key.startswith('update_') and key != 'update_notes_style'):
+            parser.error('--update-notes-style cannot be combined with other update modes.')
+        MATERIAL_UPDATES = READING_STYLE_UPDATES = set(args.update_notes_style)
+        print('Reading layout refreshed for the selected published chapters.')
+        return
     if args.update_descriptions:
         if args.update_notes or args.update_slides or args.update_pdfs or args.update_recaps or args.update_lectures or args.update_sharing or args.update_curriculum or args.update_material_links:
             parser.error('--update-descriptions cannot be combined with other update modes.')
@@ -557,6 +568,7 @@ def main():
         if args.update_sharing or args.update_lectures or args.update_curriculum or args.update_slides:
             parser.error('--update-notes cannot be combined with other update modes.')
         update_notes(args.source_root.resolve(), args.update_notes)
+        READING_STYLE_UPDATES = set(args.update_notes)
         print('Standalone notes, dependencies and search updated.')
         return
     if args.update_slides:
@@ -753,6 +765,7 @@ def main():
     if 4 in PUBLISHED_PDFS:
         update_pdfs(root, [4])
     sync_share_assets()
+    READING_STYLE_UPDATES = set(updated_lectures) if partial_update else PUBLISHED
     size=sum(p.stat().st_size for p in DIST.rglob('*') if p.is_file())
     print(f'Website ready: {size/1024/1024:.1f} MiB; {len(units)} units, {sum(len(x[1]) for x in units)} lectures.')
 
@@ -765,6 +778,8 @@ if __name__=='__main__':
         from material_dates import sync_dates
         from recaps import sync_recaps
         sync_recaps(SITE)
+        if READING_STYLE_UPDATES:
+            sync_reading_style(SITE, READING_STYLE_UPDATES)
         sync_dates(SITE, MATERIAL_UPDATES)
     from lecture_descriptions import sync_descriptions
     sync_descriptions(SITE)

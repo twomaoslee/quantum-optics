@@ -9,44 +9,44 @@
     "1": {
       "class_start": null,
       "class_end": null,
-      "materials_updated": "2026-09-28",
-      "published_materials_sha256": "7415779bf226c13bc2e54ea3ba2a1607df16ed748e46b91442e1350b511c40c7"
+      "materials_updated": "2026-11-08T22:25+08:00",
+      "published_materials_sha256": "92e57003899efa675085a55e7f7ee92c46f303b9771f5c5c81e4eb567d97f302"
     },
     "2": {
       "class_start": null,
       "class_end": null,
-      "materials_updated": "2026-09-28",
-      "published_materials_sha256": "590c5b45dff6da412edeabd2d2834cd596e758cae614865958883ab7cadf2d92"
+      "materials_updated": "2026-11-08T22:25+08:00",
+      "published_materials_sha256": "84c483500949bbb6694303d9fde103b903969d95a208434bf62acd277eebef97"
     },
     "3": {
       "class_start": null,
       "class_end": null,
-      "materials_updated": "2026-09-28",
-      "published_materials_sha256": "9fd28873574ef28d127bd9fc01233b153d19f98e20c15154d18491dfae5843db"
+      "materials_updated": "2026-11-08T22:25+08:00",
+      "published_materials_sha256": "606254e31feee5cf504a073569333b3b71ffb998977bf304657410d0e7f7897a"
     },
     "4": {
       "class_start": null,
       "class_end": null,
-      "materials_updated": "2026-10-12",
-      "published_materials_sha256": "179952e962e364b247875a9c15db94475c583b41e5fff692e9b359fdc4a9e708"
+      "materials_updated": "2026-11-08T22:25+08:00",
+      "published_materials_sha256": "2881383adae6a43c8cf0764bfcc8817745202744b81023d8035254ec81b29294"
     },
     "5": {
       "class_start": null,
       "class_end": null,
-      "materials_updated": "2026-10-19",
-      "published_materials_sha256": "37f8c5697c7cadf947a810da5613b86ad26041909a7a6083b53170fd4cd777ac"
+      "materials_updated": "2026-11-08T22:25+08:00",
+      "published_materials_sha256": "4aa571070a89a340ba2310f2cce60352e2a2559fa90ec1a675bc47e93cf6c9e3"
     },
     "6": {
       "class_start": "2026-10-26T10:00:00+08:00",
       "class_end": "2026-10-26T11:40:00+08:00",
-      "materials_updated": "2026-11-01T23:58+08:00",
-      "published_materials_sha256": "22402f6d1a95c6325308883b7324a0b91c87edd105859a32dec465a73257bbe7"
+      "materials_updated": "2026-11-08T22:25+08:00",
+      "published_materials_sha256": "01b180cfac6e70aa56259d04972bfa736eee7a7e074602c052471f6f04d4f5fe"
     },
     "7": {
       "class_start": null,
       "class_end": null,
-      "materials_updated": "2026-11-02T15:30+08:00",
-      "published_materials_sha256": "f7d57c30a86c8c6f6116d743117f3062ed785b43135f1d939f3b9d2ea69b1c94"
+      "materials_updated": "2026-11-08T22:25+08:00",
+      "published_materials_sha256": "898b52698bf2883b7769dc8c7e6dc446d16986b07d813f9810c500c6482e01c6"
     },
     "8": {
       "class_start": null,
