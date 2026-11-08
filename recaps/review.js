@@ -34,11 +34,6 @@ if (recapNavigation) {
 document.querySelectorAll('[data-tex]').forEach(node => {
   katex.render(node.dataset.tex, node, {displayMode:node.dataset.display==='true',throwOnError:true});
 });
-document.querySelectorAll('.round-tab').forEach(button => button.addEventListener('click', () => {
-  const section=button.closest('.record');
-  section.querySelectorAll('.round-tab').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
-  section.querySelectorAll('.round-panel').forEach(p=>p.hidden=p.id!==button.dataset.panel);
-}));
 document.querySelectorAll('.self-check').forEach(form => {
   const submit=form.querySelector('.check-submit'), reset=form.querySelector('.check-reset');
   const feedback=form.querySelector('.check-feedback'), status=form.querySelector('.check-status');

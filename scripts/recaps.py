@@ -18,17 +18,47 @@ def rich(value):
                    if s.startswith(('\\(', '$')) else escape(s) for s in pieces)
 
 
+def choice_distribution(question, maximum):
+    rounds = question['rounds']
+    legend = ''.join(
+        f'<span><i aria-hidden="true"></i>{escape(result["label"])} · {result["total"]} 人提交</span>'
+        for result in rounds
+    )
+    description = '；'.join(
+        f'{result["label"]}，共 {result["total"]} 人提交，' +
+        '，'.join(f'{choice} {result["choices"][choice]} 人' for choice, _ in question['options'])
+        for result in rounds
+    )
+    ticks = range(0, maximum + 1, 5)
+    labels = ''.join(f'<span style="--level:{tick / maximum:.2%}">{tick}</span>' for tick in ticks)
+    grid = ''.join(f'<span style="--level:{tick / maximum:.2%}"></span>' for tick in ticks)
+    groups = []
+    for choice, _ in question['options']:
+        bars = []
+        for result in rounds:
+            count = result['choices'][choice]
+            bars.append(f'<div class="distribution-bar" style="--level:{count / maximum:.2%}"><i></i><span>{count}</span></div>')
+        groups.append(f'<div class="distribution-group"><div class="distribution-series">{"".join(bars)}</div><b>{choice}</b></div>')
+    return f'''<figure class="distribution">
+<figcaption><strong>各选项作答人数</strong><div class="distribution-legend">{legend}</div></figcaption>
+<div class="distribution-plot" role="img" aria-label="{escape(description, quote=True)}">
+<div class="distribution-ticks" aria-hidden="true">{labels}</div>
+<div class="distribution-grid" aria-hidden="true">{grid}</div>
+<div class="distribution-groups" aria-hidden="true">{"".join(groups)}</div>
+</div></figure>'''
+
+
 def render(data, editorial):
     sections = []
     overview = []
+    max_total = max(r['total'] for q in data['questions'] for r in q['rounds'])
+    chart_maximum = (max_total + 4) // 5 * 5
     for index, q in enumerate(data['questions'], 1):
         text = editorial[f'q{index}']
         question = f'思考题{index}'
         multiple_rounds = len(q['rounds']) > 1
         overview_bars = []
-        panels = []
-        tabs = []
-        for n, r in enumerate(q['rounds']):
+        for r in q['rounds']:
             rate = r['correct'] / r['total'] * 100
             label = (f'<span class="sr-only">{question} </span>{escape(r["label"])}'
                      if multiple_rounds else question)
@@ -38,30 +68,24 @@ def render(data, editorial):
                 f'<span class="overview-bar-value">{r["correct"]} 人答对 / {r["total"]} 人提交 <b>{rate:.1f}%</b></span>'
                 f'<span class="overview-bar-track" aria-hidden="true"><span style="width:{rate:.2f}%"></span></span></a>'
             )
-            bars = []
-            for choice, label in q['options']:
-                count = r['choices'][choice]
-                correct = choice == q['correct']
-                bars.append(f'<li class="choice {"correct" if correct else ""}"><div class="choice-label"><b>{choice}</b><span>{rich(label)}</span>'+
-                            ('<span class="correct-mark">正确选项</span>' if correct else '')+
-                            f'</div><div class="choice-value"><span class="track"><i style="width:{count/r["total"]*100:.2f}%"></i></span><span>{count} 人</span></div></li>')
-            panels.append(f'<div id="q{index}-round-{n}" class="round-panel"'+(' hidden' if n else '')+
-                          f'><p class="round-summary">{r["label"]} · {r["total"]} 人提交 · {r["correct"]} 人答对</p><ul class="choice-list">'+''.join(bars)+
-                          f'</ul><p class="reason-note">原因填写：{r["total"]-r["reasons"].get("missing",0)}/{r["total"]} 人；其中 {r["reasons"].get("unsure",0)} 人选择“直觉或猜测”。</p></div>')
-            if multiple_rounds:
-                tabs.append(f'<button type="button" class="round-tab" data-panel="q{index}-round-{n}" aria-pressed="{str(n==0).lower()}" aria-controls="q{index}-round-{n}">{r["label"]}</button>')
         group_heading = f'<strong>{question}</strong>' if multiple_rounds else ''
         overview.append(f'<li>{group_heading}{"".join(overview_bars)}</li>')
         check = text['check']
         options = ''.join(f'<label><input type="radio" name="check-{index}" value="{letter}" required><span><b>{letter}</b> {rich(option)}</span></label>' for letter, option in zip('ABC', check['options']))
-        paired = ('<p class="paired-note">两轮共同参与的15人：14人保持正确，1人由D改为C。上方两轮提交总人数分别为17和16。</p>' if index == 1 else '')
+        classroom_options = ''.join(
+            f'<li class="choice-label"><b>{choice}</b><span>{rich(label)}</span>'
+            + ('<span class="correct-mark">正确选项</span>' if choice == q['correct'] else '')
+            + '</li>' for choice, label in q['options']
+        )
         sections.append(f'''<section id="q{index}" class="question-section" tabindex="-1" aria-labelledby="q{index}-title">
 <div class="section-label">思考题 {index:02d}</div><h2 id="q{index}-title">{escape(text['heading'])}</h2>
+<div class="question-columns"><div class="question-text">
 <p class="stem">{rich(q['stem'])}</p><div class="question-formulas">{''.join(math(t, True) for t in q['mathLines'])}</div>
 <p class="reference">{rich(q['reference'])}</p>
-<div class="review-columns"><div class="record"><h3>课堂作答</h3><div class="round-tabs" aria-label="切换作答轮次">{''.join(tabs)}</div>{''.join(panels)}{paired}</div>
+<ul class="choice-list" aria-label="课堂选项">{classroom_options}</ul>
+</div>{choice_distribution(q, chart_maximum)}</div>
 <aside class="analysis"><h3>{escape(editorial['analysis_label'])}</h3>{''.join('<p>'+rich(p)+'</p>' for p in text['analysis'])}
-<a class="text-link" href="../notes/lecture07.html#l7-quiz-{index}">回到讲义思考题 {index} <span aria-hidden="true">↗</span></a></aside></div>
+<a class="text-link" href="../notes/lecture07.html#l7-quiz-{index}">回到讲义思考题 {index} <span aria-hidden="true">↗</span></a></aside>
 <div class="key-point"><h3>核对关键关系</h3><p>{rich(text['key'])}</p></div>
 <form class="self-check" data-answer="{check['correct']}"><h3>课后自查 {index}</h3><p>{rich(check['stem'])}</p>
 <fieldset><legend class="sr-only">选择答案</legend>{options}</fieldset><div class="check-actions"><button class="check-submit" disabled>提交并核对</button><button class="check-reset" type="button" hidden>重新作答</button><span class="check-status" role="status" aria-live="polite">选择后可查看解答</span></div>
@@ -74,8 +98,8 @@ def render(data, editorial):
                              for i in range(1, len(data['questions']) + 1))
     return f'''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="第七讲光场量子化课堂答题情况分析：匿名答题统计、AI辅助复盘、关键关系与课后自查。">
-<title>{escape(editorial['title'])} · 量子光学</title><link rel="stylesheet" href="review.css?v=scroll-chart"><link rel="stylesheet" href="../classroom/vendor/katex/katex.min.css">
-<script defer src="../classroom/vendor/katex/katex.min.js"></script><script defer src="review.js?v=scroll-chart"></script></head><body>
+<title>{escape(editorial['title'])} · 量子光学</title><link rel="stylesheet" href="review.css?v=choice-charts"><link rel="stylesheet" href="../classroom/vendor/katex/katex.min.css">
+<script defer src="../classroom/vendor/katex/katex.min.js"></script><script defer src="review.js?v=choice-charts"></script></head><body>
 <a class="skip-link" href="#main">跳到正文</a><header><div class="topbar"><a class="brand" href="../index.html"><img src="../assets/csu-logo.png" alt="中南大学"><span>量子光学</span></a><nav aria-label="课程资料"><a href="../notes/lecture07.html">讲义</a><a href="../slides/lecture07.html">课件</a><a href="../downloads/lecture07-slides.pdf">PDF</a></nav></div></header>
 <main id="main"><section class="opening"><p class="eyebrow">2026 秋季 · 11 月 2 日</p><h1>{escape(editorial['title'])}</h1><p class="subtitle">{escape(editorial['subtitle'])}</p><p class="intro">{escape(editorial['intro'])}</p>
 <ul class="scope"><li>{data['participants']} 个账号参与</li><li>{data['submissions']} 份答案计入统计</li><li>{data['roundCount']} 轮作答</li><li>思考题 1—4</li></ul>
