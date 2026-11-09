@@ -1,0 +1,28 @@
+{
+  "lecture": 8,
+  "date": "2026-11-09",
+  "authorization": "教师明确要求发布第八讲匿名课堂答题统计与分析，重点回看第4题，并标注第5题课堂未发题。",
+  "dimensions": {
+    "understanding": "passed",
+    "physics": "passed",
+    "data": "passed",
+    "visuals": "passed",
+    "browser_operation": "passed"
+  },
+  "scope": "思考题1至4的匿名统计及理由汇总，第4题三段概率比较，第5题课堂未发题，连接首页和讲义。",
+  "sources": {
+    "recaps/lecture08-20261109.json": "68d8fcb18bdb3d57e54e03d33d6bcb02a13103e33ae2ef800a9155201e60fc38",
+    "recaps/lecture08-20261109.editorial.json": "6e203fd0d119b7cb60b31294c5ff44316868f4fc6becb7c2e71d3c465631e221",
+    "scripts/recaps.py": "6a1270d59a25ba5929e12c7ee7782020f6f4944ed6bc570217df2407766173ab",
+    "recaps/review.css": "b82df125e545532d4e711a6a7fbee11d1e1d822c64898f16fc3b6d9dfaa215bb",
+    "recaps/review.js": "41f7a3d7a5d6fa626ce778470a2e8f22540f5c8b3a1cea076caf3926c630feb9"
+  },
+  "html_sha256": "df690fcb8036d703e37306f891a55fc608ae5b085f8a4fab566a4c138d1c90f0",
+  "evidence_summary": {
+    "understanding": "两次独立本科生冷读，分开选项C与学生理由，明确单轮自查理由的填写时机、Q4比较条件及三个区间的概率平衡。",
+    "physics": "独立复算相干光及单模热光各三个区间的概率，核对Q1均值示例、Q2方差与Q3泊松概率。",
+    "data": "逐项比对正式课堂导出与在线教师统计，69条作答、18账号、四题各一轮、第五题无轮次；验证公开HTML无个人标识、场次码或自由文本原文。",
+    "visuals": "桌面1440、窄屏390和320实测。检查题干、四个统计图、Q4概率表及KaTeX，页面无横向溢出。",
+    "browser_operation": "验证总览柱图直达第4题，滚动目录高亮和回讲义锚点，第5题状态清楚。"
+  }
+}

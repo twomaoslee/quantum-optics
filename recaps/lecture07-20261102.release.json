@@ -13,7 +13,7 @@
   "sources": {
     "recaps/lecture07-20261102.json": "afb16d4208a12d0e9c9fb721955db7a2ab0a3239e091b02df4f470ca150bcbe0",
     "recaps/lecture07-20261102.editorial.json": "fdc294abb7bec31ff91222af00d7dccc6595cec7919eefd2c6270603815c106b",
-    "scripts/recaps.py": "85d0f170f1e7115a443cdd9892c433f8f3f6db2617147eb9f02acf9417c22b8d",
+    "scripts/recaps.py": "6a1270d59a25ba5929e12c7ee7782020f6f4944ed6bc570217df2407766173ab",
     "recaps/review.css": "b82df125e545532d4e711a6a7fbee11d1e1d822c64898f16fc3b6d9dfaa215bb",
     "recaps/review.js": "41f7a3d7a5d6fa626ce778470a2e8f22540f5c8b3a1cea076caf3926c630feb9"
   },

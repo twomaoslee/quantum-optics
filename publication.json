@@ -53,6 +53,13 @@
       "editorial": "recaps/lecture07-20261102.editorial.json",
       "output": "recaps/lecture07-20261102.html",
       "acceptance": "recaps/lecture07-20261102.release.json"
+    },
+    "8": {
+      "data": "recaps/lecture08-20261109.json",
+      "editorial": "recaps/lecture08-20261109.editorial.json",
+      "output": "recaps/lecture08-20261109.html",
+      "acceptance": "recaps/lecture08-20261109.release.json",
+      "notes_recap_anchor": "intro"
     }
   },
   "slide_source_directories": {

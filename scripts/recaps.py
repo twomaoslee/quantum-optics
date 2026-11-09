@@ -3,6 +3,7 @@ from pathlib import Path
 from html import escape
 import json
 import hashlib
+from datetime import date
 import re
 import shutil
 
@@ -16,6 +17,10 @@ def rich(value):
     pieces = re.split(r'(\\\(.*?\\\)|\$[^$]+\$)', value, flags=re.S)
     return ''.join(math(s[2:-2] if s.startswith('\\(') else s[1:-1])
                    if s.startswith(('\\(', '$')) else escape(s) for s in pieces)
+
+
+def rich_lines(value):
+    return '<br>'.join(rich(line) for line in value.splitlines() if line.strip())
 
 
 def choice_distribution(question, maximum):
@@ -65,7 +70,35 @@ def choice_distribution(question, maximum):
 </div></figure>'''
 
 
+def comparison_table(table):
+    if not table:
+        return ''
+    headers = ''.join(f'<th scope="col">{escape(label)}</th>' for label in table['columns'])
+    rows = ''.join(f'<tr><th scope="row">{escape(label)}</th>' +
+                   ''.join(f'<td>{rich(value)}</td>' for value in values) + '</tr>'
+                   for label, *values in table['rows'])
+    return (f'<table class="distribution-summary"><caption>{escape(table["caption"])}</caption>'
+            f'<thead><tr>{headers}</tr></thead><tbody>{rows}</tbody></table>')
+
+
 def render(data, editorial):
+    lecture = f'lecture{data["lecture"]:02d}'
+    held = date.fromisoformat(data['date'])
+    description = editorial.get('description', '第七讲光场量子化课堂答题情况分析：匿名答题统计、AI辅助复盘、关键关系与课后自查。')
+    analysis_description = editorial.get('analysis_description')
+    if analysis_description is None:
+        analysis_description = f'{editorial["analysis_label"]}：{editorial["analysis_scope"]}'
+    data_notes = editorial.get('data_notes', [
+        '来源为2026年11月2日第七讲课堂导出，选取本次课堂的5轮作答。19为实际提交账号的去重数。原因由学生从预设选项中自选；84次提交中有64次填写原因，15次选择“直觉或猜测”。',
+        '第1题的配对比较使用两轮均提交的15个账号，各轮总体分布使用该轮全部提交。AI辅助复盘依据这些记录提出复习建议；建议实施情况和后续学习效果需结合新的作答继续记录。自查题在本页核对，作答不上传服务器。',
+    ])
+    followup = editorial.get('followup', {
+        'heading': '把数态与场测量联系起来',
+        'body': '思考题5、6本次没有课堂作答记录，可继续在讲义中完成：比较相对符号对场方差的影响，再用三光子数态检查能量、算符次序和场方差。',
+        'links': [['l7-quiz-5', '思考题5：相对符号与场方差 ↗'], ['l7-quiz-6', '思考题6：三光子数态 ↗']],
+    })
+    followup_links = ''.join(f'<a href="../notes/{lecture}.html#{escape(anchor, quote=True)}">{escape(label)}</a>'
+                             for anchor, label in followup['links'])
     sections = []
     overview = []
     max_total = max(r['total'] for q in data['questions'] for r in q['rounds'])
@@ -87,8 +120,15 @@ def render(data, editorial):
             )
         group_heading = f'<strong>{question}</strong>' if multiple_rounds else ''
         overview.append(f'<li>{group_heading}{"".join(overview_bars)}</li>')
-        check = text['check']
-        options = ''.join(f'<label><input type="radio" name="check-{index}" value="{letter}" required><span><b>{letter}</b> {rich(option)}</span></label>' for letter, option in zip('ABC', check['options']))
+        check_html = ''
+        if check := text.get('check'):
+            options = ''.join(f'<label><input type="radio" name="check-{index}" value="{letter}" required><span><b>{letter}</b> {rich(option)}</span></label>' for letter, option in zip('ABC', check['options']))
+            check_html = f'''<form class="self-check" data-answer="{check['correct']}"><h3>课后自查 {index}</h3><p>{rich(check['stem'])}</p>
+<fieldset><legend class="sr-only">选择答案</legend>{options}</fieldset><div class="check-actions"><button class="check-submit" disabled>提交并核对</button><button class="check-reset" type="button" hidden>重新作答</button><span class="check-status" role="status" aria-live="polite">选择后可查看解答</span></div>
+<div class="check-feedback" hidden><p><strong>答案 {check['correct']}</strong></p><p>{rich(check['answer'])}</p></div></form>
+'''
+        notes_anchor = text.get('notes_anchor', f'l7-quiz-{index}')
+        notes_label = '回到讲义相关小节' if 'notes_anchor' in text else f'回到讲义思考题 {index}'
         classroom_options = ''.join(
             f'<li class="choice-label"><b>{choice}</b><span>{rich(label)}</span>'
             + ('<span class="correct-mark">正确选项</span>' if choice == q['correct'] else '')
@@ -97,29 +137,26 @@ def render(data, editorial):
         sections.append(f'''<section id="q{index}" class="question-section" tabindex="-1" aria-labelledby="q{index}-title">
 <div class="section-label">思考题 {index:02d}</div><h2 id="q{index}-title">{escape(text['heading'])}</h2>
 <div class="question-columns"><div class="question-text">
-<p class="stem">{rich(q['stem'])}</p><div class="question-formulas">{''.join(math(t, True) for t in q['mathLines'])}</div>
-<p class="reference">{rich(q['reference'])}</p>
+<p class="stem">{rich_lines(q['stem'])}</p><div class="question-formulas">{''.join(math(t, True) for t in q['mathLines'])}</div>
+<p class="reference">{rich_lines(q['reference'])}</p>
 <ul class="choice-list" aria-label="课堂选项">{classroom_options}</ul>
 </div>{choice_distribution(q, chart_maximum)}</div>
 <aside class="analysis"><h3>{escape(editorial['analysis_label'])}</h3>{''.join('<p>'+rich(p)+'</p>' for p in text['analysis'])}
-<a class="text-link" href="../notes/lecture07.html#l7-quiz-{index}">回到讲义思考题 {index} <span aria-hidden="true">↗</span></a></aside>
-<div class="key-point"><h3>核对关键关系</h3><p>{rich(text['key'])}</p></div>
-<form class="self-check" data-answer="{check['correct']}"><h3>课后自查 {index}</h3><p>{rich(check['stem'])}</p>
-<fieldset><legend class="sr-only">选择答案</legend>{options}</fieldset><div class="check-actions"><button class="check-submit" disabled>提交并核对</button><button class="check-reset" type="button" hidden>重新作答</button><span class="check-status" role="status" aria-live="polite">选择后可查看解答</span></div>
-<div class="check-feedback" hidden><p><strong>答案 {check['correct']}</strong></p><p>{rich(check['answer'])}</p></div></form>
-</section>''')
+<a class="text-link" href="../notes/{lecture}.html#{escape(notes_anchor, quote=True)}">{notes_label} <span aria-hidden="true">↗</span></a></aside>
+<div class="key-point"><h3>核对关键关系</h3><p>{rich(text['key'])}</p>{comparison_table(text.get('comparison'))}</div>
+{check_html}</section>''')
     findings = editorial['overview']
     points = ''.join(f'<li><h3>{escape(heading)}</h3><p>{rich(body)}</p></li>'
                      for heading, body in findings['points'])
     question_links = ''.join(f'<a href="#q{i}">思考题{i}</a>'
                              for i in range(1, len(data['questions']) + 1))
     return f'''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="第七讲光场量子化课堂答题情况分析：匿名答题统计、AI辅助复盘、关键关系与课后自查。">
+<meta name="description" content="{escape(description, quote=True)}">
 <title>{escape(editorial['title'])} · 量子光学</title><link rel="stylesheet" href="review.css?v=choice-summary"><link rel="stylesheet" href="../classroom/vendor/katex/katex.min.css">
 <script defer src="../classroom/vendor/katex/katex.min.js"></script><script defer src="review.js?v=choice-charts"></script></head><body>
-<a class="skip-link" href="#main">跳到正文</a><header><div class="topbar"><a class="brand" href="../index.html"><img src="../assets/csu-logo.png" alt="中南大学"><span>量子光学</span></a><nav aria-label="课程资料"><a href="../notes/lecture07.html">讲义</a><a href="../slides/lecture07.html">课件</a><a href="../downloads/lecture07-slides.pdf">PDF</a></nav></div></header>
-<main id="main"><section class="opening"><p class="eyebrow">2026 秋季 · 11 月 2 日</p><h1>{escape(editorial['title'])}</h1><p class="subtitle">{escape(editorial['subtitle'])}</p><p class="intro">{escape(editorial['intro'])}</p>
-<ul class="scope"><li>{data['participants']} 个账号参与</li><li>{data['submissions']} 份答案计入统计</li><li>{data['roundCount']} 轮作答</li><li>思考题 1—4</li></ul>
+<a class="skip-link" href="#main">跳到正文</a><header><div class="topbar"><a class="brand" href="../index.html"><img src="../assets/csu-logo.png" alt="中南大学"><span>量子光学</span></a><nav aria-label="课程资料"><a href="../notes/{lecture}.html">讲义</a><a href="../slides/{lecture}.html">课件</a><a href="../downloads/{lecture}-slides.pdf">PDF</a></nav></div></header>
+<main id="main"><section class="opening"><p class="eyebrow">{held.year} 秋季 · {held.month} 月 {held.day} 日</p><h1>{escape(editorial['title'])}</h1><p class="subtitle">{escape(editorial['subtitle'])}</p><p class="intro">{escape(editorial['intro'])}</p>
+<ul class="scope"><li>{data['participants']} 个账号参与</li><li>{data['submissions']} 份答案计入统计</li><li>{data['roundCount']} 轮作答</li><li>思考题 1—{len(data["questions"])}</li></ul>
 </section>
 <nav class="section-nav" aria-label="课堂答题分析目录"><a href="#overview" aria-current="location">总览</a>{question_links}</nav>
 <div id="overview" tabindex="-1">
@@ -130,12 +167,12 @@ def render(data, editorial):
 <div class="overview-axis" aria-hidden="true"><span>0%</span><span>50%</span><span>100%</span></div>
 <p class="fine">正确率以各轮实际提交人数为分母。每人每轮保留最后一次保存的答案。</p></div>
 </section>
-<p class="analysis-description">{escape(editorial['analysis_label'])}：{escape(editorial['analysis_scope'])}</p>
-<details class="data-note"><summary>统计与分析说明</summary><p>来源为2026年11月2日第七讲课堂导出，选取本次课堂的5轮作答。19为实际提交账号的去重数。原因由学生从预设选项中自选；84次提交中有64次填写原因，15次选择“直觉或猜测”。</p><p>第1题的配对比较使用两轮均提交的15个账号，各轮总体分布使用该轮全部提交。AI辅助复盘依据这些记录提出复习建议；建议实施情况和后续学习效果需结合新的作答继续记录。自查题在本页核对，作答不上传服务器。</p></details>
+<p class="analysis-description">{escape(analysis_description)}</p>
+<details class="data-note"><summary>统计与分析说明</summary>{''.join(f'<p>{rich(note)}</p>' for note in data_notes)}</details>
 </div>
 {''.join(sections)}
-<section id="continue" class="continue"><p class="section-label">继续复习</p><h2>把数态与场测量联系起来</h2><p>思考题5、6本次没有课堂作答记录，可继续在讲义中完成：比较相对符号对场方差的影响，再用三光子数态检查能量、算符次序和场方差。</p>
-<div class="continue-links"><a href="../notes/lecture07.html#l7-quiz-5">思考题5：相对符号与场方差 ↗</a><a href="../notes/lecture07.html#l7-quiz-6">思考题6：三光子数态 ↗</a></div></section>
+<section id="continue" class="continue"><p class="section-label">继续复习</p><h2>{escape(followup['heading'])}</h2><p>{rich(followup['body'])}</p>
+<div class="continue-links">{followup_links}</div></section>
 </main><footer><span>量子光学 · 中南大学</span><a href="../index.html">返回课程网站 ↑</a></footer></body></html>'''
 
 
@@ -180,19 +217,29 @@ def sync_recaps(site):
         home.write_text(text)
         notes = site / f'dist/notes/lecture{int(number):02d}.html'
         text = notes.read_text()
-        for q in data['questions']:
-            i = int(q['id'].split('q')[-1])
-            pattern = rf'<form\b[^>]*id="l7-quiz-{i}".*?</form>'
-            def insert_quiz(match):
-                form = re.sub(r'<p class="classroom-recap-link">.*?</p>', '', match[0])
-                link = f'<p class="classroom-recap-link"><a style="display:inline-block" href="../{entry["output"]}#q{i}">{label}</a></p>'
-                form, inserted = re.subn(r'(<div\b[^>]*class="quiz-feedback"[^>]*>)', lambda m: m[1] + link, form, count=1)
-                if inserted != 1:
-                    raise ValueError(f'Recap feedback container not found: {i}')
-                return form
-            text, count = re.subn(pattern, insert_quiz, text, flags=re.S)
+        if anchor := entry.get('notes_recap_anchor'):
+            pattern = rf'<section\b[^>]*id="{re.escape(anchor)}"[^>]*>.*?</section>'
+            link = (f'<p class="classroom-recap-link"><a href="../{entry["output"]}">{label}</a></p>')
+            def insert_notes_link(match):
+                section = re.sub(r'<p class="classroom-recap-link">.*?</p>\n?', '', match[0])
+                return section.replace('</section>', link + '\n</section>')
+            text, count = re.subn(pattern, insert_notes_link, text, flags=re.S)
             if count != 1:
-                raise ValueError(f'Recap quiz anchor not found: {i}')
+                raise ValueError('Recap notes anchor not found: ' + anchor)
+        else:
+            for q in data['questions']:
+                i = int(q['id'].split('q')[-1])
+                pattern = rf'<form\b[^>]*id="l7-quiz-{i}".*?</form>'
+                def insert_quiz(match):
+                    form = re.sub(r'<p class="classroom-recap-link">.*?</p>', '', match[0])
+                    link = f'<p class="classroom-recap-link"><a style="display:inline-block" href="../{entry["output"]}#q{i}">{label}</a></p>'
+                    form, inserted = re.subn(r'(<div\b[^>]*class="quiz-feedback"[^>]*>)', lambda m: m[1] + link, form, count=1)
+                    if inserted != 1:
+                        raise ValueError(f'Recap feedback container not found: {i}')
+                    return form
+                text, count = re.subn(pattern, insert_quiz, text, flags=re.S)
+                if count != 1:
+                    raise ValueError(f'Recap quiz anchor not found: {i}')
         notes.write_text(text)
         search = site / 'dist/notes/search.json'
         if search.exists():
