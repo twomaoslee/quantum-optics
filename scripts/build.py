@@ -22,6 +22,7 @@ DIST = SITE / 'dist'
 MATERIAL_UPDATES = set()
 DESCRIPTIONS_ONLY = False
 READING_STYLE_UPDATES = set()
+CURRICULUM_ONLY = False
 
 def sync_classroom():
     """Publish only the reviewed static client, never backend or private state."""
@@ -231,7 +232,7 @@ def sanitize_notes(text):
     text = re.sub(r'<p><a href="[^\"]*lecture(\d+)\.html">.*?</p>',
                   lambda m: '<p>第二讲资料将在授课后发布。</p>' if int(m[1]) in AFTER_CLASS else ('' if int(m[1]) not in PUBLISHED else m[0]), text, flags=re.S)
     def gate_link(match):
-        if not withheld(match[1]):
+        if match[1].startswith('#') or not withheld(match[1]):
             return match[0]
         if 'pagination-link' in match[0]:
             return ''
@@ -511,6 +512,73 @@ def update_pdfs(root, numbers):
         text = text[:match.start()] + card + text[match.end():]
     home.write_text(text)
 
+def update_curriculum(root):
+    """Refresh curriculum pages without repackaging unrelated teaching material."""
+    notes = root/'quantum-notes/_book'
+    source = (root/'quantum-notes/outline.qmd').read_text()
+    blocks = []
+    for unit_number, (title, content) in enumerate(re.findall(
+            r'^## (第[一二三四]单元：[^\n]+)\n(.*?)(?=^## |\Z)', source, re.M | re.S), 1):
+        lectures = [(int(number), re.sub(r'\s*\{[^}]*\}\s*$', '', name))
+                    for number, name in re.findall(r'^### 第(\d+)讲[　 ]+([^\n]+)', content, re.M)]
+        if not lectures:
+            raise SystemExit(f'Empty curriculum unit: {title}')
+        rows = []
+        for number, name in lectures:
+            label = escape(name)
+            status = '课题汇报' if number == 15 else '授课后发布'
+            if number in PUBLISHED:
+                label = f'<a href="notes/lecture{number:02d}.html">{label}</a>'
+                status = '可阅读'
+            elif number in PUBLISHED_SLIDES:
+                label = f'<a href="slides/lecture{number:02d}.html">{label}</a>'
+                status = '课件已发布'
+            rows.append(f'<li><span class="num">{number:02d}</span><span class="lecture-title">{label}</span><span class="status">{status}</span></li>')
+        blocks.append(f'<section class="unit" aria-labelledby="unit-{unit_number}"><div class="unit-heading"><h3 id="unit-{unit_number}">{escape(title)}</h3><p class="unit-range">第 {lectures[0][0]}—{lectures[-1][0]} 讲</p></div><ol start="{lectures[0][0]}">{"".join(rows)}</ol></section>')
+    if not blocks:
+        raise SystemExit('Missing curriculum units.')
+    homepage = DIST/'index.html'
+    home, count = re.subn(r'(<div class="curriculum-grid">).*?(</div>\s*</div>\s*</section>)',
+                         lambda m: m[1] + ''.join(blocks) + m[2], homepage.read_text(), flags=re.S)
+    if count != 1:
+        raise SystemExit('Expected one homepage curriculum grid.')
+    rendered = {}
+    for name in ('index.html', 'outline.html'):
+        text = sanitize_notes((notes/name).read_text())
+        # Preserve the deployed shell and shared assets; only page content changes.
+        old = (DIST/'notes'/name).read_text()
+        for pattern in (r'<nav\b[^>]*\bid="TOC"[^>]*>.*?</nav>',
+                        r'<main\b[^>]*>.*?</main>'):
+            match = re.search(pattern, text, re.S)
+            if not match:
+                raise SystemExit(f'Missing rendered page structure: {name}')
+            replacement = match[0]
+            if replacement.startswith('<main'):
+                replacement = re.sub(r'(<main\b[^>]*>)',
+                    r'\1<a class="course-site-return" href="../index.html">← 课程首页 · 讲义与课件</a>', replacement, count=1)
+            old, count = re.subn(pattern, lambda _: replacement, old, flags=re.S)
+            if count != 1:
+                raise SystemExit(f'Missing published page structure: {name}')
+        # A newly added syllabus formula needs its renderer even if the old page
+        # had no math. Reuse the already published MathJax assets.
+        for script in re.findall(r'<script\b[^>]*>.*?</script>', text, re.S):
+            if ('src="assets/mathjax/' in script or 'const typesetMath =' in script) and script not in old:
+                old = old.replace('</head>', script + '\n</head>', 1)
+        rendered[name] = old
+    refreshed = set(rendered)
+    items = [item for item in json.loads((DIST/'notes/search.json').read_text())
+             if item.get('href', '').split('#')[0] not in refreshed]
+    page_ids = {name: set(re.findall(r'\bid="([^"]+)"', text)) for name, text in rendered.items()}
+    for item in json.loads((notes/'search.json').read_text()):
+        page, _, anchor = item.get('href', '').partition('#')
+        if page in refreshed and (not anchor or unquote(anchor) in page_ids[page]):
+            items.append(item)
+    for name, text in rendered.items():
+        (DIST/'notes'/name).write_text(text)
+    (DIST/'notes/search.json').write_text(json.dumps(items, ensure_ascii=False))
+    homepage.write_text(new_tab_material_links(home))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--update-sharing', action='store_true',
@@ -532,8 +600,16 @@ def main():
                         help='Refresh the syllabus and shared titles while preserving published chapter bodies.')
     parser.add_argument('--update-pdfs', type=int, nargs='+', choices=sorted(PUBLISHED_PDFS & {4, 5, 6, 7, 8}), help='Publish authorized PDF downloads only.')
     parser.add_argument('--update-recaps', type=int, nargs='+', choices=sorted(int(n) for n in CONFIG.get('classroom_recaps', {})), help='Publish authorized anonymous classroom recaps and links only.')
-    global MATERIAL_UPDATES, DESCRIPTIONS_ONLY, READING_STYLE_UPDATES
+    global MATERIAL_UPDATES, DESCRIPTIONS_ONLY, READING_STYLE_UPDATES, CURRICULUM_ONLY
     args = parser.parse_args()
+    if args.update_curriculum:
+        if any(value for key, value in vars(args).items()
+               if key.startswith('update_') and key != 'update_curriculum'):
+            parser.error('--update-curriculum cannot be combined with other update modes.')
+        update_curriculum(args.source_root.resolve())
+        CURRICULUM_ONLY = True
+        print('Curriculum pages and search updated; published teaching material preserved.')
+        return
     if args.update_notes_style:
         if any(value for key, value in vars(args).items()
                if key.startswith('update_') and key != 'update_notes_style'):
@@ -774,7 +850,7 @@ def main():
 
 if __name__=='__main__':
     main()
-    if not DESCRIPTIONS_ONLY:
+    if not (DESCRIPTIONS_ONLY or CURRICULUM_ONLY):
         # A targeted material release must preserve unrelated classroom work.
         if not MATERIAL_UPDATES:
             sync_classroom()

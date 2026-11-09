@@ -17,7 +17,7 @@ python3 scripts/check.py
 
 仅上传第四或第五讲最新课件及其打包资源、保留已发布讲义与其他讲次时，使用 `python3 scripts/build.py --update-slides 4` 或 `--update-slides 5`；此模式读取对应讲次交付清单，移除讲者备注，并更新首页课件入口。
 
-仅更新课程目录、课次安排和共享标题时，先渲染讲义首页与目录，再运行 `python3 scripts/build.py --update-curriculum`；该模式保留已发布的各章正文，并同步目录搜索条目。
+仅更新课程目录、课次安排和共享标题时，先渲染讲义首页与目录，再运行 `python3 scripts/build.py --update-curriculum`；该模式只更新首页课程目录、讲义首页、大纲正文与页内目录及其搜索条目，保留现有课件、讲义章节、PDF、课堂答题、回顾与资料日期；大纲新增公式时复用已发布的数学渲染资源。
 
 如果本目录移出课程工作区，构建时指定课程位置：
 

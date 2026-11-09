@@ -96,7 +96,34 @@ div.csl-indent {
 
 
 <link rel="stylesheet" href="styles.css?v=2120fb756dc2">
-<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style></head>
+<style>.course-site-return{display:inline-block;margin:0 0 18px;font:500 15px/1.6 sans-serif;color:#07529c;text-decoration:none}.course-site-return:hover{text-decoration:underline}</style><script defer="" src="assets/mathjax/tex-chtml-full.js" type="text/javascript"></script>
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+</head>
 
 <body class="nav-sidebar docked quarto-light">
 
@@ -202,17 +229,17 @@ div.csl-indent {
   </ul></li>
   <li><a href="#第二单元光场原子及其相互作用" id="toc-第二单元光场原子及其相互作用" class="nav-link" data-scroll-target="#第二单元光场原子及其相互作用">第二单元：光场、原子及其相互作用</a>
   <ul class="collapse">
-  <li><a href="#第7讲-光场量子化光为什么具有离散的能量" id="toc-第7讲-光场量子化光为什么具有离散的能量" class="nav-link" data-scroll-target="#第7讲-光场量子化光为什么具有离散的能量">第7讲　光场量子化：从一个振动模式到光子</a></li>
+  <li><a href="#第7讲-光场量子化从一个振动模式到光子" id="toc-第7讲-光场量子化从一个振动模式到光子" class="nav-link" data-scroll-target="#第7讲-光场量子化从一个振动模式到光子">第7讲　光场量子化：从一个振动模式到光子</a></li>
   <li><a href="#第8讲-光子统计激光热光与单光子有什么不同" id="toc-第8讲-光子统计激光热光与单光子有什么不同" class="nav-link" data-scroll-target="#第8讲-光子统计激光热光与单光子有什么不同">第8讲　光子统计：激光、热光与单光子有什么不同？</a></li>
-  <li><a href="#第9讲-光子关联探测器的点击怎样揭示光的量子性" id="toc-第9讲-光子关联探测器的点击怎样揭示光的量子性" class="nav-link" data-scroll-target="#第9讲-光子关联探测器的点击怎样揭示光的量子性">第9讲　光子关联：探测器的点击怎样揭示光的量子性？</a></li>
-  <li><a href="#第10讲-原子光场耦合一个激发如何在原子与光场之间交换" id="toc-第10讲-原子光场耦合一个激发如何在原子与光场之间交换" class="nav-link" data-scroll-target="#第10讲-原子光场耦合一个激发如何在原子与光场之间交换">第10讲　原子—光场耦合：一个激发如何在原子与光场之间交换？</a></li>
+  <li><a href="#lecture09-plan" id="toc-lecture09-plan" class="nav-link" data-scroll-target="#lecture09-plan">第9讲　光子关联：从符合计数到反聚束</a></li>
+  <li><a href="#lecture10-plan" id="toc-lecture10-plan" class="nav-link" data-scroll-target="#lecture10-plan">第10讲　双光子干涉：不可区分性与HOM效应</a></li>
+  <li><a href="#lecture11-plan" id="toc-lecture11-plan" class="nav-link" data-scroll-target="#lecture11-plan">第11讲　光场的量子涨落：从相干态到压缩光</a></li>
+  <li><a href="#lecture12-plan" id="toc-lecture12-plan" class="nav-link" data-scroll-target="#lecture12-plan">第12讲　光与物质相互作用：Jaynes–Cummings模型</a></li>
   </ul></li>
-  <li><a href="#第三单元量子科技从原理到应用" id="toc-第三单元量子科技从原理到应用" class="nav-link" data-scroll-target="#第三单元量子科技从原理到应用">第三单元：量子科技——从原理到应用</a>
+  <li><a href="#第三单元量子应用用光传递信息与用干涉提取周期" id="toc-第三单元量子应用用光传递信息与用干涉提取周期" class="nav-link" data-scroll-target="#第三单元量子应用用光传递信息与用干涉提取周期">第三单元：量子应用——用光传递信息与用干涉提取周期</a>
   <ul class="collapse">
-  <li><a href="#第11讲-量子精密测量原子钟怎样把相位变成频率信息" id="toc-第11讲-量子精密测量原子钟怎样把相位变成频率信息" class="nav-link" data-scroll-target="#第11讲-量子精密测量原子钟怎样把相位变成频率信息">第11讲　量子精密测量：原子钟怎样把相位变成频率信息？</a></li>
-  <li><a href="#第12讲-量子密钥分发不能复制的量子态有什么用" id="toc-第12讲-量子密钥分发不能复制的量子态有什么用" class="nav-link" data-scroll-target="#第12讲-量子密钥分发不能复制的量子态有什么用">第12讲　量子密钥分发：不能复制的量子态有什么用？</a></li>
-  <li><a href="#第13讲-量子隐形传态如何转移一个未知量子态" id="toc-第13讲-量子隐形传态如何转移一个未知量子态" class="nav-link" data-scroll-target="#第13讲-量子隐形传态如何转移一个未知量子态">第13讲　量子隐形传态：如何转移一个未知量子态？</a></li>
-  <li><a href="#第14讲-量子计算怎样利用相位与干涉得到答案" id="toc-第14讲-量子计算怎样利用相位与干涉得到答案" class="nav-link" data-scroll-target="#第14讲-量子计算怎样利用相位与干涉得到答案">第14讲　量子计算：怎样利用相位与干涉得到答案？</a></li>
+  <li><a href="#lecture13-plan" id="toc-lecture13-plan" class="nav-link" data-scroll-target="#lecture13-plan">第13讲　用光传递量子信息：密钥分发与隐形传态</a></li>
+  <li><a href="#lecture14-plan" id="toc-lecture14-plan" class="nav-link" data-scroll-target="#lecture14-plan">第14讲　量子计算：Shor算法怎样从干涉中读出周期？</a></li>
   <li><a href="#第15讲-课题汇报从一个量子模型到一个研究问题" id="toc-第15讲-课题汇报从一个量子模型到一个研究问题" class="nav-link" data-scroll-target="#第15讲-课题汇报从一个量子模型到一个研究问题">第15讲　课题汇报：从一个量子模型到一个研究问题</a></li>
   </ul></li>
   <li><a href="#全课程共同附录" id="toc-全课程共同附录" class="nav-link" data-scroll-target="#全课程共同附录">全课程共同附录</a></li>
@@ -243,7 +270,7 @@ div.csl-indent {
 </header>
 
 
-<p>课程安排为14次正式授课与1次学生课题汇报，每次两个45分钟课时。本目录同时给出知识顺序和每讲的深度边界。每讲将故事与严谨分析结合：第1讲以历史与概念故事、实验证据和Shor算法的意义为主，第2至14讲逐步引入具体模型与计算，第15讲为学生课题汇报。绪论的严谨性通过概念、条件和结论的对应关系体现，完整数学与定量训练按先修顺序进入后续讲次。选学内容不计入必须在90分钟内完成的正文。</p>
+<p>课程安排为14次正式授课与1次学生课题汇报，每次两个45分钟课时。本目录同时给出知识顺序和每讲的深度边界。每讲将故事与严谨分析结合：第1讲以历史与概念故事、实验证据和Shor算法的意义为主，第2至14讲逐步引入具体模型与计算，第15讲为学生课题汇报。第9—14讲按2026年11月9日确认的安排更新：第9—12讲集中学习光子关联、双光子干涉、压缩光和JC模型，第13—14讲分别讨论量子通信与Shor算法。各讲两个45分钟课时的安排包含提问、讨论和短练习。绪论的严谨性通过概念、条件和结论的对应关系体现，完整数学与定量训练按先修顺序进入后续讲次。选学内容不计入必须在90分钟内完成的正文。</p>
 <section id="第一单元建立量子语言" class="level2">
 <h2 class="anchored" data-anchor-id="第一单元建立量子语言">第一单元：建立量子语言</h2>
 <section id="第1讲-绪论从量子力学到量子信息科学" class="level3">
@@ -352,8 +379,8 @@ div.csl-indent {
 </section>
 <section id="第二单元光场原子及其相互作用" class="level2">
 <h2 class="anchored" data-anchor-id="第二单元光场原子及其相互作用">第二单元：光场、原子及其相互作用</h2>
-<section id="第7讲-光场量子化光为什么具有离散的能量" class="level3">
-<h3 class="anchored" data-anchor-id="第7讲-光场量子化光为什么具有离散的能量">第7讲　光场量子化：从一个振动模式到光子</h3>
+<section id="第7讲-光场量子化从一个振动模式到光子" class="level3">
+<h3 class="anchored" data-anchor-id="第7讲-光场量子化从一个振动模式到光子">第7讲　光场量子化：从一个振动模式到光子</h3>
 <p><strong>核心问题：</strong> 一个光场模式为什么能用谐振子描述？</p>
 <ol type="1">
 <li>从经典振动到电磁场模式</li>
@@ -384,104 +411,200 @@ div.csl-indent {
 <strong>选学：</strong> 由湮灭算符本征方程推导相干态展开；探测效率与平均计数的联系。<br>
 <strong>学会的标志：</strong> 区分确定光子数、平均光子数和一次计数结果。</p>
 </section>
-<section id="第9讲-光子关联探测器的点击怎样揭示光的量子性" class="level3">
-<h3 class="anchored" data-anchor-id="第9讲-光子关联探测器的点击怎样揭示光的量子性">第9讲　光子关联：探测器的点击怎样揭示光的量子性？</h3>
-<p><strong>核心问题：</strong> 哪一种测量能排除简单的经典光场解释？</p>
-<ol type="1">
-<li>HBT与符合计数</li>
-<li>阶乘矩与二阶关联</li>
-<li>相干光、单模热光和单光子的基准</li>
-<li>单发射体的时间反聚束</li>
-<li>损耗、背景、多模和时间分辨率</li>
-<li>用数据提出有边界的结论</li>
-</ol>
-<p><strong>先修：</strong> 第8讲统计；第7讲算符。<br>
-<strong>核心计算：</strong> 零延迟二阶关联的三个基准。<br>
-<strong>选学：</strong> HOM双光子干涉；时间反聚束与亚Poisson统计的区别。<br>
-<strong>学会的标志：</strong> 判断一幅关联图能支持什么结论，同时指出一个实验限制。</p>
+<section id="lecture09-plan" class="level3">
+<h3 class="anchored" data-anchor-id="lecture09-plan">第9讲　光子关联：从符合计数到反聚束</h3>
+<p><strong>核心问题：</strong> 怎样从探测器的点击记录获得光子关联，并判断光的非经典性质？</p>
+<p>本讲承接第8讲的光子数分布、HBT装置和二阶关联预告，重点建立“计数记录—关联函数—物理判断”的联系。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 73%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">课时</th>
+<th style="text-align: left;">内容与时间安排</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">第一课时（45分钟）：符合计数测到了什么</td>
+<td style="text-align: left;">8分钟：回顾光子统计与HBT问题；12分钟：单路计数、双路符合与归一化，说明点击统计用于估计二阶关联所需的低占据或低探测概率条件；15分钟：从光子对计数建立零延迟关联与阶乘矩的关系；10分钟：比较三种光场并完成统计判断。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">第二课时（45分钟）：光子的时间关联</td>
+<td style="text-align: left;">10分钟：从时间戳和延迟直方图引入时间关联；15分钟：解释单发射体的反聚束并比较热光聚束；12分钟：分析背景、多模与时间分辨率对观测的影响；8分钟：判断一组关联数据支持什么结论。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>重点推导：</strong> 在明确的理想单模条件下，从符合计数建立 <span class="math inline">\(g^{(2)}(0)=\langle n(n-1)\rangle/\bar n^2\)</span>（<span class="math inline">\(\bar n&gt;0\)</span>），再联系光子数方差；用第8讲已有结果计算数态、相干态和单模热态的基准。说明小于1的零延迟结果为何排除非负经典随机强度对应的混合Poisson模型。区分零延迟亚Poisson判据与比较不同时延的反聚束判据。</p>
+<p><strong>介绍内容：</strong> 单发射体发射后需要重新激发的物理机制；探测器响应、背景与多模效应。给出有明确条件的时间关联曲线，不求解完整光学Bloch方程。</p>
+<p><strong>先修：</strong> 第7讲阶梯算符，第8讲光子分布、均值、方差和HBT预告。<br>
+<strong>学会的标志：</strong> 能把符合记录与关联函数联系起来，解释三种基准，并指出一项影响实验判断的条件。<br>
+<strong>应用衔接：</strong> 第13讲用光源统计解释实际量子通信中的多光子成分；光源非经典性表征与协议安全性证明各有不同职责。</p>
 </section>
-<section id="第10讲-原子光场耦合一个激发如何在原子与光场之间交换" class="level3">
-<h3 class="anchored" data-anchor-id="第10讲-原子光场耦合一个激发如何在原子与光场之间交换">第10讲　原子—光场耦合：一个激发如何在原子与光场之间交换？</h3>
-<p><strong>核心问题：</strong> 当驱动场也被量子化后，Rabi振荡怎样改变？</p>
-<ol type="1">
-<li>腔改变了原子所处的电磁环境</li>
-<li>从偶极耦合到JC模型</li>
-<li>总激发数守恒</li>
-<li>单激发子空间的二维哈密顿量</li>
-<li>真空Rabi振荡与原子—场纠缠</li>
-<li>回收约化态与纠缠熵，比较能量交换和纠缠的时间变化</li>
-</ol>
-<p><strong>先修：</strong> 第3讲Rabi，第4讲复合系统、第6讲约化态与纠缠熵、第7讲阶梯算符。<br>
-<strong>核心计算：</strong> 初态为激发原子与真空腔时的能量交换；由演化态求约化态与纠缠熵。<br>
-<strong>选学：</strong> 更高激发子空间、缀饰态、坍缩复苏、Purcell效应和量子Rabi模型。<br>
-<strong>学会的标志：</strong> 找到能量来源，说明为什么无限维空间中的一个问题可以缩减为二维。</p>
+<section id="lecture10-plan" class="level3">
+<h3 class="anchored" data-anchor-id="lecture10-plan">第10讲　双光子干涉：不可区分性与HOM效应</h3>
+<p><strong>核心问题：</strong> 两个光子分别从分束器的两个输入端进入时，不可区分性怎样改变输出概率？</p>
+<p>本讲从第9讲的分束器与符合探测出发，改变输入方式，用双光子概率幅的相消解释Hong–Ou–Mandel（HOM）效应。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 73%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">课时</th>
+<th style="text-align: left;">内容与时间安排</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">第一课时（45分钟）：两个光子通过分束器</td>
+<td style="text-align: left;">8分钟：预测双光子输出；12分钟：建立两个模式及50:50分束器对产生算符的变换，明确相位约定；15分钟：计算每个输入端各有一个光子时的输出态；10分钟：比较不可区分与可区分光子的符合概率。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">第二课时（45分钟）：HOM凹陷与光子对</td>
+<td style="text-align: left;">12分钟：改变延迟和偏振，观察符合曲线；10分钟：用波包重叠解释可区分性；15分钟：介绍自发参量下转换、光子对与预告式单光子源；8分钟：比较HBT与HOM，并联系后续光学Bell测量。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>重点推导：</strong> 从分束器的产生算符变换得到双光子输出态；解释“一只光子从每个输出端离开”的两条不可区分概率幅为什么相消，计算理想可区分与不可区分输入的符合概率。保持态归一化与分束器相位约定一致。</p>
+<p><strong>介绍内容：</strong> 延迟与波包重叠对HOM凹陷的影响；参量下转换的能量、动量匹配图景及预告探测。说明光子对产生与纠缠态制备的联系及所需条件，不展开非线性极化、复杂脉冲形状和完整相位匹配计算。光学Bell测量只建立装置入口及其实现限制，具体任务在第13讲讨论。</p>
+<p><strong>先修：</strong> 第2讲概率幅，第4讲联合态，第7讲产生算符，第9讲符合计数。<br>
+<strong>学会的标志：</strong> 能用概率幅解释理想HOM符合抑制，说明光子的可区分性如何影响结果，并区分HBT和HOM的输入与测量目的。<br>
+<strong>应用衔接：</strong> 第13讲用光子对、分束器与符合探测介绍光学隐形传态；第14讲复用概率幅相长、相消的计算经验，进入多项干涉与周期读出。</p>
+</section>
+<section id="lecture11-plan" class="level3">
+<h3 class="anchored" data-anchor-id="lecture11-plan">第11讲　光场的量子涨落：从相干态到压缩光</h3>
+<p><strong>核心问题：</strong> 光子数统计之外，怎样描述和观测光场两个正交分量的涨落？</p>
+<p>第9、10讲通过符合计数研究光子关联与双光子干涉；本讲转向光场的相位敏感观测，从第8讲相干态的平均电场出发，建立场正交分量、真空噪声和压缩的联系，再用零拍探测说明这些涨落怎样被观察。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 73%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">课时</th>
+<th style="text-align: left;">内容与时间安排</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">第一课时（45分钟）：平均电场之外的涨落</td>
+<td style="text-align: left;">8分钟：回顾相干态的平均电场；12分钟：从固定相位下重复测量的涨落引入两个正交分量及相空间图像；15分钟：计算真空与相干态的方差；10分钟：比较真空、相干态和热态的噪声。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">第二课时（45分钟）：压缩与观测</td>
+<td style="text-align: left;">10分钟：用不确定性关系讨论降低一个分量涨落的可能性；15分钟：根据给定的压缩变换计算两方向方差；12分钟：解释平衡零拍探测及本振相位的作用；8分钟：展示损耗影响与一个压缩光应用。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>重点推导：</strong> 以统一的无量纲正交分量约定，从阶梯算符计算对易关系以及真空、相干态的方差。给定压缩对两个分量的变换后，计算理想压缩真空的两方向方差，并检验其不确定性乘积。理解降低一个分量的噪声与另一个分量噪声增大之间的关系。</p>
+<p><strong>介绍内容：</strong> 压缩光的参量产生机制、平衡零拍探测装置、本振相位与所观测分量的关系，以及损耗引入真空噪声的效果。用一个应用说明选择压缩方向的意义。压缩算符的指数形式与变换证明、Wigner函数层析放入选学；原子钟、Ramsey精密测量和Fisher信息不作为独立必讲专题。</p>
+<p><strong>先修：</strong> 第7讲对易关系与真空涨落，第8讲相干态、热态和方差。<br>
+<strong>学会的标志：</strong> 能比较三类噪声图像，检验理想压缩态的不确定性关系，说明零拍探测中改变本振相位是在选择什么。<br>
+<strong>应用衔接：</strong> 本讲通过“光场涨落—压缩—探测—噪声改善”完成应用联系；连续变量量子通信仅作拓展方向。</p>
+</section>
+<section id="lecture12-plan" class="level3">
+<h3 class="anchored" data-anchor-id="lecture12-plan">第12讲　光与物质相互作用：Jaynes–Cummings模型</h3>
+<p><strong>核心问题：</strong> 当光场也被量子化后，二能级原子与单模光场的相互作用产生哪些新的能谱和动力学特征？</p>
+<p>本讲以Jaynes–Cummings（JC）模型为核心，从第3讲的经典光场驱动过渡到原子与量子光场的联合描述。能量交换是求解模型的具体问题，缀饰态、光子数依赖与纠缠共同体现其物理内容。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 73%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">课时</th>
+<th style="text-align: left;">内容与时间安排</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">第一课时（45分钟）：建立JC模型</td>
+<td style="text-align: left;">8分钟：回顾经典驱动下的Rabi振荡，提出驱动场量子化的问题；12分钟：介绍单模腔、二能级原子、偶极耦合与旋波近似，建立JC哈密顿量；15分钟：利用总激发数守恒分解二维子空间，得到光子数依赖的耦合矩阵元；10分钟：求共振缀饰态与能级劈裂。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">第二课时（45分钟）：动力学与纠缠</td>
+<td style="text-align: left;">15分钟：用第一课时求得的缀饰态展开初态，完整求解激发原子与真空腔的共振演化，解释真空Rabi振荡；12分钟：求原子约化态，比较激发交换与最大纠缠出现的时刻；10分钟：用图像介绍失谐下的避免交叉及相干场初态下的坍缩复苏；8分钟：检查零耦合与归一化，再用一幅腔量子接口示意图概览损耗与强耦合。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>重点推导：</strong> 从给定偶极相互作用辨认原子跃迁与光子的交换项，说明旋波近似后保留的耦合；验证总激发数守恒，建立由激发原子与 <span class="math inline">\(n\)</span> 个光子、基态原子与 <span class="math inline">\(n+1\)</span> 个光子张成的二维子空间。由阶梯算符得到耦合矩阵元 <span class="math inline">\(\hbar g\sqrt{n+1}\)</span>，求共振缀饰态与能级劈裂，并完整求解单激发初态的演化。用第6讲的偏迹计算原子约化态，判断纠缠随时间的变化。</p>
+<p><strong>介绍内容：</strong> 偶极近似、二能级近似和单模近似的物理含义；失谐下的避免交叉、坍缩与复苏、腔损耗、自发辐射、强耦合条件和Purcell效应。损耗、自发辐射、强耦合与Purcell效应在同一腔系统图景中简要定位，详细机制留作拓展；不展开一般失谐动力学、复苏时间求和、开放系统主方程或完整微观耦合常数推导。</p>
+<p><strong>先修：</strong> 第3讲二能级演化，第4讲张量积，第6讲约化态，第7讲阶梯算符，第8讲光子数分布。<br>
+<strong>学会的标志：</strong> 能把JC模型分成二维问题，解释光子数依赖的耦合，求解真空Rabi振荡，并区分激发完全转移与最大纠缠的时刻。<br>
+<strong>应用衔接：</strong> 为第13讲的物质量子节点与光学接口提供基础图景；真实传播光子的释放、传输和吸收另需控制与耗散模型。</p>
 </section>
 </section>
-<section id="第三单元量子科技从原理到应用" class="level2">
-<h2 class="anchored" data-anchor-id="第三单元量子科技从原理到应用">第三单元：量子科技——从原理到应用</h2>
-<section id="第11讲-量子精密测量原子钟怎样把相位变成频率信息" class="level3">
-<h3 class="anchored" data-anchor-id="第11讲-量子精密测量原子钟怎样把相位变成频率信息">第11讲　量子精密测量：原子钟怎样把相位变成频率信息？</h3>
-<p><strong>核心问题：</strong> 两次脉冲之间的等待，为什么能测量频率？</p>
-<ol type="1">
-<li>时钟、参考振荡器与频率比较</li>
-<li>Ramsey的两个脉冲</li>
-<li>自由演化与相对相位</li>
-<li>从相位到布居条纹</li>
-<li>二项统计与误差传播</li>
-<li>退相干如何限制有效询问时间；以压缩光的噪声图像介绍量子增强测量</li>
-</ol>
-<p><strong>先修：</strong> 第3讲脉冲、第6讲相干性与双路径干涉；补充讲义A可供复习。<br>
-<strong>核心计算：</strong> Ramsey条纹，以及理想工作点处独立重复测量的统计精度。<br>
-<strong>选学：</strong> 总时间预算、纠缠增强测量与Fisher信息；场正交分量、压缩光与零拍探测。<br>
-<strong>学会的标志：</strong> 能指出与Mach–Zehnder干涉相同的数学结构，并说明简单精度公式的前提。</p>
+<section id="第三单元量子应用用光传递信息与用干涉提取周期" class="level2">
+<h2 class="anchored" data-anchor-id="第三单元量子应用用光传递信息与用干涉提取周期">第三单元：量子应用——用光传递信息与用干涉提取周期</h2>
+<section id="lecture13-plan" class="level3">
+<h3 class="anchored" data-anchor-id="lecture13-plan">第13讲　用光传递量子信息：密钥分发与隐形传态</h3>
+<p><strong>核心问题：</strong> 怎样用光子实现密钥分发和量子态转移，光源、干涉与探测各承担什么作用？</p>
+<p>本讲以偏振光子实现BB84为定量主线，再用光子对、分束器和符合探测介绍光学隐形传态。不可克隆与密钥误码统计完整计算，传态侧重资源、流程与条件操作。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 73%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">课时</th>
+<th style="text-align: left;">内容与时间安排</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">第一课时（45分钟）：偏振编码与BB84</td>
+<td style="text-align: left;">8分钟：区分密钥分发、消息加密与认证，以两组偏振基编码的信号提出窃听者能否留存副本、等公开基后再读的问题；12分钟：用线性性证明未知任意量子态不可克隆；15分钟：以光子偏振走完BB84的发送、选基测量与筛选；10分钟：分析一组发送和接收记录。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">第二课时（45分钟）：光源条件与量子态转移</td>
+<td style="text-align: left;">15分钟：推导理想全量截获—重发的筛选后误码率；8分钟：联系弱相干光与多光子成分，用流程概览说明实际协议环节；17分钟：介绍共享纠缠、Bell测量、经典消息与条件校正，追踪一个传态分支并联系光学装置；5分钟：比较两个通信任务，展望物质量子节点与光学接口。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>重点推导：</strong> 用线性性证明对未知任意态进行完美克隆的不可能性；计算理想全量截获—重发模型的筛选后误码率，并明确该结果的模型条件。传态给出Bell测量结果与校正操作的对应关系，追踪其中一个条件分支；完整三比特展开列入选学。</p>
+<p><strong>介绍内容：</strong> 弱相干脉冲中的多光子成分、光源关联表征的作用、认证、纠错、隐私放大与诱骗态在流程中各解决什么问题，每项只交代作用；不展开具体实现和一般安全性证明。通过第10讲的光子对、HOM干涉和符合探测介绍光学Bell测量，区分理想协议中的Bell测量与具体装置可辨认的结果。第12讲的原子—光场耦合作为量子网络接口的基础图景。</p>
+<p><strong>先修：</strong> 第2讲偏振与测量，第4讲Bell态与门，第6讲约化态，第8—10讲光源统计、光子对与双光子干涉，第12讲光与物质耦合。<br>
+<strong>学会的标志：</strong> 能用偏振态解释BB84，完成理想攻击模型的误码计算，说明隐形传态中纠缠、经典消息和校正各自的作用，并把光学器件对应到协议步骤。<br>
+<strong>深度边界：</strong> 光源非经典性不单独构成协议安全性的证明；理想攻击模型的误码率不作为一般安全阈值。</p>
 </section>
-<section id="第12讲-量子密钥分发不能复制的量子态有什么用" class="level3">
-<h3 class="anchored" data-anchor-id="第12讲-量子密钥分发不能复制的量子态有什么用">第12讲　量子密钥分发：不能复制的量子态有什么用？</h3>
-<p><strong>核心问题：</strong> 未知量子态的限制怎样成为协议中的资源？</p>
-<ol type="1">
-<li>回到绪论的密码问题：密钥、加密与认证的不同职责</li>
-<li>非正交态与测量扰动</li>
-<li>不可克隆定理</li>
-<li>BB84的两组基与筛选</li>
-<li>截获—重发的误码率</li>
-<li>理想协议与实际设备</li>
-</ol>
-<p><strong>先修：</strong> 第2讲测量，第4讲联合系统，第8讲光源统计。<br>
-<strong>核心计算：</strong> 线性不可克隆证明与理想攻击模型的误码统计。<br>
-<strong>选学：</strong> 诱骗态、有限统计及安全性证明的职责。<br>
-<strong>学会的标志：</strong> 说明理想模型中的误码结论为何不能直接当作一般安全阈值。</p>
-</section>
-<section id="第13讲-量子隐形传态如何转移一个未知量子态" class="level3">
-<h3 class="anchored" data-anchor-id="第13讲-量子隐形传态如何转移一个未知量子态">第13讲　量子隐形传态：如何转移一个未知量子态？</h3>
-<p><strong>核心问题：</strong> 无法复制的未知量子态，怎样转移到另一个系统？</p>
-<ol type="1">
-<li>输入态、共享纠缠与经典消息</li>
-<li>Bell测量及其线路表示</li>
-<li>三量子比特状态的逐步展开</li>
-<li>四种结果与条件校正</li>
-<li>接收经典消息之前能知道什么</li>
-<li>传态在网络中的作用</li>
-</ol>
-<p><strong>先修：</strong> 第4讲Bell态与门，第6讲约化态，第12讲不可克隆。<br>
-<strong>核心计算：</strong> 完整传态分解与校正表。<br>
-<strong>选学：</strong> 光学Bell测量的实现限制。<br>
-<strong>学会的标志：</strong> 分别解释纠缠和经典通信的作用，说明没有复制未知输入态。</p>
-</section>
-<section id="第14讲-量子计算怎样利用相位与干涉得到答案" class="level3">
-<h3 class="anchored" data-anchor-id="第14讲-量子计算怎样利用相位与干涉得到答案">第14讲　量子计算：怎样利用相位与干涉得到答案？</h3>
-<p><strong>核心问题：</strong> 算法怎样把输入信息写入相位，再转成可读结果？</p>
-<ol type="1">
-<li>量子态空间与测量输出的差别</li>
-<li>问题、oracle与查询次数</li>
-<li>Deutsch问题的经典策略</li>
-<li>相位回踢</li>
-<li>一次查询后的干涉与判断</li>
-<li>回应绪论中的Shor：算法意义、实现条件与纠错资源</li>
-</ol>
-<p><strong>先修：</strong> 第2、6讲的振幅与干涉，第4讲量子门，第13讲线路追踪。<br>
-<strong>核心计算：</strong> 给定oracle定义下Deutsch算法的全部态演化。<br>
-<strong>选学：</strong> 求阶与相位估计的联系、纠错的基本思想；完整Shor推导另作专题，不挤入本讲必讲内容。<br>
-<strong>学会的标志：</strong> 说清优势对应哪种问题和资源计数，不声称所有任务都会加速。</p>
+<section id="lecture14-plan" class="level3">
+<h3 class="anchored" data-anchor-id="lecture14-plan">第14讲　量子计算：Shor算法怎样从干涉中读出周期？</h3>
+<p><strong>核心问题：</strong> 怎样把整数分解转成求阶，再用量子干涉获得周期信息并恢复因子？</p>
+<p>本讲回应第1讲的整数分解问题，以Shor算法为唯一必讲算法主线。先明确模幂运算的输入输出关系，再用一个可手算的周期态展示傅里叶变换的概率峰，最后回到第1讲的模21算例。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 73%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">课时</th>
+<th style="text-align: left;">内容与时间安排</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">第一课时（45分钟）：把分解问题写入量子态</td>
+<td style="text-align: left;">8分钟：回顾第1讲整数分解与模21的周期；12分钟：从适当的偶数阶联系平方差与最大公因数；15分钟：区分指数与余数寄存器，建立可逆模幂运算后的联合态；10分钟：分析测得一个余数后，指数寄存器为何留下等间隔标签的叠加，再说明直接测量指数标签为何不能直接读出周期，引出傅里叶变换。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">第二课时（45分钟）：用干涉提取周期</td>
+<td style="text-align: left;">10分钟：建立离散傅里叶变换的相位叠加规则；20分钟：以模15、底数2的实例计算概率峰，从有用的读出恢复并检验候选阶，提取因子；10分钟：回到模21与一般情形，解释近似峰、分数恢复、验证和重复；5分钟：讨论算法资源及硬件实现条件。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>重点推导：</strong> 从适当偶数阶通过平方差和最大公因数提取非平凡因子，并说明失败时需要重新选取底数或重复。写清模幂运算的输入输出及对应联合态，说明用余数测量选取条件周期态是帮助理解的分析方式，并非算法必须实施的额外测量；以模15、底数2、16个指数标签的教学实例计算一个条件周期态经傅里叶变换后的相长与相消，分析有用和信息不足的读出，走完候选阶验证与因子恢复。</p>
+<p><strong>介绍内容：</strong> 回到模21时，借助有限寄存器的概率峰图解释周期不整除寄存器长度时的近似峰；介绍连分数恢复的职责、验证与重复。说明模幂电路、量子傅里叶变换的高效实现以及整体资源增长的意义，不现场展开一般可逆算术电路、完整门分解、连分数理论或纠错资源估算。一般相位估计与Deutsch算法列入选学。</p>
+<p><strong>先修：</strong> 第1讲模运算与求阶故事，第2讲概率幅、相位与条件态，第3、4讲门与联合态，第6讲局部状态，第10讲概率幅相消的计算经验。离散傅里叶变换在本讲就地引入，不假定已学过。<br>
+<strong>学会的标志：</strong> 能区分经典后处理与量子求阶的职责，算清一个周期态的傅里叶概率峰，并从一次有用的结果恢复因子；能说明一次读出可能不足以确定阶。<br>
+<strong>光学联动与深度边界：</strong> 从单光子与HOM干涉中的相位相加，过渡到整数标签上的多项概率幅相加；算法优势须结合模幂、傅里叶变换与后处理的整体资源说明。模15的小寄存器只服务手算，一般求阶的精度选择另作说明；光子编码和光学量子门只作硬件路线介绍。</p>
 </section>
 <section id="第15讲-课题汇报从一个量子模型到一个研究问题" class="level3">
 <h3 class="anchored" data-anchor-id="第15讲-课题汇报从一个量子模型到一个研究问题">第15讲　课题汇报：从一个量子模型到一个研究问题</h3>
@@ -493,8 +616,8 @@ div.csl-indent {
 <li>说明结论的适用范围，回答现场提问</li>
 </ol>
 <p><strong>准备进度：</strong> 第4讲后公布题目，第6讲确定问题，第9讲检查基准结果，第12讲检查参数变化与物理解释，第14讲后完成汇报材料。<br>
-<strong>基础方向：</strong> Rabi振荡、Bell关联、光子统计、Ramsey条纹与JC模型中的能量交换及纠缠动力学。<br>
-<strong>拓展方向：</strong> 双阱隧穿与量子模拟、压缩光与量子噪声；按已有基础选择。<br>
+<strong>基础方向：</strong> Rabi振荡、Bell关联、光子统计与HBT关联、HOM双光子干涉、正交分量噪声与JC模型中的能量交换及纠缠动力学。<br>
+<strong>拓展方向：</strong> 压缩光中的损耗、JC模型坍缩复苏、BB84误码模拟、Shor周期读出；Ramsey条纹、双阱隧穿与量子模拟作为需补充相应知识的选学课题。<br>
 <strong>学会的标志：</strong> 能独立解释一幅核心图，给出一个检查结果的方法，并指出模型的适用条件。</p>
 </section>
 </section>
@@ -537,37 +660,37 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td>光的量子性质</td>
-<td>第7至10讲</td>
-<td>光子统计、非经典性判据与原子—场能量交换</td>
+<td>第7至11讲</td>
+<td>光场量子化、光子统计与关联、HOM双光子干涉、正交分量与压缩</td>
 </tr>
 <tr class="even">
-<td>用量子系统获取信息</td>
-<td>第11讲</td>
-<td>Ramsey条纹与测量精度；量子增强测量作为拓展</td>
+<td>光与物质相互作用</td>
+<td>第12讲</td>
+<td>JC模型的二维分块、缀饰态、光子数依赖耦合、真空Rabi振荡与纠缠</td>
 </tr>
 <tr class="odd">
 <td>密码与未知量子态</td>
-<td>第12、13讲</td>
-<td>不可克隆、BB84误码与完整传态校正表</td>
+<td>第13讲</td>
+<td>不可克隆、BB84误码统计、传态的资源与条件校正，以及光学实现的联系</td>
 </tr>
 <tr class="even">
 <td>Shor与量子计算的意义</td>
 <td>第14讲</td>
-<td>用Deutsch算法完整检验一次干涉计算；Shor保持远景与选学定位</td>
+<td>从求阶到因子恢复，完整计算一个周期态的傅里叶概率峰，并回到模21</td>
 </tr>
 <tr class="odd">
 <td>怎样实现与控制</td>
-<td>第3、10讲及第15讲课题汇报</td>
-<td>受驱二能级系统、JC能量交换；双阱模拟作为拓展课题</td>
+<td>第3、10、12、13讲及第15讲课题汇报</td>
+<td>受驱二能级系统、光子对与干涉、原子—光场耦合及量子通信装置</td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="能力递进" class="level2">
 <h2 class="anchored" data-anchor-id="能力递进">能力递进</h2>
-<p>第1讲建立故事、概念和问题地图。第2至6讲从二维态与测量开始，逐步加入演化、复合系统与环境。第7至10讲进入光场统计和原子—场耦合。第11讲将量子态与测量精度联系起来。第12至14讲复用已有工具完成通信协议与量子算法，第15讲通过课题汇报练习提出问题、验证模型和解释结果。</p>
-<p>第2至14讲各有一个核心计算，选学部分供拓展。第8讲的两个光子估算作为课前短题，不挤占三类光场统计的主体时间。第一讲不预先要求学生掌握这些计算。</p>
-<p>科研项目建议在第4讲后公布，第9讲检查基准图，第12讲检查参数变化与物理解释，第14讲后完成材料，第15讲汇报成果。学生无需提前学完整个专题；早期只确定一个能够逐步做完的问题。</p>
+<p>第1讲建立故事、概念和问题地图。第2至6讲从二维态与测量开始，逐步加入演化、复合系统与环境。第7、8讲建立量子光场与光子统计；第9至11讲用关联、双光子干涉和正交分量揭示不同的量子光学性质；第12讲以JC模型把光场、原子、联合态和动力学联系起来。第13讲用光源、偏振编码、干涉与探测完成量子通信任务，第14讲以Shor算法解释怎样通过干涉提取周期，第15讲通过课题汇报练习提出问题、验证模型和解释结果。</p>
+<p>第2至14讲各有核心计算，选学部分供拓展。第9—14讲区分重点推导与介绍内容：光学现象的关键计算在课堂走完，完整传态展开、一般傅里叶门分解和开放系统理论留作选学。光子统计与光源连接通信，原子—光场耦合连接量子接口，概率幅与干涉连接周期读出；压缩光通过本讲的探测与应用形成独立的物理联系。原子钟与量子精密测量不再单列必讲课次。</p>
+<p>科研项目建议在第4讲后公布，第9讲检查基准图，第12讲检查参数变化与物理解释，第14讲后完成材料，第15讲汇报成果。学生无需提前学完整个专题；早期只确定一个能够逐步做完的问题。课题选择以实际已学内容为基础，拓展题另补所需知识。</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="1" role="list" style="display: none">
