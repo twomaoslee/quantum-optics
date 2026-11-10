@@ -7,6 +7,7 @@ import re
 import sys
 import json
 import hashlib
+from favicon import ASSET, HEAD, icon_markup, without_favicon
 from release import PUBLISHED, PUBLISHED_SLIDES, STANDALONE_NOTES, PUBLISHED_PDFS, withheld
 
 DIST=Path(__file__).resolve().parents[1]/'dist'
@@ -33,6 +34,8 @@ def check_ref(path,ref):
     if target.is_dir():target=target/'index.html'
     if not target.exists():errors.append(f'{path.relative_to(DIST)}: missing {ref}')
 
+if not (DIST/ASSET).is_file() or (DIST/ASSET).read_bytes() != (DIST.parent/ASSET).read_bytes():
+    errors.append('Shared tab icon missing or out of sync')
 for path in DIST.rglob('*'):
     if not path.is_file():continue
     if withheld(path.relative_to(DIST)):
@@ -44,6 +47,9 @@ for path in DIST.rglob('*'):
             errors.append(f'Internal record in lecture 3 output: {path.relative_to(DIST)}')
     if path.stat().st_size>=100*1024*1024:errors.append(f'File exceeds GitHub limit: {path.relative_to(DIST)}')
     if path.suffix=='.html':
+        head = HEAD.search(path.read_bytes())
+        if head and not head[2].endswith(icon_markup(path.relative_to(DIST))):
+            errors.append(f'Shared tab icon missing: {path.relative_to(DIST)}')
         if path.parent == DIST/'slides' and 'course-local-layout-guide' in path.read_text():
             errors.append(f'Local layout guide in student slides: {path.name}')
         if path.parent == DIST/'slides' and re.search(r'<aside\b[^>]*class="[^"]*\bnotes\b', path.read_text()):
@@ -65,7 +71,10 @@ if classroom_manifest.exists():
     expected = set(classroom['public_files'])
     for relative in expected:
         path = DIST/'classroom'/relative
-        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != classroom['sha256'].get('classroom/'+relative):
+        content = path.read_bytes() if path.is_file() else b''
+        if path.suffix == '.html':
+            content = without_favicon(content, path.relative_to(DIST))
+        if not path.is_file() or hashlib.sha256(content).hexdigest() != classroom['sha256'].get('classroom/'+relative):
             errors.append('Classroom static asset version mismatch: '+relative)
     for path in (DIST/'classroom').rglob('*'):
         if path.is_file() and path.relative_to(DIST/'classroom').as_posix() not in expected:
@@ -82,7 +91,7 @@ recap_config = json.loads((DIST.parent/'publication.json').read_text()).get('cla
 for number, entry in recap_config.items():
     release = json.loads((DIST.parent/entry['acceptance']).read_text())
     output = DIST/entry['output']
-    if not output.is_file() or hashlib.sha256(output.read_bytes()).hexdigest() != release['html_sha256']:
+    if not output.is_file() or hashlib.sha256(without_favicon(output.read_bytes(), output.relative_to(DIST))).hexdigest() != release['html_sha256']:
         errors.append('Classroom recap output version mismatch: '+number)
     for relative, expected in release['sources'].items():
         source = DIST.parent/relative

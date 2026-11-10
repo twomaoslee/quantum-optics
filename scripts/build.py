@@ -13,6 +13,7 @@ import subprocess
 import tarfile
 import tempfile
 from urllib.parse import unquote
+from favicon import sync_favicon
 from notes_style import READING_LECTURES, sync_reading_style
 from release import CONFIG, PUBLISHED, PUBLISHED_SLIDES, NOTES_ONLY, STANDALONE_NOTES, PUBLISHED_PDFS, AFTER_CLASS, withheld
 
@@ -581,6 +582,8 @@ def update_curriculum(root):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--update-favicon', action='store_true',
+                        help='Only refresh the shared tab icon on packaged pages.')
     parser.add_argument('--update-sharing', action='store_true',
                         help='Only refresh homepage share metadata and cover assets.')
     parser.add_argument('--update-descriptions', action='store_true', help='Update homepage lecture introductions only.')
@@ -602,6 +605,13 @@ def main():
     parser.add_argument('--update-recaps', type=int, nargs='+', choices=sorted(int(n) for n in CONFIG.get('classroom_recaps', {})), help='Publish authorized anonymous classroom recaps and links only.')
     global MATERIAL_UPDATES, DESCRIPTIONS_ONLY, READING_STYLE_UPDATES, CURRICULUM_ONLY
     args = parser.parse_args()
+    if args.update_favicon:
+        if any(value for key, value in vars(args).items()
+               if key.startswith('update_') and key != 'update_favicon'):
+            parser.error('--update-favicon cannot be combined with other update modes.')
+        sync_favicon(SITE)
+        print('Shared tab icon updated; teaching material preserved.')
+        raise SystemExit(0)
     if args.update_curriculum:
         if any(value for key, value in vars(args).items()
                if key.startswith('update_') and key != 'update_curriculum'):
@@ -862,3 +872,4 @@ if __name__=='__main__':
         sync_dates(SITE, MATERIAL_UPDATES)
     from lecture_descriptions import sync_descriptions
     sync_descriptions(SITE)
+    sync_favicon(SITE)
