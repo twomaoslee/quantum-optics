@@ -18,7 +18,7 @@ async function fixture(){
  return {repo,request,ok,teacher,classroom,login,calls,tick:n=>time+=n};
 }
 
-test('a fixed QR follows the active class, while an archive stays readable and rejects stale writes',async()=>{
+test('a fixed QR follows the active class, while archived answers still accept reasons only',async()=>{
  const f=await fixture(),{code,anchor}=f.classroom,a=await f.login('TEST001');
  const l08=await f.ok('teacher.classroom',{lectureId:'l08'});
  const standalone=await f.ok('teacher.create');
@@ -36,6 +36,8 @@ test('a fixed QR follows the active class, while an archive stays readable and r
  assert.equal((await f.ok('room.public',{live:true},l08.anchor,null)).code,l08.code);
  assert.equal((await f.request('student.submit',{roundId:r.id,choice:'B'},code,a)).error.code,'CLOSED');
  assert.equal((await f.request('student.submit',{roundId:r.id,choice:'B'},trial.code,a)).error.code,'ROUND');
+ const late=await f.ok('student.reason',{roundId:r.id,choice:'A',reasonId:'other',comment:'归档后补写的虚拟材料'},code,a);
+ assert.equal(late.reason.afterClose,true);
  assert.equal((await f.request('teacher.open',{questionId:'l07-q1'},code,f.teacher)).error.code,'ARCHIVED');
  assert.equal((await f.request('teacher.newClass',{lectureId:'l07',kind:'trial'},code,f.teacher)).error.code,'ROOM_CHANGED');
  await f.ok('teacher.open',{questionId:'l07-q1'},trial.code);
@@ -48,7 +50,8 @@ test('a fixed QR follows the active class, while an archive stays readable and r
  assert.equal((await f.ok('teacher.export',{},formal.code)).rows.length,0);
  assert.equal((await f.ok('teacher.export',{},trial.code)).rows[0].choice,'B');
  assert.equal((await f.ok('teacher.export',{},code)).rows[0].choice,'A');
- assert.equal((await f.ok('student.history',{},code,a)).questions[0].rounds[0].own.choice,'A');
+ const archived=(await f.ok('student.history',{},code,a)).questions[0].rounds[0].own;
+ assert.equal(archived.choice,'A');assert.deepEqual(archived.reason,late.reason);
  assert.deepEqual((await f.ok('student.rooms',{},formal.code,a)).rooms.map(r=>r.code),[formal.code,trial.code,code]);
  assert.deepEqual((await f.ok('student.rooms',{},formal.code,await f.login('TEST002'))).rooms.map(r=>r.code),[formal.code]);
 });

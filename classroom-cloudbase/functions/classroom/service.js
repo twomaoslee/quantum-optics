@@ -89,6 +89,12 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
   }
   const isOpen = round => !round.closedAt && now() < round.deadline;
   const analysisReleased = round => round && (round.revealed || isSelfCheck(round) && !isOpen(round));
+  async function reasonRound(code,id,source=repo) {
+    requireThat(typeof id==='string'&&/^[a-f0-9-]{36}$/.test(id),'INPUT','答题轮次无效。');
+    const round=await source.get('round_'+id);
+    requireThat(round?.roomCode===code,'ROUND','在本课堂找不到这次作答。');
+    return round;
+  }
   async function liveRoom(code) {
     const room = await getRoom(code), lectureId = roomLecture(room);
     // Existing QR links for this lecture remain valid. Standalone test and
@@ -235,6 +241,13 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
     }
     if (action === 'student.state') {
       requireThat(session.role === 'student', 'FORBIDDEN', '请使用学生身份。');
+      if(data.reasonRound!==undefined){
+        const room=await getRoom(roomCode),round=await reasonRound(roomCode,data.reasonRound);
+        const own=await repo.get('answer_'+round.id+'_'+session.userId);
+        requireThat(own?.roomCode===roomCode,'ANSWER','请先提交答案，再补充选择原因。');
+        return {code:room.code,title:room.title,createdAt:room.createdAt,sessionType:room.sessionType||null,
+          question:roomQuestion(room,round.questionId || question.id),round:{id:round.id,number:round.number},own:ownAnswer(own)};
+      }
       const room = data.live===true ? await liveRoom(roomCode) : await getRoom(roomCode);
       const own = room.round ? await repo.get('answer_' + room.round.id + '_' + session.userId) : null;
       const selected=questions.get(roomQuestion(room).id);
@@ -319,13 +332,9 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
         (data.reasonId===null || typeof data.reasonId==='string' && data.reasonId.length<=30),'INPUT','请选择一条原因。');
       let saved;
       await repo.transaction(async tx=>{
-        const room=await getRoom(roomCode,tx),round=room.round;
-        requireThat(round && round.id===data.roundId,'ROUND','老师已切换轮次，请刷新后作答。');
-        requireThat(!round.closedAt && now()<round.deadline && !round.revealed,'CLOSED','本轮已结束，原因未保存；已提交的答案保留。');
-        const gateId=gateKey(round.id,parseInt(hash(session.userId).slice(0,2),16)%16),gate=await tx.get(gateId);
-        requireThat(gate && !gate.closed && now()<round.deadline,'CLOSED','本轮已结束，原因未保存；已提交的答案保留。');
+        const round=await reasonRound(roomCode,data.roundId,tx);
         const id='answer_'+round.id+'_'+session.userId,own=await tx.get(id);
-        requireThat(own,'ANSWER','请先提交答案，再补充选择原因。');
+        requireThat(own?.roomCode===roomCode,'ANSWER','请先提交答案，再补充选择原因。');
         requireThat(own.choice===data.choice,'CHOICE','答案已改变，请刷新后为当前答案补充原因。');
         const questionId=round.questionId || question.id;
         const option=reasonOptions(questionId,own.choice).find(r=>r.id===data.reasonId);
@@ -333,10 +342,10 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
         requireThat(data.comment===undefined||typeof data.comment==='string','INPUT','请填写有效的原因补充。');
         const comment=(data.comment||'').normalize('NFKC').replace(/[\u0000-\u001f\u007f]/g,' ').trim();
         requireThat([...comment].length<=300 && (!comment||option),'INPUT','请先选择原因或使用“其他”，补充最多300字。');
-        saved=option?{id:option.id,text:option.text,version:reasonVersion(questionId),submittedAt:now(),...(comment?{comment}:{})}:null;
+        saved=option?{id:option.id,text:option.text,version:reasonVersion(questionId),submittedAt:now(),
+          ...(!isOpen(round)?{afterClose:true}:{}),...(comment?{comment}:{})}:null;
         // A reason update neither re-submits the answer nor changes its timestamp.
         await tx.set(id,{...own,reason:saved});
-        await tx.set(gateId,{...gate,version:gate.version+1});
       });
       return {ok:true,reason:saved};
     }

@@ -44,6 +44,11 @@ test('AI cache is single-flight, private details never enter projection, and a n
  const ready=await first;assert.equal(ready.analysis.status,'ready');assert.equal(f.calls(),1);assert.equal(ready.details,undefined);assert(!JSON.stringify(ready).includes('我算出的系数没有保留'));
  await f.ok('teacher.analyze',data);assert.equal(f.calls(),1);
  const detail=await f.ok('teacher.analysisDetails',data);assert(detail.details.observations[0].evidence.length);assert.equal(detail.reasonRounds[0].choices[0].comments[0].text,'我算出的系数没有保留');
+ await f.ok('student.reason',{roundId:r.id,choice:'A',reasonId:'other',comment:'展示结果以后补写'},f.a);
+ const updated=await f.ok('teacher.analysisDetails',data);
+ assert.equal(updated.analysis.status,'idle');assert.equal(updated.reasonRounds[0].afterClose,1);
+ assert.equal(updated.reasonRounds[0].choices[0].comments[0].afterClose,true);
+ await f.ok('teacher.analyze',data);assert.equal(f.calls(),2);
  await f.ok('teacher.open',{questionId:'l07-q3',roundId:r.id});const next=(await f.ok('teacher.state')).round;await f.ok('teacher.reveal',{roundId:next.id});
  assert.equal((await f.ok('teacher.comparison',{questionId:'l07-q3',roundId:next.id})).analysis.status,'idle');
  assert.equal((await f.request('teacher.analysisStatus',{...data,fingerprint:ready.fingerprint},f.teacher)).error.code,'ROUND');

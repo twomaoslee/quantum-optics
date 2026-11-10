@@ -43,7 +43,7 @@ test('after-class answer release closes expired gates against an in-flight submi
  assert.equal((await inflight).error.code,'CLOSED');const h=(await call('student.history',{},pupil,room)).data;assert.equal(h.questions[0].rounds[0].own,null);
 });
 
-test('reason writes cannot cross reveal or attach a stale choice reason after a concurrent answer change',async()=>{
+test('reason writes can cross reveal without changing counts but cannot attach to a stale choice',async()=>{
  const repo=snapshotRepo(),service=createService(repo,{teacherPasswordHash:await passwordHash('reason-race-password')});
  const call=(action,data={},token,roomCode)=>service.handle({action,data,token,roomCode},'reason-race');
  const teacher=(await call('teacher.login',{password:'reason-race-password'})).data.token,room=(await call('teacher.create',{},teacher)).data.code;
@@ -53,8 +53,14 @@ test('reason writes cannot cross reveal or attach a stale choice reason after a 
   await call('student.submit',{roundId,choice:'A'},pupil,room);
   const reached=repo.pauseNextAnswerRead(),inflight=call('student.reason',{roundId,choice:'A',reasonId:'A1'},pupil,room);await reached;
   if(mode==='choice')await call('student.submit',{roundId,choice:'B'},pupil,room);else await call('teacher.reveal',{roundId},teacher,room);
-  repo.resume();assert.equal((await inflight).error.code,mode==='choice'?'CHOICE':'CLOSED');
-  const own=(await call('student.state',{},pupil,room)).data.own;assert.equal(own.reason,null);assert.equal(own.choice,mode==='choice'?'B':'A');
-  if(mode==='choice')await call('teacher.close',{roundId},teacher,room);
+  repo.resume();const saved=await inflight;
+  const {round,own}=(await call('student.state',{},pupil,room)).data;
+  if(mode==='choice'){
+   assert.equal(saved.error.code,'CHOICE');assert.equal(own.choice,'B');assert.equal(own.reason,null);
+   await call('teacher.close',{roundId},teacher,room);
+  }else{
+   assert(saved.ok);assert.equal(own.reason.id,'A1');assert.equal(own.choice,'A');
+   assert.equal(round.total,1);assert.equal(round.counts.A,1);
+  }
  }
 });

@@ -21,15 +21,26 @@ function snapshot(record,rounds,rows,analysisNamespace=''){
  });
  const reasonRounds=ordered.map((r,i)=>{
   const answers=byRound.get(r.id);
+  const afterClose=answers.filter(a=>a.reason?.afterClose).length;
   return {ordinal:i+1,total:answers.length,submitted:answers.filter(a=>a.reason).length,
+   ...(afterClose?{afterClose}:{}),
    choices:letters.map(choice=>{
     const selected=answers.filter(a=>a.choice===choice),groups=new Map(),comments=new Map();
     for(const a of selected)if(a.reason){
-     const key=JSON.stringify([a.reason.id,a.reason.text]);if(!groups.has(key))groups.set(key,{id:a.reason.id,text:a.reason.text,count:0});groups.get(key).count++;
-     if(a.reason.comment){const text=redact(a.reason.comment);if(text)comments.set(text,(comments.get(text)||0)+1);}
+     const timing=a.reason.afterClose?{afterClose:true}:{};
+     const key=JSON.stringify([a.reason.id,a.reason.text,timing]);
+     if(!groups.has(key))groups.set(key,{id:a.reason.id,text:a.reason.text,count:0,...timing});
+     groups.get(key).count++;
+     if(a.reason.comment){
+      const text=redact(a.reason.comment),commentKey=JSON.stringify([text,timing]);
+      if(text){
+       if(!comments.has(commentKey))comments.set(commentKey,{text,count:0,...timing});
+       comments.get(commentKey).count++;
+      }
+     }
     }
     return {choice,total:selected.length,submitted:selected.filter(a=>a.reason).length,reasons:[...groups.values()],
-     comments:[...comments].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).slice(0,8).map(([text,count])=>({text,count})),commentsDistinct:comments.size};
+     comments:[...comments.values()].sort((a,b)=>b.count-a.count||a.text.localeCompare(b.text)).slice(0,8),commentsDistinct:comments.size};
    })};
  });
  const evidence=distributions.map(r=>({...r,id:'round-'+r.ordinal}));
@@ -44,6 +55,9 @@ function snapshot(record,rounds,rows,analysisNamespace=''){
  if(ordered.some(r=>r.feedbackMode==='self-check')){
   input.feedbackMode='self-check';
   input.caveats.push('自查题先显示解析，随后才允许补填原因。将原因和补充作为答后反思，不用它们推断学生提交前的思路或据此诊断误区。');
+ }
+ if(ordered.some((r,i)=>r.feedbackMode!=='self-check'&&reasonRounds[i].afterClose)){
+  input.caveats.push('讨论题中 afterClose 标记的理由和文字是在作答截止后补填或修改的，可能受讨论或解析影响，不将这部分当作答题当时的思路。');
  }
  const fingerprint=crypto.createHash('sha256').update(JSON.stringify({version:5,input,bankVersion:reasonVersion(question.id),...(analysisNamespace?{analysisNamespace}:{})})).digest('hex');
  return {public:{questionId:question.id,options:letters,rounds:distributions,transitions},input,fingerprint};

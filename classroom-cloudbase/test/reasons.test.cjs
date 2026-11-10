@@ -72,7 +72,7 @@ test('Lecture 8 gives each answer two or three distinct reasons and keeps option
  }
  assert.equal(branches,18);
 });
-test('reasons cannot create an answer, select another choice, overwrite another student, or cross rounds; omission is neutral',async()=>{
+test('reasons cannot create an answer, select another choice, overwrite another student, or cross classrooms; omission is neutral',async()=>{
  const f=await fixture();await f.ok('teacher.open');let r=(await f.ok('teacher.state')).round;
  assert.equal((await f.ok('student.state',{},f.student)).own,null);
  assert.equal((await f.request('student.reason',{roundId:r.id,choice:'C',reasonId:'C1'},f.student)).error.code,'ANSWER');
@@ -89,22 +89,34 @@ test('reasons cannot create an answer, select another choice, overwrite another 
  for(const token of [null,f.student])assert.equal((await f.request('teacher.reasonStats',{roundId:r.id},token)).error.code,token?'FORBIDDEN':'AUTH');
  const history=await f.ok('student.history',{},f.student);assert.equal(history.questions[0].rounds[0].own.isCorrect,undefined);
  await f.ok('teacher.open',{questionId:'l07-q2'});
- assert.equal((await f.request('student.reason',{roundId:r.id,choice:'B',reasonId:'B1'},f.student)).error.code,'ROUND');
+ const newRoom=(await f.ok('teacher.create')).code;
+ const edit={roundId:r.id,choice:'B',reasonId:'B1'};
+ assert.equal((await f.request('student.reason',edit,f.student,newRoom)).error.code,'ROUND');
+ assert.equal((await f.request('student.state',{reasonRound:r.id},f.student,newRoom)).error.code,'ROUND');
  assert.equal((await f.ok('student.state',{},f.student)).own,null);
  const exported=await f.ok('teacher.export');assert(exported.rows.every(row=>row.reason===null));assert(csv.create(exported).includes('未填写'));
 });
-test('server deadline and teacher reveal reject late reasons while own history and teacher statistics keep saved reasons private',async()=>{
- const f=await fixture();await f.ok('teacher.open',{questionId:'l07-q3'});let r=(await f.ok('teacher.state')).round;
- await f.ok('student.submit',{roundId:r.id,choice:'A'},f.student);f.tick(1000);
- await f.ok('student.reason',{roundId:r.id,choice:'A',reasonId:'A1'},f.student);
- const saved=(await f.ok('student.state',{},f.student)).own.reason;
- f.tick(60001);assert.equal((await f.request('student.reason',{roundId:r.id,choice:'A',reasonId:'A2'},f.student)).error.code,'CLOSED');
+test('reasons remain editable after deadline, reveal and question change without reopening answers',async()=>{
+ const f=await fixture();await f.ok('teacher.open',{questionId:'l07-q3'});const r=(await f.ok('teacher.state')).round;
+ await f.ok('student.submit',{roundId:r.id,choice:'A'},f.student);
+ const submittedAt=(await f.ok('student.state',{},f.student)).own.updatedAt;
+ f.tick(60001);
+ assert.equal((await f.request('student.submit',{roundId:r.id,choice:'B'},f.student)).error.code,'CLOSED');
+ const reason={roundId:r.id,choice:'A',reasonId:'A1'};
+ const late=await f.ok('student.reason',reason,f.student);
+ assert.equal(late.reason.afterClose,true);
  await f.ok('teacher.reveal',{roundId:r.id});
- const stats=await f.ok('teacher.reasonStats',{roundId:r.id}),a=stats.choices.find(c=>c.choice==='A');assert.equal(a.submitted,1);assert.equal(a.reasons.find(reason=>reason.id==='A1').count,1);
+ await f.ok('teacher.open',{questionId:'l07-q4'});
+ const {round,own:record,question}=await f.ok('student.state',{reasonRound:r.id},f.student);
+ assert.equal(question.id,'l07-q3');assert.equal(round.correct,undefined);assert.deepEqual(record.reason,late.reason);
+ assert.equal((await f.request('student.state',{reasonRound:r.id},f.two)).error.code,'ANSWER');
+ assert.equal((await f.request('student.reason',reason,f.two)).error.code,'ANSWER');
+ const {reason:saved}=await f.ok('student.reason',{...reason,reasonId:'other',comment:'换题以后补写'},f.student);
+ const stats=await f.ok('teacher.reasonStats',{questionId:'l07-q3',roundId:r.id});
+ assert.equal(stats.total,1);assert.equal(stats.choices[0].reasons.find(item=>item.id==='other').count,1);
  const own=await f.ok('student.history',{},f.student),other=await f.ok('student.history',{},f.two);
- assert.deepEqual(own.questions[2].rounds[0].own.reason,saved);assert.equal(own.questions[2].rounds[0].own.isCorrect,false);assert.equal(other.questions[2].rounds[0].own,null);
- for(const action of ['student.state','room.public']){const data=await f.ok(action,{},f.two);assert(!JSON.stringify(data).includes(saved.text));}
- await f.ok('teacher.open',{questionId:'l07-q4'});r=(await f.ok('teacher.state')).round;
- await f.ok('student.submit',{roundId:r.id,choice:'B'},f.student);await f.ok('teacher.reveal',{roundId:r.id});
- assert.equal((await f.request('student.reason',{roundId:r.id,choice:'B',reasonId:'B1'},f.student)).error.code,'CLOSED');
+ assert.deepEqual(own.questions[2].rounds[0].own,{choice:'A',submittedAt,reason:saved,isCorrect:false});
+ assert.equal(other.questions[2].rounds[0].own,null);
+ const row=(await f.ok('teacher.export')).rows.find(row=>row.roundId===r.id);
+ assert.equal(row.submittedAt,submittedAt);assert.deepEqual(row.reason,saved);
 });

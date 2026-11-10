@@ -29,7 +29,7 @@ test('all six questions disclose personal results only after teacher display, pr
   assert.equal(history.answersReleasedAt,null);
  }
 });
-test('new optional reasons retain old wording; any preset accepts a 300-character comment; publication locks both',async()=>{
+test('new optional reasons retain old wording; any preset accepts a 300-character comment; publication permits reason edits',async()=>{
  const f=await fixture();await f.ok('teacher.open',{questionId:'l07-q4'});const r=(await f.ok('teacher.state',{questionId:'l07-q4'})).round;
  await f.ok('student.submit',{roundId:r.id,choice:'B'},f.student);
  const [record]=await f.repo.list({kind:'answer',roomCode:f.room});const old={id:'B1',text:'此前课堂的原始原因',version:'old-version',submittedAt:1,comment:'此前的补充'};
@@ -40,6 +40,7 @@ test('new optional reasons retain old wording; any preset accepts a 300-characte
  own=await f.ok('student.state',{},f.student);assert.equal(own.own.reason.comment.length,300);assert.equal(own.own.updatedAt,record.updatedAt);
  assert.equal((await f.request('student.reason',{...payload,comment:'字'.repeat(301)},f.student)).error.code,'INPUT');
  await f.ok('teacher.reveal',{questionId:'l07-q4',roundId:r.id});
- assert.equal((await f.request('student.reason',{...payload,comment:'看过解析后补写'},f.student)).error.code,'CLOSED');
- assert.equal((await f.ok('teacher.reasonStats',{questionId:'l07-q4',roundId:r.id})).choices[1].comments[0],payload.comment);
+ const comment='看过解析后补写';
+ assert.equal((await f.ok('student.reason',{...payload,comment},f.student)).reason.afterClose,true);
+ assert.equal((await f.ok('teacher.reasonStats',{questionId:'l07-q4',roundId:r.id})).choices[1].comments[0],comment);
 });
