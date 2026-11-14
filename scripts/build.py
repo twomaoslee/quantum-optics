@@ -452,7 +452,7 @@ def update_notes(root, numbers):
                                 (source/'outline.qmd').read_text(), re.M)
             if heading is None:
                 raise SystemExit(f'Missing syllabus title for {name}')
-            label = escape(heading[1])
+            label = escape(re.sub(r'\s*\{#[^}]+\}\s*$', '', heading[1]))
             card = (f'<article class="lecture"><div class="lecture-number" aria-hidden="true">{number:02d}</div>'
                     f'<div><h3><a href="notes/{name}.html"><span class="sr-only">第 {number} 讲：</span>{label}</a></h3>'
                     f'<p>在线讲义与互动演示。</p><p class="revision">资料更新：{date}</p></div>'
@@ -464,6 +464,7 @@ def update_notes(root, numbers):
                 raise SystemExit('Missing homepage materials section.')
         else:
             card = re.sub(r'资料更新：\d{4}-\d{2}-\d{2}', '资料更新：'+date, match[0])
+            card = re.sub(r'\s*\{#lecture\d+-plan\}', '', card)
             if f'href="notes/{name}.html"' not in card:
                 card = card.replace(f'<h3><a href="slides/{name}.html"', f'<h3><a href="notes/{name}.html"', 1)
                 card = card.replace('<div class="actions">',

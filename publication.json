@@ -7,19 +7,24 @@
     5,
     6,
     7,
-    8
+    8,
+    9
   ],
-  "notes_only_lectures": [],
+  "notes_only_lectures": [
+    9
+  ],
   "slides_only_lectures": [],
   "standalone_notes_lectures": [
     4,
     5,
     6,
     7,
-    8
+    8,
+    9
   ],
   "notes_acceptance": {
-    "6": "quantum-notes/qa/lecture06/references-20261026/acceptance.json"
+    "6": "quantum-notes/qa/lecture06/references-20261026/acceptance.json",
+    "9": "quantum-notes/qa/lecture09-publication/acceptance.json"
   },
   "standalone_notes_sources": {
     "5": "quantum-notes/drafts/lecture05-study/lecture05.html"

@@ -53,3 +53,5 @@ GitHub Pages 计划使用独立 quantum-optics 仓库，不在此处写 CNAME，
 教师于2026-11-09确认第八讲新封面和当前课件版本，并明确授权同步网站及首次发布完整PDF。PDF一页一张，包含52张主讲页与7张原生补充页，共59页；使用 --update-slides 8 和 --update-pdfs 8。封面正文只保留邮箱，课程网址统一放在各页左下角菜单后，与右侧页码及校徽对齐；邮箱用灰色，页脚网址用蓝色。九宫格不在发布范围。
 
 教师于2026-11-09进一步确认：第八讲公开PDF只收录52张横向主课件页，移除7张垂直补充页；网页课件仍保留原有补充页。此要求覆盖此前59页PDF的收录范围，构建与下载入口按52页维护。
+
+教师于2026-11-14明确授权第九讲讲义首次发布，并要求与课程网站样式统一。发布源为quantum-notes/lecture09.html，正文源为quantum-notes/drafts/lecture09-study/lecture09-content.html；沿用第八讲阅读配色、字体、目录跟随与答题反馈，统一章节编号。第九讲列入published_lectures、notes_only_lectures和standalone_notes_lectures；使用 --update-notes 9 同步讲义、首页、目录及搜索，本次不新增课件或PDF入口。
