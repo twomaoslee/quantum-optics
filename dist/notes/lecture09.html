@@ -384,7 +384,7 @@ body { font-size: 17px; line-height: 1.9; }
 <a href="#part1">1. 从光子数统计走向探测信号</a>
 <a class="subtoc" href="#s1">1.1 同样的平均光强，怎样看出差别？</a>
 <a class="subtoc" href="#s2">1.2 一个光子通过50:50分束器，会发生什么？</a>
-<a class="subtoc" href="#s3">1.3 为什么要增加第二个探测器？——HBT实验</a>
+<a class="subtoc" href="#s3">1.3 用两路探测记录研究光源——HBT实验</a>
 <a href="#part2">2. 从符合计数到二阶关联</a>
 <a class="subtoc" href="#s4">2.1 两路探测信号“碰巧同时出现”有多常见？</a>
 <a class="subtoc" href="#s5">2.2 用同一把尺子比较不同光源</a>
@@ -429,13 +429,13 @@ body { font-size: 17px; line-height: 1.9; }
   </tbody></table>
   <p class="bridge-question"><strong>先猜一猜：</strong>这些数字相同，能说明两束光的统计性质相同吗？如果还可以多记录一项数据，你会想知道什么？</p>
   <details class="bridge-disclosure"><summary>先作预测，再揭开另一项记录</summary>
-    <div class="bridge-reveal-body"><table class="bridge-table" aria-label="两个光源不同的双路符合记录"><thead><tr><th>补充测量</th><th>光源A</th><th>光源B</th></tr></thead><tbody>
+    <div class="bridge-reveal-body"><table class="bridge-table" aria-label="两个光源的两只探测器共同产生信号的记录"><thead><tr><th>补充测量</th><th>光源A</th><th>光源B</th></tr></thead><tbody>
     <tr><td>两只探测器在同一时间窗内<strong>都产生信号</strong>的次数</td><td><strong>10</strong></td><td><strong>80</strong></td></tr></tbody></table>
     <p>两路各自记录到的信号总数相同，然而两路信号<strong>在同一时间窗内共同出现</strong>的次数差别很大。为什么会出现这种差别？我们从探测事件之间的关联入手。</p></div>
   </details>
   
 </div>
-<p>本讲前半部分，我们将一步步认识<strong>分束器</strong>、<strong>符合计数</strong>以及 <strong>Hanbury Brown–Twiss（HBT）实验</strong>，理解光子聚束和反聚束。后半部分只改变光子的入射方式，进入 <strong>Hong–Ou–Mandel（HOM）实验</strong>，研究两个光子怎样发生量子干涉。</p>
+<p>本讲前半部分，我们将一步步认识<strong>分束器</strong>、<strong>两只探测器共同产生信号的记录</strong>以及 <strong>Hanbury Brown–Twiss（HBT）实验</strong>，理解光子聚束和反聚束。后半部分只改变光子的入射方式，进入 <strong>Hong–Ou–Mandel（HOM）实验</strong>，研究两个光子怎样发生量子干涉。</p>
 <table class="overview"><thead><tr><th>课堂时间</th><th>从什么问题出发？</th><th>我们希望理解什么？</th></tr></thead><tbody>
 <tr><td>0–25 分钟</td><td>探测信号的总次数相同，还能从记录中读出什么？</td><td>分束器、HBT、独立随机基准与二阶关联</td></tr>
 <tr><td>25–45 分钟</td><td>为什么热光更容易在短时间内集中产生探测信号？</td><td>聚束、反聚束及其时间图像</td></tr>
@@ -472,23 +472,23 @@ body { font-size: 17px; line-height: 1.9; }
         <rect id="hbt-det-a" class="detector-box" x="536" y="40" width="170" height="54" fill="var(--panel2)" stroke="var(--fock)" />
         <rect id="hbt-det-b" class="detector-box" x="536" y="187" width="170" height="54" fill="var(--panel2)" stroke="var(--th)" />
         <text x="621" y="73" text-anchor="middle" class="svg-label">探测器 D₁</text><text x="621" y="221" text-anchor="middle" class="svg-label">探测器 D₂</text>
-        <text id="hbt-a-count" x="621" y="117" text-anchor="middle" class="svg-small">本次：—</text><text id="hbt-b-count" x="621" y="173" text-anchor="middle" class="svg-small">本次：—</text>
+        <text id="hbt-a-count" x="621" y="117" text-anchor="middle" class="svg-small">到达：—</text><text id="hbt-b-count" x="621" y="173" text-anchor="middle" class="svg-small">到达：—</text>
         <text x="347" y="198" text-anchor="middle" class="svg-small">分束器</text><text x="347" y="215" text-anchor="middle" class="svg-small">50:50</text>
       </svg>
       <div class="control-row"><button class="primary-btn" type="button" id="hbt-one">输入1个光子</button><button class="primary-btn" type="button" id="hbt-two">输入2个光子</button><button class="ghost-btn" type="button" id="hbt-batch">重复20次双光子实验</button><button class="ghost-btn" type="button" id="hbt-reset">清空</button></div>
-      <div id="hbt-status" class="hbt-result" aria-live="polite">请操作上方按钮，观察两侧是否同时记录到探测信号。</div>
-      <div class="hbt-kpis"><div class="stat"><div class="stat-label">累计实验次数</div><div class="stat-number" id="hbt-total">0</div></div><div class="stat"><div class="stat-label">双端符合次数</div><div class="stat-number" id="hbt-coinc">0</div></div><div class="stat"><div class="stat-label">双光子试次的符合比例</div><div class="stat-number" id="hbt-rate">—</div></div></div>
-      <div class="figure-caption">模拟假设理想分束器与理想探测器，且两个光子均从同一个输入端入射。显示的是“至少每边有一个光子”的普通符合事件；稍后引入的归一化关联是另一项统计指标。</div>
+      <div id="hbt-status" class="hbt-result" aria-live="polite">先输入1个光子，再输入2个光子，比较两只探测器是否都有信号。</div>
+      <div class="hbt-kpis"><div class="stat"><div class="stat-label">累计实验次数</div><div class="stat-number" id="hbt-total">0</div><div class="graph-note">其中双光子实验：<span id="hbt-double-total">0</span>次</div></div><div class="stat"><div class="stat-label">两只探测器都有信号的次数</div><div class="stat-number" id="hbt-coinc">0</div></div><div class="stat"><div class="stat-label">输入2个光子时，两只都有信号的比例</div><div class="stat-number" id="hbt-rate">—</div></div></div>
+      <div class="figure-caption">每按一次输入按钮，就进行一次实验；输入2个光子时，两个光子同时从同一输入端入射。图中标出到达各探测器的光子数：至少到达1个，便产生信号。右下方的比例只统计双光子实验，等于“两只都有信号的次数”除以“双光子实验次数”。模拟采用理想50:50分束器和理想探测器。</div>
     </div>
-    <div class="quiz" data-correct="B" data-explain="一个光子经过分束器后的确处于两输出模式的叠加态，但探测时只会被其中一个理想探测器吸收；没有第二个光子能够同时触发另一个探测器。"><div class="quiz-heading"><span class="quiz-tag">课堂思考题 1</span>单光子能产生双路符合吗？</div><fieldset><legend class="quiz-question">每次都只输入一个光子。两个理想探测器在同一次实验中同时记录到探测信号的概率是多少？</legend><label><input type="radio" name="q1" value="A">A. \(1/4\)，因为每侧概率都是 \(1/2\)。</label><label><input type="radio" name="q1" value="B">B. 0，因为一次只有一个光子。</label><label><input type="radio" name="q1" value="C">C. \(1/2\)，因为它可能走任一方向。</label></fieldset><div class="quiz-actions"><button type="button" class="primary-btn" data-quiz-submit>提交答案</button><button type="button" class="ghost-btn" data-quiz-reset>重新作答</button></div><div class="feedback" hidden aria-live="polite"></div></div>
-    <p>如果把两个光子同时送入<strong>同一个</strong>输入端，情况就不同了：可能两个光子都去左边，也可能都去右边，还可能两个输出端各有一个。对于理想50:50分束器，三种结果的概率分别是 \(1/4,1/4,1/2\)，因此符合概率是 \(1/2\)。</p>
-    <details class="optional"><summary>【选学推导】为什么两光子从同一个输入端入射时，符合概率为1/2？</summary><div class="supplement-body"><p>两个光子从输入端 \(a\) 入射，输入态为 \(|2,0\rangle_{ab}=(a^\dagger)^2|0\rangle/\sqrt2\)。选取分束器相位约定 \(a^\dagger\to(c^\dagger+d^\dagger)/\sqrt2\)，则</p><div class="equation">\[\begin{aligned}|2,0\rangle_{ab}&\longrightarrow\frac{(c^\dagger+d^\dagger)^2}{2\sqrt2}|0\rangle\\[2pt]&=\frac12|2,0\rangle_{cd}+\frac1{\sqrt2}|1,1\rangle_{cd}+\frac12|0,2\rangle_{cd}.\end{aligned}\]</div><p>输出态中 \(|1,1\rangle\) 的概率幅为 \(1/\sqrt2\)，概率为 \(1/2\)。同一输入端的这个结果，稍后将与HOM实验的双输入情形进行对照。</p></div></details>
+    <div class="quiz" data-correct="B" data-explain="一个光子经过分束器后的确处于两输出模式的叠加态，但探测时只会被其中一个理想探测器吸收；没有第二个光子能够同时触发另一个探测器。"><div class="quiz-heading"><span class="quiz-tag">课堂思考题 1</span>一个光子能让两只探测器都有信号吗？</div><fieldset><legend class="quiz-question">每次都只输入一个光子。两个理想探测器在同一次实验中同时记录到探测信号的概率是多少？</legend><label><input type="radio" name="q1" value="A">A. \(1/4\)，因为每侧概率都是 \(1/2\)。</label><label><input type="radio" name="q1" value="B">B. 0，因为一次只有一个光子。</label><label><input type="radio" name="q1" value="C">C. \(1/2\)，因为它可能走任一方向。</label></fieldset><div class="quiz-actions"><button type="button" class="primary-btn" data-quiz-submit>提交答案</button><button type="button" class="ghost-btn" data-quiz-reset>重新作答</button></div><div class="feedback" hidden aria-live="polite"></div></div>
+    <p>如果把两个光子同时送入<strong>同一个</strong>输入端，情况就不同了：可能两个光子都到达 \(D_1\)，也可能都到达 \(D_2\)，还可能两只探测器各接收一个。对于理想50:50分束器，三种结果的概率分别是 \(1/4,1/4,1/2\)，因此两只探测器都有信号的概率是 \(1/2\)。</p>
+    <details class="optional"><summary>【选学推导】为什么同一输入端的两个光子有1/2的概率分别到达两只探测器？</summary><div class="supplement-body"><p>两个光子从输入端 \(a\) 入射，输入态为 \(|2,0\rangle_{ab}=(a^\dagger)^2|0\rangle/\sqrt2\)。选取分束器相位约定 \(a^\dagger\to(c^\dagger+d^\dagger)/\sqrt2\)，则</p><div class="equation">\[\begin{aligned}|2,0\rangle_{ab}&\longrightarrow\frac{(c^\dagger+d^\dagger)^2}{2\sqrt2}|0\rangle\\[2pt]&=\frac12|2,0\rangle_{cd}+\frac1{\sqrt2}|1,1\rangle_{cd}+\frac12|0,2\rangle_{cd}.\end{aligned}\]</div><p>输出态中 \(|1,1\rangle\) 的概率幅为 \(1/\sqrt2\)，概率为 \(1/2\)。同一输入端的这个结果，稍后将与HOM实验的双输入情形进行对照。</p></div></details>
   </section>
-  <section class="lesson" id="s3"><h3>1.3 为什么要增加第二个探测器？——HBT实验</h3>
-    <p>开关型光子探测器在每个时间窗口记录“有信号”或“无信号”。增加第二个探测器后，我们还可以统计两路信号共同出现的次数，从而获得更多光子数信息。</p>
-    <p>HBT实验将待测光送入分束器，把两个输出分别送到探测器，再记录<strong>单路计数</strong>和<strong>两个探测器在同一个短时间窗口内均记录到信号的次数</strong>。后者叫作<strong>符合计数</strong>（coincidence counting）。</p>
-    <div class="callout"><p><strong>这一装置要回答的实验问题：</strong>相同的单路计数，是否可能对应完全不同的双路符合次数？如果可以，符合计数就提供了平均光强之外的信息。</p></div>
-    <p>每个脉冲恰好一个光子时，双路符合次数为零；脉冲中出现两个或更多光子时，就可能产生符合事件。符合计数因此能够揭示光源的光子数统计特征。</p>
+  <section class="lesson" id="s3"><h3>1.3 用两路探测记录研究光源——HBT实验</h3>
+    <p>刚才我们指定每次输入1个或2个光子，比较两只探测器的记录。现在反过来：让待测光源接入同一装置，根据探测记录了解它的光子数统计。开关型探测器在每个时间窗口记录“有信号”或“无信号”；除了分别累计两路信号，还可以统计两路在同一时间窗内都有信号的次数。</p>
+    <p>HBT实验将待测光送入分束器，把两个输出分别送到探测器，分别累计每只探测器产生信号的次数，称为<strong>单路计数</strong>；再统计<strong>两个探测器在同一个短时间窗口内均记录到信号的次数</strong>，称为<strong>符合计数</strong>（coincidence counting）。</p>
+    <div class="callout"><p><strong>这一装置要回答的实验问题：</strong>像开场的光源A、B那样，对每个光源都记录相同数量、相同长度的时间窗。如果两路各自的单路计数分别相同，双路符合次数还会不同吗？如果可以，符合计数就提供了平均光强之外的信息。</p></div>
+    <p>例如，对脉冲光源，让每个时间窗覆盖一个完整脉冲：每个脉冲恰好一个光子时，双路符合次数为零；脉冲中出现两个或更多光子时，就可能产生符合事件。符合计数因此能够揭示光源的光子数统计特征。</p>
   </section>
 </section>
 
@@ -809,18 +809,19 @@ function initHBT(){
   clearTimeout(resetTimer);
   da.classList.toggle('detector-activated',last.n1>0);
   db.classList.toggle('detector-activated',last.n2>0);
-  $('hbt-a-count').textContent=`本次：${last.n1} 个`;
-  $('hbt-b-count').textContent=`本次：${last.n2} 个`;
+  $('hbt-a-count').textContent=`到达：${last.n1} 个光子`;
+  $('hbt-b-count').textContent=`到达：${last.n2} 个光子`;
   $('hbt-total').textContent=total;
+  $('hbt-double-total').textContent=doubleTotal;
   $('hbt-coinc').textContent=co;
   $('hbt-rate').textContent=doubleTotal?pct(doubleCo/doubleTotal,1):'—';
-  $('hbt-status').textContent=`${batch?'已累计20次双光子实验。最后一次：':'本次：'}D₁记录${last.n1}个，D₂记录${last.n2}个；${last.coin?'出现双路符合。':'没有双路符合。'}`;
+  $('hbt-status').textContent=`${batch?'新增20次双光子实验。最后一次：':'本次：'}${last.coin?'两只探测器都有信号。':(last.n1>0?'只有D₁有信号。':'只有D₂有信号。')}`;
   resetTimer=setTimeout(()=>{da.classList.remove('detector-activated');db.classList.remove('detector-activated')},1000);
  }
  $('hbt-one').addEventListener('click',()=>update(send(1),false));
  $('hbt-two').addEventListener('click',()=>update(send(2),false));
  $('hbt-batch').addEventListener('click',()=>{let r;for(let i=0;i<20;i++)r=send(2);update(r,true)});
- $('hbt-reset').addEventListener('click',()=>{total=co=doubleTotal=doubleCo=0;clearTimeout(resetTimer);da.classList.remove('detector-activated');db.classList.remove('detector-activated');$('hbt-a-count').textContent='本次：—';$('hbt-b-count').textContent='本次：—';$('hbt-total').textContent='0';$('hbt-coinc').textContent='0';$('hbt-rate').textContent='—';$('hbt-status').textContent='已清空统计。'});
+ $('hbt-reset').addEventListener('click',()=>{total=co=doubleTotal=doubleCo=0;clearTimeout(resetTimer);da.classList.remove('detector-activated');db.classList.remove('detector-activated');$('hbt-a-count').textContent='到达：—';$('hbt-b-count').textContent='到达：—';$('hbt-total').textContent='0';$('hbt-double-total').textContent='0';$('hbt-coinc').textContent='0';$('hbt-rate').textContent='—';$('hbt-status').textContent='已清空统计。'});
 }
 function initNorm(){
  const modes={low:{name:'符合偏少',sets:[{name:'光源',n1:200,n2:200,n12:10}]},ind:{name:'独立基准',sets:[{name:'光源',n1:200,n2:200,n12:40}]},high:{name:'符合偏多',sets:[{name:'光源',n1:200,n2:200,n12:80}]},twosource:{name:'两个光源的比较',sets:[{name:'光源A',n1:100,n2:100,n12:20},{name:'光源B',n1:200,n2:200,n12:40}]}};
