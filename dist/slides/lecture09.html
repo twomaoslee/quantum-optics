@@ -708,9 +708,10 @@ body:has(.closing-slide.present) .course-footer-link{display:none!important}
 #l09-delay figure img{height:190px;width:100%}
 #l09-opening .s-body{gap:12px}
 #l09-opening :is(td,th){padding-top:8px;padding-bottom:8px}
-#l09-opening table{table-layout:fixed;width:100%}
-#l09-opening :is(td,th):first-child{width:60%}
-#l09-opening :is(td,th):not(:first-child){width:20%}
+#l09-opening table{table-layout:fixed;width:90%;margin-left:auto;margin-right:auto}
+#l09-opening :is(td,th){text-align:center!important}
+#l09-opening :is(td,th):first-child{width:50%}
+#l09-opening :is(td,th):not(:first-child){width:25%}
 #l09-summary .s-body{gap:14px}
 #l09-summary .block{padding:16px 24px}
 #l09-summary .source-note{margin:0}
@@ -1601,48 +1602,48 @@ margin-right: 0; }
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>记录项目</th>
-<th style="text-align: right;">光源A</th>
-<th style="text-align: right;">光源B</th>
+<th style="text-align: center;">记录项目</th>
+<th style="text-align: center;">光源A</th>
+<th style="text-align: center;">光源B</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>D₁单路计数</td>
-<td style="text-align: right;">200次</td>
-<td style="text-align: right;">200次</td>
+<td style="text-align: center;">D₁单路计数</td>
+<td style="text-align: center;">200次</td>
+<td style="text-align: center;">200次</td>
 </tr>
 <tr class="even">
-<td>D₂单路计数</td>
-<td style="text-align: right;">200次</td>
-<td style="text-align: right;">200次</td>
+<td style="text-align: center;">D₂单路计数</td>
+<td style="text-align: center;">200次</td>
+<td style="text-align: center;">200次</td>
 </tr>
 </tbody>
 </table>
 <div class="fragment" data-fragment-index="0">
-<p><strong>先预测：</strong> 每只探测器的总次数相同，符合次数也一定相同吗？</p>
+<p><strong>先判断：</strong> 仅凭这些单路计数，能分辨光源A和B吗？</p>
 </div>
 <div class="fragment" data-fragment-index="1">
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>补充记录</th>
-<th style="text-align: right;">光源A</th>
-<th style="text-align: right;">光源B</th>
+<th style="text-align: center;">再比较符合计数</th>
+<th style="text-align: center;">光源A</th>
+<th style="text-align: center;">光源B</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>符合计数：同一窗口内两只都有信号</td>
-<td style="text-align: right;">10次</td>
-<td style="text-align: right;">80次</td>
+<td style="text-align: center;">同一窗内两只都有信号</td>
+<td style="text-align: center;">10次</td>
+<td style="text-align: center;">80次</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="fragment" data-fragment-index="2">
 <div class="result">
-<p>两束光的单路计数分别相同，两只探测器在同一时间窗内都有信号的次数仍可不同。</p>
+<p>单路计数无法区分这两组记录，符合计数显示了它们的统计差别。</p>
 </div>
 </div>
 </div>
