@@ -487,11 +487,13 @@
     "source": "quantum-slides/lectures/lecture09/lecture09.qmd",
     "local_browser": "Eight question sidebars verified in full-skill-review; existing controls unchanged apart from lecture ID routing.",
     "cloud_sdk": "passed: all eight source-matched questions, discussion submit/deduplication/reasons/reveal/history/export; self-check immediate feedback and answer lock; cross-lecture rejection",
-    "cloud_browser": "pending public frontend deployment",
+    "cloud_browser": "passed: public student Q6 discussion submit/reason/reveal and Q5 self-check immediate feedback/lock in isolated fictional sessions; teacher actions issued through authenticated SDK; presenter route resolves to login form",
     "qa_room": "9DE43944A8F4",
     "self_check_room": "6CA25B4A07E4",
     "real_phone_network": "not tested",
     "backend_tests": 49,
-    "hash_reconciliation": "build.py/check.py reflect already committed, checked website changes at 3a35f8d; no changes to those scripts in this release."
+    "hash_reconciliation": "build.py/check.py reflect already committed, checked website changes at 3a35f8d; no changes to those scripts in this release.",
+    "frontend_deploy": "11abe6c, GitHub Actions 43719687361 success; live presenter files match dist",
+    "fixed_entry": "passed: eight question routes share anchor 944C20B112B5; no test rounds created there"
   }
 }
