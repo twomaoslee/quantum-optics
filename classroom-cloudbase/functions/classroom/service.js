@@ -16,7 +16,7 @@ function questionFor(id) {
   return questions.get(id).question;
 }
 function roomLecture(room){return room.lectureId || 'l07';}
-const lectureTitle = id => id === 'l08' ? '第八讲课堂' : '第七讲课堂';
+const lectureTitle = id => ({l07:'第七讲课堂',l08:'第八讲课堂',l09:'第九讲课堂'})[id];
 const entryKey = id => 'classroom_entry_' + id;
 const feedbackMode = round => round?.feedbackMode || 'discussion';
 const isSelfCheck = round => feedbackMode(round) === 'self-check';
@@ -357,7 +357,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
     }
     if (action === 'teacher.classroom') {
       const id=data.lectureId;
-      requireThat(id==='l07'||id==='l08','INPUT','课堂讲次无效。');
+      requireThat(['l07','l08','l09'].includes(id),'INPUT','课堂讲次无效。');
       const key=entryKey(id), existing=await repo.get(key);
       if(existing)return {code:existing.active,anchor:existing.anchor};
       const title=lectureTitle(id), candidates=(await repo.list({kind:'room',title})).filter(r=>roomLecture(r)===id&&!r.archivedAt&&!r.standalone);
@@ -373,7 +373,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
     }
     if (action === 'teacher.newClass') {
       const {lectureId:id,kind}=data;
-      requireThat((id==='l07'||id==='l08')&&(kind==='class'||kind==='trial'),'INPUT','请选择正式上课或试答。');
+      requireThat((['l07','l08','l09'].includes(id))&&(kind==='class'||kind==='trial'),'INPUT','请选择正式上课或试答。');
       return repo.transaction(async tx=>{
         const key=entryKey(id),entry=await tx.get(key);
         requireThat(entry&&entry.active===roomCode,'ROOM_CHANGED','当前场次已切换，请重新连接后查看。');
@@ -392,7 +392,7 @@ function createService(repo, {teacherPasswordHash = '', now = Date.now, analyze 
       });
     }
     if (action === 'teacher.create') {
-      const id=data.lectureId==='l08'?'l08':'l07';
+      const id=['l08','l09'].includes(data.lectureId)?data.lectureId:'l07';
       const title=typeof data.title==='string' ? data.title.trim().slice(0,60) : '';
       const room=newRoom(id,title||lectureTitle(id),{standalone:true});
       await repo.set(roomKey(room.code),room);

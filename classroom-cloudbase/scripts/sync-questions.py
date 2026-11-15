@@ -53,7 +53,8 @@ for section in re.split(r'(?=^## )', text8, flags=re.M):
                 continue
             body.append(line.replace('**',''))
         assert not stack, 'Unclosed question component '+name
-        return '\n'.join(body).strip()
+        # Slide-only Markdown hard breaks do not change classroom question text.
+        return re.sub(r' {2,}\n[ \t]*', '', '\n'.join(body)).strip()
     reference = block('reference')
     maths = re.findall(r'\$\$(.*?)\$\$', reference, re.S)
     choices = block('choices').splitlines()
@@ -67,3 +68,7 @@ for section in re.split(r'(?=^## )', text8, flags=re.M):
 assert len(records) == 11
 (backend / 'functions/classroom/questions.json').write_text(json.dumps(records, ensure_ascii=False, indent=2) + '\n')
 print('Synced 6 lecture-seven and 5 lecture-eight questions from QMD.')
+
+# Lecture 09 has its own extractor; earlier source parsing remains unchanged.
+import runpy
+runpy.run_path(str(backend / "scripts/sync-lecture09.py"))
