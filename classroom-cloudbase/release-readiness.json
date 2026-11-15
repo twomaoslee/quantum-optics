@@ -198,7 +198,7 @@
     "classroom/presenter.html": "f635c4d5523c966a3209fdfb549793925e9bdbc8baaa6f78b296c59577480113",
     "classroom/presenter.css": "920a77dea01089e6cabfda16b03173cf5c1e4f864f1c5c2eb88f92f1b6f04f28",
     "classroom/presenter.js": "9e63b0a3668d1f09f4c403900bb631eee438bb8888c1107fe27450306384d6d4",
-    "classroom-cloudbase/functions/classroom/questions.json": "f0f66d31e6e25b924930c5a0ea6d8dc52fd4a37ad325cc284ec741e78ecc1bbd",
+    "classroom-cloudbase/functions/classroom/questions.json": "2f80f8ace4154267ded5646352a5ed79cbadc45562604e291cb9b166d7bd9e1e",
     "classroom-cloudbase/scripts/sync-questions.py": "f8960aeb207e975246797e07dcbe3711826d81d3bd3941ce30f2ac8b1d8c7541",
     "classroom-cloudbase/test/multiple.test.cjs": "4dfd7872c350ea6ec8b1811a850e87d92febb918c45b8a8f76ac873a966444c5",
     "classroom/history.html": "b52d4e381851da8a8744375709747bdd0fe4d7cedf77feeab0dde290110de376",
@@ -494,6 +494,15 @@
     "backend_tests": 49,
     "hash_reconciliation": "build.py/check.py reflect already committed, checked website changes at 3a35f8d; no changes to those scripts in this release.",
     "frontend_deploy": "11abe6c, GitHub Actions 43719687361 success; live presenter files match dist",
-    "fixed_entry": "passed: eight question routes share anchor 944C20B112B5; no test rounds created there"
+    "fixed_entry": "passed: eight question routes share anchor 944C20B112B5; no test rounds created there",
+    "notes_alignment_revision": {
+      "date": "2026-11-15",
+      "scope": "Q1 title and Q7 explicit identical-final-state conditions and signed amplitudes; earlier banks unchanged",
+      "backend_tests": 49,
+      "cloud_sdk": "all 8 source objects match current deployment; submit/reveal/history/export and self-check passed",
+      "qa_room": "DF1298749F08",
+      "self_check_room": "84EF1D423F3C",
+      "evidence": "quantum-slides/qa/lecture09/notes-alignment/cloud-smoke.json"
+    }
   }
 }
