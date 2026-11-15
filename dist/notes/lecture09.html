@@ -434,36 +434,20 @@ body { font-size: 17px; line-height: 1.9; }
 <section class="intro">
 <h2 class="reading-guide">本讲导读</h2>
 <p>第八讲我们看到：相同的平均光强，可以对应不同的光子数分布和光子数涨落。怎样在实验中观察这些差别？</p>
-<div class="bridge-in" id="bridge-in">
-  <div class="bridge-label">开场观察 · 约3分钟</div>
-  <h2>两束光一样亮，探测记录会一样吗？</h2>
-<div class="term-note" id="detector-signal-definition"><div class="term-label">先认识“探测事件”</div>
-<p>光子探测器探测到光子时，通常会输出一个短<strong>电脉冲</strong>。电子学系统记录下这个脉冲，称为<strong>一次探测事件</strong>，也称<strong>一次计数</strong>。英文资料中常用 <em>detector click</em>。下文采用“探测信号”“探测事件”和“计数”等表述。</p>
-<p>常见的开关型探测器记录每个短时间窗口内有无信号；一个信号可以由一个或多个入射光子触发。本讲采用理想化的分束与探测模型。</p></div>
-  <p>设想有光源A和光源B。我们把它们调节到相同的平均光强，分别接入同一套双探测器装置。对于每个光源，仪器连续记录1000个等长短时间窗口，得到下面的结果。</p>
-  <table class="bridge-table" aria-label="两个光源相同的单路计数"><thead><tr><th>记录项目</th><th>光源A</th><th>光源B</th></tr></thead><tbody>
-  <tr><td>1号探测器的信号次数</td><td>200</td><td>200</td></tr>
-  <tr><td>2号探测器的信号次数</td><td>200</td><td>200</td></tr>
-  </tbody></table>
-  <p class="bridge-question"><strong>先猜一猜：</strong>这些数字相同，能说明两束光的统计性质相同吗？如果还可以多记录一项数据，你会想知道什么？</p>
-  <details class="bridge-disclosure"><summary>先作预测，再揭开另一项记录</summary>
-    <div class="bridge-reveal-body"><table class="bridge-table" aria-label="两个光源的两只探测器共同产生信号的记录"><thead><tr><th>补充测量</th><th>光源A</th><th>光源B</th></tr></thead><tbody>
-    <tr><td>两只探测器在同一时间窗内<strong>都产生信号</strong>的次数</td><td><strong>10</strong></td><td><strong>80</strong></td></tr></tbody></table>
-    <p>两路各自记录到的信号总数相同，然而两路信号<strong>在同一时间窗内共同出现</strong>的次数差别很大。为什么会出现这种差别？我们从探测事件之间的关联入手。</p></div>
-  </details>
-  
-</div>
-<p>本讲前半部分，我们将一步步认识<strong>分束器</strong>、<strong>两只探测器共同产生信号的记录</strong>以及 <strong>Hanbury Brown–Twiss（HBT）实验</strong>，理解光子聚束和反聚束。后半部分只改变光子的入射方式，进入 <strong>Hong–Ou–Mandel（HOM）实验</strong>，研究两个光子怎样发生量子干涉。</p>
+<p>我们先搭建一个简单的测量装置：让光经过分束器，两条输出光路各放一只探测器。逐次送入一个或两个光子，观察哪只探测器产生信号，弄清光子数与记录之间的关系。有了这一步，就可以把待测光源接入装置，连续记录两只探测器的信号，比较它们在同一小段时间里共同出现的次数。这就是本讲要认识的HBT测量。</p>
+<p>两只探测器各自的信号总数相同，共同出现的次数仍可不同。要判断这种共同出现是偏多还是偏少，还需要与两路独立随机产生信号时的预期比较。由此引入二阶关联，并用热光的明暗起伏、单发射体发光后的再激发过程，理解光子聚束与反聚束的时间图像。</p>
+<p>后半讲改变入射方式：让两个光子分别从分束器的两个输入端到达。此时，两只探测器各收到一个光子的结果可以消失，这就是HOM双光子干涉。我们将比较通向同一探测结果的两种过程，再调节两个光子的到达时间和偏振，理解哪些信息会削弱干涉。最后回到同一套分束与探测装置，比较HBT与HOM分别告诉我们光的哪些性质。</p>
 <table class="overview"><thead><tr><th>课堂时间</th><th>从什么问题出发？</th><th>我们希望理解什么？</th></tr></thead><tbody>
-<tr><td>0–25 分钟</td><td>探测信号的总次数相同，还能从记录中读出什么？</td><td>分束器、HBT、独立随机基准与二阶关联</td></tr>
-<tr><td>25–45 分钟</td><td>为什么热光更容易在短时间内集中产生探测信号？</td><td>聚束、反聚束及其时间图像</td></tr>
+<tr><td>0–15 分钟</td><td>光经过分束器，两只探测器怎样记录？</td><td>分束装置、单路计数与HBT符合计数</td></tr>
+<tr><td>15–30 分钟</td><td>符合次数怎样才算偏多或偏少？</td><td>独立随机基准与二阶关联</td></tr>
+<tr><td>30–45 分钟</td><td>为什么热光更容易在短时间内集中产生探测信号？</td><td>聚束、反聚束及其时间图像</td></tr>
 <tr><td>45–68 分钟</td><td>如果两个光子从分束器两侧入射呢？</td><td>HOM中的双光子概率幅干涉</td></tr>
 <tr><td>68–90 分钟</td><td>如果让两个光子稍微错开呢？</td><td>HOM凹陷、不可区分性及两个实验的比较</td></tr>
 </tbody></table>
 <div class="teaching-route">阅读提示：正文按课堂顺序展开。遇到思考题时，先独立判断，再提交答案查看解析。补充推导与实验细节收在折叠区域，供课后选读。</div>
 </section>
 <section class="part" id="part1">
-  <div class="part-kicker">第一部分 · 0–10 分钟</div><h2>1. 从光子数统计走向探测信号</h2>
+  <div class="part-kicker">第一部分 · 0–15 分钟</div><h2>1. 从光子数统计走向探测信号</h2>
   <p class="part-bridge">上一讲研究光源每次发出多少光子。这一讲观察探测器的信号记录：从一次次探测事件中，可以读出哪些光子统计信息？</p>
   <section class="lesson" id="s1"><h3>1.1 同样的平均光强，怎样看出差别？</h3>
     <p>先考虑三种平均光子数都为1的理想单模光场。一个光子数确定为1；另一个服从Poisson分布；第三个具有热态的光子数分布。它们的平均光子数相同，涨落却不同。</p>
@@ -478,6 +462,9 @@ body { font-size: 17px; line-height: 1.9; }
   </section>
   <section class="lesson" id="s2"><h3>1.2 一个光子通过50:50分束器，会发生什么？</h3>
     <p>50:50分束器让从一个输入端入射的单个光子，以相同的概率从两个输出端离开。输出端各放置一个理想探测器，分别记为 \(D_1\) 与 \(D_2\)。</p>
+<div class="term-note" id="detector-signal-definition"><div class="term-label">先认识“探测事件”</div>
+<p>光子探测器探测到光子时，通常会输出一个短<strong>电脉冲</strong>。电子学系统记录下这个脉冲，称为<strong>一次探测事件</strong>，也称<strong>一次计数</strong>。</p>
+<p>常见的开关型探测器记录每个短时间窗口内有无信号；一个信号可以由一个或多个入射光子触发。</p></div>
     <p>如果一次只输入一个光子，它有一半概率到达 \(D_1\)，另一半概率到达 \(D_2\)。<strong>一次理想测量中，两个探测器最多有一个记录到信号。</strong> 这就是单光子分束实验最简单的特征。</p>
     <div class="figure-card" id="fig-bs"><div class="figure-title">图1 · 单光子与双光子通过分束器：亲自发送几次</div>
       <div class="hbt-apparatus">
@@ -504,15 +491,35 @@ body { font-size: 17px; line-height: 1.9; }
     <details class="optional"><summary>【选学推导】为什么同一输入端的两个光子有1/2的概率分别到达两只探测器？</summary><div class="supplement-body"><p>两个光子从输入端 \(a\) 入射，输入态为 \(|2,0\rangle_{ab}=(a^\dagger)^2|0\rangle/\sqrt2\)。选取分束器相位约定 \(a^\dagger\to(c^\dagger+d^\dagger)/\sqrt2\)，则</p><div class="equation">\[\begin{aligned}|2,0\rangle_{ab}&\longrightarrow\frac{(c^\dagger+d^\dagger)^2}{2\sqrt2}|0\rangle\\[2pt]&=\frac12|2,0\rangle_{cd}+\frac1{\sqrt2}|1,1\rangle_{cd}+\frac12|0,2\rangle_{cd}.\end{aligned}\]</div><p>输出态中 \(|1,1\rangle\) 的概率幅为 \(1/\sqrt2\)，概率为 \(1/2\)。同一输入端的这个结果，稍后将与HOM实验的双输入情形进行对照。</p></div></details>
   </section>
   <section class="lesson" id="s3"><h3>1.3 用两路探测记录研究光源——HBT实验</h3>
-    <p>刚才我们指定每次输入1个或2个光子，比较两只探测器的记录。现在反过来：让待测光源接入同一装置，根据探测记录了解它的光子数统计。开关型探测器在每个时间窗口记录“有信号”或“无信号”；除了分别累计两路信号，还可以统计两路在同一时间窗内都有信号的次数。</p>
-    <p>HBT实验将待测光送入分束器，把两个输出分别送到探测器，分别累计每只探测器产生信号的次数，称为<strong>单路计数</strong>；再统计<strong>两个探测器在同一个短时间窗口内均记录到信号的次数</strong>，称为<strong>符合计数</strong>（coincidence counting）。</p>
-    <div class="callout"><p><strong>这一装置要回答的实验问题：</strong>像开场的光源A、B那样，对每个光源都记录相同数量、相同长度的时间窗。如果两路各自的单路计数分别相同，双路符合次数还会不同吗？如果可以，符合计数就提供了平均光强之外的信息。</p></div>
+    <p>刚才我们指定每次输入1个或2个光子，比较两只探测器的记录。现在反过来：把待测光源接入图1的输入端，另一输入端保持无光子入射；分束器的两个输出仍分别送到探测器D₁和D₂。我们根据两路记录了解光源的光子数统计。</p>
+    <p>仪器把记录时间划分成一串等长的短时间窗。两只探测器使用同一组窗口：每个窗口内有信号记为1，无信号记为0。下面取连续四个窗口作例子；<strong>同一列就是同一时间窗内两只探测器的记录</strong>。</p>
+    <table class="formula-table compact-table" aria-label="同一光源连续四个时间窗的两路信号示例"><thead><tr><th>记录</th><th>窗口1</th><th>窗口2</th><th>窗口3</th><th>窗口4</th></tr></thead><tbody>
+    <tr><td>探测器D₁</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+    <tr><td>探测器D₂</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+    </tbody></table>
+    <p>沿着每一行数有信号的窗口，D₁和D₂各有2次，这称为各自的<strong>单路计数</strong>。再按列看，只有窗口3中两只探测器都有信号：这是一次<strong>符合事件</strong>，这段记录的<strong>符合计数</strong>为1。HBT实验就是用这样的分束装置研究两路探测信号的关联。</p>
+<div class="bridge-in" id="bridge-in">
+  <div class="bridge-label">HBT计数示例</div>
+  <h4>用同一装置比较两种光源</h4>
+
+  <p>现在用这套装置比较平均光强相同的光源A、B。先把A接入图1的输入端，用两只探测器记录；再把A换成B，保持分束器、探测器和时间窗长度不变，重新记录。每个光源都测1000个窗口，下面是一组<strong>示例记录</strong>。</p>
+  <table class="bridge-table" aria-label="两个光源相同的单路计数"><thead><tr><th>记录项目</th><th>光源A</th><th>光源B</th></tr></thead><tbody>
+  <tr><td>探测器D₁的单路计数</td><td>200</td><td>200</td></tr>
+  <tr><td>探测器D₂的单路计数</td><td>200</td><td>200</td></tr>
+  </tbody></table>
+  <p class="bridge-question"><strong>先猜一猜：</strong>A、B在每只探测器上的总次数都相同，它们的符合次数也一定相同吗？</p>
+  <details class="bridge-disclosure"><summary>查看两种光源的符合计数</summary>
+    <div class="bridge-reveal-body"><table class="bridge-table" aria-label="两个光源的两只探测器共同产生信号的记录"><thead><tr><th>符合计数</th><th>光源A</th><th>光源B</th></tr></thead><tbody>
+    <tr><td>两只探测器在同一时间窗内<strong>都产生信号</strong>的次数</td><td><strong>10</strong></td><td><strong>80</strong></td></tr></tbody></table>
+    <p>两路各自记录到的信号总数相同，然而两路信号<strong>在同一时间窗内共同出现</strong>的次数差别很大。符合计数提供了单路总次数之外的信息。</p></div>
+  </details>
+</div>
     <p>例如，对脉冲光源，让每个时间窗覆盖一个完整脉冲：每个脉冲恰好一个光子时，双路符合次数为零；脉冲中出现两个或更多光子时，就可能产生符合事件。符合计数因此能够揭示光源的光子数统计特征。</p>
   </section>
 </section>
 
 <section class="part" id="part2">
- <div class="part-kicker">第二部分 · 10–25 分钟</div><h2>2. 从符合计数到二阶关联</h2>
+ <div class="part-kicker">第二部分 · 15–30 分钟</div><h2>2. 从符合计数到二阶关联</h2>
  <p class="part-bridge">我们知道怎样记录符合事件了。接下来先解决一个普通概率问题：测到的符合次数，究竟算多还是少？</p>
  <section class="lesson" id="s4"><h3>2.1 两路探测信号“碰巧同时出现”有多常见？</h3>
    <p>设想连续做1000次实验。探测器 \(D_1\) 记录到200次探测事件，\(D_2\) 也记录到200次探测事件。由这批记录估计，每个时间窗口内，两路各自有信号的概率都是0.2。现在假设两路信号相互独立，计算它们共同出现的基准。</p>
@@ -565,7 +572,7 @@ body { font-size: 17px; line-height: 1.9; }
 </section>
 
 <section class="part" id="part3">
- <div class="part-kicker">第三部分 · 25–45 分钟</div><h2>3. 光子聚束与反聚束：探测记录中的物理图像</h2>
+ <div class="part-kicker">第三部分 · 30–45 分钟</div><h2>3. 光子聚束与反聚束：探测记录中的物理图像</h2>
  <p class="part-bridge">前面用单光子态、相干态和单模热态比较了零延迟关联。现在观察持续发光的热光、相干光和单个量子发射体，先看探测事件怎样分布，再解释关联随时间间隔怎样变化。</p>
  <section class="lesson" id="s8"><h3>3.1 为什么热光的探测事件更容易集中出现？</h3>
    <p>先想象一个光源：它有时明亮、有时暗淡。在明亮的那一小段时间里，两个探测器都更容易产生信号；暗淡时，两路记录到信号的机会都较少。因此，即使每个时刻的光子探测仍有随机性，<strong>共同的光强涨落也会让两路探测事件出现正关联</strong>。</p>
@@ -728,7 +735,7 @@ body { font-size: 17px; line-height: 1.9; }
 
 <section class="part" id="part6">
  <div class="part-kicker">第六部分 · 82–90 分钟</div><h2>6. 同一套探测装置，两种量子物理</h2>
- <p class="part-bridge">我们从第八讲的光子数涨落出发，用一个分束器和两个探测器，研究了两种不同的物理问题。现在可以回答开场的问题：平均光强相同，两路各自的计数相同，符合记录仍能揭示光子统计的差别。HOM又进一步说明，解释符合结果还要知道光子的输入方式，以及两条过程的最终状态能否区分。</p>
+ <p class="part-bridge">我们从第八讲的光子数涨落出发，用一个分束器和两个探测器，研究了两种不同的物理问题。现在可以回答导读中的问题：怎样从探测记录看出光子统计的差别？即使平均光强相同，两路各自的计数相同，符合记录仍能提供不同的信息。HOM又进一步说明，解释符合结果还要知道光子的输入方式，以及两条过程的最终状态能否区分。</p>
  <section class="lesson" id="s17"><h3>6.1 HBT和HOM的核心差别在哪里？</h3>
    <table class="formula-table"><thead><tr><th>比较</th><th>HBT</th><th>HOM</th></tr></thead><tbody>
      <tr><td>输入</td><td>同一光源由一个输入端送入</td><td>两个单光子分别从两个输入端送入</td></tr>
