@@ -57,3 +57,5 @@ GitHub Pages 计划使用独立 quantum-optics 仓库，不在此处写 CNAME，
 教师于2026-11-14明确授权第九讲讲义首次发布，并要求与课程网站样式统一。发布源为quantum-notes/lecture09.html，正文源为quantum-notes/drafts/lecture09-study/lecture09-content.html；沿用第八讲阅读配色、字体、目录跟随与答题反馈，统一章节编号。第九讲列入published_lectures、notes_only_lectures和standalone_notes_lectures；使用 --update-notes 9 同步讲义、首页、目录及搜索，本次不新增课件或PDF入口。
 
 教师于2026-11-15明确要求第九讲八题接入正式扫码入口，实际测试通过后同步课件。首次发布HTML课件及其内嵌互动，移出notes_only_lectures，使用 --update-slides 9；PDF范围不变。教学、页面、操作证据绑定quantum-slides/qa/lecture09/production-release/acceptance.json。
+
+教师于2026-11-16确认第九讲定稿，授权同步现有HTML课件及首次发布PDF。保持当前内容和样式；PDF只含46张横向主课件，合并分步，排除3张垂直补充页，网页仍保留补充页。使用 --update-slides 9、--update-pdfs 9 定向发布。定稿验收绑定quantum-slides/qa/lecture09/final-local-review/acceptance.json。
