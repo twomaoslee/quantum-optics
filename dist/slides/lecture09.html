@@ -972,6 +972,42 @@ transform: none;
 
 #l09-guide .guide-steps{column-gap:48px!important}
 #l09-guide .guide-steps>li{border-top:1px solid #c8d8e5;padding-top:14px;box-sizing:border-box}
+
+.reveal .video-summary .s-body{display:flex;flex-direction:column;gap:16px}
+.reveal .video-summary .s-body>p{margin:0}
+.reveal .video-summary .video-frame{position:relative;flex:1;min-height:0;width:840px;max-width:100%;align-self:center}
+.reveal .video-summary video{display:block;width:100%;height:100%;max-width:none;max-height:none;margin:0;object-fit:contain;background:#071827}
+.reveal .video-summary .video-launch{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#0070c0;color:white;border:2px solid white;border-radius:6px;padding:12px 22px;font:inherit;cursor:pointer}
+.reveal .video-summary.video-playing .video-launch{display:none}
+.reveal .video-play-step {position:absolute;width:1px;height:1px;opacity:0!important;pointer-events:none;overflow:hidden;}
+.reveal .lecture-media-stage {position:relative;width:100%;height:100%;min-width:0;min-height:0;}
+.lecture-media-controls {display:none;}
+.lecture-media-stage:fullscreen,
+.lecture-media-stage:-webkit-full-screen {
+display:flex!important;flex-direction:column;width:100vw!important;height:100vh!important;
+margin:0!important;padding:0!important;background:#000;border:0;outline:0;
+}
+.lecture-media-stage:fullscreen > :is(video,iframe),
+.lecture-media-stage:-webkit-full-screen > :is(video,iframe) {
+display:block!important;flex:1;min-height:0;width:100%!important;height:calc(100% - 44px)!important;
+max-height:none!important;max-width:none!important;margin:0!important;border:0;object-fit:contain;
+}
+.lecture-media-stage:fullscreen .lecture-media-controls,
+.lecture-media-stage:-webkit-full-screen .lecture-media-controls,
+.media-window-mode .is-presenting .lecture-media-controls {
+display:flex;flex:0 0 44px;gap:16px;align-items:center;justify-content:flex-end;
+padding:4px 16px;background:#151515;color:#ddd;font:16px/1.2 sans-serif;
+}
+.lecture-media-controls span {margin-right:auto;}
+.lecture-media-controls button {font:inherit;color:#eee;background:#292929;border:1px solid #777;border-radius:4px;padding:6px 12px;cursor:pointer;}
+
+body.media-window-mode .reveal .slides {transform:none!important;zoom:1!important;inset:0!important;width:100%!important;height:100%!important;perspective:none!important;}
+body.media-window-mode .reveal .slides section.present {position:fixed!important;inset:0!important;transform:none!important;width:100%!important;height:100%!important;}
+body.media-window-mode .reveal section.present .s-body {position:static!important;}
+body.media-window-mode .reveal :is(.s-nav,h1,h2,.slide-logo,.slide-number,.controls,.progress,.footer,.course-footer-link,.slide-menu-button,.backup-link) {visibility:hidden!important;}
+body.media-window-mode .reveal .is-presenting {position:fixed!important;inset:0!important;z-index:1000;display:flex;flex-direction:column;width:100vw!important;height:100vh!important;background:#000;margin:0!important;}
+body.media-window-mode .reveal .is-presenting > :is(video,iframe) {flex:1;min-height:0;width:100%!important;height:calc(100% - 44px)!important;max-height:none!important;margin:0!important;border:0;object-fit:contain;}
+@media print{.video-play-step,.video-launch,.lecture-media-controls{display:none!important}}
 </style>
   <style type="text/css">.reveal
 div.sourceCode
@@ -2296,6 +2332,20 @@ R=\frac{P_{12}}{P_1P_2}
 
 </section>
 
+<section id="l09-hbt-video" class="title-slide slide level1 video-summary lecture-slide" data-section="bunching">
+<h1>回看HBT实验：从光强起伏到探测关联</h1>
+<nav class="s-nav"><span class="lecture-label">量子光学 / 09　光子关联与双光子干涉</span><a href="#/l09-nav-signals" class>探测信号</a><a href="#/l09-nav-correlation" class>二阶关联</a><a href="#/l09-nav-bunching" class="active">聚束与反聚束</a><a href="#/l09-nav-hom" class>HOM干涉</a><a href="#/l09-nav-overlap" class>不可区分性</a><a href="#/l09-nav-compare" class>总结</a></nav>
+<div class="s-body">
+<p>留意光强的起伏怎样体现在两路探测记录中。</p>
+<div class="video-frame">
+<span class="fragment video-play-step" data-fragment-index="0" aria-hidden="true"></span>
+<video data-external="1" controls playsinline preload="metadata" poster="assets/video/hbt-class-poster.png" src="assets/video/hbt-class.mp4" aria-label="HBT科普视频"></video>
+<button type="button" class="video-launch">▶ 播放视频 · 3分05秒</button>
+</div>
+</div>
+
+</section>
+
 <section id="l09-nav-hom" class="title-slide slide level1 section-index lecture-slide" data-section="hom">
 <h1>Hong–Ou–Mandel（HOM）双光子干涉</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 09　光子关联与双光子干涉</span><a href="#/l09-nav-signals" class>探测信号</a><a href="#/l09-nav-correlation" class>二阶关联</a><a href="#/l09-nav-bunching" class>聚束与反聚束</a><a href="#/l09-nav-hom" class="active">HOM干涉</a><a href="#/l09-nav-overlap" class>不可区分性</a><a href="#/l09-nav-compare" class>总结</a></nav>
@@ -2862,6 +2912,20 @@ M&amp;=\langle f|g\rangle\langle g|f\rangle=|\langle f|g\rangle|^2,\\
 </div>
 <div class="classroom-slot" data-presenter-url="https://zimin.li/quantum-optics/classroom/presenter.html">
 
+</div>
+</div>
+
+</section>
+
+<section id="l09-hom-video" class="title-slide slide level1 video-summary lecture-slide" data-section="overlap">
+<h1>回看HOM实验：双光子干涉怎样改变输出？</h1>
+<nav class="s-nav"><span class="lecture-label">量子光学 / 09　光子关联与双光子干涉</span><a href="#/l09-nav-signals" class>探测信号</a><a href="#/l09-nav-correlation" class>二阶关联</a><a href="#/l09-nav-bunching" class>聚束与反聚束</a><a href="#/l09-nav-hom" class>HOM干涉</a><a href="#/l09-nav-overlap" class="active">不可区分性</a><a href="#/l09-nav-compare" class>总结</a></nav>
+<div class="s-body">
+<p>留意哪些条件决定两个光子能否发生干涉。</p>
+<div class="video-frame">
+<span class="fragment video-play-step" data-fragment-index="0" aria-hidden="true"></span>
+<video data-external="1" controls playsinline preload="metadata" poster="assets/video/hom-class-poster.png" src="assets/video/hom-class.mp4" aria-label="HOM科普视频"></video>
+<button type="button" class="video-launch">▶ 播放视频 · 3分05秒</button>
 </div>
 </div>
 
@@ -4505,6 +4569,151 @@ if(type==='splitter'){
  delay.addEventListener('input',draw);if(angle)angle.addEventListener('input',draw);all('button').forEach(b=>b.addEventListener('click',()=>{delay.value=b.dataset.preset==='far'?3:0;if(angle)angle.value=b.dataset.preset==='orthogonal'?90:0;draw();}));draw();
 }}
 })();
+</script>
+    <script>// All lecture videos share one next-step/fullscreen lifecycle.
+(() => {
+ if(new URLSearchParams(location.search).get('pdf')==='1')return;
+ let active=null;
+ function focusDeck(){
+  const deck=document.querySelector('.reveal');
+  if(deck){if(!deck.hasAttribute('tabindex'))deck.setAttribute('tabindex','-1');deck.focus({preventScroll:true});}
+ }
+ const entries=[];
+ let ytReady;
+ function loadYouTube(){
+  if(window.YT?.Player)return Promise.resolve();
+  if(ytReady)return ytReady;
+  ytReady=new Promise(resolve=>{
+   const previous=window.onYouTubeIframeAPIReady;
+   window.onYouTubeIframeAPIReady=()=>{previous?.();resolve();};
+   const script=document.createElement('script');script.src='https://www.youtube.com/iframe_api';
+   document.head.append(script);
+  });
+  return ytReady;
+ }
+ function pause(entry){
+  if(entry.native)entry.media.pause();
+  else entry.player?.pauseVideo?.();
+ }
+ function close(entry){
+  if(!entry)return;
+  entry.pending=false;pause(entry);
+  if(active!==entry)return;
+  active=null;entry.stage.classList.remove('is-presenting');entry.slide.classList.remove('video-playing');
+  document.body.classList.remove('media-window-mode');
+  const full=document.fullscreenElement||document.webkitFullscreenElement;
+  if(full===entry.stage){
+   const result=document.exitFullscreen?.()||document.webkitExitFullscreen?.();
+   Promise.resolve(result).catch(()=>{}).then(()=>setTimeout(focusDeck,0));
+  }
+  focusDeck();
+ }
+ function play(entry){
+  if(active!==entry)return;
+  if(entry.native){
+   if(entry.media.ended)entry.media.currentTime=0;
+   entry.media.play()?.catch(()=>{
+    if(active===entry){entry.status.textContent='点击视频中的播放按钮继续';}
+   });
+  } else if(entry.ready){
+   entry.pending=false;entry.player.playVideo();
+  } else {
+   entry.pending=true;entry.status.textContent='正在加载视频…';
+  }
+ }
+ function start(entry){
+  if(active&&active!==entry)close(active);
+  active=entry;entry.status.textContent='';entry.stage.classList.add('is-presenting');entry.slide.classList.add('video-playing');
+  // Start playback in the same user gesture, before fullscreen consumes activation.
+  play(entry);
+  const enter=entry.stage.requestFullscreen||entry.stage.webkitRequestFullscreen;
+  const fallback=()=>{
+   if(active===entry){document.body.classList.add('media-window-mode');entry.stage.focus({preventScroll:true});}
+  };
+  if(enter){
+   try{
+    const result=enter.call(entry.stage);
+    Promise.resolve(result).then(()=>{
+     if(active===entry)entry.stage.focus({preventScroll:true});
+     else if(document.fullscreenElement===entry.stage)document.exitFullscreen()?.catch(()=>{});
+    },fallback);
+   }catch{fallback();}
+  }else fallback();
+ }
+ for(const slide of document.querySelectorAll('section.lecture-slide')){
+  const media=slide.querySelector('video,iframe[data-youtube-src]');
+  const step=slide.querySelector('.video-play-step');
+  if(!media||!step)continue;
+  const stage=document.createElement('div');stage.className='lecture-media-stage';stage.tabIndex=-1;
+  media.replaceWith(stage);stage.append(media);
+  const bar=document.createElement('div');bar.className='lecture-media-controls';
+  const status=document.createElement('span');status.setAttribute('role','status');
+  const back=document.createElement('button');back.type='button';back.textContent='返回课件（Esc）';
+  const next=document.createElement('button');next.type='button';next.textContent='下一页 →';
+  bar.append(status,back,next);stage.append(bar);
+  const entry={slide,media,step,stage,status,native:media.tagName==='VIDEO',ready:false,pending:false};entries.push(entry);
+  slide.querySelector('.video-launch')?.addEventListener('click',()=>{if(step.classList.contains('visible'))start(entry);else Reveal.next();});
+  back.addEventListener('click',()=>close(entry));
+  next.addEventListener('click',()=>{close(entry);Reveal.next();});
+  if(entry.native){
+   media.tabIndex=0;media.removeAttribute('autoplay');
+   media.addEventListener('ended',()=>close(entry));
+   media.addEventListener('playing',()=>{status.textContent='';});
+  }else{
+   media.id=media.id||'lecture-youtube-'+slide.id;
+   loadYouTube().then(()=>{
+    entry.player=new YT.Player(media,{
+     events:{
+      onReady:()=>{entry.ready=true;if(entry.pending&&active===entry)play(entry);},
+      onStateChange:event=>{
+       if(event.data===YT.PlayerState.ENDED)close(entry);
+       if(event.data===YT.PlayerState.PLAYING){status.textContent='';if(active!==entry&&Reveal.getCurrentSlide()!==slide)pause(entry);}
+      },
+      onAutoplayBlocked:()=>{if(active===entry)status.textContent='点击视频中的播放按钮继续';},
+      onError:()=>{if(active===entry)status.textContent='视频加载失败，可返回课件使用原站链接';}
+     }
+    });
+   });
+  }
+ }
+ document.addEventListener('fullscreenchange',()=>{
+  if(active&&document.fullscreenElement!==active.stage&&!document.body.classList.contains('media-window-mode'))close(active);
+ });
+ document.addEventListener('webkitfullscreenchange',()=>{
+  if(active&&!document.webkitFullscreenElement&&!document.fullscreenElement&&!document.body.classList.contains('media-window-mode'))close(active);
+ });
+ document.addEventListener('keydown',event=>{
+  if(event.altKey||event.ctrlKey||event.metaKey||event.shiftKey)return;
+  if(active&&['ArrowRight','PageDown','ArrowLeft','PageUp','Escape'].includes(event.key)){
+   event.preventDefault();event.stopImmediatePropagation();
+   const entry=active;close(entry);
+   if(['ArrowRight','PageDown'].includes(event.key))Reveal.next();
+   else if(['ArrowLeft','PageUp'].includes(event.key))Reveal.prev();
+  } else if(event.target.tagName==='VIDEO'){
+   if(['ArrowLeft','ArrowRight'].includes(event.key))event.preventDefault();
+   else if([' ','ArrowUp','ArrowDown'].includes(event.key))event.stopPropagation();
+  }
+ },true);
+ const attach=()=>{
+  if(!window.Reveal?.isReady())return setTimeout(attach,100);
+  Reveal.on('fragmentshown',({fragment})=>{
+   const entry=entries.find(e=>e.step===fragment);
+   if(entry)start(entry);
+   else if(fragment.classList.contains('video-play-step')){
+    const link=fragment.closest('section').querySelector('.youtube-direct-link');
+    if(link)window.open(link.href,'_blank','noopener');
+   }
+  });
+  Reveal.on('fragmenthidden',({fragment})=>{const entry=entries.find(e=>e.step===fragment);if(entry)close(entry);});
+  Reveal.on('slidechanged',({previousSlide,currentSlide})=>{
+   const previous=entries.find(e=>e.slide===previousSlide);if(previous)close(previous);
+   const entry=entries.find(e=>e.slide===currentSlide);
+   if(entry){pause(entry);Reveal.slide(Reveal.getIndices().h,0,-1);}
+  });
+ };
+ attach();
+})();
+
 </script>
     
 

@@ -59,3 +59,5 @@ GitHub Pages 计划使用独立 quantum-optics 仓库，不在此处写 CNAME，
 教师于2026-11-15明确要求第九讲八题接入正式扫码入口，实际测试通过后同步课件。首次发布HTML课件及其内嵌互动，移出notes_only_lectures，使用 --update-slides 9；PDF范围不变。教学、页面、操作证据绑定quantum-slides/qa/lecture09/production-release/acceptance.json。
 
 教师于2026-11-16确认第九讲定稿，授权同步现有HTML课件及首次发布PDF。保持当前内容和样式；PDF只含46张横向主课件，合并分步，排除3张垂直补充页，网页仍保留补充页。使用 --update-slides 9、--update-pdfs 9 定向发布。定稿验收绑定quantum-slides/qa/lecture09/final-local-review/acceptance.json。
+
+教师于2026-11-16另行明确要求将第九讲两段新版科普视频同步网站。HBT使用B版、HOM使用A版，各3分05秒；教师已知配音待修订，要求先按当前版本使用，之后替换。仅发布HTML及对应媒体，保留现有PDF。媒体路径列入精确发布清单，不将已知配音问题记为物理验收通过。
