@@ -15,7 +15,11 @@ def sync_video_recaps(site, config, published_slides):
             raise ValueError('Video recap requires published slides')
         output = site / 'dist' / relative
         output.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(site / relative, output)
+        source = site / relative
+        shutil.copyfile(source, output)
+        assets = source.with_suffix('')
+        if assets.is_dir():
+            shutil.copytree(assets, output.with_suffix(''), dirs_exist_ok=True)
 
         name = f'lecture{lecture:02d}'
         card_pattern = (rf'<article class="lecture">'
