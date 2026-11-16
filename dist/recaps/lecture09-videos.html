@@ -68,5 +68,16 @@
     </div>
   </main>
   <footer><div class="shell"><span>中南大学 · 量子光学 · 2026 秋季</span><a href="../index.html#lecture09">返回第九讲资料 ↑</a></div></footer>
+  <script>
+    const recapVideos = document.querySelectorAll('.video-list video');
+    for (const video of recapVideos) {
+      video.addEventListener('play', () => {
+        if (video.paused) return;
+        for (const other of recapVideos) {
+          if (other !== video && !other.paused) other.pause();
+        }
+      });
+    }
+  </script>
 </body>
 </html>
