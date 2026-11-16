@@ -1,0 +1,28 @@
+{
+  "lecture": 9,
+  "date": "2026-11-16",
+  "authorization": "教师明确要求按以往方式发布本次课堂答题情况分析。",
+  "scope": "第九讲八道思考题的正式场次匿名汇总与逐题分析，首页、讲义导读和站内搜索入口。",
+  "dimensions": {
+    "understanding": "passed",
+    "physics": "passed",
+    "data": "passed",
+    "visuals": "passed",
+    "browser_operation": "passed"
+  },
+  "sources": {
+    "recaps/lecture09-20261116.json": "734ca5f657132cfa9e286925e56d9f5f6c348bd2573290958fd0eb755388a234",
+    "recaps/lecture09-20261116.editorial.json": "8a285ddcf516b3cb00766a22ab4561790e598a647b134ca6f856489a8e1dd8a0",
+    "scripts/recaps.py": "6a1270d59a25ba5929e12c7ee7782020f6f4944ed6bc570217df2407766173ab",
+    "recaps/review.css": "b82df125e545532d4e711a6a7fbee11d1e1d822c64898f16fc3b6d9dfaa215bb",
+    "recaps/review.js": "41f7a3d7a5d6fa626ce778470a2e8f22540f5c8b3a1cea076caf3926c630feb9"
+  },
+  "html_sha256": "cd6038279cf21866881c3cb5e30008b95aa9635ec4d7298d0cc37e8d7bc38f47",
+  "evidence_summary": {
+    "understanding": "两次独立冷读，复述第3、5、8题并核对自述与选项的边界。",
+    "physics": "独立核对两组计数的符合基准、独立过程枚举、概率幅相消和正交偏振的概率相加。",
+    "data": "核对正式场次13个账号、94份答案、八题各一轮及正确与理由计数。检查未带入姓名、学号、场次码和自由文本原文。",
+    "visuals": "内置浏览器检查桌面和320像素窄屏的分布图、公式和第3题对照表。",
+    "browser_operation": "总览柱条直达第3题，讲义链接定位到对应小节。"
+  }
+}

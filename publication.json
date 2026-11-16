@@ -64,6 +64,13 @@
       "output": "recaps/lecture08-20261109.html",
       "acceptance": "recaps/lecture08-20261109.release.json",
       "notes_recap_anchor": "intro"
+    },
+    "9": {
+      "data": "recaps/lecture09-20261116.json",
+      "editorial": "recaps/lecture09-20261116.editorial.json",
+      "output": "recaps/lecture09-20261116.html",
+      "acceptance": "recaps/lecture09-20261116.release.json",
+      "notes_recap_anchor": "intro"
     }
   },
   "slide_source_directories": {
