@@ -37,6 +37,8 @@ python3 scripts/build.py --source-root /path/to/course
 
 纯文本入口降低页面解析成本，但不保证第三方检索服务立即刷新缓存。
 
+GPT推荐入口为 `https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/gpt.txt`，其中各讲链接直接使用同一发布仓库的原始文本地址。2026-11-16验证：网页检索工具无法打开课程域名的新文本路径，但能读取GitHub原始文本；网站入口同时保留两条路径。没有复制到另一仓库，不需另行维护或上传。
+
 ## GitHub Pages 发布
 
 发布仓库为 [twomaoslee/quantum-optics](https://github.com/twomaoslee/quantum-optics)，与个人主页仓库 `twomaoslee/twomaoslee.github.io` 分开。课程地址为 https://zimin.li/quantum-optics/ ，发布结果以仓库 Actions 中最新运行记录为准。

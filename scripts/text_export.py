@@ -12,6 +12,7 @@ import re
 import subprocess
 
 BASE = 'https://zimin.li/quantum-optics/'
+RAW_BASE = 'https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/'
 VOID = set('area base br col embed hr img input link meta param source track wbr'.split())
 SKIP = set('script style nav footer button input select textarea template noscript'.split())
 SKIP_CLASSES = set('course-site-return course-reading-menu mobile-toc toc sidebar anchorjs-link header-anchor nav-page notes'.split())
@@ -196,14 +197,22 @@ def make_outputs(site, published, math_map, previous=None, now=None):
     index = ('# 量子光学课程：纯文本资料\n\n中南大学，应用物理专业大三；与量子力学同步学习。14次授课与1次课题汇报，每次90分钟。\n'
              f'资料更新时间：{updated}\n\n从当前公开网页自动提取。先读取全课程目录，再按需读取讲义。未来讲次仅列在目录中，正文仅含已发布讲次。\n'
              '文档头包含正文版本与更新时间；搜索摘要可能滞后。图片、视频和交互不能由纯文本完整替代。\n\n')
-    index += '\n'.join(f'- [{d["title"]}]({BASE}{d["text"]})' for d in documents)
+    index += '\n'.join(f'- [{d["title"]}]({BASE}{d["text"]}) · [GitHub原始文本]({RAW_BASE}{d["text"]})' for d in documents)
     index += f'\n\n[版本清单]({BASE}text/manifest.json)\n[网页资料入口]({BASE}text/index.html)\n'
     output['llms.txt'] = '\ufeff' + index
+    gpt_index = ('# 量子光学课程：GPT读取入口\n\n'
+                 f'文本更新时间：{updated}\n'
+                 '以下是课程公开讲义的自动同步纯文本副本，直接使用GitHub原始文件地址。\n'
+                 '若课程域名无法读取，请直接打开下面的链接，无需跳转到原网页。先读课程目录，再按需读取各讲；长文应继续读取后续段落，不能仅以工具首段预览声称通读。\n'
+                 '文本保留公式、选学与参考答案；图片和互动仍以原网页为准。\n\n')
+    gpt_index += '\n'.join(f'- [{d["title"]}]({RAW_BASE}{d["text"]})' for d in documents)
+    gpt_index += f'\n\n[当前版本清单]({RAW_BASE}text/manifest.json)\n'
+    output['text/gpt.txt'] = '\ufeff' + gpt_index
     links = ''.join(f'<li><a href="{d["id"]}.txt">{escape(d["title"])}</a></li>' for d in documents)
     output['text/index.html'] = ('<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
         '<title>纯文本资料 · 量子光学</title><style>body{font:18px/1.8 system-ui,sans-serif;max-width:850px;margin:40px auto;padding:0 20px;color:#193653}a{color:#075aa3}li{margin:12px 0}</style></head><body><main>'
         '<p><a href="../index.html">← 课程首页</a></p><h1>纯文本资料</h1><p>供 AI 工具与文本阅读使用。与网站公开的大纲和讲义同步，保留正文、公式、选学与答案。完整图示及互动请阅读原网页。</p>'
-        f'<p>资料更新时间：{updated}</p><p><a href="../llms.txt">纯文本总入口</a> · <a href="manifest.json">版本清单</a></p><ul>{links}</ul></main></body></html>')
+        f'<p>资料更新时间：{updated}</p><p><a href="{RAW_BASE}text/gpt.txt">给 GPT 的读取入口（GitHub 原始文本）</a></p><p><a href="../llms.txt">网站纯文本总入口</a> · <a href="manifest.json">版本清单</a></p><ul>{links}</ul></main></body></html>')
     return output
 
 

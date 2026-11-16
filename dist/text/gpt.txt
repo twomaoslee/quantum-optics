@@ -1,0 +1,19 @@
+﻿# 量子光学课程：GPT读取入口
+
+文本更新时间：2026-11-16T16:08:15+08:00
+以下是课程公开讲义的自动同步纯文本副本，直接使用GitHub原始文件地址。
+若课程域名无法读取，请直接打开下面的链接，无需跳转到原网页。先读课程目录，再按需读取各讲；长文应继续读取后续段落，不能仅以工具首段预览声称通读。
+文本保留公式、选学与参考答案；图片和互动仍以原网页为准。
+
+- [全课程讲义目录](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/outline.txt)
+- [第一讲 绪论：从量子力学到量子信息科学](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/lecture01.txt)
+- [第二讲 量子比特：如何描述状态与预测测量？](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/lecture02.txt)
+- [第三讲 量子调控：如何控制量子态？](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/lecture03.txt)
+- [第四讲 量子纠缠：两个系统的状态为何不能分开描述？](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/lecture04.txt)
+- [第五讲 Bell不等式：量子关联超出了怎样的经典解释？](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/lecture05.txt)
+- [第六讲 密度矩阵：从整体状态到局部描述](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/lecture06.txt)
+- [第七讲 光场量子化：从一个振动模式到光子](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/lecture07.txt)
+- [光子统计：激光、热光与单光子有什么不同？](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/lecture08.txt)
+- [光子关联与双光子干涉：从 HBT 到 HOM](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/lecture09.txt)
+
+[当前版本清单](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/manifest.json)
