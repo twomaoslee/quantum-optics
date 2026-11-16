@@ -979,6 +979,23 @@ transform: none;
 .reveal .video-summary video{display:block;width:100%;height:100%;max-width:none;max-height:none;margin:0;object-fit:contain;background:#071827}
 .reveal .video-summary .video-launch{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#0070c0;color:white;border:2px solid white;border-radius:6px;padding:12px 22px;font:inherit;cursor:pointer}
 .reveal .video-summary.video-playing .video-launch{display:none}
+.reveal .video-summary .video-slide-poster {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+max-width: none;
+max-height: none;
+margin: 0;
+object-fit: contain;
+background: #071827;
+}
+.reveal .video-summary .has-slide-poster:not(.is-presenting) > video {
+visibility: hidden;
+}
+.reveal .video-summary .is-presenting > .video-slide-poster {
+display: none;
+}
 .reveal .video-play-step {position:absolute;width:1px;height:1px;opacity:0!important;pointer-events:none;overflow:hidden;}
 .reveal .lecture-media-stage {position:relative;width:100%;height:100%;min-width:0;min-height:0;}
 .lecture-media-controls {display:none;}
@@ -2339,7 +2356,7 @@ R=\frac{P_{12}}{P_1P_2}
 <p>留意光强的起伏怎样体现在两路探测记录中。</p>
 <div class="video-frame">
 <span class="fragment video-play-step" data-fragment-index="0" aria-hidden="true"></span>
-<video data-external="1" controls playsinline preload="metadata" poster="assets/video/hbt-class-poster.png" src="assets/video/hbt-class.mp4" aria-label="HBT科普视频"></video>
+<video data-external="1" controls playsinline preload="metadata" poster="assets/video/hbt-recap-poster.jpg" src="assets/video/hbt-class.mp4" aria-label="HBT科普视频"></video>
 <button type="button" class="video-launch">▶ 播放视频 · 3分05秒</button>
 </div>
 </div>
@@ -2924,7 +2941,7 @@ M&amp;=\langle f|g\rangle\langle g|f\rangle=|\langle f|g\rangle|^2,\\
 <p>留意哪些条件决定两个光子能否发生干涉。</p>
 <div class="video-frame">
 <span class="fragment video-play-step" data-fragment-index="0" aria-hidden="true"></span>
-<video data-external="1" controls playsinline preload="metadata" poster="assets/video/hom-class-poster.png" src="assets/video/hom-class.mp4" aria-label="HOM科普视频"></video>
+<video data-external="1" controls playsinline preload="metadata" poster="assets/video/hom-recap-poster.jpg" src="assets/video/hom-class.mp4" aria-label="HOM科普视频"></video>
 <button type="button" class="video-launch">▶ 播放视频 · 3分05秒</button>
 </div>
 </div>
@@ -4646,6 +4663,15 @@ if(type==='splitter'){
   if(!media||!step)continue;
   const stage=document.createElement('div');stage.className='lecture-media-stage';stage.tabIndex=-1;
   media.replaceWith(stage);stage.append(media);
+  if (slide.classList.contains('video-summary') && media.tagName === 'VIDEO' && media.poster) {
+   // A native video shows its last frame after pausing. Keep a separate slide cover.
+   const poster = document.createElement('img');
+   poster.className = 'video-slide-poster';
+   poster.alt = '';
+   poster.src = media.poster;
+   stage.prepend(poster);
+   stage.classList.add('has-slide-poster');
+  }
   const bar=document.createElement('div');bar.className='lecture-media-controls';
   const status=document.createElement('span');status.setAttribute('role','status');
   const back=document.createElement('button');back.type='button';back.textContent='返回课件（Esc）';
