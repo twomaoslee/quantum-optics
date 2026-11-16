@@ -1,0 +1,916 @@
+﻿第七讲 光场量子化：从一个振动模式到光子
+原网页：https://zimin.li/quantum-optics/notes/lecture07.html
+文本更新时间：2026-11-16T16:08:15+08:00
+正文版本：1cedf644ad37c18b
+格式：UTF-8纯文本，数学公式保留LaTeX。含原文选学与答案；图片和互动仅保留说明及可用链接，完整图示见原网页。
+
+# 第七讲 光场量子化：从一个振动模式到光子
+
+单模场 · 量子谐振子 · 光子数态 · 真空涨落
+
+## 本讲导读
+
+前几讲中，我们常把一个光子的水平、竖直偏振作为两个偏振基矢，讨论叠加、测量和量子操作。这样能够描述光子的偏振，却还没有回答另一个问题：当光的频率、偏振和空间分布已经固定，这束光可以具有怎样的能量？经典电磁波的振幅能够连续改变，而我们在绪论中又说，一个频率为 \(\nu\) 的光子携带能量 \(h\nu\)。本讲要把这两种描述接起来，理解一个电磁场模式怎样获得以光子为单位的激发能量。
+
+我们从两面反射镜之间的驻波出发。选定一种空间分布和频率，就是选定一个模式。这个模式中的电场能量与磁场能量不断交换，总能量保持不变，恰好具有谐振子的结构。因此，研究单模光场的量子性质，可以从研究量子谐振子入手。腔的边界条件选出了允许的频率；固定频率以后，经典能量仍可随振幅连续变化。能量的离散结构还需要引入量子规律才能得到。
+
+接下来的关键，是把描述该模式的两个经典变量改为量子算符，并规定它们的对易关系。我们将把两个算符重新组合，找到使能量逐级升高或降低的阶梯。由于能量有下界，阶梯从最低一级开始；相邻两级之间相差一份固定的能量。把这个结果用于电磁场，每一级便对应一个确定的光子数，而阶梯算符的归一化系数也能通过计算得到。
+
+最低一级带来一个新的问题：零光子是否意味着所有电磁场测量都得到零？我们会发现，真空的平均场为零，场的测量结果却有非零的分散程度；与此同时，总能量仍然确定。要理解它们为何能够同时成立，需要明确每次讨论的是哪一个可观测量。相同的谐振子结构还适用于被束缚离子的微小振动，把本讲方法连接到另一种物理系统。
+
+有了数态以后，前几讲的叠加与混合又可以用于光场。我们最后比较三个平均光子数相同的状态：光子计数能区分其中一部分，适当的场测量还能揭示计数看不到的相干性。这样，本讲既建立光子的量子态描述，也为下一讲比较不同光源的光子统计提供基础。
+
+课堂进度参考 | 内容 | 预计时间
+第一课时 | 模式与经典谐振子对应；正则量子化；阶梯算符与哈密顿量 | 45分钟
+第二课时 | 数态与能谱20分钟；真空涨落15分钟；离子类比、状态比较与回顾10分钟 | 45分钟
+
+完整推导与折叠补充供课后阅读；上述时间是课堂安排的参考。
+
+## 1. 从单光子偏振到光场模式
+
+### 1.1 固定一种模式，研究它的激发
+
+前几讲用 \(|H\rangle\)、\(|V\rangle\) 描述一个光子的偏振，光子数固定为一。现在进一步问：频率、偏振和空间形状都相同的光场，可以具有怎样的总能量？我们把这样确定的一种振动方式称为一个光场模式，接下来研究其中的能量与光子数怎样联系。
+
+为了看清“模式”的含义，考虑两面理想反射镜相距 \(L\) 的一维腔。令 \(x\) 沿腔轴，电场沿 \(y\) 方向，两镜面处的切向电场为零。允许的驻波空间分布为
+
+\[
+u_m(x)=\sin\left(\frac{m\pi x}{L}\right),
+\qquad m=1,2,3,\ldots .
+\]
+
+每一种空间分布对应波数与角频率
+
+\[
+k_m=\frac{m\pi}{L},\qquad \omega_m=ck_m,
+\]
+
+其中 \(c\) 是真空光速，角频率与普通频率满足 \(\omega_m=2\pi\nu_m\)。这里的下标 \(m\) 用来给模式编号，函数 \(u_m\) 描述场沿腔轴怎样分布。真实三维腔还需要指定横向结构与偏振；本讲用这一维理想模型建立单模场的计算。
+
+[图像或互动，参见原网页]
+
+理想一维腔的前两个驻波模式。曲线给出空间分布，模式编号决定波数和频率。
+
+此后选定一个模式，省略它的编号，记频率为 \(\omega\)、波数为 \(k\)。光子数将用另一个整数 \(n\) 表示。选哪个模式与该模式有多少个光子，是两个不同的问题。 数态的数学定义将在建立量子能谱以后给出。
+
+### 思考题1：固定模式时，什么可以改变？
+
+保持腔的几何条件、偏振与所选驻波模式不变，向这个模式增加一个同频率光子。模式的频率、空间形状和激发数怎样改变？
+
+选择一项
+
+A频率增大，空间形状不变
+
+B频率不变，节点数增加
+
+C频率与空间形状不变，激发数增加
+
+D模式频率、空间形状和激发数都不变
+
+参考答案（原网页提交后显示）：C
+
+选好答案后提交，再查看答案和解答。
+
+课堂答题情况分析 (https://zimin.li/quantum-optics/recaps/lecture07-20261102.html#q1)
+
+正确答案：C
+
+在本讲理想自由单模模型中，模式频率和空间形状保持不变，改变的是该模式的激发数。模式给出可能振动的空间结构与频率；光子数给出其中的激发量子数。增加一个光子的能量差将在数态能谱中得到。
+
+## 2. 单模场的经典谐振子描述
+
+### 2.1 驻波中的电场与磁场能量
+
+选定模式后，电场的空间分布函数已经确定，随时间变化的是乘在它前面的系数。先从经典场出发，检验这个系数的振动规律与场能量能否写成谐振子的形式。选定的驻波可写为：
+
+\[
+\begin{aligned}
+E_y(x,t)&=E_0\sin(kx)\cos(\omega t),\\
+B_z(x,t)&=-\frac{E_0}{c}\cos(kx)\sin(\omega t),
+\end{aligned}
+\qquad \omega=ck.
+\]
+
+这里 \(E_0\) 是电场的最大幅值，磁场沿 \(z\) 方向。两式满足无源 Maxwell 方程；例如 \(\partial E_y/\partial x=-\partial B_z/\partial t\)。对于这个驻波，电场与磁场的时间因子相差四分之一个周期。当电场的时间因子达到最大值时，磁场为零；四分之一个周期后，电场为零，磁场的幅值达到最大。这个关系针对驻波，自由空间中的单色平面行波具有同相的电场与磁场。
+
+电磁场的总能量包含两部分：
+
+\[
+U=U_E+U_B
+=\frac12\int_V\left(\varepsilon_0 E^2+\frac{B^2}{\mu_0}\right)\mathrm dV.
+\]
+
+\(\varepsilon_0\)、\(\mu_0\) 分别是真空介电常数与磁导率，且 \(\varepsilon_0\mu_0c^2=1\)。在横截面积为 \(A\)、体积为 \(V=AL\) 的理想模型中，\(\sin^2(kx)\) 与 \(\cos^2(kx)\) 沿整个腔长的平均值都为 \(1/2\)。代入积分得到
+
+\[
+U_E=\frac{\varepsilon_0VE_0^2}{4}\cos^2(\omega t),
+\qquad
+U_B=\frac{\varepsilon_0VE_0^2}{4}\sin^2(\omega t).
+\]
+
+所以总能量
+
+\[
+U=\frac{\varepsilon_0VE_0^2}{4}
+\]
+
+保持不变。电场能量和磁场能量此消彼长，正像弹簧振子的势能与动能相互转换。
+
+[图像或互动，参见原网页]
+
+单个经典驻波模式的电场能量、磁场能量及总能量随时间相位的理论变化。两种能量分别按余弦平方和正弦平方变化，总和保持不变。
+
+### 2.2 为场选取两个谐振子变量
+
+机械谐振子的能量为 \(P^2/(2M)+M\omega^2x^2/2\)，其中 \(M\) 是质量，\(x\) 是相对平衡位置的位移，\(P\) 是机械动量。为了把单模场写成相同形式，定义
+
+\[
+q(t)=\sqrt{\frac{\varepsilon_0V}{2}}\,
+\frac{E_0}{\omega}\cos(\omega t),
+\qquad p(t)=\dot q(t).
+\]
+
+因此
+
+\[
+p(t)=-\sqrt{\frac{\varepsilon_0V}{2}}\,E_0\sin(\omega t).
+\]
+
+这两个变量包含同一个模式在某一时刻的振动幅度和相位信息。由定义可直接验证
+
+\[
+U_E=\frac12\omega^2q^2,\qquad U_B=\frac12p^2,
+\]
+
+于是该模式的哈密顿量，也就是以这两个变量表示的能量，为
+
+\[
+\boxed{H=\frac12p^2+\frac12\omega^2q^2.}
+\]
+
+它具有质量参数已吸收到变量中的谐振子形式。\(q\) 是场模式的广义坐标，\(p\) 是与之共轭的正则动量，它们描述这个模式的场振动。
+
+这种对应还包括动力学。根据上面的定义，
+
+\[
+\dot q=p,\qquad \dot p=-\omega^2q,
+\]
+
+从而 \(\ddot q+\omega^2q=0\)。这与给定哈密顿量的正则方程 \(\dot q=\partial H/\partial p\)、\(\dot p=-\partial H/\partial q\) 一致；这两条方程说明了此处把 \(p\) 称为正则动量的含义。
+
+以后还要把谐振子的结果翻译回电磁场，因此同时保留反向关系：
+
+\[
+\begin{aligned}
+E_y(x,t)&=\omega\sqrt{\frac{2}{\varepsilon_0V}}\,q(t)\sin(kx),\\
+B_z(x,t)&=\frac1c\sqrt{\frac{2}{\varepsilon_0V}}\,p(t)\cos(kx).
+\end{aligned}
+\]
+
+固定位置处，电场与 \(q\) 成正比，磁场与 \(p\) 成正比。这使我们能够通过研究 \(q,p\) 的量子性质，预测选定模式的电磁场测量。
+
+### 思考题2：频率离散是否足以使能量离散？
+
+选定腔内一个经典模式，其频率、偏振和模式体积均固定，电场振幅 \(E_0\) 可以连续调节。由 \(U=\varepsilon_0VE_0^2/4\) 判断：总能量能取哪些值？\(V\) 是模式体积，\(\varepsilon_0\) 是真空介电常数。
+
+选择一项
+
+A只能取模式频率的整数倍
+
+B随经典电场振幅连续变化
+
+C只能取零与一个非零值
+
+D边界条件已经固定全部能量
+
+参考答案（原网页提交后显示）：B
+
+选好答案后提交，再查看答案和解答。
+
+课堂答题情况分析 (https://zimin.li/quantum-optics/recaps/lecture07-20261102.html#q2)
+
+正确答案：B
+
+仍可以连续取值，因为经典振幅 \(E_0\) 可以连续调节。边界条件限制的是允许的模式频率，经典理论尚未给出固定模式的离散能量。下一节将引入额外的量子规律。
+
+本节得到的是经典场与谐振子的对应。 这种对应告诉我们该研究哪个模型；要得到离散的能量测量值，还需规定这个模型的量子性质。
+
+## 3. 正则量子化与阶梯算符
+
+### 3.1 对易关系是新增的量子规律
+
+前几讲已经用算符表示可观测量，并用哈密顿量表示能量。现在将 \(q,p\) 改为作用于量子态的厄米算符 \(\hat q,\hat p\)。厄米意味着算符等于自己的共轭转置，其测量本征值为实数。量子谐振子的哈密顿量为
+
+\[
+\hat H=\frac12\hat p^2+\frac12\omega^2\hat q^2.
+\]
+
+正则量子化进一步规定
+
+\[
+\boxed{[\hat q,\hat p]=i\hbar\hat I,}
+\qquad
+[\hat q,\hat p]\equiv\hat q\hat p-\hat p\hat q.
+\]
+
+\(\hat I\) 是恒等算符，\(\hbar=h/(2\pi)\)。方括号定义了对易子，用来比较两种作用次序的差别。这个关系是一条引入的量子力学基本规则。以后写算符与普通数相加时，普通数均理解为该数乘以恒等算符。
+
+第三讲组合量子门时，先改变相位再改变概率分配，与交换这两个操作的次序可以得到不同结果。这里的对易关系则精确规定了 \(\hat q\)、\(\hat p\) 次序交换时出现的差项。
+
+我们要找的是满足 \(\hat H|\psi\rangle=E|\psi\rangle\) 的能量本征态及其本征值。直接处理两个平方项不够方便，可以先寻找更适合这个问题的算符组合。
+
+### 3.2 从复振幅到两个新算符
+
+经典振动中，若 \(q(t)=Q\cos(\omega t)\)，则 \(p(t)=-\omega Q\sin(\omega t)\)，所以
+
+\[
+\omega q(t)+ip(t)=\omega Qe^{-i\omega t}.
+\]
+
+两个实变量的组合使振动变成简单的复指数。受到这个结构的启发，我们定义
+
+\[
+\begin{aligned}
+\hat a&=\sqrt{\frac{\omega}{2\hbar}}\,\hat q
++\frac{i}{\sqrt{2\hbar\omega}}\,\hat p,\\
+\hat a^\dagger&=\sqrt{\frac{\omega}{2\hbar}}\,\hat q
+-\frac{i}{\sqrt{2\hbar\omega}}\,\hat p.
+\end{aligned}
+\]
+
+上标 \(\dagger\) 表示厄米共轭，即矩阵语言中的共轭转置。因为 \(\hat q\)、\(\hat p\) 都是厄米算符，取共轭后虚数单位的符号改变。所选系数使 \(\hat a\) 与 \(\hat a^\dagger\) 都无量纲，并使下面的对易关系简化。
+
+暂记 \(\alpha=\sqrt{\omega/(2\hbar)}\)、\(\beta=1/\sqrt{2\hbar\omega}\)，则
+
+\[
+\begin{aligned}
+\left[\hat a,\hat a^\dagger\right]
+&=[\alpha\hat q+i\beta\hat p,\alpha\hat q-i\beta\hat p]\\
+&=-i\alpha\beta[\hat q,\hat p]
++i\alpha\beta[\hat p,\hat q]\\
+&=-2i\alpha\beta(i\hbar)=1.
+\end{aligned}
+\]
+
+最后一步用了 \(\alpha\beta=1/(2\hbar)\)。因此
+
+\[
+\boxed{\hat a\hat a^\dagger=\hat a^\dagger\hat a+1.}
+\]
+
+新算符的乘积同样可以帮助改写能量。逐项相乘时要保留 \(\hat q\hat p\) 和 \(\hat p\hat q\) 的顺序：
+
+\[
+\begin{aligned}
+\hat a^\dagger\hat a
+&=\frac{\omega}{2\hbar}\hat q^2
++\frac{1}{2\hbar\omega}\hat p^2
++\frac{i}{2\hbar}[\hat q,\hat p]\\
+&=\frac{\hat H}{\hbar\omega}-\frac12.
+\end{aligned}
+\]
+
+从而
+
+\[
+\boxed{\hat H=\hbar\omega\left(\hat a^\dagger\hat a+\frac12\right).}
+\]
+
+定义 \(\hat N=\hat a^\dagger\hat a\)，就得到 \(\hat H=\hbar\omega(\hat N+1/2)\)。求能量谱的问题，现在转化为求 \(\hat N\) 的本征值。 下一节将证明它的本征值为何可以用来计数。
+
+## 4. 数态与离散能谱
+
+### 4.1 新算符使本征值升降一级
+
+由 \([\hat a,\hat a^\dagger]=1\)，可算出
+
+\[
+\begin{aligned}
+\left[\hat N,\hat a^\dagger\right]
+&=\hat a^\dagger\hat a\hat a^\dagger
+-\hat a^\dagger\hat a^\dagger\hat a\\
+&=\hat a^\dagger(\hat a\hat a^\dagger-\hat a^\dagger\hat a)
+=\hat a^\dagger,\\
+[\hat N,\hat a]&=-\hat a.
+\end{aligned}
+\]
+
+假设 \(|\lambda\rangle\) 是归一化本征态，\(\hat N|\lambda\rangle=\lambda|\lambda\rangle\)。利用第一个对易关系，
+
+\[
+\begin{aligned}
+\hat N\hat a^\dagger|\lambda\rangle
+&=(\hat a^\dagger\hat N+\hat a^\dagger)|\lambda\rangle\\
+&=(\lambda+1)\hat a^\dagger|\lambda\rangle.
+\end{aligned}
+\]
+
+所以 \(\hat a^\dagger|\lambda\rangle\) 是本征值提高一级的新本征向量。类似地，
+
+\[
+\hat N\hat a|\lambda\rangle
+=(\lambda-1)\hat a|\lambda\rangle.
+\]
+
+只要这个向量非零，它就对应降低一级的本征值。这解释了为什么称 \(\hat a^\dagger\)、\(\hat a\) 为升阶和降阶算符。
+
+### 4.2 阶梯为何从零开始，而且只能取整数？
+
+还需要确定这个阶梯的起点。对任意归一化态 \(|\psi\rangle\)，
+
+\[
+\langle\psi|\hat N|\psi\rangle
+=\langle\psi|\hat a^\dagger\hat a|\psi\rangle
+=\|\hat a|\psi\rangle\|^2\geq0.
+\]
+
+这里 \(\bigl\|\,|\chi\rangle\,\bigr\|^2=\langle\chi|\chi\rangle\) 表示态向量长度的平方；它为零当且仅当向量本身为零。因此 \(\hat N\) 的本征值不能为负。特别地，
+
+\[
+\|\hat a|\lambda\rangle\|^2=\lambda.
+\]
+
+这还告诉我们：只要 \(\lambda>0\)，降阶后的向量就一定非零，不能在任意正本征值处停止。
+
+如果有一个非整数正本征值，不断降阶并重新归一化，最后必然到达某个 \(0<r<1\)。此时降阶向量的范数平方是 \(r>0\)，所以它非零，却对应本征值 \(r-1<0\)，与非负性矛盾。因此，允许的本征值只能是非负整数。下降到零时，范数为零，才真正终止：
+
+\[
+\boxed{\hat a|0\rangle=0,\qquad \hat N|0\rangle=0.}
+\]
+
+式中的 \(0\) 是零向量，\(|0\rangle\) 是归一化的最低态；其波函数在本节末的选读中给出。对最低态反复升阶，就得到
+
+\[
+\hat N|n\rangle=n|n\rangle,
+\qquad n=0,1,2,\ldots .
+\]
+
+这些归一化态称为数态，也称 Fock 态。单个谐振子的数态构成一组正交完备基，任意纯态都可以在这组基中展开。
+
+### 4.3 每一级能量对应多少个光子？
+
+代入 \(\hat H=\hbar\omega(\hat N+1/2)\)，得到
+
+\[
+\boxed{E_n=\hbar\omega\left(n+\frac12\right),\qquad
+E_{n+1}-E_n=\hbar\omega.}
+\]
+
+因此，这个模式的每增加一级激发，能量就增加 \(\hbar\omega=h\nu\)。电磁场模式的一份激发量子称为一个光子。 \(|n\rangle\) 表示该模式有确定的 \(n\) 个光子，\(\hat N\) 因而称为光子数算符。\(|0\rangle\) 是零光子态，即该模式的真空态。
+
+[图像或互动，参见原网页]
+
+量子谐振子能级与阶梯算符作用。各横线对应一个数态的能量，能量间隔相同；箭头连接升降算符作用前后的数态。
+
+能量包含激发部分 \(n\hbar\omega\) 与最低态能量 \(\hbar\omega/2\)。后者称为零点能。光子数由 \(\hat N\) 的本征值定义，因此真空的零点能对应零个光子。
+
+### 4.4 平方根系数来自归一化
+
+我们已知 \(\hat a|n\rangle\) 与 \(|n-1\rangle\) 成正比。设
+
+\[
+\hat a|n\rangle=c_n|n-1\rangle.
+\]
+
+一方面，\(|n-1\rangle\) 已归一化，所以左边的范数平方为 \(|c_n|^2\)。另一方面，
+
+\[
+\|\hat a|n\rangle\|^2
+=\langle n|\hat a^\dagger\hat a|n\rangle=n.
+\]
+
+于是 \(|c_n|=\sqrt n\)。统一选定各数态的相位，使系数取非负实数，就有
+
+\[
+\boxed{\hat a|n\rangle=\sqrt n\,|n-1\rangle.}
+\]
+
+升阶时，利用 \(\hat a\hat a^\dagger=\hat N+1\)，
+
+\[
+\|\hat a^\dagger|n\rangle\|^2
+=\langle n|(\hat N+1)|n\rangle=n+1,
+\]
+
+因而
+
+\[
+\boxed{\hat a^\dagger|n\rangle=\sqrt{n+1}\,|n+1\rangle.}
+\]
+
+现在可以把它们分别称为湮灭算符和产生算符。平方根系数由作用后向量的范数确定。
+
+### 思考题3：连续作用两次湮灭算符
+
+单模光场处于归一化双光子态 \(|2\rangle\)。使用 \(\hat a|n\rangle=\sqrt n\,|n-1\rangle\)，求 \(\hat a^2|2\rangle\) 的完整作用结果，保留系数，不另做归一化。
+
+选择一项
+
+A\(|0\rangle\)
+
+B\(2|0\rangle\)
+
+C\(\sqrt2|0\rangle\)
+
+D零向量
+
+参考答案（原网页提交后显示）：C
+
+选好答案后提交，再查看答案和解答。
+
+课堂答题情况分析 (https://zimin.li/quantum-optics/recaps/lecture07-20261102.html#q3)
+
+正确答案：C
+
+\[
+\hat a^2|2\rangle
+=\hat a(\sqrt2|1\rangle)=\sqrt2|0\rangle.
+\]
+
+其范数平方为2，归一化后得到真空态 \(|0\rangle\)。它与 \(\hat a|0\rangle=0\) 所得的零向量不同。
+
+### 4.5 离散的能量测量值与连续的平均能量
+
+对于纯态，可观测量 \(\hat O\) 的期望值是 \(\langle\hat O\rangle=\langle\psi|\hat O|\psi\rangle\)，表示大量独立制备后重复测量的平均结果。在能量本征基下，它等于每个能量值乘以相应概率后求和。
+
+例如，取
+
+\[
+|\psi\rangle=\sqrt{1-s}\,|0\rangle+\sqrt s\,|1\rangle,
+\qquad 0\leq s\leq1.
+\]
+
+能量测量得到 \(E_0=\hbar\omega/2\) 或 \(E_1=3\hbar\omega/2\)，概率分别为 \(1-s\)、\(s\)。平均能量却为
+
+\[
+\langle H\rangle=(1-s)E_0+sE_1
+=\hbar\omega\left(s+\frac12\right),
+\]
+
+可以随 \(s\) 连续变化。能级的离散性限制单次能量测量的可能结果；它允许不同量子态具有连续可变的平均能量。这使离散激发与连续可调的平均光强能够相容。
+
+选读：验证最低态的存在
+
+在 \(q\) 表象中，\(\hat q\) 表示乘以 \(q\)，\(\hat p=-i\hbar\,\mathrm d/\mathrm dq\)。将它们代入 \(\hat a|0\rangle=0\)，得到
+
+\[
+\frac{\mathrm d\psi_0}{\mathrm dq}
+=-\frac{\omega}{\hbar}q\psi_0.
+\]
+
+求解并按 \(\int|\psi_0(q)|^2\mathrm dq=1\) 归一化，得
+
+\[
+\psi_0(q)=\left(\frac{\omega}{\pi\hbar}\right)^{1/4}
+\exp\left(-\frac{\omega q^2}{2\hbar}\right).
+\]
+
+这是满足最低态条件的可归一化高斯波函数。其自变量 \(q\) 是场模式的广义坐标，沿腔轴的空间分布由 \(\sin(kx)\) 给出。
+
+## 5. 真空与场涨落
+
+### 5.1 零光子态中的场测量
+
+真空态满足 \(\hat a|0\rangle=0\)，其光子数确定为零。我们要进一步回答：测量电场时，结果是否也完全确定？根据经典场与谐振子变量的对应，先研究 \(\hat q\) 即可。
+
+由阶梯算符的定义相加，得
+
+\[
+\hat q=q_0(\hat a+\hat a^\dagger),
+\qquad q_0=\sqrt{\frac{\hbar}{2\omega}}.
+\]
+
+对真空求平均：\(\hat a|0\rangle=0\)，而 \(\hat a^\dagger|0\rangle=|1\rangle\) 与 \(|0\rangle\) 正交，所以
+
+\[
+\langle\hat q\rangle_0
+=q_0\bigl(\langle0|\hat a|0\rangle+
+\langle0|\hat a^\dagger|0\rangle\bigr)=0.
+\]
+
+平均值为零可以来自每次结果都为零，也可以来自正负结果的平均抵消。要区分这两种情况，需要计算分布的宽度。可观测量的方差定义为
+
+\[
+(\Delta q)^2=\langle\hat q^2\rangle-\langle\hat q\rangle^2.
+\]
+
+\(\Delta q\) 是标准差；方差为零才表示测量结果没有分散。
+
+先用已知的算符关系判断两种测量的结果，再计算方差来核对。
+
+### 思考题4：平均场为零，测量结果就确定吗？
+
+每次重新制备同一归一化单模真空态 \(|0\rangle\)，两组独立样本分别测量场坐标 \(\hat q\) 和总能量 \(\hat H\)。已知 \(\langle\hat q\rangle_0=0\)，并使用
+
+\[
+\begin{aligned}
+\hat q&=q_0(\hat a+\hat a^\dagger),\\
+\hat H&=\hbar\omega(\hat a^\dagger\hat a+1/2).
+\end{aligned}
+\]
+
+其中 \(q_0=\sqrt{\hbar/(2\omega)}\)，\(\hat a|0\rangle=0\)、\([\hat a,\hat a^\dagger]=1\)。比较两组测量结果的方差，哪项正确？
+
+选择一项
+
+A场坐标与总能量都有分散
+
+B场坐标有分散，总能量固定
+
+C场坐标固定，总能量有分散
+
+D场坐标与总能量都固定
+
+参考答案（原网页提交后显示）：B
+
+选好答案后提交，再查看答案和解答。
+
+课堂答题情况分析 (https://zimin.li/quantum-optics/recaps/lecture07-20261102.html#q4)
+
+正确答案：B
+
+真空中的 \(\langle\hat q^2\rangle_0=q_0^2\)，所以 \((\Delta q)^2_0=q_0^2>0\)；同时 \(\hat H|0\rangle=(\hbar\omega/2)|0\rangle\)，总能量的方差为零。平均场为零与场测量有分散可以同时成立。下面两节分别计算这两个方差。
+
+### 5.2 真空的均方场不为零
+
+将 \(\hat q\) 平方时，保留两个交叉项的次序：
+
+\[
+\hat q^2=q_0^2\left[
+\hat a^2+\hat a\hat a^\dagger+
+\hat a^\dagger\hat a+(\hat a^\dagger)^2\right].
+\]
+
+对真空求期望值，\(\hat a^2\) 与 \(\hat a^\dagger\hat a\) 都消去右侧的真空，\((\hat a^\dagger)^2\) 将真空变为与之正交的双光子态；这三项的期望值均为零。剩下的一项是
+
+\[
+\langle0|\hat a\hat a^\dagger|0\rangle
+=\langle0|(\hat N+1)|0\rangle=1.
+\]
+
+因此
+
+\[
+\boxed{\langle\hat q^2\rangle_0=q_0^2=\frac{\hbar}{2\omega},
+\qquad(\Delta q)^2_0=\frac{\hbar}{2\omega}>0.}
+\]
+
+真空的平均场为零，但场测量有非零的量子涨落。 这里的“涨落”指在相同真空态下独立重复测量所得结果的分散程度。
+
+由 \(E_y(x)=\omega\sqrt{2/(\varepsilon_0V)}\,q\sin(kx)\)，该模式的电场算符为
+
+\[
+\hat E_y(x)=\sqrt{\frac{\hbar\omega}{\varepsilon_0V}}
+\sin(kx)(\hat a+\hat a^\dagger).
+\]
+
+于是
+
+\[
+\langle\hat E_y(x)\rangle_0=0,
+\qquad
+(\Delta E_y(x))_0^2=
+\frac{\hbar\omega}{\varepsilon_0V}\sin^2(kx).
+\]
+
+在这个选定模式的电场节点，\(\sin(kx)=0\)，该模式贡献的电场涨落也为零；在电场腹部最大。这个空间依赖来自模式函数。
+
+### 5.3 场有涨落，总能量仍可确定
+
+同一个真空态也是能量本征态：
+
+\[
+\hat H|0\rangle=E_0|0\rangle,
+\qquad E_0=\frac12\hbar\omega.
+\]
+
+因此 \(\langle\hat H\rangle_0=E_0\)，\(\langle\hat H^2\rangle_0=E_0^2\)，能量方差为
+
+\[
+\boxed{(\Delta H)^2_0
+=\langle\hat H^2\rangle_0-\langle\hat H\rangle_0^2=0.}
+\]
+
+这与场涨落能够同时成立，因为它们涉及不同的可观测量。真空是 \(\hat H\) 的本征态，却不是 \(\hat q\) 的本征态；后者作用后得到 \(\hat q|0\rangle=q_0|1\rangle\)，并不与原态成正比。这个区别与前面自旋的例子相通：沿一个方向测量确定，并不要求另一方向的测量也确定。
+
+[图像或互动，参见原网页]
+
+同一真空态下的两种理论测量分布。场坐标分布具有非零宽度，能量测量集中在唯一的最低能量值。
+
+可观测量 | 真空态中的结果
+光子数 \(\hat N\) | 每次为0
+单模总能量 \(\hat H\) | 每次为 \(\hbar\omega/2\)
+场坐标 \(\hat q\) | 平均值为0，方差为 \(\hbar/(2\omega)\)
+
+选读：共轭变量的涨落与不确定关系
+
+由阶梯算符定义相减，
+
+\[
+\hat p=-i\sqrt{\frac{\hbar\omega}{2}}
+(\hat a-\hat a^\dagger).
+\]
+
+对真空重复上述计算可得 \(\langle\hat p\rangle_0=0\)、\((\Delta p)^2_0=\hbar\omega/2\)。因此
+
+\[
+\Delta q\,\Delta p=\frac{\hbar}{2}.
+\]
+
+由正则对易关系可推出的一般不确定关系为 \(\Delta q\,\Delta p\geq\hbar/2\)。真空恰好达到下界，两种共轭变量都不能同时完全确定。这与经典振子可以静止在 \(q=p=0\) 的情况不同。
+
+### 5.4 光子数增加时，电磁波的什么发生改变？
+
+现在把真空的计算推广到同一模式的数态 \(|n\rangle\)。一次升降后的态与原态正交，所以平均电场仍为零；两次同向升降的项也不给均方场贡献，留下 \(\langle\hat a\hat a^\dagger+\hat a^\dagger\hat a\rangle_n=2n+1\)。于是
+
+\[
+\begin{aligned}
+\langle\hat E_y(x)\rangle_n&=0,\\
+\langle\hat E_y^2(x)\rangle_n&=(2n+1)
+\frac{\hbar\omega}{\varepsilon_0V}\sin^2(kx).
+\end{aligned}
+\]
+
+固定在电场腹部，记 \(\mathcal E=\sqrt{\hbar\omega/(\varepsilon_0V)}\)。均方根电场为 \(\sqrt{\langle\hat E_y^2\rangle_n}=\mathcal E\sqrt{2n+1}\)；由于平均场为零，它也等于标准差。光子数 \(n=0,1,4\) 对应的均方根电场依次为 \(\mathcal E,\sqrt3\mathcal E,3\mathcal E\)。数态光子数增大时，场测量结果的分散尺度增大；模式的频率和节点位置保持不变。
+
+要把这种能量与场尺度的联系画成熟悉的余弦波，可以选取另一类光场状态作例子，称为相干态。它的平均电场随时间按经典波形振荡；光子数测量会得到不同结果，下面用 \(\bar n=\langle\hat N\rangle\) 表示平均光子数。固定同一模式和相位，在电场腹部有
+
+\[
+\begin{aligned}
+\langle\hat E_y(t)\rangle&=E_{\rm pk}\cos\omega t,\\
+E_{\rm pk}&=2\mathcal E\sqrt{\bar n},
+\qquad T=\frac{2\pi}{\omega}.
+\end{aligned}
+\]
+
+[图像或互动，参见原网页]
+
+同一驻波模式在电场腹部的相干态平均电场。三条曲线叠加在同一坐标轴上；蓝、橙、绿分别对应平均光子数1、4、9，图例与线色一一对应。横轴为时间与周期之比，纵轴以平均光子数为1时的峰值振幅为单位。振幅比为1∶2∶3，波峰横向位置与周期相同。
+
+振幅为什么按平方根增大？前文经典驻波的能量为 \(U=\varepsilon_0VE_0^2/4\)。对这里的相干态，平均场对应的经典能量恰好等于高于真空的激发能量：
+
+\[
+\begin{aligned}
+\frac{\varepsilon_0V E_{\rm pk}^2}{4}&=\bar n\hbar\omega,\\
+\langle\hat H\rangle&=\hbar\omega\left(\bar n+\frac12\right).
+\end{aligned}
+\]
+
+因此，在频率和模式体积不变时，平均光子数增加到4倍，振幅增加到2倍。曲线变高，周期保持不变：增加激发量与改变模式频率是两种不同的变化。 MIT量子物理讲义的光子态一节 (https://ocw.mit.edu/courses/8-05-quantum-physics-ii-fall-2013/79a8091ef4f18d8e3ff76a097e8db33c_MIT8_05F13_Chap_06.pdf)也给出了相干态平均场与平均光子数的对应关系。
+
+## 6. 光子与离子振动
+
+单模场采用谐振子结构，是因为它的能量和动力学具有这种形式。相同结构也会出现在物质的运动中。考虑被束缚在势阱内的一个离子，在稳定平衡位置附近，势能的最低阶变化通常是位移的平方。如果振动幅度足够小，高阶项可以忽略，沿一个方向的运动便近似为谐振子。
+
+设离子质量为 \(M\)，位移为 \(x\)，机械动量为 \(P\)，振动角频率为 \(\omega_t\)。对应的量子哈密顿量为
+
+\[
+\hat H_{\mathrm{ion}}=\frac{\hat P^2}{2M}
++\frac12M\omega_t^2\hat x^2,
+\qquad [\hat x,\hat P]=i\hbar.
+\]
+
+令 \(q_{\mathrm{ion}}=\sqrt M\,x\)、\(p_{\mathrm{ion}}=P/\sqrt M\)，就得到本讲已经处理过的形式。沿用同样方法，定义
+
+\[
+\hat b=\sqrt{\frac{M\omega_t}{2\hbar}}\hat x
++\frac{i\hat P}{\sqrt{2M\hbar\omega_t}},
+\]
+
+便有
+
+\[
+[\hat b,\hat b^\dagger]=1,
+\qquad
+\hat H_{\mathrm{ion}}=
+\hbar\omega_t\left(\hat b^\dagger\hat b+\frac12\right).
+\]
+
+这里的激发量子是离子的振动量子，常称为声子。光场的 \(|n\rangle\) 表示光子数，离子运动的 \(|n\rangle\) 表示振动激发数；相同记号要连同物理对象一起理解。离子的零振动态仍有位置涨落，而光场真空的 \(q\) 涨落对应场振幅涨落。相同的代数结构可以描述不同载体，观测量的物理含义由各自模型决定。
+
+## 7. 数态、叠加与统计混合
+
+### 7.1 相同平均数，未必有相同计数分布
+
+数态已经成为单模光场的一组基底，第二讲的叠加原则和第六讲的密度矩阵便可以直接应用。考虑相同模式中的三个状态：
+
+\[
+\begin{aligned}
+|\psi_A\rangle&=|1\rangle,\\
+|\psi_B\rangle&=\frac{|0\rangle+|2\rangle}{\sqrt2},\\
+\rho_C&=\frac12|0\rangle\langle0|
++\frac12|2\rangle\langle2|.
+\end{aligned}
+\]
+
+A 是确定的单光子态。B 是每次相同的纯叠加态，真空与双光子分量具有确定的相对相位。C 表示每次等概率随机制备真空或双光子态所得的混合。
+
+对纯态 \(\sum_n c_n|n\rangle\)，测得 \(n\) 个光子的概率为 \(|c_n|^2\)；对密度矩阵 \(\rho\)，相应概率为 \(P(n)=\langle n|\rho|n\rangle\)。因此三个状态的计数分布为
+
+状态 | \(P(0)\) | \(P(1)\) | \(P(2)\) | \(\langle N\rangle\)
+A | 0 | 1 | 0 | 1
+B | \(1/2\) | 0 | \(1/2\) | 1
+C | \(1/2\) | 0 | \(1/2\) | 1
+
+[图像或互动，参见原网页]
+
+三个状态的理论光子数概率分布。三者均值相同；A 的光子数确定，B 与 C 的计数分布完全相同。
+
+三者平均光子数均为1，因而平均能量相同。A 的计数总为1，B 和 C 却各有一半概率得到0或2。平均数不足以确定一次计数可能出现的结果。
+
+### 7.2 相同计数分布，未必是同一个量子态
+
+B 与 C 在所有光子数结果上的概率都相同，还能区分吗？先比较密度矩阵。在按 \(|0\rangle,|2\rangle\) 排列的二维子空间中，
+
+\[
+\rho_B=\frac12\begin{pmatrix}1&1\\1&1\end{pmatrix},
+\qquad
+\rho_C=\frac12\begin{pmatrix}1&0\\0&1\end{pmatrix}.
+\]
+
+其他数态对应的矩阵元都为零。两矩阵的对角元相同，非对角元却不同：B 保留了真空与双光子分量之间的相干性，C 没有。重复光子计数只能更准确地估计相同的概率分布，因而无法从这一种测量区分它们。
+
+第六讲已经给出一般方法：选择能够对不同非对角元产生不同响应的可观测量。这里可以复用刚用于真空涨落的场坐标 \(\hat q=q_0(\hat a+\hat a^\dagger)\)。单次升降只连接相邻数态，所以 B 与 C 都有 \(\langle q\rangle=0\)。但平方后含有升降两级的项：
+
+\[
+\hat q^2=q_0^2\left[
+\hat a^2+(\hat a^\dagger)^2+2\hat N+1\right].
+\]
+
+对 B，\(\hat a^2|2\rangle=\sqrt2|0\rangle\)，所以真空分量与双光子分量会通过 \(\hat a^2\) 连起来，给出
+
+\[
+\langle\hat a^2\rangle_B=\frac{\sqrt2}{2},
+\qquad
+\langle(\hat a^\dagger)^2\rangle_B=\frac{\sqrt2}{2}.
+\]
+
+对于 C，分别在 \(|0\rangle\) 与 \(|2\rangle\) 中求期望再取平均，这两个升降两级的期望值都是零。再用两态都有 \(\langle N\rangle=1\)，得到
+
+\[
+\boxed{\begin{aligned}
+\langle\hat q^2\rangle_B&=q_0^2(3+\sqrt2),\\
+\langle\hat q^2\rangle_C&=3q_0^2.
+\end{aligned}}
+\]
+
+两态的平均场都为零，所以上式也是各自的场坐标方差。同样的光子计数分布，可以对应不同的场涨落。 实验可用相位敏感的场测量来比较这一差异。对大量独立制备的状态测量同一个场分量，统计其均方值，就能比较这一差异。
+
+此处 B 的加号规定了两个数态分量的相对相位，同时 \(\hat q\) 指定了所测的场坐标。实验中，可以用一束较强、相位稳定的辅助光作为参照，称为“本振”，并使它与被测光同频、同偏振且空间模式匹配。将两束光在等比例分光的平衡分束器上叠加，用匹配的探测器记录两个输出端；在强本振近似下，两路光电流之差正比于相对于这个参照的场坐标。改变本振的相位，会改变所测的场坐标组合。上述公式对应固定参照下的 \(\hat q\) 测量，比较 B 与 C 时必须保持这个参照不变。
+
+保持上述测量参照不变，现在只调节叠加态两个分量的相对相位。先预测，再比较计数与场坐标的分布，最后用下方思考题中的算符计算核对。
+
+状态比较 · 固定测量参照
+
+#### 改变相位，会改变哪些统计？
+
+- 1 预测
+
+- 2 操作
+
+- 3 核对
+
+B · 纯叠加\(\displaystyle |\psi_\phi\rangle=\frac{|0\rangle+e^{i\phi}|2\rangle}{\sqrt2}\)
+
+C · 统计混合\(\displaystyle \rho_C=\tfrac12|0\rangle\langle0|+\tfrac12|2\rangle\langle2|\)
+
+把 B 的相对相位从 \(0\) 改到 \(\pi\)，C 与测量参照保持不变。
+你预测 B 的光子计数分布和场测量分布怎样变化？
+
+计数不变，场测量分布改变
+
+两种分布都改变
+
+两种分布都不变
+
+计数改变，场测量分布不变
+
+这里的相位改变的是两个数态分量之间的关系。
+
+B 的相对相位
+
+0°
+
+光子计数理论概率
+
+[图示: 叠加态和混合态的光子计数概率]
+
+场坐标 \(X=q/q_0\)理论概率密度
+
+[图示: 固定相位参照下两种状态的场坐标概率密度]
+
+先比较 \(0\) 与 \(\pi\)，再拖动相位。观察蓝色实线 B 与灰色虚线 C，说明改变了什么。
+
+计数只取系数的模平方；场分布还包含两分量的干涉项。
+\((\Delta X)^2_B=3+\sqrt2\cos\phi\)，\((\Delta X)^2_C=3\)。在 \(\phi=\pi/2\) 时，两态在该场测量下的概率分布重合。
+
+理论分布：固定本振相位，仅改变 B 的相对相位。曲线来自谐振子的数态波函数。单独打开 ↗ (https://zimin.li/quantum-optics/notes/interactives/lecture07-phase.html)
+
+### 思考题5：负号叠加态与混合态的统计差别
+
+模式频率和本振参照保持不变。比较负号态 \(|\psi_-\rangle=(|0\rangle-|2\rangle)/\sqrt2\) 与真空、双光子各半的混合态 \(\rho_C=(|0\rangle\langle0|+|2\rangle\langle2|)/2\)。两态平均场均为零。根据 \(\hat q^2/q_0^2=\hat a^2+(\hat a^\dagger)^2+2\hat N+1\) 判断。其中 \(\hat N=\hat a^\dagger\hat a\)，\(\hat a|n\rangle=\sqrt n\,|n-1\rangle\)，\(\hat a|0\rangle=0\)；\(q_0\) 是同一模式的固定正尺度。
+
+选择一项
+
+A计数分布相同，负号态的场方差小于C
+
+B计数分布相同，负号态的场方差大于C
+
+C计数分布不同，两态场方差相同
+
+D计数分布与场方差都相同
+
+参考答案（原网页提交后显示）：A
+
+选好答案后提交，再查看答案和解答。
+
+正确答案：A
+
+光子数分布仍是0和2各占一半。两个分量之间的相对负号使 \(\langle a^2\rangle\) 与 \(\langle(a^\dagger)^2\rangle\) 都变为 \(-\sqrt2/2\)，所以 \(\langle q^2\rangle_-=(3-\sqrt2)q_0^2\)，小于 C 的 \(3q_0^2\)。平均场仍为零。该比较改变了相对相位，同时保持测量参考不变。
+
+选读：用一个相位参数检查测量参照
+
+对 \(|\psi_\phi\rangle=(|0\rangle+e^{i\phi}|2\rangle)/\sqrt2\)，取场正交分量
+
+\[
+\hat q_\theta=q_0(\hat a e^{-i\theta}+\hat a^\dagger e^{i\theta}).
+\]
+
+它是厄米算符；\(\theta=0\) 时回到正文的 \(\hat q\)。通过同样计算，
+
+\[
+\langle\hat q_\theta\rangle=0,
+\qquad
+(\Delta q_\theta)^2=q_0^2\left[3+\sqrt2\cos(\phi-2\theta)\right].
+\]
+
+混合态 C 的结果始终为 \(3q_0^2\)。某些角度下两态方差碰巧相同，而另一些角度可以区分；选择合适的测量参照是判别的一部分。如果每次制备时 \(\phi\) 在整个周期中均匀随机变化，平均后的非对角元消失，得到的正是 C。
+
+## 8. 本讲回顾与自查
+
+单模场的空间形状与频率先由边界条件确定。将它的能量写成谐振子形式以后，引入正则对易关系，就可以通过阶梯算符求出离散能谱。每增加一级激发，能量增加 \(\hbar\omega\)，这一级电磁场激发就是一个光子。我们由此得到
+
+\[
+\hat N=\hat a^\dagger\hat a,\qquad
+\hat H=\hbar\omega\left(\hat N+\frac12\right),
+\]
+
+\[
+\hat a|n\rangle=\sqrt n|n-1\rangle,
+\qquad
+\hat a^\dagger|n\rangle=\sqrt{n+1}|n+1\rangle.
+\]
+
+真空的光子数与总能量确定，而场坐标的方差非零。要说明“有没有涨落”，必须指出可观测量。最后的状态比较进一步表明，即使光子数分布相同，光场仍可能具有不同的相干性，并可由适当的场测量加以检验。
+
+下一讲将从这些状态语言出发，比较激光、热光和单光子光源的光子数分布、均值与方差。这里已经具备计算这些统计量的工具。
+
+### 思考题6：用三光子数态检查自己的计算
+
+选定模式处于归一化数态 \(|3\rangle\)，角频率为 \(\omega\)。使用 \(\hat H=\hbar\omega(\hat N+1/2)\)、\(\hat N=\hat a^\dagger\hat a\)、\([\hat a,\hat a^\dagger]=1\)，以及 \(\hat q=q_0(\hat a+\hat a^\dagger)\)、\(\hat q^2=q_0^2[\hat a^2+(\hat a^\dagger)^2+2\hat N+1]\)；其中 \(\hat N|n\rangle=n|n\rangle\)，\(\hat a|n\rangle=\sqrt n\,|n-1\rangle\)，\(\hat a^\dagger|n\rangle=\sqrt{n+1}\,|n+1\rangle\)，\(q_0^2=\hbar/(2\omega)\)。完成三个小问后提交。
+
+1. 能量与能量方差分别是什么？
+
+A\(E=3\hbar\omega,\ (\Delta H)^2=0\)
+
+B\(E=7\hbar\omega/2,\ (\Delta H)^2=0\)
+
+C\(E=7\hbar\omega/2,\ (\Delta H)^2=\hbar^2\omega^2/4\)
+
+D\(E=3\hbar\omega,\ (\Delta H)^2=\hbar^2\omega^2/4\)
+
+参考答案（原网页提交后显示）：B
+
+2. 两种算符作用结果依次是什么？\((\hat a\hat a^\dagger|3\rangle,\ \hat a^\dagger\hat a|3\rangle)\)
+
+A\((3|3\rangle,\ 3|3\rangle)\)
+
+B\((3|3\rangle,\ 4|3\rangle)\)
+
+C\((4|3\rangle,\ 3|3\rangle)\)
+
+D\((4|3\rangle,\ 4|3\rangle)\)
+
+参考答案（原网页提交后显示）：C
+
+3. 平均场与场方差分别是什么？
+
+A\(\langle q\rangle=0,\ (\Delta q)^2=0\)
+
+B\(\langle q\rangle=q_0,\ (\Delta q)^2=7q_0^2\)
+
+C\(\langle q\rangle=0,\ (\Delta q)^2=3q_0^2\)
+
+D\(\langle q\rangle=0,\ (\Delta q)^2=7q_0^2\)
+
+参考答案（原网页提交后显示）：D
+
+选好三个小问的答案后提交，再查看答案和解答。
+
+正确答案：小问1：B；小问2：C；小问3：D
+
+- \(E_3=7\hbar\omega/2\)，因为 \(|3\rangle\) 是能量本征态，\((\Delta H)^2=0\)。
+
+- 两个结果分别为 \(4|3\rangle\) 与 \(3|3\rangle\)，差为 \(|3\rangle\)，符合 \([a,a^\dagger]=1\)。
+
+- 一次升降后的态与 \(|3\rangle\) 正交，所以 \(\langle q\rangle=0\)；两级升降项的期望值也为零，因此 \((\Delta q)^2=7q_0^2=7\hbar/(2\omega)\)。数态是能量本征态，但不是场坐标本征态。

@@ -24,6 +24,7 @@ MATERIAL_UPDATES = set()
 DESCRIPTIONS_ONLY = False
 READING_STYLE_UPDATES = set()
 CURRICULUM_ONLY = False
+TEXT_SOURCE_ROOT = ROOT
 
 def sync_classroom():
     """Publish only the reviewed static client, never backend or private state."""
@@ -588,6 +589,8 @@ def update_curriculum(root):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--update-text', action='store_true',
+                        help='Export the currently published syllabus and notes as UTF-8 text only.')
     parser.add_argument('--update-favicon', action='store_true',
                         help='Only refresh the shared tab icon on packaged pages.')
     parser.add_argument('--update-sharing', action='store_true',
@@ -609,8 +612,18 @@ def main():
                         help='Refresh the syllabus and shared titles while preserving published chapter bodies.')
     parser.add_argument('--update-pdfs', type=int, nargs='+', choices=sorted(PUBLISHED_PDFS & {4, 5, 6, 7, 8, 9}), help='Publish authorized PDF downloads only.')
     parser.add_argument('--update-recaps', type=int, nargs='+', choices=sorted(int(n) for n in CONFIG.get('classroom_recaps', {})), help='Publish authorized anonymous classroom recaps and links only.')
-    global MATERIAL_UPDATES, DESCRIPTIONS_ONLY, READING_STYLE_UPDATES, CURRICULUM_ONLY
+    global MATERIAL_UPDATES, DESCRIPTIONS_ONLY, READING_STYLE_UPDATES, CURRICULUM_ONLY, TEXT_SOURCE_ROOT
     args = parser.parse_args()
+    TEXT_SOURCE_ROOT = args.source_root.resolve()
+    if args.update_text:
+        if any(value for key, value in vars(args).items()
+               if key.startswith('update_') and key != 'update_text'):
+            parser.error('--update-text cannot be combined with other update modes.')
+        from text_export import sync_text
+        sync_text(SITE, PUBLISHED, TEXT_SOURCE_ROOT)
+        sync_favicon(SITE)
+        print('Plain-text syllabus and published notes updated; teaching material preserved.')
+        raise SystemExit(0)
     if args.update_favicon:
         if any(value for key, value in vars(args).items()
                if key.startswith('update_') and key != 'update_favicon'):
@@ -886,4 +899,6 @@ if __name__=='__main__':
     sync_descriptions(SITE)
     from video_recaps import sync_video_recaps
     sync_video_recaps(SITE, CONFIG, PUBLISHED_SLIDES)
+    from text_export import sync_text
+    sync_text(SITE, PUBLISHED, TEXT_SOURCE_ROOT)
     sync_favicon(SITE)

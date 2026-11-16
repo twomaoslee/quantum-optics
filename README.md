@@ -27,7 +27,17 @@ python3 scripts/build.py --source-root /path/to/course
 
 `index.template.html` 与 `site.css` 控制首页；`scripts/build.py` 汇集已渲染资料并从 `outline.qmd` 提取目录。新增讲次时扩展构建脚本中的资料配置。生成结果保存在 `dist/`，该目录需要提交到发布仓库。CI 仅核查并发布 `dist`，不依赖本地课程目录或 Quarto 安装。
 
-## GitHub Pages
+## 自动同步的纯文本入口
+
+`https://zimin.li/quantum-optics/llms.txt` 是公开文本索引，链接到 `text/outline.txt` 和每篇已发布讲义的 `text/lectureNN.txt`；首页“阅读与使用”也提供入口。内容只从 `dist/notes/` 的公开版本提取，受 `publication.json` 控制，不读取未发布讲义正文。文本保留 LaTeX、表格行、选学和答案；图片与互动仅保留描述及可用链接，不声称提供完整视觉信息。
+
+每次内容构建结束自动同步。仅刷新文本时运行 `python3 scripts/build.py --update-text`，不重建课程正文、课件或PDF。`text/manifest.json` 记录源网页摘要、正文版本与更新时间，重复构建不改变未变化正文的时间；`scripts/check.py` 在本地与CI核对输出、来源及发布范围。这里的“同步”指随网站构建和获准发布同步，不自动上传本地未发布修改。
+
+第六、七讲的旧打包页只保存公式SVG。`text-math.json` 保存由原TeX重新渲染、与公开SVG逐一匹配后恢复的公式；未知公式必须匹配成功才允许生成，不能静默丢失。需要补全映射时，构建调用 `recover_text_math.cjs`，复用课程打包的 MathJax 依赖（`LECTURE06_MATHJAX` 可覆盖路径）。CI仅使用已验证的映射，无需本地课程源文件或Node依赖。
+
+纯文本入口降低页面解析成本，但不保证第三方检索服务立即刷新缓存。
+
+## GitHub Pages 发布
 
 发布仓库为 [twomaoslee/quantum-optics](https://github.com/twomaoslee/quantum-optics)，与个人主页仓库 `twomaoslee/twomaoslee.github.io` 分开。课程地址为 https://zimin.li/quantum-optics/ ，发布结果以仓库 Actions 中最新运行记录为准。
 

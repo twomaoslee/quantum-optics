@@ -153,6 +153,8 @@ for page in sorted((DIST/'notes').glob('*.html')):
     expected=[href for href, _ in sidebar.links if href.removeprefix('./') == page.name]
     if sidebar.active != expected:
         errors.append(f'Incorrect current chapter in sidebar: {page.name}')
+from text_export import validate_text
+errors.extend(validate_text(DIST.parent, PUBLISHED))
 if errors:
     print('\n'.join(errors));sys.exit(1)
 print(f'PASS: HTML and CSS local references resolve; entrypoints present; files under 100 MiB. {len(external)} external URLs retained (not network-tested).')

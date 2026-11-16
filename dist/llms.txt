@@ -1,0 +1,21 @@
+﻿# 量子光学课程：纯文本资料
+
+中南大学，应用物理专业大三；与量子力学同步学习。14次授课与1次课题汇报，每次90分钟。
+资料更新时间：2026-11-16T16:08:15+08:00
+
+从当前公开网页自动提取。先读取全课程目录，再按需读取讲义。未来讲次仅列在目录中，正文仅含已发布讲次。
+文档头包含正文版本与更新时间；搜索摘要可能滞后。图片、视频和交互不能由纯文本完整替代。
+
+- [全课程讲义目录](https://zimin.li/quantum-optics/text/outline.txt)
+- [第一讲 绪论：从量子力学到量子信息科学](https://zimin.li/quantum-optics/text/lecture01.txt)
+- [第二讲 量子比特：如何描述状态与预测测量？](https://zimin.li/quantum-optics/text/lecture02.txt)
+- [第三讲 量子调控：如何控制量子态？](https://zimin.li/quantum-optics/text/lecture03.txt)
+- [第四讲 量子纠缠：两个系统的状态为何不能分开描述？](https://zimin.li/quantum-optics/text/lecture04.txt)
+- [第五讲 Bell不等式：量子关联超出了怎样的经典解释？](https://zimin.li/quantum-optics/text/lecture05.txt)
+- [第六讲 密度矩阵：从整体状态到局部描述](https://zimin.li/quantum-optics/text/lecture06.txt)
+- [第七讲 光场量子化：从一个振动模式到光子](https://zimin.li/quantum-optics/text/lecture07.txt)
+- [光子统计：激光、热光与单光子有什么不同？](https://zimin.li/quantum-optics/text/lecture08.txt)
+- [光子关联与双光子干涉：从 HBT 到 HOM](https://zimin.li/quantum-optics/text/lecture09.txt)
+
+[版本清单](https://zimin.li/quantum-optics/text/manifest.json)
+[网页资料入口](https://zimin.li/quantum-optics/text/index.html)

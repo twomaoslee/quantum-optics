@@ -19,6 +19,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v6
+      - name: Test plain-text publication boundaries
+        run: python3 scripts/test_text_export.py
       - name: Validate published files
         run: python3 scripts/check.py
       - uses: actions/configure-pages@v5

@@ -1,0 +1,106 @@
+{
+  "format_version": 1,
+  "updated_at": "2026-11-16T16:08:15+08:00",
+  "documents": [
+    {
+      "id": "outline",
+      "title": "全课程讲义目录",
+      "source": "notes/outline.html",
+      "source_sha256": "188e2e141bf623d80c4e3ed81e41617b36df433be0914ae2ceb564f3ff414be0",
+      "text": "text/outline.txt",
+      "text_sha256": "29aa7cfcc0faf57b6f6aff3c02964d9271be738643c5e47d082e60c1ce3ff1e3",
+      "file_sha256": "f1b5c47b38fe5c5bb8e10ed654fc9505a9452d246a431fd89a2e9b00b0dbec0d",
+      "updated_at": "2026-11-16T16:06:18+08:00"
+    },
+    {
+      "id": "lecture01",
+      "title": "第一讲 绪论：从量子力学到量子信息科学",
+      "source": "notes/lecture01.html",
+      "source_sha256": "007359d6200276def53ba6943b1b1f60ab0d04969d996a02da5be3c144ff3ed8",
+      "text": "text/lecture01.txt",
+      "text_sha256": "cef6eeabb21c13b6d95704fde1618629c3c838fc200bc89f9f812b7a063874d6",
+      "file_sha256": "fd66d43461b03be3e2f1583b48cc0d4c236576a7fe44fb655bbf3a304d9e8a1c",
+      "updated_at": "2026-11-16T16:06:18+08:00"
+    },
+    {
+      "id": "lecture02",
+      "title": "第二讲 量子比特：如何描述状态与预测测量？",
+      "source": "notes/lecture02.html",
+      "source_sha256": "691b87ff25b82914c73b7a216dfbddeed348dde0cda9a94f0ffc149b71bc44b1",
+      "text": "text/lecture02.txt",
+      "text_sha256": "599544241523bee58e25191cd61fd7ff2dcf79be5c8330c9c6b1dd2609ca7450",
+      "file_sha256": "4cecf449d98a7a4059679eef914aa56a86df38ea20a4cdc2174442daca552ffe",
+      "updated_at": "2026-11-16T16:06:18+08:00"
+    },
+    {
+      "id": "lecture03",
+      "title": "第三讲 量子调控：如何控制量子态？",
+      "source": "notes/lecture03.html",
+      "source_sha256": "310da1b585b24a9fd852c34b991af986325003528844528c09b922883c705f3a",
+      "text": "text/lecture03.txt",
+      "text_sha256": "a89f26e837f65159daa75073b628e293ce8a724469ad3987f9b54c8d069a49ce",
+      "file_sha256": "ab758c9c07d89270cac3426e47ad4b90cb1e058bca99a30a249b27165f0c55f4",
+      "updated_at": "2026-11-16T16:06:18+08:00"
+    },
+    {
+      "id": "lecture04",
+      "title": "第四讲 量子纠缠：两个系统的状态为何不能分开描述？",
+      "source": "notes/lecture04.html",
+      "source_sha256": "5bbfd4d8fc57680b3e385061aa94b9687431849d6f2cc50517fa5717aeb5027d",
+      "text": "text/lecture04.txt",
+      "text_sha256": "beef2d2f1c432851e0e861736876a423ede2535d63651c9111f39ca4314f52a6",
+      "file_sha256": "1325d00049d49efc6a476c67d0bccd51e047bfe4b127836c571bd41b21a9920d",
+      "updated_at": "2026-11-16T16:06:18+08:00"
+    },
+    {
+      "id": "lecture05",
+      "title": "第五讲 Bell不等式：量子关联超出了怎样的经典解释？",
+      "source": "notes/lecture05.html",
+      "source_sha256": "f420eb8f1234ae65c5af64c9a17e69f4fd242ba61bfaba79730b7823be6b53f9",
+      "text": "text/lecture05.txt",
+      "text_sha256": "c212d844e310bffcde52dd0989f9df8d77b5cebea19ba8339a5178882cb02cb8",
+      "file_sha256": "c03c5d5c6fa417406135e3632472cd5ae8cd31bf5d53f49c3044090da0378794",
+      "updated_at": "2026-11-16T16:06:18+08:00"
+    },
+    {
+      "id": "lecture06",
+      "title": "第六讲 密度矩阵：从整体状态到局部描述",
+      "source": "notes/lecture06.html",
+      "source_sha256": "9769e3aaa628384975b74e4e0fa6514fe08780cc25c365ce9426fa31e5111892",
+      "text": "text/lecture06.txt",
+      "text_sha256": "30061b51d9820df884bd55e2512bdd247e98c40659c9fb30d5d5da1c2cad4587",
+      "file_sha256": "dffc06ea5e562fca8390d2e4df9bb0fa0c04402b0b34dd5533798e212544f28a",
+      "updated_at": "2026-11-16T16:06:18+08:00"
+    },
+    {
+      "id": "lecture07",
+      "title": "第七讲 光场量子化：从一个振动模式到光子",
+      "source": "notes/lecture07.html",
+      "source_sha256": "ff6ce8bfc10786af6dd584805ca147dfe97ec08f685a501914858333a65de1fd",
+      "text": "text/lecture07.txt",
+      "text_sha256": "1cedf644ad37c18b0a345b2b4052c00479583684afa62f8569b75e1847abad88",
+      "file_sha256": "6e297a64196f8293e012a44cf5d82debaf0a8feb4edd962525c21361716cf086",
+      "updated_at": "2026-11-16T16:08:15+08:00"
+    },
+    {
+      "id": "lecture08",
+      "title": "光子统计：激光、热光与单光子有什么不同？",
+      "source": "notes/lecture08.html",
+      "source_sha256": "5d85f3c25502f1a56fd5569c83ea64c87a597748678c5c8f7f2199d42a97e26d",
+      "text": "text/lecture08.txt",
+      "text_sha256": "9ade3252b6ff59989477d8a609e9bfa248754526860cb449cd2e8c88d96c9230",
+      "file_sha256": "1fdf36114cb254eecc0c0ab40d0ede860e4da1e40ab9385db3ada840546453a8",
+      "updated_at": "2026-11-16T16:08:15+08:00"
+    },
+    {
+      "id": "lecture09",
+      "title": "光子关联与双光子干涉：从 HBT 到 HOM",
+      "source": "notes/lecture09.html",
+      "source_sha256": "7e4c8001b0420803e428abef8749a0068aeb670bb408299c1f1293839a9f5dad",
+      "text": "text/lecture09.txt",
+      "text_sha256": "700d5b2e7e517e13eddd1f26d44efb78a12d128998a232637460817c83d8a257",
+      "file_sha256": "fe2e2034440c7d16e40840ae54fb03c5069164e556903049caa537c3a47bd1b2",
+      "updated_at": "2026-11-16T16:08:15+08:00"
+    }
+  ]
+}
