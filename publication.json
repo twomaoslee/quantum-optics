@@ -73,6 +73,9 @@
       "notes_recap_anchor": "intro"
     }
   },
+  "video_recaps": {
+    "9": "recaps/lecture09-videos.html"
+  },
   "slide_source_directories": {
     "8": "quantum-slides/lectures/lecture08",
     "9": "quantum-slides/lectures/lecture09"

@@ -348,6 +348,27 @@ def sanitize_slides(content):
     content = re.sub(r'<!-- course-local-layout-guide:start -->.*?<!-- course-local-layout-guide:end -->', '', content, flags=re.S)
     return re.sub(r'<aside\b[^>]*class="[^"]*\bnotes\b[^"]*"[^>]*>.*?</aside>', '', content, flags=re.S)
 
+def copy_slide_files(source, name, files):
+    for relative in files:
+        path = Path(relative)
+        # Delivery manifests also track authoring and QA sources. Publish only
+        # the main classroom HTML/CSS and browser assets, never those sources.
+        if path.parts[0] != 'assets' and path.name not in {name+'.html', name+'.css'}:
+            continue
+        if path.suffix.lower() not in {'.html', '.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.woff', '.woff2', '.mp4', '.webm', '.mp3', '.ogg'}:
+            continue
+        if path.is_absolute() or '..' in path.parts or withheld(Path('slides')/path):
+            raise SystemExit(f'Unexpected packaged path: {relative}')
+        target = DIST/'slides'/path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if path.suffix == '.html':
+            content = (source/path).read_text()
+            content = sanitize_slides(content)
+            target.write_text(content)
+        else:
+            shutil.copy2(source/path, target)
+
+
 def update_slides(root, numbers):
     """Publish packaged slides without changing already published note bodies."""
     if not set(numbers) <= PUBLISHED_SLIDES:
@@ -358,24 +379,7 @@ def update_slides(root, numbers):
         name = f'lecture{number:02d}'
         source = slide_source(root, number)
         files = slide_delivery_files(source, number, root/'quantum-slides/qa'/name)
-        for relative in files:
-            path = Path(relative)
-            # Delivery manifests also track authoring and QA sources. Publish only
-            # the main classroom HTML/CSS and browser assets, never those sources.
-            if path.parts[0] != 'assets' and path.name not in {name+'.html', name+'.css'}:
-                continue
-            if path.suffix.lower() not in {'.html', '.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.woff', '.woff2', '.mp4', '.webm', '.mp3', '.ogg'}:
-                continue
-            if path.is_absolute() or '..' in path.parts or withheld(Path('slides')/path):
-                raise SystemExit(f'Unexpected packaged path: {relative}')
-            target = DIST/'slides'/path
-            target.parent.mkdir(parents=True, exist_ok=True)
-            if path.suffix == '.html':
-                content = (source/path).read_text()
-                content = sanitize_slides(content)
-                target.write_text(content)
-            else:
-                shutil.copy2(source/path, target)
+        copy_slide_files(source, name, files)
         pattern = r'<article class="lecture">(?:(?!</article>).)*href="(?:notes|slides)/'+name+r'\.html".*?</article>'
         match = re.search(pattern, text, re.S)
         if not match:
@@ -750,6 +754,11 @@ def main():
         path.write_text(text)
     for number in sorted(PUBLISHED_SLIDES if not notes_only_update else set()):
         source = slide_source(root, number)
+        review_dir = slides/'qa'/f'lecture{number:02d}'
+        if source != slides and (review_dir/'delivery-manifest.json').is_file():
+            files = slide_delivery_files(source, number, review_dir)
+            copy_slide_files(source, f'lecture{number:02d}',
+                             [relative for relative in files if Path(relative).parts[0] == 'assets'])
         for suffix in ('', '-backup'):
             name = f'lecture{number:02d}{suffix}.html'
             if not withheld(Path('slides')/name) and (source/name).is_file():
@@ -875,4 +884,6 @@ if __name__=='__main__':
         sync_dates(SITE, MATERIAL_UPDATES)
     from lecture_descriptions import sync_descriptions
     sync_descriptions(SITE)
+    from video_recaps import sync_video_recaps
+    sync_video_recaps(SITE, CONFIG, PUBLISHED_SLIDES)
     sync_favicon(SITE)
