@@ -18,13 +18,22 @@
       gap: 32px;
       padding: 28px 0 44px;
     }
-    .video-list h2 { font-size: 1.2rem; }
+    .video-list h2 { font-size: 1.2rem; text-wrap: balance; }
     .video-list p { color: var(--muted); margin: 6px 0 14px; }
     .video-list video {
       display: block;
       width: 100%;
       aspect-ratio: 16 / 9;
       background: var(--deep);
+    }
+    @media (min-width: 781px) {
+      .video-list { row-gap: 0; }
+      .video-list > section {
+        display: grid;
+        grid-row: span 3;
+        grid-template-rows: subgrid;
+      }
+      .video-list p { text-wrap: balance; }
     }
     @media (max-width: 780px) {
       .video-list { grid-template-columns: 1fr; }
