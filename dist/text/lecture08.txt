@@ -1,7 +1,7 @@
 ﻿光子统计：激光、热光与单光子有什么不同？
 原网页：https://zimin.li/quantum-optics/notes/lecture08.html
-文本更新时间：2026-11-16T16:08:15+08:00
-正文版本：9ade3252b6ff5998
+文本更新时间：2026-11-18T23:49:26+08:00
+正文版本：69c7adbf5e88abb6
 格式：UTF-8纯文本，数学公式保留LaTeX。含原文选学与答案；图片和互动仅保留说明及可用链接，完整图示见原网页。
 
 QUANTUM OPTICS · 2026 秋季 · 第八讲
@@ -725,6 +725,16 @@ D. 它的光子数方差始终为1。
 \[P(1)_{\max}=\frac1e\approx36.8\%,\qquad P(n\ge2)=1-\frac2e\approx26.4\%.\]
 
 这表明无论如何调节理想相干光的平均强度，都无法同时实现接近100%的单光子概率和严格为零的多光子概率。
+
+视频回顾 · 4 分 29 秒
+
+#### 光子统计 · 把激光调暗，就能一次只来一个吗？
+
+激光逐渐调暗时，空脉冲、单光子脉冲和多光子脉冲的比例怎样变化？
+
+[图像或互动，参见原网页] (https://zimin.li/quantum-optics/recaps/lecture08-videos/photon-statistics.mp4)
+
+继续阅读 · 总结与第九讲预告 → (https://zimin.li/quantum-optics/notes/lecture08.html#part6)
 
 第六部分
 

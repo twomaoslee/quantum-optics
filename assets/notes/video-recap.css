@@ -1,0 +1,21 @@
+.note-video {
+  box-sizing: border-box;
+  max-width: 44rem;
+  margin: 1.6rem auto .6rem;
+  padding: clamp(12px, 2vw, 22px);
+  border: 1px solid #c8d8e3;
+  border-radius: 12px;
+  background: #f7fafc;
+  color: #193950;
+  scroll-margin-top: 5rem;
+}
+.note-video .note-video-meta { color: #536b7e; font-size: .85rem; margin: 0 0 .25rem; }
+.note-video h4 { color: #173b56; font-size: 1.12rem; line-height: 1.45; margin: 0; }
+.note-video .note-video-prompt { margin: .35rem 0 .8rem; font-size: 1rem; line-height: 1.6; }
+.note-video-player { position: relative; overflow: hidden; border-radius: 6px; background: #ebe8df; }
+.note-video-player video { display: block; width: 100%; height: auto; aspect-ratio: 16/9; }
+.note-video-start { position: absolute; inset: 0; width: 100%; border: 0; background: transparent; cursor: pointer; }
+.note-video-start::before { content: '▶'; display: grid; place-items: center; margin: auto; width: 52px; height: 52px; padding-inline-start: 3px; box-sizing: border-box; border-radius: 50%; background: #123044eb; color: white; font-size: 21px; }
+.note-video-start:focus-visible { outline: 3px solid #1465a2; outline-offset: -4px; }
+.note-video-next { display: inline-flex; align-items: center; min-height: 44px; margin-top: .3rem; font-size: .95rem; color: #145b88; }
+@media print { .note-video { break-inside: avoid; } .note-video-player, .note-video-next { display: none; } }

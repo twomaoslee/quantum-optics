@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-<head>
+<head><!-- note-video:start --><link rel="stylesheet" href="../assets/notes/video-recap.css"><script defer src="../assets/notes/video-recap.js"></script><!-- note-video:end -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
@@ -619,7 +619,16 @@ body { font-size: 17px; line-height: 1.9; }
    <div class="quiz" data-correct="C" data-explain="热光具有明显强度涨落。较亮的时间片段中两路同时记录到探测信号更常见，所以零延迟符合增强。这个效应不需要光子间的吸引作用。"><div class="quiz-heading"><span class="quiz-tag">课堂思考题 4</span>理解热光聚束</div><fieldset><legend class="quiz-question">为什么理想单模热光的零延迟符合比独立随机基准更多？</legend><label><input type="radio" name="q4" value="A">A. 因为热光中的光子彼此吸引。</label><label><input type="radio" name="q4" value="B">B. 因为热光中的每一个光子经过分束器都会裂成两半。</label><label><input type="radio" name="q4" value="C">C. 因为热光的光强涨落使两路探测事件更容易在明亮时间段共同发生。</label></fieldset><div class="quiz-actions"><button type="button" class="primary-btn" data-quiz-submit>提交答案</button><button type="button" class="ghost-btn" data-quiz-reset>重新作答</button></div><div class="feedback" hidden aria-live="polite"></div></div>
    <details class="optional"><summary>【选学理解】零延迟亚Poisson统计与时间反聚束</summary><div class="supplement-body"><p>对于理想单模光场，\(g^{(2)}(0)<1\) 对应亚Poisson光子数统计，是光场非经典性的一个重要判据。连续时间实验还可以比较 \(g^{(2)}(0)\) 与其他延迟处的关联值；典型稳态单发射体呈现 \(g^{(2)}(0)\lt g^{(2)}(\tau)\) 的时间反聚束特征。</p><p>理想单光子脉冲强调同一脉冲内的零符合；持续发光的单发射体进一步展现两次发射之间的时间恢复过程。正文曲线展示后者的典型稳态时间关联。</p></div></details>
    <div class="callout"><p><strong>HBT部分的小结：</strong>同一个分束器的两个探测器，借助符合计数与二阶关联，可以把平均光强难以区分的光源区分开来。热光表现出短时间的聚束，单发射体表现出反聚束。下一步，我们仍然使用50:50分束器，但改变光子的<strong>输入方式</strong>。</p></div>
- </section>
+ <!-- note-video:start --><aside class="note-video" id="video-hbt" aria-labelledby="video-hbt-title">
+<p class="note-video-meta">视频回顾 · 5 分 08 秒</p>
+<h4 id="video-hbt-title">HBT 实验：光子怎样聚束与反聚束？</h4>
+<p class="note-video-prompt">平均亮度相同的光源，两路探测事件在时间上怎样分布？</p>
+<div class="note-video-player">
+<video controls playsinline preload="none" width="1280" height="720" aria-labelledby="video-hbt-title" poster="../recaps/lecture09-videos/hbt.jpg?v=e5f950b5ac" src="../slides/assets/video/hbt-class.mp4?v=e5f950b5ac"></video>
+<button type="button" class="note-video-start" aria-label="播放：HBT 实验：光子怎样聚束与反聚束？" hidden></button>
+</div>
+<a class="note-video-next" href="#part4">继续阅读 · HOM 实验 →</a>
+</aside><!-- note-video:end --></section>
 </section>
 
 <section class="part" id="part4">
@@ -731,7 +740,16 @@ body { font-size: 17px; line-height: 1.9; }
    </div>
    <div class="quiz" data-correct="C" data-explain="正交偏振提供了原则上可区分的内部自由度。即使探测器不直接读出偏振信息，TT与RR两条路径的最终偏振态也不相同，符合概率恢复为独立粒子基准1/2。"><div class="quiz-heading"><span class="quiz-tag">课堂思考题 8</span>最后一题：改变偏振会怎样？</div><fieldset><legend class="quiz-question">两光子同时到达分束器，但偏振相互正交。假设探测器不分辨偏振，符合概率是多少？</legend><label><input type="radio" name="q8" value="A">A. 仍然是0，因为两光子同时到达。</label><label><input type="radio" name="q8" value="B">B. 变为 \(1/4\)，因为偏振不同必然只剩一条路径。</label><label><input type="radio" name="q8" value="C">C. 恢复为 \(1/2\)，因为两光子已可区分。</label><label><input type="radio" name="q8" value="D">D. 变为1，因为正交偏振的光子会自动分开。</label></fieldset><div class="quiz-actions"><button type="button" class="primary-btn" data-quiz-submit>提交答案</button><button type="button" class="ghost-btn" data-quiz-reset>重新作答</button></div><div class="feedback" hidden aria-live="polite"></div></div>
    <details class="optional"><summary>【选学推导】用波包重叠统一描述HOM的延迟与偏振</summary><div class="supplement-body"><p>设两个单光子具有归一化的内部状态 \(|f\rangle\)、\(|g\rangle\)，其中包括时间、频率、偏振等可区分自由度。对于理想50:50分束器，且探测器不分辨这些内部自由度，双路符合概率为</p><div class="equation">\[P_{\mathrm{coinc}}=\tfrac12\left(1-|\langle f|g\rangle|^2\right).\]</div><p>两个光子完全相同时，\(|\langle f|g\rangle|^2=1\)，符合概率为零；状态正交时，重叠为零，符合概率为 \(1/2\)。如果差异只来自偏振角 \(\theta\)，则 \(|\langle f|g\rangle|^2=\cos^2\theta\)。对于时间波包与偏振可分离的情形，总重叠可以写成两种重叠的乘积。</p><p>实测可见度还受到光源的多光子成分、背景计数、模式混合和分束器偏差等影响。解释实验结果时，需要结合这些因素评估光子的不可区分程度。</p></div></details>
- </section>
+ <!-- note-video:start --><aside class="note-video" id="video-hom" aria-labelledby="video-hom-title">
+<p class="note-video-meta">视频回顾 · 3 分 59 秒</p>
+<h4 id="video-hom-title">HOM 实验：为什么两个光子会同端输出？</h4>
+<p class="note-video-prompt">把两个光子的到达时间逐渐错开，两端各响一次的机会怎样变化？</p>
+<div class="note-video-player">
+<video controls playsinline preload="none" width="1280" height="720" aria-labelledby="video-hom-title" poster="../recaps/lecture09-videos/hom.jpg?v=0155f7f277" src="../slides/assets/video/hom-class.mp4?v=0155f7f277"></video>
+<button type="button" class="note-video-start" aria-label="播放：HOM 实验：为什么两个光子会同端输出？" hidden></button>
+</div>
+<a class="note-video-next" href="#part6">继续阅读 · 比较 HBT 与 HOM →</a>
+</aside><!-- note-video:end --></section>
 </section>
 
 <section class="part" id="part6">

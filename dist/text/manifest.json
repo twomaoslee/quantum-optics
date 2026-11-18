@@ -1,6 +1,6 @@
 {
   "format_version": 1,
-  "updated_at": "2026-11-16T16:08:15+08:00",
+  "updated_at": "2026-11-18T23:49:26+08:00",
   "documents": [
     {
       "id": "outline",
@@ -86,21 +86,21 @@
       "id": "lecture08",
       "title": "光子统计：激光、热光与单光子有什么不同？",
       "source": "notes/lecture08.html",
-      "source_sha256": "5d85f3c25502f1a56fd5569c83ea64c87a597748678c5c8f7f2199d42a97e26d",
+      "source_sha256": "beb401538f1d110cffd5b7eba21d311865773f1a114ad033731d016a948d8d9c",
       "text": "text/lecture08.txt",
-      "text_sha256": "9ade3252b6ff59989477d8a609e9bfa248754526860cb449cd2e8c88d96c9230",
-      "file_sha256": "1fdf36114cb254eecc0c0ab40d0ede860e4da1e40ab9385db3ada840546453a8",
-      "updated_at": "2026-11-16T16:08:15+08:00"
+      "text_sha256": "69c7adbf5e88abb6296af2480c642e9f106b662c92b86b938d50ca26b3443deb",
+      "file_sha256": "8f0b208081f60ec8cb0cc86bc7fd8c7b98af17c644e8261716eff2d44024e3f0",
+      "updated_at": "2026-11-18T23:49:26+08:00"
     },
     {
       "id": "lecture09",
       "title": "光子关联与双光子干涉：从 HBT 到 HOM",
       "source": "notes/lecture09.html",
-      "source_sha256": "7e4c8001b0420803e428abef8749a0068aeb670bb408299c1f1293839a9f5dad",
+      "source_sha256": "0350cc7b4624a30a14dafcb18ae2459dac64263e15998bfb52ca104d284e4633",
       "text": "text/lecture09.txt",
-      "text_sha256": "700d5b2e7e517e13eddd1f26d44efb78a12d128998a232637460817c83d8a257",
-      "file_sha256": "fe2e2034440c7d16e40840ae54fb03c5069164e556903049caa537c3a47bd1b2",
-      "updated_at": "2026-11-16T16:08:15+08:00"
+      "text_sha256": "546618eeafa7c4b9a474ae30180de8f6eeca7419a2a23fe8b7623a8003ac2663",
+      "file_sha256": "a719def820af1b76c987d29260775c65cef81946c3e42bc68f1e77f02e019499",
+      "updated_at": "2026-11-18T23:49:26+08:00"
     }
   ]
 }
