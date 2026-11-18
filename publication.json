@@ -74,6 +74,7 @@
     }
   },
   "video_recaps": {
+    "8": "recaps/lecture08-videos.html",
     "9": "recaps/lecture09-videos.html"
   },
   "slide_source_directories": {
