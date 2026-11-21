@@ -1,6 +1,6 @@
 ﻿# 量子光学课程：GPT读取入口
 
-文本更新时间：2026-11-18T23:49:26+08:00
+文本更新时间：2026-11-21T22:58:23+08:00
 以下是课程公开讲义的自动同步纯文本副本，直接使用GitHub原始文件地址。
 若课程域名无法读取，请直接打开下面的链接，无需跳转到原网页。先读课程目录，再按需读取各讲；长文应继续读取后续段落，不能仅以工具首段预览声称通读。
 文本保留公式、选学与参考答案；图片和互动仍以原网页为准。
@@ -15,5 +15,6 @@
 - [第七讲 光场量子化：从一个振动模式到光子](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/lecture07.txt)
 - [光子统计：激光、热光与单光子有什么不同？](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/lecture08.txt)
 - [光子关联与双光子干涉：从 HBT 到 HOM](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/lecture09.txt)
+- [光场的量子涨落：从相干态到压缩光](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/lecture10.txt)
 
 [当前版本清单](https://raw.githubusercontent.com/twomaoslee/quantum-optics/main/dist/text/manifest.json)

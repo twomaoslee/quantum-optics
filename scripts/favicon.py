@@ -19,22 +19,26 @@ def without_favicon(content, relative):
                     content, count=1)
 
 
+def brand_page(dist, path):
+    relative = path.relative_to(dist)
+    content = path.read_bytes()
+    icon = icon_markup(relative)
+
+    def brand(match):
+        head = match[2]
+        if relative == Path('index.html'):
+            head = LEGACY_HOME_ICON.sub(b'', head, count=1)
+        return match[1] + (head if head.endswith(icon) else head + icon) + match[3]
+
+    # Embeddable HTML fragments have no head and are left unchanged.
+    branded = HEAD.sub(brand, content, count=1)
+    if branded != content:
+        path.write_bytes(branded)
+
+
 def sync_favicon(site):
     dist = site / 'dist'
     (dist / ASSET).parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(site / ASSET, dist / ASSET)
     for path in dist.rglob('*.html'):
-        relative = path.relative_to(dist)
-        content = path.read_bytes()
-        icon = icon_markup(relative)
-
-        def brand(match):
-            head = match[2]
-            if relative == Path('index.html'):
-                head = LEGACY_HOME_ICON.sub(b'', head, count=1)
-            return match[1] + (head if head.endswith(icon) else head + icon) + match[3]
-
-        # Embeddable HTML fragments have no head and are left unchanged.
-        branded = HEAD.sub(brand, content, count=1)
-        if branded != content:
-            path.write_bytes(branded)
+        brand_page(dist, path)

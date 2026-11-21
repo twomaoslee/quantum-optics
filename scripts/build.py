@@ -13,7 +13,7 @@ import subprocess
 import tarfile
 import tempfile
 from urllib.parse import unquote
-from favicon import sync_favicon
+from favicon import brand_page, sync_favicon
 from notes_style import READING_LECTURES, sync_reading_style
 from release import CONFIG, PUBLISHED, PUBLISHED_SLIDES, NOTES_ONLY, STANDALONE_NOTES, PUBLISHED_PDFS, AFTER_CLASS, withheld
 
@@ -900,5 +900,7 @@ if __name__=='__main__':
     from video_recaps import sync_video_recaps
     sync_video_recaps(SITE, CONFIG, PUBLISHED_SLIDES)
     from text_export import sync_text
-    sync_text(SITE, PUBLISHED, TEXT_SOURCE_ROOT)
+    # Hash the final, branded chapter files in the plain-text manifest.
     sync_favicon(SITE)
+    sync_text(SITE, PUBLISHED, TEXT_SOURCE_ROOT)
+    brand_page(DIST, DIST/'text/index.html')

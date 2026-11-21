@@ -1,0 +1,589 @@
+﻿光场的量子涨落：从相干态到压缩光
+原网页：https://zimin.li/quantum-optics/notes/lecture10.html
+文本更新时间：2026-11-21T22:58:23+08:00
+正文版本：5720e7bbd2be45ec
+格式：UTF-8纯文本，数学公式保留LaTeX。含原文选学与答案；图片和互动仅保留说明及可用链接，完整图示见原网页。
+
+QUANTUM OPTICS · 2026 秋季 · 第十讲
+
+# 光场的量子涨落：从相干态到压缩光
+
+光子数统计相同的光场，仍可能有不同的电场相位；真空虽然没有光子，电场也会发生量子涨落。从这些熟悉的事实出发，学习怎样测量并调节光场的噪声。
+
+## 本讲导读
+
+第七讲我们算过，一个光场模式处于真空态时，电场的平均值为零。反复制备真空态并在相同条件下测量电场，读数仍有起伏。真空态已经是这个模式能量最低的状态。把光场制备成别的状态，同样测量电场，读数的起伏能比真空时更小吗？
+
+要比较电场读数的起伏，先要弄清楚探测器怎样读出电场。第八讲用探测器数光子。对于两束强度相同、相位不同的相干光，这种测量给出相同的光子数分布，连它们的平均电场有何不同都看不出来。
+
+我们先用这两束相干光检验一种测法：让它们分别与同一束参考光在分束器上干涉，比较两个输出端的计数差。先看平均计数差能读出什么，再在相同条件下重复测量，看计数差在平均值附近怎样起伏。
+
+改变参考光的相位，就可以选择测量电场的不同分量。把每个分量的涨落与真空相比，就能辨认压缩光：选定参考光的相位，一个分量的读数可以比真空时更集中；把参考光的相位再调四分之一个周期，读数的起伏就会比真空时更大。引力波干涉仪利用压缩光降低读出噪声时，也要选对压缩的方向。
+
+## 1. 从光子数统计走向电场的相位信息
+
+### 1.1 相同的光子数分布，不同的平均电场
+
+取同一频率的两束相干光 A、B，相对于同一参考光，它们的复振幅分别为 \(\alpha_A=1\) 和 \(\alpha_B=i\)。两者的振幅大小相同，相位相差 \(\pi/2\)。第八讲给出了相干态 \(|\alpha\rangle\) 的光子数分布：
+
+\[P_\alpha(n)=e^{-|\alpha|^2}\frac{|\alpha|^{2n}}{n!}.\]
+
+这个分布只取决于 \(|\alpha|^2\)。因此 A、B 的平均光子数都为 1，而且对每一个光子数，两束光给出的概率都相同。用第九讲的理想 HBT 测量，两者的二阶关联也相同。
+
+但是，第八讲还推导了单模光场在某个固定位置的平均电场：
+
+\[\langle\hat E(t)\rangle=2\mathcal E_0|\alpha|\cos(\omega t-\phi).\]
+
+这里 \(\mathcal E_0\) 是选定模式的电场幅度尺度，\(\phi\) 是相对于同一稳定参考定义的相位。对于上述两个状态：
+
+\[\langle\hat E(t)\rangle_A=2\mathcal E_0\cos\omega t,\qquad \langle\hat E(t)\rangle_B=2\mathcal E_0\sin\omega t.\]
+
+两条曲线具有相同振幅、相同周期，却相差四分之一个周期。在 \(t=0\) 时，它们的平均电场分别是 \(2\mathcal E_0\) 与0。
+
+图1 · 相同光子统计、不同相位：两条平均电场曲线
+
+[图示: 相干态A为余弦平均电场，B为正弦平均电场，两者相差四分之一周期]
+
+A：\(\alpha=1\)B：\(\alpha=i\)
+
+横轴为时间除以周期 \(T=2\pi/\omega\)，纵轴为 \(\langle E\rangle/(2\mathcal E_0)\)。曲线表示平均值，尚未显示重复测量的随机涨落。
+
+思考题 1相同的光子数统计，是否有相同的电场？
+
+两个相干态分别满足 \(\alpha_A=1\)、\(\alpha_B=i\)。两者的平均光子数均为1。哪一项正确？
+
+A. 两者所有测量的统计结果都相同。
+
+B. 两者的光子数分布相同，但相对于同一参考的平均电场可以不同。
+
+C. 两者的HBT二阶关联必然不同。
+
+D. 两者的光子数分布不同，因为复振幅不同。
+
+参考答案（原网页提交后显示）：B
+解析：光子数分布只依赖|α|²，两态均为均值1的Poisson分布；但平均电场还依赖α的相位，固定参考下可区分。
+
+### 1.2 用一束相位已知的光作参考
+
+光电探测器通常记录光子数或光强。为了使这些记录包含相位信息，我们让待测光与另一束已知相位的光发生干涉。
+
+待测光称为信号光；用作相位参考的强相干光称为本振光（local oscillator）。两者分别从50:50分束器的两个输入端进入，两个输出端各放一只探测器，并记录两路光子数之差。这就是平衡零拍探测（balanced homodyne detection）的基本思路。
+
+图2 · 平衡零拍探测的基本连接
+
+[图示: 信号光a和本振光b进入50比50分束器，两路输出c和d分别进入探测器，最后计数相减]
+
+这是模式输入、输出与读出的功能示意，并非实验光路的真实几何布局。两个探测器测量各自输出模式的光子数，差值记作 \(D=n_c-n_d\)。
+
+### 1.3 为什么要把两个探测器的计数相减？
+
+沿用第九讲使用的50:50分束器相位约定，把信号、本振的湮灭算符记为 \(\hat a,\hat b\)，两个输出算符记为 \(\hat c,\hat d\)：
+
+\[\hat c=\frac{\hat a+\hat b}{\sqrt2},\qquad \hat d=\frac{\hat a-\hat b}{\sqrt2}.\]
+
+探测器D₁测量 \(\hat n_c=\hat c^\dagger\hat c\)。代入得到
+
+\[\hat n_c=\frac12\big(\hat a^\dagger\hat a+\hat b^\dagger\hat b+\hat a^\dagger\hat b+\hat b^\dagger\hat a\big).\]
+
+D₂测量 \(\hat n_d=\hat d^\dagger\hat d\)，同样展开：
+
+\[\hat n_d=\frac12\big(\hat a^\dagger\hat a+\hat b^\dagger\hat b-\hat a^\dagger\hat b-\hat b^\dagger\hat a\big).\]
+
+各自的输入光子数项在相减时恰好抵消，留下两路光之间的干涉项：
+
+\[\hat D\equiv\hat n_c-\hat n_d=\hat a^\dagger\hat b+\hat b^\dagger\hat a.\]
+
+假设信号和本振分别处于独立的相干态 \(|\alpha\rangle_a|\beta\rangle_b\)。由相干态本征方程，
+
+\[\begin{aligned}\langle\hat a^\dagger\hat b\rangle&=\langle\hat a^\dagger\rangle\langle\hat b\rangle=\alpha^*\beta,\\\langle\hat b^\dagger\hat a\rangle&=\beta^*\alpha.\end{aligned}\]
+
+因此平均计数差是
+
+\[\langle\hat D\rangle=\alpha^*\beta+\beta^*\alpha=2\operatorname{Re}(\alpha^*\beta).\]
+
+设信号和本振的复振幅分别为 \(\alpha=|\alpha|e^{i\phi}\)、\(\beta=|\beta|e^{i\theta}\)。把实部明确写出来：
+
+\[\begin{aligned}\alpha^*\beta&=|\alpha||\beta|e^{i(\theta-\phi)}\\&=|\alpha||\beta|\big[\cos(\theta-\phi)+i\sin(\theta-\phi)\big].\end{aligned}\]
+
+\[\boxed{\langle\hat D\rangle=2|\alpha||\beta|\cos(\phi-\theta).}\]
+
+调节本振相位 \(\theta\)，就可以改变对信号光相位的响应。 相同光子数统计的两束光，可能产生不同的平均计数差。
+
+思考题 2本振相位如何选择平均响应？
+
+信号态为 \(\alpha=i\)，本振振幅为 \(\beta=5e^{i\theta}\)。当 \(\theta=\pi/2\) 时，平均计数差是多少？
+
+A. 0
+
+B. 5
+
+C. 10
+
+D. 25
+
+参考答案（原网页提交后显示）：C
+解析：相位差φ−θ=0，故平均计数差为2|α||β|cos(0)=2×1×5=10。
+
+但平均计数差只是一个均值。真空态和单模热态都满足 \(\langle\hat a\rangle=0\)，所以它们的平均计数差都是零。这是否意味着它们在探测器上留下的全部记录都相同？第八讲关于方差的经验提示我们，还可以比较计数差在重复测量中的分散程度。
+
+## 2. 用两个正交分量描述电场涨落
+
+刚才通过平均计数差读出了相位信息。接下来研究计数差在重复测量中的变化：需要先明确它对应光场的哪个物理量，再计算这个量自身的量子涨落。
+
+### 2.1 正交分量就是单模谐振子的无量纲正则变量
+
+第七讲我们已经知道，单个光学模式的量子化与量子谐振子具有相同的数学结构。对熟悉的量子谐振子，可以定义无量纲正则变量
+
+\[\hat q=\frac{\hat a+\hat a^\dagger}{\sqrt2},\qquad \hat p=\frac{\hat a-\hat a^\dagger}{i\sqrt2},\qquad [\hat q,\hat p]=i.\]
+
+这里 \(q,p\) 描述的是光场模式对应的谐振子变量，并非光子在空间中的位置和动量。
+
+为使相干态的复振幅 \(\alpha\) 能直接对应两个分量的平均值，我们改用下面这对归一化：
+
+\[\boxed{\hat X=\frac{\hat a+\hat a^\dagger}{2},\qquad \hat Y=\frac{\hat a-\hat a^\dagger}{2i}.}\]
+
+两者都是厄米算符，可以分别测量。与谐振子变量的关系是 \(\hat X=\hat q/\sqrt2\)、\(\hat Y=\hat p/\sqrt2\)。本讲始终使用这套约定；其他教材可能采用真空方差为1/2的归一化。
+
+反过来，\(\hat a=\hat X+i\hat Y\)，\(\hat a^\dagger=\hat X-i\hat Y\)。将它们代入第八讲的单模电场算符：
+
+\[\begin{aligned}\hat E(t)&=\mathcal E_0\left(\hat a e^{-i\omega t}+\hat a^\dagger e^{i\omega t}\right)\\&=2\mathcal E_0\big(\hat X\cos\omega t+\hat Y\sin\omega t\big).\end{aligned}\]
+
+这与经典简谐振动 \(E(t)=A\cos\omega t+B\sin\omega t\) 的形式相似：\(X\) 与 \(Y\) 分别对应余弦、正弦振动的系数，因而称为两个正交场分量（quadratures）。对于相干态，\(\langle\hat X\rangle=\operatorname{Re}\alpha\)、\(\langle\hat Y\rangle=\operatorname{Im}\alpha\)。
+
+本振相位可以选择它们的不同组合。定义
+
+\[\boxed{\hat X_\theta=\frac{\hat a e^{-i\theta}+\hat a^\dagger e^{i\theta}}2=\hat X\cos\theta+\hat Y\sin\theta.}\]
+
+当 \(\theta=0\) 时选择 \(X\) 分量；当 \(\theta=\pi/2\) 时选择 \(Y\) 分量；其他相位对应旋转后的测量方向。前面推导的平均计数差也可写成 \(\langle\hat D\rangle=2|\beta|\langle\hat X_\theta\rangle\)，其中本振处于相干态 \(|\beta\rangle\)。
+
+### 2.2 两个分量的共同约束：不确定性关系
+
+经典正弦波的两个系数可以同时指定。量子光场的 \(\hat X,\hat Y\) 具有怎样的限制？由第七讲的玻色对易关系 \([\hat a,\hat a^\dagger]=1\)，
+
+\[\begin{aligned}[\hat X,\hat Y]&=\frac1{4i}[\hat a+\hat a^\dagger,\hat a-\hat a^\dagger]\\&=\frac1{4i}\big(-[\hat a,\hat a^\dagger]+[\hat a^\dagger,\hat a]\big)\\&=\frac{-2}{4i}=\frac i2.\end{aligned}\]
+
+因此，两个正交分量不对易。在任意量子态中，它们的标准差满足
+
+\[\boxed{\Delta X\,\Delta Y\geq\frac12\left|\langle[\hat X,\hat Y]\rangle\right|=\frac14.}\]
+
+这个不等式限制的是两个标准差的乘积。例如，\(\Delta X=1/4\) 时，就必须有 \(\Delta Y\geq1\)；它并没有要求两个方向的涨落永远相等。
+
+思考题 3两个正交分量的标准差
+
+某光场的 \(X\) 分量标准差为 \(\Delta X=1/8\)。根据 \(\Delta X\,\Delta Y\geq 1/4\)，\(Y\) 分量的标准差 \(\Delta Y\) 最小可以是多少？
+
+A. \(1/8\)
+
+B. \(1/2\)
+
+C. \(2\)
+
+D. \(4\)
+
+参考答案（原网页提交后显示）：C
+解析：代入得到 \(\tfrac18\,\Delta Y\geq\tfrac14\)，即 \(\Delta Y\geq 2\)。取 \(\Delta Y=2\) 时，两个标准差的乘积恰好达到下限 \(1/4\)。
+
+我们还不知道真空在两个方向上的标准差究竟是多少。既然真空是已学过的最低能量状态，先计算它的噪声，再把结果用作比较其他光场的基准。
+
+### 2.3 真空态与相干态的正交分量噪声
+
+#### 真空态：平均值为零，方差仍非零
+
+真空态满足 \(\hat a|0\rangle=0\)，所以 \(\langle\hat X\rangle_0=\langle\hat Y\rangle_0=0\)。但方差还需要二阶矩。先看 \(X\)：
+
+\[\hat X^2=\frac14\left[\hat a^2+\hat a\hat a^\dagger+\hat a^\dagger\hat a+(\hat a^\dagger)^2\right].\]
+
+对真空求期望值，只有 \(\langle0|\hat a\hat a^\dagger|0\rangle=1\) 不为零。因此
+
+\[\langle\hat X^2\rangle_0=\frac14,\qquad (\Delta X)^2_0=\langle\hat X^2\rangle_0-\langle\hat X\rangle_0^2=\frac14.\]
+
+同样可以计算 \(Y\) 的方差。两者的结果为
+
+\[\boxed{(\Delta X)^2_0=(\Delta Y)^2_0=\frac14,\qquad \Delta X\Delta Y=\frac14.}\]
+
+真空态恰好达到不确定性关系的下界。这里的“真空噪声基准”指：对这套归一化的某个场正交分量进行重复测量时，其方差为 \(1/4\)。
+
+#### 相干态：平均值移动，方差仍是1/4
+
+对于相干态 \(\hat a|\alpha\rangle=\alpha|\alpha\rangle\)，我们已经知道 \(\langle\hat X\rangle_\alpha=\operatorname{Re}\alpha\)。用相干态本征关系：
+
+\[\begin{gathered}\langle\hat a^2\rangle=\alpha^2,\quad\langle\hat a^\dagger\hat a\rangle=|\alpha|^2,\\\langle\hat a\hat a^\dagger\rangle=|\alpha|^2+1,\quad\langle(\hat a^\dagger)^2\rangle=(\alpha^*)^2.\end{gathered}\]
+
+计算二阶矩并扣除均值平方：
+
+\[\begin{aligned}\langle\hat X^2\rangle_\alpha&=\tfrac14\big[\alpha^2+(\alpha^*)^2+2|\alpha|^2+1\big]\\&=(\operatorname{Re}\alpha)^2+\tfrac14,\\(\Delta X)^2_\alpha&=\langle\hat X^2\rangle_\alpha-\langle\hat X\rangle_\alpha^2=\tfrac14.\end{aligned}\]
+
+对 \(Y\) 分量，
+
+\[\begin{aligned}\langle\hat Y^2\rangle_\alpha&=\tfrac14\big[2|\alpha|^2+1-\alpha^2-(\alpha^*)^2\big]\\&=(\operatorname{Im}\alpha)^2+\tfrac14,\qquad (\Delta Y)^2_\alpha=\tfrac14.\end{aligned}\]
+
+相干态可以具有很大的平均电场，但两个正交分量的方差始终与真空相同。 真空和相干态都满足最小不确定性乘积。相干态的光子数方差会随 \(\bar n\) 增大；场正交分量方差却保持不变，因为我们测量的是不同的物理量。
+
+思考题 4增强平均电场，会使正交噪声变大吗？
+
+把信号光从真空态改为相干态 \(|\alpha=2+i\rangle\)，同时保持测量正交分量的归一化约定不变。哪种变化正确？
+
+A. 两个方向的均值和方差都增大。
+
+B. 均值发生移动，但两个方向的方差仍为1/4。
+
+C. 平均光子数增加，故两个方向方差等于平均光子数。
+
+D. 两个方向的均值仍为零，方差同时增大。
+
+参考答案（原网页提交后显示）：B
+解析：相干态有〈X〉=Re α=2、〈Y〉=Im α=1，但ΔX²=ΔY²=1/4，与真空态相同。
+
+【选学推导】真空态 \(Y\) 分量方差与量子涨落
+
+由 \(\hat Y=(\hat a-\hat a^\dagger)/(2i)\)，
+
+\[\hat Y^2=-\frac14\left[\hat a^2-\hat a\hat a^\dagger-\hat a^\dagger\hat a+(\hat a^\dagger)^2\right].\]
+
+在真空态中，仅 \(\langle\hat a\hat a^\dagger\rangle_0=1\)，因此 \(\langle\hat Y^2\rangle_0=1/4\)。正交分量的零点噪声来自非对易关系，虽然真空态的光子数 \(n\) 一定是零，正交分量仍有非零方差。
+
+## 3. 从热态的噪声比较到压缩光
+
+### 3.1 单模热态的正交分量方差
+
+第八讲已经推导过单模热态的光子数分布。它的密度矩阵在Fock基底中是对角的：
+
+\[\rho_{\mathrm{th}}=\sum_{n=0}^\infty P(n)|n\rangle\langle n|,\qquad\sum_n nP(n)=\bar n.\]
+
+因为 \(\hat a\)、\(\hat a^2\) 会改变光子数，而热态不包含不同光子数之间的相干项，所以
+
+\[\langle\hat a\rangle_{\mathrm{th}}=\langle\hat a^2\rangle_{\mathrm{th}}=0.\]
+
+此外，\(\langle\hat a^\dagger\hat a\rangle=\bar n\)、\(\langle\hat a\hat a^\dagger\rangle=\bar n+1\)。于是 \(\langle\hat X\rangle=0\)，并且
+
+\[\begin{aligned}(\Delta X)^2_{\mathrm{th}}&=\langle\hat X^2\rangle_{\mathrm{th}}\\&=\tfrac14[0+(\bar n+1)+\bar n+0]\\&=\tfrac14+\tfrac{\bar n}{2}.\end{aligned}\]
+
+同样计算 \(Y\) 分量，得到
+
+\[\boxed{(\Delta X)^2_{\mathrm{th}}=(\Delta Y)^2_{\mathrm{th}}=\frac{2\bar n+1}{4}.}\]
+
+热态在两个方向上的噪声相同，因为它没有优先的相位方向；只要 \(\bar n>0\)，两个方向都比真空更宽。
+
+状态 | \(\langle X\rangle,\langle Y\rangle\) | \((\Delta X)^2\) | \((\Delta Y)^2\)
+真空态 | \(0,0\) | \(1/4\) | \(1/4\)
+相干态 \(|\alpha\rangle\) | \(\operatorname{Re}\alpha,\operatorname{Im}\alpha\) | \(1/4\) | \(1/4\)
+单模热态 | \(0,0\) | \((2\bar n+1)/4\) | \((2\bar n+1)/4\)
+
+思考题 5平均电场都为零，噪声一定相同吗？
+
+真空态和平均光子数 \(\bar n=1\) 的单模热态，两个正交分量的均值都为零。热态的 \(X\) 分量方差与真空相比是多少？
+
+A. 相同，均为1/4。
+
+B. 为真空的2倍。
+
+C. 为真空的3倍。
+
+D. 比真空小1/2。
+
+参考答案（原网页提交后显示）：C
+解析：热态ΔX²=(2n̄+1)/4=3/4，真空为1/4，所以热态是3倍。
+
+### 3.2 从各向同性涨落到噪声重新分配
+
+刚才的三类光场有一个共同特点：两个正交方向的噪声宽度相同。真空和相干态的宽度较小，热态的宽度较大。
+
+但我们已经推导了不确定性关系 \(\Delta X\Delta Y\geq1/4\)。它限制的是两个方向的乘积，并没有规定两者必须相同。如果希望在一个选定方向测量微弱信号，我们是否能让这个方向的噪声小一些，同时允许另一个方向的噪声变大？
+
+例如，\(\Delta X=1/4\)、\(\Delta Y=1\) 仍满足乘积等于1/4。量子力学没有禁止这种噪声分配。
+
+若某个光场状态的某一正交分量方差低于真空的 \(1/4\)，就称它在该方向发生了正交分量压缩（quadrature squeezing），这样的光场称为压缩光。我们现在有了研究压缩光的动机：在不违反不确定性原理的前提下，重新分配量子涨落。
+
+### 3.3 压缩真空态的两个分量方差
+
+先研究最简单的一种情形：对真空进行一次理想、无损的压缩操作 \(\hat S(r)\)，其中 \(r\geq0\) 表示压缩强度。我们先通过它对正交分量的作用定义这种变换：
+
+\[\boxed{\hat S^\dagger\hat X\hat S=e^{-r}\hat X,\qquad \hat S^\dagger\hat Y\hat S=e^r\hat Y.}\]
+
+\(\hat S\) 是幺正操作，\(r=0\) 时无压缩。两个缩放因子互为倒数，因此仍有
+
+\[[\hat S^\dagger\hat X\hat S,\hat S^\dagger\hat Y\hat S]=e^{-r}e^r[\hat X,\hat Y]=\frac i2.\]
+
+设压缩后的量子态为 \(|\psi_r\rangle=\hat S(r)|0\rangle\)，称为压缩真空态。它的 \(X\) 分量平均值仍为零：
+
+\[\langle\hat X\rangle_r=\langle0|\hat S^\dagger\hat X\hat S|0\rangle=e^{-r}\langle0|\hat X|0\rangle=0.\]
+
+计算二阶矩时，可以先把变换作用在算符上：
+
+\[\begin{aligned}\langle\hat X^2\rangle_r&=\langle0|\hat S^\dagger\hat X^2\hat S|0\rangle\\&=\langle0|(\hat S^\dagger\hat X\hat S)^2|0\rangle\\&=e^{-2r}\langle0|\hat X^2|0\rangle=\frac14e^{-2r}.\end{aligned}\]
+
+由于均值为零，方差等于二阶矩。同理可得 \(Y\) 分量：
+
+\[\boxed{(\Delta X)^2_r=\frac14e^{-2r},\qquad(\Delta Y)^2_r=\frac14e^{2r}.}\]
+
+当 \(r>0\) 时，\(X\) 方向的方差低于真空；\(Y\) 方向方差升高。标准差的乘积仍为 \(\Delta X\Delta Y=1/4\)。压缩真空态依然达到不确定性下界。
+
+图3 · 同一张图理解四种光场：中心与噪声宽度
+
+[图示: 统一的正交分量噪声示意：真空圆、相干态平移圆、热态扩张圆、压缩椭圆，可切换状态]
+
+热态平均光子数
+
+1.0
+
+压缩参数 \(r\)
+
+0.50
+
+中心：\(\langle X\rangle,\langle Y\rangle\)
+
+(0, 0)
+
+标准差：\(\Delta X,\Delta Y\)
+
+(0.50, 0.50)
+
+图的中心坐标表示两个分量的平均值；横、纵宽度分别按两种单独测量所得的标准差等比例绘制。灰色虚线始终表示真空标准差。此图是不同正交分量噪声的数学示意，不表示一次实验可以同时确定两个不对易分量的取值。调节参数，观察宽度如何变化。
+
+思考题 6压缩光如何分配两个方向的涨落？
+
+对真空施加压缩参数 \(r=\ln2\) 的操作，压缩方向为X。X和Y的方差分别变为真空方差的多少倍？
+
+A. \(1/4\) 与 \(4\)
+
+B. \(1/2\) 与 \(2\)
+
+C. \(1/4\) 与 \(1/4\)
+
+D. \(4\) 与 \(1/4\)
+
+参考答案（原网页提交后显示）：A
+解析：两个方差相对于真空的比值分别为e^(−2r)和e^(2r)。r=ln2时得到1/4与4，标准差的乘积仍为1/4。
+
+【选学推导】压缩算符的指数形式从哪里来？
+
+选择压缩方向沿 \(X\) 的实参数约定，可以定义
+
+\[\hat S(r)=\exp\!\left[\frac r2\big(\hat a^2-\hat a^{\dagger 2}\big)\right].\]
+
+其生成元是反厄米的，所以 \(\hat S\) 是幺正的。用对易关系可以得到 \(\hat S^\dagger\hat a\hat S=\hat a\cosh r-\hat a^\dagger\sinh r\)。将这一式及其厄米共轭分别代入 \(X,Y\) 定义，便得到正文中的 \(e^{-r}\) 和 \(e^r\) 缩放。正文的方差推导只依赖变换结果，无需掌握这一步的算符证明。
+
+## 4. 用平衡零拍探测读取压缩噪声
+
+我们已经能算出压缩态的两个方差，但实验中探测器读到的是光子数。现在返回第一部分的平衡零拍装置，说明它怎样从计数差中提取正交分量噪声。
+
+### 4.1 平均计数差与计数差方差
+
+刚才得到的计数差算符为 \(\hat D=\hat a^\dagger\hat b+\hat b^\dagger\hat a\)。本振处于强相干态 \(|\beta\rangle\)，其复振幅为 \(\beta=|\beta|e^{i\theta}\)。
+
+在本振远强于信号光时，计数差的主导变化来自信号光与强本振的干涉。我们将本振的主导幅度 \(\beta\) 代入，得到
+
+\[\begin{aligned}\hat D&\simeq\beta\hat a^\dagger+\beta^*\hat a\\&=|\beta|\big(\hat a e^{-i\theta}+\hat a^\dagger e^{i\theta}\big)\\&=2|\beta|\hat X_\theta.\end{aligned}\]
+
+因此，本振相位选择被测分量；本振强度决定读出信号的放大倍数。在同一强本振近似下，计数差的方差为
+
+\[\boxed{(\Delta D_\theta)^2\simeq4|\beta|^2(\Delta X_\theta)^2.}\]
+
+这个公式解释了为什么即使真空信号光没有平均电场，探测器仍能记录非零的计数差涨落：真空的 \((\Delta X_\theta)^2=1/4\)，因此 \((\Delta D_\theta)^2\simeq|\beta|^2\)。探测到的光子主要来自本振，信号光的正交涨落决定两路计数差的统计变化。
+
+实验中可先保持相同本振和探测条件，以真空信号光测得基准 \((\Delta D)^2_{\rm vac}\)，再接入待测光场。这样比较计数差方差的比值，便能识别低于真空的噪声。
+
+【选学推导】有限本振下计数差方差的精确修正
+
+将 \(\hat D\) 平方后展开，在信号与本振输入独立、且本振处于相干态的条件下，可直接利用 \(\langle\hat b\rangle=\beta\)、\(\langle\hat b^\dagger\hat b\rangle=|\beta|^2\)、\(\langle\hat b\hat b^\dagger\rangle=|\beta|^2+1\) 求出
+
+\[\langle\hat D^2\rangle=4|\beta|^2\langle\hat X_\theta^2\rangle+\langle\hat a^\dagger\hat a\rangle.\]
+
+平均值精确为 \(\langle\hat D\rangle=2|\beta|\langle\hat X_\theta\rangle\)，所以
+
+\[\boxed{(\Delta D_\theta)^2=4|\beta|^2(\Delta X_\theta)^2+\langle\hat n_a\rangle.}\]
+
+当 \(|\beta|^2\) 很大且信号能量有限时，最后一项相对较小，得到正文使用的强本振近似。真空信号光满足 \(\langle\hat n_a\rangle=0\)，此时基准式还是精确结果。
+
+### 4.2 本振相位扫描与噪声曲线
+
+对压缩真空态，任意测量方向由 \(\hat X_\theta=\hat X\cos\theta+\hat Y\sin\theta\) 给出。为了计算方差，将压缩操作作用到算符上：
+
+\[\hat S^\dagger\hat X_\theta\hat S=e^{-r}\hat X\cos\theta+e^r\hat Y\sin\theta.\]
+
+压缩真空态的各方向平均值为零。平方展开后，交叉项含真空期望值 \(\langle\hat X\hat Y+\hat Y\hat X\rangle_0=0\)，只留下两个平方项。因此
+
+\[\boxed{(\Delta X_\theta)^2=\frac14\big(e^{-2r}\cos^2\theta+e^{2r}\sin^2\theta\big).}\]
+
+为方便实验比较，把压缩光的计数差方差除以同样本振条件下的真空基准。由前面的零拍测量关系，得到无量纲噪声比
+
+\[\boxed{R(\theta)\equiv\frac{(\Delta D_\theta)^2_{\rm sq}}{(\Delta D_\theta)^2_{\rm vac}}\simeq e^{-2r}\cos^2\theta+e^{2r}\sin^2\theta.}\]
+
+当 \(R(\theta)<1\) 时，该相位方向的噪声低于真空基准；当 \(R(\theta)>1\) 时高于真空基准。在固定压缩方向和 \(r>0\) 下，\(\theta=0\) 读到压缩方向，\(\theta=90^\circ\) 读到反压缩方向。
+
+图4 · 平衡零拍的相位扫描：从噪声谷底到峰值
+
+[图示: 归一化噪声比R随本振相位θ的理论曲线，水平参考线R=1为真空，曲线由滑块调整]
+
+压缩强度 \(r\)
+
+0.35
+
+本振相位 \(\theta\)
+
+0°
+
+当前归一化噪声比 \(R(\theta)\)
+
+—
+
+相对于真空
+
+—
+
+横轴为本振相位 \(0^\circ\) 到 \(180^\circ\)，纵轴为计数差方差相对真空基准的倍数。虚线 \(R=1\) 为真空基准。先固定 \(r\) 改变 \(\theta\)，再增大 \(r\) 对比谷底和峰值怎样同时变得更明显；每个点对应一个独立的相位测量设置。
+
+思考题 7本振转到45°，会看到怎样的噪声？
+
+一束压缩真空态满足 \(r=\ln2\)，压缩轴为X。用强本振在 \(\theta=45^\circ\) 测量时，计数差方差相对于普通真空的比值是多少？
+
+A. 0.25
+
+B. 1.00
+
+C. 2.125
+
+D. 4.00
+
+参考答案（原网页提交后显示）：C
+解析：归一化噪声是(1/4)cos²45°+4sin²45°=1/8+2=2.125。斜方向也受到反压缩分量的影响。
+
+实验中可以依次进行三步：先用真空信号光确定噪声基准；再接入压缩光；最后扫描本振相位，每个相位重复测量计数差并计算方差。由此得到的正是这种相位依赖的噪声曲线。
+
+## 5. 压缩光的产生与传输损耗
+
+### 5.1 一种产生压缩光的方法
+
+普通无损分束器能把光在不同模式之间重新分配，但两个输入都是真空时，输出仍为真空。若想主动改变同一光学模式的正交分量噪声，需要一种能改变模式内部涨落结构的相互作用。
+
+在非线性光学中，一束频率约为 \(2\omega\) 的强泵浦光经过适当的非线性介质，可把能量相干地转移给频率为 \(\omega\) 的信号模式。一个简化的能量关系是
+
+\[\hbar(2\omega)\longleftrightarrow \hbar\omega+\hbar\omega.\]
+
+在简并参量过程中，右边的两个光子进入同一个 \(\omega\) 模式。成对产生两个光子的算符为 \((\hat a^\dagger)^2\)，逆过程由 \(\hat a^2\) 表示。泵浦持续提供能量和相位参考，两个方向的过程可以相干地发生；在合适的泵浦相位下，某个正交分量被衰减，垂直分量得到放大。这就是相位敏感参量放大产生压缩的一种机制。
+
+为什么有必要提泵浦相位？因为压缩的方向与泵浦建立的相位参考有关。改变泵浦相位，就可以旋转噪声变小的方向。即使信号模式起初处于真空，非线性过程也能产生压缩真空态。
+
+压缩真空态允许出现成对光子，因此它通常有明显的光子数涨落。一个正交分量的噪声低于真空，不等于光子数涨落低于Poisson基准。 这是第八、九讲的光子统计与本讲内容之间需要区分的两个判断。
+
+【选学推导】从双光子相互作用看到一压一放
+
+选择泵浦相位后，一种简化的有效相互作用哈密顿量可以写成
+
+\[\hat H_{\rm int}=\frac{i\hbar\kappa}{2}\big(\hat a^2-\hat a^{\dagger 2}\big),\qquad \kappa>0.\]
+
+在海森堡绘景中，利用 \([\hat a^{\dagger2},\hat a]=-2\hat a^\dagger\) 可得 \(d\hat a/dt=(i/\hbar)[\hat H_{\rm int},\hat a]=-\kappa\hat a^\dagger\)。取其厄米共轭并组合成正交分量：
+
+\[\frac{d\hat X}{dt}=-\kappa\hat X,\qquad \frac{d\hat Y}{dt}=+\kappa\hat Y.\]
+
+演化时间 \(t\) 后，\(\hat X(t)=e^{-\kappa t}\hat X(0)\)、\(\hat Y(t)=e^{\kappa t}\hat Y(0)\)，即正文的压缩变换，其中 \(r=\kappa t\)。真实参量介质还需要考虑泵浦、相位匹配、带宽和损耗，这里只保留理想机制。
+
+【选学联系】压缩真空的光子数统计
+
+利用压缩算符的Fock展开，可证明压缩真空只包含偶光子数成分，其平均光子数为 \(\bar n=\sinh^2r\)，光子数方差为 \((\Delta n)^2=2\bar n(\bar n+1)\)。当 \(\bar n>0\) 时，该方差大于Poisson基准 \(\bar n\)。这说明“某个正交分量被压缩”与“光子数出现反聚束或亚Poisson统计”是不同判据。
+
+### 5.2 损耗与环境真空噪声的混入
+
+压缩光真正传播到探测器之前，可能经历吸收、散射或有限探测效率。第九讲熟悉的分束器可以帮助我们建立一个简单的损耗模型。
+
+设光路的强度透过率为 \(0\leq\eta\leq1\)，输入压缩模式记为 \(\hat a_{\rm in}\)，另一个独立的环境模式处于真空态 \(\hat v\)。损耗相当于把压缩光与真空在一个等效分束器上混合：
+
+\[\hat a_{\rm out}=\sqrt\eta\,\hat a_{\rm in}+\sqrt{1-\eta}\,\hat v.\]
+
+因此，输出的 \(X\) 分量可写成两个输入分量的线性组合：
+
+\[\hat X_{\rm out}=\sqrt\eta\,\hat X_{\rm in}+\sqrt{1-\eta}\,\hat X_v.\]
+
+由于两个输入相互独立，交叉协方差为零，输出方差为
+
+\[(\Delta X_{\rm out})^2=\eta(\Delta X_{\rm in})^2+(1-\eta)(\Delta X_v)^2.\]
+
+环境真空的方差是1/4，输入压缩方向方差是 \(e^{-2r}/4\)，代入得
+
+\[\boxed{R_{\rm out}\equiv\frac{(\Delta X_{\rm out})^2}{1/4}=\eta e^{-2r}+1-\eta.}\]
+
+公式有清楚的物理意义：输出包含保留下来的压缩光噪声，也包含由损耗通道引入的真空噪声。损耗越大，输出噪声越接近真空基准。
+
+例如 \(r=\ln2\) 时，输入压缩方向噪声是真空的0.25倍。若透过率 \(\eta=0.8\)，则输出比值是 \(0.8\times0.25+0.2\times1=0.40\)。噪声仍低于真空，却比输入时更大了。
+
+思考题 8损耗如何改变已经获得的压缩？
+
+压缩方向输入噪声为真空的0.25倍，光路透过率 \(\eta=0.8\)，环境输入为真空。输出噪声相对于真空是多少？
+
+A. 0.20
+
+B. 0.40
+
+C. 0.80
+
+D. 1.00
+
+参考答案（原网页提交后显示）：B
+解析：损耗等效为与真空混合：R_out=0.8×0.25+0.2×1=0.40，仍低于真空但压缩优势减弱。
+
+## 6. LIGO：把量子噪声控制用于精密测量
+
+### 6.1 从1981年的理论问题到真实引力波探测
+
+把一个分量的涨落压到真空水平以下，对干涉测量有什么用？1981年，Carlton Caves研究了这种可能性。干涉仪的一个端口即使没有经典入射光，量子理论中仍然有真空涨落。进入干涉仪的真空涨落会影响输出读数；如果能把与读出误差有关的正交分量压低，测量就有可能更灵敏。
+
+这个想法经历了数十年的物理与技术发展：
+
+- 1981年 · 理论构想
+
+Carlton Caves提出：让干涉仪通常未使用的输入端进入压缩态，从而降低与光子计数有关的量子噪声，但同时需要面对辐射压误差的变化。原始论文 (https://doi.org/10.1103/PhysRevD.23.1693)
+
+- 2013年 · 公里级干涉仪验证
+
+LIGO实验团队发表利用压缩态改善引力波探测器灵敏度的结果，证明这一思路能够在真实的大型干涉仪中发挥作用。Nature Photonics论文 (https://doi.org/10.1038/nphoton.2013.177)
+
+- 2019年 · 进入正式观测运行
+
+Advanced LIGO在O3观测运行中使用压缩真空改善高频区域的光子散粒噪声。量子光学的噪声操控开始服务于日常引力波观测。相关研究 (https://doi.org/10.1103/PhysRevLett.124.171102)
+
+- 2023年 · 频率依赖的压缩方向
+
+LIGO在两处探测器采用约300米长的滤波腔，使压缩方向随频率改变，以更好地兼顾高频的散粒噪声与低频的量子辐射压噪声。2023年发表的实验结果报告了宽频带灵敏度改善。Physical Review X论文 (https://doi.org/10.1103/PhysRevX.13.041021)
+
+为什么最后一个进展重要？因为我们已经证明，降低一个方向的噪声会提高垂直方向的噪声。对引力波干涉仪，高频与低频受到的主要量子噪声影响不同。只有让噪声椭圆的方向与不同频率下的测量需求更好地匹配，才能在较宽频段获得改善。
+
+例如，2023年的LIGO实验报道，在约1 kHz附近，Hanford和Livingston两处探测器的量子噪声振幅分别降低约4.0 dB和5.8 dB。与未使用压缩光时相比，两台探测器对双中子星并合信号的探测距离提高了约15%—18%。查阅原文 (https://doi.org/10.1103/PhysRevX.13.041021)
+
+思考题 9为什么需要控制压缩方向？
+
+在同时受到光子散粒噪声和辐射压噪声影响的干涉仪中，为什么要考虑让压缩方向随频率改变？
+
+A. 因为压缩态在所有相位方向的噪声都低于真空。
+
+B. 因为低频和高频受到的主要量子噪声不同，需要在不同频率选择更合适的噪声方向。
+
+C. 因为频率改变后，光场对易关系也改变。
+
+D. 因为本振越强，就能同时把两个正交分量压缩到零。
+
+参考答案（原网页提交后显示）：B
+解析：高频散粒噪声和低频辐射压相关的量子反作用具有不同的噪声优化要求；频率依赖压缩通过旋转噪声椭圆来兼顾它们。
+
+### 6.2 全讲回顾：从光子统计到噪声控制
+
+回到真空涨落的问题。同样测量一个电场分量，压缩态的读数可以比真空态更集中。真空能量最低与此并不矛盾，因为另一个正交分量的涨落增大了。
+
+第一步：光子计数遗漏了什么？ 光子数分布相同的两个相干态，仍可有不同的平均电场相位；我们借助本振和分束器读出这个差别。
+
+第二步：怎样描述场的噪声？ 单模光场有两个不对易的正交分量 \(X,Y\)。真空和相干态的方差都是1/4；热态在两个方向上都更宽。
+
+第三步：噪声能不能更低？ 不确定性关系限制两个方向的标准差乘积，但允许某个方向低于真空，代价是垂直方向噪声升高。压缩真空态正是这样的光场。
+
+第四步：如何看到并利用？ 调节本振相位能读出不同正交分量的噪声；相干参量过程可以产生压缩，损耗会混入真空涨落。LIGO展示了这种噪声设计如何改善真实测量。
+
+选定要测的电场分量后，沿这个方向压缩光场，就能使该分量的涨落低于真空水平。
+
+课后自查：请试着不看公式，向同学解释“真空明明没有光子，为什么零拍探测仍能测到噪声”，并进一步说明压缩真空为何能让其中一个方向的噪声更低。
+
+【选学阅读】主要参考文献与进一步学习
+
+- C. M. Caves, “Quantum-mechanical noise in an interferometer,” Phys. Rev. D 23, 1693 (1981). DOI (https://doi.org/10.1103/PhysRevD.23.1693)
+
+- J. Aasi et al., “Enhanced sensitivity of the LIGO gravitational wave detector by using squeezed states of light,” Nature Photonics 7, 613 (2013). DOI (https://doi.org/10.1038/nphoton.2013.177)
+
+- D. Ganapathy et al., “Broadband Quantum Enhancement of the LIGO Detectors with Frequency-Dependent Squeezing,” Phys. Rev. X 13, 041021 (2023). DOI (https://doi.org/10.1103/PhysRevX.13.041021)

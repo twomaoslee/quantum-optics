@@ -1,12 +1,12 @@
 {
   "format_version": 1,
-  "updated_at": "2026-11-18T23:49:26+08:00",
+  "updated_at": "2026-11-21T22:58:23+08:00",
   "documents": [
     {
       "id": "outline",
       "title": "全课程讲义目录",
       "source": "notes/outline.html",
-      "source_sha256": "188e2e141bf623d80c4e3ed81e41617b36df433be0914ae2ceb564f3ff414be0",
+      "source_sha256": "755afb7c17b3312c7a1b236fdb165d7c1e0cbff30f7a155c958f4b8cad57b14f",
       "text": "text/outline.txt",
       "text_sha256": "29aa7cfcc0faf57b6f6aff3c02964d9271be738643c5e47d082e60c1ce3ff1e3",
       "file_sha256": "f1b5c47b38fe5c5bb8e10ed654fc9505a9452d246a431fd89a2e9b00b0dbec0d",
@@ -16,7 +16,7 @@
       "id": "lecture01",
       "title": "第一讲 绪论：从量子力学到量子信息科学",
       "source": "notes/lecture01.html",
-      "source_sha256": "007359d6200276def53ba6943b1b1f60ab0d04969d996a02da5be3c144ff3ed8",
+      "source_sha256": "b58af2ca28ae1b5eb5177f8a9ccdd327be04824ead2705bb1d0dde4797e47168",
       "text": "text/lecture01.txt",
       "text_sha256": "cef6eeabb21c13b6d95704fde1618629c3c838fc200bc89f9f812b7a063874d6",
       "file_sha256": "fd66d43461b03be3e2f1583b48cc0d4c236576a7fe44fb655bbf3a304d9e8a1c",
@@ -26,7 +26,7 @@
       "id": "lecture02",
       "title": "第二讲 量子比特：如何描述状态与预测测量？",
       "source": "notes/lecture02.html",
-      "source_sha256": "691b87ff25b82914c73b7a216dfbddeed348dde0cda9a94f0ffc149b71bc44b1",
+      "source_sha256": "05eab691de94660d85ef5a88bfa4b85b22df600709009832fbfc9e4ca247f7b6",
       "text": "text/lecture02.txt",
       "text_sha256": "599544241523bee58e25191cd61fd7ff2dcf79be5c8330c9c6b1dd2609ca7450",
       "file_sha256": "4cecf449d98a7a4059679eef914aa56a86df38ea20a4cdc2174442daca552ffe",
@@ -36,7 +36,7 @@
       "id": "lecture03",
       "title": "第三讲 量子调控：如何控制量子态？",
       "source": "notes/lecture03.html",
-      "source_sha256": "310da1b585b24a9fd852c34b991af986325003528844528c09b922883c705f3a",
+      "source_sha256": "c8b2022b92dd4952e023de7dad982820323c1a85ca5f4dd17fc37c8545ff06a1",
       "text": "text/lecture03.txt",
       "text_sha256": "a89f26e837f65159daa75073b628e293ce8a724469ad3987f9b54c8d069a49ce",
       "file_sha256": "ab758c9c07d89270cac3426e47ad4b90cb1e058bca99a30a249b27165f0c55f4",
@@ -101,6 +101,16 @@
       "text_sha256": "546618eeafa7c4b9a474ae30180de8f6eeca7419a2a23fe8b7623a8003ac2663",
       "file_sha256": "a719def820af1b76c987d29260775c65cef81946c3e42bc68f1e77f02e019499",
       "updated_at": "2026-11-18T23:49:26+08:00"
+    },
+    {
+      "id": "lecture10",
+      "title": "光场的量子涨落：从相干态到压缩光",
+      "source": "notes/lecture10.html",
+      "source_sha256": "06d48dfd938aa814369696dcee7651af581a7ff535723f83949d9727da97600c",
+      "text": "text/lecture10.txt",
+      "text_sha256": "5720e7bbd2be45ecd80a436d385a53cce4b59bd020e5474b120599d099c210fa",
+      "file_sha256": "f12e82687005c6c2f78d9f9d5df55c8e70038ec7f536db5a710a59987986dd54",
+      "updated_at": "2026-11-21T22:58:23+08:00"
     }
   ]
 }
