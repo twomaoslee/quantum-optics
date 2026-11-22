@@ -195,9 +195,9 @@
     "classroom-cloudbase/scripts/cloud-smoke.cjs": "78fefd699842a172dc7fcc129b05a1feb65c50ec1e3185ef3267e970bb30942e",
     "classroom-cloudbase/functions/classroom/transport.js": "cf0f2aa392be5e41da498d03374d81581107fdabc59d7e572013648eaa8a8781",
     "classroom-cloudbase/test/transport.test.cjs": "aeb04077c2f6c62a26102b007bf3a5bf8e271aca3551f4b997e162a150fc8832",
-    "classroom/presenter.html": "f635c4d5523c966a3209fdfb549793925e9bdbc8baaa6f78b296c59577480113",
+    "classroom/presenter.html": "5f2c9f39a997222e4b6687ccd437a32efdb838d8f94ffb83a91918390a6287b3",
     "classroom/presenter.css": "920a77dea01089e6cabfda16b03173cf5c1e4f864f1c5c2eb88f92f1b6f04f28",
-    "classroom/presenter.js": "9e63b0a3668d1f09f4c403900bb631eee438bb8888c1107fe27450306384d6d4",
+    "classroom/presenter.js": "40c0d03ba76c90f8135bdc87555080c78b8fa517c47e5c4a4075fbdb93c77831",
     "classroom-cloudbase/functions/classroom/questions.json": "2f80f8ace4154267ded5646352a5ed79cbadc45562604e291cb9b166d7bd9e1e",
     "classroom-cloudbase/scripts/sync-questions.py": "f8960aeb207e975246797e07dcbe3711826d81d3bd3941ce30f2ac8b1d8c7541",
     "classroom-cloudbase/test/multiple.test.cjs": "4dfd7872c350ea6ec8b1811a850e87d92febb918c45b8a8f76ac873a966444c5",
@@ -504,5 +504,13 @@
       "self_check_room": "84EF1D423F3C",
       "evidence": "quantum-slides/qa/lecture09/notes-alignment/cloud-smoke.json"
     }
+  },
+  "lecture10": {
+    "date": "2026-11-23",
+    "source": "quantum-slides/lectures/lecture10/lecture10.qmd",
+    "backend_tests": 49,
+    "cloud_sdk": "Nine source-matched questions in an isolated room, two students, reasons, reveal, history and 18 exported responses. Self-check feedback and answer lock verified in a second isolated room.",
+    "local_browser": "Nine projected questions share a student link. At 1280x720 and 685x768 the visible solution and question fit beside the sidebar.",
+    "real_phone_network": "not tested"
   }
 }

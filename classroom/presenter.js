@@ -1,7 +1,7 @@
 (async function(){
  'use strict';
  const api=QOApi,$=id=>document.getElementById(id),params=new URLSearchParams(location.search),questionId=params.get('question')||'l07-q1';
- if(!/^(l07-q[1-6]|l08-q[1-5]|l09-q[1-8])$/.test(questionId)){$('message').textContent='题目链接无效。';return;}
+ if(!/^(l07-q[1-6]|l08-q[1-5]|l09-q[1-8]|l10-q[1-9])$/.test(questionId)){$('message').textContent='题目链接无效。';return;}
  const lectureId=questionId.split('-')[0],feedbackMode=$('feedback-mode'),defaultFeedback='self-check';
  const roomKey='qo-last-room-v1:'+(api.config.envId||'local')+':'+lectureId;
  const coordinator=params.get('coordinator')!=='0',cacheKey='qo-presenter-qr-v1:'+(api.config.envId||'local')+':'+lectureId+':'+(params.get('room')||'daily');let desiredRoom=params.get('room')||'',connected=false;

@@ -71,4 +71,4 @@ print('Synced 6 lecture-seven and 5 lecture-eight questions from QMD.')
 
 # Lecture 09 has its own extractor; earlier source parsing remains unchanged.
 import runpy
-runpy.run_path(str(backend / "scripts/sync-lecture09.py"))
+runpy.run_path(str(backend / "scripts/sync-quarto-questions.py"), run_name="__main__")

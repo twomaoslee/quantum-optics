@@ -11,9 +11,7 @@
     9,
     10
   ],
-  "notes_only_lectures": [
-    10
-  ],
+  "notes_only_lectures": [],
   "slides_only_lectures": [],
   "standalone_notes_lectures": [
     4,
@@ -84,6 +82,7 @@
   },
   "slide_source_directories": {
     "8": "quantum-slides/lectures/lecture08",
-    "9": "quantum-slides/lectures/lecture09"
+    "9": "quantum-slides/lectures/lecture09",
+    "10": "quantum-slides/lectures/lecture10"
   }
 }
