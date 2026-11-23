@@ -741,15 +741,27 @@ transform: none;
 .reveal .activity-grid{border:1px solid #d6e2eb;border-radius:5px;padding:8px 18px}
 .reveal .activity-grid svg text{font-family:inherit}
 .reveal .activity-grid button:focus-visible,.reveal .activity-grid input:focus-visible{outline:3px solid #5594c7}
-.reveal #l10-baseline .s-body>svg,.reveal #l10-thermal .s-body>svg{height:160px;width:100%}
-.reveal #l10-thermal .s-body{gap:16px}
+.reveal #l10-baseline .s-body>svg{height:160px;width:100%}
+.reveal #l10-thermal .s-body { display:grid; grid-template-columns:minmax(0,1.02fr) minmax(0,1fr); gap:34px; }
+.reveal .thermal-derivation, .reveal .thermal-distribution { display:flex; flex-direction:column; justify-content:space-between; min-width:0; }
+.reveal .thermal-derivation .equation { margin:6px 0; }
+.reveal .thermal-derivation > .equation { font-size:27px; }
+.reveal .thermal-derivation .thermal-width > .equation { margin-bottom:14px; }
+.reveal .thermal-derivation .result .equation { margin:0; }
+.reveal .thermal-distribution > svg { display:block; width:100%; min-height:0; flex:1; }
+.reveal .thermal-distribution > p { margin:12px 0 0; font-size:26px; }
 
 .reveal :is(#l10-uncertainty, #l10-loss-mix,
 #l10-finite, #l10-pairs-supp, #l10-energy, #l10-ligo-data) .s-body {
 justify-content: space-between;
 padding-bottom: 24px;
 }
-.reveal :is(#l10-quadratures, #l10-variance) .s-body {
+.reveal #l10-quadratures .s-body { justify-content: flex-start; gap: 12px; }
+.reveal #l10-quadratures .s-body p { line-height: 1.43; margin: 0; }
+.reveal #l10-quadratures .equation { margin: 0; }
+.reveal #l10-quadratures .s-body > .fragment { display: flex; flex-direction: column; gap: 17px; }
+.reveal #l10-quadratures .fragment > p:last-child { margin-top: -9px; }
+.reveal #l10-variance .s-body {
 justify-content: space-between;
 gap: 12px;
 padding-bottom: 10px;
@@ -777,16 +789,14 @@ align-items: center;
 .reveal #l10-reference :is(.bench-outputs, .bench-difference) { visibility: visible; }
 }
 .reveal #l10-phase-pair .s-body { gap: 14px; }
-.reveal #l10-phase-pair .pair-views { flex: 1; min-height: 0; position: relative; }
-.reveal #l10-phase-pair .pair-views > svg, .reveal #l10-phase-pair .pair-field { position: absolute; inset: 0; width: 100%; height: 100%; }
-.reveal #l10-phase-pair .pair-field { display: flex; flex-direction: column; }
-.reveal #l10-phase-pair .pair-views:has(.pair-field.visible) > svg { visibility: hidden; }
-.reveal #l10-phase-pair #fig-mean-wave { flex: 1; min-height: 0; max-height: none; width: 100%; }
+.reveal #l10-phase-pair .pair-views { flex:1; min-height:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:36px; }
+.reveal #l10-phase-pair .pair-views > div { display:grid; grid-template-rows:auto 1fr auto; align-items:start; gap:8px; min-width:0; }
+.reveal #l10-phase-pair .pair-views p { margin:0; font-size:27px; }
+.reveal #l10-phase-pair .pair-views > div > svg { width:100%; height:264px; display:block; }
 .reveal #l10-phase-pair .pair-readings { opacity: 0; }
 .reveal #l10-phase-pair:has(.pair-reading.visible) .pair-readings { opacity: 1; }
 @media print {
 .reveal #l10-phase-pair .pair-readings { opacity: 1; }
-.reveal #l10-phase-pair .pair-views > svg { visibility: hidden; }
 }
 .reveal #l10-coherent .s-body {
 gap: 16px;
@@ -818,13 +828,16 @@ grid-column: 1 / -1;
 }
 .reveal #l10-mean .s-body { justify-content: space-between; gap: 12px; }
 .reveal #l10-mean .mean-step .equation { margin: 10px 0 3px; }
-.reveal #l10-count-bars .s-body { gap: 20px; }
-.reveal #l10-count-bars .count-lab { flex: 1; min-height: 0; display: grid; grid-template-rows: auto minmax(0,1fr) auto; }
-.reveal .count-settings, .reveal .count-phase, .reveal .count-presets { display: flex; align-items: center; gap: 14px; }
-.reveal .count-settings span { margin-left: auto; color: #405a68; font-size: 24px; }
+.reveal #l10-count-bars .s-body { gap: 12px; }
+.reveal #l10-count-bars .s-body > .equation { margin: 2px 0 8px; }
+.reveal #l10-count-bars .count-lab { flex:1; min-height:0; display:grid; grid-template-rows:minmax(0,1fr) auto; }
+.reveal .count-charts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:32px; }
+.reveal .count-panel { display:grid; grid-template-rows:auto minmax(0,1fr) auto; min-height:0; border-top:2px solid #bbced9; padding:8px 12px 10px; }
+.reveal .count-panel h3 { margin:0; font-size:28px; color:var(--blue); }
+.reveal .count-phase, .reveal .count-presets { display:flex; align-items:center; gap:14px; }
 .reveal .count-lab button { font: inherit; font-size: 22px; padding: 5px 14px; border: 1px solid #a5b6bf; border-radius: 4px; background: transparent; color: #254759; cursor: pointer; }
 .reveal .count-lab button[aria-pressed=true] { background: #175c80; color: white; border-color: #175c80; }
-.reveal .count-lab svg { width: 100%; height: 100%; font-family: inherit; }
+.reveal .count-panel > svg { width: 100%; height: 100%; font-family: inherit; }
 .reveal .count-phase { border-top: 1px solid #c0ced3; padding: 14px 0 4px; font-size: 25px; }
 .reveal .count-phase input { flex: 1; min-width: 0; accent-color: #076697; }
 .reveal .count-phase output { min-width: 3em; font-variant-numeric: tabular-nums; }
@@ -998,6 +1011,13 @@ gap: 12px 30px; align-items: center;
 .reveal .mc-slide.qo-classroom-inline .question{padding:12px 18px}
 .reveal .mc-slide.qo-classroom-inline .s-body > .fragment{width:100%}
 .reveal .mc-slide.qo-classroom-inline .mc-answer{width:100%;position:static}
+.reveal .count-panel h3 .math { margin-left:.4em; }
+.reveal .count-reading { display:flex; align-items:center; justify-content:center; gap:18px; font-size:26px; }
+.reveal .count-value { min-width:3.6em; text-align:center; font-variant-numeric:tabular-nums; font-weight:650; border-left:1px solid #afc4cf; color:#145879; }
+.reveal #count-play { background:#175c80; color:white; min-width:5.8em; }
+.reveal .count-phase output { text-align:center; }
+.reveal .count-print .count-phase :is(button,input,.count-presets) { display:none; }
+.reveal .count-print .count-phase { justify-content:center; }
 </style>
   <style type="text/css">.reveal
 div.sourceCode
@@ -1537,39 +1557,42 @@ margin-right: 0; }
 <h1>比较两束相干光的光子数和平均电场</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 10　光场的量子涨落</span><a href="#/l10-nav-phase" class="active">相位</a><a href="#/l10-nav-vacuum" class>真空涨落</a><a href="#/l10-nav-squeeze" class>压缩光</a><a href="#/l10-nav-readout" class>零拍探测</a><a href="#/l10-nav-loss" class>产生与损耗</a><a href="#/l10-nav-ligo" class>引力波探测</a></nav>
 <div class="s-body">
-<p>取同一模式的两束相干光，用同一相位参考写出复振幅：<span class="math inline">\(\alpha_A=1\)</span>，<span class="math inline">\(\alpha_B=i\)</span>。</p>
-<p><strong>先数光子。</strong> 两束光都有 <span class="math inline">\(|\alpha|^2=1\)</span>。对每个光子数 <span class="math inline">\(n\)</span>，都有 <span class="math inline">\(P_A(n)=P_B(n)=e^{-1}/n!\)</span>。</p>
+<p>同一模式、同一相位参考下，两束相干光的振幅为 <span class="math inline">\(\alpha_A=1\)</span>（蓝）和 <span class="math inline">\(\alpha_B=i\)</span>（棕）。</p>
 <div class="pair-views">
-<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 720 245" role="img" aria-label="两束相干光在每个光子数上的概率相等。图示光子数从零到五。"><g font-family="sans-serif" font-size="17" fill="#425d70">
-<text x="51" y="23">概率 P(n)</text>
-<rect x="555" y="10" width="13" height="13" fill="#0070b8" /><text x="573" y="23">A</text>
-<rect x="609" y="10" width="13" height="13" fill="#ac672e" /><text x="627" y="23">B</text>
-<path d="M51 194H676" stroke="#bdcbd4" /><text x="42" y="199" text-anchor="end">0</text>
-<path d="M51 122.0H676" stroke="#bdcbd4" /><text x="42" y="127.0" text-anchor="end">0.2</text>
-<path d="M51 50.0H676" stroke="#bdcbd4" /><text x="42" y="55.0" text-anchor="end">0.4</text>
-<rect x="90" y="61.563" width="19" height="132.437" fill="#0070b8" />
-<rect x="113" y="61.563" width="19" height="132.437" fill="#ac672e" />
-<text x="111" y="217" text-anchor="middle">0</text>
-<rect x="190" y="61.563" width="19" height="132.437" fill="#0070b8" />
-<rect x="213" y="61.563" width="19" height="132.437" fill="#ac672e" />
-<text x="211" y="217" text-anchor="middle">1</text>
-<rect x="290" y="127.782" width="19" height="66.218" fill="#0070b8" />
-<rect x="313" y="127.782" width="19" height="66.218" fill="#ac672e" />
-<text x="311" y="217" text-anchor="middle">2</text>
-<rect x="390" y="171.927" width="19" height="22.073" fill="#0070b8" />
-<rect x="413" y="171.927" width="19" height="22.073" fill="#ac672e" />
-<text x="411" y="217" text-anchor="middle">3</text>
-<rect x="490" y="188.482" width="19" height="5.518" fill="#0070b8" />
-<rect x="513" y="188.482" width="19" height="5.518" fill="#ac672e" />
-<text x="511" y="217" text-anchor="middle">4</text>
-<rect x="590" y="192.896" width="19" height="1.104" fill="#0070b8" />
-<rect x="613" y="192.896" width="19" height="1.104" fill="#ac672e" />
-<text x="611" y="217" text-anchor="middle">5</text>
-<text x="676" y="239" text-anchor="end">光子数 n</text></g></svg>
+<div class="pair-counts">
+<p><strong>数光子</strong></p>
+<p>两束光都有 <span class="math inline">\(|\alpha|^2=1\)</span>，因此每个 <span class="math inline">\(n\)</span> 的概率都相同：<span class="math inline">\(P_A(n)=P_B(n)=e^{-1}/n!\)</span>。</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 560 282" role="img" aria-label="光子数从零到五时，两束相干光对应的概率柱始终等高。">
+<g font-family="sans-serif" font-size="19" fill="#425d70">
+<text x="47" y="24">概率 P(n)</text>
+<path d="M47 220H536" stroke="#bdcbd4" /><text x="35" y="226" text-anchor="end">0</text>
+<path d="M47 132H536" stroke="#bdcbd4" /><text x="35" y="138" text-anchor="end">0.2</text>
+<path d="M47 44H536" stroke="#bdcbd4" /><text x="35" y="50" text-anchor="end">0.4</text>
+<rect x="69" y="58.133" width="17" height="161.867" fill="#0070b8" />
+<rect x="90" y="58.133" width="17" height="161.867" fill="#ac672e" />
+<text x="88" y="245" text-anchor="middle">0</text>
+<rect x="150" y="58.133" width="17" height="161.867" fill="#0070b8" />
+<rect x="171" y="58.133" width="17" height="161.867" fill="#ac672e" />
+<text x="169" y="245" text-anchor="middle">1</text>
+<rect x="231" y="139.067" width="17" height="80.933" fill="#0070b8" />
+<rect x="252" y="139.067" width="17" height="80.933" fill="#ac672e" />
+<text x="250" y="245" text-anchor="middle">2</text>
+<rect x="312" y="193.022" width="17" height="26.978" fill="#0070b8" />
+<rect x="333" y="193.022" width="17" height="26.978" fill="#ac672e" />
+<text x="331" y="245" text-anchor="middle">3</text>
+<rect x="393" y="213.256" width="17" height="6.744" fill="#0070b8" />
+<rect x="414" y="213.256" width="17" height="6.744" fill="#ac672e" />
+<text x="412" y="245" text-anchor="middle">4</text>
+<rect x="474" y="218.651" width="17" height="1.349" fill="#0070b8" />
+<rect x="495" y="218.651" width="17" height="1.349" fill="#ac672e" />
+<text x="493" y="245" text-anchor="middle">5</text>
+<text x="536" y="274" text-anchor="end">光子数 n</text></g></svg>
 
+</div>
 <div class="fragment pair-field">
-<p><strong>再看平均电场。</strong> 代入 <span class="math inline">\(\operatorname{Re}(\alpha e^{-i\omega t})\)</span>，A 得到余弦（蓝线），B 得到正弦（棕线）。</p>
-<svg id="fig-mean-wave" viewbox="0 0 720 245" role="img" aria-label="相干态A为余弦平均电场，B为正弦平均电场，两者相差四分之一周期"></svg>
+<p><strong>测平均电场</strong></p>
+<p>平均电场正比于 <span class="math inline">\(\operatorname{Re}(\alpha e^{-i\omega t})\)</span>。代入两束光的振幅，A 得到余弦，B 得到正弦。</p>
+<svg id="fig-mean-wave" viewbox="0 0 560 282" role="img" aria-label="相干态A为余弦平均电场，B为正弦平均电场，两者相差四分之一周期"></svg>
 
 </div>
 </div>
@@ -1794,11 +1817,16 @@ b\text{ 端入射}\quad |\psi_b\rangle&amp;=u|1,0\rangle_{cd}+v|0,1\rangle_{cd}.
 \langle\hat b^\dagger\hat a\rangle=\beta^*\alpha.\]</span></p>
 </div>
 <div class="fragment mean-step">
-<p><strong>再看相位。</strong> 写成 <span class="math inline">\(\alpha=|\alpha|e^{i\phi}\)</span>、<span class="math inline">\(\beta=|\beta|e^{i\theta}\)</span>，两个干涉项互为共轭： <span class="math display">\[\langle\hat D\rangle=2\operatorname{Re}(\beta^*\alpha)
+<p><strong>再看相位。</strong> 写成 <span class="math inline">\(\alpha=|\alpha|e^{i\phi}\)</span>、<span class="math inline">\(\beta=|\beta|e^{i\theta}\)</span>。两个干涉项互为共轭，相加得到两倍的实部。</p>
+<div class="result">
+<p>两束光的振幅大小固定时，平均计数差随相位差按余弦变化。 <span class="math display">\[\langle\hat D\rangle=2\operatorname{Re}(\beta^*\alpha)
 =2|\alpha||\beta|\cos(\phi-\theta).\]</span></p>
 </div>
-<div class="fragment result">
-<p>同相时取 <span class="math inline">\(\alpha=1\)</span>、<span class="math inline">\(\beta=3\)</span>：<span class="math inline">\(c\)</span> 路为 <span class="math inline">\(|1+3|^2/2=8\)</span>，<span class="math inline">\(d\)</span> 路为 <span class="math inline">\(|1-3|^2/2=2\)</span>，相差 <span class="math inline">\(6\)</span>。</p>
+</div>
+<div class="fragment mean-step">
+<p>取同相输入 <span class="math inline">\(\alpha=1\)</span>、<span class="math inline">\(\beta=3\)</span>。两束光的振幅在 <span class="math inline">\(c\)</span> 路相加，在 <span class="math inline">\(d\)</span> 路相减。 <span class="math display">\[\langle n_c\rangle=\frac{|1+3|^2}{2}=8,\qquad
+\langle n_d\rangle=\frac{|1-3|^2}{2}=2,\qquad
+\langle\hat D\rangle=8-2=6.\]</span></p>
 </div>
 </div>
 </section>
@@ -1807,17 +1835,32 @@ b\text{ 端入射}\quad |\psi_b\rangle&amp;=u|1,0\rangle_{cd}+v|0,1\rangle_{cd}.
 <h1>转动本振，看两路平均计数怎样变化</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 10　光场的量子涨落</span><a href="#/l10-nav-phase" class="active">相位</a><a href="#/l10-nav-vacuum" class>真空涨落</a><a href="#/l10-nav-squeeze" class>压缩光</a><a href="#/l10-nav-readout" class>零拍探测</a><a href="#/l10-nav-loss" class>产生与损耗</a><a href="#/l10-nav-ligo" class>引力波探测</a></nav>
 <div class="s-body">
-<p>固定 <span class="math inline">\(|\beta|=3\)</span>。转动本振看两根柱子怎样升降，再保持相位切换 A、B。</p>
+<p>两束信号光分别与同一本振 <span class="math inline">\(\beta=3e^{i\theta}\)</span> 干涉。柱高表示两个输出端的平均光子数： <span class="math display">\[\langle n_c\rangle=\tfrac12|\alpha+\beta|^2,\qquad
+\langle n_d\rangle=\tfrac12|\alpha-\beta|^2,\qquad
+\langle D\rangle=\langle n_c\rangle-\langle n_d\rangle.\]</span></p>
 <div class="count-lab course-interactive">
-  <div class="count-settings" role="group" aria-label="选择信号光">
-    <button type="button" data-count-signal="A" aria-pressed="true">信号 A（α = 1）</button>
-    <button type="button" data-count-signal="B" aria-pressed="false">信号 B（α = i）</button>
-    <span>两路平均计数之和 <b>10</b></span>
+  <div class="count-charts">
+    <div class="count-panel">
+      <h3>信号 A <span class="math inline">\(\alpha=1\)</span></h3>
+      <svg id="count-a" viewbox="0 0 550 244" role="img"></svg>
+      <div class="count-reading">
+        <span class="math inline">\(\langle\hat D\rangle=6\cos\theta\)</span>
+        <span class="count-value" id="count-diff-a" aria-label="平均计数差"></span>
+      </div>
+    </div>
+    <div class="count-panel">
+      <h3>信号 B <span class="math inline">\(\alpha=i\)</span></h3>
+      <svg id="count-b" viewbox="0 0 550 244" role="img"></svg>
+      <div class="count-reading">
+        <span class="math inline">\(\langle\hat D\rangle=6\sin\theta\)</span>
+        <span class="count-value" id="count-diff-b" aria-label="平均计数差"></span>
+      </div>
+    </div>
   </div>
-  <svg id="mean-counts" viewbox="0 0 1060 320" role="img" aria-label="两路输出平均光子数，共用零至十的刻度，竖括线表示两路之差"></svg>
   <div class="count-phase">
-    <label for="count-angle">本振相位 θ</label>
-    <input id="count-angle" type="range" min="0" max="360" step="5" value="0">
+    <button type="button" id="count-play">播放相位</button>
+    <label for="count-angle">本振相位 <span class="math inline">\(\theta\)</span></label>
+    <input id="count-angle" type="range" min="0" max="360" step="1" value="0">
     <output id="count-degrees" for="count-angle">0°</output>
     <div class="count-presets" role="group" aria-label="直接选择本振相位">
       <button type="button" data-count-angle="0">0°</button>
@@ -1873,13 +1916,17 @@ b\text{ 端入射}\quad |\psi_b\rangle&amp;=u|1,0\rangle_{cd}+v|0,1\rangle_{cd}.
 <h1>电场振动的余弦分量与正弦分量</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 10　光场的量子涨落</span><a href="#/l10-nav-phase" class>相位</a><a href="#/l10-nav-vacuum" class="active">真空涨落</a><a href="#/l10-nav-squeeze" class>压缩光</a><a href="#/l10-nav-readout" class>零拍探测</a><a href="#/l10-nav-loss" class>产生与损耗</a><a href="#/l10-nav-ligo" class>引力波探测</a></nav>
 <div class="s-body">
-<p>前面用本振分别读出了相干光复振幅的实部和虚部。对任意信号，把模式算符写成两个厄米分量：<span class="math inline">\(\hat a=\hat X+i\hat Y\)</span>，其共轭为 <span class="math inline">\(\hat a^\dagger=\hat X-i\hat Y\)</span>。两式相加、相减，分别解出</p>
+<p>前面用本振分别读出了相干光复振幅的实部和虚部。</p>
+<p>对任意信号，把湮灭算符写成 <span class="math inline">\(\hat a=\hat X+i\hat Y\)</span>，其中 <span class="math inline">\(\hat X\)</span>、<span class="math inline">\(\hat Y\)</span> 都是厄米算符。<br>
+取厄米共轭，得到 <span class="math inline">\(\hat a^\dagger=\hat X-i\hat Y\)</span>。</p>
+<p>两式相加求出 <span class="math inline">\(\hat X\)</span>，相减求出 <span class="math inline">\(\hat Y\)</span>：</p>
 <div class="equation"><span class="math display">\[\hat X=\frac{\hat a+\hat a^\dagger}{2},\qquad
 \hat Y=\frac{\hat a-\hat a^\dagger}{2i}.\]</span></div>
 <div class="fragment">
 <p>代入单模电场 <span class="math inline">\(\hat E(t)=\mathcal E_0(\hat a e^{-i\omega t}+\hat a^\dagger e^{i\omega t})\)</span>，得到</p>
 <div class="equation"><span class="math display">\[\hat E(t)=2\mathcal E_0(\hat X\cos\omega t+\hat Y\sin\omega t).\]</span></div>
-<p><strong>两个正交场分量</strong>分别给出余弦项与正弦项的系数。在相干态中，它们的均值正好是 <span class="math inline">\(\operatorname{Re}\alpha\)</span> 与 <span class="math inline">\(\operatorname{Im}\alpha\)</span>。</p>
+<p><strong>两个正交场分量</strong>分别给出余弦项与正弦项的系数。</p>
+<p>在相干态中，它们的均值正好是 <span class="math inline">\(\operatorname{Re}\alpha\)</span> 与 <span class="math inline">\(\operatorname{Im}\alpha\)</span>。</p>
 </div>
 </div>
 </section>
@@ -2094,14 +2141,48 @@ b\text{ 端入射}\quad |\psi_b\rangle&amp;=u|1,0\rangle_{cd}+v|0,1\rangle_{cd}.
 <h1>热光的两个正交分量一起变宽</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 10　光场的量子涨落</span><a href="#/l10-nav-phase" class>相位</a><a href="#/l10-nav-vacuum" class>真空涨落</a><a href="#/l10-nav-squeeze" class="active">压缩光</a><a href="#/l10-nav-readout" class>零拍探测</a><a href="#/l10-nav-loss" class>产生与损耗</a><a href="#/l10-nav-ligo" class>引力波探测</a></nav>
 <div class="s-body">
-<p>单模热态在光子数基底中是对角的。<span class="math inline">\(\hat a\)</span> 和 <span class="math inline">\(\hat a^2\)</span> 分别改变一个和两个光子，因此 <span class="math inline">\(\langle\hat a\rangle=\langle\hat a^2\rangle=0\)</span>。</p>
-<div class="equation"><span class="math display">\[4(\Delta X)^2=\langle \hat a\hat a^\dagger+\hat a^\dagger\hat a\rangle
-=(\bar n+1)+\bar n.\]</span></div>
-<div class="result">
-<p><span class="math inline">\((\Delta X)^2=(\Delta Y)^2=(2\bar n+1)/4\)</span>。增加热光子使两个方向的噪声一起增大。</p>
+<div class="thermal-derivation">
+<p>单模热光是光子数态的概率混合。给定平均光子数 <span class="math inline">\(\bar n\)</span>，测到 <span class="math inline">\(n\)</span> 个光子的概率为 <span class="math inline">\(P(n)\)</span>。</p>
+<div class="equation"><span class="math display">\[\rho_{\rm th}=\sum_n P(n)|n\rangle\langle n|,\quad
+P(n)=\frac{\bar n^{n}}{(1+\bar n)^{n+1}}.\]</span></div>
+<div class="fragment thermal-zero">
+<p><span class="math inline">\(\hat a\)</span> 和 <span class="math inline">\(\hat a^2\)</span> 改变光子数，所得态与原来的 <span class="math inline">\(|n\rangle\)</span> 正交。按 <span class="math inline">\(P(n)\)</span> 取平均，得到 <span class="math display">\[\langle\hat a\rangle=\langle\hat a^2\rangle=0.\]</span></p>
 </div>
-<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1100 165" role="img" aria-label="真空与单模热态在同一相位的电场分量读数概率密度"><g font-family="sans-serif" font-size="20" fill="#354d61"><path d="M64 120H1006" stroke="#657e90" fill="none" /><text x="66" y="23">读数的概率密度</text><path d="M221 120v5" stroke="#657e90" /><text x="221" y="149" text-anchor="middle">-2</text><path d="M378 120v5" stroke="#657e90" /><text x="378" y="149" text-anchor="middle">-1</text><path d="M535 120v5" stroke="#657e90" /><text x="535" y="149" text-anchor="middle">0</text><path d="M692 120v5" stroke="#657e90" /><text x="692" y="149" text-anchor="middle">1</text><path d="M849 120v5" stroke="#657e90" /><text x="849" y="149" text-anchor="middle">2</text><text x="1008" y="148">X</text><polyline fill="none" stroke="#1373b6" stroke-width="4" points="64.0,120.0 67.1,120.0 70.3,120.0 73.4,120.0 76.6,120.0 79.7,120.0 82.8,120.0 86.0,120.0 89.1,120.0 92.3,120.0 95.4,120.0 98.5,120.0 101.7,120.0 104.8,120.0 108.0,120.0 111.1,120.0 114.2,120.0 117.4,120.0 120.5,120.0 123.7,120.0 126.8,120.0 129.9,120.0 133.1,120.0 136.2,120.0 139.4,120.0 142.5,120.0 145.6,120.0 148.8,120.0 151.9,120.0 155.1,120.0 158.2,120.0 161.3,120.0 164.5,120.0 167.6,120.0 170.8,120.0 173.9,120.0 177.0,120.0 180.2,120.0 183.3,120.0 186.5,120.0 189.6,120.0 192.7,120.0 195.9,120.0 199.0,120.0 202.2,120.0 205.3,120.0 208.4,120.0 211.6,120.0 214.7,120.0 217.9,120.0 221.0,120.0 224.1,120.0 227.3,120.0 230.4,119.9 233.6,119.9 236.7,119.9 239.8,119.9 243.0,119.9 246.1,119.9 249.3,119.9 252.4,119.8 255.5,119.8 258.7,119.8 261.8,119.8 265.0,119.7 268.1,119.7 271.2,119.7 274.4,119.6 277.5,119.5 280.7,119.5 283.8,119.4 286.9,119.3 290.1,119.2 293.2,119.1 296.4,119.0 299.5,118.9 302.6,118.8 305.8,118.6 308.9,118.4 312.1,118.2 315.2,118.0 318.3,117.8 321.5,117.6 324.6,117.3 327.8,117.0 330.9,116.6 334.0,116.3 337.2,115.9 340.3,115.4 343.5,115.0 346.6,114.4 349.7,113.9 352.9,113.3 356.0,112.6 359.2,111.9 362.3,111.2 365.4,110.4 368.6,109.5 371.7,108.6 374.9,107.6 378.0,106.6 381.1,105.5 384.3,104.3 387.4,103.1 390.6,101.8 393.7,100.4 396.8,99.0 400.0,97.5 403.1,95.9 406.3,94.2 409.4,92.5 412.5,90.7 415.7,88.8 418.8,86.9 422.0,84.9 425.1,82.9 428.2,80.8 431.4,78.6 434.5,76.4 437.7,74.1 440.8,71.8 443.9,69.5 447.1,67.2 450.2,64.8 453.4,62.4 456.5,60.0 459.6,57.6 462.8,55.2 465.9,52.8 469.1,50.5 472.2,48.2 475.3,45.9 478.5,43.7 481.6,41.5 484.8,39.4 487.9,37.4 491.0,35.4 494.2,33.6 497.3,31.8 500.5,30.2 503.6,28.7 506.7,27.3 509.9,26.0 513.0,24.9 516.2,23.9 519.3,23.0 522.4,22.3 525.6,21.8 528.7,21.4 531.9,21.1 535.0,21.1 538.1,21.1 541.3,21.4 544.4,21.8 547.6,22.3 550.7,23.0 553.8,23.9 557.0,24.9 560.1,26.0 563.3,27.3 566.4,28.7 569.5,30.2 572.7,31.8 575.8,33.6 579.0,35.4 582.1,37.4 585.2,39.4 588.4,41.5 591.5,43.7 594.7,45.9 597.8,48.2 600.9,50.5 604.1,52.8 607.2,55.2 610.4,57.6 613.5,60.0 616.6,62.4 619.8,64.8 622.9,67.2 626.1,69.5 629.2,71.8 632.3,74.1 635.5,76.4 638.6,78.6 641.8,80.8 644.9,82.9 648.0,84.9 651.2,86.9 654.3,88.8 657.5,90.7 660.6,92.5 663.7,94.2 666.9,95.9 670.0,97.5 673.2,99.0 676.3,100.4 679.4,101.8 682.6,103.1 685.7,104.3 688.9,105.5 692.0,106.6 695.1,107.6 698.3,108.6 701.4,109.5 704.6,110.4 707.7,111.2 710.8,111.9 714.0,112.6 717.1,113.3 720.3,113.9 723.4,114.4 726.5,115.0 729.7,115.4 732.8,115.9 736.0,116.3 739.1,116.6 742.2,117.0 745.4,117.3 748.5,117.6 751.7,117.8 754.8,118.0 757.9,118.2 761.1,118.4 764.2,118.6 767.4,118.8 770.5,118.9 773.6,119.0 776.8,119.1 779.9,119.2 783.1,119.3 786.2,119.4 789.3,119.5 792.5,119.5 795.6,119.6 798.8,119.7 801.9,119.7 805.0,119.7 808.2,119.8 811.3,119.8 814.5,119.8 817.6,119.8 820.7,119.9 823.9,119.9 827.0,119.9 830.2,119.9 833.3,119.9 836.4,119.9 839.6,119.9 842.7,120.0 845.9,120.0 849.0,120.0 852.1,120.0 855.3,120.0 858.4,120.0 861.6,120.0 864.7,120.0 867.8,120.0 871.0,120.0 874.1,120.0 877.3,120.0 880.4,120.0 883.5,120.0 886.7,120.0 889.8,120.0 893.0,120.0 896.1,120.0 899.2,120.0 902.4,120.0 905.5,120.0 908.7,120.0 911.8,120.0 914.9,120.0 918.1,120.0 921.2,120.0 924.4,120.0 927.5,120.0 930.6,120.0 933.8,120.0 936.9,120.0 940.1,120.0 943.2,120.0 946.3,120.0 949.5,120.0 952.6,120.0 955.8,120.0 958.9,120.0 962.0,120.0 965.2,120.0 968.3,120.0 971.5,120.0 974.6,120.0 977.7,120.0 980.9,120.0 984.0,120.0 987.2,120.0 990.3,120.0 993.4,120.0 996.6,120.0 999.7,120.0 1002.9,120.0 1006.0,120.0"></polyline><polyline fill="none" stroke="#ae6727" stroke-width="4" points="64.0,118.8 67.1,118.7 70.3,118.7 73.4,118.6 76.6,118.5 79.7,118.5 82.8,118.4 86.0,118.3 89.1,118.2 92.3,118.2 95.4,118.1 98.5,118.0 101.7,117.9 104.8,117.8 108.0,117.7 111.1,117.6 114.2,117.5 117.4,117.4 120.5,117.3 123.7,117.2 126.8,117.0 129.9,116.9 133.1,116.8 136.2,116.6 139.4,116.5 142.5,116.4 145.6,116.2 148.8,116.1 151.9,115.9 155.1,115.7 158.2,115.6 161.3,115.4 164.5,115.2 167.6,115.0 170.8,114.9 173.9,114.7 177.0,114.5 180.2,114.3 183.3,114.1 186.5,113.8 189.6,113.6 192.7,113.4 195.9,113.2 199.0,112.9 202.2,112.7 205.3,112.4 208.4,112.2 211.6,111.9 214.7,111.6 217.9,111.3 221.0,111.1 224.1,110.8 227.3,110.5 230.4,110.2 233.6,109.9 236.7,109.6 239.8,109.2 243.0,108.9 246.1,108.6 249.3,108.2 252.4,107.9 255.5,107.5 258.7,107.2 261.8,106.8 265.0,106.4 268.1,106.1 271.2,105.7 274.4,105.3 277.5,104.9 280.7,104.5 283.8,104.1 286.9,103.7 290.1,103.3 293.2,102.9 296.4,102.4 299.5,102.0 302.6,101.6 305.8,101.1 308.9,100.7 312.1,100.2 315.2,99.8 318.3,99.3 321.5,98.9 324.6,98.4 327.8,98.0 330.9,97.5 334.0,97.0 337.2,96.6 340.3,96.1 343.5,95.6 346.6,95.1 349.7,94.6 352.9,94.2 356.0,93.7 359.2,93.2 362.3,92.7 365.4,92.3 368.6,91.8 371.7,91.3 374.9,90.8 378.0,90.3 381.1,89.9 384.3,89.4 387.4,88.9 390.6,88.5 393.7,88.0 396.8,87.5 400.0,87.1 403.1,86.6 406.3,86.2 409.4,85.7 412.5,85.3 415.7,84.9 418.8,84.5 422.0,84.0 425.1,83.6 428.2,83.2 431.4,82.8 434.5,82.4 437.7,82.1 440.8,81.7 443.9,81.3 447.1,81.0 450.2,80.6 453.4,80.3 456.5,80.0 459.6,79.6 462.8,79.3 465.9,79.1 469.1,78.8 472.2,78.5 475.3,78.2 478.5,78.0 481.6,77.8 484.8,77.5 487.9,77.3 491.0,77.1 494.2,76.9 497.3,76.8 500.5,76.6 503.6,76.5 506.7,76.3 509.9,76.2 513.0,76.1 516.2,76.0 519.3,75.9 522.4,75.9 525.6,75.8 528.7,75.8 531.9,75.8 535.0,75.8 538.1,75.8 541.3,75.8 544.4,75.8 547.6,75.9 550.7,75.9 553.8,76.0 557.0,76.1 560.1,76.2 563.3,76.3 566.4,76.5 569.5,76.6 572.7,76.8 575.8,76.9 579.0,77.1 582.1,77.3 585.2,77.5 588.4,77.8 591.5,78.0 594.7,78.2 597.8,78.5 600.9,78.8 604.1,79.1 607.2,79.3 610.4,79.6 613.5,80.0 616.6,80.3 619.8,80.6 622.9,81.0 626.1,81.3 629.2,81.7 632.3,82.1 635.5,82.4 638.6,82.8 641.8,83.2 644.9,83.6 648.0,84.0 651.2,84.5 654.3,84.9 657.5,85.3 660.6,85.7 663.7,86.2 666.9,86.6 670.0,87.1 673.2,87.5 676.3,88.0 679.4,88.5 682.6,88.9 685.7,89.4 688.9,89.9 692.0,90.3 695.1,90.8 698.3,91.3 701.4,91.8 704.6,92.3 707.7,92.7 710.8,93.2 714.0,93.7 717.1,94.2 720.3,94.6 723.4,95.1 726.5,95.6 729.7,96.1 732.8,96.6 736.0,97.0 739.1,97.5 742.2,98.0 745.4,98.4 748.5,98.9 751.7,99.3 754.8,99.8 757.9,100.2 761.1,100.7 764.2,101.1 767.4,101.6 770.5,102.0 773.6,102.4 776.8,102.9 779.9,103.3 783.1,103.7 786.2,104.1 789.3,104.5 792.5,104.9 795.6,105.3 798.8,105.7 801.9,106.1 805.0,106.4 808.2,106.8 811.3,107.2 814.5,107.5 817.6,107.9 820.7,108.2 823.9,108.6 827.0,108.9 830.2,109.2 833.3,109.6 836.4,109.9 839.6,110.2 842.7,110.5 845.9,110.8 849.0,111.1 852.1,111.3 855.3,111.6 858.4,111.9 861.6,112.2 864.7,112.4 867.8,112.7 871.0,112.9 874.1,113.2 877.3,113.4 880.4,113.6 883.5,113.8 886.7,114.1 889.8,114.3 893.0,114.5 896.1,114.7 899.2,114.9 902.4,115.0 905.5,115.2 908.7,115.4 911.8,115.6 914.9,115.7 918.1,115.9 921.2,116.1 924.4,116.2 927.5,116.4 930.6,116.5 933.8,116.6 936.9,116.8 940.1,116.9 943.2,117.0 946.3,117.2 949.5,117.3 952.6,117.4 955.8,117.5 958.9,117.6 962.0,117.7 965.2,117.8 968.3,117.9 971.5,118.0 974.6,118.1 977.7,118.2 980.9,118.2 984.0,118.3 987.2,118.4 990.3,118.5 993.4,118.5 996.6,118.6 999.7,118.7 1002.9,118.7 1006.0,118.8"></polyline><text x="749" y="30" fill="#1373b6">真空</text><text x="749" y="59" fill="#91541c">热光（平均光子数 2）</text></g></svg>
-<p>图中两条概率密度曲线的面积都为 1。热光的峰较低，两侧延伸得更远。</p>
+<div class="fragment thermal-width">
+<p>计算方差时，只剩下保持光子数的两项： <span class="math display">\[4(\Delta X)^2
+=\langle \hat a\hat a^\dagger+\hat a^\dagger\hat a\rangle
+=(\bar n+1)+\bar n.\]</span></p>
+<div class="result">
+<div class="equation"><span class="math display">\[(\Delta X)^2=(\Delta Y)^2=\frac{2\bar n+1}{4}.\]</span></div>
+</div>
+</div>
+</div>
+<div class="thermal-distribution">
+<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 560 408" role="img" aria-label="X 分量的概率密度。真空与平均光子数为 2 的热光均以零为中心；热光分布较宽。">
+<g font-family="sans-serif" font-size="20" fill="#425d70">
+<text x="52" y="24">读数的概率密度</text>
+<path d="M58 57h25" stroke="#0070b8" stroke-width="4" fill="none" />
+<text x="92" y="64">真空</text>
+<path d="M180 57h25" stroke="#ac672e" stroke-width="4" fill="none" />
+<text x="214" y="64">热光（平均光子数 2）</text>
+<path d="M58 352H533" stroke="#c7d0d5" /><text x="45" y="358" text-anchor="end">0</text>
+<path d="M58 289.0H533" stroke="#c7d0d5" /><text x="45" y="295.0" text-anchor="end">0.2</text>
+<path d="M58 226.0H533" stroke="#c7d0d5" /><text x="45" y="232.0" text-anchor="end">0.4</text>
+<path d="M58 163.0H533" stroke="#c7d0d5" /><text x="45" y="169.0" text-anchor="end">0.6</text>
+<path d="M58 100.0H533" stroke="#c7d0d5" /><text x="45" y="106.0" text-anchor="end">0.8</text>
+<path d="M58.00 352v5" stroke="#637a87" /><text x="58.00" y="381" text-anchor="middle">−3</text>
+<path d="M137.17 352v5" stroke="#637a87" /><text x="137.17" y="381" text-anchor="middle">−2</text>
+<path d="M216.33 352v5" stroke="#637a87" /><text x="216.33" y="381" text-anchor="middle">−1</text>
+<path d="M295.50 352v5" stroke="#637a87" /><text x="295.50" y="381" text-anchor="middle">0</text>
+<path d="M374.67 352v5" stroke="#637a87" /><text x="374.67" y="381" text-anchor="middle">1</text>
+<path d="M453.83 352v5" stroke="#637a87" /><text x="453.83" y="381" text-anchor="middle">2</text>
+<path d="M533.00 352v5" stroke="#637a87" /><text x="533.00" y="381" text-anchor="middle">3</text>
+<path d="M58.00 352.00 L59.19 352.00 L60.37 352.00 L61.56 352.00 L62.75 352.00 L63.94 352.00 L65.12 352.00 L66.31 352.00 L67.50 352.00 L68.69 352.00 L69.88 352.00 L71.06 352.00 L72.25 352.00 L73.44 352.00 L74.62 352.00 L75.81 352.00 L77.00 352.00 L78.19 352.00 L79.38 352.00 L80.56 352.00 L81.75 352.00 L82.94 352.00 L84.12 352.00 L85.31 352.00 L86.50 352.00 L87.69 352.00 L88.88 352.00 L90.06 352.00 L91.25 352.00 L92.44 352.00 L93.63 352.00 L94.81 352.00 L96.00 352.00 L97.19 352.00 L98.37 352.00 L99.56 352.00 L100.75 352.00 L101.94 352.00 L103.12 352.00 L104.31 352.00 L105.50 352.00 L106.69 352.00 L107.88 352.00 L109.06 352.00 L110.25 352.00 L111.44 351.99 L112.62 351.99 L113.81 351.99 L115.00 351.99 L116.19 351.99 L117.38 351.99 L118.56 351.99 L119.75 351.99 L120.94 351.98 L122.12 351.98 L123.31 351.98 L124.50 351.98 L125.69 351.97 L126.88 351.97 L128.06 351.97 L129.25 351.96 L130.44 351.96 L131.62 351.95 L132.81 351.95 L134.00 351.94 L135.19 351.93 L136.38 351.92 L137.56 351.91 L138.75 351.90 L139.94 351.89 L141.12 351.87 L142.31 351.86 L143.50 351.84 L144.69 351.82 L145.88 351.80 L147.06 351.78 L148.25 351.75 L149.44 351.72 L150.62 351.69 L151.81 351.65 L153.00 351.61 L154.19 351.57 L155.38 351.52 L156.56 351.47 L157.75 351.41 L158.94 351.35 L160.12 351.27 L161.31 351.20 L162.50 351.11 L163.69 351.02 L164.88 350.91 L166.06 350.80 L167.25 350.68 L168.44 350.55 L169.62 350.40 L170.81 350.24 L172.00 350.07 L173.19 349.88 L174.38 349.67 L175.56 349.45 L176.75 349.21 L177.94 348.95 L179.12 348.66 L180.31 348.36 L181.50 348.03 L182.69 347.67 L183.88 347.29 L185.06 346.87 L186.25 346.43 L187.44 345.95 L188.62 345.43 L189.81 344.88 L191.00 344.29 L192.19 343.66 L193.38 342.99 L194.56 342.27 L195.75 341.50 L196.94 340.68 L198.12 339.81 L199.31 338.88 L200.50 337.89 L201.69 336.84 L202.88 335.74 L204.06 334.56 L205.25 333.32 L206.44 332.00 L207.62 330.62 L208.81 329.16 L210.00 327.61 L211.19 325.99 L212.38 324.29 L213.56 322.50 L214.75 320.63 L215.94 318.66 L217.12 316.60 L218.31 314.46 L219.50 312.21 L220.69 309.87 L221.87 307.43 L223.06 304.90 L224.25 302.26 L225.44 299.53 L226.62 296.69 L227.81 293.75 L229.00 290.71 L230.19 287.57 L231.38 284.33 L232.56 281.00 L233.75 277.56 L234.94 274.03 L236.12 270.40 L237.31 266.69 L238.50 262.88 L239.69 258.99 L240.88 255.01 L242.06 250.96 L243.25 246.83 L244.44 242.63 L245.62 238.37 L246.81 234.04 L248.00 229.66 L249.19 225.24 L250.38 220.77 L251.56 216.26 L252.75 211.73 L253.94 207.17 L255.12 202.61 L256.31 198.03 L257.50 193.46 L258.69 188.91 L259.88 184.37 L261.06 179.86 L262.25 175.38 L263.44 170.96 L264.62 166.59 L265.81 162.28 L267.00 158.05 L268.19 153.91 L269.38 149.86 L270.56 145.91 L271.75 142.07 L272.94 138.35 L274.12 134.76 L275.31 131.32 L276.50 128.01 L277.69 124.87 L278.88 121.88 L280.06 119.07 L281.25 116.44 L282.44 113.99 L283.62 111.73 L284.81 109.66 L286.00 107.80 L287.19 106.15 L288.38 104.71 L289.56 103.48 L290.75 102.47 L291.94 101.68 L293.12 101.12 L294.31 100.78 L295.50 100.67 L296.69 100.78 L297.88 101.12 L299.06 101.68 L300.25 102.47 L301.44 103.48 L302.62 104.71 L303.81 106.15 L305.00 107.80 L306.19 109.66 L307.38 111.73 L308.56 113.99 L309.75 116.44 L310.94 119.07 L312.12 121.88 L313.31 124.87 L314.50 128.01 L315.69 131.32 L316.88 134.76 L318.06 138.35 L319.25 142.07 L320.44 145.91 L321.62 149.86 L322.81 153.91 L324.00 158.05 L325.19 162.28 L326.38 166.59 L327.56 170.96 L328.75 175.38 L329.94 179.86 L331.12 184.37 L332.31 188.91 L333.50 193.46 L334.69 198.03 L335.88 202.61 L337.06 207.17 L338.25 211.73 L339.44 216.26 L340.62 220.77 L341.81 225.24 L343.00 229.66 L344.19 234.04 L345.38 238.37 L346.56 242.63 L347.75 246.83 L348.94 250.96 L350.12 255.01 L351.31 258.99 L352.50 262.88 L353.69 266.69 L354.88 270.40 L356.06 274.03 L357.25 277.56 L358.44 281.00 L359.62 284.33 L360.81 287.57 L362.00 290.71 L363.19 293.75 L364.38 296.69 L365.56 299.53 L366.75 302.26 L367.94 304.90 L369.12 307.43 L370.31 309.87 L371.50 312.21 L372.69 314.46 L373.88 316.60 L375.06 318.66 L376.25 320.63 L377.44 322.50 L378.62 324.29 L379.81 325.99 L381.00 327.61 L382.19 329.16 L383.38 330.62 L384.56 332.00 L385.75 333.32 L386.94 334.56 L388.12 335.74 L389.31 336.84 L390.50 337.89 L391.69 338.88 L392.88 339.81 L394.06 340.68 L395.25 341.50 L396.44 342.27 L397.62 342.99 L398.81 343.66 L400.00 344.29 L401.19 344.88 L402.38 345.43 L403.56 345.95 L404.75 346.43 L405.94 346.87 L407.12 347.29 L408.31 347.67 L409.50 348.03 L410.69 348.36 L411.88 348.66 L413.06 348.95 L414.25 349.21 L415.44 349.45 L416.62 349.67 L417.81 349.88 L419.00 350.07 L420.19 350.24 L421.38 350.40 L422.56 350.55 L423.75 350.68 L424.94 350.80 L426.12 350.91 L427.31 351.02 L428.50 351.11 L429.69 351.20 L430.88 351.27 L432.06 351.35 L433.25 351.41 L434.44 351.47 L435.62 351.52 L436.81 351.57 L438.00 351.61 L439.19 351.65 L440.38 351.69 L441.56 351.72 L442.75 351.75 L443.94 351.78 L445.12 351.80 L446.31 351.82 L447.50 351.84 L448.69 351.86 L449.88 351.87 L451.06 351.89 L452.25 351.90 L453.44 351.91 L454.62 351.92 L455.81 351.93 L457.00 351.94 L458.19 351.95 L459.38 351.95 L460.56 351.96 L461.75 351.96 L462.94 351.97 L464.12 351.97 L465.31 351.97 L466.50 351.98 L467.69 351.98 L468.88 351.98 L470.06 351.98 L471.25 351.99 L472.44 351.99 L473.62 351.99 L474.81 351.99 L476.00 351.99 L477.19 351.99 L478.38 351.99 L479.56 351.99 L480.75 352.00 L481.94 352.00 L483.12 352.00 L484.31 352.00 L485.50 352.00 L486.69 352.00 L487.88 352.00 L489.06 352.00 L490.25 352.00 L491.44 352.00 L492.62 352.00 L493.81 352.00 L495.00 352.00 L496.19 352.00 L497.38 352.00 L498.56 352.00 L499.75 352.00 L500.94 352.00 L502.12 352.00 L503.31 352.00 L504.50 352.00 L505.69 352.00 L506.88 352.00 L508.06 352.00 L509.25 352.00 L510.44 352.00 L511.62 352.00 L512.81 352.00 L514.00 352.00 L515.19 352.00 L516.38 352.00 L517.56 352.00 L518.75 352.00 L519.94 352.00 L521.12 352.00 L522.31 352.00 L523.50 352.00 L524.69 352.00 L525.88 352.00 L527.06 352.00 L528.25 352.00 L529.44 352.00 L530.62 352.00 L531.81 352.00 L533.00 352.00" stroke="#0070b8" stroke-width="3.6" fill="none" />
+<path d="M58.00 348.93 L59.19 348.82 L60.37 348.70 L61.56 348.58 L62.75 348.46 L63.94 348.33 L65.12 348.20 L66.31 348.07 L67.50 347.93 L68.69 347.78 L69.88 347.64 L71.06 347.49 L72.25 347.33 L73.44 347.17 L74.62 347.01 L75.81 346.84 L77.00 346.66 L78.19 346.48 L79.38 346.30 L80.56 346.11 L81.75 345.91 L82.94 345.71 L84.12 345.51 L85.31 345.30 L86.50 345.08 L87.69 344.86 L88.88 344.63 L90.06 344.40 L91.25 344.16 L92.44 343.91 L93.63 343.66 L94.81 343.40 L96.00 343.14 L97.19 342.87 L98.37 342.59 L99.56 342.30 L100.75 342.01 L101.94 341.71 L103.12 341.41 L104.31 341.10 L105.50 340.78 L106.69 340.45 L107.88 340.11 L109.06 339.77 L110.25 339.42 L111.44 339.07 L112.62 338.70 L113.81 338.33 L115.00 337.95 L116.19 337.56 L117.38 337.16 L118.56 336.76 L119.75 336.35 L120.94 335.93 L122.12 335.50 L123.31 335.06 L124.50 334.61 L125.69 334.16 L126.88 333.69 L128.06 333.22 L129.25 332.74 L130.44 332.25 L131.62 331.75 L132.81 331.24 L134.00 330.73 L135.19 330.20 L136.38 329.67 L137.56 329.12 L138.75 328.57 L139.94 328.01 L141.12 327.44 L142.31 326.86 L143.50 326.27 L144.69 325.68 L145.88 325.07 L147.06 324.46 L148.25 323.83 L149.44 323.20 L150.62 322.56 L151.81 321.90 L153.00 321.24 L154.19 320.58 L155.38 319.90 L156.56 319.21 L157.75 318.52 L158.94 317.81 L160.12 317.10 L161.31 316.38 L162.50 315.65 L163.69 314.92 L164.88 314.17 L166.06 313.42 L167.25 312.66 L168.44 311.89 L169.62 311.11 L170.81 310.33 L172.00 309.54 L173.19 308.74 L174.38 307.93 L175.56 307.12 L176.75 306.30 L177.94 305.48 L179.12 304.64 L180.31 303.81 L181.50 302.96 L182.69 302.11 L183.88 301.25 L185.06 300.39 L186.25 299.53 L187.44 298.66 L188.62 297.78 L189.81 296.90 L191.00 296.01 L192.19 295.13 L193.38 294.23 L194.56 293.34 L195.75 292.44 L196.94 291.54 L198.12 290.63 L199.31 289.72 L200.50 288.82 L201.69 287.90 L202.88 286.99 L204.06 286.08 L205.25 285.17 L206.44 284.25 L207.62 283.34 L208.81 282.42 L210.00 281.51 L211.19 280.59 L212.38 279.68 L213.56 278.77 L214.75 277.86 L215.94 276.96 L217.12 276.05 L218.31 275.15 L219.50 274.26 L220.69 273.36 L221.87 272.47 L223.06 271.59 L224.25 270.71 L225.44 269.83 L226.62 268.96 L227.81 268.10 L229.00 267.24 L230.19 266.39 L231.38 265.55 L232.56 264.71 L233.75 263.88 L234.94 263.06 L236.12 262.25 L237.31 261.44 L238.50 260.65 L239.69 259.87 L240.88 259.09 L242.06 258.33 L243.25 257.57 L244.44 256.83 L245.62 256.10 L246.81 255.38 L248.00 254.67 L249.19 253.98 L250.38 253.30 L251.56 252.63 L252.75 251.97 L253.94 251.33 L255.12 250.71 L256.31 250.09 L257.50 249.50 L258.69 248.91 L259.88 248.35 L261.06 247.79 L262.25 247.26 L263.44 246.74 L264.62 246.23 L265.81 245.75 L267.00 245.28 L268.19 244.83 L269.38 244.39 L270.56 243.97 L271.75 243.57 L272.94 243.19 L274.12 242.83 L275.31 242.49 L276.50 242.16 L277.69 241.85 L278.88 241.57 L280.06 241.30 L281.25 241.05 L282.44 240.82 L283.62 240.61 L284.81 240.42 L286.00 240.25 L287.19 240.09 L288.38 239.96 L289.56 239.85 L290.75 239.76 L291.94 239.69 L293.12 239.64 L294.31 239.61 L295.50 239.60 L296.69 239.61 L297.88 239.64 L299.06 239.69 L300.25 239.76 L301.44 239.85 L302.62 239.96 L303.81 240.09 L305.00 240.25 L306.19 240.42 L307.38 240.61 L308.56 240.82 L309.75 241.05 L310.94 241.30 L312.12 241.57 L313.31 241.85 L314.50 242.16 L315.69 242.49 L316.88 242.83 L318.06 243.19 L319.25 243.57 L320.44 243.97 L321.62 244.39 L322.81 244.83 L324.00 245.28 L325.19 245.75 L326.38 246.23 L327.56 246.74 L328.75 247.26 L329.94 247.79 L331.12 248.35 L332.31 248.91 L333.50 249.50 L334.69 250.09 L335.88 250.71 L337.06 251.33 L338.25 251.97 L339.44 252.63 L340.62 253.30 L341.81 253.98 L343.00 254.67 L344.19 255.38 L345.38 256.10 L346.56 256.83 L347.75 257.57 L348.94 258.33 L350.12 259.09 L351.31 259.87 L352.50 260.65 L353.69 261.44 L354.88 262.25 L356.06 263.06 L357.25 263.88 L358.44 264.71 L359.62 265.55 L360.81 266.39 L362.00 267.24 L363.19 268.10 L364.38 268.96 L365.56 269.83 L366.75 270.71 L367.94 271.59 L369.12 272.47 L370.31 273.36 L371.50 274.26 L372.69 275.15 L373.88 276.05 L375.06 276.96 L376.25 277.86 L377.44 278.77 L378.62 279.68 L379.81 280.59 L381.00 281.51 L382.19 282.42 L383.38 283.34 L384.56 284.25 L385.75 285.17 L386.94 286.08 L388.12 286.99 L389.31 287.90 L390.50 288.82 L391.69 289.72 L392.88 290.63 L394.06 291.54 L395.25 292.44 L396.44 293.34 L397.62 294.23 L398.81 295.13 L400.00 296.01 L401.19 296.90 L402.38 297.78 L403.56 298.66 L404.75 299.53 L405.94 300.39 L407.12 301.25 L408.31 302.11 L409.50 302.96 L410.69 303.81 L411.88 304.64 L413.06 305.48 L414.25 306.30 L415.44 307.12 L416.62 307.93 L417.81 308.74 L419.00 309.54 L420.19 310.33 L421.38 311.11 L422.56 311.89 L423.75 312.66 L424.94 313.42 L426.12 314.17 L427.31 314.92 L428.50 315.65 L429.69 316.38 L430.88 317.10 L432.06 317.81 L433.25 318.52 L434.44 319.21 L435.62 319.90 L436.81 320.58 L438.00 321.24 L439.19 321.90 L440.38 322.56 L441.56 323.20 L442.75 323.83 L443.94 324.46 L445.12 325.07 L446.31 325.68 L447.50 326.27 L448.69 326.86 L449.88 327.44 L451.06 328.01 L452.25 328.57 L453.44 329.12 L454.62 329.67 L455.81 330.20 L457.00 330.73 L458.19 331.24 L459.38 331.75 L460.56 332.25 L461.75 332.74 L462.94 333.22 L464.12 333.69 L465.31 334.16 L466.50 334.61 L467.69 335.06 L468.88 335.50 L470.06 335.93 L471.25 336.35 L472.44 336.76 L473.62 337.16 L474.81 337.56 L476.00 337.95 L477.19 338.33 L478.38 338.70 L479.56 339.07 L480.75 339.42 L481.94 339.77 L483.12 340.11 L484.31 340.45 L485.50 340.78 L486.69 341.10 L487.88 341.41 L489.06 341.71 L490.25 342.01 L491.44 342.30 L492.62 342.59 L493.81 342.87 L495.00 343.14 L496.19 343.40 L497.38 343.66 L498.56 343.91 L499.75 344.16 L500.94 344.40 L502.12 344.63 L503.31 344.86 L504.50 345.08 L505.69 345.30 L506.88 345.51 L508.06 345.71 L509.25 345.91 L510.44 346.11 L511.62 346.30 L512.81 346.48 L514.00 346.66 L515.19 346.84 L516.38 347.01 L517.56 347.17 L518.75 347.33 L519.94 347.49 L521.12 347.64 L522.31 347.78 L523.50 347.93 L524.69 348.07 L525.88 348.20 L527.06 348.33 L528.25 348.46 L529.44 348.58 L530.62 348.70 L531.81 348.82 L533.00 348.93" stroke="#ac672e" stroke-width="3.6" fill="none" />
+<text x="534" y="405" text-anchor="end" font-family="serif" font-style="italic">X</text></g></svg>
+
+<p>两条曲线的中心都在零，总面积都为 1。热光的峰较低，读数分布得更宽。</p>
+</div>
 </div>
 </section>
 
@@ -2263,7 +2344,7 @@ b\text{ 端入射}\quad |\psi_b\rangle&amp;=u|1,0\rangle_{cd}+v|0,1\rangle_{cd}.
 <h1>锁定本振相位，一组读数给出一个点</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 10　光场的量子涨落</span><a href="#/l10-nav-phase" class>相位</a><a href="#/l10-nav-vacuum" class>真空涨落</a><a href="#/l10-nav-squeeze" class>压缩光</a><a href="#/l10-nav-readout" class="active">零拍探测</a><a href="#/l10-nav-loss" class>产生与损耗</a><a href="#/l10-nav-ligo" class>引力波探测</a></nav>
 <div class="s-body">
-<p>本振锁在 <span class="math inline">\(30^\circ\)</span>。每轮记下 <span class="math inline">\(D=n_c-n_d\)</span>，看看这些差值有多分散。</p>
+<p>本振相位锁在 <span class="math inline">\(30^\circ\)</span>，每轮本振平均有 <span class="math inline">\(|\beta|^2=400\)</span> 个光子。每轮记录计数差 <span class="math inline">\(D=n_c-n_d\)</span>。</p>
 <div class="sample-panels">
 <div class="sample-trials">
 <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 560 345" role="img" aria-label="固定30度时，1024轮模拟中的前16个计数差；每个点对应一轮。"><g fill="#344b58" font-family="sans-serif" font-size="21">
@@ -2300,10 +2381,10 @@ b\text{ 端入射}\quad |\psi_b\rangle&amp;=u|1,0\rangle_{cd}+v|0,1\rangle_{cd}.
   <span>样本方差 <b id="sample-variance"></b></span>
 </div>
 <div class="fragment scan-variance">
-<p>用真空作基准：场分量的方差为 <span class="math inline">\(1/4\)</span>，所以计数差的理论方差为 <span class="math inline">\(|\beta|^2\)</span>，本例取 <span class="math inline">\(400\)</span>。</p>
+<p>保持本振不变，信号端换成真空。代入真空场方差 <span class="math inline">\(1/4\)</span>，计数差的理论方差为 <span class="math inline">\(4|\beta|^2\times\frac14=400\)</span>。</p>
 </div>
 <div class="fragment register-point result">
-<p>用信号方差除以真空基准：<span class="math inline">\(R(30^\circ)\approx 486.1/400\approx 1.22\)</span>。这个方向的噪声比真空高约 22%。</p>
+<p>1024 轮信号读数给出样本方差 <span class="math inline">\(486.1\)</span>。除以真空基准 <span class="math inline">\(400\)</span>，得到 <span class="math inline">\(R(30^\circ)\approx1.22\)</span>，方差比真空高约 22%。</p>
 </div>
 </div>
 </section>
@@ -4473,8 +4554,8 @@ function makeSvg(tag,attr={},parent){const e=document.createElementNS(NS,tag);fo
 function label(parent,x,y,t,attr={}){const el=makeSvg('text',{x,y,fill:muted(),'font-size':19,...attr},parent);el.textContent=t;return el;}
 function path(parent,coords,stroke,width=2,extra={}){return makeSvg('path',{d:coords,fill:'none',stroke,'stroke-width':width,...extra},parent)}
 function clear(el){while(el.firstChild)el.removeChild(el.firstChild)}
-function meanWave(){const svg=$('fig-mean-wave');clear(svg);const left=60,right=678,top=24,bottom=202,middle=113,scale=75;
- for(let i=-1;i<=1;i++){const y=middle-i*scale;makeSvg('line',{x1:left,y1:y,x2:right,y2:y,stroke:line(),'stroke-width':i===0?1.8:1},svg);label(svg,42,y+5,String(i),{'text-anchor':'end'});}for(let j=0;j<=4;j++){const x=left+(right-left)*j/4;makeSvg('line',{x1:x,y1:top,x2:x,y2:bottom,stroke:line(),'stroke-width':0.75},svg);label(svg,x,221,['0','¼','½','¾','1'][j],{'text-anchor':'middle'});}label(svg,left,17,'平均电场 / 2ℰ₀');label(svg,right,239,'时间 / 周期',{'text-anchor':'end'});
+function meanWave(){const svg=$('fig-mean-wave');clear(svg);const left=47,right=536,top=38,bottom=220,middle=129,scale=88;
+ for(let i=-1;i<=1;i++){const y=middle-i*scale;makeSvg('line',{x1:left,y1:y,x2:right,y2:y,stroke:line(),'stroke-width':i===0?1.8:1},svg);label(svg,35,y+6,String(i),{'text-anchor':'end'});}for(let j=0;j<=4;j++){const x=left+(right-left)*j/4;makeSvg('line',{x1:x,y1:top,x2:x,y2:bottom,stroke:line(),'stroke-width':0.75},svg);label(svg,x,245,['0','¼','½','¾','1'][j],{'text-anchor':'middle'});}label(svg,left,24,'平均电场 / 2ℰ₀');label(svg,right,274,'时间 / 周期',{'text-anchor':'end'});
  for(const [f,c] of [[t=>Math.cos(t),blue()],[t=>Math.sin(t),warm()]]){let d='';for(let k=0;k<=200;k++){const x=left+(right-left)*k/200;const y=middle-scale*f(2*Math.PI*k/200);d+=(k===0?'M':'L')+x.toFixed(2)+' '+y.toFixed(2)+' ';}path(svg,d,c,3.2)}
  const readings=makeSvg('g',{'class':'pair-readings'},svg);
  path(readings,`M${left} ${middle-scale}V${middle}`,muted(),2,{'stroke-dasharray':'4 4'});
@@ -4509,53 +4590,69 @@ function phaseSpace(){const svg=$('phase-space');clear(svg);const cx=349,cy=145,
 function wireStates(){document.querySelectorAll('#state-modes [data-state]').forEach(b=>b.addEventListener('click',()=>{currentState=b.dataset.state;document.querySelectorAll('#state-modes [data-state]').forEach(x=>x.classList.toggle('active',x===b));phaseSpace();}));
  $('therm-n').addEventListener('input',phaseSpace);$('sq-r').addEventListener('input',phaseSpace);phaseSpace();}
 function wireCounts(){
- const slide=$('l10-count-bars'), plot=$('mean-counts'), angle=$('count-angle');
- const signalButtons=[...slide.querySelectorAll('[data-count-signal]')];
+ const slide=$('l10-count-bars'), angle=$('count-angle');
  const presets=[...slide.querySelectorAll('[data-count-angle]')];
- let selected='A';
- const y=count=>265-21.5*count;
+ const y=count=>204-16*count;
  const number=value=>Number(value.toFixed(2)).toString().replace('-','−');
- label(plot,43,25,'平均光子数',{'font-size':23,fill:ink()});
- for(let count=0;count<=10;count+=2){
-  path(plot,'M74 '+y(count)+'H643',count===0?'#879ca5':'#cdd7d9',count===0?1.8:1);
-  label(plot,58,y(count)+6,String(count),{'text-anchor':'end','font-size':20});
+ function chart(plot,signal,phase,readout){
+  label(plot,42,22,'平均光子数');
+  for(let count=0;count<=10;count+=2){
+   const baseline=count===0;
+   path(plot,'M45 '+y(count)+'H510',baseline?'#879ca5':'#cdd7d9',baseline?1.8:1);
+   label(plot,34,y(count)+6,String(count),{'text-anchor':'end'});
+  }
+  const bars=[{x:136,name:'c',color:blue()},{x:340,name:'d',color:warm()}].map(({x,name,color})=>{
+   const rect=makeSvg('rect',{x,width:76,fill:color},plot);
+   const value=label(plot,x+38,0,'',{'text-anchor':'middle','font-size':25,'font-weight':650,fill:ink()});
+   label(plot,x+38,230,name+' 路',{'text-anchor':'middle','font-size':22,fill:ink()});
+   return {rect,value};
+  });
+  return theta=>{
+   const difference=6*Math.cos((phase-theta)*Math.PI/180);
+   const nc=(10+difference)/2,nd=(10-difference)/2;
+   [nc,nd].forEach((count,i)=>{
+    bars[i].rect.setAttribute('y',y(count));bars[i].rect.setAttribute('height',y(0)-y(count));
+    bars[i].value.setAttribute('y',y(count)-8);bars[i].value.textContent=number(count);
+   });
+   readout.textContent=(difference>0.005?'+':'')+number(difference);
+   plot.setAttribute('aria-label','信号 '+signal+'，本振相位 '+theta+' 度，c 路平均 '+number(nc)+'，d 路平均 '+number(nd)+'，差值 '+number(difference)+'。');
+  };
  }
- const guides=makeSvg('g',{},plot);
- const bars=[{x:167,name:'c',color:blue()},{x:399,name:'d',color:warm()}].map(({x,name,color})=>{
-  const rect=makeSvg('rect',{x,width:106,fill:color},plot);
-  const value=label(plot,x+53,0,'',{'text-anchor':'middle','font-size':27,'font-weight':650,fill:ink()});
-  label(plot,x+53,303,name+' 路',{'text-anchor':'middle','font-size':24,fill:ink()});
-  const guide=path(guides,'',color,1.6,{'stroke-dasharray':'5 4'});
-  return {rect,value,guide,end:x+106};
- });
- const bracket=path(plot,'',ink(),2.5);
- label(plot,750,112,'平均计数差（c 路减 d 路）',{'font-size':22,fill:muted()});
- const signed=label(plot,750,180,'',{'font-size':57,'font-weight':650,fill:ink()});
- const subtraction=label(plot,752,220,'',{'font-size':23,fill:muted()});
+ const charts=[chart($('count-a'),'A',0,$('count-diff-a')),chart($('count-b'),'B',90,$('count-diff-b'))];
  function draw(){
   const theta=Number(angle.value);
-  const delta=6*Math.cos((theta-(selected==='A'?0:90))*Math.PI/180);
-  const nc=(10+delta)/2, nd=(10-delta)/2;
-  [nc,nd].forEach((count,i)=>{
-   const top=y(count),bar=bars[i];
-   bar.rect.setAttribute('y',top);bar.rect.setAttribute('height',y(0)-top);
-   bar.value.setAttribute('y',top-9);bar.value.textContent=number(count);
-   bar.guide.setAttribute('d','M'+bar.end+' '+top+'H672');
-  });
-  bracket.setAttribute('d','M662 '+y(nc)+'H674V'+y(nd)+'H662');
-  signed.textContent=(delta>.005?'+':'')+number(delta);
-  subtraction.textContent=number(nc)+' − '+number(nd);
+  charts.forEach(update=>update(theta));
   $('count-degrees').textContent=theta+'°';
-  plot.setAttribute('aria-label','信号 '+selected+'，本振相位 '+theta+' 度。c 路平均 '+number(nc)+'，d 路平均 '+number(nd)+'，差值 '+number(delta)+'。');
-  for(const button of signalButtons)button.setAttribute('aria-pressed',String(button.dataset.countSignal===selected));
   for(const button of presets)button.setAttribute('aria-pressed',String(Number(button.dataset.countAngle)===theta));
  }
- angle.addEventListener('input',draw);
- for(const button of signalButtons)button.addEventListener('click',()=>{selected=button.dataset.countSignal;draw()});
- for(const button of presets)button.addEventListener('click',()=>{angle.value=button.dataset.countAngle;draw()});
+ const play=$('count-play');
+ let frame=null;
+ function pause(){
+  cancelAnimationFrame(frame);
+  frame=null;
+  play.textContent='播放相位';
+ }
+ play.addEventListener('click',()=>{
+  if(frame!==null){pause();return;}
+  const start=Number(angle.value)===360?0:Number(angle.value);
+  const began=performance.now();
+  play.textContent='暂停';
+  function advance(now){
+   const theta=Math.min(360,start+Math.floor((now-began)*30/1000));
+   if(theta!==Number(angle.value)){angle.value=theta;draw();}
+   if(theta===360){pause();return;}
+   frame=requestAnimationFrame(advance);
+  }
+  frame=requestAnimationFrame(advance);
+ });
+ angle.addEventListener('pointerdown',pause);
+ angle.addEventListener('input',()=>{pause();draw();});
+ for(const button of presets)button.addEventListener('click',()=>{pause();angle.value=button.dataset.countAngle;draw();});
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
  new MutationObserver(()=>{
-  if(!slide.classList.contains('present')){selected='A';angle.value=0;draw()}
+  if(!slide.classList.contains('present')){pause();angle.value=0;draw();}
  }).observe(slide,{attributes:true,attributeFilter:['class']});
+ if(new URLSearchParams(location.search).get('pdf')==='1')slide.classList.add('count-print');
  draw();
 }
 
