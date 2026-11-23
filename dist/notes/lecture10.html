@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
+<head><!-- note-video:start --><link rel="stylesheet" href="../assets/notes/video-recap.css"><script defer src="../assets/notes/video-recap.js"></script><!-- note-video:end -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
@@ -89,6 +89,7 @@
 <p>要比较电场读数的起伏，先要弄清楚探测器怎样读出电场。第八讲用探测器数光子。对于两束强度相同、相位不同的相干光，这种测量给出相同的光子数分布，连它们的平均电场有何不同都看不出来。</p>
 <p>我们先用这两束相干光检验一种测法：让它们分别与同一束参考光在分束器上干涉，比较两个输出端的计数差。先看平均计数差能读出什么，再在相同条件下重复测量，看计数差在平均值附近怎样起伏。</p>
 <p>改变参考光的相位，就可以选择测量电场的不同分量。把每个分量的涨落与真空相比，就能辨认压缩光：选定参考光的相位，一个分量的读数可以比真空时更集中；把参考光的相位再调四分之一个周期，读数的起伏就会比真空时更大。引力波干涉仪利用压缩光降低读出噪声时，也要选对压缩的方向。</p>
+<p class="classroom-recap-link"><a href="../recaps/lecture10-20261123.html">课堂答题情况分析</a></p>
 </section>
 <section class="part" id="part1"><h2>1. 从光子数统计走向电场的相位信息</h2>
 <section class="lesson" id="s1"><h3>1.1 相同的光子数分布，不同的平均电场</h3>
@@ -216,7 +217,16 @@
       <div class="feedback" hidden aria-live="polite"></div>
     </div>
 <details class="optional"><summary>【选学推导】真空态 \(Y\) 分量方差与量子涨落</summary><div class="supplement-body"><p>由 \(\hat Y=(\hat a-\hat a^\dagger)/(2i)\)，</p><div class="equation">\[\hat Y^2=-\frac14\left[\hat a^2-\hat a\hat a^\dagger-\hat a^\dagger\hat a+(\hat a^\dagger)^2\right].\]</div><p>在真空态中，仅 \(\langle\hat a\hat a^\dagger\rangle_0=1\)，因此 \(\langle\hat Y^2\rangle_0=1/4\)。正交分量的零点噪声来自非对易关系，虽然真空态的光子数 \(n\) 一定是零，正交分量仍有非零方差。</p></div></details>
-</section></section>
+<!-- note-video:start --><aside class="note-video" id="video-coherent" aria-labelledby="video-coherent-title">
+<p class="note-video-meta">视频回顾 · 4 分 10 秒</p>
+<h4 id="video-coherent-title">从相干态到真空噪声</h4>
+<p class="note-video-prompt">撤去信号光后，观察两路计数之差怎样给出真空噪声基准。</p>
+<div class="note-video-player">
+<video controls playsinline preload="none" width="1280" height="720" aria-labelledby="video-coherent-title" poster="../slides/assets/video/part1-poster.jpg" src="../slides/assets/video/part1.mp4"></video>
+<button type="button" class="note-video-start" aria-label="播放：从相干态到真空噪声" hidden></button>
+</div>
+<a class="note-video-next" href="#part3">继续阅读 · 从热态的噪声比较到压缩光 →</a>
+</aside><!-- note-video:end --></section></section>
 <section class="part" id="part3"><h2>3. 从热态的噪声比较到压缩光</h2>
 <section class="lesson" id="s7"><h3>3.1 单模热态的正交分量方差</h3>
 <p>第八讲已经推导过单模热态的光子数分布。它的密度矩阵在Fock基底中是对角的：</p>
@@ -387,7 +397,16 @@
       <div class="quiz-actions"><button type="button" class="primary-btn" data-quiz-submit>提交答案</button><button type="button" class="ghost-btn" data-quiz-reset>重新作答</button></div>
       <div class="feedback" hidden aria-live="polite"></div>
     </div>
-</section>
+<!-- note-video:start --><aside class="note-video" id="video-interferometer" aria-labelledby="video-interferometer-title">
+<p class="note-video-meta">视频回顾 · 5 分 11 秒</p>
+<h4 id="video-interferometer-title">引力波科普</h4>
+<p class="note-video-prompt">观察引力波经过时，两臂返回的光怎样在输出端留下干涉信号。</p>
+<div class="note-video-player">
+<video controls playsinline preload="none" width="1280" height="720" aria-labelledby="video-interferometer-title" poster="../slides/assets/video/gravitational-waves-poster.jpg" src="../slides/assets/video/gravitational-waves.mp4"></video>
+<button type="button" class="note-video-start" aria-label="播放：引力波科普" hidden></button>
+</div>
+<a class="note-video-next" href="#s15">继续阅读 · 全讲回顾 →</a>
+</aside><!-- note-video:end --></section>
 <section class="lesson" id="s15"><h3>6.2 全讲回顾：从光子统计到噪声控制</h3>
 <p>回到真空涨落的问题。同样测量一个电场分量，压缩态的读数可以比真空态更集中。真空能量最低与此并不矛盾，因为另一个正交分量的涨落增大了。</p>
 <div class="summary-lines">
@@ -403,7 +422,16 @@
 <li>J. Aasi et al., “Enhanced sensitivity of the LIGO gravitational wave detector by using squeezed states of light,” <em>Nature Photonics</em> <strong>7</strong>, 613 (2013). <a href="https://doi.org/10.1038/nphoton.2013.177" target="_blank" rel="noopener">DOI</a></li>
 <li>D. Ganapathy et al., “Broadband Quantum Enhancement of the LIGO Detectors with Frequency-Dependent Squeezing,” <em>Phys. Rev. X</em> <strong>13</strong>, 041021 (2023). <a href="https://doi.org/10.1103/PhysRevX.13.041021" target="_blank" rel="noopener">DOI</a></li>
 </ol></div></details>
-</section></section>
+<!-- note-video:start --><aside class="note-video" id="video-squeezing" aria-labelledby="video-squeezing-title">
+<p class="note-video-meta">视频回顾 · 5 分 00 秒</p>
+<h4 id="video-squeezing-title">从真空基准到压缩光</h4>
+<p class="note-video-prompt">跟随同一组计数差，看一个相位上的读数怎样成为噪声曲线上的一点。</p>
+<div class="note-video-player">
+<video controls playsinline preload="none" width="1280" height="720" aria-labelledby="video-squeezing-title" poster="../slides/assets/video/part2-poster.jpg" src="../slides/assets/video/part2.mp4"></video>
+<button type="button" class="note-video-start" aria-label="播放：从真空基准到压缩光" hidden></button>
+</div>
+<a class="note-video-next" href="#s11">继续阅读 · 用相位扫描核对噪声曲线 →</a>
+</aside><!-- note-video:end --></section></section>
 <footer class="footer"><p>《量子光学导论》 · 第十讲：光场的量子涨落——从相干态到压缩光</p>
 <p>课程网站：<a href="https://zimin.li/quantum-optics/">zimin.li/quantum-optics</a> · <a href="https://zimin.li/quantum-optics/notes/lecture08.html">第八讲</a> · <a href="https://zimin.li/quantum-optics/notes/lecture09.html">第九讲</a></p>
 </footer>

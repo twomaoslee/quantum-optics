@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="第十讲课后回顾：回看两支课时短片与引力波科普视频。">
+  <title>第十讲 · 视频回顾 | 量子光学</title>
+  <link rel="stylesheet" href="../site.css?v=title-enter-3">
+  <style>
+    .video-heading {
+      padding: clamp(28px, 5vw, 56px) 0 24px;
+      border-bottom: 2px solid var(--deep);
+    }
+    .video-heading h1 { font-size: clamp(1.9rem, 4vw, 2.8rem); margin-bottom: 12px; }
+    .video-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px;
+      padding: 28px 0 44px;
+    }
+    .video-list h2 { font-size: 1.2rem; }
+    .video-list p { color: var(--muted); margin: 6px 0 14px; }
+    .video-list video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--deep);
+    }
+    @media (min-width: 781px) {
+      .video-list { row-gap: 0; }
+      .video-list > section {
+        display: grid;
+        grid-row: span 3;
+        grid-template-rows: subgrid;
+      }
+    }
+    @media (max-width: 780px) {
+      .video-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">跳至视频</a>
+  <header>
+    <div class="shell topbar">
+      <a class="brand" href="../index.html" aria-label="量子光学课程首页">
+        <img src="../assets/csu-logo.png" alt="中南大学"><span>课程资料</span>
+      </a>
+      <nav aria-label="课程资料">
+        <a href="../index.html#lecture10">返回第十讲资料</a>
+      </nav>
+    </div>
+  </header>
+  <main class="shell" id="main">
+    <div class="video-heading">
+      <p class="eyebrow">第十讲 · 光场的量子涨落</p>
+      <h1>课后回顾视频</h1>
+      <p class="lede">两支课时短片串起真空噪声的测量与压缩光的应用，引力波科普片展示干涉仪如何读出臂长差。</p>
+    </div>
+    <div class="video-list">
+      <section data-note-section="s6" data-next="part3" data-next-label="从热态的噪声比较到压缩光" data-prompt="撤去信号光后，观察两路计数之差怎样给出真空噪声基准。">
+        <h2 id="coherent-title">从相干态到真空噪声</h2>
+        <p>4 分 10 秒 · 转动本振读出平均电场，再用重复测量的计数差比较真空与相干光的涨落。</p>
+        <video controls playsinline preload="none" aria-labelledby="coherent-title"
+               src="../slides/assets/video/part1.mp4"
+               poster="../slides/assets/video/part1-poster.jpg"></video>
+      </section>
+      <section data-note-section="s15" data-next="s11" data-next-label="用相位扫描核对噪声曲线" data-prompt="跟随同一组计数差，看一个相位上的读数怎样成为噪声曲线上的一点。">
+        <h2 id="squeezing-title">从真空基准到压缩光</h2>
+        <p>5 分 00 秒 · 从真空圆、压缩椭圆和本振相位扫描，回到损耗与引力波探测。</p>
+        <video controls playsinline preload="none" aria-labelledby="squeezing-title"
+               src="../slides/assets/video/part2.mp4"
+               poster="../slides/assets/video/part2-poster.jpg"></video>
+      </section>
+      <section data-note-section="s14" data-next="s15" data-next-label="全讲回顾" data-prompt="观察引力波经过时，两臂返回的光怎样在输出端留下干涉信号。">
+        <h2 id="interferometer-title">引力波科普</h2>
+        <p>5 分 11 秒 · 课堂配套科普片，联系引力波、臂长差与干涉读出。</p>
+        <video controls playsinline preload="none" aria-labelledby="interferometer-title"
+               src="../slides/assets/video/gravitational-waves.mp4"
+               poster="../slides/assets/video/gravitational-waves-poster.jpg"></video>
+      </section>
+    </div>
+  </main>
+  <footer><div class="shell"><span>中南大学 · 量子光学 · 2026 秋季</span><a href="../index.html#lecture10">返回第十讲资料 ↑</a></div></footer>
+  <script>
+    const recapVideos = document.querySelectorAll('.video-list video');
+    for (const video of recapVideos) {
+      video.addEventListener('play', () => {
+        if (video.paused) return;
+        for (const other of recapVideos) {
+          if (other !== video && !other.paused) other.pause();
+        }
+      });
+    }
+  </script>
+</body>
+</html>

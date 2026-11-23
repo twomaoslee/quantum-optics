@@ -74,11 +74,19 @@
       "output": "recaps/lecture09-20261116.html",
       "acceptance": "recaps/lecture09-20261116.release.json",
       "notes_recap_anchor": "intro"
+    },
+    "10": {
+      "data": "recaps/lecture10-20261123.json",
+      "editorial": "recaps/lecture10-20261123.editorial.json",
+      "output": "recaps/lecture10-20261123.html",
+      "acceptance": "recaps/lecture10-20261123.release.json",
+      "notes_recap_anchor": "intro"
     }
   },
   "video_recaps": {
     "8": "recaps/lecture08-videos.html",
-    "9": "recaps/lecture09-videos.html"
+    "9": "recaps/lecture09-videos.html",
+    "10": "recaps/lecture10-videos.html"
   },
   "slide_source_directories": {
     "8": "quantum-slides/lectures/lecture08",

@@ -81,8 +81,9 @@ def comparison_table(table):
             f'<thead><tr>{headers}</tr></thead><tbody>{rows}</tbody></table>')
 
 
-def render(data, editorial):
+def render(data, editorial, *, include_pdf=True):
     lecture = f'lecture{data["lecture"]:02d}'
+    pdf_link = f'<a href="../downloads/{lecture}-slides.pdf">PDF</a>' if include_pdf else ''
     held = date.fromisoformat(data['date'])
     description = editorial.get('description', '第七讲光场量子化课堂答题情况分析：匿名答题统计、AI辅助复盘、关键关系与课后自查。')
     analysis_description = editorial.get('analysis_description')
@@ -154,7 +155,7 @@ def render(data, editorial):
 <meta name="description" content="{escape(description, quote=True)}">
 <title>{escape(editorial['title'])} · 量子光学</title><link rel="stylesheet" href="review.css?v=choice-summary"><link rel="stylesheet" href="../classroom/vendor/katex/katex.min.css">
 <script defer src="../classroom/vendor/katex/katex.min.js"></script><script defer src="review.js?v=choice-charts"></script></head><body>
-<a class="skip-link" href="#main">跳到正文</a><header><div class="topbar"><a class="brand" href="../index.html"><img src="../assets/csu-logo.png" alt="中南大学"><span>量子光学</span></a><nav aria-label="课程资料"><a href="../notes/{lecture}.html">讲义</a><a href="../slides/{lecture}.html">课件</a><a href="../downloads/{lecture}-slides.pdf">PDF</a></nav></div></header>
+<a class="skip-link" href="#main">跳到正文</a><header><div class="topbar"><a class="brand" href="../index.html"><img src="../assets/csu-logo.png" alt="中南大学"><span>量子光学</span></a><nav aria-label="课程资料"><a href="../notes/{lecture}.html">讲义</a><a href="../slides/{lecture}.html">课件</a>{pdf_link}</nav></div></header>
 <main id="main"><section class="opening"><p class="eyebrow">{held.year} 秋季 · {held.month} 月 {held.day} 日</p><h1>{escape(editorial['title'])}</h1><p class="subtitle">{escape(editorial['subtitle'])}</p><p class="intro">{escape(editorial['intro'])}</p>
 <ul class="scope"><li>{data['participants']} 个账号参与</li><li>{data['submissions']} 份答案计入统计</li><li>{data['roundCount']} 轮作答</li><li>思考题 1—{len(data["questions"])}</li></ul>
 </section>
@@ -191,7 +192,7 @@ def sync_recaps(site):
         for relative, expected in release['sources'].items():
             if hashlib.sha256((site / relative).read_bytes()).hexdigest() != expected:
                 raise ValueError('Reviewed recap source changed: ' + relative)
-        html = render(data, editorial)
+        html = render(data, editorial, include_pdf=int(number) in config['published_pdf_lectures'])
         if hashlib.sha256(html.encode()).hexdigest() != release['html_sha256']:
             raise ValueError('Reviewed recap output changed')
         output = site / 'dist' / entry['output']

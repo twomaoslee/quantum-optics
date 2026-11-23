@@ -1018,6 +1018,26 @@ gap: 12px 30px; align-items: center;
 .reveal .count-phase output { text-align:center; }
 .reveal .count-print .count-phase :is(button,input,.count-presets) { display:none; }
 .reveal .count-print .count-phase { justify-content:center; }
+.reveal #l10-ellipse .s-body { justify-content: space-between; gap: 8px; }
+.reveal .state-comparison { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.reveal .state-panel { --contour: #12699e; min-width: 0; padding: 4px 9px; text-align: center; }
+.reveal .state-panel + .state-panel { border-left: 1px solid #cfdae0; }
+.reveal .state-thermal { --contour: #a15c28; }
+.reveal .state-squeezed { --contour: #724f92; }
+.reveal .state-panel h3 { margin: 0; font-size: 30px; color: var(--contour); }
+.reveal .state-setting { height: 65px; display: flex; justify-content: center; align-items: center; gap: 9px; font-size: 22px; }
+.reveal .coherent-inputs { display: grid; grid-template-columns: auto auto; gap: 0 9px; align-content: center; }
+.reveal .coherent-inputs label { text-align: right; font-variant-numeric: tabular-nums; }
+.reveal .coherent-inputs output { display: inline-block; min-width: 2.6em; }
+.reveal .state-setting input { width: 93px; accent-color: var(--contour); }
+.reveal .state-panel > svg { display: block; width: 100%; height: 222px; }
+.state-axes { fill: none; stroke: #94a7b1; stroke-width: 1.2; }
+.state-axis-label { fill: #546c7d; font: italic 17px Georgia, serif; }
+.state-reference { fill: none; stroke: #5d6e79; stroke-width: 1.8; stroke-dasharray: 4 4; }
+.state-outline { fill: var(--contour); fill-opacity: .12; stroke: var(--contour); stroke-width: 3; }
+.state-radii { fill: none; stroke: var(--contour); stroke-width: 1.5; }
+.state-center { fill: #172d3d; }
+.reveal .state-widths { font-size: 22px; white-space: nowrap; font-variant-numeric: tabular-nums; }
 </style>
   <style type="text/css">.reveal
 div.sourceCode
@@ -2275,15 +2295,71 @@ P(n)=\frac{\bar n^{n}}{(1+\bar n)^{n+1}}.\]</span></div>
 <h1>用中心和半轴比较四种光场</h1>
 <nav class="s-nav"><span class="lecture-label">量子光学 / 10　光场的量子涨落</span><a href="#/l10-nav-phase" class>相位</a><a href="#/l10-nav-vacuum" class>真空涨落</a><a href="#/l10-nav-squeeze" class="active">压缩光</a><a href="#/l10-nav-readout" class>零拍探测</a><a href="#/l10-nav-loss" class>产生与损耗</a><a href="#/l10-nav-ligo" class>引力波探测</a></nav>
 <div class="s-body">
-<p>图中一点标出两个均值，两条半轴分别标出标准差。切换状态，与虚线的真空圆比较。</p>
-<div class="activity-grid course-interactive"><div class="plot"><svg id="phase-space" viewbox="105 0 490 310" role="img" aria-label="统一的正交分量噪声示意：真空圆、相干态平移圆、热态扩张圆、压缩椭圆，可切换状态"></svg></div><div class="lab-inputs"><div class="seg-controls" id="state-modes" aria-label="选择光场状态"><button class="active" data-state="vacuum" type="button">真空态</button><button data-state="coherent" type="button">相干态</button><button data-state="thermal" type="button">单模热态</button><button data-state="squeezed" type="button">压缩真空</button></div>
+<p>黑点标出中心 <span class="math inline">\((\langle X\rangle,\langle Y\rangle)\)</span>，水平与竖直半轴分别是 <span class="math inline">\(\Delta X\)</span> 和 <span class="math inline">\(\Delta Y\)</span>。虚线圆标出真空宽度。</p>
+<div class="state-comparison course-interactive">
+  <div class="state-panel state-vacuum">
+    <h3>真空态</h3>
+    <div class="state-setting">真空基准</div>
+    <svg viewbox="0 0 242 218" role="img" aria-label="真空态的正交分量噪声轮廓">
+      <path class="state-axes" d="M12 114H232 M109 202V12" />
+      <g class="state-axis-label"><text x="227" y="135">X</text><text x="91" y="22">Y</text></g>
+      <circle class="state-reference" cx="109" cy="114" r="32.5"></circle>
+      <ellipse class="state-outline" cx="109" cy="114" rx="32.500000" ry="32.500000"></ellipse>
+      <path class="state-radii" d="M141.500000 114H109V81.500000" />
+      <circle class="state-center" cx="109" cy="114" r="3.4"></circle>
+    </svg>
+    <div class="state-widths">\((\Delta X,\Delta Y)\) = <span>(0.50, 0.50)</span></div>
+  </div>
+  <div class="state-panel state-coherent fragment" data-fragment-index="0">
+    <h3>相干态</h3>
+    <div class="state-setting coherent-inputs">
+      <label for="coherent-real">\(\operatorname{Re}\alpha\) = <output for="coherent-real">1.00</output></label>
+      <input id="coherent-real" aria-label="相干振幅的实部" type="range" min="-1" max="1" step="0.05" value="1">
+      <label for="coherent-imag">\(\operatorname{Im}\alpha\) = <output for="coherent-imag">0.65</output></label>
+      <input id="coherent-imag" aria-label="相干振幅的虚部" type="range" min="-1" max="1" step="0.05" value="0.65">
+    </div>
+    <svg viewbox="0 0 242 218" role="img" aria-label="相干态的正交分量噪声轮廓">
+      <path class="state-axes" d="M12 114H232 M109 202V12" />
+      <g class="state-axis-label"><text x="227" y="135">X</text><text x="91" y="22">Y</text></g>
+      <circle class="state-reference" cx="109" cy="114" r="32.5"></circle>
+      <g class="coherent-contour" transform="translate(174 71.75)">
+        <ellipse class="state-outline" cx="0" cy="0" rx="32.5" ry="32.5"></ellipse>
+        <path class="state-radii" d="M32.5 0H0V-32.5" />
+        <circle class="state-center" cx="0" cy="0" r="3.4"></circle>
+      </g>
+    </svg>
+    <div class="state-widths">\((\Delta X,\Delta Y)\) = <span>(0.50, 0.50)</span></div>
+  </div>
+  <div class="state-panel state-thermal fragment" data-fragment-index="1">
+    <h3>单模热态</h3>
+    <div class="state-setting"><label for="therm-n">\(\bar n\) = <output for="therm-n">1.0</output></label><input id="therm-n" aria-label="单模热态的平均光子数" type="range" min="0" max="2" step="0.1" value="1.0"></div>
+    <svg viewbox="0 0 242 218" role="img" aria-label="单模热态的正交分量噪声轮廓">
+      <path class="state-axes" d="M12 114H232 M109 202V12" />
+      <g class="state-axis-label"><text x="227" y="135">X</text><text x="91" y="22">Y</text></g>
+      <circle class="state-reference" cx="109" cy="114" r="32.5"></circle>
+      <ellipse class="state-outline" cx="109" cy="114" rx="56.291651" ry="56.291651"></ellipse>
+      <path class="state-radii" d="M165.291651 114H109V57.708349" />
+      <circle class="state-center" cx="109" cy="114" r="3.4"></circle>
+    </svg>
+    <div class="state-widths">\((\Delta X,\Delta Y)\) = <span>(0.87, 0.87)</span></div>
+  </div>
+  <div class="state-panel state-squeezed fragment" data-fragment-index="2">
+    <h3>压缩真空</h3>
+    <div class="state-setting"><label for="sq-r">\(r\) = <output for="sq-r">0.50</output></label><input id="sq-r" aria-label="压缩真空的压缩参数" type="range" min="0" max="0.8" step="0.05" value="0.50"></div>
+    <svg viewbox="0 0 242 218" role="img" aria-label="压缩真空的正交分量噪声轮廓">
+      <path class="state-axes" d="M12 114H232 M109 202V12" />
+      <g class="state-axis-label"><text x="227" y="135">X</text><text x="91" y="22">Y</text></g>
+      <circle class="state-reference" cx="109" cy="114" r="32.5"></circle>
+      <ellipse class="state-outline" cx="109" cy="114" rx="19.712246" ry="53.583441"></ellipse>
+      <path class="state-radii" d="M128.712246 114H109V60.416559" />
+      <circle class="state-center" cx="109" cy="114" r="3.4"></circle>
+    </svg>
+    <div class="state-widths">\((\Delta X,\Delta Y)\) = <span>(0.30, 0.82)</span></div>
+  </div>
+</div>
 
-<div class="control-row" id="therm-control" hidden><label class="control-label" for="therm-n">热态平均光子数</label><div class="range-wrap"><input id="therm-n" type="range" min="0" max="2" step="0.1" value="1"><span class="val-chip" id="therm-n-value">1.0</span></div></div>
-<div class="control-row" id="sq-control" hidden><label class="control-label" for="sq-r">压缩参数 \(r\)</label><div class="range-wrap"><input id="sq-r" type="range" min="0" max="0.8" step="0.05" value="0.50"><span class="val-chip" id="sq-r-value">0.50</span></div></div>
-<div class="stat-grid"><div class="stat"><div class="stat-label">中心：\(\langle X\rangle,\langle Y\rangle\)</div><div class="stat-number" id="ph-center">(0, 0)</div></div><div class="stat"><div class="stat-label">标准差：\(\Delta X,\Delta Y\)</div><div class="stat-number" id="ph-width">(0.50, 0.50)</div></div></div></div></div>
-
-<div class="fragment result">
-<p>相干光移动中心，热光把圆撑大，压缩真空把圆变成椭圆。半轴表示分别测量两个分量得到的宽度。</p>
+<div class="fragment result" data-fragment-index="2">
+<p>相干态移动圆心，热态沿两轴等量变宽。压缩真空的中心仍在原点，一轴窄于真空，另一轴宽于真空。</p>
 </div>
 </div>
 </section>
@@ -4565,30 +4641,50 @@ function meanWave(){const svg=$('fig-mean-wave');clear(svg);const left=47,right=
   label(readings,left+10,y+22,name,{'font-size':19,'font-weight':700,fill:stroke});
  }
 }
-let currentState='vacuum';
-function phaseSpace(){const svg=$('phase-space');clear(svg);const cx=349,cy=145,scale=100;let mx=0,my=0,sx=.5,sy=.5,caption='真空态';
- const th=$('therm-control'),sq=$('sq-control');th.hidden=currentState!=='thermal';sq.hidden=currentState!=='squeezed';
- if(currentState==='coherent'){mx=1;my=.65;caption='相干态 α = 1 + 0.65i';}
- if(currentState==='thermal'){const n=Number($('therm-n').value);sx=sy=Math.sqrt(2*n+1)/2;caption='单模热态';$('therm-n-value').textContent=n.toFixed(1);}
- if(currentState==='squeezed'){const r=Number($('sq-r').value);sx=.5*Math.exp(-r);sy=.5*Math.exp(r);caption='压缩真空态';$('sq-r-value').textContent=r.toFixed(2);}
- makeSvg('line',{x1:121,y1:cy,x2:585,y2:cy,stroke:muted(),'stroke-width':1.5},svg);
- makeSvg('line',{x1:cx,y1:13,x2:cx,y2:274,stroke:muted(),'stroke-width':1.5},svg);
- label(svg,580,cy+23,'X');label(svg,cx-10,19,'Y',{'text-anchor':'end'});
- makeSvg('circle',{cx,cy,r:scale/2,fill:'none',stroke:muted(),'stroke-width':1.7,'stroke-dasharray':'6 5',opacity:.8},svg);
- if(mx!==0||my!==0){makeSvg('line',{x1:cx,y1:cy,x2:cx+mx*scale,y2:cy-my*scale,stroke:muted(),'stroke-width':1.6,'stroke-dasharray':'4 5'},svg);}
- const ex=cx+mx*scale,ey=cy-my*scale;
- makeSvg('ellipse',{cx:ex,cy:ey,rx:sx*scale,ry:sy*scale,fill:currentState==='thermal'?warm():currentState==='squeezed'?purple():blue(),'fill-opacity':.13,stroke:currentState==='thermal'?warm():currentState==='squeezed'?purple():blue(),'stroke-width':2.7},svg);
- makeSvg('circle',{cx:ex,cy:ey,r:3.5,fill:ink()},svg);
- makeSvg('line',{x1:ex,y1:ey,x2:ex+sx*scale,y2:ey,stroke:blue(),'stroke-width':1.8},svg);
- makeSvg('line',{x1:ex,y1:ey,x2:ex,y2:ey-sy*scale,stroke:blue(),'stroke-width':1.8},svg);
- label(svg,ex+sx*scale+8,ey-7,'ΔX',{'font-size':17});label(svg,ex+9,Math.max(22,ey-sy*scale-8),'ΔY',{'font-size':17});
- label(svg,113,303,caption,{'font-weight':700,fill:ink()});
- label(svg,590,303,'虚线：真空基准',{'font-size':17,'text-anchor':'end'});
- $('ph-center').textContent=`(${mx.toFixed(2)}, ${my.toFixed(2)})`;
- $('ph-width').textContent=`(${sx.toFixed(2)}, ${sy.toFixed(2)})`;
+function wireStates(){
+ const real = $('coherent-real');
+ const imag = $('coherent-imag');
+ const panel = real.closest('.state-panel');
+ const reference = panel.querySelector('.state-reference');
+ const contour = panel.querySelector('.coherent-contour');
+ function moveCoherentCenter(){
+  const scale = 2 * reference.r.baseVal.value;
+  const cx = reference.cx.baseVal.value + scale * real.valueAsNumber;
+  const cy = reference.cy.baseVal.value - scale * imag.valueAsNumber;
+  contour.setAttribute('transform', `translate(${cx} ${cy})`);
+  for(const input of [real, imag]){
+   panel.querySelector(`output[for="${input.id}"]`).value = input.valueAsNumber.toFixed(2);
+  }
+ }
+ real.addEventListener('input', moveCoherentCenter);
+ imag.addEventListener('input', moveCoherentCenter);
+ moveCoherentCenter();
+ const bindWidths = (id, digits, widths) => {
+  const input = $(id);
+  const panel = input.closest('.state-panel');
+  const outline = panel.querySelector('.state-outline');
+  const reference = panel.querySelector('.state-reference');
+  const scale = 2 * reference.r.baseVal.value;
+  const cx = outline.cx.baseVal.value;
+  const cy = outline.cy.baseVal.value;
+  function update(){
+   const value = Number(input.value);
+   const [sx, sy] = widths(value);
+   outline.setAttribute('rx', sx * scale);
+   outline.setAttribute('ry', sy * scale);
+   panel.querySelector('.state-radii').setAttribute('d', `M${cx + sx * scale} ${cy}H${cx}V${cy - sy * scale}`);
+   panel.querySelector('output').value = value.toFixed(digits);
+   panel.querySelector('.state-widths span').textContent = `(${sx.toFixed(2)}, ${sy.toFixed(2)})`;
+  }
+  input.addEventListener('input', update);
+  update();
+ };
+ bindWidths('therm-n', 1, n => {
+  const width = Math.sqrt(2 * n + 1) / 2;
+  return [width, width];
+ });
+ bindWidths('sq-r', 2, r => [Math.exp(-r) / 2, Math.exp(r) / 2]);
 }
-function wireStates(){document.querySelectorAll('#state-modes [data-state]').forEach(b=>b.addEventListener('click',()=>{currentState=b.dataset.state;document.querySelectorAll('#state-modes [data-state]').forEach(x=>x.classList.toggle('active',x===b));phaseSpace();}));
- $('therm-n').addEventListener('input',phaseSpace);$('sq-r').addEventListener('input',phaseSpace);phaseSpace();}
 function wireCounts(){
  const slide=$('l10-count-bars'), angle=$('count-angle');
  const presets=[...slide.querySelectorAll('[data-count-angle]')];

@@ -1,0 +1,28 @@
+{
+  "lecture": 10,
+  "date": "2026-11-23",
+  "authorization": "教师要求同步第十讲课件、视频和本次课堂答题情况。",
+  "scope": "正式课堂思考题1至6的匿名汇总、逐题复盘、讲义和搜索入口。",
+  "dimensions": {
+    "understanding": "passed",
+    "physics": "passed",
+    "data": "passed",
+    "visuals": "passed",
+    "browser_operation": "passed"
+  },
+  "sources": {
+    "recaps/lecture10-20261123.json": "170584ef80575d9f5d5bab73a0aee61cab2ea7c62d1c3327bb848fae17cde4f2",
+    "recaps/lecture10-20261123.editorial.json": "a5302be1fc2eb1b98da170a35a87a2882909c32d6496b11c8d2074035379ed82",
+    "scripts/recaps.py": "93ae48cc2c0a753815670ccc9ee3b0181f80d460226e08a6d7d970125311fa2d",
+    "recaps/review.css": "b82df125e545532d4e711a6a7fbee11d1e1d822c64898f16fc3b6d9dfaa215bb",
+    "recaps/review.js": "41f7a3d7a5d6fa626ce778470a2e8f22540f5c8b3a1cea076caf3926c630feb9"
+  },
+  "html_sha256": "e6ab40b773f38e5494e164d31e930f587256cab76eeac1ff0743addbd96ad4a9",
+  "evidence_summary": {
+    "understanding": "独立本科生视角冷读导语、总览和六题，复述相干态与压缩态的中心、半轴和方差。",
+    "physics": "核对相干态计数、相位差、标准差乘积及热态和压缩态方差倍数。",
+    "data": "核对教师导出的正式场次六轮、每轮去重与选项正误，90份提交中的82份答对，58份有选填理由。公开材料仅使用匿名计数及题库。",
+    "visuals": "桌面与375像素窄屏验证六张逐题图表和数学排版，检查窄屏第4题画面。",
+    "browser_operation": "验证总览可跳到第4题，第4题可返回讲义对应题目。"
+  }
+}

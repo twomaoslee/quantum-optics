@@ -1,7 +1,7 @@
 ﻿光场的量子涨落：从相干态到压缩光
 原网页：https://zimin.li/quantum-optics/notes/lecture10.html
-文本更新时间：2026-11-21T22:58:23+08:00
-正文版本：5720e7bbd2be45ec
+文本更新时间：2026-11-23T13:38:32+08:00
+正文版本：a9c9d149918aabbc
 格式：UTF-8纯文本，数学公式保留LaTeX。含原文选学与答案；图片和互动仅保留说明及可用链接，完整图示见原网页。
 
 QUANTUM OPTICS · 2026 秋季 · 第十讲
@@ -19,6 +19,8 @@ QUANTUM OPTICS · 2026 秋季 · 第十讲
 我们先用这两束相干光检验一种测法：让它们分别与同一束参考光在分束器上干涉，比较两个输出端的计数差。先看平均计数差能读出什么，再在相同条件下重复测量，看计数差在平均值附近怎样起伏。
 
 改变参考光的相位，就可以选择测量电场的不同分量。把每个分量的涨落与真空相比，就能辨认压缩光：选定参考光的相位，一个分量的读数可以比真空时更集中；把参考光的相位再调四分之一个周期，读数的起伏就会比真空时更大。引力波干涉仪利用压缩光降低读出噪声时，也要选对压缩的方向。
+
+课堂答题情况分析 (https://zimin.li/quantum-optics/recaps/lecture10-20261123.html)
 
 ## 1. 从光子数统计走向电场的相位信息
 
@@ -241,6 +243,16 @@ D. 两个方向的均值仍为零，方差同时增大。
 \[\hat Y^2=-\frac14\left[\hat a^2-\hat a\hat a^\dagger-\hat a^\dagger\hat a+(\hat a^\dagger)^2\right].\]
 
 在真空态中，仅 \(\langle\hat a\hat a^\dagger\rangle_0=1\)，因此 \(\langle\hat Y^2\rangle_0=1/4\)。正交分量的零点噪声来自非对易关系，虽然真空态的光子数 \(n\) 一定是零，正交分量仍有非零方差。
+
+视频回顾 · 4 分 10 秒
+
+#### 从相干态到真空噪声
+
+撤去信号光后，观察两路计数之差怎样给出真空噪声基准。
+
+[图像或互动，参见原网页] (https://zimin.li/quantum-optics/slides/assets/video/part1.mp4)
+
+继续阅读 · 从热态的噪声比较到压缩光 → (https://zimin.li/quantum-optics/notes/lecture10.html#part3)
 
 ## 3. 从热态的噪声比较到压缩光
 
@@ -564,6 +576,16 @@ D. 因为本振越强，就能同时把两个正交分量压缩到零。
 参考答案（原网页提交后显示）：B
 解析：高频散粒噪声和低频辐射压相关的量子反作用具有不同的噪声优化要求；频率依赖压缩通过旋转噪声椭圆来兼顾它们。
 
+视频回顾 · 5 分 11 秒
+
+#### 引力波科普
+
+观察引力波经过时，两臂返回的光怎样在输出端留下干涉信号。
+
+[图像或互动，参见原网页] (https://zimin.li/quantum-optics/slides/assets/video/gravitational-waves.mp4)
+
+继续阅读 · 全讲回顾 → (https://zimin.li/quantum-optics/notes/lecture10.html#s15)
+
 ### 6.2 全讲回顾：从光子统计到噪声控制
 
 回到真空涨落的问题。同样测量一个电场分量，压缩态的读数可以比真空态更集中。真空能量最低与此并不矛盾，因为另一个正交分量的涨落增大了。
@@ -587,3 +609,13 @@ D. 因为本振越强，就能同时把两个正交分量压缩到零。
 - J. Aasi et al., “Enhanced sensitivity of the LIGO gravitational wave detector by using squeezed states of light,” Nature Photonics 7, 613 (2013). DOI (https://doi.org/10.1038/nphoton.2013.177)
 
 - D. Ganapathy et al., “Broadband Quantum Enhancement of the LIGO Detectors with Frequency-Dependent Squeezing,” Phys. Rev. X 13, 041021 (2023). DOI (https://doi.org/10.1103/PhysRevX.13.041021)
+
+视频回顾 · 5 分 00 秒
+
+#### 从真空基准到压缩光
+
+跟随同一组计数差，看一个相位上的读数怎样成为噪声曲线上的一点。
+
+[图像或互动，参见原网页] (https://zimin.li/quantum-optics/slides/assets/video/part2.mp4)
+
+继续阅读 · 用相位扫描核对噪声曲线 → (https://zimin.li/quantum-optics/notes/lecture10.html#s11)

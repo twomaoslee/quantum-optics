@@ -1,6 +1,6 @@
 {
   "format_version": 1,
-  "updated_at": "2026-11-21T22:58:23+08:00",
+  "updated_at": "2026-11-23T13:38:32+08:00",
   "documents": [
     {
       "id": "outline",
@@ -106,11 +106,11 @@
       "id": "lecture10",
       "title": "光场的量子涨落：从相干态到压缩光",
       "source": "notes/lecture10.html",
-      "source_sha256": "06d48dfd938aa814369696dcee7651af581a7ff535723f83949d9727da97600c",
+      "source_sha256": "ce40e835d2c8664ebed005d1942451d0222ff048186d21e2ae014c42334f3c3d",
       "text": "text/lecture10.txt",
-      "text_sha256": "5720e7bbd2be45ecd80a436d385a53cce4b59bd020e5474b120599d099c210fa",
-      "file_sha256": "f12e82687005c6c2f78d9f9d5df55c8e70038ec7f536db5a710a59987986dd54",
-      "updated_at": "2026-11-21T22:58:23+08:00"
+      "text_sha256": "a9c9d149918aabbc25fb3139a3c8152e62b595c8e2333fa6bd5c70607a063b63",
+      "file_sha256": "25f7d817d638fb701a82db07237d6066f7d140584ce607bdaa135bf315a9c861",
+      "updated_at": "2026-11-23T13:38:32+08:00"
     }
   ]
 }
